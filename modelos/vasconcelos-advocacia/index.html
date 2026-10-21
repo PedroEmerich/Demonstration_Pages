@@ -1,0 +1,570 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Vasconcelos & Prado — Advocacia</title>
+<meta name="description" content="Vasconcelos & Prado Advocacia: direito empresarial, trabalhista, família, tributário e imobiliário. Atendimento estratégico desde 1998." />
+<meta name="theme-color" content="#0c1b2c" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;1,6..96,400&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --ivory: #f5f1ea; --paper: #fbf9f5; --navy: #0c1b2c; --navy2: #14283f; --ink: #1d2733; --muted: #6b7380;
+    --brass: #b08d57; --brass2: #cfb07c; --line: #ddd5c8;
+    --serif: "Bodoni Moda", Georgia, serif; --sans: "Work Sans", system-ui, sans-serif;
+    --ease: cubic-bezier(.22,.8,.2,1);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { overflow-x: clip; scroll-behavior: smooth; scroll-padding-top: 90px; }
+  body { background: var(--ivory); color: var(--ink); font-family: var(--sans); font-weight: 400; line-height: 1.65; -webkit-font-smoothing: antialiased; overflow-x: clip; }
+  img { display: block; max-width: 100%; }
+  a { color: inherit; text-decoration: none; }
+  button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
+  .wrap { width: min(1200px, 100% - 40px); margin-inline: auto; }
+  h1, h2, h3 { font-family: var(--serif); font-weight: 400; letter-spacing: -.01em; line-height: 1.05; }
+  h1 em, h2 em { color: var(--brass); }
+  .kicker { font-size: 12px; letter-spacing: .24em; text-transform: uppercase; color: var(--brass); font-weight: 500; display: inline-flex; gap: 12px; align-items: center; }
+  .kicker::before { content: "§"; font-family: var(--serif); font-size: 16px; letter-spacing: 0; }
+  .h2 { font-size: clamp(38px, 4.8vw, 66px); }
+  .btn { display: inline-flex; align-items: center; gap: 12px; padding: 17px 30px; font-size: 14px; font-weight: 500; letter-spacing: .04em; transition: all .35s var(--ease); position: relative; overflow: hidden; }
+  .btn--navy { background: var(--navy); color: var(--ivory); }
+  .btn--navy::after { content: ""; position: absolute; inset: 0; background: var(--brass); transform: translateY(101%); transition: transform .45s var(--ease); z-index: 0; }
+  .btn--navy:hover::after { transform: none; }
+  .btn > * { position: relative; z-index: 1; }
+  .btn--ghost { border: 1px solid var(--ink); }
+  .btn--ghost:hover { background: var(--ink); color: var(--ivory); }
+  [data-r] { opacity: 0; transform: translateY(36px); transition: opacity 1s var(--ease), transform 1s var(--ease); transition-delay: var(--d, 0s); }
+  [data-r].in { opacity: 1; transform: none; }
+
+  /* NAV */
+  .nav { position: fixed; inset: 0 0 auto; z-index: 50; transition: background .4s, box-shadow .4s; }
+  .nav.solid { background: rgba(245,241,234,.92); backdrop-filter: blur(12px); box-shadow: 0 1px 0 var(--line); }
+  .nav__in { display: flex; align-items: center; justify-content: space-between; height: 86px; gap: 24px; transition: height .4s; }
+  .nav.solid .nav__in { height: 70px; }
+  .brand { display: flex; align-items: center; gap: 14px; }
+  .brand__mark { width: 46px; height: 46px; border: 1px solid var(--brass); border-radius: 50%; display: grid; place-items: center; font-family: var(--serif); font-size: 17px; color: var(--navy); }
+  .brand b { font-family: var(--serif); font-weight: 500; font-size: 20px; display: block; line-height: 1.1; }
+  .brand small { font-size: 10px; letter-spacing: .3em; text-transform: uppercase; color: var(--muted); }
+  .nav__links { display: flex; gap: 34px; font-size: 14px; }
+  .nav__links a { position: relative; }
+  .nav__links a::after { content: ""; position: absolute; left: 0; right: 0; bottom: -4px; height: 1px; background: var(--brass); transform: scaleX(0); transform-origin: right; transition: transform .4s var(--ease); }
+  .nav__links a:hover::after { transform: scaleX(1); transform-origin: left; }
+  .burger { display: none; width: 44px; height: 44px; border: 1px solid var(--line); border-radius: 50%; place-items: center; }
+  .burger span { width: 16px; height: 1px; background: var(--ink); box-shadow: 0 5px 0 var(--ink), 0 -5px 0 var(--ink); }
+
+  /* HERO */
+  .hero { min-height: 100svh; padding: 150px 0 90px; display: grid; align-items: center; position: relative; }
+  .hero__grid { display: grid; grid-template-columns: 1.15fr .85fr; gap: 70px; align-items: center; }
+  .hero h1 { font-size: clamp(40px, 5.4vw, 82px); margin: 26px 0 30px; }
+  @media (min-width: 700px) { .hero h1 .ln { white-space: nowrap; } }
+  .hero h1 .ln { display: block; overflow: hidden; padding-bottom: .06em; }
+  .hero h1 .ln > span { display: inline-block; transform: translateY(105%); animation: up 1.1s var(--ease) forwards; }
+  .hero h1 .ln:nth-child(2) > span { animation-delay: .12s; } .hero h1 .ln:nth-child(3) > span { animation-delay: .24s; } .hero h1 .ln:nth-child(4) > span { animation-delay: .36s; }
+  @keyframes up { to { transform: none; } }
+  .hero__lead { font-size: 18px; color: var(--muted); max-width: 500px; opacity: 0; animation: fade 1s .7s forwards; }
+  .hero__ctas { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 38px; opacity: 0; animation: fade 1s .85s forwards; }
+  @keyframes fade { to { opacity: 1; } }
+  .arch { position: relative; aspect-ratio: 3/4.2; opacity: 0; animation: fade 1.4s .3s forwards; }
+  .arch__frame { position: absolute; inset: 22px -22px -22px 22px; border: 1px solid var(--brass); border-radius: 999px 999px 0 0; }
+  .arch__img { position: absolute; inset: 0; border-radius: 999px 999px 0 0; overflow: hidden; background: var(--navy); }
+  .arch__img img { width: 100%; height: 115%; object-fit: cover; filter: grayscale(.25) contrast(1.05); will-change: transform; }
+  .scales { position: absolute; left: -64px; bottom: 60px; width: 150px; color: var(--brass); }
+  .scales path, .scales line, .scales circle { stroke-dasharray: 400; stroke-dashoffset: 400; animation: draw 2.4s 1s var(--ease) forwards; }
+  @keyframes draw { to { stroke-dashoffset: 0; } }
+  .badge { position: absolute; right: -30px; top: 16%; background: var(--paper); padding: 18px 22px; box-shadow: 0 30px 60px -30px rgba(12,27,44,.35); display: flex; gap: 14px; align-items: center; animation: float 6s ease-in-out infinite; }
+  .badge strong { font-family: var(--serif); font-size: 32px; line-height: 1; }
+  .badge span { font-size: 12px; color: var(--muted); line-height: 1.4; }
+  .badge .stars { color: var(--brass); letter-spacing: 2px; font-size: 12px; }
+  @keyframes float { 50% { transform: translateY(-12px); } }
+  .scroll-cue { position: absolute; left: 50%; bottom: 26px; transform: translateX(-50%); font-size: 11px; letter-spacing: .3em; text-transform: uppercase; color: var(--muted); display: flex; flex-direction: column; align-items: center; gap: 10px; }
+  .scroll-cue i { width: 1px; height: 46px; background: linear-gradient(var(--brass), transparent); }
+
+  /* NÚMEROS */
+  .numbers { background: var(--navy); color: var(--ivory); padding: 70px 0; }
+  .numbers__grid { display: grid; grid-template-columns: repeat(4, 1fr); }
+  .num { padding: 0 30px; border-left: 1px solid rgba(207,176,124,.25); }
+  .num:first-child { border-left: 0; padding-left: 0; }
+  .num strong { font-family: var(--serif); font-weight: 400; font-size: clamp(44px, 5vw, 68px); line-height: 1; color: var(--brass2); display: block; }
+  .num span { font-size: 14px; color: #b9c0ca; }
+
+  /* ÁREAS */
+  .areas { padding: 150px 0; }
+  .sec-head { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: end; margin-bottom: 70px; }
+  .sec-head p { color: var(--muted); font-size: 17px; max-width: 460px; justify-self: end; }
+  .area { border-top: 1px solid var(--line); }
+  .area:last-child { border-bottom: 1px solid var(--line); }
+  .area__btn { width: 100%; display: grid; grid-template-columns: 70px 1fr auto; align-items: center; gap: 20px; padding: 30px 0; text-align: left; transition: padding .5s var(--ease), color .3s; }
+  .area__btn:hover { padding-left: 20px; color: var(--navy); }
+  .area__n { font-family: var(--serif); font-style: italic; color: var(--brass); font-size: 18px; }
+  .area__t { font-family: var(--serif); font-size: clamp(28px, 3.4vw, 46px); line-height: 1.1; }
+  .area__plus { width: 46px; height: 46px; border: 1px solid var(--line); border-radius: 50%; position: relative; transition: transform .5s var(--ease), background .3s, border-color .3s; }
+  .area__plus::before, .area__plus::after { content: ""; position: absolute; left: 50%; top: 50%; width: 14px; height: 1px; background: var(--ink); transform: translate(-50%,-50%); transition: background .3s; }
+  .area__plus::after { transform: translate(-50%,-50%) rotate(90deg); }
+  .area.open .area__plus { transform: rotate(45deg); background: var(--navy); border-color: var(--navy); }
+  .area.open .area__plus::before, .area.open .area__plus::after { background: var(--ivory); }
+  .area__body { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .6s var(--ease); }
+  .area.open .area__body { grid-template-rows: 1fr; }
+  .area__body > div { overflow: hidden; }
+  .area__inner { display: grid; grid-template-columns: 70px 1fr 1fr; gap: 20px; padding-bottom: 36px; }
+  .area__inner p { grid-column: 2; color: var(--muted); max-width: 460px; }
+  .area__inner ul { list-style: none; display: grid; gap: 10px; }
+  .area__inner li { display: flex; gap: 12px; font-size: 15px; }
+  .area__inner li::before { content: "—"; color: var(--brass); }
+  .peek { position: fixed; left: 0; top: 0; width: 300px; height: 380px; pointer-events: none; z-index: 40; overflow: hidden; opacity: 0; transform: scale(.85); transition: opacity .35s, transform .5s var(--ease); border-radius: 160px 160px 0 0; }
+  .peek.on { opacity: 1; transform: scale(1); }
+  .peek img { width: 100%; height: 100%; object-fit: cover; position: absolute; inset: 0; opacity: 0; transition: opacity .4s; }
+  .peek img.on { opacity: 1; }
+
+  /* MÉTODO */
+  .method { padding: 150px 0; background: var(--paper); border-block: 1px solid var(--line); }
+  .method__grid { display: grid; grid-template-columns: .9fr 1.1fr; gap: 80px; }
+  .method__sticky { position: sticky; top: 130px; align-self: start; }
+  .method__sticky p { color: var(--muted); margin-top: 26px; max-width: 400px; }
+  .steps { position: relative; padding-left: 50px; }
+  .steps__rail { position: absolute; left: 10px; top: 10px; bottom: 10px; width: 1px; background: var(--line); }
+  .steps__fill { position: absolute; left: 0; top: 0; width: 1px; height: 100%; background: var(--brass); transform-origin: top; transform: scaleY(0); }
+  .step { position: relative; padding: 0 0 80px; }
+  .step:last-child { padding-bottom: 0; }
+  .step::before { content: ""; position: absolute; left: -45px; top: 8px; width: 11px; height: 11px; border-radius: 50%; background: var(--ivory); border: 1px solid var(--brass); transition: background .4s; }
+  .step.lit::before { background: var(--brass); }
+  .step span { font-size: 12px; letter-spacing: .24em; text-transform: uppercase; color: var(--brass); }
+  .step h3 { font-size: 34px; margin: 10px 0 12px; }
+  .step p { color: var(--muted); max-width: 460px; }
+
+  /* CITAÇÃO */
+  .quote { position: relative; padding: 170px 0; color: var(--ivory); overflow: hidden; background: var(--navy); }
+  .quote__bg { position: absolute; inset: -15% 0; background: url("https://images.unsplash.com/photo-1505664194779-8beaceb93744?w=2000&q=70&auto=format&fit=crop") center / cover; opacity: .22; will-change: transform; }
+  .quote blockquote { position: relative; font-family: var(--serif); font-size: clamp(30px, 4vw, 58px); line-height: 1.15; max-width: 22ch; margin: 0 auto; text-align: center; }
+  .quote blockquote::before { content: "“"; display: block; font-size: 120px; line-height: .6; color: var(--brass); margin-bottom: 20px; }
+  .quote cite { display: block; position: relative; text-align: center; margin-top: 34px; font-style: normal; font-size: 13px; letter-spacing: .24em; text-transform: uppercase; color: var(--brass2); }
+
+  /* EQUIPE */
+  .team { padding: 150px 0; }
+  .team__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 28px; }
+  .member__img { aspect-ratio: 3/4; overflow: hidden; background: var(--line); position: relative; }
+  .member__img img { width: 100%; height: 100%; object-fit: cover; object-position: center 20%; filter: grayscale(1) contrast(1.05); transform: scale(1.04); transition: filter .8s var(--ease), transform 1.2s var(--ease); }
+  .member:hover .member__img img { filter: grayscale(0); transform: scale(1); }
+  .member__img::after { content: ""; position: absolute; inset: auto 0 0; height: 3px; background: var(--brass); transform: scaleX(0); transform-origin: left; transition: transform .6s var(--ease); }
+  .member:hover .member__img::after { transform: scaleX(1); }
+  .member h3 { font-size: 26px; margin-top: 20px; }
+  .member p { font-size: 14px; color: var(--muted); }
+  .member small { font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: var(--brass); }
+
+  /* DIAGNÓSTICO */
+  .diag { padding: 150px 0; background: var(--navy); color: var(--ivory); position: relative; overflow: hidden; }
+  .diag::before { content: "§"; position: absolute; right: -40px; top: -120px; font-family: var(--serif); font-size: 620px; line-height: 1; color: rgba(207,176,124,.05); }
+  .diag__grid { display: grid; grid-template-columns: .8fr 1.2fr; gap: 80px; position: relative; }
+  .diag__intro p { color: #b9c0ca; margin-top: 24px; max-width: 380px; }
+  .card { background: var(--navy2); border: 1px solid rgba(207,176,124,.2); padding: 44px; min-height: 460px; display: flex; flex-direction: column; }
+  .bar { height: 2px; background: rgba(255,255,255,.08); margin-bottom: 34px; }
+  .bar i { display: block; height: 100%; background: var(--brass); width: 33%; transition: width .6s var(--ease); }
+  .q__step { font-size: 12px; letter-spacing: .24em; text-transform: uppercase; color: var(--brass2); }
+  .q h3 { font-size: 32px; margin: 12px 0 28px; }
+  .opts { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .opt { text-align: left; padding: 18px 20px; border: 1px solid rgba(255,255,255,.14); transition: all .3s var(--ease); display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+  .opt:hover { border-color: var(--brass); background: rgba(207,176,124,.08); transform: translateY(-2px); }
+  .opt::after { content: "→"; color: var(--brass); opacity: 0; transform: translateX(-6px); transition: all .3s; }
+  .opt:hover::after { opacity: 1; transform: none; }
+  .q { animation: qIn .6s var(--ease) both; }
+  @keyframes qIn { from { opacity: 0; transform: translateX(30px); } }
+  .back { margin-top: auto; padding-top: 26px; font-size: 13px; color: #9aa4b1; align-self: flex-start; }
+  .back:hover { color: var(--brass2); }
+  .result h3 { font-size: 40px; margin: 10px 0 14px; }
+  .result p { color: #c8ced6; }
+  .result ul { list-style: none; margin: 22px 0 30px; display: grid; gap: 10px; }
+  .result li { display: flex; gap: 12px; font-size: 15px; }
+  .result li::before { content: "✓"; color: var(--brass2); }
+  .urg { display: inline-block; margin-top: 16px; padding: 6px 12px; font-size: 12px; letter-spacing: .1em; text-transform: uppercase; background: rgba(207,176,124,.15); color: var(--brass2); }
+  .btn--brass { background: var(--brass); color: var(--navy); }
+  .btn--brass:hover { background: var(--brass2); }
+
+  /* DEPOIMENTOS */
+  .testi { padding: 150px 0; }
+  .testi__wrap { display: grid; grid-template-columns: 1fr 2fr; gap: 80px; align-items: center; }
+  .slides { position: relative; min-height: 280px; }
+  .slide { position: absolute; inset: 0; opacity: 0; transform: translateY(20px); transition: opacity .7s var(--ease), transform .7s var(--ease); pointer-events: none; }
+  .slide.on { opacity: 1; transform: none; pointer-events: auto; }
+  .slide p { font-family: var(--serif); font-size: clamp(24px, 2.6vw, 36px); line-height: 1.3; }
+  .slide footer { margin-top: 26px; font-size: 14px; color: var(--muted); }
+  .slide footer b { color: var(--ink); font-weight: 500; }
+  .ctrl { display: flex; align-items: center; gap: 16px; margin-top: 40px; }
+  .ctrl button { width: 52px; height: 52px; border: 1px solid var(--line); border-radius: 50%; transition: all .3s; }
+  .ctrl button:hover { background: var(--navy); color: var(--ivory); border-color: var(--navy); }
+  .ctrl output { font-family: var(--serif); font-size: 18px; color: var(--muted); }
+
+  /* FAQ */
+  .faq { padding: 0 0 150px; }
+  .faq__grid { display: grid; grid-template-columns: .8fr 1.2fr; gap: 80px; }
+  details { border-top: 1px solid var(--line); }
+  details:last-child { border-bottom: 1px solid var(--line); }
+  summary { list-style: none; cursor: pointer; padding: 26px 0; display: flex; justify-content: space-between; gap: 20px; font-family: var(--serif); font-size: 22px; }
+  summary::-webkit-details-marker { display: none; }
+  summary::after { content: "+"; font-family: var(--sans); font-weight: 300; font-size: 26px; color: var(--brass); transition: transform .4s var(--ease); line-height: 1; }
+  details[open] summary::after { transform: rotate(45deg); }
+  details p { color: var(--muted); padding-bottom: 26px; max-width: 620px; }
+
+  /* CONTATO */
+  .contact { background: var(--paper); border-top: 1px solid var(--line); padding: 150px 0; }
+  .contact__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; }
+  .office { margin-top: 40px; display: grid; gap: 22px; }
+  .office div { display: grid; grid-template-columns: 120px minmax(0, 1fr); gap: 16px; padding-bottom: 18px; border-bottom: 1px solid var(--line); }
+  .office dd { overflow-wrap: anywhere; }
+  .contact__grid > * { min-width: 0; }
+  .office dt { font-size: 12px; letter-spacing: .2em; text-transform: uppercase; color: var(--brass); }
+  form.c { display: grid; gap: 26px; }
+  .f { position: relative; }
+  .f input, .f textarea, .f select { width: 100%; background: transparent; border: 0; border-bottom: 1px solid #cfc6b7; padding: 22px 0 10px; font: inherit; font-size: 16px; color: var(--ink); outline: none; resize: vertical; transition: border-color .3s; }
+  .f select { appearance: none; }
+  .f label { position: absolute; left: 0; top: 20px; color: var(--muted); font-size: 15px; transition: all .3s var(--ease); pointer-events: none; }
+  .f input:focus, .f textarea:focus, .f select:focus { border-color: var(--navy); }
+  .f input:focus + label, .f input:not(:placeholder-shown) + label, .f textarea:focus + label, .f textarea:not(:placeholder-shown) + label, .f select + label { top: 0; font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: var(--brass); }
+  .two { display: grid; grid-template-columns: 1fr 1fr; gap: 26px; }
+  .ok { display: none; padding: 18px; background: var(--navy); color: var(--ivory); }
+  .ok.on { display: block; animation: qIn .5s var(--ease); }
+
+  footer.f2 { background: var(--navy); color: #9aa4b1; padding: 60px 0 40px; font-size: 14px; }
+  .f2__top { display: flex; justify-content: space-between; align-items: center; gap: 30px; flex-wrap: wrap; padding-bottom: 40px; border-bottom: 1px solid rgba(255,255,255,.08); }
+  .f2 .brand b { color: var(--ivory); }
+  .f2 .brand__mark { color: var(--brass2); }
+  .f2__bot { display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; padding-top: 30px; font-size: 13px; }
+  .wa { position: fixed; right: 22px; bottom: 22px; z-index: 60; width: 58px; height: 58px; border-radius: 50%; background: #25d366; color: #fff; display: grid; place-items: center; box-shadow: 0 12px 30px -8px rgba(37,211,102,.6); transition: transform .3s var(--ease); }
+  .wa:hover { transform: scale(1.08); }
+
+  @media (max-width: 980px) {
+    .nav__links { display: none; }
+    .burger { display: grid; }
+    .nav.open { background: var(--ivory); }
+    .nav.open .nav__links { display: flex; flex-direction: column; position: absolute; top: 100%; left: 0; right: 0; background: var(--ivory); padding: 24px 20px 32px; gap: 20px; border-bottom: 1px solid var(--line); }
+    .nav__cta { display: none; }
+    .hero__grid, .sec-head, .method__grid, .diag__grid, .testi__wrap, .faq__grid, .contact__grid { grid-template-columns: 1fr; gap: 50px; }
+    .sec-head p { justify-self: start; }
+    .arch { max-width: 420px; width: 86%; margin: 0 auto; }
+    .scales { left: -30px; width: 100px; }
+    .badge { right: -14px; }
+    .numbers__grid { grid-template-columns: 1fr 1fr; gap: 40px 0; }
+    .num:nth-child(3) { border-left: 0; padding-left: 0; }
+    .team__grid { grid-template-columns: 1fr 1fr; }
+    .method__sticky { position: static; }
+    .area__inner { grid-template-columns: 1fr; }
+    .area__inner p { grid-column: 1; }
+    .area__btn { grid-template-columns: 44px 1fr auto; }
+    .peek { display: none; }
+    .slides { min-height: 340px; }
+    .scroll-cue { display: none; }
+  }
+  @media (max-width: 560px) { .brand b { font-size: 16px; } .brand__mark { width: 38px; height: 38px; font-size: 14px; } .brand { gap: 10px; } .opts, .two { grid-template-columns: 1fr; } .card { padding: 28px 22px; } .team__grid { gap: 16px; } .member h3 { font-size: 20px; } }
+  @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; animation-delay: 0s !important; transition-duration: .01ms !important; } [data-r] { opacity: 1; transform: none; } }
+</style>
+</head>
+<body>
+
+<header class="nav" id="nav">
+  <div class="wrap nav__in">
+    <a href="#" class="brand"><span class="brand__mark">V&amp;P</span><span><b>Vasconcelos &amp; Prado</b><small>Advocacia</small></span></a>
+    <nav class="nav__links">
+      <a href="#areas">Atuação</a><a href="#metodo">Método</a><a href="#equipe">Sócios</a><a href="#diagnostico">Avalie seu caso</a><a href="#contato">Contato</a>
+    </nav>
+    <a href="#contato" class="btn btn--navy nav__cta" style="padding:13px 22px"><span>Agendar consulta</span></a>
+    <button class="burger" aria-label="Menu"><span></span></button>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap hero__grid">
+    <div>
+      <span class="kicker">Advocacia empresarial e cível · desde 1998</span>
+      <h1><span class="ln"><span>Defendemos o</span></span><span class="ln"><span>que é seu com a</span></span><span class="ln"><span><em>seriedade</em> que o</span></span><span class="ln"><span>caso exige.</span></span></h1>
+      <p class="hero__lead">Atuação estratégica e preventiva para empresas e famílias. Cada caso conduzido por um sócio, do primeiro contato à decisão final.</p>
+      <div class="hero__ctas">
+        <a href="#diagnostico" class="btn btn--navy"><span>Avaliar meu caso</span><span>→</span></a>
+        <a href="#areas" class="btn btn--ghost">Áreas de atuação</a>
+      </div>
+    </div>
+    <div class="arch">
+      <div class="arch__frame"></div>
+      <div class="arch__img"><img id="archImg" src="https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=1100&q=80&auto=format&fit=crop" alt="Estátua da Justiça" /></div>
+      <svg class="scales" viewBox="0 0 120 110" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
+        <line x1="60" y1="8" x2="60" y2="100"/><line x1="18" y1="22" x2="102" y2="22"/><circle cx="60" cy="8" r="4"/>
+        <path d="M18 22 6 56h24L18 22Z"/><path d="M4 56c2 8 26 8 28 0"/>
+        <path d="M102 22 90 56h24l-12-34Z"/><path d="M88 56c2 8 26 8 28 0"/>
+        <path d="M42 100h36"/>
+      </svg>
+      <div class="badge"><strong>4,9</strong><span><span class="stars">★★★★★</span><br />312 avaliações<br />no Google</span></div>
+    </div>
+  </div>
+  <div class="scroll-cue"><i></i>Role</div>
+</section>
+
+<section class="numbers">
+  <div class="wrap numbers__grid">
+    <div class="num" data-r><strong data-count="27">0</strong><span>anos de atuação</span></div>
+    <div class="num" data-r style="--d:.1s"><strong data-count="4300" data-sep>0</strong><span>processos conduzidos</span></div>
+    <div class="num" data-r style="--d:.2s"><strong data-count="92" data-suf="%">0</strong><span>de êxito em acordos</span></div>
+    <div class="num" data-r style="--d:.3s"><strong data-count="14">0</strong><span>advogados especialistas</span></div>
+  </div>
+</section>
+
+<section class="areas" id="areas">
+  <div class="wrap">
+    <div class="sec-head">
+      <div data-r><span class="kicker">Áreas de atuação</span><h2 class="h2" style="margin-top:20px">Especialistas no que <em>importa</em> para você.</h2></div>
+      <p data-r style="--d:.1s">Seis frentes de atuação integradas. Quando o seu caso envolve mais de uma área, os especialistas trabalham juntos — e você fala com uma só pessoa.</p>
+    </div>
+    <div id="areaList"></div>
+  </div>
+</section>
+<div class="peek" id="peek" aria-hidden="true"></div>
+
+<section class="method" id="metodo">
+  <div class="wrap method__grid">
+    <div class="method__sticky" data-r>
+      <span class="kicker">Nosso método</span>
+      <h2 class="h2" style="margin-top:20px">Clareza em <em>cada etapa</em> do processo.</h2>
+      <p>Você nunca fica sem saber o que está acontecendo. Relatórios mensais, prazos transparentes e um sócio responsável pelo seu caso.</p>
+    </div>
+    <div class="steps" id="steps">
+      <div class="steps__rail"><div class="steps__fill" id="fill"></div></div>
+      <div class="step"><span>Etapa 01</span><h3>Escuta e diagnóstico</h3><p>Reunião inicial para entender os fatos, os documentos e, principalmente, o que você deseja alcançar.</p></div>
+      <div class="step"><span>Etapa 02</span><h3>Estratégia por escrito</h3><p>Apresentamos caminhos possíveis, riscos, prazos estimados e honorários — tudo documentado antes de começar.</p></div>
+      <div class="step"><span>Etapa 03</span><h3>Execução com acompanhamento</h3><p>Petições, audiências e negociações conduzidas pela equipe, com atualizações a cada movimentação relevante.</p></div>
+      <div class="step"><span>Etapa 04</span><h3>Encerramento e prevenção</h3><p>Concluído o caso, orientamos medidas para que o problema não volte a acontecer.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="quote">
+  <div class="quote__bg" id="quoteBg"></div>
+  <div class="wrap" data-r>
+    <blockquote>O melhor processo é aquele que conseguimos evitar. O segundo melhor é aquele que vencemos.</blockquote>
+    <cite>Dr. Ricardo Vasconcelos — Sócio fundador</cite>
+  </div>
+</section>
+
+<section class="team" id="equipe">
+  <div class="wrap">
+    <div class="sec-head">
+      <div data-r><span class="kicker">Sócios</span><h2 class="h2" style="margin-top:20px">Quem cuida do <em>seu caso</em>.</h2></div>
+      <p data-r style="--d:.1s">Formação nas principais universidades do país e décadas de experiência em tribunais, câmaras de arbitragem e negociações complexas.</p>
+    </div>
+    <div class="team__grid">
+      <article class="member" data-r><div class="member__img"><img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=700&q=75&auto=format&fit=crop" alt="Dr. Ricardo Vasconcelos" loading="lazy" /></div><h3>Ricardo Vasconcelos</h3><p>Empresarial e Societário</p><small>OAB/SP 128.441</small></article>
+      <article class="member" data-r style="--d:.1s"><div class="member__img"><img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=700&q=75&auto=format&fit=crop" alt="Dra. Helena Prado" loading="lazy" /></div><h3>Helena Prado</h3><p>Família e Sucessões</p><small>OAB/SP 152.907</small></article>
+      <article class="member" data-r style="--d:.2s"><div class="member__img"><img src="https://images.unsplash.com/photo-1772987413078-e94f66e7047d?w=700&q=75&auto=format&fit=crop" alt="Dra. Marina Lacerda" loading="lazy" /></div><h3>Marina Lacerda</h3><p>Tributário</p><small>OAB/SP 201.336</small></article>
+      <article class="member" data-r style="--d:.3s"><div class="member__img"><img src="https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=700&q=75&auto=format&fit=crop" alt="Dr. André Moreira" loading="lazy" /></div><h3>André Moreira</h3><p>Trabalhista</p><small>OAB/SP 187.520</small></article>
+    </div>
+  </div>
+</section>
+
+<section class="diag" id="diagnostico">
+  <div class="wrap diag__grid">
+    <div class="diag__intro" data-r>
+      <span class="kicker">Avaliação inicial</span>
+      <h2 class="h2" style="margin-top:20px">Entenda seu caso em <em>3 perguntas</em>.</h2>
+      <p>Uma orientação rápida sobre a área responsável, os documentos que você deve separar e o nível de urgência. Sem compromisso.</p>
+    </div>
+    <div class="card" data-r style="--d:.1s">
+      <div class="bar"><i id="barI"></i></div>
+      <div id="quiz"></div>
+    </div>
+  </div>
+</section>
+
+<section class="testi">
+  <div class="wrap testi__wrap">
+    <div data-r><span class="kicker">Depoimentos</span><h2 class="h2" style="margin-top:20px">A palavra de quem <em>confiou</em>.</h2></div>
+    <div data-r style="--d:.1s">
+      <div class="slides" id="slides">
+        <blockquote class="slide on"><p>“Resolveram em quatro meses um inventário que se arrastava há anos na família. Sempre com paciência para explicar cada passo.”</p><footer><b>Cláudia M.</b> — Inventário e partilha</footer></blockquote>
+        <blockquote class="slide"><p>“A reestruturação societária da nossa empresa foi conduzida com uma precisão impressionante. Hoje dormimos tranquilos.”</p><footer><b>Fernando A.</b> — Diretor, indústria de alimentos</footer></blockquote>
+        <blockquote class="slide"><p>“Recebi uma notificação na sexta à noite e no sábado de manhã já tinha uma estratégia em mãos. Atendimento de outro nível.”</p><footer><b>Luciana T.</b> — Direito do consumidor</footer></blockquote>
+      </div>
+      <div class="ctrl"><button id="prev" aria-label="Anterior">←</button><button id="next" aria-label="Próximo">→</button><output id="pos">01 / 03</output></div>
+    </div>
+  </div>
+</section>
+
+<section class="faq">
+  <div class="wrap faq__grid">
+    <div data-r><span class="kicker">Dúvidas frequentes</span><h2 class="h2" style="margin-top:20px">Antes da <em>primeira</em> conversa.</h2></div>
+    <div data-r style="--d:.1s">
+      <details open><summary>Quanto custa a primeira consulta?</summary><p>A consulta inicial de avaliação tem duração de até 1 hora e o valor é abatido dos honorários caso você contrate o escritório.</p></details>
+      <details><summary>Vocês atendem online?</summary><p>Sim. Atendemos clientes em todo o Brasil por videoconferência, com assinatura eletrônica de documentos e acompanhamento digital do processo.</p></details>
+      <details><summary>Como são cobrados os honorários?</summary><p>Trabalhamos com valores fixos, mensais (para empresas) ou com parte atrelada ao êxito, sempre definidos em contrato antes do início.</p></details>
+      <details><summary>Em quanto tempo recebo um retorno?</summary><p>Respondemos todas as solicitações em até 24 horas úteis. Casos urgentes, com prazos correndo, são tratados no mesmo dia.</p></details>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="contato">
+  <div class="wrap contact__grid">
+    <div data-r>
+      <span class="kicker">Contato</span>
+      <h2 class="h2" style="margin-top:20px">Vamos <em>conversar</em> sobre o seu caso.</h2>
+      <dl class="office">
+        <div><dt>Endereço</dt><dd>Av. Paulista, 1842 — 14º andar<br />Bela Vista, São Paulo — SP</dd></div>
+        <div><dt>Telefone</dt><dd>(11) 3000-0000 · (11) 99999-0000</dd></div>
+        <div><dt>E-mail</dt><dd>contato@vasconcelosprado.adv.br</dd></div>
+        <div><dt>Horário</dt><dd>Segunda a sexta, 9h às 19h</dd></div>
+      </dl>
+    </div>
+    <form class="c" id="cform" data-r style="--d:.1s">
+      <div class="two">
+        <div class="f"><input id="cn" placeholder=" " required /><label for="cn">Nome completo</label></div>
+        <div class="f"><input id="ct" placeholder=" " required inputmode="tel" /><label for="ct">Telefone</label></div>
+      </div>
+      <div class="f"><input id="ce" type="email" placeholder=" " required /><label for="ce">E-mail</label></div>
+      <div class="f"><select id="ca"><option>Empresarial e Societário</option><option>Trabalhista</option><option>Família e Sucessões</option><option>Tributário</option><option>Imobiliário</option><option>Contratos</option><option>Outro assunto</option></select><label for="ca">Assunto</label></div>
+      <div class="f"><textarea id="cm" rows="4" placeholder=" "></textarea><label for="cm">Conte brevemente o seu caso</label></div>
+      <button class="btn btn--navy" type="submit" style="justify-self:start"><span>Enviar mensagem</span><span>→</span></button>
+      <p class="ok" id="ok">Mensagem recebida. Um de nossos advogados entrará em contato em até 24 horas úteis.</p>
+    </form>
+  </div>
+</section>
+
+<footer class="f2">
+  <div class="wrap">
+    <div class="f2__top"><a href="#" class="brand"><span class="brand__mark">V&amp;P</span><span><b>Vasconcelos &amp; Prado</b><small style="color:#9aa4b1">Advocacia</small></span></a><span>Av. Paulista, 1842 — São Paulo</span></div>
+    <div class="f2__bot"><span>© 2026 Vasconcelos &amp; Prado Sociedade de Advogados · OAB/SP 9.871</span><span>Política de privacidade · LGPD</span></div>
+  </div>
+</footer>
+
+<a class="wa" href="https://wa.me/5511999990000" target="_blank" rel="noopener" aria-label="WhatsApp"><svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21c5.46 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2Zm5.8 14.03c-.24.68-1.42 1.3-1.95 1.35-.5.05-.97.23-3.27-.68-2.77-1.09-4.52-3.920-4.66-4.1-.13-.18-1.1-1.47-1.1-2.8 0-1.34.7-2 .95-2.27.25-.27.54-.34.72-.34h.52c.17 0 .4-.06.62.47.24.56.8 1.94.87 2.08.07.14.12.3.02.48-.1.19-.14.3-.28.47-.14.16-.3.36-.42.49-.14.14-.29.29-.12.57.17.28.74 1.22 1.59 1.98 1.09.97 2.01 1.27 2.29 1.41.28.14.45.12.62-.07.17-.19.71-.83.9-1.11.19-.28.38-.24.64-.14.26.09 1.65.78 1.93.92.28.14.47.21.54.33.07.11.07.66-.17 1.34Z"/></svg></a>
+
+<script>
+(() => {
+  const reduz = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const fino = matchMedia("(pointer:fine)").matches;
+  const $ = (s, el = document) => el.querySelector(s);
+  const $$ = (s, el = document) => [...el.querySelectorAll(s)];
+  const WA = "5511999990000";
+
+  const nav = $("#nav");
+  addEventListener("scroll", () => nav.classList.toggle("solid", scrollY > 30), { passive: true });
+  $(".burger").onclick = () => nav.classList.toggle("open");
+  $$(".nav__links a").forEach((a) => a.onclick = () => nav.classList.remove("open"));
+
+  /* Revelar + contadores */
+  const io = new IntersectionObserver((es) => es.forEach((e) => {
+    if (!e.isIntersecting) return;
+    e.target.classList.add("in");
+    const c = e.target.querySelector("[data-count]");
+    if (c) {
+      const fim = +c.dataset.count, suf = c.dataset.suf || "", t0 = performance.now();
+      const fmt = (v) => (c.hasAttribute("data-sep") ? Math.round(v).toLocaleString("pt-BR") : Math.round(v)) + suf;
+      const p = (t) => { const k = Math.min(1, (t - t0) / 1800); c.textContent = fmt(fim * (1 - Math.pow(1 - k, 4))); if (k < 1) requestAnimationFrame(p); };
+      requestAnimationFrame(p);
+    }
+    io.unobserve(e.target);
+  }), { threshold: .15 });
+  $$("[data-r]").forEach((el) => io.observe(el));
+
+  /* Áreas de atuação */
+  const AREAS = [
+    ["Empresarial e Societário", "Estruturação de empresas, acordos de sócios, fusões e aquisições, governança e recuperação de crédito.", ["Contratos sociais e acordos de quotistas", "Due diligence e M&A", "Planejamento sucessório empresarial"], "1758518731462-d091b0b4ed0d"],
+    ["Trabalhista", "Defesa de empresas e profissionais em reclamações, auditoria preventiva e negociações coletivas.", ["Consultoria trabalhista preventiva", "Defesa em reclamações trabalhistas", "Acordos e compliance"], "1758519288495-5f79a4bbab83"],
+    ["Família e Sucessões", "Divórcios, guarda, pensão, inventários e planejamento patrimonial com sensibilidade e discrição.", ["Divórcio consensual e litigioso", "Inventário judicial e extrajudicial", "Testamentos e holdings familiares"], "1450101499163-c8848c66ca85"],
+    ["Tributário", "Redução legal da carga tributária, defesa em autuações e recuperação de tributos pagos indevidamente.", ["Planejamento tributário", "Defesa em execuções fiscais", "Recuperação de créditos"], "1479142506502-19b3a3b7ff33"],
+    ["Imobiliário", "Segurança jurídica em compra, venda, locação e regularização de imóveis residenciais e comerciais.", ["Análise documental de imóveis", "Contratos de compra e venda", "Usucapião e regularização"], "1436450412740-6b988f486c6b"],
+    ["Contratos", "Elaboração, revisão e negociação de contratos que protegem o seu negócio e evitam litígios.", ["Contratos comerciais e de prestação de serviços", "Revisão de cláusulas e riscos", "Notificações extrajudiciais"], "1618771623063-6c3faa854a61"],
+  ];
+  const u = (id, w) => `https://images.unsplash.com/photo-${id}?w=${w}&q=75&auto=format&fit=crop`;
+  $("#areaList").innerHTML = AREAS.map(([t, d, li], i) => `
+    <div class="area" data-i="${i}" data-r>
+      <button class="area__btn" aria-expanded="false"><span class="area__n">0${i + 1}</span><span class="area__t">${t}</span><span class="area__plus"></span></button>
+      <div class="area__body"><div><div class="area__inner"><p>${d}</p><ul>${li.map((x) => `<li>${x}</li>`).join("")}</ul></div></div></div>
+    </div>`).join("");
+  $$(".area").forEach((a) => io.observe(a));
+  $("#areaList").onclick = (e) => {
+    const btn = e.target.closest(".area__btn");
+    if (!btn) return;
+    const a = btn.parentElement, abrir = !a.classList.contains("open");
+    $$(".area").forEach((x) => { x.classList.remove("open"); x.firstElementChild.setAttribute("aria-expanded", "false"); });
+    if (abrir) { a.classList.add("open"); btn.setAttribute("aria-expanded", "true"); }
+  };
+
+  /* Imagem que segue o cursor sobre as áreas */
+  const peek = $("#peek");
+  peek.innerHTML = AREAS.map((a) => `<img src="${u(a[3], 600)}" alt="" loading="lazy" />`).join("");
+  if (fino && !reduz) {
+    let px = 0, py = 0, tx = 0, ty = 0;
+    const list = $("#areaList");
+    list.addEventListener("mousemove", (e) => {
+      tx = e.clientX + 30; ty = e.clientY - 190;
+      const a = e.target.closest(".area");
+      if (a && !a.classList.contains("open")) {
+        peek.classList.add("on");
+        $$("img", peek).forEach((im, i) => im.classList.toggle("on", i === +a.dataset.i));
+      } else peek.classList.remove("on");
+    });
+    list.addEventListener("mouseleave", () => peek.classList.remove("on"));
+    (function seg() { px += (tx - px) * .12; py += (ty - py) * .12; peek.style.translate = `${px}px ${py}px`; requestAnimationFrame(seg); })();
+  }
+
+  /* Método: linha preenche com o scroll; parallax */
+  const steps = $("#steps"), fill = $("#fill"), stepEls = $$(".step"), archImg = $("#archImg"), quoteBg = $("#quoteBg");
+  function onScroll() {
+    const r = steps.getBoundingClientRect(), vh = innerHeight;
+    const p = Math.min(1, Math.max(0, (vh * .6 - r.top) / r.height));
+    fill.style.transform = `scaleY(${p})`;
+    stepEls.forEach((s) => s.classList.toggle("lit", s.getBoundingClientRect().top < vh * .6));
+    if (!reduz) {
+      archImg.style.transform = `translateY(${-scrollY * .08}px)`;
+      const q = quoteBg.parentElement.getBoundingClientRect();
+      quoteBg.style.transform = `translateY(${(q.top + q.height / 2 - vh / 2) * -.15}px)`;
+    }
+  }
+  addEventListener("scroll", onScroll, { passive: true }); onScroll();
+
+  /* Diagnóstico em 3 perguntas */
+  const Q = [
+    { q: "Quem precisa de orientação?", o: ["Minha empresa", "Eu, pessoa física"] },
+    { q: "Qual é o assunto principal?", o: (r) => r[0] === "Minha empresa"
+        ? ["Sócios ou estrutura da empresa", "Funcionários e ex-funcionários", "Impostos e fiscalização", "Contratos com clientes ou fornecedores"]
+        : ["Divórcio, guarda ou pensão", "Herança ou inventário", "Compra, venda ou aluguel de imóvel", "Problema no trabalho"] },
+    { q: "Existe algum prazo correndo?", o: ["Sim, recebi uma notificação ou citação", "Ainda não, quero me prevenir"] },
+  ];
+  const MAPA = {
+    "Sócios ou estrutura da empresa": ["Empresarial e Societário", ["Contrato social e alterações", "Acordo de sócios (se houver)", "Últimos balanços"]],
+    "Funcionários e ex-funcionários": ["Trabalhista", ["Contrato de trabalho e holerites", "Registros de ponto", "Notificação recebida (se houver)"]],
+    "Impostos e fiscalização": ["Tributário", ["Auto de infração ou notificação", "Guias e declarações dos últimos 5 anos", "Regime tributário atual"]],
+    "Contratos com clientes ou fornecedores": ["Contratos", ["Contrato assinado e aditivos", "Trocas de e-mail relevantes", "Comprovantes de pagamento"]],
+    "Divórcio, guarda ou pensão": ["Família e Sucessões", ["Certidão de casamento", "Documentos dos filhos", "Relação de bens do casal"]],
+    "Herança ou inventário": ["Família e Sucessões", ["Certidão de óbito", "Documentos dos herdeiros", "Relação de bens e dívidas"]],
+    "Compra, venda ou aluguel de imóvel": ["Imobiliário", ["Matrícula atualizada do imóvel", "Contrato ou proposta", "IPTU e certidões"]],
+    "Problema no trabalho": ["Trabalhista", ["Carteira de trabalho", "Holerites e extrato do FGTS", "Mensagens ou provas do ocorrido"]],
+  };
+  let resp = [];
+  const quiz = $("#quiz"), barI = $("#barI");
+  function render() {
+    const i = resp.length;
+    barI.style.width = `${Math.min(100, ((i + 1) / 3) * 100)}%`;
+    if (i < 3) {
+      const o = typeof Q[i].o === "function" ? Q[i].o(resp) : Q[i].o;
+      quiz.innerHTML = `<div class="q"><p class="q__step">Pergunta ${i + 1} de 3</p><h3>${Q[i].q}</h3><div class="opts">${o.map((x) => `<button class="opt">${x}</button>`).join("")}</div></div>${i ? '<button class="back" id="voltar">← Voltar</button>' : ""}`;
+    } else {
+      const [area, docs] = MAPA[resp[1]];
+      const urg = resp[2].startsWith("Sim");
+      const msg = `Olá! Fiz a avaliação no site.\nPerfil: ${resp[0]}\nAssunto: ${resp[1]}\nPrazo: ${resp[2]}\nGostaria de agendar uma consulta.`;
+      quiz.innerHTML = `<div class="q result"><p class="q__step">Recomendação</p><h3>${area}</h3><p>${urg ? "Como já existe um prazo correndo, recomendamos falar com um advogado <b>ainda hoje</b> — alguns prazos processuais são de apenas 15 dias." : "Ótimo momento para agir: a orientação preventiva costuma custar muito menos do que resolver um litígio."}</p>${urg ? '<span class="urg">Prioridade alta</span>' : ""}<ul>${docs.map((d) => `<li>${d}</li>`).join("")}</ul><a class="btn btn--brass" target="_blank" rel="noopener" href="https://wa.me/${WA}?text=${encodeURIComponent(msg)}"><span>Falar com um especialista</span><span>→</span></a></div><button class="back" id="voltar">↺ Refazer avaliação</button>`;
+    }
+  }
+  quiz.onclick = (e) => {
+    const o = e.target.closest(".opt");
+    if (o) { resp.push(o.textContent); render(); return; }
+    if (e.target.closest("#voltar")) { resp = resp.length >= 3 ? [] : resp.slice(0, -1); render(); }
+  };
+  render();
+
+  /* Depoimentos */
+  const slides = $$(".slide"); let s = 0, timer;
+  const go = (n) => { s = (n + slides.length) % slides.length; slides.forEach((x, i) => x.classList.toggle("on", i === s)); $("#pos").textContent = `0${s + 1} / 0${slides.length}`; clearInterval(timer); timer = setInterval(() => go(s + 1), 7000); };
+  $("#prev").onclick = () => go(s - 1); $("#next").onclick = () => go(s + 1); go(0);
+
+  /* Contato */
+  $("#cform").onsubmit = (e) => { e.preventDefault(); $("#ok").classList.add("on"); e.target.querySelectorAll("input,textarea").forEach((x) => x.value = ""); };
+})();
+</script>
+</body>
+</html>

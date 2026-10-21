@@ -1,0 +1,481 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Horizonte Imóveis — Casas e apartamentos de alto padrão</title>
+<meta name="description" content="Horizonte Imóveis: compra, venda e locação de imóveis de alto padrão em São Paulo. Busque, simule o financiamento e agende sua visita." />
+<meta name="theme-color" content="#f6f4ef" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Gloock&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #f6f4ef; --white: #fff; --ink: #14171a; --muted: #6f747a; --line: #e4e0d6;
+    --green: #1f4d43; --green2: #2d6b5d; --sand: #d9c9a8; --sand2: #efe6d3;
+    --serif: "Gloock", Georgia, serif; --sans: "Outfit", system-ui, sans-serif;
+    --ease: cubic-bezier(.2,.8,.2,1); --r: 18px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { overflow-x: clip; scroll-behavior: smooth; scroll-padding-top: 90px; }
+  body { background: var(--bg); color: var(--ink); font-family: var(--sans); font-weight: 400; line-height: 1.6; -webkit-font-smoothing: antialiased; overflow-x: clip; }
+  img { display: block; max-width: 100%; }
+  a { color: inherit; text-decoration: none; }
+  button, select, input { font: inherit; color: inherit; }
+  button { background: none; border: 0; cursor: pointer; }
+  .wrap { width: min(1280px, 100% - 40px); margin-inline: auto; }
+  h1, h2, h3 { font-family: var(--serif); font-weight: 400; letter-spacing: -.01em; line-height: 1.05; }
+  .h2 { font-size: clamp(38px, 4.6vw, 64px); }
+  .h2 em { font-style: normal; color: var(--green2); }
+  .over { font-size: 13px; font-weight: 500; letter-spacing: .16em; text-transform: uppercase; color: var(--green2); }
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 16px 28px; border-radius: 999px; font-weight: 500; font-size: 15px; transition: all .3s var(--ease); }
+  .btn--green { background: var(--green); color: #fff; }
+  .btn--green:hover { background: var(--ink); transform: translateY(-2px); }
+  .btn--line { border: 1px solid var(--ink); }
+  .btn--line:hover { background: var(--ink); color: #fff; }
+  [data-r] { opacity: 0; transform: translateY(34px); transition: opacity .9s var(--ease), transform .9s var(--ease); transition-delay: var(--d, 0s); }
+  [data-r].in { opacity: 1; transform: none; }
+
+  /* NAV */
+  .nav { position: fixed; inset: 0 0 auto; z-index: 50; color: #fff; transition: background .4s, color .4s, box-shadow .4s; }
+  .nav.solid { background: rgba(246,244,239,.94); color: var(--ink); backdrop-filter: blur(12px); box-shadow: 0 1px 0 var(--line); }
+  .nav__in { height: 84px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+  .logo { display: flex; align-items: center; gap: 10px; font-family: var(--serif); font-size: 26px; }
+  .logo svg { width: 34px; }
+  .nav__links { display: flex; gap: 32px; font-size: 15px; }
+  .nav__links a { opacity: .85; } .nav__links a:hover { opacity: 1; }
+  .nav__right { display: flex; align-items: center; gap: 12px; }
+  .fav-count { display: inline-flex; align-items: center; gap: 8px; padding: 10px 16px; border-radius: 999px; border: 1px solid currentColor; font-size: 14px; opacity: .9; }
+  .fav-count b { min-width: 18px; height: 18px; border-radius: 9px; background: #e2554a; color: #fff; font-size: 11px; display: grid; place-items: center; padding: 0 5px; }
+  .fav-count.pop { animation: pop .4s var(--ease); }
+  @keyframes pop { 50% { transform: scale(1.12); } }
+  .burger { display: none; width: 44px; height: 44px; border-radius: 50%; border: 1px solid currentColor; place-items: center; }
+  .burger span { width: 16px; height: 1.5px; background: currentColor; box-shadow: 0 5px 0 currentColor, 0 -5px 0 currentColor; }
+
+  /* HERO */
+  .hero { position: relative; height: 100svh; min-height: 720px; color: #fff; overflow: hidden; }
+  .slide { position: absolute; inset: 0; opacity: 0; transition: opacity 1.6s ease; }
+  .slide.on { opacity: 1; }
+  .slide img { width: 100%; height: 100%; object-fit: cover; transform: scale(1.14); }
+  .slide.on img { animation: kb 9s linear forwards; }
+  @keyframes kb { from { transform: scale(1.14); } to { transform: scale(1); } }
+  .hero::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(10,14,16,.45), transparent 60%), linear-gradient(180deg, rgba(10,14,16,.55), rgba(10,14,16,.1) 38%, rgba(10,14,16,.65)); pointer-events: none; }
+  .hero__in { position: relative; z-index: 2; height: 100%; display: flex; flex-direction: column; justify-content: flex-end; padding-bottom: 50px; }
+  .hero h1 { font-size: clamp(48px, 7.4vw, 118px); max-width: 12ch; text-shadow: 0 4px 40px rgba(0,0,0,.35); }
+  .hero h1 span { display: inline-block; opacity: 0; transform: translateY(40px); animation: rise 1.1s var(--ease) forwards; }
+  @keyframes rise { to { opacity: 1; transform: none; } }
+  .hero__cap { position: absolute; right: 0; bottom: 210px; text-align: right; font-size: 14px; }
+  .hero__cap b { display: block; font-family: var(--serif); font-weight: 400; font-size: 26px; }
+  .dots { display: flex; gap: 8px; justify-content: flex-end; margin-top: 12px; }
+  .dots button { width: 34px; height: 3px; background: rgba(255,255,255,.35); border-radius: 2px; overflow: hidden; position: relative; }
+  .dots button.on::after { content: ""; position: absolute; inset: 0; background: #fff; transform-origin: left; animation: prog 7s linear forwards; }
+  @keyframes prog { from { transform: scaleX(0); } }
+
+  .search { margin-top: 40px; background: rgba(255,255,255,.96); color: var(--ink); border-radius: 24px; padding: 10px; box-shadow: 0 40px 80px -30px rgba(0,0,0,.5); opacity: 0; animation: rise 1s .6s var(--ease) forwards; }
+  .search__tabs { display: flex; gap: 4px; padding: 6px 6px 12px; }
+  .stab { padding: 8px 18px; border-radius: 999px; font-size: 14px; font-weight: 500; color: var(--muted); }
+  .stab.on { background: var(--ink); color: #fff; }
+  .search__row { display: grid; grid-template-columns: repeat(4, 1fr) auto; gap: 4px; }
+  .sf { background: var(--bg); border-radius: 16px; padding: 12px 18px; display: flex; flex-direction: column; }
+  .sf label { font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+  .sf select { border: 0; background: transparent; outline: none; font-size: 16px; font-weight: 500; padding: 2px 0; cursor: pointer; appearance: none; }
+  .search .btn { border-radius: 16px; padding: 0 34px; }
+
+  /* LISTAGEM */
+  .list { padding: 130px 0 120px; }
+  .list__head { display: flex; justify-content: space-between; align-items: end; gap: 30px; flex-wrap: wrap; margin-bottom: 44px; }
+  .list__tools { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+  .count { color: var(--muted); font-size: 15px; }
+  .count b { color: var(--ink); font-weight: 600; }
+  .sort { border: 1px solid var(--line); background: var(--white); border-radius: 999px; padding: 10px 18px; outline: none; cursor: pointer; }
+  .chips { display: flex; gap: 8px; flex-wrap: wrap; }
+  .chip { padding: 8px 14px; border-radius: 999px; background: var(--white); border: 1px solid var(--line); font-size: 13px; display: inline-flex; gap: 8px; align-items: center; }
+  .chip button { font-size: 15px; line-height: 1; color: var(--muted); }
+  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+  .prop { background: var(--white); border-radius: var(--r); overflow: hidden; box-shadow: 0 1px 0 var(--line); transition: transform .5s var(--ease), box-shadow .5s; animation: cardIn .7s var(--ease) both; }
+  .prop:hover { transform: translateY(-6px); box-shadow: 0 30px 60px -30px rgba(20,23,26,.35); }
+  @keyframes cardIn { from { opacity: 0; transform: translateY(24px); } }
+  .prop__img { position: relative; aspect-ratio: 4/3; overflow: hidden; background: var(--sand2); }
+  .prop__img img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: opacity .7s, transform 1.4s var(--ease); }
+  .prop__img img + img { opacity: 0; }
+  .prop:hover .prop__img img + img { opacity: 1; }
+  .prop:hover .prop__img img { transform: scale(1.05); }
+  .prop__tag { position: absolute; left: 14px; top: 14px; z-index: 1; padding: 6px 12px; border-radius: 999px; background: rgba(255,255,255,.92); font-size: 12px; font-weight: 600; }
+  .prop__tag.dark { background: var(--green); color: #fff; }
+  .heart { position: absolute; right: 14px; top: 14px; z-index: 1; width: 42px; height: 42px; border-radius: 50%; background: rgba(255,255,255,.92); display: grid; place-items: center; transition: transform .3s var(--ease); }
+  .heart:hover { transform: scale(1.1); }
+  .heart svg { width: 20px; fill: none; stroke: var(--ink); stroke-width: 1.8; transition: fill .3s, stroke .3s; }
+  .heart.on svg { fill: #e2554a; stroke: #e2554a; animation: pop .4s var(--ease); }
+  .prop__body { padding: 22px 24px 24px; }
+  .prop__price { font-family: var(--serif); font-size: 30px; }
+  .prop__price small { font-family: var(--sans); font-size: 14px; color: var(--muted); }
+  .prop__addr { color: var(--muted); font-size: 15px; margin: 2px 0 16px; }
+  .specs { display: flex; gap: 18px; padding-top: 16px; border-top: 1px solid var(--line); font-size: 14px; color: #3d4247; flex-wrap: wrap; }
+  .specs span { display: inline-flex; align-items: center; gap: 6px; }
+  .specs svg { width: 18px; stroke: var(--green2); fill: none; stroke-width: 1.6; }
+  .empty { grid-column: 1 / -1; text-align: center; padding: 60px; background: var(--white); border-radius: var(--r); color: var(--muted); }
+  .empty b { display: block; font-family: var(--serif); font-weight: 400; font-size: 28px; color: var(--ink); margin-bottom: 6px; }
+
+  /* DESTAQUE */
+  .feat { padding: 120px 0; background: var(--white); }
+  .feat__grid { display: grid; grid-template-columns: 1.35fr 1fr; gap: 60px; align-items: start; }
+  .gal__main { position: relative; aspect-ratio: 4/3; border-radius: var(--r); overflow: hidden; }
+  .gal__main img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: opacity .6s, transform .9s var(--ease); }
+  .gal__main img.out { opacity: 0; transform: scale(1.04); }
+  .gal__n { position: absolute; right: 16px; bottom: 16px; background: rgba(20,23,26,.7); color: #fff; padding: 6px 12px; border-radius: 999px; font-size: 13px; }
+  .thumbs { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin-top: 10px; }
+  .thumbs button { aspect-ratio: 4/3; border-radius: 10px; overflow: hidden; opacity: .55; transition: opacity .3s, outline-color .3s; outline: 2px solid transparent; outline-offset: 2px; }
+  .thumbs button.on { opacity: 1; outline-color: var(--green); }
+  .thumbs img { width: 100%; height: 100%; object-fit: cover; }
+  .feat__info .over { display: block; margin-bottom: 14px; }
+  .feat__price { font-family: var(--serif); font-size: 46px; margin: 18px 0 6px; }
+  .feat__info p { color: var(--muted); }
+  .table { margin: 30px 0; display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid var(--line); }
+  .table div { padding: 16px 0; border-bottom: 1px solid var(--line); }
+  .table div:nth-child(odd) { padding-right: 16px; }
+  .table small { display: block; font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+  .table b { font-weight: 500; font-size: 18px; }
+  .agent { display: flex; align-items: center; gap: 16px; padding: 18px; background: var(--bg); border-radius: var(--r); margin-bottom: 20px; }
+  .agent img { width: 58px; height: 58px; border-radius: 50%; object-fit: cover; }
+  .agent b { display: block; font-weight: 500; }
+  .agent small { color: var(--muted); }
+
+  /* SIMULADOR */
+  .sim { padding: 130px 0; }
+  .sim__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: stretch; margin-top: 50px; }
+  .panel { background: var(--white); border-radius: 24px; padding: 40px; display: grid; gap: 28px; }
+  .rg label { display: flex; justify-content: space-between; align-items: baseline; font-size: 14px; color: var(--muted); margin-bottom: 10px; }
+  .rg label output { font-family: var(--serif); font-size: 26px; color: var(--ink); }
+  input[type=range] { width: 100%; -webkit-appearance: none; appearance: none; height: 6px; border-radius: 6px; background: linear-gradient(90deg, var(--green) var(--p, 50%), var(--line) var(--p, 50%)); outline: none; }
+  input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 24px; height: 24px; border-radius: 50%; background: #fff; border: 2px solid var(--green); box-shadow: 0 4px 12px rgba(0,0,0,.15); cursor: grab; }
+  input[type=range]::-moz-range-thumb { width: 20px; height: 20px; border-radius: 50%; background: #fff; border: 2px solid var(--green); cursor: grab; }
+  .modes { display: flex; background: var(--bg); padding: 4px; border-radius: 999px; }
+  .modes button { flex: 1; padding: 10px; border-radius: 999px; font-size: 14px; font-weight: 500; color: var(--muted); }
+  .modes button.on { background: var(--white); color: var(--ink); box-shadow: 0 2px 8px rgba(0,0,0,.08); }
+  .result { background: var(--green); color: #fff; border-radius: 24px; padding: 40px; display: grid; grid-template-columns: 1fr 220px; gap: 30px; align-items: center; }
+  .result__big small { font-size: 14px; opacity: .75; }
+  .result__big strong { display: block; font-family: var(--serif); font-weight: 400; font-size: clamp(44px, 4.8vw, 64px); line-height: 1.05; margin: 6px 0 4px; }
+  .result__big p { font-size: 14px; opacity: .75; }
+  .rows { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; border-top: 1px solid rgba(255,255,255,.15); padding-top: 26px; }
+  .rows small { display: block; font-size: 12px; opacity: .7; }
+  .rows b { font-weight: 500; font-size: 18px; }
+  .donut circle { fill: none; stroke-width: 18; transition: stroke-dasharray .8s var(--ease), stroke-dashoffset .8s var(--ease); }
+  .legend { display: grid; gap: 6px; font-size: 13px; margin-top: 14px; }
+  .legend span { display: flex; align-items: center; gap: 8px; }
+  .legend i { width: 10px; height: 10px; border-radius: 3px; }
+  .sim__note { grid-column: 1 / -1; font-size: 13px; opacity: .7; }
+
+  /* BAIRROS */
+  .hoods { padding: 0 0 130px; }
+  .hoods__grid { display: grid; grid-template-columns: .8fr 1.2fr; gap: 60px; align-items: center; }
+  .bars { display: grid; gap: 18px; }
+  .bar { display: grid; grid-template-columns: 170px 1fr 110px; align-items: center; gap: 16px; font-size: 15px; }
+  .bar__track { height: 12px; background: var(--sand2); border-radius: 6px; overflow: hidden; }
+  .bar__fill { height: 100%; width: 0; background: linear-gradient(90deg, var(--green2), var(--green)); border-radius: 6px; transition: width 1.4s var(--ease); }
+  .bar b { font-weight: 500; text-align: right; }
+
+  /* VENDER */
+  .sell { margin: 0 20px 20px; border-radius: 32px; overflow: hidden; position: relative; color: #fff; }
+  .sell__bg { position: absolute; inset: 0; background: url("https://images.unsplash.com/photo-1758565811176-ccd94357a844?w=2000&q=70&auto=format&fit=crop") center / cover; }
+  .sell__bg::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(20,30,28,.92) 30%, rgba(20,30,28,.35)); }
+  .sell__in { position: relative; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; padding: 110px 0; align-items: center; }
+  .sell p { opacity: .8; margin-top: 18px; max-width: 420px; font-size: 17px; }
+  .sform { background: rgba(255,255,255,.1); backdrop-filter: blur(16px); border: 1px solid rgba(255,255,255,.18); border-radius: 24px; padding: 34px; display: grid; gap: 14px; }
+  .sform input, .sform select { width: 100%; background: rgba(255,255,255,.92); border: 0; border-radius: 12px; padding: 15px 16px; color: var(--ink); outline: none; }
+  .sform .btn { background: var(--sand); color: var(--ink); }
+  .sform .btn:hover { background: #fff; }
+  .ok { display: none; text-align: center; padding: 10px; }
+  .ok.on { display: block; }
+
+  footer { padding: 60px 0 40px; font-size: 14px; color: var(--muted); }
+  .foot { display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; align-items: center; }
+  .foot .logo { color: var(--ink); }
+  .wa { position: fixed; right: 22px; bottom: 22px; z-index: 60; width: 58px; height: 58px; border-radius: 50%; background: #25d366; color: #fff; display: grid; place-items: center; box-shadow: 0 12px 30px -8px rgba(37,211,102,.6); transition: transform .3s var(--ease); }
+  .wa:hover { transform: scale(1.08); }
+
+  @media (max-width: 1040px) {
+    .nav__links { display: none; }
+    .burger { display: grid; }
+    .nav.open { background: var(--bg); color: var(--ink); }
+    .nav.open .nav__links { display: flex; flex-direction: column; position: absolute; top: 84px; left: 0; right: 0; background: var(--bg); padding: 24px 20px; gap: 18px; border-bottom: 1px solid var(--line); }
+    .search__row { grid-template-columns: 1fr 1fr; }
+    .search .btn { grid-column: 1 / -1; padding: 16px; }
+    .hero__cap { display: none; }
+    .grid { grid-template-columns: 1fr 1fr; }
+    .feat__grid, .sim__grid, .hoods__grid, .sell__in { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 640px) {
+    .hero { min-height: 760px; }
+    .grid { grid-template-columns: 1fr; }
+    .result { grid-template-columns: 1fr; }
+    .rows { grid-template-columns: 1fr; }
+    .panel, .result { padding: 28px 22px; }
+    .bar { grid-template-columns: 110px 1fr 84px; font-size: 13px; }
+    .fav-count span { display: none; }
+    .sell { margin: 0 10px 10px; }
+  }
+  @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; animation-delay: 0s !important; transition-duration: .01ms !important; } [data-r] { opacity: 1; transform: none; } }
+</style>
+</head>
+<body>
+
+<header class="nav" id="nav">
+  <div class="wrap nav__in">
+    <a href="#" class="logo"><svg viewBox="0 0 40 28" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 26h36"/><path d="M8 26V14l12-9 12 9v12"/><circle cx="20" cy="17" r="4"/></svg>Horizonte</a>
+    <nav class="nav__links"><a href="#imoveis">Imóveis</a><a href="#destaque">Destaque</a><a href="#simulador">Simulador</a><a href="#bairros">Bairros</a><a href="#vender">Anunciar</a></nav>
+    <div class="nav__right">
+      <a href="#imoveis" class="fav-count" id="favBtn"><span>Favoritos</span><b id="favN">0</b></a>
+      <button class="burger" aria-label="Menu"><span></span></button>
+    </div>
+  </div>
+</header>
+
+<section class="hero" id="hero">
+  <div class="slide on"><img src="https://images.unsplash.com/photo-1613977257363-707ba9348227?w=2200&q=80&auto=format&fit=crop" alt="Casa moderna com piscina" /></div>
+  <div class="slide"><img src="https://images.unsplash.com/photo-1748063578185-3d68121b11ff?w=2200&q=80&auto=format&fit=crop" alt="Casa iluminada ao entardecer" /></div>
+  <div class="slide"><img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=2200&q=80&auto=format&fit=crop" alt="Residência contemporânea" /></div>
+  <div class="wrap hero__in">
+    <div class="hero__cap" id="cap"><b>Casa Jardim Europa</b>5 suítes · 820 m² · R$ 8,9 mi<div class="dots" id="dots"><button class="on" aria-label="Foto 1"></button><button aria-label="Foto 2"></button><button aria-label="Foto 3"></button></div></div>
+    <p class="over" style="color:#fff;margin-bottom:18px;text-shadow:0 1px 12px rgba(0,0,0,.6)">Imobiliária boutique · CRECI 34.512-J</p>
+    <h1><span>Encontre</span> <span style="animation-delay:.08s">o</span> <span style="animation-delay:.16s">lugar</span> <span style="animation-delay:.24s">onde</span> <span style="animation-delay:.32s">a</span> <span style="animation-delay:.4s">vida</span> <span style="animation-delay:.48s">acontece.</span></h1>
+    <form class="search" id="search">
+      <div class="search__tabs"><button type="button" class="stab on" data-t="venda">Comprar</button><button type="button" class="stab" data-t="aluguel">Alugar</button></div>
+      <div class="search__row">
+        <div class="sf"><label for="sTipo">Tipo</label><select id="sTipo"><option value="">Todos</option><option>Casa</option><option>Apartamento</option><option>Cobertura</option></select></div>
+        <div class="sf"><label for="sBairro">Bairro</label><select id="sBairro"><option value="">Todos</option></select></div>
+        <div class="sf"><label for="sQ">Quartos</label><select id="sQ"><option value="0">Qualquer</option><option value="2">2+</option><option value="3">3+</option><option value="4">4+</option></select></div>
+        <div class="sf"><label for="sMax">Até</label><select id="sMax"></select></div>
+        <button class="btn btn--green" type="submit">Buscar</button>
+      </div>
+    </form>
+  </div>
+</section>
+
+<section class="list" id="imoveis">
+  <div class="wrap">
+    <div class="list__head">
+      <div data-r><p class="over">Imóveis selecionados</p><h2 class="h2" style="margin-top:12px">Escolhidos a <em>dedo</em>.</h2></div>
+      <div class="list__tools" data-r style="--d:.1s"><span class="count" id="count"></span><select class="sort" id="sort" aria-label="Ordenar"><option value="rel">Relevância</option><option value="pm">Menor preço</option><option value="pM">Maior preço</option><option value="a">Maior área</option></select></div>
+    </div>
+    <div class="chips" id="chips" style="margin-bottom:24px"></div>
+    <div class="grid" id="grid"></div>
+  </div>
+</section>
+
+<section class="feat" id="destaque">
+  <div class="wrap feat__grid">
+    <div data-r>
+      <div class="gal__main" id="galMain"><img src="https://images.unsplash.com/photo-1706808849780-7a04fbac83ef?w=1600&q=80&auto=format&fit=crop" alt="Imóvel em destaque" /><span class="gal__n" id="galN">1 / 5</span></div>
+      <div class="thumbs" id="thumbs"></div>
+    </div>
+    <div class="feat__info" data-r style="--d:.12s">
+      <span class="over">Imóvel da semana · Exclusivo</span>
+      <h2 class="h2">Casa Alto de Pinheiros</h2>
+      <p class="feat__price">R$ 6.450.000</p>
+      <p>Projeto assinado com integração total entre área social, jardim e piscina. Pé-direito duplo, iluminação natural o dia inteiro e acabamentos importados.</p>
+      <div class="table">
+        <div><small>Área útil</small><b>540 m²</b></div><div><small>Terreno</small><b>900 m²</b></div>
+        <div><small>Suítes</small><b>4</b></div><div><small>Vagas</small><b>6</b></div>
+        <div><small>Condomínio</small><b>Não possui</b></div><div><small>IPTU</small><b>R$ 2.980/mês</b></div>
+      </div>
+      <div class="agent"><img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=200&q=75&auto=format&fit=crop" alt="Corretora" /><div><b>Camila Duarte</b><small>Corretora responsável · CRECI 152.883-F</small></div></div>
+      <a class="btn btn--green" style="width:100%" target="_blank" rel="noopener" href="https://wa.me/5511999990000?text=Ol%C3%A1!%20Quero%20agendar%20uma%20visita%20na%20Casa%20Alto%20de%20Pinheiros.">Agendar visita →</a>
+    </div>
+  </div>
+</section>
+
+<section class="sim" id="simulador">
+  <div class="wrap">
+    <div data-r><p class="over">Simulador de financiamento</p><h2 class="h2" style="margin-top:12px">Descubra quanto cabe no seu <em>bolso</em>.</h2></div>
+    <div class="sim__grid">
+      <div class="panel" data-r>
+        <div class="modes" id="modes"><button class="on" data-m="sac">Tabela SAC</button><button data-m="price">Tabela Price</button></div>
+        <div class="rg"><label>Valor do imóvel <output id="oV"></output></label><input type="range" id="v" min="300000" max="10000000" step="50000" value="1500000" /></div>
+        <div class="rg"><label>Entrada <output id="oE"></output></label><input type="range" id="e" min="20" max="80" step="5" value="30" /></div>
+        <div class="rg"><label>Prazo <output id="oP"></output></label><input type="range" id="p" min="5" max="35" step="1" value="30" /></div>
+        <div class="rg"><label>Juros ao ano <output id="oJ"></output></label><input type="range" id="j" min="8" max="14" step=".1" value="10.5" /></div>
+      </div>
+      <div class="result" data-r style="--d:.12s">
+        <div class="result__big"><small id="rLbl">Primeira parcela (SAC)</small><strong id="rParc">R$ 0</strong><p id="rUlt"></p></div>
+        <div>
+          <svg class="donut" viewBox="0 0 120 120" width="100%"><circle cx="60" cy="60" r="46" stroke="rgba(255,255,255,.12)"/><circle id="dE" cx="60" cy="60" r="46" stroke="#d9c9a8" transform="rotate(-90 60 60)"/><circle id="dF" cx="60" cy="60" r="46" stroke="#fff" transform="rotate(-90 60 60)"/><circle id="dJ" cx="60" cy="60" r="46" stroke="#7fb3a5" transform="rotate(-90 60 60)"/></svg>
+          <div class="legend"><span><i style="background:#d9c9a8"></i>Entrada</span><span><i style="background:#fff"></i>Financiado</span><span><i style="background:#7fb3a5"></i>Juros</span></div>
+        </div>
+        <div class="rows"><div><small>Valor financiado</small><b id="rFin"></b></div><div><small>Total de juros</small><b id="rJur"></b></div><div><small>Renda mínima sugerida</small><b id="rRenda"></b></div></div>
+        <p class="sim__note">Simulação ilustrativa, sem considerar seguros e taxas administrativas. Condições sujeitas à análise de crédito.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="hoods" id="bairros">
+  <div class="wrap hoods__grid">
+    <div data-r><p class="over">Mercado</p><h2 class="h2" style="margin-top:12px">Preço médio do m² por <em>bairro</em>.</h2><p style="color:var(--muted);margin-top:18px;max-width:380px">Dados atualizados mensalmente a partir das nossas negociações e de índices do mercado. Use para comparar antes de decidir.</p></div>
+    <div class="bars" id="bars" data-r style="--d:.12s"></div>
+  </div>
+</section>
+
+<section class="sell" id="vender">
+  <div class="sell__bg"></div>
+  <div class="wrap sell__in">
+    <div data-r><p class="over" style="color:var(--sand)">Quer vender ou alugar?</p><h2 class="h2" style="margin-top:12px">Avaliamos seu imóvel em até 48 horas.</h2><p>Fotografia profissional, tour virtual e divulgação para uma carteira de mais de 3.000 compradores qualificados.</p></div>
+    <form class="sform" id="sform" data-r style="--d:.12s">
+      <input placeholder="Seu nome" required />
+      <input placeholder="WhatsApp" inputmode="tel" required />
+      <select><option>Quero vender</option><option>Quero alugar</option></select>
+      <input placeholder="Bairro do imóvel" />
+      <button class="btn" type="submit">Solicitar avaliação gratuita</button>
+      <p class="ok" id="sok">Recebido! Um corretor vai falar com você em breve.</p>
+    </form>
+  </div>
+</section>
+
+<footer><div class="wrap foot"><a href="#" class="logo"><svg viewBox="0 0 40 28" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 26h36"/><path d="M8 26V14l12-9 12 9v12"/><circle cx="20" cy="17" r="4"/></svg>Horizonte</a><span>Rua Oscar Freire, 1200 — São Paulo · (11) 99999-0000</span><span>© 2026 Horizonte Imóveis · CRECI 34.512-J</span></div></footer>
+
+<a class="wa" href="https://wa.me/5511999990000" target="_blank" rel="noopener" aria-label="WhatsApp"><svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21c5.46 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2Zm5.8 14.03c-.24.68-1.42 1.3-1.95 1.35-.5.05-.97.23-3.27-.68-2.77-1.09-4.52-3.92-4.66-4.1-.13-.18-1.1-1.47-1.1-2.8 0-1.34.7-2 .95-2.27.25-.27.54-.34.72-.34h.52c.17 0 .4-.06.62.47.24.56.8 1.94.87 2.08.07.14.12.3.02.48-.1.19-.14.3-.28.47-.14.16-.3.36-.42.49-.14.14-.29.29-.12.57.17.28.74 1.22 1.59 1.98 1.09.97 2.01 1.27 2.29 1.41.28.14.45.12.62-.07.17-.19.71-.83.9-1.11.19-.28.38-.24.64-.14.26.09 1.65.78 1.93.92.28.14.47.21.54.33.07.11.07.66-.17 1.34Z"/></svg></a>
+
+<script>
+(() => {
+  const $ = (s, el = document) => el.querySelector(s);
+  const $$ = (s, el = document) => [...el.querySelectorAll(s)];
+  const u = (id, w) => `https://images.unsplash.com/photo-${id}?w=${w}&q=75&auto=format&fit=crop`;
+  const brl = (n) => n.toLocaleString("pt-BR", { style: "currency", currency: "BRL", maximumFractionDigits: 0 });
+  const curto = (n) => n >= 1e6 ? `R$ ${(n / 1e6).toLocaleString("pt-BR", { maximumFractionDigits: 2 })} mi` : `R$ ${Math.round(n / 1e3)} mil`;
+
+  const nav = $("#nav");
+  const navCheck = () => nav.classList.toggle("solid", scrollY > innerHeight * .75);
+  addEventListener("scroll", navCheck, { passive: true }); navCheck();
+  $(".burger").onclick = () => nav.classList.toggle("open");
+  $$(".nav__links a").forEach((a) => a.onclick = () => nav.classList.remove("open"));
+
+  const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("in"); e.target.dispatchEvent(new Event("visto")); io.unobserve(e.target); } }), { threshold: .15 });
+  $$("[data-r]").forEach((el) => io.observe(el));
+
+  /* Hero: troca de fotos */
+  const slides = $$(".slide"), dots = $$("#dots button");
+  const CAPS = [["Casa Jardim Europa", "5 suítes · 820 m² · R$ 8,9 mi"], ["Residência Vila Nova Conceição", "4 suítes · 610 m² · R$ 7,2 mi"], ["Casa Alto da Boa Vista", "4 suítes · 480 m² · R$ 5,4 mi"]];
+  let sl = 0, t;
+  const vai = (n) => {
+    sl = n % slides.length;
+    slides.forEach((s, i) => s.classList.toggle("on", i === sl));
+    dots.forEach((d, i) => { d.classList.remove("on"); if (i === sl) { void d.offsetWidth; d.classList.add("on"); } });
+    $("#cap").firstChild.textContent = CAPS[sl][0]; $("#cap").childNodes[1].textContent = CAPS[sl][1];
+    clearTimeout(t); t = setTimeout(() => vai(sl + 1), 7000);
+  };
+  dots.forEach((d, i) => d.onclick = () => vai(i));
+  vai(0);
+
+  /* Imóveis */
+  const IMOVEIS = [
+    { id: 1, t: "Casa", n: "venda", b: "Jardim Europa", p: 8900000, q: 5, ba: 7, v: 6, a: 820, img: ["1613977257363-707ba9348227", "1757524503555-b62633f47670"], tag: "Exclusivo" },
+    { id: 2, t: "Apartamento", n: "venda", b: "Itaim Bibi", p: 2350000, q: 3, ba: 3, v: 2, a: 168, img: ["1522708323590-d24dbb6b0267", "1484154218962-a197022b5858"], tag: "Novo" },
+    { id: 3, t: "Cobertura", n: "venda", b: "Vila Nova Conceição", p: 7200000, q: 4, ba: 5, v: 4, a: 610, img: ["1774311237295-a65a4c1ff38a", "1512918728675-ed5a9ecdebfd"], tag: "Vista livre" },
+    { id: 4, t: "Casa", n: "venda", b: "Alto de Pinheiros", p: 6450000, q: 4, ba: 6, v: 6, a: 540, img: ["1706808849780-7a04fbac83ef", "1758565811176-ccd94357a844"], tag: "Exclusivo" },
+    { id: 5, t: "Apartamento", n: "aluguel", b: "Pinheiros", p: 9800, q: 2, ba: 2, v: 1, a: 92, img: ["1560448204-e02f11c3d0e2", "1502672260266-1c1ef2d93688"], tag: "Mobiliado" },
+    { id: 6, t: "Casa", n: "venda", b: "Brooklin", p: 3150000, q: 4, ba: 4, v: 4, a: 360, img: ["1580587771525-78b9dba3b914", "1583847268964-b28dc8f51f92"] },
+    { id: 7, t: "Apartamento", n: "aluguel", b: "Itaim Bibi", p: 18500, q: 3, ba: 4, v: 3, a: 210, img: ["1757524503555-b62633f47670", "1484154218962-a197022b5858"], tag: "Alto padrão" },
+    { id: 8, t: "Casa", n: "aluguel", b: "Jardim Europa", p: 42000, q: 5, ba: 6, v: 5, a: 700, img: ["1613490493576-7fde63acd811", "1758565811176-ccd94357a844"] },
+    { id: 9, t: "Cobertura", n: "aluguel", b: "Moema", p: 22000, q: 4, ba: 4, v: 4, a: 320, img: ["1783125127199-860da9744dcc", "1774311237295-a65a4c1ff38a"], tag: "Piscina privativa" },
+    { id: 10, t: "Apartamento", n: "venda", b: "Moema", p: 1680000, q: 3, ba: 2, v: 2, a: 124, img: ["1583847268964-b28dc8f51f92", "1560448204-e02f11c3d0e2"] },
+    { id: 11, t: "Casa", n: "venda", b: "Vila Nova Conceição", p: 5400000, q: 4, ba: 5, v: 4, a: 480, img: ["1758448756207-54505680d130", "1757524503555-b62633f47670"], tag: "Novo" },
+    { id: 12, t: "Apartamento", n: "venda", b: "Pinheiros", p: 1290000, q: 2, ba: 2, v: 1, a: 86, img: ["1502672260266-1c1ef2d93688", "1512918728675-ed5a9ecdebfd"] },
+  ];
+  const ICON = {
+    q: '<svg viewBox="0 0 24 24"><path d="M3 18V8M3 14h18v4M21 18v-6a3 3 0 0 0-3-3h-7v5"/><circle cx="7" cy="11" r="2"/></svg>',
+    ba: '<svg viewBox="0 0 24 24"><path d="M4 12h16v3a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5v-3ZM6 12V5a2 2 0 0 1 4 0"/></svg>',
+    v: '<svg viewBox="0 0 24 24"><path d="M5 16h14M6 16l1.5-5h9L18 16M7 16v2M17 16v2"/><circle cx="8" cy="14" r=".5"/></svg>',
+    a: '<svg viewBox="0 0 24 24"><path d="M4 4h16v16H4zM4 9h5M15 4v5"/></svg>',
+  };
+  let favs = new Set(JSON.parse((() => { try { return localStorage.getItem("hz-favs") || "[]"; } catch { return "[]"; } })()));
+  const filtros = { n: "venda", t: "", b: "", q: 0, max: 0 };
+  const bairros = [...new Set(IMOVEIS.map((i) => i.b))].sort();
+  $("#sBairro").innerHTML += bairros.map((b) => `<option>${b}</option>`).join("");
+  const MAX = { venda: [0, 1500000, 3000000, 6000000], aluguel: [0, 10000, 20000, 40000] };
+  const preencheMax = () => $("#sMax").innerHTML = MAX[filtros.n].map((v) => `<option value="${v}">${v ? (filtros.n === "venda" ? curto(v) : brl(v)) : "Sem limite"}</option>`).join("");
+  preencheMax();
+
+  function render() {
+    let l = IMOVEIS.filter((i) => i.n === filtros.n && (!filtros.t || i.t === filtros.t) && (!filtros.b || i.b === filtros.b) && i.q >= filtros.q && (!filtros.max || i.p <= filtros.max));
+    const s = $("#sort").value;
+    if (s === "pm") l.sort((a, b) => a.p - b.p); else if (s === "pM") l.sort((a, b) => b.p - a.p); else if (s === "a") l.sort((a, b) => b.a - a.a);
+    $("#count").innerHTML = `<b>${l.length}</b> ${l.length === 1 ? "imóvel" : "imóveis"} para ${filtros.n === "venda" ? "comprar" : "alugar"}`;
+    $("#grid").innerHTML = l.length ? l.map((i, k) => `
+      <article class="prop" style="animation-delay:${k * 70}ms">
+        <div class="prop__img">${i.tag ? `<span class="prop__tag ${i.tag === "Exclusivo" ? "dark" : ""}">${i.tag}</span>` : ""}
+          <button class="heart ${favs.has(i.id) ? "on" : ""}" data-id="${i.id}" aria-label="Favoritar"><svg viewBox="0 0 24 24"><path d="M12 20s-7-4.4-9-9a5 5 0 0 1 9-3 5 5 0 0 1 9 3c-2 4.6-9 9-9 9Z"/></svg></button>
+          <img src="${u(i.img[0], 800)}" alt="${i.t} em ${i.b}" loading="lazy" /><img src="${u(i.img[1], 800)}" alt="" loading="lazy" /></div>
+        <div class="prop__body"><div class="prop__price">${i.n === "venda" ? brl(i.p) : `${brl(i.p)} <small>/mês</small>`}</div><p class="prop__addr">${i.t} · ${i.b}, São Paulo</p>
+          <div class="specs"><span>${ICON.q}${i.q} quartos</span><span>${ICON.ba}${i.ba} banh.</span><span>${ICON.v}${i.v} vagas</span><span>${ICON.a}${i.a} m²</span></div></div>
+      </article>`).join("") : `<div class="empty"><b>Nenhum imóvel encontrado</b>Tente ampliar a faixa de preço ou remover algum filtro.</div>`;
+    const ch = [];
+    if (filtros.t) ch.push(["t", filtros.t]); if (filtros.b) ch.push(["b", filtros.b]); if (filtros.q) ch.push(["q", `${filtros.q}+ quartos`]); if (filtros.max) ch.push(["max", `até ${curto(filtros.max)}`]);
+    $("#chips").innerHTML = ch.map(([k, v]) => `<span class="chip">${v}<button data-k="${k}" aria-label="Remover filtro">×</button></span>`).join("");
+    $("#favN").textContent = favs.size;
+  }
+  $$(".stab").forEach((b) => b.onclick = () => { $$(".stab").forEach((x) => x.classList.toggle("on", x === b)); filtros.n = b.dataset.t; filtros.max = 0; preencheMax(); });
+  $("#search").onsubmit = (e) => {
+    e.preventDefault();
+    Object.assign(filtros, { t: $("#sTipo").value, b: $("#sBairro").value, q: +$("#sQ").value, max: +$("#sMax").value });
+    render();
+    $("#imoveis").scrollIntoView({ behavior: "smooth" });
+  };
+  $("#sort").onchange = render;
+  $("#chips").onclick = (e) => { const b = e.target.closest("button"); if (!b) return; const k = b.dataset.k; filtros[k] = k === "q" || k === "max" ? 0 : ""; render(); };
+  $("#grid").onclick = (e) => {
+    const h = e.target.closest(".heart"); if (!h) return;
+    const id = +h.dataset.id; favs.has(id) ? favs.delete(id) : favs.add(id);
+    h.classList.toggle("on");
+    try { localStorage.setItem("hz-favs", JSON.stringify([...favs])); } catch {}
+    $("#favN").textContent = favs.size;
+    const fb = $("#favBtn"); fb.classList.remove("pop"); void fb.offsetWidth; fb.classList.add("pop");
+  };
+  render();
+
+  /* Galeria do destaque */
+  const GAL = ["1706808849780-7a04fbac83ef", "1758565811176-ccd94357a844", "1757524503555-b62633f47670", "1484154218962-a197022b5858", "1512918728675-ed5a9ecdebfd"];
+  const thumbs = $("#thumbs"), main = $("#galMain img");
+  thumbs.innerHTML = GAL.map((g, i) => `<button class="${i ? "" : "on"}" data-i="${i}" aria-label="Foto ${i + 1}"><img src="${u(g, 300)}" alt="" loading="lazy" /></button>`).join("");
+  thumbs.onclick = (e) => {
+    const b = e.target.closest("button"); if (!b) return;
+    const i = +b.dataset.i;
+    $$("button", thumbs).forEach((x) => x.classList.toggle("on", x === b));
+    main.classList.add("out");
+    setTimeout(() => { main.src = u(GAL[i], 1600); main.onload = () => main.classList.remove("out"); }, 300);
+    $("#galN").textContent = `${i + 1} / ${GAL.length}`;
+  };
+
+  /* Simulador */
+  let modo = "sac";
+  const ids = ["v", "e", "p", "j"];
+  const C = 2 * Math.PI * 46;
+  const arco = (el, frac, ini) => { el.style.strokeDasharray = `${frac * C} ${C}`; el.style.strokeDashoffset = `${-ini * C}`; };
+  function sim() {
+    ids.forEach((k) => { const el = $("#" + k); el.style.setProperty("--p", `${((el.value - el.min) / (el.max - el.min)) * 100}%`); });
+    const V = +$("#v").value, E = +$("#e").value / 100, anos = +$("#p").value, ja = +$("#j").value / 100;
+    const n = anos * 12, i = Math.pow(1 + ja, 1 / 12) - 1, F = V * (1 - E);
+    let p1, pN, juros;
+    if (modo === "sac") { const amort = F / n; p1 = amort + F * i; pN = amort + amort * i; juros = i * amort * n * (n + 1) / 2; }
+    else { p1 = pN = F * i / (1 - Math.pow(1 + i, -n)); juros = p1 * n - F; }
+    $("#oV").textContent = curto(V); $("#oE").textContent = `${Math.round(E * 100)}% · ${curto(V * E)}`; $("#oP").textContent = `${anos} anos`; $("#oJ").textContent = `${(ja * 100).toFixed(1).replace(".", ",")}%`;
+    $("#rLbl").textContent = modo === "sac" ? "Primeira parcela (SAC)" : "Parcela fixa (Price)";
+    $("#rParc").textContent = brl(p1);
+    $("#rUlt").textContent = modo === "sac" ? `Parcelas decrescentes até ${brl(pN)} na última` : `${n} parcelas iguais`;
+    $("#rFin").textContent = brl(F); $("#rJur").textContent = brl(juros); $("#rRenda").textContent = brl(p1 / .3);
+    const tot = V * E + F + juros;
+    arco($("#dE"), V * E / tot, 0); arco($("#dF"), F / tot, V * E / tot); arco($("#dJ"), juros / tot, (V * E + F) / tot);
+  }
+  ids.forEach((k) => $("#" + k).addEventListener("input", sim));
+  $("#modes").onclick = (e) => { const b = e.target.closest("button"); if (!b) return; modo = b.dataset.m; $$("#modes button").forEach((x) => x.classList.toggle("on", x === b)); sim(); };
+  sim();
+
+  /* Bairros */
+  const M2 = [["Jardim Europa", 21400], ["Vila Nova Conceição", 19800], ["Itaim Bibi", 17600], ["Alto de Pinheiros", 15200], ["Pinheiros", 14900], ["Moema", 14100], ["Brooklin", 12300]];
+  const bars = $("#bars");
+  bars.innerHTML = M2.map(([b, v]) => `<div class="bar"><span>${b}</span><div class="bar__track"><div class="bar__fill" data-w="${(v / M2[0][1]) * 100}"></div></div><b>${brl(v)}</b></div>`).join("");
+  bars.addEventListener("visto", () => $$(".bar__fill", bars).forEach((f, i) => setTimeout(() => f.style.width = f.dataset.w + "%", i * 90)));
+
+  $("#sform").onsubmit = (e) => { e.preventDefault(); $("#sok").classList.add("on"); e.target.reset(); };
+})();
+</script>
+</body>
+</html>

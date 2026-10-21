@@ -1,0 +1,490 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>PULSO — Performance Training</title>
+<meta name="description" content="PULSO Performance Training: musculação, HIIT, boxe e funcional com coaches especializados. Agende sua aula experimental grátis." />
+<meta name="theme-color" content="#0a0a0a" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #0a0a0a; --bg2: #121212; --card: #161616; --line: #262626; --text: #f2f2f0; --muted: #8c8c8c;
+    --red: #ff3d2e; --red2: #ff6a3d;
+    --display: "Anton", Impact, sans-serif; --sans: "Archivo", system-ui, sans-serif;
+    --ease: cubic-bezier(.2,.8,.2,1);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { overflow-x: clip; scroll-behavior: smooth; scroll-padding-top: 80px; }
+  body { background: var(--bg); color: var(--text); font-family: var(--sans); line-height: 1.55; -webkit-font-smoothing: antialiased; overflow-x: clip; }
+  img { display: block; max-width: 100%; }
+  a { color: inherit; text-decoration: none; }
+  button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
+  .wrap { width: min(1280px, 100% - 40px); margin-inline: auto; }
+  .d { font-family: var(--display); font-weight: 400; text-transform: uppercase; line-height: .92; letter-spacing: .005em; }
+  .red { color: var(--red); }
+  .tag { display: inline-flex; align-items: center; gap: 10px; white-space: nowrap; font-size: 12px; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color: var(--red); }
+  .tag::before { content: ""; width: 10px; height: 10px; background: var(--red); clip-path: polygon(0 0, 100% 50%, 0 100%); }
+  .h2 { font-size: clamp(52px, 8vw, 128px); }
+  .btn { display: inline-flex; align-items: center; gap: 12px; padding: 18px 30px; font-weight: 800; font-size: 14px; letter-spacing: .1em; text-transform: uppercase; transition: transform .25s var(--ease), background .25s, color .25s; clip-path: polygon(0 0, 100% 0, 100% 70%, calc(100% - 14px) 100%, 0 100%); }
+  .btn--red { background: var(--red); color: #fff; }
+  .btn--red:hover { background: var(--text); color: var(--bg); transform: translateY(-2px); }
+  .btn--out { box-shadow: inset 0 0 0 1px var(--text); clip-path: none; }
+  .btn--out:hover { background: var(--text); color: var(--bg); }
+  [data-r] { opacity: 0; transform: translateY(50px); transition: opacity .8s var(--ease), transform .8s var(--ease); transition-delay: var(--d, 0s); }
+  [data-r].in { opacity: 1; transform: none; }
+
+  /* NAV */
+  .nav { position: fixed; inset: 0 0 auto; z-index: 50; transition: background .3s; }
+  .nav.solid { background: rgba(10,10,10,.9); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
+  .nav__in { height: 76px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+  .logo { font-family: var(--display); font-size: 30px; letter-spacing: .04em; display: flex; align-items: center; gap: 10px; }
+  .logo svg { width: 34px; color: var(--red); }
+  .nav__links { display: flex; gap: 34px; font-size: 13px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; }
+  .nav__links a { opacity: .7; transition: opacity .2s, color .2s; }
+  .nav__links a:hover { opacity: 1; color: var(--red); }
+  .burger { display: none; width: 46px; height: 46px; background: var(--red); place-items: center; }
+  .burger span { width: 18px; height: 2px; background: #fff; box-shadow: 0 6px 0 #fff, 0 -6px 0 #fff; }
+
+  /* HERO */
+  .hero { position: relative; min-height: 100svh; overflow: hidden; display: flex; align-items: center; padding: 120px 0 80px; }
+  .hero__ghost { position: absolute; left: 50%; top: 52%; transform: translate(-50%, -50%); font-family: var(--display); font-size: 38vw; line-height: .8; color: transparent; -webkit-text-stroke: 1px rgba(255,255,255,.07); white-space: nowrap; pointer-events: none; user-select: none; }
+  .hero__img { position: absolute; right: 0; top: 0; bottom: 0; width: 52%; clip-path: polygon(22% 0, 100% 0, 100% 100%, 0 100%); animation: wipe 1.4s var(--ease) both; }
+  @keyframes wipe { from { clip-path: polygon(100% 0, 100% 0, 100% 100%, 100% 100%); } }
+  .hero__img img { width: 100%; height: 100%; object-fit: cover; object-position: 30% center; filter: grayscale(.2) contrast(1.15); transform: scale(1.1); animation: settle 2.2s var(--ease) forwards; }
+  @keyframes settle { to { transform: scale(1); } }
+  .hero__img::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, var(--bg), transparent 40%), linear-gradient(0deg, var(--bg), transparent 30%); }
+  .hero__content { position: relative; z-index: 2; }
+  .hero h1 { font-size: clamp(64px, 11vw, 190px); }
+  .hero h1 .ln { display: block; overflow: hidden; padding-top: .14em; margin-top: -.14em; }
+  .hero h1 .ln span { display: inline-block; transform: translateY(100%) skewY(6deg); animation: rise .9s var(--ease) forwards; }
+  .hero h1 .ln:nth-child(2) span { animation-delay: .12s; } .hero h1 .ln:nth-child(3) span { animation-delay: .24s; }
+  @keyframes rise { to { transform: none; } }
+  .hero p { max-width: 440px; color: #bdbdbd; font-size: 18px; margin: 28px 0 36px; opacity: 0; animation: fadeIn .8s .6s forwards; }
+  .hero__ctas { display: flex; gap: 14px; flex-wrap: wrap; opacity: 0; animation: fadeIn .8s .75s forwards; }
+  @keyframes fadeIn { to { opacity: 1; } }
+  .live { display: inline-flex; align-items: center; gap: 12px; margin-top: 44px; padding: 12px 18px; background: rgba(255,255,255,.05); border: 1px solid var(--line); font-size: 14px; opacity: 0; animation: fadeIn .8s 1s forwards; }
+  .live i { width: 10px; height: 10px; border-radius: 50%; background: var(--red); box-shadow: 0 0 0 0 rgba(255,61,46,.7); animation: ping 1.6s infinite; }
+  @keyframes ping { 70% { box-shadow: 0 0 0 12px rgba(255,61,46,0); } 100% { box-shadow: 0 0 0 0 rgba(255,61,46,0); } }
+  .live b { font-family: var(--display); font-weight: 400; font-size: 22px; color: var(--red); }
+  .ecg { position: absolute; left: 0; right: 0; bottom: 2%; height: 90px; z-index: 1; pointer-events: none; opacity: .9; }
+  .ecg path { stroke: var(--red); stroke-width: 2.5; fill: none; stroke-dasharray: 1200 3200; animation: beat 3.2s linear infinite; filter: drop-shadow(0 0 6px rgba(255,61,46,.8)); }
+  @keyframes beat { from { stroke-dashoffset: 1200; } to { stroke-dashoffset: -3200; } }
+
+  /* FAIXA */
+  .band { background: var(--red); transform: rotate(-2.5deg) scale(1.05); margin: 30px 0; padding: 20px 0; overflow: hidden; position: relative; z-index: 3; }
+  .band__track { display: flex; gap: 40px; width: max-content; will-change: transform; }
+  .band span { font-family: var(--display); font-size: clamp(36px, 5vw, 72px); color: #fff; text-transform: uppercase; display: flex; align-items: center; gap: 40px; white-space: nowrap; }
+  .band span::after { content: "✦"; font-size: .5em; color: var(--bg); }
+
+  /* MODALIDADES */
+  .mods { padding: 140px 0; }
+  .head { display: flex; justify-content: space-between; align-items: end; gap: 40px; flex-wrap: wrap; margin-bottom: 60px; }
+  .head p { max-width: 420px; color: var(--muted); }
+  .acc { display: flex; gap: 10px; height: 620px; }
+  .panel { position: relative; flex: 1; min-width: 0; overflow: hidden; cursor: pointer; transition: flex 1s var(--ease); background: var(--card); }
+  .panel.on { flex: 4.2; }
+  .panel img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: grayscale(1) brightness(.55); transition: filter 1s, transform 1.4s var(--ease); transform: scale(1.1); }
+  .panel.on img { filter: grayscale(0) brightness(.75); transform: scale(1); }
+  .panel::after { content: ""; position: absolute; inset: 0; background: linear-gradient(0deg, rgba(0,0,0,.9), transparent 55%); }
+  .panel__v { position: absolute; left: 50%; bottom: 30px; z-index: 2; transform: translateX(-50%) rotate(180deg); writing-mode: vertical-rl; font-family: var(--display); font-size: 34px; text-transform: uppercase; white-space: nowrap; transition: opacity .4s; }
+  .panel.on .panel__v { opacity: 0; }
+  .panel__n { position: absolute; top: 24px; left: 24px; z-index: 2; font-family: var(--display); font-size: 20px; color: var(--red); }
+  .panel__body { position: absolute; left: 34px; right: 34px; bottom: 34px; z-index: 2; opacity: 0; transform: translateY(30px); transition: opacity .5s, transform .7s var(--ease); pointer-events: none; }
+  .panel.on .panel__body { opacity: 1; transform: none; transition-delay: .35s; }
+  .panel__body h3 { font-family: var(--display); font-weight: 400; font-size: clamp(44px, 5vw, 80px); text-transform: uppercase; line-height: .9; }
+  .panel__body p { max-width: 440px; color: #d0d0d0; margin: 14px 0 20px; }
+  .meter { display: flex; gap: 30px; flex-wrap: wrap; font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+  .meter div { display: flex; flex-direction: column; gap: 8px; }
+  .meter i { display: flex; gap: 4px; }
+  .meter i b { width: 22px; height: 6px; background: #333; }
+  .meter i b.f { background: var(--red); }
+
+  /* NÚMEROS */
+  .stats { border-block: 1px solid var(--line); }
+  .stats__grid { display: grid; grid-template-columns: repeat(4, 1fr); }
+  .st { padding: 50px 30px; border-left: 1px solid var(--line); }
+  .st:first-child { border-left: 0; }
+  .st strong { font-family: var(--display); font-weight: 400; font-size: clamp(54px, 6vw, 90px); line-height: 1; display: block; }
+  .st strong small { font-size: .45em; color: var(--red); margin-left: 4px; }
+  .st span { font-size: 13px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+
+  /* HORÁRIOS */
+  .sched { padding: 140px 0; }
+  .days { display: flex; gap: 4px; margin-bottom: 30px; overflow-x: auto; scrollbar-width: none; }
+  .day { flex: 1; min-width: 90px; padding: 18px 10px; background: var(--card); text-align: center; transition: background .25s; }
+  .day b { display: block; font-family: var(--display); font-weight: 400; font-size: 26px; }
+  .day small { font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+  .day.on { background: var(--red); }
+  .day.on small { color: #fff; }
+  .classes { display: grid; gap: 4px; }
+  .cls { display: grid; grid-template-columns: 110px 1fr 1fr 180px 150px; align-items: center; gap: 20px; padding: 22px 26px; background: var(--card); animation: slide .5s var(--ease) both; transition: background .25s; }
+  .cls:hover { background: #1e1e1e; }
+  @keyframes slide { from { opacity: 0; transform: translateX(-20px); } }
+  .cls time { font-family: var(--display); font-size: 30px; }
+  .cls h4 { font-size: 18px; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; }
+  .cls .coach { color: var(--muted); font-size: 14px; }
+  .vagas { font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+  .vagas i { display: block; height: 4px; background: #2a2a2a; margin-top: 8px; }
+  .vagas i b { display: block; height: 100%; background: var(--red); }
+  .cls .btn { padding: 12px 18px; font-size: 12px; justify-content: center; }
+
+  /* CALCULADORA */
+  .calc { padding: 140px 0; background: var(--bg2); position: relative; overflow: hidden; }
+  .calc__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 70px; align-items: center; }
+  .sliders { display: grid; gap: 30px; margin-top: 40px; }
+  .sl label { display: flex; justify-content: space-between; font-size: 13px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin-bottom: 12px; }
+  .sl label output { font-family: var(--display); font-size: 26px; color: var(--text); letter-spacing: 0; }
+  input[type=range] { width: 100%; -webkit-appearance: none; appearance: none; height: 4px; background: linear-gradient(90deg, var(--red) var(--p, 50%), #2c2c2c var(--p, 50%)); outline: none; }
+  input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 22px; height: 22px; background: var(--text); border: 4px solid var(--red); cursor: grab; transform: rotate(45deg); }
+  input[type=range]::-moz-range-thumb { width: 16px; height: 16px; background: var(--text); border: 4px solid var(--red); cursor: grab; border-radius: 0; }
+  .seg { display: flex; gap: 4px; }
+  .seg button { flex: 1; padding: 14px; background: var(--card); font-weight: 700; font-size: 13px; letter-spacing: .1em; text-transform: uppercase; transition: background .2s; }
+  .seg button.on { background: var(--text); color: var(--bg); }
+  .gauge { background: var(--card); padding: 44px; border: 1px solid var(--line); }
+  .gauge svg { width: 100%; overflow: visible; }
+  .needle { transform-origin: 200px 200px; transition: transform 1s var(--ease); }
+  .gauge__val { text-align: center; margin-top: -40px; }
+  .gauge__val strong { font-family: var(--display); font-weight: 400; font-size: 96px; line-height: 1; display: block; }
+  .gauge__val span { font-size: 14px; letter-spacing: .14em; text-transform: uppercase; font-weight: 700; }
+  .kcal { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 4px; margin-top: 34px; }
+  .kcal div { background: var(--bg); padding: 18px; text-align: center; }
+  .kcal b { font-family: var(--display); font-weight: 400; font-size: 30px; display: block; }
+  .kcal small { font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+  .tip { margin-top: 24px; font-size: 15px; color: #c8c8c8; border-left: 3px solid var(--red); padding-left: 16px; }
+
+  /* PLANOS */
+  .plans { padding: 140px 0; }
+  .toggle { display: inline-flex; background: var(--card); padding: 5px; position: relative; }
+  .toggle button { position: relative; z-index: 1; padding: 12px 24px; font-weight: 700; font-size: 13px; letter-spacing: .1em; text-transform: uppercase; transition: color .3s; }
+  .toggle button.on { color: var(--bg); }
+  .toggle .pill { position: absolute; top: 5px; bottom: 5px; left: 5px; background: var(--text); transition: transform .4s var(--ease), width .4s var(--ease); }
+  .toggle em { font-style: normal; color: var(--red); margin-left: 6px; }
+  .plans__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 50px; align-items: stretch; }
+  .plan { background: var(--card); padding: 40px 34px; display: flex; flex-direction: column; border: 1px solid var(--line); transition: transform .4s var(--ease), border-color .3s; }
+  .plan:hover { transform: translateY(-8px); border-color: #3a3a3a; }
+  .plan.hot { background: var(--red); border-color: var(--red); }
+  .plan__name { font-family: var(--display); font-size: 40px; text-transform: uppercase; }
+  .plan__flag { align-self: flex-start; background: var(--bg); color: var(--text); font-size: 11px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; padding: 6px 10px; margin-bottom: 18px; }
+  .price { display: flex; align-items: baseline; gap: 6px; margin: 18px 0 6px; }
+  .price small { font-size: 18px; font-weight: 700; }
+  .price b { font-family: var(--display); font-weight: 400; font-size: 84px; line-height: 1; }
+  .price span { color: rgba(255,255,255,.7); }
+  .plan .muted { font-size: 13px; color: rgba(255,255,255,.65); min-height: 20px; }
+  .plan ul { list-style: none; display: grid; gap: 12px; margin: 30px 0 34px; flex: 1; }
+  .plan li { display: flex; gap: 12px; font-size: 15px; }
+  .plan li::before { content: "+"; font-weight: 800; color: var(--red); }
+  .plan.hot li::before { color: var(--bg); }
+  .plan.hot .btn--red { background: var(--bg); }
+  .plan.hot .btn--red:hover { background: var(--text); }
+  .plan .btn { justify-content: center; }
+
+  /* RESULTADOS */
+  .results { padding: 0 0 140px; }
+  .res__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .res { position: relative; aspect-ratio: 3/4; overflow: hidden; }
+  .res img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(.3); transition: transform 1.2s var(--ease); }
+  .res:hover img { transform: scale(1.06); }
+  .res::after { content: ""; position: absolute; inset: 0; background: linear-gradient(0deg, rgba(0,0,0,.92), transparent 55%); }
+  .res__body { position: absolute; left: 28px; right: 28px; bottom: 28px; z-index: 1; }
+  .res__body strong { font-family: var(--display); font-weight: 400; font-size: 64px; color: var(--red); line-height: 1; display: block; }
+  .res__body p { margin: 8px 0 12px; font-size: 15px; }
+  .res__body small { font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+
+  /* CTA */
+  .cta { position: relative; padding: 140px 0; background: url("https://images.unsplash.com/photo-1778828494354-9b717d36dc99?w=2000&q=70&auto=format&fit=crop") center / cover; }
+  .cta::before { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(10,10,10,.96) 35%, rgba(10,10,10,.6)); }
+  .cta__grid { position: relative; display: grid; grid-template-columns: 1.2fr 1fr; gap: 60px; align-items: center; }
+  .form { background: var(--bg); border: 1px solid var(--line); padding: 40px; display: grid; gap: 18px; }
+  .form h3 { font-family: var(--display); font-weight: 400; font-size: 34px; text-transform: uppercase; }
+  .form input, .form select { width: 100%; background: var(--card); border: 1px solid var(--line); color: var(--text); font: inherit; padding: 16px 18px; outline: none; color-scheme: dark; transition: border-color .2s; }
+  .form input:focus, .form select:focus { border-color: var(--red); }
+  .form .btn { justify-content: center; }
+
+  footer { border-top: 1px solid var(--line); padding: 50px 0; color: var(--muted); font-size: 14px; }
+  .foot { display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; align-items: center; }
+  .wa { position: fixed; right: 22px; bottom: 22px; z-index: 60; width: 58px; height: 58px; border-radius: 50%; background: #25d366; color: #fff; display: grid; place-items: center; box-shadow: 0 12px 30px -8px rgba(37,211,102,.6); transition: transform .3s var(--ease); }
+  .wa:hover { transform: scale(1.08); }
+
+  @media (max-width: 1000px) {
+    .nav__links, .nav__cta { display: none; }
+    .burger { display: grid; }
+    .nav.open { background: var(--bg); }
+    .nav.open .nav__links { display: flex; flex-direction: column; position: absolute; top: 76px; left: 0; right: 0; background: var(--bg); padding: 26px 20px; gap: 22px; border-bottom: 1px solid var(--line); }
+    .hero__img { width: 100%; clip-path: none; opacity: .4; }
+    .acc { flex-direction: column; height: auto; }
+    .panel { flex: none !important; height: 90px; transition: height .8s var(--ease); }
+    .panel.on { height: 480px; }
+    .panel__v { writing-mode: horizontal-tb; transform: translate(-50%, 0); left: 50%; bottom: 26px; font-size: 28px; }
+    .stats__grid { grid-template-columns: 1fr 1fr; }
+    .st:nth-child(3) { border-left: 0; }
+    .st { border-top: 1px solid var(--line); }
+    .cls { grid-template-columns: 80px 1fr; gap: 6px 16px; }
+    .cls .coach, .vagas { grid-column: 2; }
+    .cls .btn { grid-column: 1 / -1; }
+    .calc__grid, .cta__grid { grid-template-columns: 1fr; }
+    .plans__grid, .res__grid { grid-template-columns: 1fr; }
+    .res { aspect-ratio: 4/3; }
+  }
+  @media (max-width: 560px) { .gauge, .form { padding: 26px 20px; } .kcal { grid-template-columns: 1fr; } .tag { white-space: normal; letter-spacing: .14em; } }
+  @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; animation-delay: 0s !important; transition-duration: .01ms !important; } [data-r] { opacity: 1; transform: none; } }
+</style>
+</head>
+<body>
+
+<header class="nav" id="nav">
+  <div class="wrap nav__in">
+    <a href="#" class="logo"><svg viewBox="0 0 40 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"><path d="M2 12h9l3-8 5 16 4-12 3 4h12"/></svg>PULSO</a>
+    <nav class="nav__links"><a href="#modalidades">Modalidades</a><a href="#horarios">Horários</a><a href="#calculadora">Calculadora</a><a href="#planos">Planos</a></nav>
+    <a href="#experimental" class="btn btn--red nav__cta" style="padding:13px 22px">Aula grátis</a>
+    <button class="burger" aria-label="Menu"><span></span></button>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero__ghost" aria-hidden="true">PULSO</div>
+  <div class="hero__img"><img src="https://images.unsplash.com/photo-1605296867724-fa87a8ef53fd?w=1600&q=80&auto=format&fit=crop" alt="Atleta em treino de força" /></div>
+  <svg class="ecg" viewBox="0 0 1600 120" preserveAspectRatio="none" aria-hidden="true"><path d="M0 70h420l18-30 22 60 26-96 30 110 20-44h220l14-20 18 40 20-70 26 84 18-14h300l16-26 20 52 24-88 28 98 18-36h400"/></svg>
+  <div class="wrap hero__content">
+    <p class="tag" style="margin-bottom:24px">Performance Training · São Paulo</p>
+    <h1 class="d"><span class="ln"><span>Treine com</span></span><span class="ln"><span class="red">propósito.</span></span><span class="ln"><span>Evolua sempre.</span></span></h1>
+    <p>Musculação, HIIT, boxe e funcional com coaches que acompanham cada repetição. Resultados medidos, não prometidos.</p>
+    <div class="hero__ctas"><a href="#experimental" class="btn btn--red">Agendar aula grátis →</a><a href="#planos" class="btn btn--out">Ver planos</a></div>
+    <div class="live"><i></i><span><b id="live">87</b> alunos treinando agora</span></div>
+  </div>
+</section>
+
+<div class="band" aria-hidden="true"><div class="band__track" id="band"></div></div>
+
+<section class="mods" id="modalidades">
+  <div class="wrap">
+    <div class="head"><div data-r><p class="tag">Modalidades</p><h2 class="d h2" style="margin-top:16px">Escolha sua <span class="red">batalha</span></h2></div><p data-r style="--d:.1s">Cinco programas com metodologia própria. Combine quantos quiser — todos os planos dão acesso livre às aulas.</p></div>
+    <div class="acc" id="acc" data-r></div>
+  </div>
+</section>
+
+<section class="stats">
+  <div class="wrap stats__grid">
+    <div class="st" data-r><strong data-count="1800">0</strong><span>m² de estrutura</span></div>
+    <div class="st" data-r style="--d:.1s"><strong data-count="64">0</strong><span>equipamentos de ponta</span></div>
+    <div class="st" data-r style="--d:.2s"><strong data-count="18">0<small>h</small></strong><span>abertos por dia</span></div>
+    <div class="st" data-r style="--d:.3s"><strong data-count="12">0</strong><span>coaches certificados</span></div>
+  </div>
+</section>
+
+<section class="sched" id="horarios">
+  <div class="wrap">
+    <div class="head"><div data-r><p class="tag">Grade semanal</p><h2 class="d h2" style="margin-top:16px">Sem <span class="red">desculpas</span></h2></div><p data-r style="--d:.1s">Aulas das 6h às 22h. Reserve sua vaga pelo app ou direto aqui — vagas limitadas por turma.</p></div>
+    <div class="days" id="days" data-r></div>
+    <div class="classes" id="classes"></div>
+  </div>
+</section>
+
+<section class="calc" id="calculadora">
+  <div class="wrap calc__grid">
+    <div data-r>
+      <p class="tag">Calculadora</p>
+      <h2 class="d h2" style="margin-top:16px">Conheça seus <span class="red">números</span></h2>
+      <div class="sliders">
+        <div class="seg" id="sexo"><button class="on" data-v="m">Masculino</button><button data-v="f">Feminino</button></div>
+        <div class="sl"><label>Peso <output id="oPeso">78 kg</output></label><input type="range" id="peso" min="40" max="160" value="78" /></div>
+        <div class="sl"><label>Altura <output id="oAlt">175 cm</output></label><input type="range" id="alt" min="140" max="210" value="175" /></div>
+        <div class="sl"><label>Idade <output id="oIdade">30 anos</output></label><input type="range" id="idade" min="14" max="80" value="30" /></div>
+        <div class="sl"><label>Treinos por semana <output id="oAtiv">3x</output></label><input type="range" id="ativ" min="0" max="6" value="3" /></div>
+      </div>
+    </div>
+    <div class="gauge" data-r style="--d:.15s">
+      <svg viewBox="0 0 400 220" aria-hidden="true">
+        <path d="M30 200A170 170 0 0 1 44.1 132.2" stroke="#4a9eff" stroke-width="22" fill="none"/>
+        <path d="M48.5 122.8A170 170 0 0 1 143.2 39.7" stroke="#2ecc71" stroke-width="22" fill="none"/>
+        <path d="M151.7 37A170 170 0 0 1 248.3 37" stroke="#ffb020" stroke-width="22" fill="none"/>
+        <path d="M256.8 39.7A170 170 0 0 1 370 200" stroke="var(--red)" stroke-width="22" fill="none"/>
+        <g class="needle" id="needle"><path d="M200 200 196 60h8z" fill="var(--text)"/><circle cx="200" cy="200" r="14" fill="var(--text)"/><circle cx="200" cy="200" r="5" fill="var(--bg)"/></g>
+      </svg>
+      <div class="gauge__val"><strong id="imc">25.5</strong><span id="imcTxt" class="red">Sobrepeso</span></div>
+      <div class="kcal">
+        <div><b id="tmb">1.780</b><small>Basal (kcal)</small></div>
+        <div><b id="manter">2.460</b><small>Manter (kcal)</small></div>
+        <div><b id="perder">1.960</b><small>Secar (kcal)</small></div>
+      </div>
+      <p class="tip" id="tip"></p>
+    </div>
+  </div>
+</section>
+
+<section class="plans" id="planos">
+  <div class="wrap">
+    <div class="head"><div data-r><p class="tag">Planos</p><h2 class="d h2" style="margin-top:16px">Invista em <span class="red">você</span></h2></div>
+      <div class="toggle" id="toggle" data-r style="--d:.1s"><span class="pill"></span><button class="on" data-p="m">Mensal</button><button data-p="a">Anual<em>-20%</em></button></div>
+    </div>
+    <div class="plans__grid">
+      <div class="plan" data-r><span class="plan__name">Start</span><div class="price"><small>R$</small><b data-m="129">129</b><span>/mês</span></div><p class="muted" data-note></p><ul><li>Musculação livre</li><li>Horário comercial (6h–17h)</li><li>Avaliação física inicial</li><li>App de treinos</li></ul><a href="#experimental" class="btn btn--red">Começar</a></div>
+      <div class="plan hot" data-r style="--d:.1s"><span class="plan__flag">Mais escolhido</span><span class="plan__name">Pro</span><div class="price"><small>R$</small><b data-m="189">189</b><span>/mês</span></div><p class="muted" data-note></p><ul><li>Acesso total, todos os horários</li><li>Todas as aulas coletivas</li><li>Reavaliação a cada 60 dias</li><li>Treino periodizado pelo coach</li><li>1 convidado por mês</li></ul><a href="#experimental" class="btn btn--red">Quero o Pro</a></div>
+      <div class="plan" data-r style="--d:.2s"><span class="plan__name">Elite</span><div class="price"><small>R$</small><b data-m="349">349</b><span>/mês</span></div><p class="muted" data-note></p><ul><li>Tudo do Pro</li><li>4 sessões de personal por mês</li><li>Plano alimentar com nutricionista</li><li>Bioimpedância mensal</li><li>Armário exclusivo</li></ul><a href="#experimental" class="btn btn--red">Ser Elite</a></div>
+    </div>
+  </div>
+</section>
+
+<section class="results">
+  <div class="wrap">
+    <div class="head"><div data-r><p class="tag">Resultados reais</p><h2 class="d h2" style="margin-top:16px">Prova <span class="red">viva</span></h2></div></div>
+    <div class="res__grid">
+      <article class="res" data-r><img src="https://images.unsplash.com/photo-1722925541142-5db2668ca492?w=900&q=75&auto=format&fit=crop" alt="Aluna treinando com barra" loading="lazy" /><div class="res__body"><strong>-14 kg</strong><p>“Em 7 meses perdi peso e ganhei uma força que eu nunca tive.”</p><small>Juliana · Plano Pro</small></div></article>
+      <article class="res" data-r style="--d:.1s"><img src="https://images.unsplash.com/photo-1517438322307-e67111335449?w=900&q=75&auto=format&fit=crop" alt="Treino de boxe" loading="lazy" /><div class="res__body"><strong>+9 kg</strong><p>“De magro a competidor amador de boxe em pouco mais de um ano.”</p><small>Thiago · Plano Elite</small></div></article>
+      <article class="res" data-r style="--d:.2s"><img src="https://images.unsplash.com/photo-1765302907822-33032f78eb2c?w=900&q=75&auto=format&fit=crop" alt="Treino funcional com kettlebell" loading="lazy" /><div class="res__body"><strong>-22%</strong><p>“Gordura corporal caiu e a dor nas costas sumiu. Melhor decisão.”</p><small>Marcos · Plano Pro</small></div></article>
+    </div>
+  </div>
+</section>
+
+<section class="cta" id="experimental">
+  <div class="wrap cta__grid">
+    <div data-r><p class="tag">Primeiro treino</p><h2 class="d h2" style="margin-top:16px">É por nossa <span class="red">conta.</span></h2><p style="color:#bdbdbd;max-width:440px;margin-top:22px;font-size:18px">Agende uma aula experimental gratuita com avaliação física e um coach dedicado a você.</p></div>
+    <form class="form" id="form" data-r style="--d:.1s">
+      <h3>Aula experimental</h3>
+      <input id="fn" placeholder="Seu nome" required />
+      <input id="ft" placeholder="WhatsApp" inputmode="tel" required />
+      <select id="fm"><option>Musculação</option><option>HIIT</option><option>Boxe</option><option>Funcional</option><option>Mobilidade</option></select>
+      <select id="fh"><option>Manhã (6h–12h)</option><option>Tarde (12h–18h)</option><option>Noite (18h–22h)</option></select>
+      <button class="btn btn--red" type="submit">Garantir minha vaga →</button>
+    </form>
+  </div>
+</section>
+
+<footer><div class="wrap foot"><a href="#" class="logo"><svg viewBox="0 0 40 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"><path d="M2 12h9l3-8 5 16 4-12 3 4h12"/></svg>PULSO</a><span>Rua Augusta, 2210 — São Paulo · (11) 99999-0000</span><span>© 2026 PULSO Performance Training</span></div></footer>
+
+<a class="wa" href="https://wa.me/5511999990000" target="_blank" rel="noopener" aria-label="WhatsApp"><svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21c5.46 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2Zm5.8 14.03c-.24.68-1.42 1.3-1.95 1.35-.5.05-.97.23-3.27-.68-2.77-1.09-4.52-3.92-4.66-4.1-.13-.18-1.1-1.47-1.1-2.8 0-1.34.7-2 .95-2.27.25-.27.54-.34.72-.34h.52c.17 0 .4-.06.62.47.24.56.8 1.94.87 2.08.07.14.12.3.02.48-.1.19-.14.3-.28.47-.14.16-.3.36-.42.49-.14.14-.29.29-.12.57.17.28.74 1.22 1.59 1.98 1.09.97 2.01 1.27 2.29 1.41.28.14.45.12.62-.07.17-.19.71-.83.9-1.11.19-.28.38-.24.64-.14.26.09 1.65.78 1.93.92.28.14.47.21.54.33.07.11.07.66-.17 1.34Z"/></svg></a>
+
+<script>
+(() => {
+  const reduz = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const $ = (s, el = document) => el.querySelector(s);
+  const $$ = (s, el = document) => [...el.querySelectorAll(s)];
+  const u = (id, w) => `https://images.unsplash.com/photo-${id}?w=${w}&q=75&auto=format&fit=crop`;
+  const fmt = (n) => Math.round(n).toLocaleString("pt-BR");
+
+  const nav = $("#nav");
+  addEventListener("scroll", () => nav.classList.toggle("solid", scrollY > 30), { passive: true });
+  $(".burger").onclick = () => nav.classList.toggle("open");
+  $$(".nav__links a").forEach((a) => a.onclick = () => nav.classList.remove("open"));
+
+  /* Revelar + contadores */
+  const io = new IntersectionObserver((es) => es.forEach((e) => {
+    if (!e.isIntersecting) return;
+    e.target.classList.add("in");
+    const c = e.target.querySelector("[data-count]");
+    if (c) { const fim = +c.dataset.count, suf = c.querySelector("small")?.outerHTML || "", t0 = performance.now(); const p = (t) => { const k = Math.min(1, (t - t0) / 1500); c.innerHTML = fmt(fim * (1 - Math.pow(1 - k, 3))) + suf; if (k < 1) requestAnimationFrame(p); }; requestAnimationFrame(p); }
+    io.unobserve(e.target);
+  }), { threshold: .15 });
+  $$("[data-r]").forEach((el) => io.observe(el));
+
+  /* Alunos treinando agora (varia de leve) */
+  let vivos = 87;
+  setInterval(() => { vivos = Math.max(60, Math.min(120, vivos + Math.round((Math.random() - .45) * 3))); $("#live").textContent = vivos; }, 2600);
+
+  /* Faixa que corre com o scroll */
+  const band = $("#band");
+  const palavras = ["Força", "HIIT", "Boxe", "Funcional", "Mobilidade", "Disciplina"];
+  band.innerHTML = [...palavras, ...palavras, ...palavras, ...palavras].map((p) => `<span>${p}</span>`).join("");
+  let pos = 0, ultimo = scrollY, vel = 0;
+  (function tick() {
+    if (!reduz) {
+      vel += (Math.abs(scrollY - ultimo) - vel) * .1; ultimo = scrollY;
+      pos -= 1 + vel * .6;
+      const metade = band.scrollWidth / 2;
+      if (-pos >= metade) pos += metade;
+      band.style.transform = `translate3d(${pos}px,0,0)`;
+    }
+    requestAnimationFrame(tick);
+  })();
+
+  /* Modalidades (acordeão horizontal) */
+  const MODS = [
+    ["Musculação", "Treinos periodizados com acompanhamento do coach e reavaliações frequentes. Equipamentos Hammer e Technogym.", 3, 5, "1605296867304-46d5465a13f1"],
+    ["HIIT", "45 minutos de alta intensidade com monitores cardíacos ao vivo no telão. Queima garantida até 24h depois.", 5, 3, "1554344728-77cf90d9ed26"],
+    ["Boxe", "Técnica, condicionamento e descarga de estresse. Turmas para iniciantes e para quem quer competir.", 4, 4, "1773289338309-50476faedda2"],
+    ["Funcional", "Kettlebells, cordas, sleds e peso corporal. Movimentos que você usa no dia a dia, com muito mais força.", 4, 3, "1765302907822-33032f78eb2c"],
+    ["Mobilidade", "Alongamento ativo e controle articular para treinar mais, com menos dor e menos lesões.", 1, 2, "1591504771094-a1ca4de142d7"],
+  ];
+  const barra = (n) => `<i>${[1, 2, 3, 4, 5].map((k) => `<b class="${k <= n ? "f" : ""}"></b>`).join("")}</i>`;
+  const acc = $("#acc");
+  acc.innerHTML = MODS.map(([t, d, int, forca, img], i) => `
+    <div class="panel ${i === 0 ? "on" : ""}" tabindex="0">
+      <img src="${u(img, 1200)}" alt="${t}" loading="lazy" />
+      <span class="panel__n">0${i + 1}</span><span class="panel__v">${t}</span>
+      <div class="panel__body"><h3>${t}</h3><p>${d}</p><div class="meter"><div>Intensidade${barra(int)}</div><div>Força${barra(forca)}</div></div></div>
+    </div>`).join("");
+  const abre = (p) => $$(".panel", acc).forEach((x) => x.classList.toggle("on", x === p));
+  acc.addEventListener("click", (e) => { const p = e.target.closest(".panel"); if (p) abre(p); });
+  acc.addEventListener("mouseover", (e) => { if (innerWidth > 1000) { const p = e.target.closest(".panel"); if (p) abre(p); } });
+  acc.addEventListener("keydown", (e) => { if (e.key === "Enter") abre(e.target.closest(".panel")); });
+
+  /* Grade de horários */
+  const DIAS = ["Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"];
+  const COACH = ["Coach Bruno", "Coach Ana", "Coach Diego", "Coach Lari", "Coach Rafa"];
+  const AULAS = ["HIIT", "Boxe", "Funcional", "Mobilidade", "HIIT", "Boxe Avançado", "Funcional"];
+  const HORAS = ["06:30", "07:30", "12:15", "17:30", "18:30", "19:30", "20:30"];
+  const grade = DIAS.map((_, d) => HORAS.filter((_, h) => d < 5 || h < 3).map((h, i) => ({ h, a: AULAS[(i + d) % AULAS.length], c: COACH[(i * 2 + d) % COACH.length], v: (i * 7 + d * 5) % 18 + 2 })));
+  let dia = Math.min(5, Math.max(0, new Date().getDay() - 1));
+  const days = $("#days"), classes = $("#classes");
+  function renderDia() {
+    days.innerHTML = DIAS.map((d, i) => `<button class="day ${i === dia ? "on" : ""}" data-i="${i}"><b>${d}</b><small>${grade[i].length} aulas</small></button>`).join("");
+    classes.innerHTML = grade[dia].map((x, i) => `<div class="cls" style="animation-delay:${i * 50}ms"><time>${x.h}</time><h4>${x.a}</h4><span class="coach">${x.c}</span><span class="vagas">${x.v} de 20 vagas<i><b style="width:${(1 - x.v / 20) * 100}%"></b></i></span><a class="btn btn--red" target="_blank" rel="noopener" href="https://wa.me/5511999990000?text=${encodeURIComponent(`Quero reservar ${x.a} na ${DIAS[dia]} às ${x.h}.`)}">Reservar</a></div>`).join("");
+  }
+  days.onclick = (e) => { const b = e.target.closest(".day"); if (b) { dia = +b.dataset.i; renderDia(); } };
+  renderDia();
+
+  /* Calculadora de IMC e calorias */
+  let sexo = "m";
+  const ids = ["peso", "alt", "idade", "ativ"];
+  const fill = (el) => el.style.setProperty("--p", `${((el.value - el.min) / (el.max - el.min)) * 100}%`);
+  function calc() {
+    const [p, a, i, t] = ids.map((k) => +$("#" + k).value);
+    ids.forEach((k) => fill($("#" + k)));
+    $("#oPeso").textContent = p + " kg"; $("#oAlt").textContent = a + " cm"; $("#oIdade").textContent = i + " anos"; $("#oAtiv").textContent = t + "x";
+    const imc = p / Math.pow(a / 100, 2);
+    const tmb = sexo === "m" ? 10 * p + 6.25 * a - 5 * i + 5 : 10 * p + 6.25 * a - 5 * i - 161;
+    const fator = [1.2, 1.3, 1.375, 1.46, 1.55, 1.64, 1.725][t];
+    const manter = tmb * fator;
+    $("#imc").textContent = imc.toFixed(1).replace(".", ",");
+    const [txt, cor, dica] = imc < 18.5 ? ["Abaixo do peso", "#4a9eff", "Foco em ganho de massa: superávit calórico leve e musculação 4x por semana."]
+      : imc < 25 ? ["Peso ideal", "#2ecc71", "Você está na faixa ideal. Hora de buscar performance: força e condicionamento."]
+      : imc < 30 ? ["Sobrepeso", "#ffb020", "Combine HIIT 2x e musculação 3x por semana com déficit de ~500 kcal."]
+      : ["Obesidade", "var(--red)", "Comece com treinos de baixo impacto e acompanhamento do coach e nutricionista."];
+    const imcTxt = $("#imcTxt"); imcTxt.textContent = txt; imcTxt.style.color = cor;
+    const ang = -90 + (Math.min(40, Math.max(15, imc)) - 15) / 25 * 180;
+    $("#needle").style.transform = `rotate(${ang}deg)`;
+    $("#tmb").textContent = fmt(tmb); $("#manter").textContent = fmt(manter); $("#perder").textContent = fmt(manter - 500);
+    $("#tip").textContent = dica;
+  }
+  ids.forEach((k) => $("#" + k).addEventListener("input", calc));
+  $("#sexo").onclick = (e) => { const b = e.target.closest("button"); if (!b) return; sexo = b.dataset.v; $$("#sexo button").forEach((x) => x.classList.toggle("on", x === b)); calc(); };
+  calc();
+
+  /* Planos: mensal x anual */
+  const tog = $("#toggle"), pill = $(".pill", tog);
+  function plano(tipo) {
+    const btns = $$("button", tog), b = btns.find((x) => x.dataset.p === tipo);
+    btns.forEach((x) => x.classList.toggle("on", x === b));
+    pill.style.width = b.offsetWidth + "px"; pill.style.transform = `translateX(${b.offsetLeft - 5}px)`;
+    $$(".plan").forEach((pl) => {
+      const el = $("[data-m]", pl), base = +el.dataset.m, alvo = tipo === "a" ? Math.round(base * .8) : base, de = +el.textContent, t0 = performance.now();
+      const p = (t) => { const k = Math.min(1, (t - t0) / 500); el.textContent = Math.round(de + (alvo - de) * k); if (k < 1) requestAnimationFrame(p); };
+      requestAnimationFrame(p);
+      $("[data-note]", pl).textContent = tipo === "a" ? `R$ ${fmt(alvo * 12)} por ano · economia de R$ ${fmt((base - alvo) * 12)}` : "Sem fidelidade · cancele quando quiser";
+    });
+  }
+  tog.onclick = (e) => { const b = e.target.closest("button"); if (b) plano(b.dataset.p); };
+  addEventListener("load", () => plano("m")); plano("m");
+
+  /* Aula experimental */
+  $("#form").onsubmit = (e) => {
+    e.preventDefault();
+    const msg = `Olá! Quero agendar minha aula experimental na PULSO.\nNome: ${$("#fn").value}\nWhatsApp: ${$("#ft").value}\nModalidade: ${$("#fm").value}\nHorário: ${$("#fh").value}`;
+    window.open(`https://wa.me/5511999990000?text=${encodeURIComponent(msg)}`, "_blank");
+  };
+})();
+</script>
+</body>
+</html>
