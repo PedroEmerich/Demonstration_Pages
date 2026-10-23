@@ -15,6 +15,7 @@
     --ember: #ff6a1a; --ember2: #ffb347; --wine: #6e1f2a;
     --serif: "Fraunces", Georgia, serif; --sans: "Inter", system-ui, sans-serif;
     --ease: cubic-bezier(.2,.8,.2,1);
+    --fx-accent: var(--ember); --fx-label: #1a0d05; --fx-glare: .16; --fx-grain: .06;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html { overflow-x: clip; scroll-behavior: smooth; }
@@ -44,7 +45,8 @@
   .logo svg { width: 22px; color: var(--ember); }
   .nav__links { display: flex; gap: 36px; font-size: 13px; letter-spacing: .14em; text-transform: uppercase; }
   .nav__links a { opacity: .75; transition: opacity .2s; }
-  .nav__links a:hover { opacity: 1; }
+  .nav__links a:hover, .nav__links a.fx-on { opacity: 1; }
+  .nav__links a.fx-on { color: var(--ember2); }
   .burger { display: none; width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--line); place-items: center; }
   .burger span { width: 18px; height: 1px; background: var(--bone); display: block; box-shadow: 0 6px 0 var(--bone), 0 -6px 0 var(--bone); }
 
@@ -86,7 +88,9 @@
   .cut { flex: none; width: clamp(280px, 34vw, 460px); }
   .cut__img { position: relative; aspect-ratio: 4/5; overflow: hidden; border-radius: 4px; }
   .cut__img img { width: 100%; height: 100%; object-fit: cover; transform: scale(1.08); transition: transform 1.4s var(--ease), filter 1s; filter: saturate(.9) brightness(.85); }
-  .cut:hover .cut__img img { transform: scale(1); filter: saturate(1.1) brightness(1); }
+  .cut:hover .cut__img img { transform: scale(1.04); filter: saturate(1.1) brightness(1); }
+  .cut__img::after { content: ""; position: absolute; inset: 0; background: linear-gradient(0deg, rgba(255,106,26,.35), transparent 45%); opacity: 0; transition: opacity .6s; mix-blend-mode: screen; }
+  .cut:hover .cut__img::after { opacity: 1; }
   .cut__tag { position: absolute; top: 16px; left: 16px; background: rgba(15,12,10,.75); backdrop-filter: blur(6px); padding: 6px 12px; border-radius: 999px; font-size: 11px; letter-spacing: .14em; text-transform: uppercase; }
   .cut__body { display: flex; justify-content: space-between; align-items: baseline; padding-top: 18px; border-bottom: 1px solid var(--line); padding-bottom: 14px; }
   .cut h3 { font-size: 34px; }
@@ -168,7 +172,7 @@
 
   /* FOOTER */
   .footer { border-top: 1px solid var(--line); padding: 80px 0 40px; }
-  .footer__big { font-family: var(--serif); font-size: clamp(80px, 20vw, 320px); line-height: .8; letter-spacing: -.04em; color: transparent; -webkit-text-stroke: 1px rgba(243,233,220,.18); text-align: center; user-select: none; }
+  .footer__big { font-family: var(--serif); font-size: clamp(80px, 20vw, 320px); line-height: .8; letter-spacing: -.04em; color: transparent; -webkit-text-stroke: 1px rgba(243,233,220,.18); text-align: center; user-select: none; background: linear-gradient(0deg, var(--wine), var(--ember) 45%, var(--ember2)) bottom / 100% var(--fill, 0%) no-repeat; -webkit-background-clip: text; background-clip: text; padding-bottom: .06em; }
   .footer__row { display: flex; justify-content: space-between; gap: 30px; flex-wrap: wrap; margin-top: 60px; font-size: 14px; color: var(--muted); }
   .footer__row a:hover { color: var(--ember2); }
   .wa { position: fixed; right: 22px; bottom: 22px; z-index: 60; width: 58px; height: 58px; border-radius: 50%; background: #25d366; color: #fff; display: grid; place-items: center; box-shadow: 0 12px 30px -8px rgba(37,211,102,.6); transition: transform .3s var(--ease); }
@@ -193,6 +197,41 @@
   }
   @media (max-width: 560px) { .row2 { grid-template-columns: 1fr; } .form { padding: 28px 22px; } .manifesto__foot { gap: 30px; } }
   @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; } [data-r] { opacity: 1; transform: none; } }
+
+  /* ==========================================================================
+     EFEITOS — cursor, ímã, inclinação 3D, revelar no scroll e parallax
+     Cores: --fx-accent (barra/cursor), --fx-label (texto do cursor), --fx-glare, --fx-grain
+     ========================================================================== */
+  .fx-bar { position: fixed; left: 0; top: 0; right: 0; height: 3px; z-index: 100; background: var(--fx-accent); transform: scaleX(var(--p, 0)); transform-origin: left; pointer-events: none; }
+  .fx-grain { position: fixed; inset: -100%; z-index: 98; pointer-events: none; opacity: var(--fx-grain); background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); animation: fxGrain 1s steps(4) infinite; }
+  @keyframes fxGrain { 25% { transform: translate(-3%, 2%); } 50% { transform: translate(2%, -4%); } 75% { transform: translate(-1%, 3%); } }
+  html.fx-c, html.fx-c * { cursor: none !important; }
+  html.fx-c :is(input:not([type=range]):not([type=checkbox]):not([type=radio]), textarea) { cursor: text !important; }
+  html.fx-c select { cursor: pointer !important; }
+  .fx-dot, .fx-cur { position: fixed; left: 0; top: 0; z-index: 99; pointer-events: none; border-radius: 50%; transition: opacity .3s; }
+  .fx-dot { width: 6px; height: 6px; margin: -3px 0 0 -3px; background: var(--fx-accent); }
+  .fx-cur { width: 38px; height: 38px; margin: -19px 0 0 -19px; border: 1px solid var(--fx-accent); display: grid; place-items: center; transition: width .4s var(--ease), height .4s var(--ease), margin .4s var(--ease), background .4s, border-color .4s, opacity .3s; }
+  .fx-cur span { font: 600 11px/1.1 var(--sans); letter-spacing: .12em; text-transform: uppercase; text-align: center; color: var(--fx-label, #fff); opacity: 0; transition: opacity .25s; }
+  .fx-cur.link { width: 62px; height: 62px; margin: -31px 0 0 -31px; background: color-mix(in srgb, var(--fx-accent) 16%, transparent); }
+  .fx-cur.label { width: 96px; height: 96px; margin: -48px 0 0 -48px; background: var(--fx-accent); border-color: transparent; }
+  .fx-cur.label span { opacity: 1; }
+  .fx-cur.down { width: 28px; height: 28px; margin: -14px 0 0 -14px; }
+  .fx-cur.hide, .fx-dot.hide, .fx-cur.label + .fx-dot { opacity: 0; }
+  .fx-glare { position: absolute; inset: 0; z-index: 5; border-radius: inherit; pointer-events: none; background: radial-gradient(circle at var(--mx, 50%) var(--my, 50%), rgba(255,255,255,var(--fx-glare, .25)), transparent 60%); opacity: 0; transition: opacity .5s; }
+  .fx-w { display: inline-block; overflow: hidden; vertical-align: top; padding: .1em .04em .16em; margin: -.1em -.04em -.16em; }
+  .fx-w > span { display: inline-block; transform: translateY(108%) rotate(4deg); transform-origin: left bottom; transition: transform 1.1s var(--ease); transition-delay: calc(var(--i) * 55ms); }
+  .fx-in .fx-w > span { transform: none; }
+  [data-img]:not(.fx-in) { clip-path: inset(100% 0 0 0); }
+  [data-img="left"]:not(.fx-in) { clip-path: inset(0 100% 0 0); }
+  [data-img].fx-in { animation: fxClip 1.4s var(--ease) both; }
+  [data-img="left"].fx-in { animation-name: fxClipL; }
+  [data-img].fx-in img { animation: fxZoom 1.8s var(--ease) backwards; animation-delay: inherit; }
+  @keyframes fxClip { from { clip-path: inset(100% 0 0 0); } to { clip-path: inset(0); } }
+  @keyframes fxClipL { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0); } }
+  @keyframes fxZoom { from { scale: 1.3; } }
+  .fx-s { transition: opacity .3s, color .3s; opacity: .18; }
+  .fx-s.on { opacity: 1; }
+  @media (prefers-reduced-motion: reduce) { [data-img] { clip-path: none !important; } .fx-w > span { transform: none; } .fx-s { opacity: 1; } .fx-grain { display: none; } }
 </style>
 </head>
 <body>
@@ -211,8 +250,8 @@
 
 <section class="hero">
   <div class="hero__bg" id="heroBg"></div>
-  <canvas id="embers"></canvas>
-  <div class="wrap hero__content">
+  <canvas id="embers" data-depth="40"></canvas>
+  <div class="wrap hero__content" id="heroIn">
     <p class="eyebrow" style="margin-bottom:28px">Parrilla · Fogo de chão · Desde 2011</p>
     <h1><span class="line"><span>O fogo</span></span><span class="line"><span>é o nosso</span></span><span class="line"><span><em>tempero.</em></span></span></h1>
     <div class="hero__row">
@@ -244,12 +283,12 @@
       <div><p class="eyebrow" style="margin-bottom:20px">Da brasa para a mesa</p><h2>Nossos <em>cortes</em></h2></div>
       <p class="cuts__count"><b id="cutNow">01</b> / 05</p>
     </div>
-    <div class="cuts__track" id="cutsTrack">
-      <article class="cut"><div class="cut__img"><img src="https://images.unsplash.com/photo-1558030006-450675393462?w=900&q=75&auto=format&fit=crop" alt="Picanha fatiada" loading="lazy" /><span class="cut__tag">Mais pedido</span></div><div class="cut__body"><h3>Picanha</h3><span class="cut__price">R$ 129</span></div><p>Angus maturado, capa de gordura dourada, sal grosso e nada mais. 400 g.</p></article>
-      <article class="cut"><div class="cut__img"><img src="https://images.unsplash.com/photo-1594041680534-e8c8cdebd659?w=900&q=75&auto=format&fit=crop" alt="Bife ancho" loading="lazy" /><span class="cut__tag">Marmorizado</span></div><div class="cut__body"><h3>Bife Ancho</h3><span class="cut__price">R$ 148</span></div><p>Miolo do contrafilé com marmoreio intenso. Macio e cheio de sabor. 350 g.</p></article>
-      <article class="cut"><div class="cut__img"><img src="https://images.unsplash.com/photo-1508615263227-c5d58c1e5821?w=900&q=75&auto=format&fit=crop" alt="Tomahawk na brasa" loading="lazy" /><span class="cut__tag">Para dividir</span></div><div class="cut__body"><h3>Tomahawk</h3><span class="cut__price">R$ 389</span></div><p>Costela com osso longo, assada lentamente. Serve duas a três pessoas. 1,2 kg.</p></article>
-      <article class="cut"><div class="cut__img"><img src="https://images.unsplash.com/photo-1546964124-0cce460f38ef?w=900&q=75&auto=format&fit=crop" alt="Fraldinha" loading="lazy" /><span class="cut__tag">Clássico</span></div><div class="cut__body"><h3>Fraldinha</h3><span class="cut__price">R$ 98</span></div><p>Fibras longas e suculência incomparável, finalizada com chimichurri da casa.</p></article>
-      <article class="cut"><div class="cut__img"><img src="https://images.unsplash.com/photo-1616252980327-ec70572e5df9?w=900&q=75&auto=format&fit=crop" alt="Cordeiro na brasa" loading="lazy" /><span class="cut__tag">Sazonal</span></div><div class="cut__body"><h3>Cordeiro</h3><span class="cut__price">R$ 164</span></div><p>Carré de cordeiro patagônico com crosta de ervas e alho assado.</p></article>
+    <div class="cuts__track" id="cutsTrack" data-cursor="Role ↓">
+      <article class="cut" data-tilt="6"><div class="cut__img" data-pan="2"><img src="https://images.unsplash.com/photo-1558030006-450675393462?w=900&q=75&auto=format&fit=crop" alt="Picanha fatiada" loading="lazy" /><span class="cut__tag">Mais pedido</span></div><div class="cut__body"><h3>Picanha</h3><span class="cut__price">R$ 129</span></div><p>Angus maturado, capa de gordura dourada, sal grosso e nada mais. 400 g.</p></article>
+      <article class="cut" data-tilt="6"><div class="cut__img" data-pan="2"><img src="https://images.unsplash.com/photo-1594041680534-e8c8cdebd659?w=900&q=75&auto=format&fit=crop" alt="Bife ancho" loading="lazy" /><span class="cut__tag">Marmorizado</span></div><div class="cut__body"><h3>Bife Ancho</h3><span class="cut__price">R$ 148</span></div><p>Miolo do contrafilé com marmoreio intenso. Macio e cheio de sabor. 350 g.</p></article>
+      <article class="cut" data-tilt="6"><div class="cut__img" data-pan="2"><img src="https://images.unsplash.com/photo-1508615263227-c5d58c1e5821?w=900&q=75&auto=format&fit=crop" alt="Tomahawk na brasa" loading="lazy" /><span class="cut__tag">Para dividir</span></div><div class="cut__body"><h3>Tomahawk</h3><span class="cut__price">R$ 389</span></div><p>Costela com osso longo, assada lentamente. Serve duas a três pessoas. 1,2 kg.</p></article>
+      <article class="cut" data-tilt="6"><div class="cut__img" data-pan="2"><img src="https://images.unsplash.com/photo-1546964124-0cce460f38ef?w=900&q=75&auto=format&fit=crop" alt="Fraldinha" loading="lazy" /><span class="cut__tag">Clássico</span></div><div class="cut__body"><h3>Fraldinha</h3><span class="cut__price">R$ 98</span></div><p>Fibras longas e suculência incomparável, finalizada com chimichurri da casa.</p></article>
+      <article class="cut" data-tilt="6"><div class="cut__img" data-pan="2"><img src="https://images.unsplash.com/photo-1616252980327-ec70572e5df9?w=900&q=75&auto=format&fit=crop" alt="Cordeiro na brasa" loading="lazy" /><span class="cut__tag">Sazonal</span></div><div class="cut__body"><h3>Cordeiro</h3><span class="cut__price">R$ 164</span></div><p>Carré de cordeiro patagônico com crosta de ervas e alho assado.</p></article>
     </div>
   </div>
 </section>
@@ -257,7 +296,7 @@
 <section class="doneness">
   <div class="wrap doneness__grid">
     <div class="steak" data-r>
-      <svg viewBox="0 0 600 380" aria-hidden="true">
+      <svg viewBox="0 0 600 380" aria-hidden="true" data-depth="26">
         <defs>
           <linearGradient id="crust" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3b1d0f"/><stop offset=".5" stop-color="#22100a"/><stop offset="1" stop-color="#140905"/></linearGradient>
           <linearGradient id="band" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#93604d"/><stop offset="1" stop-color="#7a4c3c"/></linearGradient>
@@ -308,9 +347,9 @@
 
 <section class="exp">
   <div class="wrap exp__grid">
-    <div class="ph exp__a" data-r><img data-par="0.12" src="https://images.unsplash.com/photo-1769955817432-641929f613f0?w=1100&q=75&auto=format&fit=crop" alt="Chef na cozinha" loading="lazy" /></div>
-    <div class="ph exp__b" data-r style="--d:.1s"><img data-par="0.08" src="https://images.unsplash.com/photo-1701722952679-beffce26d77a?w=1400&q=75&auto=format&fit=crop" alt="Salão do restaurante" loading="lazy" /></div>
-    <div class="ph exp__c" data-r><img data-par="0.1" src="https://images.unsplash.com/photo-1647592503670-fdf9f1d086ca?w=1200&q=75&auto=format&fit=crop" alt="Vinho à mesa" loading="lazy" /></div>
+    <div class="ph exp__a" data-img><img data-par="0.12" src="https://images.unsplash.com/photo-1769955817432-641929f613f0?w=1100&q=75&auto=format&fit=crop" alt="Chef na cozinha" loading="lazy" /></div>
+    <div class="ph exp__b" data-img><img data-par="0.08" src="https://images.unsplash.com/photo-1701722952679-beffce26d77a?w=1400&q=75&auto=format&fit=crop" alt="Salão do restaurante" loading="lazy" /></div>
+    <div class="ph exp__c" data-img="left"><img data-par="0.1" src="https://images.unsplash.com/photo-1647592503670-fdf9f1d086ca?w=1200&q=75&auto=format&fit=crop" alt="Vinho à mesa" loading="lazy" /></div>
     <div class="exp__quote" data-r style="--d:.2s">
       <blockquote>“A brasa não aceita atalhos. Ela pede paciência, respeito pelo produto e atenção a cada segundo.”</blockquote>
       <cite><b>Chef Rafael Monteiro</b> — Assador-chefe</cite>
@@ -350,7 +389,7 @@
 
 <footer class="footer">
   <div class="wrap">
-    <div class="footer__big" aria-hidden="true">Brasa</div>
+    <div class="footer__big" id="bigBrasa" aria-hidden="true">Brasa</div>
     <div class="footer__row">
       <span>Rua dos Pinheiros, 1240 — Pinheiros, São Paulo</span>
       <span><a href="tel:+5511999990000">(11) 99999-0000</a> · <a href="#">@brasaparrilla</a></span>
@@ -429,7 +468,7 @@
 
   /* Parallax + glow */
   const pars = $$("[data-par]");
-  const heroBg = $("#heroBg");
+  const heroBg = $("#heroBg"), heroIn = $("#heroIn");
   function onScroll() {
     const vh = innerHeight;
     const r = man.getBoundingClientRect();
@@ -444,8 +483,12 @@
       track.style.transform = `translate3d(${-p * max}px,0,0)`;
       cutNow.textContent = String(Math.min(5, Math.floor(p * 4.999) + 1)).padStart(2, "0");
     }
+    const big = $("#bigBrasa").getBoundingClientRect();
+    $("#bigBrasa").style.setProperty("--fill", `${Math.min(100, Math.max(0, (vh - big.top) / (big.height + vh * .25) * 100))}%`);
     if (!reduz) {
       heroBg.style.translate = `0 ${scrollY * .3}px`;
+      const k = Math.min(1, scrollY / vh);
+      heroIn.style.transform = `translateY(${k * 120}px)`; heroIn.style.opacity = 1 - k * 1.2;
       pars.forEach((img) => { const b = img.parentElement.getBoundingClientRect(); const k = (b.top + b.height / 2 - vh / 2) / vh; img.style.transform = `translateY(${-8 - k * 100 * +img.dataset.par}%)`; });
     }
   }
@@ -522,6 +565,155 @@
     const msg = `Olá! Gostaria de reservar uma mesa na Brasa.\n\nNome: ${$("#fNome").value}\nData: ${d}\nHorário: ${hora}\nPessoas: ${pax}\nOcasião: ${$("#fOc").value}`;
     window.open(`https://wa.me/5511999990000?text=${encodeURIComponent(msg)}`, "_blank");
   };
+})();
+</script>
+<script>
+/* ==========================================================================
+   EFEITOS — use pelos atributos no HTML:
+     data-tilt="8"     card inclina em 3D seguindo o mouse (com brilho)
+     data-img          imagem revelada com cortina ao rolar (data-img="left")
+     data-pan="3"      a foto acompanha o mouse dentro da moldura (%)
+     data-speed=".1"   parallax no scroll  ·  data-depth="20"  segue o mouse (px)
+     data-cursor="Ver" texto no cursor  ·  data-scrub  palavras acendem no scroll
+   Botões (.btn) e o WhatsApp (.wa) são magnéticos; os h2 sobem palavra por palavra.
+   ========================================================================== */
+(() => {
+  const reduz = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const fino = matchMedia("(pointer:fine)").matches && !reduz;
+  const $$ = (s, el = document) => [...el.querySelectorAll(s)];
+  const lerp = (a, b, k) => a + (b - a) * k;
+  const raiz = document.documentElement, body = document.body;
+  const mouse = { x: innerWidth / 2, y: innerHeight / 2 };
+  const novo = (cls, html = "") => { const el = document.createElement("div"); el.className = cls; el.innerHTML = html; el.setAttribute("aria-hidden", "true"); body.append(el); return el; };
+
+  const bar = novo("fx-bar");
+  if (parseFloat(getComputedStyle(raiz).getPropertyValue("--fx-grain")) > 0) novo("fx-grain");
+
+  /* Revelar títulos e imagens */
+  const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("fx-in"); io.unobserve(e.target); } }), { threshold: .2, rootMargin: "0px 0px -6% 0px" });
+  $$("h2:not([data-nosplit])").forEach((h) => {
+    const grupos = [[]];
+    [...h.childNodes].forEach((c) => {
+      if (c.nodeType !== 3) return grupos[grupos.length - 1].push(c);
+      c.textContent.split(/(\s+)/).forEach((t) => { if (!t) return; if (/^\s+$/.test(t)) grupos.push(" ", []); else grupos[grupos.length - 1].push(document.createTextNode(t)); });
+    });
+    h.textContent = "";
+    let i = 0;
+    grupos.forEach((g) => {
+      if (g === " ") return h.append(" ");
+      if (!g.length) return;
+      const w = document.createElement("span"), s = document.createElement("span");
+      w.className = "fx-w"; s.style.setProperty("--i", i++); s.append(...g); w.append(s); h.append(w);
+    });
+    io.observe(h);
+  });
+  $$("[data-img]").forEach((el) => io.observe(el));
+
+  /* Palavras que acendem conforme a rolagem */
+  const scrubs = $$("[data-scrub]").map((el) => {
+    el.innerHTML = el.textContent.trim().split(/\s+/).map((w) => `<span class="fx-s">${w}</span>`).join(" ");
+    return { el, ws: $$(".fx-s", el) };
+  });
+
+  /* Link do menu da seção atual */
+  const links = $$("nav a[href^='#']").filter((a) => a.getAttribute("href").length > 1);
+  const secIo = new IntersectionObserver((es) => es.forEach((e) => {
+    if (e.isIntersecting) links.forEach((a) => a.classList.toggle("fx-on", a.getAttribute("href") === "#" + e.target.id));
+  }), { rootMargin: "-45% 0px -50% 0px" });
+  links.forEach((a) => { const s = document.querySelector(a.getAttribute("href")); if (s) secIo.observe(s); });
+
+  /* Cursor */
+  let cur, dot, cx = mouse.x, cy = mouse.y;
+  if (fino) {
+    raiz.classList.add("fx-c");
+    cur = novo("fx-cur hide", "<span></span>"); dot = novo("fx-dot hide");
+    const lbl = cur.firstChild;
+    document.addEventListener("mouseover", (e) => {
+      const t = e.target;
+      const texto = !!t.closest("input:not([type=range]):not([type=checkbox]):not([type=radio]), textarea, select");
+      const rot = t.closest("[data-cursor]");
+      cur.classList.toggle("hide", texto); dot.classList.toggle("hide", texto);
+      cur.classList.toggle("label", !!rot); lbl.textContent = rot ? rot.dataset.cursor : "";
+      cur.classList.toggle("link", !rot && !!t.closest("a, button, summary, label, [tabindex], input[type=range], [data-tilt]"));
+    });
+    raiz.addEventListener("mouseleave", () => { cur.classList.add("hide"); dot.classList.add("hide"); });
+    addEventListener("mousedown", () => cur.classList.add("down"));
+    addEventListener("mouseup", () => cur.classList.remove("down"));
+  }
+
+  /* Ímã, inclinação e foto que segue o mouse (delegados: funcionam em conteúdo renderizado depois) */
+  const vivos = new Map();
+  let ativos = [];
+  const prepara = (el, tipo) => {
+    const st = { tipo, x: 0, y: 0, a: 0, b: 0 };
+    if (tipo === "tilt") {
+      if (getComputedStyle(el).position === "static") el.style.position = "relative";
+      st.g = document.createElement("i"); st.g.className = "fx-glare"; el.append(st.g);
+      if (!el.parentElement.style.perspective) el.parentElement.style.perspective = "1100px";
+    }
+    if (tipo === "pan") st.imgs = $$("img", el);
+    return st;
+  };
+  if (fino) addEventListener("pointermove", (e) => {
+    mouse.x = e.clientX; mouse.y = e.clientY;
+    if (cur && cur.classList.contains("hide") && !e.target.closest?.("input:not([type=range]), textarea, select")) { cur.classList.remove("hide"); dot.classList.remove("hide"); }
+    const t = e.target.closest ? e.target : null;
+    ativos = t ? [[t.closest(".btn, .wa, [data-mag]"), "mag"], [t.closest("[data-tilt]"), "tilt"], [t.closest("[data-pan]"), "pan"]].filter(([el]) => el) : [];
+    ativos.forEach(([el, tipo]) => { if (!vivos.has(el)) vivos.set(el, prepara(el, tipo)); });
+    ativos = ativos.map(([el]) => el);
+  }, { passive: true });
+  raiz.addEventListener("mouseleave", () => ativos = []);
+
+  /* Parallax por scroll e por mouse */
+  const par = reduz ? [] : $$("[data-speed], [data-depth]").map((el) => ({ el, s: +el.dataset.speed || 0, d: fino ? +el.dataset.depth || 0 : 0, y: 0, mx: 0, my: 0 }));
+
+  (function loop() {
+    const vh = innerHeight;
+    bar.style.setProperty("--p", scrollY / Math.max(1, raiz.scrollHeight - vh));
+    if (cur) {
+      cx = lerp(cx, mouse.x, .2); cy = lerp(cy, mouse.y, .2);
+      cur.style.translate = `${cx}px ${cy}px`; dot.style.translate = `${mouse.x}px ${mouse.y}px`;
+    }
+    vivos.forEach((st, el) => {
+      if (!el.isConnected) return vivos.delete(el);
+      const on = ativos.includes(el), r = el.getBoundingClientRect();
+      const px = Math.min(1, Math.max(0, (mouse.x - r.left) / r.width)), py = Math.min(1, Math.max(0, (mouse.y - r.top) / r.height));
+      if (st.tipo === "mag") {
+        const lim = 14;
+        st.x = lerp(st.x, on ? Math.max(-lim, Math.min(lim, (px - .5) * r.width * .35)) : 0, .15);
+        st.y = lerp(st.y, on ? Math.max(-lim, Math.min(lim, (py - .5) * r.height * .35)) : 0, .15);
+        el.style.translate = `${st.x.toFixed(2)}px ${st.y.toFixed(2)}px`;
+      } else if (st.tipo === "tilt") {
+        const max = +el.dataset.tilt || 8;
+        st.a = lerp(st.a, on ? (.5 - py) * max * 2 : 0, .1); st.b = lerp(st.b, on ? (px - .5) * max * 2 : 0, .1);
+        const ang = Math.hypot(st.a, st.b);
+        el.style.rotate = ang < .01 ? "none" : `${st.a.toFixed(3)} ${st.b.toFixed(3)} 0 ${ang.toFixed(2)}deg`;
+        st.g.style.opacity = on ? 1 : 0;
+        if (on) { st.g.style.setProperty("--mx", px * 100 + "%"); st.g.style.setProperty("--my", py * 100 + "%"); }
+      } else if (st.imgs) {
+        const k = +el.dataset.pan || 3;
+        st.x = lerp(st.x, on ? (.5 - px) * k * 2 : 0, .08); st.y = lerp(st.y, on ? (.5 - py) * k * 2 : 0, .08);
+        st.imgs.forEach((im) => im.style.translate = `${st.x.toFixed(3)}% ${st.y.toFixed(3)}%`);
+      }
+      if (!on && Math.abs(st.x) + Math.abs(st.y) + Math.abs(st.a) + Math.abs(st.b) < .01) {
+        el.style.translate = el.style.rotate = ""; if (st.imgs) st.imgs.forEach((im) => im.style.translate = ""); if (st.g) st.g.style.opacity = 0;
+        st.x = st.y = st.a = st.b = 0;
+      }
+    });
+    par.forEach((p) => {
+      let ty = 0;
+      if (p.s) { const r = p.el.getBoundingClientRect(), c = r.top + r.height / 2 - p.y; if (c > -vh && c < vh * 2) ty = (c - vh / 2) * -p.s; }
+      if (p.d) { p.mx = lerp(p.mx, (mouse.x / innerWidth - .5) * p.d, .07); p.my = lerp(p.my, (mouse.y / vh - .5) * p.d, .07); }
+      p.y = ty + p.my;
+      p.el.style.translate = `${p.mx.toFixed(2)}px ${p.y.toFixed(2)}px`;
+    });
+    scrubs.forEach(({ el, ws }) => {
+      const r = el.getBoundingClientRect(), k = Math.min(1, Math.max(0, (vh * .85 - r.top) / (r.height + vh * .35)));
+      const n = Math.round(k * ws.length);
+      ws.forEach((w, i) => w.classList.toggle("on", i < n));
+    });
+    requestAnimationFrame(loop);
+  })();
 })();
 </script>
 </body>
