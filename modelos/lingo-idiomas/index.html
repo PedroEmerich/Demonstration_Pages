@@ -1,0 +1,367 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Lingo — Escola de Idiomas</title>
+<meta name="description" content="Lingo Escola de Idiomas: inglês, espanhol e francês com turmas reduzidas, aulas presenciais e online. Faça o teste de nível grátis." />
+<meta name="theme-color" content="#fffaf2" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #fffaf2; --white: #fff; --ink: #1a1a2e; --muted: #64647a; --line: #efe6d6;
+    --orange: #ff6b2c; --blue: #2f6bff; --yellow: #ffd23f; --green: #19c37d; --pink: #ff8fb1;
+    --sans: "Lexend", system-ui, sans-serif; --ease: cubic-bezier(.2,.8,.2,1); --spring: cubic-bezier(.34,1.56,.64,1);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { overflow-x: clip; scroll-behavior: smooth; scroll-padding-top: 90px; }
+  body { background: var(--bg); color: var(--ink); font-family: var(--sans); line-height: 1.6; -webkit-font-smoothing: antialiased; overflow-x: clip; }
+  img { display: block; max-width: 100%; }
+  a { color: inherit; text-decoration: none; }
+  button, input, select { font: inherit; color: inherit; }
+  button { background: none; border: 0; cursor: pointer; }
+  .wrap { width: min(1220px, 100% - 40px); margin-inline: auto; }
+  [class*="__grid"] > * { min-width: 0; }
+  h1, h2, h3 { font-weight: 800; letter-spacing: -.035em; line-height: 1.05; }
+  .h2 { font-size: clamp(36px, 4.8vw, 64px); }
+  .tag { display: inline-block; padding: 6px 14px; border-radius: 999px; font-weight: 600; font-size: 14px; background: var(--white); box-shadow: 0 2px 0 var(--line); }
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 16px 28px; border-radius: 16px; font-weight: 700; font-size: 16px; transition: transform .3s var(--spring), box-shadow .3s; }
+  .btn:hover { transform: translateY(-3px) rotate(-1deg); }
+  .btn--o { background: var(--orange); color: #fff; box-shadow: 0 6px 0 #c94b14; }
+  .btn--k { background: var(--ink); color: #fff; box-shadow: 0 6px 0 #000; }
+  .btn--w { background: var(--white); box-shadow: 0 6px 0 var(--line); }
+  [data-r] { opacity: 0; transform: translateY(34px) scale(.98); transition: opacity .8s var(--ease), transform .9s var(--spring); transition-delay: var(--d, 0s); }
+  [data-r].in { opacity: 1; transform: none; }
+
+  /* NAV */
+  .nav { position: sticky; top: 0; z-index: 50; background: rgba(255,250,242,.9); backdrop-filter: blur(10px); }
+  .nav__in { height: 78px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+  .logo { display: flex; align-items: center; gap: 8px; font-weight: 800; font-size: 26px; letter-spacing: -.05em; }
+  .logo i { width: 40px; height: 34px; border-radius: 12px 12px 12px 3px; background: var(--orange); color: #fff; display: grid; place-items: center; font-style: normal; font-size: 16px; transform: rotate(-6deg); }
+  .nav__links { display: flex; gap: 28px; font-weight: 500; }
+  .nav__links a:hover { color: var(--orange); }
+  .burger { display: none; width: 46px; height: 46px; border-radius: 14px; background: var(--ink); place-items: center; }
+  .burger span { width: 18px; height: 2px; background: #fff; box-shadow: 0 6px 0 #fff, 0 -6px 0 #fff; border-radius: 2px; }
+
+  /* HERO */
+  .hero { padding: 60px 0 90px; }
+  .hero__grid { display: grid; grid-template-columns: 1.05fr .95fr; gap: 40px; align-items: center; }
+  .hero h1 { font-size: clamp(44px, 6.4vw, 92px); margin: 20px 0; }
+  .type { color: var(--orange); position: relative; white-space: nowrap; }
+  .type::after { content: ""; display: inline-block; width: 4px; height: .8em; background: var(--ink); margin-left: 4px; vertical-align: -.05em; animation: caret 1s steps(1) infinite; }
+  @keyframes caret { 50% { opacity: 0; } }
+  .hero p { font-size: 19px; color: var(--muted); max-width: 470px; }
+  .hero__ctas { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 32px; }
+  .flags { display: flex; gap: 10px; margin-top: 34px; align-items: center; color: var(--muted); font-size: 14px; }
+  .fl { width: 38px; height: 38px; border-radius: 12px; display: grid; place-items: center; color: #fff; font-weight: 800; font-size: 13px; letter-spacing: .02em; }
+  .fl:nth-child(2) { transform: rotate(-6deg); } .fl:nth-child(3) { transform: rotate(5deg); }
+  .collage { position: relative; height: 560px; }
+  .ph { position: absolute; overflow: hidden; border-radius: 34px; box-shadow: 0 30px 50px -30px rgba(26,26,46,.45); }
+  .ph img { width: 100%; height: 100%; object-fit: cover; }
+  .ph--a { width: 64%; height: 70%; right: 0; top: 0; transform: rotate(3deg); }
+  .ph--b { width: 52%; height: 50%; left: 0; bottom: 0; transform: rotate(-4deg); border: 8px solid var(--bg); }
+  .bub { position: absolute; padding: 12px 18px; border-radius: 22px; font-weight: 700; font-size: 18px; box-shadow: 0 16px 30px -16px rgba(26,26,46,.5); animation: float 5s ease-in-out infinite; z-index: 2; }
+  .bub--1 { background: var(--yellow); left: 6%; top: 10%; border-bottom-left-radius: 4px; }
+  .bub--2 { background: var(--blue); color: #fff; right: -2%; bottom: 30%; border-bottom-right-radius: 4px; animation-delay: -1.5s; }
+  .bub--3 { background: var(--pink); left: 42%; bottom: -2%; border-bottom-left-radius: 4px; animation-delay: -3s; }
+  @keyframes float { 50% { transform: translateY(-14px) rotate(-2deg); } }
+
+  /* TESTE DE NÍVEL */
+  .test { padding: 100px 0; background: var(--ink); color: #fff; border-radius: 48px; margin: 0 14px; }
+  .test__grid { display: grid; grid-template-columns: .8fr 1.2fr; gap: 60px; align-items: start; }
+  .test p.lead { color: #b9b9d0; margin-top: 16px; }
+  .levels { display: flex; gap: 6px; margin-top: 30px; }
+  .levels span { flex: 1; text-align: center; padding: 10px 0; border-radius: 12px; background: #2a2a44; font-weight: 700; font-size: 14px; transition: all .4s var(--spring); }
+  .levels span.on { background: var(--yellow); color: var(--ink); transform: translateY(-6px); }
+  .qcard { background: var(--white); color: var(--ink); border-radius: 30px; padding: 36px; min-height: 420px; display: flex; flex-direction: column; }
+  .qtop { display: flex; justify-content: space-between; align-items: center; font-weight: 600; font-size: 14px; color: var(--muted); }
+  .bar { height: 10px; border-radius: 10px; background: var(--bg); margin: 14px 0 26px; overflow: hidden; }
+  .bar i { display: block; height: 100%; background: linear-gradient(90deg, var(--orange), var(--yellow)); border-radius: 10px; transition: width .5s var(--ease); }
+  .qq { animation: qin .5s var(--spring) both; }
+  @keyframes qin { from { opacity: 0; transform: translateX(30px); } }
+  .qq h3 { font-size: 24px; margin-bottom: 22px; letter-spacing: -.02em; }
+  .qq h3 u { text-decoration: none; background: var(--yellow); padding: 0 8px; border-radius: 6px; }
+  .ans { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .an { padding: 16px 18px; border-radius: 16px; background: var(--bg); text-align: left; font-weight: 600; transition: all .25s var(--spring); border: 2px solid transparent; }
+  .an:hover:not(:disabled) { border-color: var(--ink); transform: translateY(-2px); }
+  .an.right { background: #dcfbe9; border-color: var(--green); }
+  .an.wrong { background: #ffe3e3; border-color: #ff5a5a; animation: shake .35s; }
+  .an:disabled { cursor: default; }
+  @keyframes shake { 25% { transform: translateX(-6px); } 75% { transform: translateX(6px); } }
+  .fb { margin-top: 18px; font-weight: 600; min-height: 26px; }
+  .result { text-align: center; animation: qin .6s var(--spring) both; margin: auto 0; }
+  .result .lvl { font-size: 110px; font-weight: 800; line-height: 1; letter-spacing: -.06em; background: linear-gradient(135deg, var(--orange), #ff3d8b); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .result h3 { font-size: 28px; margin: 6px 0 10px; }
+  .result p { color: var(--muted); max-width: 420px; margin: 0 auto 24px; }
+
+  /* CURSOS */
+  .courses { padding: 110px 0; }
+  .head { display: flex; justify-content: space-between; align-items: end; gap: 30px; flex-wrap: wrap; margin-bottom: 40px; }
+  .head p { color: var(--muted); max-width: 400px; }
+  .langs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 28px; }
+  .lg { padding: 12px 20px; border-radius: 14px; background: var(--white); font-weight: 700; box-shadow: 0 3px 0 var(--line); transition: all .3s var(--spring); display: flex; gap: 8px; align-items: center; }
+  .lg.on { background: var(--ink); color: #fff; box-shadow: 0 3px 0 #000; transform: translateY(-2px); }
+  .cgrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+  .course { background: var(--white); border-radius: 28px; padding: 30px; box-shadow: 0 4px 0 var(--line); display: flex; flex-direction: column; animation: qin .5s var(--spring) both; transition: transform .35s var(--spring); }
+  .course:hover { transform: translateY(-6px) rotate(-.6deg); }
+  .course__ic { width: 58px; height: 58px; border-radius: 18px; display: grid; place-items: center; font-size: 28px; margin-bottom: 18px; }
+  .course h3 { font-size: 24px; }
+  .course p { color: var(--muted); font-size: 15px; margin: 8px 0 18px; }
+  .meta { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; }
+  .meta span { font-size: 13px; font-weight: 600; padding: 5px 10px; border-radius: 999px; background: var(--bg); }
+  .course .price { margin-top: auto; display: flex; justify-content: space-between; align-items: baseline; padding-top: 18px; border-top: 2px dashed var(--line); }
+  .course .price b { font-size: 30px; letter-spacing: -.04em; }
+  .course .price small { color: var(--muted); font-weight: 500; }
+
+  /* MÉTODO */
+  .method { padding: 0 0 110px; }
+  .mgrid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+  .m { border-radius: 28px; padding: 28px; min-height: 240px; display: flex; flex-direction: column; justify-content: space-between; transition: transform .4s var(--spring); }
+  .m:hover { transform: rotate(-2deg) scale(1.02); }
+  .m b { font-size: 44px; font-weight: 800; letter-spacing: -.05em; line-height: 1; }
+  .m h3 { font-size: 20px; margin-bottom: 6px; }
+  .m p { font-size: 14px; opacity: .85; }
+
+  /* VIAGEM */
+  .trip { position: relative; margin: 0 14px; border-radius: 48px; overflow: hidden; min-height: 70vh; display: flex; align-items: flex-end; color: #fff; }
+  .trip__bg { position: absolute; inset: -10% 0; background: url("https://images.unsplash.com/photo-1503917988258-f87a78e3c995?w=2000&q=75&auto=format&fit=crop") center / cover; will-change: transform; }
+  .trip::after { content: ""; position: absolute; inset: 0; background: linear-gradient(0deg, rgba(26,26,46,.85), transparent 60%); }
+  .trip__in { position: relative; z-index: 1; padding: 60px 0; display: flex; justify-content: space-between; align-items: end; gap: 30px; flex-wrap: wrap; }
+  .trip p { max-width: 480px; opacity: .9; margin-top: 14px; }
+
+  /* DEPOIMENTOS + MATRÍCULA */
+  .voices { padding: 110px 0; }
+  .vgrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+  .v { background: var(--white); border-radius: 28px; padding: 28px; box-shadow: 0 4px 0 var(--line); }
+  .v:nth-child(2) { transform: rotate(1.5deg); background: var(--yellow); box-shadow: none; }
+  .v p { font-size: 18px; font-weight: 500; margin-bottom: 18px; }
+  .v footer { display: flex; gap: 12px; align-items: center; font-size: 14px; }
+  .v footer i { width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; font-style: normal; font-weight: 800; color: #fff; }
+  .enroll { padding: 0 0 110px; }
+  .enroll__box { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; background: var(--white); border-radius: 40px; padding: 56px; box-shadow: 0 6px 0 var(--line); }
+  .enroll form { display: grid; gap: 14px; }
+  .enroll input, .enroll select { width: 100%; padding: 15px 18px; border-radius: 14px; border: 2px solid var(--line); background: var(--bg); outline: none; font-weight: 500; }
+  .enroll input:focus, .enroll select:focus { border-color: var(--orange); }
+  .two { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .perks { list-style: none; display: grid; gap: 12px; margin-top: 24px; }
+  .perks li { display: flex; gap: 12px; align-items: center; font-weight: 500; }
+  .perks li::before { content: "✓"; width: 28px; height: 28px; border-radius: 50%; background: var(--green); color: #fff; display: grid; place-items: center; font-weight: 800; font-size: 14px; flex: none; }
+  footer.f { padding: 40px 0; border-top: 2px dashed var(--line); color: var(--muted); font-size: 14px; }
+  .foot { display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; align-items: center; }
+  .wa { position: fixed; right: 22px; bottom: 22px; z-index: 60; width: 58px; height: 58px; border-radius: 50%; background: #25d366; color: #fff; display: grid; place-items: center; box-shadow: 0 12px 30px -8px rgba(37,211,102,.6); transition: transform .3s var(--spring); }
+  .wa:hover { transform: scale(1.1) rotate(-8deg); }
+
+  @media (max-width: 1000px) {
+    .nav__links, .nav__cta { display: none; }
+    .burger { display: grid; }
+    .nav.open .nav__links { display: flex; flex-direction: column; position: absolute; top: 78px; left: 0; right: 0; background: var(--bg); padding: 24px 20px; gap: 18px; }
+    .hero__grid, .test__grid, .enroll__box { grid-template-columns: 1fr; }
+    .collage { height: 460px; }
+    .cgrid, .vgrid { grid-template-columns: 1fr; }
+    .mgrid { grid-template-columns: 1fr 1fr; }
+    .enroll__box { padding: 34px 24px; }
+    .v:nth-child(2) { transform: none; }
+  }
+  @media (max-width: 560px) {
+    .ans, .two { grid-template-columns: 1fr; }
+    .qcard { padding: 24px 20px; }
+    .collage { height: 380px; }
+    .bub { font-size: 15px; }
+    .test, .trip { margin: 0 8px; border-radius: 34px; }
+    .mgrid { grid-template-columns: 1fr; }
+    .levels span { font-size: 12px; }
+  }
+  @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; animation-delay: 0s !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; } [data-r] { opacity: 1; transform: none; } }
+</style>
+</head>
+<body>
+
+<header class="nav" id="nav">
+  <div class="wrap nav__in">
+    <a href="#" class="logo"><i>Li</i>lingo</a>
+    <nav class="nav__links"><a href="#teste">Teste de nível</a><a href="#cursos">Cursos</a><a href="#metodo">Método</a><a href="#matricula">Matrícula</a></nav>
+    <a href="#teste" class="btn btn--k nav__cta" style="padding:11px 20px;font-size:15px">Fazer teste grátis</a>
+    <button class="burger" aria-label="Menu"><span></span></button>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap hero__grid">
+    <div>
+      <span class="tag">🎓 Turmas com no máximo 8 alunos</span>
+      <h1>Fale <span class="type" id="type">inglês</span><br />com confiança em 12 meses.</h1>
+      <p>Aulas de conversação desde o primeiro dia, professores que viveram fora e um app para praticar 10 minutos por dia — onde você estiver.</p>
+      <div class="hero__ctas"><a href="#teste" class="btn btn--o">Descobrir meu nível →</a><a href="#cursos" class="btn btn--w">Ver cursos</a></div>
+      <div class="flags"><span class="fl" style="background:#2f6bff">EN</span><span class="fl" style="background:#ff6b2c">ES</span><span class="fl" style="background:#ff8fb1">FR</span>Inglês, espanhol e francês · presencial e online</div>
+    </div>
+    <div class="collage">
+      <div class="ph ph--a"><img src="https://images.unsplash.com/photo-1758270704763-22072a90d3b6?w=1000&q=78&auto=format&fit=crop" alt="Alunos conversando em sala" /></div>
+      <div class="ph ph--b"><img src="https://images.unsplash.com/photo-1571260899304-425eee4c7efc?w=800&q=78&auto=format&fit=crop" alt="Aluna com livro" /></div>
+      <span class="bub bub--1">Hello! 👋</span><span class="bub bub--2">¡Hola, qué tal?</span><span class="bub bub--3">Bonjour ✨</span>
+    </div>
+  </div>
+</section>
+
+<section class="test" id="teste">
+  <div class="wrap test__grid">
+    <div data-r>
+      <span class="tag" style="background:#2a2a44;box-shadow:none;color:#fff">⏱ 2 minutos</span>
+      <h2 class="h2" style="margin-top:16px">Qual é o seu nível de inglês?</h2>
+      <p class="lead">Seis perguntas rápidas, com resposta na hora. No final, você recebe seu nível no Quadro Europeu (CEFR) e a turma ideal para você.</p>
+      <div class="levels" id="levels"><span>A1</span><span>A2</span><span>B1</span><span>B2</span><span>C1</span></div>
+    </div>
+    <div class="qcard" data-r style="--d:.1s">
+      <div class="qtop"><span id="qN">Pergunta 1 de 6</span><span id="qScore">0 acertos</span></div>
+      <div class="bar"><i id="qBar" style="width:0%"></i></div>
+      <div id="qBox" style="flex:1;display:flex;flex-direction:column"></div>
+    </div>
+  </div>
+</section>
+
+<section class="courses" id="cursos">
+  <div class="wrap">
+    <div class="head"><div data-r><span class="tag">Cursos</span><h2 class="h2" style="margin-top:14px">Escolha seu idioma<br />e o seu ritmo</h2></div><p data-r style="--d:.1s">Material incluso, certificado internacional ao final de cada nível e reposição de aulas sem custo.</p></div>
+    <div class="langs" id="langs" data-r></div>
+    <div class="cgrid" id="cgrid"></div>
+  </div>
+</section>
+
+<section class="method" id="metodo">
+  <div class="wrap">
+    <div class="head"><div data-r><span class="tag">Método Lingo</span><h2 class="h2" style="margin-top:14px">Por que funciona</h2></div></div>
+    <div class="mgrid">
+      <div class="m" data-r style="background:var(--orange);color:#fff"><b>80%</b><div><h3>Conversação</h3><p>A maior parte da aula é você falando — não o professor.</p></div></div>
+      <div class="m" data-r style="--d:.08s;background:var(--blue);color:#fff"><b>8</b><div><h3>Alunos por turma</h3><p>Atenção individual e correção na hora.</p></div></div>
+      <div class="m" data-r style="--d:.16s;background:var(--yellow)"><b>10'</b><div><h3>Prática diária</h3><p>Exercícios no app que se adaptam aos seus erros.</p></div></div>
+      <div class="m" data-r style="--d:.24s;background:var(--pink)"><b>1x</b><div><h3>Por mês, imersão</h3><p>Clube de conversa, cinema e jantar no idioma.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="trip">
+  <div class="trip__bg" id="tripBg"></div>
+  <div class="wrap trip__in">
+    <div data-r><span class="tag" style="color:var(--ink)">✈️ Intercâmbio</span><h2 class="h2" style="margin-top:16px">Pratique onde o idioma acontece</h2><p>Programas de 2 a 12 semanas em Dublin, Madri, Paris e Toronto, com acomodação e acompanhamento da nossa equipe.</p></div>
+    <a href="#matricula" class="btn btn--o" data-r style="--d:.1s">Quero saber mais</a>
+  </div>
+</section>
+
+<section class="voices">
+  <div class="wrap">
+    <div class="head"><div data-r><span class="tag">Alunos</span><h2 class="h2" style="margin-top:14px">Quem já está falando</h2></div></div>
+    <div class="vgrid">
+      <div class="v" data-r><p>“Em 8 meses saí do básico para uma entrevista em inglês — e fui contratada!”</p><footer><i style="background:var(--orange)">M</i><div><b>Mariana T.</b><br />Inglês · B2</div></footer></div>
+      <div class="v" data-r style="--d:.1s"><p>“As aulas de conversação me tiraram a vergonha de falar. Hoje viajo sozinho pela Espanha.”</p><footer><i style="background:var(--ink)">R</i><div><b>Rafael S.</b><br />Espanhol · B1</div></footer></div>
+      <div class="v" data-r style="--d:.2s"><p>“O app é viciante. Pratico no ônibus e chego na aula muito mais confiante.”</p><footer><i style="background:var(--blue)">L</i><div><b>Letícia A.</b><br />Francês · A2</div></footer></div>
+    </div>
+  </div>
+</section>
+
+<section class="enroll" id="matricula">
+  <div class="wrap">
+    <div class="enroll__box" data-r>
+      <div><span class="tag" style="background:var(--yellow);box-shadow:none">Aula experimental grátis</span><h2 class="h2" style="margin-top:16px">Comece esta semana</h2><ul class="perks"><li>Primeira aula sem custo</li><li>Teste de nível com professor</li><li>Matrícula com 50% de desconto até dia 31</li><li>Material digital incluso</li></ul></div>
+      <form id="form">
+        <input id="fN" placeholder="Seu nome" required />
+        <div class="two"><input id="fW" placeholder="WhatsApp" inputmode="tel" required /><select id="fL"><option>Inglês</option><option>Espanhol</option><option>Francês</option></select></div>
+        <div class="two"><select id="fM"><option>Presencial</option><option>Online ao vivo</option><option>Intensivo</option></select><select id="fP"><option>Manhã</option><option>Tarde</option><option>Noite</option><option>Sábado</option></select></div>
+        <input id="fLv" placeholder="Seu nível (faça o teste acima!)" />
+        <button class="btn btn--o">Agendar aula grátis →</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer class="f"><div class="wrap foot"><a href="#" class="logo"><i>Li</i>lingo</a><span>Rua dos Pinheiros, 870 — São Paulo · (11) 99999-0000</span><span>© 2026 Lingo Escola de Idiomas</span></div></footer>
+
+<a class="wa" href="https://wa.me/5511999990000" target="_blank" rel="noopener" aria-label="WhatsApp"><svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21c5.46 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2Zm5.8 14.03c-.24.68-1.42 1.3-1.95 1.35-.5.05-.97.23-3.27-.68-2.77-1.09-4.52-3.92-4.66-4.1-.13-.18-1.1-1.47-1.1-2.8 0-1.34.7-2 .95-2.27.25-.27.54-.34.72-.34h.52c.17 0 .4-.06.62.47.24.56.8 1.94.87 2.08.07.14.12.3.02.48-.1.19-.14.3-.28.47-.14.16-.3.36-.42.49-.14.14-.29.29-.12.57.17.28.74 1.22 1.59 1.98 1.09.97 2.01 1.27 2.29 1.41.28.14.45.12.62-.07.17-.19.71-.83.9-1.11.19-.28.38-.24.64-.14.26.09 1.65.78 1.93.92.28.14.47.21.54.33.07.11.07.66-.17 1.34Z"/></svg></a>
+
+<script>
+(() => {
+  const reduz = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const $ = (s, el = document) => el.querySelector(s);
+  const $$ = (s, el = document) => [...el.querySelectorAll(s)];
+  const WA = "5511999990000";
+
+  const nav = $("#nav");
+  $(".burger").onclick = () => nav.classList.toggle("open");
+  $$(".nav__links a").forEach((a) => a.onclick = () => nav.classList.remove("open"));
+  const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }), { threshold: .12 });
+  $$("[data-r]").forEach((el) => io.observe(el));
+
+  /* Palavra digitada */
+  const W = ["inglês", "espanhol", "francês"], el = $("#type");
+  let wi = 0, ci = W[0].length, apagando = true;
+  if (!reduz) (function tipo() {
+    const w = W[wi];
+    if (apagando) { ci--; if (ci <= 0) { apagando = false; wi = (wi + 1) % W.length; } }
+    else { ci++; if (ci >= W[wi].length) { apagando = true; el.textContent = W[wi]; return setTimeout(tipo, 2200); } }
+    el.textContent = W[wi].slice(0, Math.max(0, ci)) || "​";
+    setTimeout(tipo, apagando ? 60 : 110);
+  })();
+
+  /* Teste de nível */
+  const Q = [
+    ["She ___ to work by bus every day.", ["go", "goes", "going", "gone"], 1, "Presente simples: he/she/it + s."],
+    ["I ___ never been to London.", ["have", "has", "had", "am"], 0, "Present perfect com “I”: have + particípio."],
+    ["If it rains tomorrow, we ___ stay home.", ["would", "will", "did", "are"], 1, "First conditional: if + presente, will + verbo."],
+    ["The report ___ by the manager yesterday.", ["wrote", "was written", "has written", "writes"], 1, "Voz passiva no passado: was/were + particípio."],
+    ["I wish I ___ more time to travel.", ["have", "had", "will have", "having"], 1, "Wish + passado para desejos no presente."],
+    ["Hardly ___ the meeting started when the power went out.", ["had", "did", "has", "was"], 0, "Inversão formal: hardly had + sujeito + particípio."],
+  ];
+  const NIV = [["A1", "Iniciante", "Você vai começar do zero com segurança — e já conversar na primeira aula."], ["A1", "Iniciante", "Você reconhece o básico. Vamos construir uma base sólida de conversação."], ["A2", "Básico", "Você entende frases do dia a dia. Hora de ganhar fluência nas situações reais."], ["B1", "Intermediário", "Você se vira bem! O foco agora é falar com naturalidade e ampliar vocabulário."], ["B2", "Intermediário superior", "Você conversa com confiança. Vamos refinar para o mercado de trabalho."], ["C1", "Avançado", "Impressionante! Nossas turmas avançadas e preparatórias para certificação são para você."], ["C1", "Avançado", "Nível excelente. Que tal um curso preparatório para o C2 ou intercâmbio profissional?"]];
+  let qi = 0, acertos = 0;
+  const box = $("#qBox");
+  function pergunta() {
+    $("#qN").textContent = `Pergunta ${qi + 1} de ${Q.length}`;
+    $("#qBar").style.width = `${(qi / Q.length) * 100}%`;
+    const [t, op] = Q[qi];
+    box.innerHTML = `<div class="qq"><h3>${t.replace("___", "<u>___</u>")}</h3><div class="ans">${op.map((o, i) => `<button class="an" data-i="${i}">${o}</button>`).join("")}</div><p class="fb" id="fb"></p></div>`;
+  }
+  box.onclick = (e) => {
+    const b = e.target.closest(".an"); if (!b || b.disabled) return;
+    const [, , ok, dica] = Q[qi], certo = +b.dataset.i === ok;
+    $$(".an", box).forEach((x) => { x.disabled = true; if (+x.dataset.i === ok) x.classList.add("right"); });
+    if (!certo) b.classList.add("wrong"); else acertos++;
+    $("#qScore").textContent = `${acertos} ${acertos === 1 ? "acerto" : "acertos"}`;
+    $("#fb").innerHTML = certo ? "✅ Correto! " + dica : "💡 " + dica;
+    setTimeout(() => { qi++; qi < Q.length ? pergunta() : resultado(); }, 1500);
+  };
+  function resultado() {
+    $("#qBar").style.width = "100%";
+    $("#qN").textContent = "Resultado";
+    const [lvl, nome, txt] = NIV[acertos];
+    $$("#levels span").forEach((s) => s.classList.toggle("on", s.textContent === lvl));
+    $("#fLv").value = `${lvl} — ${nome}`;
+    box.innerHTML = `<div class="result"><div class="lvl">${lvl}</div><h3>${nome}</h3><p>${txt} Você acertou ${acertos} de ${Q.length}.</p><a class="btn btn--o" target="_blank" rel="noopener" href="https://wa.me/${WA}?text=${encodeURIComponent(`Olá! Fiz o teste no site e meu nível de inglês é ${lvl} (${nome}). Quero agendar uma aula experimental.`)}">Quero minha aula grátis</a><br /><button class="btn btn--w" id="redo" style="margin-top:12px">Refazer teste</button></div>`;
+  }
+  box.addEventListener("click", (e) => { if (e.target.id === "redo") { qi = 0; acertos = 0; $("#qScore").textContent = "0 acertos"; $$("#levels span").forEach((s) => s.classList.remove("on")); pergunta(); } });
+  pergunta();
+
+  /* Cursos */
+  const L = { "Inglês": ["EN", "#e8f0ff", "#2f6bff"], "Espanhol": ["ES", "#fff1d6", "#ff6b2c"], "Francês": ["FR", "#ffe5ee", "#ff8fb1"] };
+  const C = [["Regular presencial", "2 aulas por semana na escola, com clube de conversa mensal.", ["2x/semana", "1h30 por aula", "Turmas de 8"], 389, "🏫"], ["Online ao vivo", "Aulas em tempo real com professor e colegas, de onde você estiver.", ["2x/semana", "Câmera aberta", "Gravações"], 299, "💻"], ["Intensivo", "Avance um nível inteiro em 3 meses, com 4 aulas por semana.", ["4x/semana", "3 meses", "Certificado"], 590, "🚀"]];
+  let lang = "Inglês";
+  const renderC = () => {
+    $("#langs").innerHTML = Object.keys(L).map((k) => `<button class="lg ${k === lang ? "on" : ""}" data-k="${k}"><span class="fl" style="width:28px;height:28px;font-size:11px;border-radius:9px;background:${L[k][2]};transform:none">${L[k][0]}</span>${k}</button>`).join("");
+    $("#cgrid").innerHTML = C.map(([n, d, m, p, ic], i) => { const preco = lang === "Inglês" ? p : Math.round(p * (lang === "Francês" ? 1.12 : .94)); return `<article class="course" style="animation-delay:${i * 80}ms"><div class="course__ic" style="background:${L[lang][1]}">${ic}</div><h3>${lang} ${n.toLowerCase()}</h3><p>${d}</p><div class="meta">${m.map((x) => `<span>${x}</span>`).join("")}</div><div class="price"><b>R$ ${preco}</b><small>/mês</small></div><a href="#matricula" class="btn btn--k" style="margin-top:18px" data-l="${lang}" data-m="${n}">Escolher</a></article>`; }).join("");
+  };
+  $("#langs").onclick = (e) => { const b = e.target.closest(".lg"); if (b) { lang = b.dataset.k; renderC(); } };
+  $("#cgrid").onclick = (e) => { const a = e.target.closest("[data-l]"); if (!a) return; $("#fL").value = a.dataset.l; $("#fM").value = a.dataset.m.startsWith("Online") ? "Online ao vivo" : a.dataset.m === "Intensivo" ? "Intensivo" : "Presencial"; };
+  renderC();
+
+  /* Parallax da viagem */
+  const tb = $("#tripBg");
+  addEventListener("scroll", () => { if (reduz) return; const r = tb.parentElement.getBoundingClientRect(); tb.style.transform = `translateY(${(r.top + r.height / 2 - innerHeight / 2) * -.12}px)`; }, { passive: true });
+
+  $("#form").onsubmit = (e) => {
+    e.preventDefault();
+    const msg = `Olá, Lingo! Quero agendar uma aula experimental.\nNome: ${$("#fN").value}\nIdioma: ${$("#fL").value}\nModalidade: ${$("#fM").value}\nPeríodo: ${$("#fP").value}${$("#fLv").value ? `\nNível: ${$("#fLv").value}` : ""}`;
+    window.open(`https://wa.me/${WA}?text=${encodeURIComponent(msg)}`, "_blank");
+  };
+})();
+</script>
+</body>
+</html>

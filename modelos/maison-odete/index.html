@@ -1,0 +1,332 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Maison Odete — Moda Feminina</title>
+<meta name="description" content="Maison Odete: alfaiataria, vestidos e casacos femininos com produção autoral. Monte seu look e agende atendimento com stylist." />
+<meta name="theme-color" content="#f5efe6" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Gilda+Display&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #f5efe6; --paper: #fbf8f3; --ink: #2b211c; --muted: #8a7d74; --line: #e3d9cc;
+    --rose: #b88a7a; --wine: #7a2e2e; --sage: #8c9a80;
+    --serif: "Gilda Display", Georgia, serif; --sans: "Montserrat", system-ui, sans-serif;
+    --ease: cubic-bezier(.22,.8,.2,1);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { overflow-x: clip; scroll-behavior: smooth; scroll-padding-top: 80px; }
+  body { background: var(--bg); color: var(--ink); font-family: var(--sans); font-weight: 300; line-height: 1.7; -webkit-font-smoothing: antialiased; overflow-x: clip; }
+  img { display: block; max-width: 100%; }
+  a { color: inherit; text-decoration: none; }
+  button, input, select { font: inherit; color: inherit; }
+  button { background: none; border: 0; cursor: pointer; }
+  .wrap { width: min(1280px, 100% - 40px); margin-inline: auto; }
+  [class*="__grid"] > * { min-width: 0; }
+  h1, h2, h3 { font-family: var(--serif); font-weight: 400; line-height: 1.02; }
+  .h2 { font-size: clamp(40px, 5.6vw, 84px); }
+  .h2 em { font-style: italic; color: var(--rose); }
+  .caps { font-size: 11px; font-weight: 500; letter-spacing: .32em; text-transform: uppercase; }
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 12px; padding: 17px 34px; font-size: 11px; font-weight: 500; letter-spacing: .3em; text-transform: uppercase; transition: all .5s var(--ease); }
+  .btn--k { background: var(--ink); color: var(--paper); }
+  .btn--k:hover { background: var(--wine); }
+  .btn--l { box-shadow: inset 0 0 0 1px var(--ink); }
+  .btn--l:hover { background: var(--ink); color: var(--paper); }
+  [data-r] { opacity: 0; transform: translateY(30px); transition: opacity 1.2s var(--ease), transform 1.2s var(--ease); transition-delay: var(--d, 0s); }
+  [data-r].in { opacity: 1; transform: none; }
+
+  /* NAV */
+  .bar { background: var(--ink); color: var(--paper); text-align: center; padding: 9px; font-size: 11px; letter-spacing: .22em; text-transform: uppercase; }
+  .nav { position: sticky; top: 0; z-index: 50; background: rgba(245,239,230,.94); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
+  .nav__in { height: 74px; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; }
+  .nav__links { display: flex; gap: 28px; font-size: 11px; font-weight: 500; letter-spacing: .24em; text-transform: uppercase; }
+  .nav__links a { position: relative; } .nav__links a::after { content: ""; position: absolute; left: 0; right: 100%; bottom: -4px; height: 1px; background: currentColor; transition: right .5s var(--ease); } .nav__links a:hover::after { right: 0; }
+  .logo { font-family: var(--serif); font-size: 30px; letter-spacing: .14em; text-align: center; }
+  .icons { justify-self: end; display: flex; gap: 20px; align-items: center; font-size: 11px; letter-spacing: .2em; text-transform: uppercase; font-weight: 500; }
+  .icons b { font-weight: 600; }
+  .burger { display: none; }
+
+  /* HERO / CAPA */
+  .cover { position: relative; padding: 40px 0 90px; overflow: hidden; }
+  .mast { font-family: var(--serif); font-size: clamp(84px, 24vw, 380px); line-height: .78; text-align: center; letter-spacing: -.02em; position: relative; z-index: 1; mix-blend-mode: multiply; color: var(--wine); }
+  .mast span { display: inline-block; opacity: 0; transform: translateY(40px); animation: up 1.2s var(--ease) forwards; }
+  @keyframes up { to { opacity: 1; transform: none; } }
+  .cover__grid { display: grid; grid-template-columns: 1fr 1.1fr 1fr; gap: 40px; align-items: center; margin-top: -9vw; position: relative; }
+  .cover__img { aspect-ratio: 3/4; overflow: hidden; position: relative; z-index: 0; }
+  .cover__img img { width: 100%; height: 112%; object-fit: cover; transform: scale(1.08); animation: in 1.8s .3s var(--ease) both; will-change: transform; }
+  @keyframes in { from { opacity: 0; transform: scale(1.18); } }
+  .lines { display: grid; gap: 28px; }
+  .lines div { border-top: 1px solid var(--ink); padding-top: 12px; }
+  .lines h3 { font-size: 26px; margin: 6px 0 4px; }
+  .lines p { font-size: 14px; color: var(--muted); }
+  .lines--r { text-align: right; }
+  .issue { display: flex; justify-content: space-between; margin-top: 30px; padding-top: 14px; border-top: 1px solid var(--line); }
+
+  /* COLEÇÃO */
+  .coll { padding: 110px 0; }
+  .head { display: flex; justify-content: space-between; align-items: end; gap: 30px; flex-wrap: wrap; margin-bottom: 40px; }
+  .head p { color: var(--muted); max-width: 380px; }
+  .tabs { display: flex; gap: 22px; flex-wrap: wrap; margin-bottom: 34px; border-bottom: 1px solid var(--line); }
+  .tab { padding: 0 0 14px; font-size: 11px; font-weight: 500; letter-spacing: .24em; text-transform: uppercase; color: var(--muted); border-bottom: 1px solid transparent; margin-bottom: -1px; transition: all .3s; }
+  .tab.on { color: var(--ink); border-color: var(--ink); }
+  .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 34px 22px; }
+  .pr { animation: up .8s var(--ease) both; }
+  .pr__img { position: relative; aspect-ratio: 3/4.2; overflow: hidden; background: var(--line); }
+  .pr__img img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 1.6s var(--ease), opacity .8s; }
+  .pr:hover .pr__img img { transform: scale(1.05); }
+  .heart { position: absolute; top: 12px; right: 12px; width: 36px; height: 36px; border-radius: 50%; background: rgba(251,248,243,.92); display: grid; place-items: center; }
+  .heart svg { width: 16px; fill: none; stroke: var(--ink); stroke-width: 1.4; transition: fill .3s; }
+  .heart.on svg { fill: var(--wine); stroke: var(--wine); }
+  .new { position: absolute; left: 12px; top: 12px; font-size: 10px; letter-spacing: .24em; text-transform: uppercase; background: var(--paper); padding: 5px 9px; }
+  .pr__quick { position: absolute; left: 0; right: 0; bottom: 0; background: rgba(251,248,243,.94); padding: 12px; display: flex; justify-content: center; gap: 8px; transform: translateY(100%); transition: transform .5s var(--ease); font-size: 11px; letter-spacing: .1em; }
+  .pr:hover .pr__quick { transform: none; }
+  .pr__quick span { width: 32px; height: 32px; display: grid; place-items: center; box-shadow: inset 0 0 0 1px var(--line); }
+  .pr h3 { font-family: var(--sans); font-weight: 400; font-size: 14px; margin-top: 14px; letter-spacing: .02em; }
+  .pr p { font-size: 13px; color: var(--muted); }
+
+  /* MONTE SEU LOOK */
+  .look { padding: 110px 0; background: var(--paper); border-block: 1px solid var(--line); }
+  .look__grid { display: grid; grid-template-columns: 1.4fr .6fr; gap: 50px; align-items: center; }
+  .slots { display: grid; grid-template-columns: 1.2fr 1fr .8fr; gap: 16px; align-items: end; }
+  .slot { position: relative; }
+  .slot small { display: block; text-align: center; margin-bottom: 10px; }
+  .slot__img { position: relative; aspect-ratio: 3/4; overflow: hidden; background: var(--bg); }
+  .slot__img img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; animation: swap .7s var(--ease); }
+  @keyframes swap { from { opacity: 0; transform: translateX(20px); } }
+  .slot__acc { aspect-ratio: 3/4; background: var(--bg); display: grid; place-items: center; animation: swap .7s var(--ease); }
+  .slot__acc svg { width: 60%; height: auto; }
+  .slot__nav { display: flex; justify-content: space-between; align-items: center; margin-top: 12px; }
+  .slot__nav button { width: 38px; height: 38px; box-shadow: inset 0 0 0 1px var(--line); transition: all .3s; font-size: 16px; }
+  .slot__nav button:hover { background: var(--ink); color: var(--paper); box-shadow: none; }
+  .slot__nav div { text-align: center; font-size: 13px; line-height: 1.3; }
+  .slot__nav b { display: block; font-weight: 500; }
+  .total { font-family: var(--serif); font-size: 56px; line-height: 1; margin: 14px 0 6px; }
+  .saved { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 18px; }
+  .saved span { font-size: 12px; padding: 6px 12px; background: var(--bg); animation: up .5s var(--ease); }
+
+  /* STYLIST */
+  .stylist { padding: 110px 0; }
+  .st__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+  .st__img { aspect-ratio: 4/5; overflow: hidden; }
+  .st__img img { width: 100%; height: 100%; object-fit: cover; }
+  .modes { display: grid; gap: 10px; margin: 26px 0; }
+  .md { text-align: left; padding: 18px 20px; box-shadow: inset 0 0 0 1px var(--line); display: grid; grid-template-columns: 1fr auto; gap: 4px 16px; transition: all .3s; }
+  .md b { font-family: var(--serif); font-weight: 400; font-size: 22px; }
+  .md small { color: var(--muted); grid-column: 1; }
+  .md span { grid-row: span 2; align-self: center; font-size: 12px; letter-spacing: .1em; }
+  .md.on { background: var(--ink); color: var(--paper); box-shadow: none; }
+  .md.on small { color: #c9bcb0; }
+  .sform { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .sform input { padding: 16px; border: 0; border-bottom: 1px solid var(--ink); background: transparent; outline: none; color-scheme: light; }
+  .sform .btn { grid-column: 1 / -1; }
+
+  /* LOOKBOOK */
+  .lb { padding: 0 0 110px; }
+  .strip { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; }
+  .strip figure { overflow: hidden; aspect-ratio: 3/4.4; }
+  .strip figure:nth-child(even) { margin-top: 60px; }
+  .strip img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(.2); transition: transform 1.6s var(--ease), filter .8s; }
+  .strip figure:hover img { transform: scale(1.06); filter: none; }
+
+  /* NEWS + FOOTER */
+  .news { padding: 100px 0; background: var(--wine); color: var(--paper); text-align: center; }
+  .news p { opacity: .8; max-width: 460px; margin: 16px auto 30px; }
+  .nform { display: flex; max-width: 520px; margin: 0 auto; border-bottom: 1px solid var(--paper); }
+  .nform input { flex: 1; min-width: 0; background: transparent; border: 0; padding: 16px 0; outline: none; color: var(--paper); }
+  .nform input::placeholder { color: rgba(251,248,243,.6); }
+  .nform button { font-size: 11px; letter-spacing: .3em; text-transform: uppercase; font-weight: 500; }
+  .ok { min-height: 24px; margin-top: 14px; font-size: 13px; }
+  footer { padding: 50px 0; }
+  .foot { display: grid; grid-template-columns: 1.2fr 1fr 1fr 1fr; gap: 30px; font-size: 13px; color: var(--muted); }
+  .foot b { display: block; color: var(--ink); font-weight: 500; letter-spacing: .2em; text-transform: uppercase; font-size: 11px; margin-bottom: 12px; }
+  .wa { position: fixed; right: 22px; bottom: 22px; z-index: 60; width: 58px; height: 58px; border-radius: 50%; background: #25d366; color: #fff; display: grid; place-items: center; box-shadow: 0 12px 30px -8px rgba(37,211,102,.6); transition: transform .3s var(--ease); }
+  .wa:hover { transform: scale(1.08); }
+
+  @media (max-width: 1000px) {
+    .nav__in { grid-template-columns: auto 1fr; }
+    .nav__links { display: none; }
+    .logo { text-align: left; }
+    .cover__grid { grid-template-columns: 1fr; margin-top: 18px; }
+    .lines { grid-template-columns: 1fr 1fr; }
+    .lines--r { text-align: left; }
+    .cover__img { max-width: 520px; width: 100%; margin: 0 auto; order: -1; }
+    .grid { grid-template-columns: 1fr 1fr; }
+    .look__grid, .st__grid { grid-template-columns: 1fr; }
+    .strip { grid-template-columns: 1fr 1fr; }
+    .strip figure:nth-child(even) { margin-top: 0; }
+    .strip figure:nth-child(5) { display: none; }
+    .foot { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 600px) {
+    .slots { grid-template-columns: 1fr 1fr; }
+    .slot:last-child { grid-column: 1 / -1; max-width: 200px; margin: 0 auto; width: 100%; }
+    .lines { grid-template-columns: 1fr; }
+    .sform { grid-template-columns: 1fr; }
+    .icons span { display: none; }
+  }
+  @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; animation-delay: 0s !important; transition-duration: .01ms !important; } [data-r] { opacity: 1; transform: none; } }
+</style>
+</head>
+<body>
+
+<div class="bar">Frete grátis acima de R$ 790 · Troca em até 30 dias · Parcelamento em 6x</div>
+<header class="nav" id="nav">
+  <div class="wrap nav__in">
+    <nav class="nav__links"><a href="#colecao">Coleção</a><a href="#look">Monte seu look</a><a href="#stylist">Stylist</a><a href="#lookbook">Lookbook</a></nav>
+    <a href="#" class="logo">MAISON ODETE</a>
+    <div class="icons"><span>Favoritos</span><b id="favN">0</b></div>
+  </div>
+</header>
+
+<section class="cover">
+  <div class="wrap">
+    <h1 class="mast" aria-label="Odete"><span>O</span><span style="animation-delay:.08s">d</span><span style="animation-delay:.16s">e</span><span style="animation-delay:.24s">t</span><span style="animation-delay:.32s">e</span></h1>
+    <div class="cover__grid">
+      <div class="lines" data-r style="--d:.5s"><div><span class="caps">Nesta coleção</span><h3>Alfaiataria que respira</h3><p>Lã fria, linho e corte reto para atravessar o dia.</p></div><div><span class="caps">Tendência</span><h3>Vermelho é o novo neutro</h3><p>Como usar a cor da estação sem medo.</p></div></div>
+      <div class="cover__img"><img id="coverImg" src="https://images.unsplash.com/photo-1580478491436-fd6a937acc9e?w=1100&q=82&auto=format&fit=crop" alt="Modelo com blazer vermelho" /></div>
+      <div class="lines lines--r" data-r style="--d:.7s"><div><span class="caps">Atelier</span><h3>Feito em São Paulo</h3><p>Peças produzidas em pequenas tiragens.</p></div><div><span class="caps">Serviço</span><h3>Sua stylist pessoal</h3><p>Atendimento na loja, por vídeo ou no seu closet.</p></div></div>
+    </div>
+    <div class="issue caps"><span>Coleção Outono · Inverno 2026</span><span>Edição nº 12</span><a href="#colecao">Explorar ↓</a></div>
+  </div>
+</section>
+
+<section class="coll" id="colecao">
+  <div class="wrap">
+    <div class="head"><div data-r><span class="caps">A coleção</span><h2 class="h2" style="margin-top:14px">Peças para <em>ficar</em></h2></div><p data-r style="--d:.1s">Modelagens atemporais, tecidos naturais e acabamento de alfaiataria. Toque no coração para salvar seus favoritos.</p></div>
+    <div class="tabs" id="tabs"></div>
+    <div class="grid" id="grid"></div>
+  </div>
+</section>
+
+<section class="look" id="look">
+  <div class="wrap look__grid">
+    <div class="slots" id="slots" data-r></div>
+    <div data-r style="--d:.1s">
+      <span class="caps">Monte seu look</span>
+      <h2 class="h2" style="margin-top:14px;font-size:clamp(36px,4.4vw,64px)">Combine e <em>descubra</em></h2>
+      <p style="color:var(--muted);margin-top:14px">Troque as peças com as setas. O valor do look aparece na hora — com 10% off levando as três.</p>
+      <p class="total" id="total">R$ 0</p>
+      <small style="color:var(--muted)" id="totalTxt"></small>
+      <div style="display:grid;gap:10px;margin-top:24px"><a class="btn btn--k" id="buyLook" target="_blank" rel="noopener" href="#">Comprar este look</a><button class="btn btn--l" id="saveLook">Salvar look</button></div>
+      <div class="saved" id="saved"></div>
+    </div>
+  </div>
+</section>
+
+<section class="stylist" id="stylist">
+  <div class="wrap st__grid">
+    <div class="st__img" data-r><img src="https://images.unsplash.com/photo-1640921734615-aeb4efe3e614?w=1000&q=80&auto=format&fit=crop" alt="Arara de roupas na loja" loading="lazy" /></div>
+    <div data-r style="--d:.1s">
+      <span class="caps">Personal stylist</span>
+      <h2 class="h2" style="margin-top:14px;font-size:clamp(36px,4.4vw,64px)">Uma hora <em>só sua</em></h2>
+      <p style="color:var(--muted);margin-top:14px">Nossa stylist entende seu estilo, sua rotina e monta looks completos com o que você já tem e com peças da coleção.</p>
+      <div class="modes" id="modes"></div>
+      <form class="sform" id="sform"><input id="sN" placeholder="Seu nome" required /><input id="sD" type="date" required /><button class="btn btn--k">Agendar atendimento</button></form>
+    </div>
+  </div>
+</section>
+
+<section class="lb" id="lookbook">
+  <div class="wrap">
+    <div class="head"><div data-r><span class="caps">Lookbook</span><h2 class="h2" style="margin-top:14px">Outono <em>em cena</em></h2></div></div>
+    <div class="strip" data-r>
+      <figure><img src="https://images.unsplash.com/photo-1612731486606-2614b4d74921?w=600&q=78&auto=format&fit=crop" alt="Blazer preto" loading="lazy" /></figure>
+      <figure><img src="https://images.unsplash.com/photo-1578432156830-0ca0d7913b7f?w=600&q=78&auto=format&fit=crop" alt="Terno verde" loading="lazy" /></figure>
+      <figure><img src="https://images.unsplash.com/photo-1668952135120-7d997b1b3778?w=600&q=78&auto=format&fit=crop" alt="Casaco longo" loading="lazy" /></figure>
+      <figure><img src="https://images.unsplash.com/photo-1789110519342-6d3f6b07a749?w=600&q=78&auto=format&fit=crop" alt="Vestido de alcinha" loading="lazy" /></figure>
+      <figure><img src="https://images.unsplash.com/photo-1645561305502-63a9ba09ab09?w=600&q=78&auto=format&fit=crop" alt="Sobretudo e óculos" loading="lazy" /></figure>
+    </div>
+  </div>
+</section>
+
+<section class="news">
+  <div class="wrap" data-r>
+    <span class="caps">Lista Odete</span>
+    <h2 class="h2" style="margin-top:14px">Primeiro acesso às <em style="color:#f0d3c9">novidades</em></h2>
+    <p>Pré-venda das coleções, convites para eventos na loja e 10% na primeira compra.</p>
+    <form class="nform" id="nform"><input type="email" placeholder="Seu e-mail" required aria-label="E-mail" /><button>Assinar →</button></form>
+    <p class="ok" id="ok"></p>
+  </div>
+</section>
+
+<footer><div class="wrap foot"><div><span class="logo" style="font-size:24px">MAISON ODETE</span><p style="margin-top:12px">Moda feminina autoral, desde 2014.</p></div><div><b>Loja</b>Rua Oscar Freire, 980<br />São Paulo — SP</div><div><b>Atendimento</b>(11) 99999-0000<br />ola@maisonodete.com.br</div><div><b>Horários</b>Seg a sáb, 10h às 20h<br />Domingo, 12h às 18h</div></div></footer>
+
+<a class="wa" href="https://wa.me/5511999990000" target="_blank" rel="noopener" aria-label="WhatsApp"><svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21c5.46 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2Zm5.8 14.03c-.24.68-1.42 1.3-1.95 1.35-.5.05-.97.23-3.27-.68-2.77-1.09-4.52-3.92-4.66-4.1-.13-.18-1.1-1.47-1.1-2.8 0-1.34.7-2 .95-2.27.25-.27.54-.34.72-.34h.52c.17 0 .4-.06.62.47.24.56.8 1.94.87 2.08.07.14.12.3.02.48-.1.19-.14.3-.28.47-.14.16-.3.36-.42.49-.14.14-.29.29-.12.57.17.28.74 1.22 1.59 1.98 1.09.97 2.01 1.27 2.29 1.41.28.14.45.12.62-.07.17-.19.71-.83.9-1.11.19-.28.38-.24.64-.14.26.09 1.65.78 1.93.92.28.14.47.21.54.33.07.11.07.66-.17 1.34Z"/></svg></a>
+
+<script>
+(() => {
+  const reduz = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const $ = (s, el = document) => el.querySelector(s);
+  const $$ = (s, el = document) => [...el.querySelectorAll(s)];
+  const u = (id, w) => `https://images.unsplash.com/photo-${id}?w=${w}&q=80&auto=format&fit=crop`;
+  const brl = (n) => n.toLocaleString("pt-BR", { style: "currency", currency: "BRL", maximumFractionDigits: 0 });
+  const WA = "5511999990000";
+
+  const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }), { threshold: .12 });
+  $$("[data-r]").forEach((el) => io.observe(el));
+  const ci = $("#coverImg");
+  addEventListener("scroll", () => { if (!reduz && scrollY < innerHeight * 1.4) ci.style.transform = `translateY(${scrollY * -.08}px)`; }, { passive: true });
+
+  /* Coleção */
+  const P = [
+    ["Blazer Alfaiataria Noir", "Blazers", 890, "1612731486606-2614b4d74921", true],
+    ["Blazer Rubi Lã Fria", "Blazers", 940, "1580478491436-fd6a937acc9e", true],
+    ["Terno Verde Musgo", "Alfaiataria", 1480, "1578432156830-0ca0d7913b7f", false],
+    ["Conjunto Risca de Giz", "Alfaiataria", 1290, "1613915617430-8ab0fd7c6baf", false],
+    ["Vestido Rosé Plissado", "Vestidos", 690, "1640923160720-35dddb6348ab", true],
+    ["Vestido Floral Midi", "Vestidos", 590, "1735553816867-88cd8496df58", false],
+    ["Sobretudo Camelo", "Casacos", 1690, "1668952135120-7d997b1b3778", false],
+    ["Trench Grafite", "Casacos", 1390, "1645561305502-63a9ba09ab09", true],
+  ];
+  const cats = ["Todos", "Blazers", "Alfaiataria", "Vestidos", "Casacos"];
+  let cat = "Todos";
+  const favs = new Set();
+  function grid() {
+    $("#tabs").innerHTML = cats.map((c) => `<button class="tab ${c === cat ? "on" : ""}">${c}</button>`).join("");
+    $("#grid").innerHTML = P.filter((p) => cat === "Todos" || p[1] === cat).map(([n, c, p, img, nv], i) => `<article class="pr" style="animation-delay:${i * 80}ms"><div class="pr__img"><img src="${u(img, 700)}" alt="${n}" loading="lazy" />${nv ? '<span class="new">Novo</span>' : ""}<button class="heart ${favs.has(n) ? "on" : ""}" data-n="${n}" aria-label="Favoritar"><svg viewBox="0 0 24 24"><path d="M12 20s-7-4.4-9-9a5 5 0 0 1 9-3 5 5 0 0 1 9 3c-2 4.6-9 9-9 9Z"/></svg></button><div class="pr__quick"><span>PP</span><span>P</span><span>M</span><span>G</span><span>GG</span></div></div><h3>${n}</h3><p>${brl(p)} · 6x de ${brl(p / 6)}</p></article>`).join("");
+  }
+  $("#tabs").onclick = (e) => { const b = e.target.closest(".tab"); if (b) { cat = b.textContent; grid(); } };
+  $("#grid").onclick = (e) => { const h = e.target.closest(".heart"); if (!h) return; const n = h.dataset.n; favs.has(n) ? favs.delete(n) : favs.add(n); h.classList.toggle("on"); $("#favN").textContent = favs.size; };
+  grid();
+
+  /* Monte seu look */
+  const ICON = {
+    bolsa: '<svg viewBox="0 0 100 100" fill="none" stroke="#2b211c" stroke-width="2"><path d="M22 40h56l-6 46H28z" fill="#b88a7a"/><path d="M36 40c0-14 6-22 14-22s14 8 14 22"/></svg>',
+    lenco: '<svg viewBox="0 0 100 100" fill="none" stroke="#2b211c" stroke-width="2"><path d="M20 30h60L50 80z" fill="#7a2e2e"/><path d="M30 38h40M38 50h24" stroke="#f0d3c9"/></svg>',
+    cinto: '<svg viewBox="0 0 100 100" fill="none" stroke="#2b211c" stroke-width="2"><rect x="10" y="44" width="80" height="12" rx="3" fill="#2b211c"/><rect x="42" y="40" width="16" height="20" rx="2" fill="#d6b77a"/></svg>',
+    brinco: '<svg viewBox="0 0 100 100" fill="none" stroke="#d6b77a" stroke-width="3"><circle cx="34" cy="50" r="14"/><circle cx="66" cy="50" r="14"/><path d="M34 30v6M66 30v6"/></svg>',
+  };
+  const SLOTS = [
+    ["Peça principal", [["Blazer Noir", 890, "1612731486606-2614b4d74921"], ["Blazer Rubi", 940, "1580478491436-fd6a937acc9e"], ["Sobretudo Camelo", 1690, "1668952135120-7d997b1b3778"], ["Trench Grafite", 1390, "1645561305502-63a9ba09ab09"], ["Terno Verde", 1480, "1578432156830-0ca0d7913b7f"]]],
+    ["Base", [["Vestido Rosé", 690, "1640923160720-35dddb6348ab"], ["Vestido Floral", 590, "1735553816867-88cd8496df58"], ["Vestido Areia", 640, "1789110519342-6d3f6b07a749"], ["Conjunto Risca", 1290, "1613915617430-8ab0fd7c6baf"]]],
+    ["Acessório", [["Bolsa estruturada", 590, "bolsa"], ["Lenço de seda", 220, "lenco"], ["Cinto de couro", 260, "cinto"], ["Argolas douradas", 180, "brinco"]]],
+  ];
+  const idx = [0, 0, 0];
+  function look() {
+    $("#slots").innerHTML = SLOTS.map(([t, it], s) => { const [n, p, img] = it[idx[s]]; return `<div class="slot"><small class="caps">${t}</small>${ICON[img] ? `<div class="slot__acc" key="${idx[s]}">${ICON[img]}</div>` : `<div class="slot__img"><img src="${u(img, 600)}" alt="${n}" /></div>`}<div class="slot__nav"><button data-s="${s}" data-d="-1" aria-label="Anterior">←</button><div><b>${n}</b>${brl(p)}</div><button data-s="${s}" data-d="1" aria-label="Próximo">→</button></div></div>`; }).join("");
+    const itens = SLOTS.map(([, it], s) => it[idx[s]]), soma = itens.reduce((t, x) => t + x[1], 0);
+    $("#total").textContent = brl(soma * .9);
+    $("#totalTxt").innerHTML = `<s>${brl(soma)}</s> · economia de ${brl(soma * .1)} no look completo`;
+    $("#buyLook").href = `https://wa.me/${WA}?text=${encodeURIComponent(`Olá, Maison Odete! Quero este look:\n${itens.map((x) => `• ${x[0]} — ${brl(x[1])}`).join("\n")}\nTotal com 10% off: ${$("#total").textContent}`)}`;
+  }
+  $("#slots").onclick = (e) => { const b = e.target.closest("button[data-s]"); if (!b) return; const s = +b.dataset.s, n = SLOTS[s][1].length; idx[s] = (idx[s] + +b.dataset.d + n) % n; look(); };
+  let salvos = 0;
+  $("#saveLook").onclick = () => { if (salvos >= 4) return; salvos++; const nomes = SLOTS.map(([, it], s) => it[idx[s]][0]); $("#saved").insertAdjacentHTML("beforeend", `<span>Look ${salvos}: ${nomes.join(" + ")}</span>`); };
+  look();
+
+  /* Stylist */
+  const M = [["Na loja", "1h · com espumante e provador privativo", "Cortesia"], ["Por vídeo", "45 min · looks enviados por WhatsApp", "R$ 150"], ["No seu closet", "2h · organização + looks com o que você tem", "R$ 480"]];
+  let modo = 0;
+  const modes = () => $("#modes").innerHTML = M.map(([n, d, p], i) => `<button class="md ${i === modo ? "on" : ""}" data-i="${i}"><b>${n}</b><span>${p}</span><small>${d}</small></button>`).join("");
+  $("#modes").onclick = (e) => { const b = e.target.closest(".md"); if (b) { modo = +b.dataset.i; modes(); } };
+  modes();
+  const hoje = new Date(); hoje.setMinutes(hoje.getMinutes() - hoje.getTimezoneOffset());
+  $("#sD").min = hoje.toISOString().slice(0, 10);
+  $("#sform").onsubmit = (e) => { e.preventDefault(); const d = $("#sD").value.split("-").reverse().join("/"); const msg = `Olá, Maison Odete! Quero agendar um atendimento com stylist.\nNome: ${$("#sN").value}\nModalidade: ${M[modo][0]}\nData: ${d}${favs.size ? `\nFavoritos: ${[...favs].join(", ")}` : ""}`; window.open(`https://wa.me/${WA}?text=${encodeURIComponent(msg)}`, "_blank"); };
+  $("#nform").onsubmit = (e) => { e.preventDefault(); $("#ok").textContent = "Bem-vinda à Lista Odete. Seu cupom chega por e-mail. ✦"; e.target.reset(); };
+})();
+</script>
+</body>
+</html>

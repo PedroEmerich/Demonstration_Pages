@@ -1,0 +1,476 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Forte Materiais de Construção — Do alicerce ao acabamento</title>
+<meta name="description" content="Forte Materiais de Construção: cimento, blocos, tintas, ferramentas e acabamentos com entrega rápida. Calcule seu material e monte seu orçamento online." />
+<meta name="theme-color" content="#161616" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #ecebe6; --paper: #f7f6f2; --white: #fff; --ink: #161616; --muted: #5d5d58; --line: #d6d4cc;
+    --yellow: #ffcc00; --yellow2: #ffd83d; --orange: #ff7a1a; --dark: #1d1d1b;
+    --display: "Barlow Condensed", Impact, sans-serif; --sans: "Barlow", system-ui, sans-serif;
+    --ease: cubic-bezier(.2,.8,.2,1);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { overflow-x: clip; scroll-behavior: smooth; scroll-padding-top: 90px; }
+  body { background: var(--bg); color: var(--ink); font-family: var(--sans); line-height: 1.55; -webkit-font-smoothing: antialiased; overflow-x: clip; }
+  img { display: block; max-width: 100%; }
+  [class*="__grid"] > *, [class*="__box"] > * { min-width: 0; }
+  a { color: inherit; text-decoration: none; }
+  button, input, select { font: inherit; color: inherit; }
+  button { background: none; border: 0; cursor: pointer; }
+  .wrap { width: min(1280px, 100% - 40px); margin-inline: auto; }
+  .d { font-family: var(--display); font-weight: 800; text-transform: uppercase; line-height: .9; letter-spacing: -.005em; }
+  .h2 { font-size: clamp(46px, 6.4vw, 96px); }
+  .hl { background: var(--yellow); padding: 0 .12em; box-decoration-break: clone; -webkit-box-decoration-break: clone; }
+  .label { display: inline-flex; align-items: center; gap: 10px; font-family: var(--display); font-weight: 700; font-size: 16px; letter-spacing: .12em; text-transform: uppercase; }
+  .label::before { content: ""; width: 14px; height: 14px; background: var(--yellow); border: 2px solid var(--ink); }
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 16px 26px; font-family: var(--display); font-weight: 700; font-size: 19px; letter-spacing: .06em; text-transform: uppercase; border: 2px solid var(--ink); transition: transform .2s var(--ease), box-shadow .2s var(--ease), background .2s; }
+  .btn--y { background: var(--yellow); box-shadow: 5px 5px 0 var(--ink); }
+  .btn--y:hover { transform: translate(-2px, -2px); box-shadow: 7px 7px 0 var(--ink); }
+  .btn--y:active { transform: translate(3px, 3px); box-shadow: 2px 2px 0 var(--ink); }
+  .btn--k { background: var(--ink); color: #fff; }
+  .btn--k:hover { background: var(--yellow); color: var(--ink); }
+  [data-r] { opacity: 0; transform: translateY(40px); transition: opacity .7s var(--ease), transform .7s var(--ease); transition-delay: var(--d, 0s); }
+  [data-r].in { opacity: 1; transform: none; }
+
+  /* Faixa de aviso (topo) */
+  .top { background: var(--ink); color: #fff; font-size: 14px; }
+  .top__in { display: flex; justify-content: space-between; gap: 20px; padding: 9px 0; flex-wrap: wrap; }
+  .top b { color: var(--yellow); }
+
+  /* NAV */
+  .nav { position: sticky; top: 0; z-index: 50; background: var(--paper); border-bottom: 2px solid var(--ink); }
+  .nav__in { height: 76px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+  .logo { display: flex; align-items: center; gap: 10px; }
+  .logo__mark { width: 44px; height: 44px; background: var(--yellow); border: 2px solid var(--ink); display: grid; place-items: center; font-family: var(--display); font-weight: 800; font-size: 28px; transform: rotate(-4deg); transition: transform .3s var(--ease); }
+  .logo:hover .logo__mark { transform: rotate(4deg); }
+  .logo b { font-family: var(--display); font-weight: 800; font-size: 30px; line-height: .9; text-transform: uppercase; display: block; }
+  .logo small { font-size: 11px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+  .nav__links { display: flex; gap: 28px; font-family: var(--display); font-weight: 700; font-size: 18px; letter-spacing: .04em; text-transform: uppercase; }
+  .nav__links a { position: relative; }
+  .nav__links a::after { content: ""; position: absolute; left: 0; right: 0; bottom: -2px; height: 4px; background: var(--yellow); transform: scaleX(0); transform-origin: left; transition: transform .3s var(--ease); z-index: -1; }
+  .nav__links a:hover::after { transform: scaleX(1); }
+  .cartbtn { position: relative; display: inline-flex; align-items: center; gap: 8px; padding: 10px 16px; border: 2px solid var(--ink); font-family: var(--display); font-weight: 700; font-size: 17px; text-transform: uppercase; background: var(--white); }
+  .cartbtn b { min-width: 24px; height: 24px; padding: 0 6px; background: var(--ink); color: var(--yellow); display: grid; place-items: center; font-size: 14px; }
+  .cartbtn.bump { animation: bump .45s var(--ease); }
+  @keyframes bump { 40% { transform: scale(1.12) rotate(-3deg); } }
+  .burger { display: none; width: 48px; height: 48px; border: 2px solid var(--ink); background: var(--yellow); place-items: center; }
+  .burger span { width: 20px; height: 3px; background: var(--ink); box-shadow: 0 7px 0 var(--ink), 0 -7px 0 var(--ink); }
+
+  /* HERO */
+  .hero { position: relative; border-bottom: 2px solid var(--ink); overflow: hidden; }
+  .hero__grid { display: grid; grid-template-columns: 1.1fr .9fr; min-height: calc(100svh - 115px); }
+  .hero__text { padding: 70px 50px 60px 0; display: flex; flex-direction: column; justify-content: center; }
+  .hero h1 { font-size: clamp(60px, 8.6vw, 148px); margin: 22px 0 26px; }
+  .hero h1 .ln { display: block; overflow: hidden; }
+  .hero h1 .ln > span { display: inline-block; transform: translateY(105%); animation: up .8s var(--ease) forwards; }
+  .hero h1 .ln:nth-child(2) > span { animation-delay: .1s; } .hero h1 .ln:nth-child(3) > span { animation-delay: .2s; }
+  @keyframes up { to { transform: none; } }
+  .hero p { font-size: 19px; color: var(--muted); max-width: 500px; }
+  .hero__ctas { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 34px; }
+  .perks { display: grid; grid-template-columns: repeat(3, auto); gap: 26px; margin-top: 44px; justify-content: start; }
+  .perk { display: flex; gap: 10px; align-items: center; font-weight: 600; font-size: 15px; line-height: 1.25; }
+  .perk i { width: 40px; height: 40px; border: 2px solid var(--ink); background: var(--white); display: grid; place-items: center; font-style: normal; font-size: 18px; flex: none; }
+  .hero__img { position: relative; border-left: 2px solid var(--ink); overflow: hidden; background: var(--dark); margin-right: calc((100vw - min(1280px, 100vw - 40px)) / -2); }
+  .hero__img img { width: 100%; height: 100%; object-fit: cover; transform: scale(1.15); animation: settle 1.6s var(--ease) forwards; }
+  @keyframes settle { to { transform: scale(1); } }
+  .stamp { position: absolute; left: 26px; top: 26px; width: 150px; height: 150px; border-radius: 50%; background: var(--yellow); border: 2px solid var(--ink); display: grid; place-items: center; text-align: center; transform: rotate(-12deg); animation: stamp .6s .9s var(--ease) both; }
+  .stamp b { display: block; font-family: var(--display); font-weight: 800; font-size: 44px; line-height: .85; }
+  .stamp span { font-family: var(--display); font-weight: 700; font-size: 15px; text-transform: uppercase; letter-spacing: .04em; }
+  @keyframes stamp { from { opacity: 0; transform: rotate(-40deg) scale(1.6); } }
+
+  /* Fita zebrada */
+  .tape { background: repeating-linear-gradient(-45deg, var(--yellow) 0 22px, var(--ink) 22px 44px); padding: 8px 0; border-bottom: 2px solid var(--ink); overflow: hidden; }
+  .tape__track { display: flex; width: max-content; animation: run 28s linear infinite; }
+  .tape span { background: var(--ink); color: var(--yellow); font-family: var(--display); font-weight: 800; font-size: 22px; letter-spacing: .06em; text-transform: uppercase; padding: 4px 22px; margin-right: 40px; white-space: nowrap; }
+  @keyframes run { to { transform: translateX(-50%); } }
+
+  /* DEPARTAMENTOS */
+  .depts { padding: 110px 0; }
+  .head { display: flex; justify-content: space-between; align-items: end; gap: 30px; flex-wrap: wrap; margin-bottom: 46px; }
+  .head p { max-width: 420px; color: var(--muted); font-size: 17px; }
+  .dgrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; border: 2px solid var(--ink); background: var(--ink); gap: 2px; }
+  .dept { position: relative; aspect-ratio: 4/3; overflow: hidden; background: var(--dark); color: #fff; }
+  .dept img { width: 100%; height: 100%; object-fit: cover; transition: transform 1s var(--ease), filter .5s; filter: grayscale(.4) brightness(.65); }
+  .dept:hover img { transform: scale(1.08); filter: grayscale(0) brightness(.55); }
+  .dept__body { position: absolute; inset: auto 0 0 0; padding: 24px; display: flex; justify-content: space-between; align-items: end; gap: 10px; }
+  .dept h3 { font-family: var(--display); font-weight: 800; font-size: 40px; text-transform: uppercase; line-height: .9; }
+  .dept small { display: block; font-size: 14px; opacity: .8; margin-top: 6px; }
+  .dept__go { width: 48px; height: 48px; background: var(--yellow); color: var(--ink); display: grid; place-items: center; font-size: 22px; font-weight: 700; transform: translateY(10px); opacity: 0; transition: all .35s var(--ease); flex: none; }
+  .dept:hover .dept__go { transform: none; opacity: 1; }
+  .dept__n { position: absolute; top: 18px; left: 20px; font-family: var(--display); font-weight: 800; font-size: 20px; color: var(--yellow); }
+
+  /* CALCULADORA */
+  .calc { padding: 110px 0; background: var(--ink); color: #fff; position: relative; overflow: hidden; }
+  .calc::before { content: ""; position: absolute; right: -120px; top: -120px; width: 420px; height: 420px; background: repeating-linear-gradient(-45deg, rgba(255,204,0,.12) 0 18px, transparent 18px 36px); border-radius: 50%; }
+  .calc .label::before { border-color: var(--yellow); }
+  .calc .head p { color: #b9b8b1; }
+  .calc__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; background: #333; border: 2px solid #333; position: relative; }
+  .calc__in, .calc__out { background: #1f1f1d; padding: 40px; }
+  .tabs { display: flex; gap: 6px; margin-bottom: 30px; flex-wrap: wrap; }
+  .tab { padding: 12px 18px; border: 2px solid #444; font-family: var(--display); font-weight: 700; font-size: 18px; text-transform: uppercase; letter-spacing: .04em; transition: all .2s; }
+  .tab:hover { border-color: var(--yellow); }
+  .tab.on { background: var(--yellow); color: var(--ink); border-color: var(--yellow); }
+  .fields { display: grid; gap: 22px; }
+  .fld label { display: flex; justify-content: space-between; font-weight: 600; margin-bottom: 10px; }
+  .fld label output { font-family: var(--display); font-weight: 800; font-size: 26px; color: var(--yellow); line-height: 1; }
+  input[type=range] { width: 100%; -webkit-appearance: none; appearance: none; height: 8px; background: linear-gradient(90deg, var(--yellow) var(--p, 30%), #3a3a37 var(--p, 30%)); outline: none; }
+  input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 26px; height: 26px; background: var(--yellow); border: 3px solid var(--ink); box-shadow: 0 0 0 2px var(--yellow); cursor: grab; }
+  input[type=range]::-moz-range-thumb { width: 20px; height: 20px; background: var(--yellow); border: 3px solid var(--ink); cursor: grab; border-radius: 0; }
+  .seg { display: flex; gap: 6px; }
+  .seg button { flex: 1; padding: 12px; border: 2px solid #444; font-weight: 700; transition: all .2s; }
+  .seg button.on { border-color: var(--yellow); color: var(--yellow); }
+  .calc__out h3 { font-family: var(--display); font-weight: 800; font-size: 30px; text-transform: uppercase; color: var(--yellow); margin-bottom: 20px; }
+  .need { display: grid; gap: 2px; margin-bottom: 26px; }
+  .need div { display: grid; grid-template-columns: 1fr auto; gap: 16px; align-items: center; padding: 16px 18px; background: #2a2a27; animation: needIn .4s var(--ease) both; }
+  @keyframes needIn { from { opacity: 0; transform: translateX(16px); } }
+  .need span small { display: block; color: #9c9b94; font-size: 13px; }
+  .need b { font-family: var(--display); font-weight: 800; font-size: 34px; line-height: 1; text-align: right; }
+  .need b em { font-style: normal; font-size: 16px; color: #b9b8b1; margin-left: 4px; }
+  .calc__note { font-size: 13px; color: #9c9b94; margin-top: 16px; }
+
+  /* ORÇAMENTO */
+  .quote { padding: 110px 0; }
+  .q__grid { display: grid; grid-template-columns: 1.4fr .9fr; gap: 30px; align-items: start; }
+  .plist { border: 2px solid var(--ink); background: var(--white); }
+  .pitem { display: grid; grid-template-columns: 70px 1fr auto auto; gap: 18px; align-items: center; padding: 16px 20px; border-bottom: 2px solid var(--bg); transition: background .2s; }
+  .pitem:last-child { border-bottom: 0; }
+  .pitem.has { background: #fffbe6; }
+  .pitem__ic { width: 70px; height: 56px; overflow: hidden; border: 2px solid var(--ink); }
+  .pitem__ic img { width: 100%; height: 100%; object-fit: cover; }
+  .pitem h4 { font-weight: 700; font-size: 17px; line-height: 1.2; }
+  .pitem small { color: var(--muted); font-size: 13px; }
+  .pitem .pr { font-family: var(--display); font-weight: 800; font-size: 24px; white-space: nowrap; }
+  .qty { display: flex; align-items: center; border: 2px solid var(--ink); }
+  .qty button { width: 38px; height: 38px; font-weight: 800; font-size: 20px; transition: background .2s; }
+  .qty button:hover { background: var(--yellow); }
+  .qty input { width: 54px; height: 38px; text-align: center; border: 0; border-inline: 2px solid var(--ink); font-weight: 700; outline: none; -moz-appearance: textfield; background: var(--white); }
+  .qty input::-webkit-outer-spin-button, .qty input::-webkit-inner-spin-button { -webkit-appearance: none; }
+  .summary { position: sticky; top: 100px; border: 2px solid var(--ink); background: var(--yellow); box-shadow: 8px 8px 0 var(--ink); padding: 30px; }
+  .summary h3 { font-family: var(--display); font-weight: 800; font-size: 36px; text-transform: uppercase; }
+  .sum__list { margin: 18px 0; display: grid; gap: 8px; max-height: 240px; overflow: auto; font-size: 15px; }
+  .sum__list div { display: flex; justify-content: space-between; gap: 12px; border-bottom: 1px dashed rgba(0,0,0,.25); padding-bottom: 6px; }
+  .sum__empty { color: rgba(0,0,0,.6); font-size: 15px; margin: 18px 0; }
+  .total { display: flex; justify-content: space-between; align-items: baseline; border-top: 2px solid var(--ink); padding-top: 14px; margin-bottom: 6px; }
+  .total b { font-family: var(--display); font-weight: 800; font-size: 46px; line-height: 1; }
+  .sum__pix { font-size: 14px; margin-bottom: 20px; }
+  .summary .btn { width: 100%; }
+  .summary .btn--k:hover { background: var(--white); }
+  .clear { margin-top: 12px; font-size: 14px; font-weight: 600; text-decoration: underline; }
+
+  /* OFERTAS */
+  .deals { padding: 0 0 110px; }
+  .deals__box { border: 2px solid var(--ink); background: var(--white); display: grid; grid-template-columns: .8fr 1.2fr; }
+  .deals__side { position: relative; background: var(--ink); color: #fff; padding: 40px; overflow: hidden; }
+  .deals__side img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: .35; }
+  .deals__side > * { position: relative; }
+  .timer { display: flex; gap: 8px; margin: 26px 0; }
+  .timer div { background: var(--yellow); color: var(--ink); padding: 12px 10px; min-width: 70px; text-align: center; border: 2px solid var(--ink); }
+  .timer b { display: block; font-family: var(--display); font-weight: 800; font-size: 40px; line-height: 1; font-variant-numeric: tabular-nums; }
+  .timer small { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; }
+  .dcards { display: grid; grid-template-columns: repeat(3, 1fr); }
+  .dcard { padding: 30px 26px; border-left: 2px solid var(--ink); display: flex; flex-direction: column; gap: 6px; }
+  .dcard .off { align-self: flex-start; background: var(--orange); color: #fff; font-family: var(--display); font-weight: 800; font-size: 20px; padding: 2px 10px; transform: rotate(-3deg); }
+  .dcard h4 { font-size: 19px; margin-top: 10px; line-height: 1.25; }
+  .dcard s { color: var(--muted); }
+  .dcard b { font-family: var(--display); font-weight: 800; font-size: 44px; line-height: 1; }
+  .dcard button { margin-top: auto; padding-top: 16px; text-align: left; font-weight: 700; text-decoration: underline; text-underline-offset: 4px; }
+
+  /* ENTREGA */
+  .ship { padding: 0 0 110px; }
+  .ship__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border: 2px solid var(--ink); }
+  .ship__img { position: relative; min-height: 420px; border-right: 2px solid var(--ink); overflow: hidden; }
+  .ship__img img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .ship__body { background: var(--paper); padding: 50px; }
+  .cep { display: flex; margin: 28px 0 20px; border: 2px solid var(--ink); background: var(--white); }
+  .cep input { flex: 1; width: 100%; border: 0; padding: 18px; font-size: 20px; font-weight: 700; outline: none; min-width: 0; letter-spacing: .06em; }
+  .cep button { padding: 0 24px; background: var(--ink); color: var(--yellow); font-family: var(--display); font-weight: 800; font-size: 20px; text-transform: uppercase; }
+  .cep__res { min-height: 110px; }
+  .cep__card { border: 2px solid var(--ink); background: var(--white); padding: 18px 20px; display: grid; grid-template-columns: auto 1fr; gap: 6px 16px; align-items: center; animation: needIn .4s var(--ease); }
+  .cep__card i { grid-row: span 2; width: 52px; height: 52px; background: var(--yellow); border: 2px solid var(--ink); display: grid; place-items: center; font-style: normal; font-size: 24px; }
+  .cep__card b { font-family: var(--display); font-weight: 800; font-size: 26px; text-transform: uppercase; line-height: 1; }
+  .ship ul { list-style: none; display: grid; gap: 10px; margin-top: 26px; }
+  .ship li { display: flex; gap: 10px; font-weight: 600; }
+  .ship li::before { content: "■"; color: var(--yellow); -webkit-text-stroke: 1px var(--ink); }
+
+  footer { background: var(--ink); color: #b9b8b1; padding: 60px 0 40px; }
+  .foot { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 40px; }
+  footer .logo b { color: #fff; }
+  footer h5 { font-family: var(--display); font-weight: 800; font-size: 20px; text-transform: uppercase; color: var(--yellow); margin-bottom: 12px; }
+  footer p { font-size: 15px; }
+  .foot__bot { margin-top: 40px; padding-top: 24px; border-top: 1px solid #333; font-size: 13px; }
+  .wa { position: fixed; right: 22px; bottom: 22px; z-index: 60; width: 58px; height: 58px; border-radius: 50%; background: #25d366; color: #fff; display: grid; place-items: center; box-shadow: 0 12px 30px -8px rgba(37,211,102,.6); transition: transform .3s var(--ease); }
+  .wa:hover { transform: scale(1.08); }
+
+  @media (max-width: 1040px) {
+    .nav__links { display: none; }
+    .burger { display: grid; }
+    .nav.open .nav__links { display: flex; flex-direction: column; position: absolute; top: 100%; left: 0; right: 0; background: var(--paper); padding: 24px 20px; gap: 18px; border-bottom: 2px solid var(--ink); }
+    .hero__grid { grid-template-columns: 1fr; min-height: 0; }
+    .hero__text { padding: 60px 0 50px; }
+    .hero__img { border-left: 0; border-top: 2px solid var(--ink); height: 420px; margin: 0 -20px; }
+    .dgrid { grid-template-columns: 1fr 1fr; }
+    .calc__grid, .q__grid, .deals__box, .ship__grid { grid-template-columns: 1fr; }
+    .summary { position: static; }
+    .ship__img { border-right: 0; border-bottom: 2px solid var(--ink); min-height: 280px; }
+    .foot { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 640px) {
+    .top__in span:last-child { display: none; }
+    .logo small { display: none; }
+    .cartbtn span { display: none; }
+    .perks { grid-template-columns: 1fr; gap: 14px; }
+    .dgrid { grid-template-columns: 1fr; }
+    .calc__in, .calc__out, .ship__body, .deals__side { padding: 26px 20px; }
+    .pitem { grid-template-columns: 56px 1fr; gap: 10px 14px; }
+    .pitem__ic { width: 56px; height: 46px; }
+    .pitem .pr { grid-column: 2; }
+    .pitem .qty { grid-column: 2; justify-self: start; }
+    .dcards { grid-template-columns: 1fr; }
+    .dcard { border-left: 0; border-top: 2px solid var(--ink); }
+    .stamp { width: 120px; height: 120px; } .stamp b { font-size: 36px; }
+  }
+  @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; animation-delay: 0s !important; transition-duration: .01ms !important; } [data-r] { opacity: 1; transform: none; } }
+</style>
+</head>
+<body>
+
+<div class="top"><div class="wrap top__in"><span>🚚 <b>Entrega grátis</b> em compras acima de R$ 500 na capital</span><span>Seg a sex 7h–18h · Sáb 7h–13h · (11) 3000-0000</span></div></div>
+
+<header class="nav" id="nav">
+  <div class="wrap nav__in">
+    <a href="#" class="logo"><span class="logo__mark">F</span><span><b>Forte</b><small>Materiais de construção</small></span></a>
+    <nav class="nav__links"><a href="#departamentos">Departamentos</a><a href="#calculadora">Calculadora</a><a href="#orcamento">Orçamento</a><a href="#ofertas">Ofertas</a><a href="#entrega">Entrega</a></nav>
+    <a href="#orcamento" class="cartbtn" id="cartBtn"><span>Orçamento</span><b id="cartN">0</b></a>
+    <button class="burger" aria-label="Menu"><span></span></button>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap hero__grid">
+    <div class="hero__text">
+      <span class="label">Desde 1994 · Zona Oeste de SP</span>
+      <h1 class="d"><span class="ln"><span>Tudo para</span></span><span class="ln"><span><span class="hl">sua obra.</span></span></span><span class="ln"><span>Sem enrolação.</span></span></h1>
+      <p>Do alicerce ao acabamento: materiais básicos, hidráulica, elétrica, tintas e ferramentas com preço de depósito e entrega no dia seguinte.</p>
+      <div class="hero__ctas"><a href="#calculadora" class="btn btn--y">Calcular material</a><a href="#orcamento" class="btn btn--k">Montar orçamento</a></div>
+      <div class="perks">
+        <div class="perk"><i>🚚</i>Entrega em<br />até 24h</div>
+        <div class="perk"><i>💳</i>Até 10x<br />sem juros</div>
+        <div class="perk"><i>🏷️</i>5% off<br />no PIX</div>
+      </div>
+    </div>
+    <div class="hero__img">
+      <img src="https://images.unsplash.com/photo-1765744893064-dce3184289ef?w=1400&q=80&auto=format&fit=crop" alt="Loja de materiais de construção" />
+      <div class="stamp"><div><b>+12 mil</b><span>itens em estoque</span></div></div>
+    </div>
+  </div>
+</section>
+
+<div class="tape" aria-hidden="true"><div class="tape__track" id="tape"></div></div>
+
+<section class="depts" id="departamentos">
+  <div class="wrap">
+    <div class="head"><div data-r><span class="label">Departamentos</span><h2 class="d h2" style="margin-top:14px">Da fundação<br />ao <span class="hl">acabamento</span></h2></div><p data-r style="--d:.1s">Seis departamentos com estoque próprio. Não achou o que precisa? Encomendamos para você em até 72 horas.</p></div>
+    <div class="dgrid" id="dgrid"></div>
+  </div>
+</section>
+
+<section class="calc" id="calculadora">
+  <div class="wrap">
+    <div class="head"><div data-r><span class="label" style="color:var(--yellow)">Calculadora de material</span><h2 class="d h2" style="margin-top:14px">Quanto você <span class="hl" style="color:var(--ink)">precisa?</span></h2></div><p data-r style="--d:.1s">Informe as medidas e a gente calcula a quantidade, já com margem de perda. Depois é só mandar para o orçamento.</p></div>
+    <div class="calc__grid" data-r>
+      <div class="calc__in">
+        <div class="tabs" id="ctabs"><button class="tab on" data-c="parede">Parede de blocos</button><button class="tab" data-c="piso">Contrapiso</button><button class="tab" data-c="pintura">Pintura</button></div>
+        <div class="fields" id="cfields"></div>
+      </div>
+      <div class="calc__out">
+        <h3>Você vai precisar de</h3>
+        <div class="need" id="need"></div>
+        <button class="btn btn--y" id="addCalc" style="width:100%">Adicionar ao orçamento →</button>
+        <p class="calc__note">Estimativa com 5% a 10% de perda. Confirme as quantidades com nosso vendedor antes de comprar.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="quote" id="orcamento">
+  <div class="wrap">
+    <div class="head"><div data-r><span class="label">Orçamento rápido</span><h2 class="d h2" style="margin-top:14px">Monte sua lista,<br /><span class="hl">receba o preço</span></h2></div><p data-r style="--d:.1s">Escolha as quantidades e envie pelo WhatsApp. Respondemos com disponibilidade e prazo de entrega em minutos.</p></div>
+    <div class="q__grid">
+      <div class="plist" id="plist" data-r></div>
+      <aside class="summary" data-r style="--d:.1s">
+        <h3>Seu orçamento</h3>
+        <div id="sumList"></div>
+        <div class="total"><span>Total</span><b id="total">R$ 0,00</b></div>
+        <p class="sum__pix" id="pix">No PIX: R$ 0,00</p>
+        <button class="btn btn--k" id="send">Enviar pelo WhatsApp</button>
+        <button class="clear" id="clear">Limpar lista</button>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<section class="deals" id="ofertas">
+  <div class="wrap">
+    <div class="deals__box" data-r>
+      <div class="deals__side">
+        <img src="https://images.unsplash.com/photo-1585201731775-0597e1be4bfb?w=1000&q=70&auto=format&fit=crop" alt="" />
+        <span class="label" style="color:var(--yellow)">Ofertas da semana</span>
+        <h2 class="d" style="font-size:clamp(46px,5vw,72px);margin-top:14px">Acabam<br />domingo.</h2>
+        <div class="timer" id="timer"><div><b>0</b><small>dias</small></div><div><b>00</b><small>horas</small></div><div><b>00</b><small>min</small></div><div><b>00</b><small>seg</small></div></div>
+        <p style="opacity:.85">Preços válidos enquanto durarem os estoques.</p>
+      </div>
+      <div class="dcards" id="dcards"></div>
+    </div>
+  </div>
+</section>
+
+<section class="ship" id="entrega">
+  <div class="wrap">
+    <div class="ship__grid" data-r>
+      <div class="ship__img"><img src="https://images.unsplash.com/photo-1620388640785-892616248ec8?w=1200&q=75&auto=format&fit=crop" alt="Empilhadeira carregando materiais" loading="lazy" /></div>
+      <div class="ship__body">
+        <span class="label">Entrega</span>
+        <h2 class="d" style="font-size:clamp(44px,4.6vw,68px);margin-top:14px">Consulte o prazo<br />para o seu CEP</h2>
+        <form class="cep" id="cepForm"><input id="cep" inputmode="numeric" maxlength="9" placeholder="00000-000" aria-label="CEP" /><button>Consultar</button></form>
+        <div class="cep__res" id="cepRes"></div>
+        <ul><li>Frota própria com caminhão munck</li><li>Descarga no local da obra</li><li>Agendamento por período (manhã ou tarde)</li></ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <div><a href="#" class="logo"><span class="logo__mark">F</span><span><b>Forte</b></span></a><p style="margin-top:16px;max-width:340px">Materiais de construção com preço de depósito, atendimento de quem entende de obra e entrega rápida.</p></div>
+      <div><h5>Loja</h5><p>Av. Corifeu de Azevedo Marques, 3200<br />Butantã, São Paulo — SP<br />(11) 3000-0000</p></div>
+      <div><h5>Horários</h5><p>Segunda a sexta: 7h às 18h<br />Sábado: 7h às 13h<br />Domingo: fechado</p></div>
+    </div>
+    <div class="foot__bot">© 2026 Forte Materiais de Construção Ltda. · CNPJ 00.000.000/0001-00 · Preços sujeitos a alteração.</div>
+  </div>
+</footer>
+
+<a class="wa" href="https://wa.me/5511999990000" target="_blank" rel="noopener" aria-label="WhatsApp"><svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21c5.46 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2Zm5.8 14.03c-.24.68-1.42 1.3-1.95 1.35-.5.05-.97.23-3.27-.68-2.77-1.09-4.52-3.92-4.66-4.1-.13-.18-1.1-1.47-1.1-2.8 0-1.34.7-2 .95-2.27.25-.27.54-.34.72-.34h.52c.17 0 .4-.06.62.47.24.56.8 1.940.87 2.08.07.14.12.3.02.48-.1.19-.14.3-.28.47-.14.16-.3.36-.42.49-.14.14-.29.29-.12.57.17.28.74 1.22 1.59 1.98 1.09.97 2.01 1.27 2.29 1.41.28.14.45.12.62-.07.17-.19.71-.83.9-1.11.19-.28.38-.24.64-.14.26.09 1.65.78 1.93.92.28.14.47.21.54.33.07.11.07.66-.17 1.34Z"/></svg></a>
+
+<script>
+(() => {
+  const $ = (s, el = document) => el.querySelector(s);
+  const $$ = (s, el = document) => [...el.querySelectorAll(s)];
+  const u = (id, w) => `https://images.unsplash.com/photo-${id}?w=${w}&q=75&auto=format&fit=crop`;
+  const brl = (n) => n.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
+  const num = (n, d = 1) => n.toLocaleString("pt-BR", { maximumFractionDigits: d });
+  const WA = "5511999990000";
+
+  const nav = $("#nav");
+  $(".burger").onclick = () => nav.classList.toggle("open");
+  $$(".nav__links a").forEach((a) => a.onclick = () => nav.classList.remove("open"));
+  const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }), { threshold: .12 });
+  $$("[data-r]").forEach((el) => io.observe(el));
+
+  /* Fita */
+  const T = ["Cimento", "Blocos", "Areia e brita", "Ferragens", "Tintas", "Pisos", "Hidráulica", "Elétrica", "Ferramentas"];
+  $("#tape").innerHTML = [...T, ...T].map((t) => `<span>${t}</span>`).join("");
+
+  /* Departamentos */
+  const D = [["Básicos", "Cimento, areia, blocos e ferragens", "1775049525334-6a797b803823"], ["Ferramentas", "Manuais e elétricas das melhores marcas", "1759200165738-6366977a73c6"], ["Tintas", "Mais de 2.000 cores na hora", "1773525912493-cdb088d19d64"], ["Pisos e revestimentos", "Cerâmicas, porcelanatos e pavers", "1763665814482-bdf1016e4d29"], ["Máquinas", "Furadeiras, serras e lixadeiras", "1546827209-a218e99fdbe9"], ["Madeiras e telhados", "Vigas, caibros, telhas e forros", "1504307651254-35680f356dfd"]];
+  $("#dgrid").innerHTML = D.map(([t, s, img], i) => `<a href="#orcamento" class="dept" data-r style="--d:${(i % 3) * .08}s"><img src="${u(img, 800)}" alt="${t}" loading="lazy" /><span class="dept__n">0${i + 1}</span><div class="dept__body"><div><h3>${t}</h3><small>${s}</small></div><span class="dept__go">→</span></div></a>`).join("");
+  $$(".dept").forEach((d) => io.observe(d));
+
+  /* Produtos do orçamento */
+  const P = [
+    { id: "cim", n: "Cimento CP-II 50 kg", s: "Saco", p: 38.9, img: "1775049525334-6a797b803823" },
+    { id: "are", n: "Areia média lavada", s: "Metro cúbico", p: 165, img: "1763665814482-bdf1016e4d29" },
+    { id: "bri", n: "Brita nº 1", s: "Metro cúbico", p: 175, img: "1763665814482-bdf1016e4d29" },
+    { id: "blo", n: "Bloco cerâmico 14x19x29", s: "Unidade", p: 1.85, img: "1637241612956-b7309005288b" },
+    { id: "arg", n: "Argamassa AC-II 20 kg", s: "Saco", p: 24.9, img: "1775049525334-6a797b803823" },
+    { id: "ver", n: "Vergalhão CA-50 3/8\" 12 m", s: "Barra", p: 52.5, img: "1759200165738-6366977a73c6" },
+    { id: "tin", n: "Tinta acrílica premium 18 L", s: "Lata", p: 389, img: "1773525912493-cdb088d19d64" },
+    { id: "gal", n: "Tinta acrílica premium 3,6 L", s: "Galão", p: 98, img: "1773525912493-cdb088d19d64" },
+  ];
+  const qtd = Object.fromEntries(P.map((p) => [p.id, 0]));
+  const plist = $("#plist");
+  plist.innerHTML = P.map((p) => `<div class="pitem" data-id="${p.id}"><div class="pitem__ic"><img src="${u(p.img, 200)}" alt="" loading="lazy" /></div><div><h4>${p.n}</h4><small>${p.s}</small></div><span class="pr">${brl(p.p)}</span><div class="qty"><button data-s="-1" aria-label="Menos">−</button><input type="text" inputmode="decimal" value="0" aria-label="Quantidade" /><button data-s="1" aria-label="Mais">+</button></div></div>`).join("");
+  function atualiza(bump) {
+    $$(".pitem", plist).forEach((el) => { const q = qtd[el.dataset.id]; el.querySelector("input").value = num(q); el.classList.toggle("has", q > 0); });
+    const itens = P.filter((p) => qtd[p.id] > 0);
+    const total = itens.reduce((s, p) => s + p.p * qtd[p.id], 0);
+    $("#sumList").innerHTML = itens.length ? `<div class="sum__list">${itens.map((p) => `<div><span>${num(qtd[p.id])}× ${p.n}</span><b>${brl(p.p * qtd[p.id])}</b></div>`).join("")}</div>` : `<p class="sum__empty">Adicione itens ou use a calculadora para preencher sua lista.</p>`;
+    $("#total").textContent = brl(total);
+    $("#pix").textContent = `No PIX (5% off): ${brl(total * .95)}`;
+    const n = itens.length;
+    $("#cartN").textContent = n > 999 ? "999+" : n;
+    if (bump) { const c = $("#cartBtn"); c.classList.remove("bump"); void c.offsetWidth; c.classList.add("bump"); }
+  }
+  plist.addEventListener("click", (e) => { const b = e.target.closest("button[data-s]"); if (!b) return; const id = b.closest(".pitem").dataset.id; qtd[id] = Math.max(0, qtd[id] + +b.dataset.s); atualiza(true); });
+  plist.addEventListener("change", (e) => { if (e.target.matches("input")) { const id = e.target.closest(".pitem").dataset.id; qtd[id] = Math.max(0, Math.round((+e.target.value.replace(",", ".") || 0) * 2) / 2); atualiza(true); } });
+  $("#clear").onclick = () => { Object.keys(qtd).forEach((k) => qtd[k] = 0); atualiza(); };
+  $("#send").onclick = () => {
+    const itens = P.filter((p) => qtd[p.id] > 0);
+    if (!itens.length) { $("#sumList").animate([{ transform: "translateX(-6px)" }, { transform: "translateX(6px)" }, { transform: "none" }], 300); return; }
+    const msg = `Olá! Gostaria de um orçamento:\n\n${itens.map((p) => `• ${num(qtd[p.id])}× ${p.n}`).join("\n")}\n\nTotal estimado: ${$("#total").textContent}`;
+    window.open(`https://wa.me/${WA}?text=${encodeURIComponent(msg)}`, "_blank");
+  };
+  atualiza();
+
+  /* Calculadora */
+  const CALC = {
+    parede: { f: [["comp", "Comprimento da parede", 1, 30, 6, "m"], ["alt", "Altura", 2, 4, 2.8, "m"], ["vaos", "Portas e janelas (área)", 0, 10, 2, "m²"]],
+      r: (v) => { const a = Math.max(0, v.comp * v.alt - v.vaos); const bl = Math.ceil(a * 17 * 1.05); const ci = Math.ceil(a * .09); const ar = Math.max(.5, Math.ceil(a * .025 * 2) / 2); return { area: a, itens: [["blo", bl, "blocos cerâmicos", "14x19x29 · 17 por m²"], ["cim", ci, "sacos de cimento", "argamassa de assentamento"], ["are", ar, "m³ de areia", "areia média"]] }; } },
+    piso: { f: [["larg", "Largura do cômodo", 1, 15, 4, "m"], ["comp", "Comprimento", 1, 20, 5, "m"], ["esp", "Espessura", 3, 8, 5, "cm"]],
+      r: (v) => { const a = v.larg * v.comp, vol = a * v.esp / 100 * 1.08; return { area: a, itens: [["cim", Math.ceil(vol * 8.6), "sacos de cimento", `traço 1:3 · ${num(vol, 2)} m³ de massa`], ["are", Math.ceil(vol * 2) / 2, "m³ de areia", "areia média lavada"]] }; } },
+    pintura: { f: [["area", "Área de parede", 5, 300, 60, "m²"], ["dem", "Demãos", 1, 3, 2, "x"]],
+      r: (v) => { const litros = v.area * v.dem / 10 * 1.05; const latas = Math.floor(litros / 18); const resto = litros - latas * 18; const gal = resto > 0 ? Math.ceil(resto / 3.6) : 0; const it = []; if (latas) it.push(["tin", latas, latas > 1 ? "latas de 18 L" : "lata de 18 L", `${num(litros)} litros no total`]); if (gal) it.push(["gal", gal, gal > 1 ? "galões de 3,6 L" : "galão de 3,6 L", "complemento"]); return { area: v.area, itens: it }; } },
+  };
+  let modo = "parede", ultimo = null;
+  const PN = Object.fromEntries(P.map((p) => [p.id, p]));
+  function renderCampos() {
+    $("#cfields").innerHTML = CALC[modo].f.map(([k, l, mn, mx, val, un]) => `<div class="fld"><label>${l}<output data-k="${k}">${num(val)} ${un}</output></label><input type="range" data-k="${k}" min="${mn}" max="${mx}" step="${un === "m" ? .1 : 1}" value="${val}" /></div>`).join("");
+    calc();
+  }
+  function calc() {
+    const v = {};
+    $$("#cfields input").forEach((i) => { v[i.dataset.k] = +i.value; i.style.setProperty("--p", `${((i.value - i.min) / (i.max - i.min)) * 100}%`); const f = CALC[modo].f.find((x) => x[0] === i.dataset.k); $(`#cfields output[data-k="${i.dataset.k}"]`).textContent = `${num(+i.value)} ${f[5]}`; });
+    ultimo = CALC[modo].r(v);
+    $("#need").innerHTML = `<div><span>Área calculada<small>já descontados os vãos</small></span><b>${num(ultimo.area)}<em>m²</em></b></div>` + ultimo.itens.map(([id, q, t, s], i) => `<div style="animation-delay:${i * 60}ms"><span>${t}<small>${s} · ${brl(PN[id].p * q)}</small></span><b>${num(q)}</b></div>`).join("");
+  }
+  $("#cfields").addEventListener("input", calc);
+  $("#ctabs").onclick = (e) => { const b = e.target.closest(".tab"); if (!b) return; modo = b.dataset.c; $$("#ctabs .tab").forEach((x) => x.classList.toggle("on", x === b)); renderCampos(); };
+  $("#addCalc").onclick = () => {
+    ultimo.itens.forEach(([id, q]) => { qtd[id] = Math.round((qtd[id] + q) * 2) / 2; });
+    atualiza(true);
+    $("#orcamento").scrollIntoView({ behavior: "smooth" });
+  };
+  renderCampos();
+
+  /* Ofertas + contagem regressiva até domingo 23:59 */
+  const O = [["-18%", "Cimento CP-II 50 kg — kit 10 sacos", 474, 389, "cim", 10], ["-25%", "Tinta acrílica premium 18 L branco neve", 519, 389, "tin", 1], ["-30%", "Bloco cerâmico 14x19x29 — milheiro", 2640, 1850, "blo", 1000]];
+  $("#dcards").innerHTML = O.map(([off, n, de, por, id, q]) => `<div class="dcard"><span class="off">${off}</span><h4>${n}</h4><s>${brl(de)}</s><b>${brl(por)}</b><button data-id="${id}" data-q="${q}">Adicionar ao orçamento →</button></div>`).join("");
+  $("#dcards").onclick = (e) => { const b = e.target.closest("button"); if (!b) return; qtd[b.dataset.id] += +b.dataset.q; atualiza(true); b.textContent = "Adicionado ✓"; };
+  const fim = new Date(); fim.setDate(fim.getDate() + ((7 - fim.getDay()) % 7)); fim.setHours(23, 59, 59, 0);
+  const tick = () => { let s = Math.max(0, Math.floor((fim - new Date()) / 1000)); const v = [Math.floor(s / 86400), Math.floor(s % 86400 / 3600), Math.floor(s % 3600 / 60), s % 60]; $$("#timer b").forEach((b, i) => b.textContent = i ? String(v[i]).padStart(2, "0") : v[i]); };
+  tick(); setInterval(tick, 1000);
+
+  /* CEP */
+  const cep = $("#cep");
+  cep.addEventListener("input", () => { let v = cep.value.replace(/\D/g, "").slice(0, 8); cep.value = v.length > 5 ? `${v.slice(0, 5)}-${v.slice(5)}` : v; });
+  $("#cepForm").onsubmit = (e) => {
+    e.preventDefault();
+    const v = cep.value.replace(/\D/g, "");
+    let html;
+    if (v.length !== 8) html = `<div class="cep__card"><i>⚠️</i><b>CEP inválido</b><span>Digite os 8 números do seu CEP.</span></div>`;
+    else if (/^0[1-5]/.test(v)) html = `<div class="cep__card"><i>🚚</i><b>Entrega amanhã</b><span>Capital de SP · frete grátis acima de R$ 500 (abaixo disso, R$ 39).</span></div>`;
+    else if (/^0[6-9]/.test(v)) html = `<div class="cep__card"><i>📦</i><b>Entrega em 2 dias úteis</b><span>Grande São Paulo · frete a partir de R$ 59.</span></div>`;
+    else html = `<div class="cep__card"><i>📞</i><b>Consulte</b><span>Fora da nossa área padrão. Fale com a gente para combinar a entrega.</span></div>`;
+    $("#cepRes").innerHTML = html;
+  };
+})();
+</script>
+</body>
+</html>

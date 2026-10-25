@@ -1,0 +1,400 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Martins Advocacia Previdenciária — Aposentadoria e INSS</title>
+<meta name="description" content="Martins Advocacia Previdenciária: aposentadorias, BPC/LOAS, auxílio por incapacidade, pensão e revisão de benefícios. Simule sua aposentadoria grátis." />
+<meta name="theme-color" content="#f6efe4" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,600;7..72,700&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #f6efe4; --paper: #fbf7f0; --white: #fff; --ink: #1d2a30; --muted: #61707a; --line: #e5dccd;
+    --teal: #12465a; --teal2: #1d6a85; --amber: #e0a43a; --green: #2e8b57; --red: #c4553b;
+    --serif: "Literata", Georgia, serif; --sans: "Source Sans 3", system-ui, sans-serif;
+    --ease: cubic-bezier(.2,.8,.2,1);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { overflow-x: clip; scroll-behavior: smooth; scroll-padding-top: 90px; }
+  body { background: var(--bg); color: var(--ink); font-family: var(--sans); font-size: 17px; line-height: 1.65; -webkit-font-smoothing: antialiased; overflow-x: clip; }
+  img { display: block; max-width: 100%; }
+  a { color: inherit; text-decoration: none; }
+  button, input, select { font: inherit; color: inherit; }
+  button { background: none; border: 0; cursor: pointer; }
+  .wrap { width: min(1200px, 100% - 40px); margin-inline: auto; }
+  [class*="__grid"] > * { min-width: 0; }
+  h1, h2, h3 { font-family: var(--serif); font-weight: 700; letter-spacing: -.015em; line-height: 1.12; }
+  .h2 { font-size: clamp(32px, 4vw, 52px); }
+  .h2 em, h1 em { font-style: italic; font-weight: 400; color: var(--teal2); }
+  .kick { font-weight: 700; font-size: 14px; letter-spacing: .12em; text-transform: uppercase; color: var(--amber); }
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 16px 28px; border-radius: 10px; font-weight: 700; font-size: 17px; transition: background .25s, transform .25s var(--ease); }
+  .btn--t { background: var(--teal); color: #fff; }
+  .btn--t:hover { background: var(--teal2); transform: translateY(-2px); }
+  .btn--a { background: var(--amber); color: var(--ink); }
+  .btn--a:hover { background: #ecb552; transform: translateY(-2px); }
+  .btn--l { box-shadow: inset 0 0 0 2px var(--teal); color: var(--teal); }
+  .btn--l:hover { background: var(--teal); color: #fff; }
+  [data-r] { opacity: 0; transform: translateY(30px); transition: opacity .8s var(--ease), transform .8s var(--ease); transition-delay: var(--d, 0s); }
+  [data-r].in { opacity: 1; transform: none; }
+
+  .top { background: var(--teal); color: #d6e6ec; font-size: 15px; }
+  .top__in { display: flex; justify-content: space-between; gap: 20px; padding: 9px 0; flex-wrap: wrap; }
+  .top b { color: #fff; }
+  .nav { position: sticky; top: 0; z-index: 50; background: rgba(246,239,228,.94); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
+  .nav__in { height: 80px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+  .logo { display: flex; align-items: center; gap: 12px; }
+  .logo i { width: 46px; height: 46px; border-radius: 50%; background: var(--teal); color: var(--amber); display: grid; place-items: center; font-family: var(--serif); font-style: normal; font-size: 22px; font-weight: 700; }
+  .logo b { font-family: var(--serif); font-size: 20px; display: block; line-height: 1.1; }
+  .logo small { font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+  .nav__links { display: flex; gap: 28px; font-weight: 600; }
+  .nav__links a:hover { color: var(--teal2); }
+  .burger { display: none; width: 48px; height: 48px; border-radius: 10px; background: var(--teal); place-items: center; }
+  .burger span { width: 20px; height: 2px; background: #fff; box-shadow: 0 6px 0 #fff, 0 -6px 0 #fff; }
+
+  /* HERO */
+  .hero { padding: 70px 0 90px; }
+  .hero__grid { display: grid; grid-template-columns: 1.05fr .95fr; gap: 56px; align-items: center; }
+  .hero h1 { font-size: clamp(40px, 5.2vw, 70px); margin: 16px 0 22px; }
+  .hero h1 .w { display: inline-block; opacity: 0; transform: translateY(20px); animation: up .9s var(--ease) forwards; }
+  @keyframes up { to { opacity: 1; transform: none; } }
+  .hero p { font-size: 20px; color: var(--muted); max-width: 520px; }
+  .hero__ctas { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 32px; }
+  .checks { list-style: none; display: grid; gap: 10px; margin-top: 32px; }
+  .checks li { display: flex; gap: 12px; font-weight: 600; }
+  .checks li::before { content: "✓"; width: 26px; height: 26px; border-radius: 50%; background: #d8ecdf; color: var(--green); display: grid; place-items: center; font-size: 14px; font-weight: 800; flex: none; }
+  .photo { position: relative; }
+  .photo__img { aspect-ratio: 4/4.4; border-radius: 26px; overflow: hidden; }
+  .photo__img img { width: 100%; height: 100%; object-fit: cover; animation: zoom 1.6s var(--ease) both; }
+  @keyframes zoom { from { opacity: 0; transform: scale(1.08); } }
+  .badge { position: absolute; left: -36px; bottom: 34px; background: var(--white); border-radius: 20px; padding: 18px 22px; box-shadow: 0 24px 50px -26px rgba(29,42,48,.5); display: flex; gap: 14px; align-items: center; animation: float 6s ease-in-out infinite; }
+  .badge b { font-family: var(--serif); font-size: 30px; color: var(--teal); line-height: 1; }
+  .badge small { color: var(--muted); font-size: 14px; line-height: 1.3; display: block; }
+  @keyframes float { 50% { transform: translateY(-10px); } }
+
+  /* NÚMEROS */
+  .nums { background: var(--teal); color: #fff; }
+  .nums__grid { display: grid; grid-template-columns: repeat(4, 1fr); }
+  .n { padding: 40px 24px; border-left: 1px solid rgba(255,255,255,.12); }
+  .n:first-child { border-left: 0; }
+  .n b { display: block; font-family: var(--serif); font-size: clamp(34px, 3.6vw, 48px); color: var(--amber); line-height: 1.05; }
+  .n span { color: #c8dbe2; font-size: 15px; }
+
+  /* SIMULADOR */
+  .sim { padding: 110px 0; }
+  .sim__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; align-items: start; }
+  .card { background: var(--white); border-radius: 24px; padding: 36px; box-shadow: 0 1px 0 var(--line); }
+  .field { margin-bottom: 26px; }
+  .field > label { display: flex; justify-content: space-between; font-weight: 700; margin-bottom: 10px; }
+  .field output { font-family: var(--serif); font-size: 22px; color: var(--teal); }
+  .seg { display: flex; gap: 8px; }
+  .seg button { flex: 1; padding: 14px; border-radius: 12px; border: 2px solid var(--line); font-weight: 700; transition: all .2s; }
+  .seg button.on { border-color: var(--teal); background: #e3eff3; color: var(--teal); }
+  input[type=range] { width: 100%; -webkit-appearance: none; appearance: none; height: 8px; border-radius: 8px; background: linear-gradient(90deg, var(--teal2) var(--p, 40%), var(--line) var(--p, 40%)); outline: none; }
+  input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 28px; height: 28px; border-radius: 50%; background: var(--white); border: 4px solid var(--teal); cursor: grab; box-shadow: 0 3px 10px rgba(0,0,0,.15); }
+  input[type=range]::-moz-range-thumb { width: 20px; height: 20px; border-radius: 50%; background: var(--white); border: 4px solid var(--teal); cursor: grab; }
+  .money { display: flex; align-items: center; border: 2px solid var(--line); border-radius: 12px; overflow: hidden; }
+  .money span { padding: 0 14px; font-weight: 700; color: var(--muted); }
+  .money input { flex: 1; min-width: 0; border: 0; outline: none; padding: 14px 14px 14px 0; font-weight: 700; font-size: 18px; }
+  .rules { display: grid; gap: 12px; }
+  .rule { border-radius: 18px; padding: 20px 22px; border: 2px solid var(--line); transition: border-color .3s, background .3s; }
+  .rule.ok { border-color: var(--green); background: #f0f8f3; }
+  .rule h4 { font-family: var(--serif); font-size: 19px; display: flex; justify-content: space-between; gap: 10px; align-items: baseline; }
+  .rule h4 span { font-family: var(--sans); font-size: 13px; font-weight: 700; padding: 4px 10px; border-radius: 999px; white-space: nowrap; }
+  .rule.ok h4 span { background: var(--green); color: #fff; }
+  .rule:not(.ok) h4 span { background: #fbeee3; color: var(--red); }
+  .rule p { font-size: 15px; color: var(--muted); margin-top: 4px; }
+  .prog { height: 8px; border-radius: 8px; background: var(--bg); margin-top: 12px; overflow: hidden; }
+  .prog i { display: block; height: 100%; border-radius: 8px; background: var(--amber); transition: width .6s var(--ease); }
+  .rule.ok .prog i { background: var(--green); }
+  .value { margin-top: 22px; padding: 24px; border-radius: 18px; background: var(--teal); color: #fff; }
+  .value small { color: #c8dbe2; }
+  .value b { display: block; font-family: var(--serif); font-size: 42px; line-height: 1.1; margin: 4px 0; }
+  .disc { font-size: 13px; color: var(--muted); margin-top: 14px; }
+
+  /* SERVIÇOS */
+  .svc { padding: 0 0 110px; }
+  .head { display: flex; justify-content: space-between; align-items: end; gap: 30px; flex-wrap: wrap; margin-bottom: 44px; }
+  .head p { max-width: 420px; color: var(--muted); }
+  .sgrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+  .s { background: var(--white); border-radius: 22px; padding: 30px; box-shadow: 0 1px 0 var(--line); transition: transform .35s var(--ease), box-shadow .35s; }
+  .s:hover { transform: translateY(-5px); box-shadow: 0 24px 40px -28px rgba(29,42,48,.45); }
+  .s i { width: 54px; height: 54px; border-radius: 16px; background: #e3eff3; color: var(--teal); display: grid; place-items: center; font-style: normal; margin-bottom: 18px; }
+  .s i svg { width: 28px; height: 28px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+  .s h3 { font-size: 21px; }
+  .s p { color: var(--muted); font-size: 16px; margin: 8px 0 14px; }
+  .s details summary { cursor: pointer; font-weight: 700; color: var(--teal2); font-size: 15px; list-style: none; }
+  .s details summary::-webkit-details-marker { display: none; }
+  .s details summary::after { content: " +"; }
+  .s details[open] summary::after { content: " −"; }
+  .s details ul { margin: 10px 0 0 18px; font-size: 15px; color: var(--muted); display: grid; gap: 4px; }
+
+  /* PASSOS + EQUIPE */
+  .how { padding: 100px 0; background: var(--paper); border-block: 1px solid var(--line); }
+  .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; counter-reset: s; }
+  .step { counter-increment: s; position: relative; padding-top: 70px; }
+  .step::before { content: counter(s); position: absolute; top: 0; left: 0; width: 52px; height: 52px; border-radius: 50%; background: var(--amber); color: var(--ink); font-family: var(--serif); font-weight: 700; font-size: 22px; display: grid; place-items: center; }
+  .step::after { content: ""; position: absolute; top: 26px; left: 64px; right: -12px; height: 2px; background: repeating-linear-gradient(90deg, var(--line) 0 8px, transparent 8px 14px); }
+  .step:last-child::after { display: none; }
+  .step h3 { font-size: 20px; margin-bottom: 6px; }
+  .step p { color: var(--muted); font-size: 16px; }
+  .team { padding: 110px 0; }
+  .team__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center; }
+  .lawyers { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  .lw { background: var(--white); border-radius: 22px; overflow: hidden; }
+  .lw img { width: 100%; aspect-ratio: 1; object-fit: cover; object-position: top; }
+  .lw div { padding: 16px 18px; }
+  .lw b { font-family: var(--serif); font-size: 18px; display: block; }
+  .lw small { color: var(--muted); }
+  .quote { font-family: var(--serif); font-style: italic; font-size: clamp(22px, 2.4vw, 30px); line-height: 1.35; margin: 18px 0; }
+
+  /* DEPOIMENTOS + FAQ */
+  .tst { padding: 0 0 110px; }
+  .tgrid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
+  .t { display: grid; grid-template-columns: 150px 1fr; gap: 0; background: var(--white); border-radius: 22px; overflow: hidden; }
+  .t img { width: 100%; height: 100%; object-fit: cover; }
+  .t div { padding: 24px; }
+  .t p { font-family: var(--serif); font-size: 18px; line-height: 1.45; }
+  .t small { display: block; color: var(--muted); margin-top: 12px; }
+  .stars { color: var(--amber); }
+  .faq { padding: 0 0 110px; }
+  .faq__grid { display: grid; grid-template-columns: .8fr 1.2fr; gap: 50px; }
+  .faq details { background: var(--white); border-radius: 16px; padding: 4px 22px; margin-bottom: 10px; }
+  .faq summary { cursor: pointer; list-style: none; padding: 16px 0; font-weight: 700; display: flex; justify-content: space-between; gap: 16px; }
+  .faq summary::-webkit-details-marker { display: none; }
+  .faq summary::after { content: "+"; color: var(--teal2); font-size: 22px; line-height: 1; transition: transform .3s; }
+  .faq details[open] summary::after { transform: rotate(45deg); }
+  .faq details p { padding-bottom: 18px; color: var(--muted); }
+
+  /* CONTATO */
+  .contact { background: var(--teal); color: #fff; padding: 90px 0; }
+  .contact__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center; }
+  .contact p { color: #c8dbe2; margin-top: 14px; }
+  .cform { background: var(--white); color: var(--ink); border-radius: 24px; padding: 32px; display: grid; gap: 14px; }
+  .cform input, .cform select, .cform textarea { width: 100%; padding: 14px 16px; border-radius: 12px; border: 2px solid var(--line); outline: none; background: var(--paper); resize: none; }
+  .cform input:focus, .cform select:focus, .cform textarea:focus { border-color: var(--teal2); }
+  .two { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  footer { background: #0c3341; color: #9fbcc7; padding: 30px 0; font-size: 15px; }
+  .foot { display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
+  .wa { position: fixed; right: 22px; bottom: 22px; z-index: 60; width: 60px; height: 60px; border-radius: 50%; background: #25d366; color: #fff; display: grid; place-items: center; box-shadow: 0 12px 30px -8px rgba(37,211,102,.6); transition: transform .3s var(--ease); }
+  .wa:hover { transform: scale(1.08); }
+
+  @media (max-width: 1000px) {
+    .nav__links, .nav__cta { display: none; }
+    .burger { display: grid; }
+    .nav.open .nav__links { display: flex; flex-direction: column; position: absolute; top: 80px; left: 0; right: 0; background: var(--bg); padding: 24px 20px; gap: 18px; border-bottom: 1px solid var(--line); }
+    .hero__grid, .sim__grid, .team__grid, .faq__grid, .contact__grid { grid-template-columns: 1fr; }
+    .photo { max-width: 480px; margin: 0 auto; width: 100%; }
+    .badge { left: -10px; }
+    .nums__grid { grid-template-columns: 1fr 1fr; }
+    .n:nth-child(3) { border-left: 0; }
+    .sgrid { grid-template-columns: 1fr 1fr; }
+    .steps { grid-template-columns: 1fr 1fr; }
+    .step::after { display: none; }
+    .tgrid { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 600px) {
+    .top__in span:last-child { display: none; }
+    .logo small { display: none; }
+    .sgrid, .steps, .two { grid-template-columns: 1fr; }
+    .card, .cform { padding: 24px 20px; }
+    .t { grid-template-columns: 1fr; }
+    .t img { height: 200px; }
+  }
+  @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; animation-delay: 0s !important; transition-duration: .01ms !important; } [data-r] { opacity: 1; transform: none; } }
+</style>
+</head>
+<body>
+
+<div class="top"><div class="wrap top__in"><span>📞 Plantão de dúvidas: <b>(31) 3000-0000</b></span><span>Atendimento online para todo o Brasil</span></div></div>
+<header class="nav" id="nav">
+  <div class="wrap nav__in">
+    <a href="#" class="logo"><i>M</i><span><b>Martins Advocacia</b><small>Previdenciária</small></span></a>
+    <nav class="nav__links"><a href="#simulador">Simulador</a><a href="#servicos">Benefícios</a><a href="#como">Como funciona</a><a href="#duvidas">Dúvidas</a><a href="#contato">Contato</a></nav>
+    <a href="#simulador" class="btn btn--t nav__cta" style="padding:12px 20px;font-size:15px">Simular aposentadoria</a>
+    <button class="burger" aria-label="Menu"><span></span></button>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap hero__grid">
+    <div>
+      <span class="kick">Direito previdenciário · desde 2008</span>
+      <h1><span class="w">Seu</span> <span class="w" style="animation-delay:.06s">direito</span> <span class="w" style="animation-delay:.12s">à</span> <span class="w" style="animation-delay:.18s">aposentadoria,</span> <span class="w" style="animation-delay:.24s"><em>sem</em></span> <span class="w" style="animation-delay:.3s"><em>complicação.</em></span></h1>
+      <p>Cuidamos de tudo junto ao INSS: do planejamento à concessão do benefício. Você só paga se ganhar.</p>
+      <div class="hero__ctas"><a href="#simulador" class="btn btn--t">Simular minha aposentadoria</a><a href="#contato" class="btn btn--l">Falar com advogada</a></div>
+      <ul class="checks"><li>Primeira análise do seu caso gratuita</li><li>Honorários só no êxito</li><li>Atendimento por WhatsApp e vídeo</li></ul>
+    </div>
+    <div class="photo">
+      <div class="photo__img"><img src="https://images.unsplash.com/photo-1758691031787-90867cb6fb2c?w=1100&q=80&auto=format&fit=crop" alt="Casal de idosos sorrindo no sofá" /></div>
+      <div class="badge"><b>4,9 ★</b><small>mais de 600<br />avaliações no Google</small></div>
+    </div>
+  </div>
+</section>
+
+<section class="nums">
+  <div class="wrap nums__grid">
+    <div class="n" data-r><b>+2.300</b><span>benefícios concedidos</span></div>
+    <div class="n" data-r style="--d:.08s"><b>R$ 48 mi</b><span>em atrasados recuperados</span></div>
+    <div class="n" data-r style="--d:.16s"><b>17 anos</b><span>só em direito previdenciário</span></div>
+    <div class="n" data-r style="--d:.24s"><b>27 estados</b><span>com clientes atendidos</span></div>
+  </div>
+</section>
+
+<section class="sim" id="simulador">
+  <div class="wrap">
+    <div class="head"><div data-r><span class="kick">Simulador gratuito</span><h2 class="h2" style="margin-top:12px">Quando você pode <em>se aposentar?</em></h2></div><p data-r style="--d:.1s">Uma estimativa com as regras da Reforma da Previdência. Para um cálculo exato, analisamos seu CNIS sem custo.</p></div>
+    <div class="sim__grid">
+      <div class="card" data-r>
+        <div class="field"><label>Sexo</label><div class="seg" id="sexo"><button class="on" data-v="f">Mulher</button><button data-v="m">Homem</button></div></div>
+        <div class="field"><label>Idade <output id="oI">58 anos</output></label><input type="range" id="idade" min="40" max="75" value="58" /></div>
+        <div class="field"><label>Tempo de contribuição <output id="oC">28 anos</output></label><input type="range" id="contrib" min="5" max="45" value="28" /></div>
+        <div class="field"><label for="sal">Média dos seus salários de contribuição</label><div class="money"><span>R$</span><input id="sal" inputmode="numeric" value="3.800" /></div></div>
+      </div>
+      <div data-r style="--d:.1s">
+        <div class="rules" id="rules"></div>
+        <div class="value"><small>Valor estimado do benefício</small><b id="valor">R$ 0</b><small id="valorTxt"></small></div>
+        <p class="disc">Simulação simplificada para fins informativos (regras gerais do RGPS em 2026, piso de R$ 1.630). Não considera períodos especiais, rurais ou regras de professor. <a href="#contato" style="color:var(--teal2);font-weight:700">Peça a análise completa →</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="svc" id="servicos">
+  <div class="wrap">
+    <div class="head"><div data-r><span class="kick">Benefícios</span><h2 class="h2" style="margin-top:12px">Como podemos <em>ajudar</em></h2></div><p data-r style="--d:.1s">Atuamos em todas as fases: pedido administrativo, recurso e ação judicial.</p></div>
+    <div class="sgrid" id="sgrid"></div>
+  </div>
+</section>
+
+<section class="how" id="como">
+  <div class="wrap">
+    <div class="head"><div data-r><span class="kick">Como funciona</span><h2 class="h2" style="margin-top:12px">Simples, do começo ao fim</h2></div></div>
+    <div class="steps">
+      <div class="step" data-r><h3>Conversa inicial</h3><p>Por WhatsApp ou vídeo, você conta sua história. Sem custo.</p></div>
+      <div class="step" data-r style="--d:.08s"><h3>Análise do CNIS</h3><p>Conferimos cada vínculo e encontramos tempo esquecido.</p></div>
+      <div class="step" data-r style="--d:.16s"><h3>Melhor benefício</h3><p>Comparamos todas as regras e escolhemos a mais vantajosa.</p></div>
+      <div class="step" data-r style="--d:.24s"><h3>Pedido e acompanhamento</h3><p>Damos entrada no INSS e informamos cada movimentação.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="team">
+  <div class="wrap team__grid">
+    <div data-r><span class="kick">Quem cuida de você</span><h2 class="h2" style="margin-top:12px">Advocacia com <em>paciência</em> e clareza</h2><p class="quote">“Muita gente desiste do benefício por não entender o INSS. Nosso trabalho é traduzir tudo e lutar pelo que é seu.”</p><p style="color:var(--muted)">Dra. Juliana Martins · OAB/MG 98.412</p></div>
+    <div class="lawyers" data-r style="--d:.1s">
+      <div class="lw"><img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=600&q=78&auto=format&fit=crop" alt="Dra. Juliana Martins" loading="lazy" /><div><b>Dra. Juliana Martins</b><small>Sócia fundadora</small></div></div>
+      <div class="lw" style="margin-top:40px"><img src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?w=600&q=78&auto=format&fit=crop" alt="Dr. Tiago Andrade" loading="lazy" /><div><b>Dr. Tiago Andrade</b><small>Benefícios por incapacidade</small></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="tst">
+  <div class="wrap">
+    <div class="head"><div data-r><span class="kick">Depoimentos</span><h2 class="h2" style="margin-top:12px">Histórias com <em>final feliz</em></h2></div></div>
+    <div class="tgrid">
+      <div class="t" data-r><img src="https://images.unsplash.com/photo-1761839257647-df30867afd54?w=500&q=75&auto=format&fit=crop" alt="Casal de clientes" loading="lazy" /><div><span class="stars">★★★★★</span><p>“O INSS negou duas vezes. Com a Dra. Juliana, a aposentadoria saiu com 3 anos de atrasados.”</p><small>Seu Antônio e Dona Lúcia · Belo Horizonte</small></div></div>
+      <div class="t" data-r style="--d:.1s"><img src="https://images.unsplash.com/photo-1758691031410-13bd745df928?w=500&q=75&auto=format&fit=crop" alt="Clientes" loading="lazy" /><div><span class="stars">★★★★★</span><p>“Descobriram 4 anos de contribuição que eu nem lembrava. Me aposentei antes do que imaginava.”</p><small>Marta F. · Contagem</small></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="faq" id="duvidas">
+  <div class="wrap faq__grid">
+    <div data-r><span class="kick">Dúvidas</span><h2 class="h2" style="margin-top:12px">Perguntas que <em>sempre</em> ouvimos</h2></div>
+    <div data-r style="--d:.1s">
+      <details open><summary>Quanto custa contratar?</summary><p>A análise inicial é gratuita. Os honorários são combinados em contrato e, na maioria dos casos, cobrados apenas se o benefício for concedido.</p></details>
+      <details><summary>Preciso ir até o escritório?</summary><p>Não. Atendemos todo o Brasil por WhatsApp e videochamada, com assinatura digital dos documentos.</p></details>
+      <details><summary>O INSS negou meu pedido. Ainda dá?</summary><p>Sim. É possível recorrer administrativamente ou entrar com ação judicial — e muitas negativas são revertidas.</p></details>
+      <details><summary>Posso revisar minha aposentadoria?</summary><p>Se o benefício foi concedido há menos de 10 anos, pode haver valores a revisar. Analisamos gratuitamente.</p></details>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="contato">
+  <div class="wrap contact__grid">
+    <div data-r><span class="kick">Fale conosco</span><h2 class="h2" style="margin-top:12px;color:#fff">Vamos analisar o seu caso</h2><p>Respondemos em até 2 horas em dias úteis. Seus dados são tratados com sigilo absoluto, conforme a LGPD.</p><p style="margin-top:24px">📍 Av. Afonso Pena, 1500 — sala 1204 · Centro, Belo Horizonte</p></div>
+    <form class="cform" id="cform" data-r style="--d:.1s">
+      <input id="cN" placeholder="Nome completo" required />
+      <div class="two"><input id="cT" placeholder="WhatsApp" inputmode="tel" required /><input id="cC" placeholder="Cidade/UF" /></div>
+      <select id="cA"><option>Aposentadoria</option><option>BPC / LOAS</option><option>Auxílio por incapacidade</option><option>Pensão por morte</option><option>Revisão de benefício</option><option>Benefício negado</option></select>
+      <textarea id="cM" rows="3" placeholder="Conte brevemente sua situação"></textarea>
+      <button class="btn btn--a">Enviar pelo WhatsApp</button>
+    </form>
+  </div>
+</section>
+
+<footer><div class="wrap foot"><span>© 2026 Martins Advocacia Previdenciária · OAB/MG 9.871</span><span>Este site não pertence ao INSS nem a órgão público.</span></div></footer>
+
+<a class="wa" href="https://wa.me/5531999990000" target="_blank" rel="noopener" aria-label="WhatsApp"><svg width="30" height="30" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21c5.46 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2Zm5.8 14.03c-.24.68-1.42 1.3-1.95 1.35-.5.05-.97.23-3.27-.68-2.77-1.09-4.52-3.92-4.66-4.1-.13-.18-1.1-1.47-1.1-2.8 0-1.34.7-2 .95-2.27.25-.27.54-.34.72-.34h.52c.17 0 .4-.06.62.47.24.56.8 1.94.87 2.08.07.14.12.3.02.48-.1.19-.14.3-.28.47-.14.16-.3.36-.42.49-.14.14-.29.29-.12.57.17.28.74 1.22 1.59 1.98 1.09.97 2.01 1.27 2.29 1.41.28.14.45.12.62-.07.17-.19.71-.83.9-1.11.19-.28.38-.24.64-.14.26.09 1.65.78 1.93.92.28.14.47.21.54.33.07.11.07.66-.17 1.34Z"/></svg></a>
+
+<script>
+(() => {
+  const $ = (s, el = document) => el.querySelector(s);
+  const $$ = (s, el = document) => [...el.querySelectorAll(s)];
+  const brl = (n) => n.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
+  const WA = "5531999990000", PISO = 1630, TETO = 8475;
+
+  const nav = $("#nav");
+  $(".burger").onclick = () => nav.classList.toggle("open");
+  $$(".nav__links a").forEach((a) => a.onclick = () => nav.classList.remove("open"));
+  const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }), { threshold: .12 });
+  $$("[data-r]").forEach((el) => io.observe(el));
+
+  /* Simulador (regras gerais simplificadas, ano de referência 2026) */
+  let sexo = "f";
+  const sal = $("#sal");
+  sal.addEventListener("input", () => { const d = sal.value.replace(/\D/g, ""); sal.value = d ? (+d).toLocaleString("pt-BR") : ""; sim(); });
+  const anos = (n) => `${n} ${n === 1 ? "ano" : "anos"}`;
+  function sim() {
+    const I = +$("#idade").value, C = +$("#contrib").value, S = Math.min(TETO, +sal.value.replace(/\D/g, "") || 0);
+    ["idade", "contrib"].forEach((k) => { const el = $("#" + k); el.style.setProperty("--p", `${((el.value - el.min) / (el.max - el.min)) * 100}%`); });
+    $("#oI").textContent = anos(I); $("#oC").textContent = anos(C);
+    const f = sexo === "f";
+    // 1) Aposentadoria por idade (regra permanente)
+    const idMin = f ? 62 : 65, ctMin = f ? 15 : 20;
+    const faltaI = Math.max(0, idMin - I), faltaC1 = Math.max(0, ctMin - C);
+    const r1 = Math.max(faltaI, faltaC1);
+    // 2) Transição por pontos (2026: 93 mulheres / 103 homens; mín. 30/35 de contribuição)
+    const ptsMin = f ? 93 : 103, ctPts = f ? 30 : 35, pts = I + C;
+    // a cada ano trabalhado: +2 pontos (idade + contribuição)
+    const faltaPts = Math.max(0, Math.ceil((ptsMin - pts) / 2)), faltaC2 = Math.max(0, ctPts - C);
+    const r2 = Math.max(faltaPts, faltaC2);
+    const regras = [
+      ["Por idade", `${idMin} anos de idade + ${ctMin} de contribuição`, r1, Math.min(1, (I / idMin + C / ctMin) / 2)],
+      ["Transição por pontos", `${ptsMin} pontos (você tem ${pts}) + ${ctPts} de contribuição`, r2, Math.min(1, pts / ptsMin)],
+    ];
+    $("#rules").innerHTML = regras.map(([n, d, falta, p]) => `<div class="rule ${falta === 0 ? "ok" : ""}"><h4>${n}<span>${falta === 0 ? "✓ Já pode pedir" : `faltam ~${anos(falta)}`}</span></h4><p>${d}</p><div class="prog"><i style="width:${(falta === 0 ? 1 : p) * 100}%"></i></div></div>`).join("");
+    // Valor: 60% da média + 2% por ano acima de 15 (mulher) / 20 (homem), no momento da aposentadoria
+    const melhor = Math.min(r1, r2), ctFinal = C + melhor;
+    const pct = Math.min(1, .6 + .02 * Math.max(0, ctFinal - (f ? 15 : 20)));
+    const val = Math.max(PISO, S * pct);
+    $("#valor").textContent = brl(val);
+    $("#valorTxt").textContent = melhor === 0 ? `${Math.round(pct * 100)}% da sua média — você já pode dar entrada!` : `${Math.round(pct * 100)}% da média, se continuar contribuindo por mais ${anos(melhor)}.`;
+  }
+  ["idade", "contrib"].forEach((k) => $("#" + k).addEventListener("input", sim));
+  $("#sexo").onclick = (e) => { const b = e.target.closest("button"); if (!b) return; sexo = b.dataset.v; $$("#sexo button").forEach((x) => x.classList.toggle("on", x === b)); sim(); };
+  sim();
+
+  /* Benefícios */
+  const S = [
+    ["Aposentadorias", "Por idade, tempo de contribuição, especial e da pessoa com deficiência.", ["RG e CPF", "Carteiras de trabalho", "Extrato do CNIS", "Carnês de contribuição"], '<path d="M12 3v3M5 9l2 2M19 9l-2 2"/><circle cx="12" cy="14" r="6"/><path d="M12 11v3l2 2"/>'],
+    ["BPC / LOAS", "Benefício de um salário mínimo para idosos e pessoas com deficiência de baixa renda.", ["CadÚnico atualizado", "Comprovante de renda familiar", "Laudos médicos (se PcD)"], '<path d="M4 12h16M12 4v16"/><circle cx="12" cy="12" r="9"/>'],
+    ["Auxílio por incapacidade", "Para quem está temporária ou permanentemente impedido de trabalhar.", ["Atestados e laudos", "Exames recentes", "Receitas médicas"], '<path d="M9 12h6M12 9v6"/><rect x="3" y="5" width="18" height="14" rx="3"/>'],
+    ["Pensão por morte", "Garantimos o benefício aos dependentes de forma rápida e respeitosa.", ["Certidão de óbito", "Documentos dos dependentes", "Comprovante de união"], '<path d="M12 21s-7-4.4-9-9a5 5 0 0 1 9-3 5 5 0 0 1 9 3c-2 4.6-9 9-9 9Z"/>'],
+    ["Revisão de benefício", "Corrigimos cálculos errados e buscamos valores pagos a menos.", ["Carta de concessão", "Histórico de créditos", "CNIS"], '<path d="M4 4v6h6M20 20v-6h-6"/><path d="M20 9a8 8 0 0 0-14-3L4 10M4 15a8 8 0 0 0 14 3l2-4"/>'],
+    ["Planejamento previdenciário", "Descubra a melhor data e regra para se aposentar com o maior valor.", ["CNIS", "Holerites recentes", "Carteiras de trabalho"], '<path d="M3 3v18h18"/><path d="M7 15l4-4 3 3 5-6"/>'],
+  ];
+  $("#sgrid").innerHTML = S.map(([t, d, docs, ic], i) => `<div class="s" data-r style="--d:${(i % 3) * .08}s"><i><svg viewBox="0 0 24 24">${ic}</svg></i><h3>${t}</h3><p>${d}</p><details><summary>Documentos necessários</summary><ul>${docs.map((x) => `<li>${x}</li>`).join("")}</ul></details></div>`).join("");
+  $$(".s").forEach((s) => io.observe(s));
+
+  $("#cform").onsubmit = (e) => {
+    e.preventDefault();
+    const msg = `Olá, Martins Advocacia! Gostaria de uma análise.\nNome: ${$("#cN").value}\nCidade: ${$("#cC").value || "—"}\nAssunto: ${$("#cA").value}\n${$("#cM").value}`;
+    window.open(`https://wa.me/${WA}?text=${encodeURIComponent(msg)}`, "_blank");
+  };
+})();
+</script>
+</body>
+</html>

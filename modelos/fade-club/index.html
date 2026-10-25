@@ -1,0 +1,380 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Fade Club — Barbearia</title>
+<meta name="description" content="Fade Club: degradê, barba e assinatura mensal. Veja a fila ao vivo, descubra o corte ideal para seu rosto e agende pelo WhatsApp." />
+<meta name="theme-color" content="#0c0c0c" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #0c0c0c; --card: #161616; --card2: #1f1f1f; --line: #2a2a2a; --ink: #f2f2ee; --muted: #8d8d88;
+    --y: #e6ff3d; --red: #ff4b3e;
+    --disp: "Anton", Impact, sans-serif; --sans: "Space Grotesk", system-ui, sans-serif;
+    --ease: cubic-bezier(.2,.8,.2,1);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { overflow-x: clip; scroll-behavior: smooth; scroll-padding-top: 76px; }
+  body { background: var(--bg); color: var(--ink); font-family: var(--sans); line-height: 1.55; -webkit-font-smoothing: antialiased; overflow-x: clip; }
+  img { display: block; max-width: 100%; }
+  a { color: inherit; text-decoration: none; }
+  button, input, select { font: inherit; color: inherit; }
+  button { background: none; border: 0; cursor: pointer; }
+  .wrap { width: min(1280px, 100% - 40px); margin-inline: auto; }
+  [class*="__grid"] > * { min-width: 0; }
+  .h2 { font-family: var(--disp); font-weight: 400; font-size: clamp(48px, 7vw, 108px); line-height: .92; text-transform: uppercase; }
+  .h2 em { font-style: normal; color: var(--y); }
+  .tag { display: inline-flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: var(--y); }
+  .tag::before { content: ""; width: 18px; height: 2px; background: currentColor; }
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 16px 26px; font-weight: 700; font-size: 14px; letter-spacing: .06em; text-transform: uppercase; border-radius: 4px; transition: transform .3s var(--ease), background .3s, color .3s; }
+  .btn--y { background: var(--y); color: #0c0c0c; }
+  .btn--y:hover { transform: translateY(-2px) rotate(-1deg); }
+  .btn--o { box-shadow: inset 0 0 0 2px var(--ink); }
+  .btn--o:hover { background: var(--ink); color: var(--bg); }
+  [data-r] { opacity: 0; transform: translateY(36px); transition: opacity .9s var(--ease), transform .9s var(--ease); transition-delay: var(--d, 0s); }
+  [data-r].in { opacity: 1; transform: none; }
+
+  /* NAV */
+  .nav { position: fixed; inset: 0 0 auto; z-index: 50; transition: background .3s; }
+  .nav.s { background: rgba(12,12,12,.9); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
+  .nav__in { height: 72px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+  .logo { font-family: var(--disp); font-size: 28px; letter-spacing: .02em; display: flex; align-items: center; gap: 8px; }
+  .logo i { width: 26px; height: 26px; background: var(--y); clip-path: polygon(0 0, 100% 0, 100% 35%, 0 100%); }
+  .links { display: flex; gap: 28px; font-weight: 500; font-size: 14px; }
+  .links a { opacity: .75; transition: opacity .2s; } .links a:hover { opacity: 1; }
+  .burger { display: none; width: 44px; height: 44px; border-radius: 4px; background: var(--card2); place-items: center; }
+  .burger span { width: 18px; height: 2px; background: var(--ink); box-shadow: 0 -6px var(--ink), 0 6px var(--ink); }
+  .menu { position: fixed; inset: 72px 0 auto; background: var(--bg); border-bottom: 1px solid var(--line); padding: 20px; display: none; flex-direction: column; gap: 6px; z-index: 49; }
+  .menu.on { display: flex; }
+  .menu a { font-family: var(--disp); font-size: 34px; text-transform: uppercase; }
+
+  /* HERO */
+  .hero { position: relative; min-height: 100svh; display: grid; align-items: end; padding: 120px 0 50px; overflow: hidden; }
+  .hero__bg { position: absolute; inset: 0; }
+  .hero__bg img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(1) contrast(1.15) brightness(.55); transform: scale(1.1); will-change: transform; }
+  .hero__bg::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(12,12,12,.2), rgba(12,12,12,.3) 40%, #0c0c0c 96%); }
+  .hero__in { position: relative; display: grid; grid-template-columns: 1fr 360px; gap: 40px; align-items: end; }
+  .hero h1 { margin-top: 26px; font-family: var(--disp); font-weight: 400; font-size: clamp(76px, 13vw, 210px); line-height: .84; text-transform: uppercase; }
+  .hero h1 .w { display: block; overflow: hidden; padding-top: .1em; margin-top: -.1em; }
+  .hero h1 .w span { display: inline-block; transform: translateY(105%); animation: rise 1s var(--ease) forwards; }
+  .hero h1 .w:nth-child(2) span { animation-delay: .12s; } .hero h1 .w:nth-child(3) span { animation-delay: .24s; }
+  @keyframes rise { to { transform: none; } }
+  .stroke { color: transparent; -webkit-text-stroke: 2px var(--ink); }
+  .hero h1 .y { color: var(--y); }
+  .hero p.sub { max-width: 480px; color: #c9c9c4; font-size: 18px; margin: 22px 0 28px; }
+  .hero__cta { display: flex; gap: 12px; flex-wrap: wrap; }
+
+  /* FILA AO VIVO */
+  .queue { background: rgba(22,22,22,.86); backdrop-filter: blur(12px); border: 1px solid var(--line); border-radius: 10px; padding: 22px; }
+  .live { display: flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--red); }
+  .live i { width: 8px; height: 8px; border-radius: 50%; background: var(--red); animation: pulse 1.4s infinite; }
+  @keyframes pulse { 50% { opacity: .2; } }
+  .qnum { display: flex; align-items: baseline; gap: 12px; margin: 14px 0 4px; }
+  .qnum b { font-family: var(--disp); font-weight: 400; font-size: 84px; line-height: .9; color: var(--y); }
+  .qnum span { color: var(--muted); font-size: 14px; line-height: 1.3; }
+  .chairs { display: grid; gap: 8px; margin: 16px 0; }
+  .chair { display: grid; grid-template-columns: 34px 1fr auto; gap: 10px; align-items: center; font-size: 13px; }
+  .chair img { width: 34px; height: 34px; border-radius: 50%; object-fit: cover; filter: grayscale(1); }
+  .chair .bar { height: 4px; background: var(--card2); border-radius: 4px; overflow: hidden; grid-column: 2 / 4; margin-top: -6px; }
+  .chair .bar i { display: block; height: 100%; background: var(--y); transition: width 1s linear; }
+  .chair em { font-style: normal; color: var(--muted); font-size: 12px; }
+  .queue .btn { width: 100%; }
+  .qok { font-size: 13px; color: var(--y); min-height: 20px; margin-top: 10px; text-align: center; }
+
+  /* TICKER */
+  .tick { background: var(--y); color: #0c0c0c; overflow: hidden; padding: 14px 0; transform: rotate(-1.5deg); margin: 30px -20px; }
+  .tick__in { display: flex; gap: 40px; white-space: nowrap; animation: mar 26s linear infinite; font-family: var(--disp); font-size: 32px; text-transform: uppercase; width: max-content; }
+  .tick__in span::after { content: "✦"; margin-left: 40px; }
+  @keyframes mar { to { transform: translateX(-50%); } }
+
+  /* FORMATO DO ROSTO */
+  .face { padding: 110px 0; }
+  .face__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; margin-top: 50px; }
+  .shapes { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; }
+  .shape { background: var(--card); border: 1px solid var(--line); border-radius: 8px; padding: 14px 6px 10px; display: grid; justify-items: center; gap: 8px; font-size: 12px; font-weight: 600; transition: all .3s var(--ease); }
+  .shape svg { width: 46px; height: 58px; }
+  .shape svg path { fill: none; stroke: var(--muted); stroke-width: 2.5; transition: stroke .3s; }
+  .shape.on { border-color: var(--y); background: var(--card2); }
+  .shape.on svg path { stroke: var(--y); }
+  .stage { position: relative; aspect-ratio: 1; max-width: 320px; margin: 26px auto 0; }
+  .stage svg { width: 100%; height: 100%; }
+  #fOut { fill: #1f1f1f; stroke: var(--y); stroke-width: 3; transition: d .7s var(--ease); }
+  #fHair { fill: #f2f2ee; transition: d .7s var(--ease); }
+  .rec { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 30px; }
+  .rec h3 { font-family: var(--disp); font-weight: 400; font-size: 46px; text-transform: uppercase; line-height: 1; }
+  .rec > p { color: var(--muted); margin: 12px 0 22px; }
+  .cuts { display: grid; gap: 10px; }
+  .cut { display: grid; grid-template-columns: 70px 1fr auto; gap: 14px; align-items: center; background: var(--card2); border-radius: 8px; padding: 10px; animation: pop .5s var(--ease) both; }
+  @keyframes pop { from { opacity: 0; transform: translateX(20px); } }
+  .cut img { width: 70px; height: 70px; border-radius: 6px; object-fit: cover; }
+  .cut b { display: block; }
+  .cut small { color: var(--muted); }
+  .cut .m { font-family: var(--disp); font-size: 26px; color: var(--y); }
+  .avoid { margin-top: 16px; font-size: 13px; color: var(--muted); }
+  .avoid b { color: var(--red); }
+
+  /* SERVIÇOS */
+  .svc { padding: 40px 0 110px; }
+  .menu-list { margin-top: 40px; border-top: 1px solid var(--line); }
+  .row { display: grid; grid-template-columns: 60px 1fr auto auto; gap: 24px; align-items: center; padding: 22px 0; border-bottom: 1px solid var(--line); position: relative; transition: padding .4s var(--ease); }
+  .row::before { content: ""; position: absolute; inset: 0; background: var(--y); transform: scaleY(0); transform-origin: bottom; transition: transform .4s var(--ease); z-index: -1; }
+  .row:hover { color: #0c0c0c; padding-inline: 20px; } .row:hover::before { transform: none; } .row:hover small, .row:hover .n { color: #0c0c0c; }
+  .menu-list { position: relative; z-index: 0; }
+  .row .n { font-family: var(--disp); font-size: 22px; color: var(--muted); }
+  .row h3 { font-family: var(--disp); font-weight: 400; font-size: clamp(28px, 3.4vw, 44px); text-transform: uppercase; line-height: 1; }
+  .row small { color: var(--muted); font-size: 14px; }
+  .row .p { font-family: var(--disp); font-size: 34px; }
+
+  /* AGENDA */
+  .book { padding: 110px 0; background: var(--card); border-block: 1px solid var(--line); }
+  .book__grid { display: grid; grid-template-columns: .9fr 1.1fr; gap: 60px; }
+  .barbers { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 30px; }
+  .bb { text-align: left; border-radius: 8px; overflow: hidden; background: var(--card2); border: 2px solid transparent; transition: border-color .3s; }
+  .bb img { width: 100%; aspect-ratio: 1; object-fit: cover; filter: grayscale(1); transition: filter .4s; }
+  .bb div { padding: 10px 12px; font-size: 13px; }
+  .bb b { display: block; font-size: 15px; }
+  .bb.on { border-color: var(--y); } .bb.on img, .bb:hover img { filter: none; }
+  .panel { background: var(--bg); border: 1px solid var(--line); border-radius: 10px; padding: 26px; }
+  .lbl { font-size: 12px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin: 0 0 10px; }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 22px; }
+  .chip { padding: 10px 14px; border-radius: 4px; background: var(--card2); font-size: 14px; font-weight: 500; transition: all .2s; }
+  .chip.on { background: var(--y); color: #0c0c0c; }
+  .chip:disabled { opacity: .3; text-decoration: line-through; cursor: not-allowed; }
+  .days .chip { display: grid; text-align: center; line-height: 1.2; min-width: 62px; }
+  .days .chip small { font-size: 11px; opacity: .7; }
+  .sum { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding-top: 18px; border-top: 1px dashed var(--line); flex-wrap: wrap; }
+  .sum p { font-size: 14px; color: var(--muted); }
+  .sum b { color: var(--ink); font-family: var(--disp); font-weight: 400; font-size: 30px; display: block; }
+
+  /* CLUBE */
+  .club { padding: 110px 0; }
+  .plans { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 50px; }
+  .plan { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 30px; display: flex; flex-direction: column; gap: 16px; transition: transform .4s var(--ease); }
+  .plan:hover { transform: translateY(-6px); }
+  .plan h3 { font-family: var(--disp); font-weight: 400; font-size: 34px; text-transform: uppercase; }
+  .plan .pr { font-family: var(--disp); font-size: 64px; line-height: 1; }
+  .plan .pr small { font-family: var(--sans); font-size: 14px; color: var(--muted); }
+  .plan ul { list-style: none; display: grid; gap: 8px; font-size: 15px; flex: 1; }
+  .plan li::before { content: "→ "; color: var(--y); }
+  .plan--hot { background: var(--y); color: #0c0c0c; border: 0; }
+  .plan--hot li::before { color: #0c0c0c; } .plan--hot .pr small { color: #3a3a1a; }
+  .plan--hot .btn { background: #0c0c0c; color: var(--y); }
+  .econ { margin-top: 30px; text-align: center; color: var(--muted); }
+  .econ b { color: var(--y); }
+
+  /* GALERIA + FOOTER */
+  .gal { display: grid; grid-template-columns: repeat(6, 1fr); gap: 4px; }
+  .gal img { width: 100%; aspect-ratio: 1; object-fit: cover; filter: grayscale(1); transition: filter .5s, transform .5s var(--ease); }
+  .gal img:hover { filter: none; transform: scale(.97); }
+  footer { padding: 60px 0 40px; }
+  .foot { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 30px; color: var(--muted); font-size: 14px; }
+  .foot b { display: block; color: var(--ink); margin-bottom: 8px; }
+  .big { font-family: var(--disp); font-size: clamp(80px, 19vw, 300px); line-height: .8; text-transform: uppercase; color: var(--card2); margin-top: 50px; text-align: center; letter-spacing: -.01em; }
+  .wa { position: fixed; right: 22px; bottom: 22px; z-index: 60; width: 58px; height: 58px; border-radius: 50%; background: #25d366; color: #fff; display: grid; place-items: center; box-shadow: 0 12px 30px -8px rgba(37,211,102,.6); transition: transform .3s var(--ease); }
+  .wa:hover { transform: scale(1.08); }
+
+  @media (max-width: 1000px) {
+    .links, .nav .btn { display: none; } .burger { display: grid; }
+    .hero__in, .face__grid, .book__grid { grid-template-columns: 1fr; }
+    .queue { max-width: 420px; }
+    .plans { grid-template-columns: 1fr; max-width: 480px; }
+    .gal { grid-template-columns: repeat(3, 1fr); }
+    .foot { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 600px) {
+    .shapes { grid-template-columns: repeat(3, 1fr); }
+    .row { grid-template-columns: 1fr auto; gap: 4px 16px; } .row .n { display: none; } .row small { grid-column: 1; } .row .p { grid-row: 1 / 3; grid-column: 2; }
+    .barbers { grid-template-columns: repeat(3, 1fr); gap: 8px; } .bb div { padding: 8px; font-size: 11px; } .bb b { font-size: 13px; }
+    .rec { padding: 22px; } .cut { grid-template-columns: 56px 1fr auto; } .cut img { width: 56px; height: 56px; }
+  }
+  @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; } [data-r] { opacity: 1; transform: none; } .hero h1 .w span { transform: none; } }
+</style>
+</head>
+<body>
+
+<header class="nav" id="nav">
+  <div class="wrap nav__in">
+    <a href="#" class="logo"><i></i>FADE CLUB</a>
+    <nav class="links"><a href="#rosto">Seu corte</a><a href="#servicos">Serviços</a><a href="#agenda">Agenda</a><a href="#clube">Clube</a></nav>
+    <a href="#agenda" class="btn btn--y" style="padding:12px 20px">Agendar</a>
+    <button class="burger" id="burger" aria-label="Menu"><span></span></button>
+  </div>
+</header>
+<nav class="menu" id="menu"><a href="#rosto">Seu corte</a><a href="#servicos">Serviços</a><a href="#agenda">Agenda</a><a href="#clube">Clube</a></nav>
+
+<section class="hero">
+  <div class="hero__bg"><img id="heroImg" src="https://images.unsplash.com/photo-1567894340315-735d7c361db0?w=1900&q=80&auto=format&fit=crop" alt="Barbeiro finalizando um corte" /></div>
+  <div class="wrap hero__in">
+    <div>
+      <span class="tag">Barbearia · Pinheiros, SP</span>
+      <h1><span class="w"><span>Degradê</span></span><span class="w"><span class="stroke">sem</span> <span class="y">fila</span></span><span class="w"><span>na porta.</span></span></h1>
+      <p class="sub">Acompanhe a fila em tempo real, entre na vez pelo celular e chegue só quando for sua hora.</p>
+      <div class="hero__cta"><a href="#agenda" class="btn btn--y">Agendar horário</a><a href="#rosto" class="btn btn--o">Qual corte combina?</a></div>
+    </div>
+    <aside class="queue" aria-live="polite">
+      <span class="live"><i></i>Fila ao vivo</span>
+      <div class="qnum"><b id="qN">3</b><span>pessoas na fila<br />espera de <strong id="qT">~35</strong> min</span></div>
+      <div class="chairs" id="chairs"></div>
+      <button class="btn btn--y" id="qJoin">Entrar na fila</button>
+      <p class="qok" id="qOk"></p>
+    </aside>
+  </div>
+</section>
+
+<div class="tick" aria-hidden="true"><div class="tick__in" id="tick"></div></div>
+
+<section class="face" id="rosto">
+  <div class="wrap">
+    <span class="tag" data-r>Consultoria de corte</span>
+    <h2 class="h2" data-r style="margin-top:16px">Qual o formato<br />do seu <em>rosto?</em></h2>
+    <div class="face__grid">
+      <div data-r>
+        <div class="shapes" id="shapes"></div>
+        <div class="stage"><svg viewBox="0 0 300 300" aria-hidden="true"><path id="fHair" d="" /><path id="fOut" d="" /><g fill="#f2f2ee"><circle cx="122" cy="160" r="5" /><circle cx="178" cy="160" r="5" /></g><path d="M134 214q16 10 32 0" fill="none" stroke="#f2f2ee" stroke-width="3" stroke-linecap="round" /></svg></div>
+      </div>
+      <div class="rec" data-r style="--d:.1s" id="rec"></div>
+    </div>
+  </div>
+</section>
+
+<section class="svc" id="servicos">
+  <div class="wrap">
+    <span class="tag" data-r>Cardápio</span>
+    <h2 class="h2" data-r style="margin-top:16px">Serviços</h2>
+    <div class="menu-list" id="svcList"></div>
+  </div>
+</section>
+
+<section class="book" id="agenda">
+  <div class="wrap book__grid">
+    <div data-r>
+      <span class="tag">Agenda</span>
+      <h2 class="h2" style="margin-top:16px">Escolha seu <em>barbeiro</em></h2>
+      <div class="barbers" id="barbers"></div>
+    </div>
+    <div class="panel" data-r style="--d:.1s">
+      <p class="lbl">Serviço</p><div class="chips" id="bSvc"></div>
+      <p class="lbl">Dia</p><div class="chips days" id="bDay"></div>
+      <p class="lbl">Horário</p><div class="chips" id="bHr"></div>
+      <div class="sum"><p id="bSum">—</p><a class="btn btn--y" id="bGo" target="_blank" rel="noopener" href="#">Confirmar no WhatsApp</a></div>
+    </div>
+  </div>
+</section>
+
+<section class="club" id="clube">
+  <div class="wrap">
+    <span class="tag" data-r>Assinatura</span>
+    <h2 class="h2" data-r style="margin-top:16px">Entre para<br />o <em>clube</em></h2>
+    <div class="plans">
+      <article class="plan" data-r><h3>Corte</h3><div class="pr">R$ 99<small>/mês</small></div><ul><li>Cortes ilimitados</li><li>Sobrancelha inclusa</li><li>Fura-fila 2x por mês</li></ul><a class="btn btn--o" target="_blank" rel="noopener" href="https://wa.me/5511999990000?text=Quero%20assinar%20o%20plano%20Corte%20do%20Fade%20Club">Assinar</a></article>
+      <article class="plan plan--hot" data-r style="--d:.1s"><h3>Corte + Barba</h3><div class="pr">R$ 149<small>/mês</small></div><ul><li>Cortes e barbas ilimitados</li><li>Fura-fila sempre</li><li>1 bebida por visita</li><li>10% em produtos</li></ul><a class="btn" target="_blank" rel="noopener" href="https://wa.me/5511999990000?text=Quero%20assinar%20o%20plano%20Corte%20%2B%20Barba%20do%20Fade%20Club">Assinar</a></article>
+      <article class="plan" data-r style="--d:.2s"><h3>Black</h3><div class="pr">R$ 219<small>/mês</small></div><ul><li>Tudo do Corte + Barba</li><li>Pigmentação e platinado</li><li>Horário exclusivo</li><li>Kit de produtos trimestral</li></ul><a class="btn btn--o" target="_blank" rel="noopener" href="https://wa.me/5511999990000?text=Quero%20assinar%20o%20plano%20Black%20do%20Fade%20Club">Assinar</a></article>
+    </div>
+    <p class="econ" data-r>Quem corta a cada 15 dias e faz a barba toda semana economiza <b>R$ 191 por mês</b> no plano Corte + Barba.</p>
+  </div>
+</section>
+
+<div class="gal" id="gal"></div>
+
+<footer>
+  <div class="wrap">
+    <div class="foot"><div><a href="#" class="logo"><i></i>FADE CLUB</a><p style="margin-top:12px">Degradê, barba e boa conversa desde 2019.</p></div><div><b>Endereço</b>Rua dos Pinheiros, 1200<br />São Paulo — SP</div><div><b>Horários</b>Ter a sex, 10h–21h<br />Sáb, 9h–19h</div><div><b>Contato</b>(11) 99999-0000<br />@fadeclub</div></div>
+    <div class="big" aria-hidden="true">Fade Club</div>
+  </div>
+</footer>
+
+<a class="wa" href="https://wa.me/5511999990000" target="_blank" rel="noopener" aria-label="WhatsApp"><svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21c5.46 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2Zm5.8 14.03c-.24.68-1.42 1.3-1.95 1.35-.5.05-.97.23-3.27-.68-2.77-1.09-4.52-3.92-4.66-4.1-.13-.18-1.1-1.47-1.1-2.8 0-1.34.7-2 .95-2.27.25-.27.54-.34.72-.34h.52c.17 0 .4-.06.62.47.24.56.8 1.94.87 2.08.07.14.12.3.02.48-.1.19-.14.3-.28.47-.14.16-.3.36-.42.49-.14.14-.29.29-.12.57.17.28.74 1.22 1.59 1.98 1.09.97 2.01 1.27 2.29 1.41.28.14.45.12.62-.07.17-.19.71-.83.9-1.11.19-.28.38-.24.64-.14.26.09 1.65.78 1.93.92.28.14.47.21.54.33.07.11.07.66-.17 1.34Z"/></svg></a>
+
+<script>
+(() => {
+  const reduz = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const $ = (s, el = document) => el.querySelector(s);
+  const $$ = (s, el = document) => [...el.querySelectorAll(s)];
+  const u = (id, w) => `https://images.unsplash.com/photo-${id}?w=${w}&q=78&auto=format&fit=crop`;
+  const WA = "5511999990000";
+
+  const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }), { threshold: .12 });
+  $$("[data-r]").forEach((el) => io.observe(el));
+  const nav = $("#nav"), hi = $("#heroImg");
+  addEventListener("scroll", () => { nav.classList.toggle("s", scrollY > 40); if (!reduz && scrollY < innerHeight) hi.style.transform = `scale(1.1) translateY(${scrollY * .18}px)`; }, { passive: true });
+  $("#burger").onclick = () => $("#menu").classList.toggle("on");
+  $$("#menu a").forEach((a) => a.onclick = () => $("#menu").classList.remove("on"));
+
+  $("#tick").innerHTML = Array(2).fill(["Degradê navalhado", "Barba na toalha quente", "Platinado", "Freestyle", "Pigmentação", "Cerveja gelada"].map((t) => `<span>${t}</span>`).join("")).join("");
+
+  /* Barbeiros */
+  const B = [["Rafa", "Degradê e freestyle", "1593702275687-f8b402bf1fb5"], ["Dudu", "Barba e navalha", "1599011176306-4a96f1516d4d"], ["Léo", "Platinado e química", "1764592358977-a181a6e71af4"]];
+
+  /* Fila ao vivo */
+  const chairs = B.map(([n], i) => ({ n, left: [8, 17, 26][i], tot: 30 }));
+  let fila = 3, naFila = false;
+  function q() {
+    $("#chairs").innerHTML = chairs.map((c, i) => `<div class="chair"><img src="${u(B[i][2], 80)}" alt="" /><span>${c.n}</span><em>${c.left} min</em><div class="bar"><i style="width:${(1 - c.left / c.tot) * 100}%"></i></div></div>`).join("");
+    $("#qN").textContent = fila;
+    const menor = Math.min(...chairs.map((c) => c.left));
+    $("#qT").textContent = `~${Math.max(5, Math.round(menor + (fila - 1) * 30 / 3))}`;
+  }
+  q();
+  setInterval(() => {
+    chairs.forEach((c) => { c.left--; if (c.left <= 0) { c.left = c.tot = 25 + Math.floor(Math.random() * 15); if (fila > (naFila ? 1 : 0)) fila--; } });
+    if (Math.random() < .12 && fila < 6) fila++;
+    q();
+  }, 2500);
+  $("#qJoin").onclick = (e) => { if (naFila) return; naFila = true; fila++; q(); e.currentTarget.textContent = "Você está na fila ✓"; $("#qOk").textContent = `Você é o ${fila}º. Avisamos no WhatsApp 15 min antes.`; };
+
+  /* Formato de rosto */
+  const F = {
+    Oval: { o: "M150 62C206 62 226 110 224 160C222 220 190 262 150 262C110 262 78 220 76 160C74 110 94 62 150 62Z", h: "M74 150C66 80 104 40 150 40C196 40 234 80 226 150C214 104 186 82 150 82C114 82 86 104 74 150Z", d: "Proporcional — praticamente tudo funciona. Aproveite para ousar.", c: [["Low fade + textura", "Natural no topo, degradê baixo", "1772442088712-df1780cbb709", "98%"], ["Pompadour", "Volume e topete para trás", "1783908688260-0c47404926f3", "95%"], ["Buzz cut", "Máquina baixa, visual limpo", "1635273051839-003bf06a8751", "90%"]], x: "Franja pesada na testa, que esconde a simetria." },
+    Redondo: { o: "M150 74C210 74 232 120 232 166C232 222 196 256 150 256C104 256 68 222 68 166C68 120 90 74 150 74Z", h: "M70 158C62 90 102 52 150 46C198 52 238 90 230 158C220 110 188 92 150 92C112 92 80 110 70 158Z", d: "Busque altura no topo e laterais bem baixas para alongar.", c: [["High fade + topete", "Altura que alonga o rosto", "1783908688260-0c47404926f3", "97%"], ["Quiff", "Volume para cima e para frente", "1772442088712-df1780cbb709", "93%"], ["Barba quadrada", "Cria ângulo no queixo", "1630827020718-3433092696e7", "90%"]], x: "Laterais volumosas e cortes arredondados." },
+    Quadrado: { o: "M86 72H214C222 72 228 78 228 86V214C228 244 196 260 150 260C104 260 72 244 72 214V86C72 78 78 72 86 72Z", h: "M70 140C64 74 104 46 150 44C196 46 236 74 230 140C220 100 190 84 150 84C110 84 80 100 70 140Z", d: "Mandíbula marcante. Cortes curtos e bem desenhados valorizam.", c: [["Crew cut", "Clássico militar, curto e preciso", "1635273051839-003bf06a8751", "97%"], ["Mid fade + risco", "Destaca a linha da mandíbula", "1772442088712-df1780cbb709", "94%"], ["Barba por fazer", "Sombra que mantém o ângulo", "1630827020718-3433092696e7", "91%"]], x: "Cortes muito rentes no topo com laterais altas." },
+    Triangular: { o: "M150 66C198 66 220 98 220 140C220 196 186 258 150 258C114 258 80 196 80 140C80 98 102 66 150 66Z", h: "M70 150C60 80 100 38 150 38C200 38 240 80 230 150C220 102 190 80 150 80C110 80 80 102 70 150Z", d: "Testa larga e queixo fino: equilibre com volume embaixo.", c: [["Franja texturizada", "Suaviza a testa", "1772442088712-df1780cbb709", "96%"], ["Barba cheia", "Dá volume ao queixo", "1599011176306-4a96f1516d4d", "95%"], ["Side part", "Risco lateral e laterais médias", "1783908688260-0c47404926f3", "90%"]], x: "Topete muito alto, que aumenta a testa." },
+    Alongado: { o: "M150 50C196 50 214 92 214 150C214 222 188 270 150 270C112 270 86 222 86 150C86 92 104 50 150 50Z", h: "M80 128C72 66 108 30 150 30C192 30 228 66 220 128C210 86 184 68 150 68C116 68 90 86 80 128Z", d: "Evite altura. Laterais com volume e franja equilibram.", c: [["Franja crop", "Diminui o comprimento visual", "1772442088712-df1780cbb709", "97%"], ["Taper médio", "Laterais com mais volume", "1635273051839-003bf06a8751", "92%"], ["Barba curta cheia", "Alarga a parte de baixo", "1630827020718-3433092696e7", "90%"]], x: "Topetes altos e laterais zeradas." },
+  };
+  let rosto = "Oval";
+  function face() {
+    $("#shapes").innerHTML = Object.keys(F).map((k) => `<button class="shape ${k === rosto ? "on" : ""}" data-k="${k}"><svg viewBox="60 30 180 250"><path d="${F[k].o}" /></svg>${k}</button>`).join("");
+    const f = F[rosto];
+    $("#fOut").setAttribute("d", f.o); $("#fHair").setAttribute("d", f.h);
+    $("#rec").innerHTML = `<span class="tag">Rosto ${rosto.toLowerCase()}</span><h3 style="margin-top:12px">Cortes que<br />combinam</h3><p>${f.d}</p><div class="cuts">${f.c.map(([n, d, img, m], i) => `<div class="cut" style="animation-delay:${i * 90}ms"><img src="${u(img, 160)}" alt="${n}" /><div><b>${n}</b><small>${d}</small></div><span class="m">${m}</span></div>`).join("")}</div><p class="avoid"><b>Evite:</b> ${f.x}</p><a class="btn btn--y" style="margin-top:20px;width:100%" href="#agenda" id="recGo">Agendar ${f.c[0][0]}</a>`;
+  }
+  $("#shapes").onclick = (e) => { const b = e.target.closest(".shape"); if (b) { rosto = b.dataset.k; face(); } };
+  $("#rec").addEventListener("click", (e) => { if (e.target.id === "recGo") { nota = `Corte sugerido: ${F[rosto].c[0][0]} (rosto ${rosto.toLowerCase()})`; book(); } });
+  face();
+
+  /* Serviços */
+  const S = [["Corte", "Degradê, social ou tesoura", 55, 40], ["Barba", "Toalha quente e navalha", 45, 30], ["Corte + barba", "O combo da casa", 90, 70], ["Pigmentação", "Corrige falhas no corte ou barba", 40, 20], ["Platinado", "Descoloração global", 180, 120], ["Sobrancelha", "Na navalha ou pinça", 20, 10]];
+  $("#svcList").innerHTML = S.map(([n, d, p], i) => `<div class="row" data-r style="--d:${i * .05}s"><span class="n">0${i + 1}</span><div><h3>${n}</h3><small>${d}</small></div><small>${S[i][3]} min</small><span class="p">R$ ${p}</span></div>`).join("");
+  $$("#svcList [data-r]").forEach((el) => io.observe(el));
+
+  /* Agenda */
+  $("#barbers").innerHTML = B.map(([n, e, img], i) => `<button class="bb ${i === 0 ? "on" : ""}" data-i="${i}"><img src="${u(img, 400)}" alt="${n}" loading="lazy" /><div><b>${n}</b>${e}</div></button>`).join("");
+  const dias = [...Array(9)].map((_, i) => { const d = new Date(); d.setDate(d.getDate() + i); return d; }).filter((d) => d.getDay() !== 0 && d.getDay() !== 1).slice(0, 5);
+  const HR = ["10:00", "11:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00"];
+  let bar = 0, svc = 2, dia = 0, hr = null, nota = "";
+  const ocupado = (b, d, h) => ((b * 7 + d * 3 + h * 5) % 4) === 0;
+  function book() {
+    $$("#barbers .bb").forEach((b, i) => b.classList.toggle("on", i === bar));
+    $("#bSvc").innerHTML = S.map(([n, , p], i) => `<button class="chip ${i === svc ? "on" : ""}" data-i="${i}">${n} · R$ ${p}</button>`).join("");
+    $("#bDay").innerHTML = dias.map((d, i) => `<button class="chip ${i === dia ? "on" : ""}" data-i="${i}"><small>${i === 0 ? "Hoje" : d.toLocaleDateString("pt-BR", { weekday: "short" }).replace(".", "")}</small>${d.getDate()}/${d.getMonth() + 1}</button>`).join("");
+    const agora = new Date().getHours();
+    if (hr !== null && (ocupado(bar, dia, hr) || (dia === 0 && parseInt(HR[hr]) <= agora))) hr = null;
+    $("#bHr").innerHTML = HR.map((h, i) => `<button class="chip ${i === hr ? "on" : ""}" data-i="${i}" ${ocupado(bar, dia, i) || (dia === 0 && parseInt(h) <= agora) ? "disabled" : ""}>${h}</button>`).join("");
+    const [n, , p] = S[svc];
+    $("#bSum").innerHTML = hr === null ? `Escolha um horário com ${B[bar][0]}` : `<b>${HR[hr]} · ${dias[dia].toLocaleDateString("pt-BR", { day: "2-digit", month: "2-digit" })}</b>${n} com ${B[bar][0]} · R$ ${p}`;
+    const msg = `Olá, Fade Club! Quero agendar:\n${n} com ${B[bar][0]}\n${hr === null ? "Horário a combinar" : `${dias[dia].toLocaleDateString("pt-BR")} às ${HR[hr]}`}${nota ? `\n${nota}` : ""}`;
+    $("#bGo").href = `https://wa.me/${WA}?text=${encodeURIComponent(msg)}`;
+  }
+  $("#barbers").onclick = (e) => { const b = e.target.closest(".bb"); if (b) { bar = +b.dataset.i; book(); } };
+  $("#bSvc").onclick = (e) => { const b = e.target.closest(".chip"); if (b) { svc = +b.dataset.i; book(); } };
+  $("#bDay").onclick = (e) => { const b = e.target.closest(".chip"); if (b) { dia = +b.dataset.i; book(); } };
+  $("#bHr").onclick = (e) => { const b = e.target.closest(".chip"); if (b && !b.disabled) { hr = +b.dataset.i; book(); } };
+  book();
+
+  $("#gal").innerHTML = ["1783908688260-0c47404926f3", "1761931403667-a6753db21f32", "1630827020718-3433092696e7", "1633681926022-84c23e8cb2d6", "1768742466927-42153b867e8b", "1599011176306-4a96f1516d4d"].map((id) => `<img src="${u(id, 500)}" alt="" loading="lazy" />`).join("");
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,480 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Flora Viva — Orquidário, Floricultura e Viveiro</title>
+<meta name="description" content="Flora Viva: orquídeas, buquês, plantas e arranjos com entrega no mesmo dia. Monte seu buquê online e visite nosso viveiro." />
+<meta name="theme-color" content="#f6f2ea" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=Figtree:wght@400;500;600&family=Caveat:wght@500&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #f6f2ea; --white: #fffdf9; --green: #1f3a2c; --green2: #2f5a43; --sage: #a9b99a; --sage2: #e3e9db; --orchid: #8e4b8f; --blush: #f2d6d3; --ink: #1f2a24; --muted: #6c746d; --line: #e2dccf;
+    --serif: "Playfair Display", Georgia, serif; --sans: "Figtree", system-ui, sans-serif; --hand: "Caveat", cursive;
+    --ease: cubic-bezier(.2,.8,.2,1); --spring: cubic-bezier(.34,1.56,.64,1);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { overflow-x: clip; scroll-behavior: smooth; scroll-padding-top: 90px; }
+  body { background: var(--bg); color: var(--ink); font-family: var(--sans); line-height: 1.65; -webkit-font-smoothing: antialiased; overflow-x: clip; }
+  img { display: block; max-width: 100%; }
+  a { color: inherit; text-decoration: none; }
+  button, input, textarea { font: inherit; color: inherit; }
+  button { background: none; border: 0; cursor: pointer; }
+  .wrap { width: min(1240px, 100% - 40px); margin-inline: auto; }
+  h1, h2, h3 { font-family: var(--serif); font-weight: 400; line-height: 1.05; letter-spacing: -.01em; }
+  h1 em, h2 em { color: var(--orchid); }
+  .h2 { font-size: clamp(40px, 5.2vw, 76px); }
+  .eyebrow { display: inline-flex; align-items: center; gap: 10px; font-size: 13px; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; color: var(--green2); }
+  .eyebrow svg { width: 18px; color: var(--orchid); }
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 16px 30px; border-radius: 999px; font-weight: 600; font-size: 15px; transition: all .35s var(--ease); }
+  .btn--g { background: var(--green); color: var(--bg); }
+  .btn--g:hover { background: var(--orchid); transform: translateY(-2px); }
+  .btn--l { box-shadow: inset 0 0 0 1px var(--green); color: var(--green); }
+  .btn--l:hover { background: var(--green); color: var(--bg); }
+  [data-r] { opacity: 0; transform: translateY(34px); transition: opacity 1s var(--ease), transform 1s var(--ease); transition-delay: var(--d, 0s); }
+  [data-r].in { opacity: 1; transform: none; }
+
+  /* NAV */
+  .nav { position: fixed; inset: 0 0 auto; z-index: 50; transition: background .4s, box-shadow .4s; }
+  .nav.solid { background: rgba(246,242,234,.92); backdrop-filter: blur(12px); box-shadow: 0 1px 0 var(--line); }
+  .nav__in { height: 84px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+  .logo { display: flex; align-items: center; gap: 10px; font-family: var(--serif); font-size: 28px; font-style: italic; color: var(--green); }
+  .logo svg { width: 34px; color: var(--orchid); transition: transform .8s var(--spring); }
+  .logo:hover svg { transform: rotate(72deg); }
+  .nav__links { display: flex; gap: 30px; font-weight: 500; font-size: 15px; }
+  .nav__links a:hover { color: var(--orchid); }
+  .bagb { display: inline-flex; align-items: center; gap: 8px; padding: 10px 16px; border-radius: 999px; background: var(--white); box-shadow: 0 1px 0 var(--line); font-weight: 600; font-size: 14px; }
+  .bagb b { min-width: 22px; height: 22px; border-radius: 11px; background: var(--orchid); color: #fff; display: grid; place-items: center; font-size: 12px; padding: 0 6px; transition: transform .4s var(--spring); }
+  .bagb.bump b { transform: scale(1.4); }
+  .burger { display: none; width: 46px; height: 46px; border-radius: 50%; background: var(--green); place-items: center; }
+  .burger span { width: 18px; height: 1.5px; background: var(--bg); box-shadow: 0 6px 0 var(--bg), 0 -6px 0 var(--bg); }
+
+  /* HERO */
+  .hero { position: relative; min-height: 100svh; padding: 130px 0 70px; display: flex; align-items: center; overflow: hidden; }
+  #petals { position: absolute; inset: 0; z-index: 1; pointer-events: none; }
+  .hero__grid { position: relative; z-index: 2; display: grid; grid-template-columns: 1.05fr .95fr; gap: 60px; align-items: center; }
+  .hero h1 { font-size: clamp(52px, 7vw, 110px); margin: 22px 0 26px; }
+  .hero h1 .w { display: inline-block; opacity: 0; transform: translateY(30px); filter: blur(8px); animation: bloom 1.3s var(--ease) forwards; }
+  @keyframes bloom { to { opacity: 1; transform: none; filter: none; } }
+  .hero p { color: var(--muted); font-size: 18px; max-width: 460px; }
+  .hero__ctas { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 34px; }
+  .cut { display: inline-flex; align-items: center; gap: 14px; margin-top: 38px; padding: 12px 18px 12px 12px; border-radius: 999px; background: var(--white); box-shadow: 0 10px 30px -18px rgba(31,58,44,.4); }
+  .cut i { width: 42px; height: 42px; border-radius: 50%; background: var(--sage2); display: grid; place-items: center; font-style: normal; font-size: 20px; }
+  .cut small { display: block; color: var(--muted); font-size: 13px; }
+  .cut b { font-weight: 600; }
+  .art { position: relative; height: min(70vh, 640px); }
+  .arch { position: absolute; right: 0; top: 0; width: 76%; height: 100%; border-radius: 400px 400px 30px 30px; overflow: hidden; }
+  .arch img { width: 100%; height: 112%; object-fit: cover; transform: scale(1.1); animation: settle 2.4s var(--ease) forwards; will-change: transform; }
+  @keyframes settle { to { transform: scale(1); } }
+  .bubble { position: absolute; left: 0; bottom: 8%; width: 38%; aspect-ratio: 1; border-radius: 50%; overflow: hidden; border: 8px solid var(--bg); box-shadow: 0 30px 50px -30px rgba(31,58,44,.6); animation: float 7s ease-in-out infinite; }
+  .bubble img { width: 100%; height: 100%; object-fit: cover; }
+  @keyframes float { 50% { transform: translateY(-16px) rotate(-3deg); } }
+  .note { position: absolute; left: 10%; top: 10%; font-family: var(--hand); font-size: 30px; color: var(--orchid); transform: rotate(-8deg); line-height: 1; }
+  .note svg { display: block; width: 70px; margin: 4px 0 0 60px; color: var(--orchid); }
+
+  /* FAIXA */
+  .ribbon { background: var(--green); color: var(--bg); padding: 22px 0; overflow: hidden; }
+  .ribbon__track { display: flex; gap: 46px; width: max-content; animation: run 40s linear infinite; }
+  .ribbon span { font-family: var(--serif); font-style: italic; font-size: 30px; white-space: nowrap; display: flex; align-items: center; gap: 46px; }
+  .ribbon span::after { content: "❀"; color: var(--blush); font-style: normal; font-size: .8em; }
+  @keyframes run { to { transform: translateX(-50%); } }
+
+  /* LOJA */
+  .shop { padding: 130px 0; }
+  .head { display: flex; justify-content: space-between; align-items: end; gap: 30px; flex-wrap: wrap; margin-bottom: 40px; }
+  .head p { color: var(--muted); max-width: 400px; }
+  .cats { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 30px; }
+  .cat { padding: 10px 20px; border-radius: 999px; background: var(--white); font-weight: 500; font-size: 15px; box-shadow: 0 1px 0 var(--line); transition: all .3s var(--ease); }
+  .cat.on { background: var(--green); color: var(--bg); }
+  .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; }
+  .prod { animation: up .7s var(--ease) both; }
+  @keyframes up { from { opacity: 0; transform: translateY(24px); } }
+  .prod__img { position: relative; aspect-ratio: 4/5; border-radius: 200px 200px 18px 18px; overflow: hidden; background: var(--sage2); }
+  .prod__img img { width: 100%; height: 100%; object-fit: cover; transition: transform 1.4s var(--ease); }
+  .prod:hover .prod__img img { transform: scale(1.07); }
+  .prod__add { position: absolute; right: 12px; bottom: 12px; width: 48px; height: 48px; border-radius: 50%; background: var(--white); color: var(--green); font-size: 24px; display: grid; place-items: center; box-shadow: 0 10px 20px -10px rgba(0,0,0,.4); transition: all .4s var(--spring); }
+  .prod__add:hover { background: var(--orchid); color: #fff; transform: rotate(90deg) scale(1.1); }
+  .prod__add.ok { background: var(--green); color: #fff; }
+  .prod h3 { font-size: 21px; margin-top: 16px; }
+  .prod p { display: flex; justify-content: space-between; color: var(--muted); font-size: 14px; }
+  .prod p b { color: var(--ink); font-weight: 600; font-size: 16px; }
+
+  /* MONTE SEU BUQUÊ */
+  .build { padding: 120px 0; background: var(--white); border-radius: 50px; margin: 0 14px; }
+  .build__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start; }
+  .preview { position: sticky; top: 110px; background: var(--bg); border-radius: 36px; padding: 30px; text-align: center; }
+  .preview svg { width: 100%; max-width: 420px; height: auto; }
+  .flower { transform-box: fill-box; transform-origin: center; animation: pop .6s var(--spring) both; }
+  @keyframes pop { from { transform: scale(0); } }
+  .card { margin: -30px auto 0; max-width: 330px; background: #fff; padding: 18px 22px; box-shadow: 0 16px 30px -18px rgba(31,58,44,.5); transform: rotate(-3deg); position: relative; min-height: 90px; }
+  .card p { font-family: var(--hand); font-size: 26px; line-height: 1.15; color: var(--green); word-break: break-word; }
+  .card small { display: block; font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
+  .price { display: flex; justify-content: space-between; align-items: baseline; margin-top: 26px; padding-top: 18px; border-top: 1px solid var(--line); }
+  .price b { font-family: var(--serif); font-size: 44px; font-weight: 400; color: var(--green); }
+  .opt-step { margin-bottom: 32px; }
+  .opt-step h4 { font-family: var(--serif); font-weight: 400; font-size: 24px; margin-bottom: 14px; }
+  .opt-step h4 span { font-family: var(--hand); color: var(--orchid); font-size: 28px; margin-right: 8px; }
+  .choices { display: flex; gap: 10px; flex-wrap: wrap; }
+  .ch { padding: 12px 18px; border-radius: 16px; border: 1.5px solid var(--line); background: var(--bg); font-weight: 500; transition: all .3s var(--spring); text-align: left; }
+  .ch small { display: block; color: var(--muted); font-size: 12px; }
+  .ch:hover { transform: translateY(-2px); }
+  .ch.on { border-color: var(--green); background: var(--sage2); }
+  .sw { width: 44px; height: 44px; border-radius: 50%; border: 3px solid var(--white); box-shadow: 0 0 0 1.5px var(--line); transition: all .3s var(--spring); }
+  .sw.on { box-shadow: 0 0 0 2.5px var(--green); transform: scale(1.12); }
+  textarea { width: 100%; border: 1.5px solid var(--line); background: var(--bg); border-radius: 16px; padding: 14px 16px; outline: none; resize: none; transition: border-color .3s; }
+  textarea:focus { border-color: var(--orchid); }
+  .count { font-size: 12px; color: var(--muted); text-align: right; }
+
+  /* CUIDADOS */
+  .care { padding: 130px 0; }
+  .care__grid { display: grid; grid-template-columns: .9fr 1.1fr; gap: 60px; align-items: center; }
+  .care__img { position: relative; aspect-ratio: 1; border-radius: 50%; overflow: hidden; }
+  .care__img img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: opacity .7s, transform 1.2s var(--ease); }
+  .care__img img.out { opacity: 0; transform: scale(1.06); }
+  .species { display: flex; gap: 8px; flex-wrap: wrap; margin: 26px 0 30px; }
+  .meters { display: grid; gap: 18px; }
+  .meter { display: grid; grid-template-columns: 140px 1fr; gap: 16px; align-items: center; }
+  .meter span { font-weight: 600; }
+  .meter i { display: flex; gap: 6px; }
+  .meter i b { flex: 1; height: 10px; border-radius: 5px; background: var(--line); transition: background .5s var(--ease); transition-delay: var(--d); }
+  .meter i b.f { background: var(--green2); }
+  .tip { margin-top: 26px; padding: 20px 24px; border-radius: 20px; background: var(--blush); color: #6b2f4a; animation: up .6s var(--ease); }
+  .tip b { font-family: var(--serif); font-style: italic; font-weight: 400; font-size: 20px; display: block; margin-bottom: 4px; }
+
+  /* VIVEIRO */
+  .nursery { position: relative; min-height: 90vh; display: flex; align-items: flex-end; color: var(--bg); overflow: hidden; border-radius: 50px; margin: 0 14px; }
+  .nursery__bg { position: absolute; inset: -12% 0; background: url("https://images.unsplash.com/photo-1772907952251-09e722aafa6a?w=2200&q=75&auto=format&fit=crop") center / cover; will-change: transform; }
+  .nursery::after { content: ""; position: absolute; inset: 0; background: linear-gradient(0deg, rgba(20,38,28,.88), rgba(20,38,28,.1) 60%); }
+  .nursery__in { position: relative; z-index: 1; padding-bottom: 70px; display: grid; grid-template-columns: 1.2fr 1fr; gap: 40px; align-items: end; }
+  .nursery .eyebrow { color: var(--blush); }
+  .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+  .stats div { background: rgba(246,242,234,.12); backdrop-filter: blur(10px); border: 1px solid rgba(246,242,234,.2); border-radius: 20px; padding: 18px; }
+  .stats b { display: block; font-family: var(--serif); font-size: 36px; font-weight: 400; line-height: 1; }
+  .stats span { font-size: 13px; opacity: .8; }
+
+  /* EVENTOS + DEPOIMENTOS */
+  .events { padding: 130px 0; }
+  .events__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+  .events__img { aspect-ratio: 4/5; border-radius: 30px; overflow: hidden; }
+  .events__img img { width: 100%; height: 100%; object-fit: cover; }
+  .events ul { list-style: none; display: grid; gap: 12px; margin: 26px 0 34px; }
+  .events li { display: flex; gap: 12px; }
+  .events li::before { content: "❀"; color: var(--orchid); }
+  .quotes { padding: 0 0 130px; }
+  .q__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+  .q { background: var(--white); border-radius: 28px; padding: 32px; }
+  .q p { font-family: var(--serif); font-style: italic; font-size: 21px; line-height: 1.4; margin: 12px 0 18px; }
+  .q small { color: var(--muted); }
+  .stars { color: var(--orchid); letter-spacing: 3px; }
+
+  footer { background: var(--green); color: #c9d4c4; padding: 60px 0 40px; border-radius: 50px 50px 0 0; }
+  .foot { display: grid; grid-template-columns: 1.3fr 1fr 1fr; gap: 40px; font-size: 15px; }
+  footer .logo { color: var(--bg); }
+  footer h5 { font-family: var(--serif); font-style: italic; font-weight: 400; font-size: 22px; color: var(--blush); margin-bottom: 10px; }
+  .foot__bot { margin-top: 40px; padding-top: 24px; border-top: 1px solid rgba(255,255,255,.12); font-size: 13px; }
+  .toast { position: fixed; left: 50%; bottom: 26px; z-index: 80; transform: translate(-50%, 120px); background: var(--green); color: var(--bg); padding: 14px 22px; border-radius: 999px; font-weight: 600; box-shadow: 0 20px 40px -20px rgba(0,0,0,.5); transition: transform .5s var(--spring); }
+  .toast.on { transform: translate(-50%, 0); }
+  .wa { position: fixed; right: 22px; bottom: 22px; z-index: 60; width: 58px; height: 58px; border-radius: 50%; background: #25d366; color: #fff; display: grid; place-items: center; box-shadow: 0 12px 30px -8px rgba(37,211,102,.6); transition: transform .3s var(--ease); }
+  .wa:hover { transform: scale(1.08); }
+
+  @media (max-width: 1040px) {
+    .nav__links { display: none; }
+    .burger { display: grid; }
+    .nav.open { background: var(--bg); }
+    .nav.open .nav__links { display: flex; flex-direction: column; position: absolute; top: 100%; left: 0; right: 0; background: var(--bg); padding: 24px 20px; gap: 18px; box-shadow: 0 1px 0 var(--line); }
+    .hero__grid, .build__grid, .care__grid, .events__grid, .nursery__in { grid-template-columns: 1fr; }
+    .art { height: 520px; }
+    .grid { grid-template-columns: 1fr 1fr; }
+    .preview { position: static; }
+    .care__img { max-width: 420px; margin: 0 auto; width: 100%; }
+    .q__grid { grid-template-columns: 1fr; }
+    .foot { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 600px) {
+    .art { height: 440px; }
+    .arch { width: 84%; }
+    .bubble { width: 44%; }
+    .grid { gap: 14px; }
+    .prod h3 { font-size: 18px; }
+    .build, .nursery { margin: 0 8px; border-radius: 34px; }
+    .meter { grid-template-columns: 100px 1fr; }
+    .stats { grid-template-columns: 1fr; }
+    .bagb span { display: none; }
+  }
+  @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; animation-delay: 0s !important; transition-duration: .01ms !important; } [data-r] { opacity: 1; transform: none; } #petals { display: none; } }
+</style>
+</head>
+<body>
+
+<header class="nav" id="nav">
+  <div class="wrap nav__in">
+    <a href="#" class="logo"><svg viewBox="0 0 32 32" fill="currentColor"><g opacity=".9"><ellipse cx="16" cy="8" rx="4.5" ry="7"/><ellipse cx="16" cy="8" rx="4.5" ry="7" transform="rotate(72 16 16)"/><ellipse cx="16" cy="8" rx="4.5" ry="7" transform="rotate(144 16 16)"/><ellipse cx="16" cy="8" rx="4.5" ry="7" transform="rotate(216 16 16)"/><ellipse cx="16" cy="8" rx="4.5" ry="7" transform="rotate(288 16 16)"/></g><circle cx="16" cy="16" r="3.4" fill="#f2d6d3"/></svg>Flora Viva</a>
+    <nav class="nav__links"><a href="#loja">Loja</a><a href="#buque">Monte seu buquê</a><a href="#cuidados">Cuidados</a><a href="#viveiro">Viveiro</a><a href="#eventos">Eventos</a></nav>
+    <a href="#loja" class="bagb" id="bagb"><span>Sacola</span><b id="bagN">0</b></a>
+    <button class="burger" aria-label="Menu"><span></span></button>
+  </div>
+</header>
+
+<section class="hero">
+  <canvas id="petals"></canvas>
+  <div class="wrap hero__grid">
+    <div>
+      <span class="eyebrow"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2c2 3 2 6 0 9-2-3-2-6 0-9Zm0 20c-2-3-2-6 0-9 2 3 2 6 0 9ZM2 12c3-2 6-2 9 0-3 2-6 2-9 0Zm20 0c-3 2-6 2-9 0 3-2 6-2 9 0Z"/></svg>Orquidário · Floricultura · Viveiro</span>
+      <h1><span class="w">Flores</span> <span class="w" style="animation-delay:.1s">que</span> <span class="w" style="animation-delay:.2s">dizem</span> <span class="w" style="animation-delay:.3s">o</span> <span class="w" style="animation-delay:.4s">que</span> <span class="w" style="animation-delay:.5s">você</span> <span class="w" style="animation-delay:.6s"><em>sente.</em></span></h1>
+      <p>Orquídeas cultivadas no nosso próprio viveiro, buquês montados à mão e plantas que transformam qualquer canto em jardim.</p>
+      <div class="hero__ctas"><a href="#buque" class="btn btn--g">Montar meu buquê</a><a href="#loja" class="btn btn--l">Ver orquídeas</a></div>
+      <div class="cut"><i>🚚</i><div><small id="cutLbl">Peça nas próximas</small><b id="cutTime">--</b></div></div>
+    </div>
+    <div class="art">
+      <div class="arch"><img id="heroImg" src="https://images.unsplash.com/photo-1605996370592-b6f7a81e382e?w=1100&q=80&auto=format&fit=crop" alt="Orquídeas roxas" /></div>
+      <div class="bubble"><img src="https://images.unsplash.com/photo-1565695951564-007d8f297e48?w=600&q=78&auto=format&fit=crop" alt="Buquês coloridos" /></div>
+      <div class="note">cultivadas<br />com carinho<svg viewBox="0 0 70 40" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6c20 4 40 14 56 28M50 34l10 0 0-10"/></svg></div>
+    </div>
+  </div>
+</section>
+
+<div class="ribbon" aria-hidden="true"><div class="ribbon__track" id="ribbon"></div></div>
+
+<section class="shop" id="loja">
+  <div class="wrap">
+    <div class="head"><div data-r><span class="eyebrow">Nossa loja</span><h2 class="h2" style="margin-top:14px">Escolhidas <em>uma a uma</em></h2></div><p data-r style="--d:.1s">Cada planta sai do viveiro com cartão de cuidados e garantia de 7 dias. Embalagem para presente inclusa.</p></div>
+    <div class="cats" id="cats" data-r></div>
+    <div class="grid" id="grid"></div>
+  </div>
+</section>
+
+<section class="build" id="buque">
+  <div class="wrap">
+    <div class="head"><div data-r><span class="eyebrow">Monte seu buquê</span><h2 class="h2" style="margin-top:14px">Feito por você,<br /><em>montado por nós</em></h2></div><p data-r style="--d:.1s">Escolha as flores, a cor, o tamanho e escreva o cartão. Você vê o buquê tomando forma na hora.</p></div>
+    <div class="build__grid">
+      <div data-r>
+        <div class="opt-step"><h4><span>1.</span>Flor principal</h4><div class="choices" id="cFlor"></div></div>
+        <div class="opt-step"><h4><span>2.</span>Cor</h4><div class="choices" id="cCor"></div></div>
+        <div class="opt-step"><h4><span>3.</span>Tamanho</h4><div class="choices" id="cTam"></div></div>
+        <div class="opt-step"><h4><span>4.</span>Embalagem</h4><div class="choices" id="cEmb"></div></div>
+        <div class="opt-step"><h4><span>5.</span>Mensagem do cartão</h4><textarea id="msg" rows="3" maxlength="120" placeholder="Escreva algo especial…"></textarea><p class="count"><span id="msgN">0</span>/120</p></div>
+      </div>
+      <div class="preview" data-r style="--d:.1s">
+        <svg viewBox="0 0 400 420" id="bq" aria-label="Prévia do buquê"></svg>
+        <div class="card"><small>Cartão</small><p id="cardTxt">Escreva sua mensagem ✿</p></div>
+        <div class="price"><span id="bqSum" style="color:var(--muted);font-size:14px;text-align:left"></span><b id="bqPrice">R$ 0</b></div>
+        <button class="btn btn--g" id="bqAdd" style="width:100%;margin-top:16px">Encomendar pelo WhatsApp</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="care" id="cuidados">
+  <div class="wrap care__grid">
+    <div class="care__img" data-r><img id="careImg" src="https://images.unsplash.com/photo-1583846712268-a77d97b7fd68?w=900&q=78&auto=format&fit=crop" alt="Orquídea" /></div>
+    <div data-r style="--d:.1s">
+      <span class="eyebrow">Guia de cuidados</span>
+      <h2 class="h2" style="margin-top:14px">Sua orquídea <em>florindo</em> de novo</h2>
+      <div class="species" id="species"></div>
+      <div class="meters" id="meters"></div>
+      <div class="tip" id="tip"></div>
+    </div>
+  </div>
+</section>
+
+<section class="nursery" id="viveiro">
+  <div class="nursery__bg" id="nBg"></div>
+  <div class="wrap nursery__in">
+    <div data-r><span class="eyebrow">Visite o viveiro</span><h2 class="h2" style="margin-top:14px">Um passeio entre <em style="color:var(--blush)">milhares</em> de flores.</h2><p style="opacity:.85;margin-top:16px;max-width:460px">Aberto à visitação todos os dias. Traga a família, tome um café e escolha sua orquídea direto da estufa.</p></div>
+    <div class="stats" data-r style="--d:.1s"><div><b>2.000 m²</b><span>de estufas</span></div><div><b>+180</b><span>espécies de orquídeas</span></div><div><b>1994</b><span>cultivando desde</span></div></div>
+  </div>
+</section>
+
+<section class="events" id="eventos">
+  <div class="wrap events__grid">
+    <div class="events__img" data-r><img src="https://images.unsplash.com/photo-1487070183336-b863922373d4?w=1000&q=78&auto=format&fit=crop" alt="Arranjos para eventos" loading="lazy" /></div>
+    <div data-r style="--d:.1s">
+      <span class="eyebrow">Eventos e casamentos</span>
+      <h2 class="h2" style="margin-top:14px">Decoração floral para <em>momentos únicos</em></h2>
+      <ul><li>Buquê da noiva e lapelas</li><li>Arranjos de mesa e centros</li><li>Decoração de cerimônias e igrejas</li><li>Eventos corporativos e assinaturas mensais</li></ul>
+      <a class="btn btn--g" target="_blank" rel="noopener" href="https://wa.me/5511999990000?text=Ol%C3%A1!%20Quero%20um%20or%C3%A7amento%20de%20decora%C3%A7%C3%A3o%20floral%20para%20um%20evento.">Pedir orçamento</a>
+    </div>
+  </div>
+</section>
+
+<section class="quotes">
+  <div class="wrap q__grid">
+    <div class="q" data-r><span class="stars">★★★★★</span><p>“Minha orquídea voltou a florir seguindo o guia deles. Atendimento apaixonado!”</p><small>Helena C.</small></div>
+    <div class="q" data-r style="--d:.1s"><span class="stars">★★★★★</span><p>“Pedi às 13h e o buquê chegou no escritório antes das 17h, lindo e perfumado.”</p><small>Rafael P.</small></div>
+    <div class="q" data-r style="--d:.2s"><span class="stars">★★★★★</span><p>“A decoração do nosso casamento ficou um sonho. Cuidaram de cada detalhe.”</p><small>Júlia &amp; Bruno</small></div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <div><a href="#" class="logo"><svg viewBox="0 0 32 32" fill="currentColor" style="color:var(--blush)"><ellipse cx="16" cy="8" rx="4.5" ry="7"/><ellipse cx="16" cy="8" rx="4.5" ry="7" transform="rotate(72 16 16)"/><ellipse cx="16" cy="8" rx="4.5" ry="7" transform="rotate(144 16 16)"/><ellipse cx="16" cy="8" rx="4.5" ry="7" transform="rotate(216 16 16)"/><ellipse cx="16" cy="8" rx="4.5" ry="7" transform="rotate(288 16 16)"/></svg>Flora Viva</a><p style="margin-top:14px;max-width:340px">Orquidário, floricultura e viveiro. Flores frescas todos os dias, direto da nossa estufa.</p></div>
+      <div><h5>Loja e viveiro</h5><p>Estrada das Flores, 1500<br />Cotia — SP · (11) 99999-0000</p></div>
+      <div><h5>Horários</h5><p>Todos os dias, 8h às 18h<br />Entregas: seg a sáb</p></div>
+    </div>
+    <div class="foot__bot">© 2026 Flora Viva Orquidário e Floricultura</div>
+  </div>
+</footer>
+
+<div class="toast" id="toast"></div>
+<a class="wa" href="https://wa.me/5511999990000" target="_blank" rel="noopener" aria-label="WhatsApp"><svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21c5.46 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2Zm5.8 14.03c-.24.68-1.42 1.3-1.95 1.35-.5.05-.97.23-3.27-.68-2.77-1.09-4.52-3.92-4.66-4.1-.13-.18-1.1-1.47-1.1-2.8 0-1.34.7-2 .95-2.27.25-.27.54-.34.72-.34h.52c.17 0 .4-.06.62.47.24.56.8 1.94.87 2.08.07.14.12.3.02.48-.1.19-.14.3-.28.47-.14.16-.3.36-.42.49-.14.14-.29.29-.12.57.17.28.74 1.22 1.59 1.98 1.09.97 2.01 1.27 2.29 1.41.28.14.45.12.62-.07.17-.19.71-.83.9-1.11.19-.28.38-.24.64-.14.26.09 1.65.78 1.93.92.28.14.47.21.54.33.07.11.07.66-.17 1.34Z"/></svg></a>
+
+<script>
+(() => {
+  const reduz = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const $ = (s, el = document) => el.querySelector(s);
+  const $$ = (s, el = document) => [...el.querySelectorAll(s)];
+  const u = (id, w) => `https://images.unsplash.com/photo-${id}?w=${w}&q=78&auto=format&fit=crop`;
+  const brl = (n) => n.toLocaleString("pt-BR", { style: "currency", currency: "BRL", maximumFractionDigits: 0 });
+  const WA = "5511999990000";
+
+  const nav = $("#nav");
+  addEventListener("scroll", () => nav.classList.toggle("solid", scrollY > 30), { passive: true });
+  $(".burger").onclick = () => nav.classList.toggle("open");
+  $$(".nav__links a").forEach((a) => a.onclick = () => nav.classList.remove("open"));
+  const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }), { threshold: .12 });
+  $$("[data-r]").forEach((el) => io.observe(el));
+  const toast = (t) => { const el = $("#toast"); el.textContent = t; el.classList.add("on"); clearTimeout(el._t); el._t = setTimeout(() => el.classList.remove("on"), 2200); };
+
+  /* Pétalas caindo (reagem ao mouse como vento) */
+  const cv = $("#petals"), ctx = cv.getContext("2d");
+  let W, H, vento = 0;
+  const CORES = ["#c98bc4", "#e7b7c9", "#f2d6d3", "#a9659f", "#fff"];
+  const resize = () => { W = cv.width = cv.offsetWidth * devicePixelRatio; H = cv.height = cv.offsetHeight * devicePixelRatio; };
+  resize(); addEventListener("resize", resize);
+  const nova = (topo) => ({ x: Math.random() * W, y: topo ? -20 : Math.random() * H, s: (Math.random() * 7 + 5) * devicePixelRatio, vy: (Math.random() * .7 + .4) * devicePixelRatio, r: Math.random() * 6.28, vr: (Math.random() - .5) * .04, f: Math.random() * 6.28, c: CORES[Math.random() * CORES.length | 0] });
+  const pts = [...Array(34)].map(() => nova(false));
+  addEventListener("mousemove", (e) => vento = (e.clientX / innerWidth - .5) * 2.2);
+  (function loop() {
+    if (!reduz && scrollY < innerHeight * 1.1) {
+      ctx.clearRect(0, 0, W, H);
+      pts.forEach((p, i) => {
+        p.f += .02; p.y += p.vy; p.x += Math.sin(p.f) * .8 + vento; p.r += p.vr;
+        if (p.y > H + 20 || p.x < -40 || p.x > W + 40) pts[i] = nova(true);
+        ctx.save(); ctx.translate(p.x, p.y); ctx.rotate(p.r); ctx.scale(1, .55 + Math.sin(p.f * 2) * .3);
+        ctx.fillStyle = p.c; ctx.globalAlpha = .75;
+        ctx.beginPath(); ctx.moveTo(0, -p.s); ctx.bezierCurveTo(p.s, -p.s * .4, p.s * .6, p.s, 0, p.s); ctx.bezierCurveTo(-p.s * .6, p.s, -p.s, -p.s * .4, 0, -p.s); ctx.fill();
+        ctx.restore();
+      });
+    }
+    requestAnimationFrame(loop);
+  })();
+
+  /* Prazo para entrega no mesmo dia */
+  const corte = () => {
+    const n = new Date(), lim = new Date(); lim.setHours(14, 0, 0, 0);
+    const dom = n.getDay() === 0;
+    if (n < lim && !dom) { const s = Math.floor((lim - n) / 1000); $("#cutLbl").textContent = "Entrega hoje se pedir nas próximas"; $("#cutTime").textContent = `${Math.floor(s / 3600)}h ${String(Math.floor(s % 3600 / 60)).padStart(2, "0")}min ${String(s % 60).padStart(2, "0")}s`; }
+    else { $("#cutLbl").textContent = "Pedidos agora"; $("#cutTime").textContent = n.getDay() === 6 || dom ? "entregamos na segunda-feira" : "entregamos amanhã de manhã"; }
+  };
+  corte(); setInterval(corte, 1000);
+
+  const R = ["Orquídeas", "Buquês", "Arranjos", "Suculentas", "Plantas", "Casamentos"];
+  $("#ribbon").innerHTML = [...R, ...R, ...R].map((r) => `<span>${r}</span>`).join("");
+
+  /* Loja */
+  const P = [
+    ["Orquídeas", "Phalaenopsis Branca", 129, "1583846712268-a77d97b7fd68"], ["Orquídeas", "Phalaenopsis Roxa", 139, "1610397648930-477b8c7f0943"], ["Orquídeas", "Sapatinho-de-Vênus", 189, "1777644439670-9699a9a429a2"], ["Arranjos", "Arranjo de Orquídeas", 249, "1618080578815-335456280012"],
+    ["Buquês", "Buquê do Campo", 159, "1565695951564-007d8f297e48"], ["Buquês", "Cesto Primavera", 179, "1600104197373-c07cc35e4f61"], ["Suculentas", "Trio de Suculentas", 59, "1520157646479-22f25713523d"], ["Plantas", "Planta de Interior", 89, "1592150621744-aca64f48394a"],
+  ];
+  const cats = ["Todas", ...new Set(P.map((p) => p[0]))];
+  let cat = "Todas", sacola = 0;
+  const renderShop = () => {
+    $("#cats").innerHTML = cats.map((c) => `<button class="cat ${c === cat ? "on" : ""}">${c}</button>`).join("");
+    $("#grid").innerHTML = P.filter((p) => cat === "Todas" || p[0] === cat).map(([c, n, pr, img], i) => `<article class="prod" style="animation-delay:${i * 70}ms"><div class="prod__img"><img src="${u(img, 600)}" alt="${n}" loading="lazy" /><button class="prod__add" data-n="${n}" aria-label="Adicionar ${n}">+</button></div><h3>${n}</h3><p><span>${c}</span><b>${brl(pr)}</b></p></article>`).join("");
+  };
+  $("#cats").onclick = (e) => { const b = e.target.closest(".cat"); if (b) { cat = b.textContent; renderShop(); } };
+  $("#grid").onclick = (e) => {
+    const b = e.target.closest(".prod__add"); if (!b) return;
+    sacola++; $("#bagN").textContent = sacola; b.classList.add("ok"); b.textContent = "✓";
+    const bb = $("#bagb"); bb.classList.add("bump"); setTimeout(() => bb.classList.remove("bump"), 300);
+    toast(`${b.dataset.n} foi para a sacola ❀`);
+  };
+  renderShop();
+
+  /* Monte seu buquê */
+  const FLOR = [["rosa", "Rosas", 14], ["girassol", "Girassóis", 12], ["tulipa", "Tulipas", 18], ["campo", "Flores do campo", 10]];
+  const COR = { rosa: [["#c8243c", "Vermelho"], ["#f2a7b8", "Rosa"], ["#fff6ee", "Branco"], ["#f4c542", "Amarelo"]], girassol: [["#f4c542", "Amarelo"]], tulipa: [["#e8573f", "Coral"], ["#a9659f", "Lilás"], ["#fff6ee", "Branco"], ["#f4c542", "Amarelo"]], campo: [["mix", "Colorido"], ["#c98bc4", "Tons de lilás"], ["#fff6ee", "Branco"]] };
+  const TAM = [["P", "Pequeno", 6, 7], ["M", "Médio", 12, 11], ["G", "Grande", 24, 15]];
+  const EMB = [["kraft", "Papel kraft", 0, "#c9a57a"], ["seda", "Papel de seda", 10, "#f2d6d3"], ["caixa", "Caixa luxo", 35, "#1f3a2c"]];
+  const b = { flor: "rosa", cor: "#c8243c", tam: "M", emb: "kraft" };
+  const mixCores = ["#e8573f", "#f4c542", "#c98bc4", "#fff6ee", "#f2a7b8", "#7aa6d6"];
+  const flor = (x, y, s, tipo, cor, i) => {
+    const c = cor === "mix" ? mixCores[i % mixCores.length] : cor, st = c === "#fff6ee" ? ' stroke="#e2dccf" stroke-width="1"' : "";
+    if (tipo === "girassol") return `<g class="flower" style="animation-delay:${i * 40}ms">${[...Array(12)].map((_, k) => `<ellipse cx="${x}" cy="${y - s * .75}" rx="${s * .22}" ry="${s * .45}" fill="${c}" transform="rotate(${k * 30} ${x} ${y})"/>`).join("")}<circle cx="${x}" cy="${y}" r="${s * .42}" fill="#5b3a1e"/></g>`;
+    if (tipo === "tulipa") return `<g class="flower" style="animation-delay:${i * 40}ms"><path d="M${x - s * .6} ${y - s * .2}c0 ${s * .9} ${s * 1.2} ${s * .9} ${s * 1.2} 0l-${s * .3} -${s * .7}-${s * .3} ${s * .4}-${s * .3}-${s * .4}Z" fill="${c}"${st}/></g>`;
+    if (tipo === "campo") return `<g class="flower" style="animation-delay:${i * 40}ms">${[...Array(5)].map((_, k) => `<circle cx="${x}" cy="${y - s * .45}" r="${s * .32}" fill="${c}"${st} transform="rotate(${k * 72} ${x} ${y})"/>`).join("")}<circle cx="${x}" cy="${y}" r="${s * .2}" fill="#f4c542"/></g>`;
+    return `<g class="flower" style="animation-delay:${i * 40}ms"><circle cx="${x}" cy="${y}" r="${s * .62}" fill="${c}"${st}/><path d="M${x - s * .35} ${y}a${s * .35} ${s * .35} 0 1 1 ${s * .7} 0M${x - s * .18} ${y + s * .1}a${s * .2} ${s * .2} 0 1 1 ${s * .36} -.1" fill="none" stroke="rgba(0,0,0,.18)" stroke-width="2"/></g>`;
+  };
+  function renderBq() {
+    const cores = COR[b.flor];
+    if (!cores.some(([c]) => c === b.cor)) b.cor = cores[0][0];
+    $("#cFlor").innerHTML = FLOR.map(([k, n, p]) => `<button class="ch ${b.flor === k ? "on" : ""}" data-k="${k}">${n}<small>${brl(p)} a haste</small></button>`).join("");
+    $("#cCor").innerHTML = cores.map(([c, n]) => `<button class="sw ${b.cor === c ? "on" : ""}" data-c="${c}" title="${n}" aria-label="${n}" style="background:${c === "mix" ? "conic-gradient(#e8573f,#f4c542,#c98bc4,#7aa6d6,#e8573f)" : c}"></button>`).join("");
+    $("#cTam").innerHTML = TAM.map(([k, n, h]) => `<button class="ch ${b.tam === k ? "on" : ""}" data-k="${k}">${n}<small>${h} hastes</small></button>`).join("");
+    $("#cEmb").innerHTML = EMB.map(([k, n, p]) => `<button class="ch ${b.emb === k ? "on" : ""}" data-k="${k}">${n}<small>${p ? "+" + brl(p) : "incluso"}</small></button>`).join("");
+    const t = TAM.find((x) => x[0] === b.tam), e = EMB.find((x) => x[0] === b.emb), f = FLOR.find((x) => x[0] === b.flor);
+    const n = t[3], cx = 200;
+    // posições em leque
+    const pos = [];
+    const linhas = n <= 7 ? [3, 4] : n <= 11 ? [3, 4, 4] : [4, 5, 6];
+    let k = 0;
+    linhas.forEach((qtd, li) => { const y = 120 + li * 46 - (linhas.length - 2) * 10, larg = 70 + qtd * 30; for (let j = 0; j < qtd && k < n; j++, k++) pos.push([cx - larg / 2 + (larg / (qtd - 1 || 1)) * j + (li % 2 ? 8 : -8), y + Math.abs(j - (qtd - 1) / 2) * 8]); });
+    const s = b.tam === "G" ? 30 : b.tam === "M" ? 34 : 38;
+    const caule = pos.map(([x, y]) => `<path d="M${x} ${y} Q${(x + cx) / 2} ${(y + 300) / 2} ${cx + (x - cx) * .12} 330" stroke="#4f7a4a" stroke-width="3" fill="none"/>`).join("");
+    const folhas = `<path d="M${cx - 10} 250c-50-10-80 10-96 40 40 6 70-6 96-40Z" fill="#6f9a5d"/><path d="M${cx + 10} 250c50-10 80 10 96 40-40 6-70-6-96-40Z" fill="#5d8a50"/>`;
+    const emb = e[0] === "caixa"
+      ? `<rect x="${cx - 120}" y="270" width="240" height="120" rx="14" fill="${e[3]}"/><rect x="${cx - 120}" y="270" width="240" height="22" fill="rgba(255,255,255,.12)"/><text x="${cx}" y="350" fill="#f2d6d3" font-family="Playfair Display" font-style="italic" font-size="22" text-anchor="middle">Flora Viva</text>`
+      : `<path d="M${cx - 130} 230 L${cx} 400 L${cx + 130} 230 L${cx + 70} 250 L${cx} 220 L${cx - 70} 250 Z" fill="${e[3]}"/><path d="M${cx - 60} 330 q60 -24 120 0" stroke="#8e4b8f" stroke-width="7" fill="none" stroke-linecap="round"/><circle cx="${cx}" cy="322" r="9" fill="#8e4b8f"/>`;
+    $("#bq").innerHTML = caule + folhas + pos.map(([x, y], i) => flor(x, y, s, b.flor, b.cor, i)).join("") + emb;
+    const preco = f[2] * t[2] + e[2];
+    $("#bqPrice").textContent = brl(preco);
+    const corNome = cores.find(([c]) => c === b.cor)[1];
+    $("#bqSum").innerHTML = `${f[1]} · ${corNome.toLowerCase()}<br />${t[2]} hastes · ${e[1].toLowerCase()}`;
+  }
+  $("#cFlor").onclick = (e) => { const x = e.target.closest(".ch"); if (x) { b.flor = x.dataset.k; renderBq(); } };
+  $("#cCor").onclick = (e) => { const x = e.target.closest(".sw"); if (x) { b.cor = x.dataset.c; renderBq(); } };
+  $("#cTam").onclick = (e) => { const x = e.target.closest(".ch"); if (x) { b.tam = x.dataset.k; renderBq(); } };
+  $("#cEmb").onclick = (e) => { const x = e.target.closest(".ch"); if (x) { b.emb = x.dataset.k; renderBq(); } };
+  $("#msg").addEventListener("input", (e) => { $("#cardTxt").textContent = e.target.value || "Escreva sua mensagem ✿"; $("#msgN").textContent = e.target.value.length; });
+  $("#bqAdd").onclick = () => {
+    const resumo = $("#bqSum").innerText.replace(/\n/g, ", ");
+    const msg = `Olá, Flora Viva! Quero encomendar um buquê:\n${resumo}\nValor: ${$("#bqPrice").textContent}\nCartão: "${$("#msg").value || "sem mensagem"}"`;
+    window.open(`https://wa.me/${WA}?text=${encodeURIComponent(msg)}`, "_blank");
+  };
+  renderBq();
+
+  /* Guia de cuidados */
+  const SP = {
+    "Phalaenopsis": ["1583846712268-a77d97b7fd68", [2, 3, 4, 2], "Regue quando o substrato estiver quase seco — em geral uma vez por semana. Nunca deixe água acumulada no pratinho."],
+    "Dendrobium": ["1599463740831-a5015ef7b65a", [3, 4, 3, 3], "Gosta de bastante luz e ar circulando. No inverno, reduza a rega para estimular a floração."],
+    "Cattleya": ["1534885320675-b08aa131cc5e", [2, 5, 3, 3], "A rainha das orquídeas pede sol da manhã. Folhas verde-claro indicam luz ideal; verde-escuro, falta de luz."],
+    "Oncidium": ["1542407242725-7d7f3d865665", [4, 4, 4, 2], "Conhecida como chuva-de-ouro, prefere substrato úmido e regas mais frequentes no verão."],
+  };
+  const MET = ["Rega", "Luz", "Umidade", "Adubação"];
+  let esp = "Phalaenopsis";
+  function renderCare() {
+    $("#species").innerHTML = Object.keys(SP).map((k) => `<button class="ch ${k === esp ? "on" : ""}">${k}</button>`).join("");
+    const [img, lv, dica] = SP[esp];
+    $("#meters").innerHTML = MET.map((m, i) => `<div class="meter"><span>${m}</span><i>${[1, 2, 3, 4, 5].map((n) => `<b class="${n <= lv[i] ? "f" : ""}" style="--d:${n * 50}ms"></b>`).join("")}</i></div>`).join("");
+    $("#tip").innerHTML = `<b>Dica da estufa</b>${dica}`;
+    const im = $("#careImg");
+    if (!im.src.includes(img)) { im.classList.add("out"); setTimeout(() => { im.src = u(img, 900); im.onload = () => im.classList.remove("out"); }, 350); }
+  }
+  $("#species").onclick = (e) => { const x = e.target.closest(".ch"); if (x) { esp = x.textContent; renderCare(); } };
+  renderCare();
+
+  /* Parallax */
+  const nb = $("#nBg"), hi = $("#heroImg");
+  addEventListener("scroll", () => {
+    if (reduz) return;
+    const r = nb.parentElement.getBoundingClientRect();
+    nb.style.transform = `translateY(${(r.top + r.height / 2 - innerHeight / 2) * -.12}px)`;
+    hi.style.translate = `0 ${scrollY * -.06}px`;
+  }, { passive: true });
+})();
+</script>
+</body>
+</html>

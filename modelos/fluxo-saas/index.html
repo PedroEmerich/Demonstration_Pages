@@ -1,0 +1,413 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Fluxo — Gestão financeira para pequenas empresas</title>
+<meta name="description" content="Fluxo: conciliação bancária automática, emissão de notas, cobrança por Pix e relatórios em tempo real. Teste grátis por 14 dias." />
+<meta name="theme-color" content="#fafaff" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #fafaff; --white: #fff; --ink: #0d0b1f; --muted: #5f5c78; --line: #e8e6f5; --soft: #f1effd;
+    --v: #6b4dff; --v2: #8f78ff; --green: #00b894; --red: #ff5c7a; --amber: #ffb547;
+    --display: "Sora", system-ui, sans-serif; --sans: "Inter", system-ui, sans-serif;
+    --ease: cubic-bezier(.2,.8,.2,1);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { overflow-x: clip; scroll-behavior: smooth; scroll-padding-top: 80px; }
+  body { background: var(--bg); color: var(--ink); font-family: var(--sans); line-height: 1.6; -webkit-font-smoothing: antialiased; overflow-x: clip; }
+  img { display: block; max-width: 100%; }
+  a { color: inherit; text-decoration: none; }
+  button, input { font: inherit; color: inherit; }
+  button { background: none; border: 0; cursor: pointer; }
+  .wrap { width: min(1220px, 100% - 40px); margin-inline: auto; }
+  [class*="__grid"] > * { min-width: 0; }
+  h1, h2, h3 { font-family: var(--display); font-weight: 700; letter-spacing: -.035em; line-height: 1.05; }
+  .h2 { font-size: clamp(34px, 4.4vw, 58px); }
+  .grad { background: linear-gradient(90deg, var(--v), #c04dff); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .eyebrow { display: inline-flex; align-items: center; gap: 8px; padding: 6px 12px; border-radius: 999px; background: var(--soft); color: var(--v); font-weight: 600; font-size: 13px; }
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 14px 22px; border-radius: 12px; font-weight: 600; font-size: 15px; transition: transform .25s var(--ease), box-shadow .25s, background .25s; white-space: nowrap; }
+  .btn--v { background: var(--v); color: #fff; box-shadow: 0 10px 24px -10px rgba(107,77,255,.8), inset 0 1px 0 rgba(255,255,255,.25); }
+  .btn--v:hover { transform: translateY(-2px); box-shadow: 0 16px 30px -10px rgba(107,77,255,.9); }
+  .btn--g { background: var(--white); box-shadow: 0 0 0 1px var(--line); }
+  .btn--g:hover { box-shadow: 0 0 0 1px var(--v); }
+  [data-r] { opacity: 0; transform: translateY(26px); transition: opacity .8s var(--ease), transform .8s var(--ease); transition-delay: var(--d, 0s); }
+  [data-r].in { opacity: 1; transform: none; }
+
+  /* NAV */
+  .nav { position: fixed; inset: 0 0 auto; z-index: 50; transition: background .3s, box-shadow .3s; }
+  .nav.solid { background: rgba(250,250,255,.85); backdrop-filter: blur(14px); box-shadow: 0 1px 0 var(--line); }
+  .nav__in { height: 70px; display: flex; align-items: center; gap: 36px; }
+  .logo { display: flex; align-items: center; gap: 9px; font-family: var(--display); font-weight: 800; font-size: 21px; letter-spacing: -.04em; }
+  .logo svg { width: 30px; }
+  .nav__links { display: flex; gap: 26px; font-size: 15px; color: var(--muted); font-weight: 500; }
+  .nav__links a:hover { color: var(--ink); }
+  .nav__right { margin-left: auto; display: flex; gap: 10px; align-items: center; }
+  .burger { display: none; width: 44px; height: 44px; border-radius: 10px; box-shadow: 0 0 0 1px var(--line); place-items: center; background: var(--white); }
+  .burger span { width: 16px; height: 2px; border-radius: 2px; background: var(--ink); box-shadow: 0 5px 0 var(--ink), 0 -5px 0 var(--ink); }
+
+  /* HERO */
+  .hero { padding: 140px 0 60px; text-align: center; position: relative; overflow: hidden; }
+  .hero::before { content: ""; position: absolute; left: 50%; top: -260px; width: 1100px; height: 700px; margin-left: -550px; background: radial-gradient(ellipse, rgba(107,77,255,.18), transparent 65%); z-index: -1; }
+  .hero h1 { font-size: clamp(44px, 6.6vw, 96px); max-width: 15ch; margin: 22px auto 22px; }
+  .hero p { font-size: 19px; color: var(--muted); max-width: 600px; margin: 0 auto; }
+  .signup { display: flex; gap: 8px; max-width: 480px; margin: 34px auto 14px; background: var(--white); padding: 6px; border-radius: 16px; box-shadow: 0 0 0 1px var(--line), 0 20px 40px -24px rgba(13,11,31,.3); }
+  .signup input { flex: 1; min-width: 0; border: 0; outline: none; padding: 0 14px; font-size: 15px; background: transparent; }
+  .hint { font-size: 13px; color: var(--muted); }
+  .hint b { color: var(--green); }
+
+  /* DASHBOARD */
+  .dash-wrap { perspective: 1600px; margin-top: 60px; }
+  .dash { display: grid; grid-template-columns: 200px 1fr; background: var(--white); border-radius: 22px; box-shadow: 0 0 0 1px var(--line), 0 60px 100px -50px rgba(53,34,160,.45); overflow: hidden; text-align: left; transform: rotateX(12deg) scale(.96); transform-origin: top center; transition: transform 1.2s var(--ease); font-size: 13px; }
+  .dash.flat { transform: none; }
+  .side { background: #f8f7ff; border-right: 1px solid var(--line); padding: 20px 14px; display: flex; flex-direction: column; gap: 4px; }
+  .side b { font-family: var(--display); font-size: 16px; margin: 0 8px 14px; display: flex; gap: 8px; align-items: center; }
+  .side a { padding: 9px 10px; border-radius: 9px; color: var(--muted); display: flex; gap: 10px; align-items: center; font-weight: 500; }
+  .side a.on { background: var(--white); color: var(--ink); box-shadow: 0 0 0 1px var(--line); }
+  .side a i { width: 8px; height: 8px; border-radius: 3px; background: var(--line); }
+  .side a.on i { background: var(--v); }
+  .main { padding: 22px; display: grid; gap: 14px; grid-template-columns: repeat(3, 1fr); }
+  .kpi { border-radius: 14px; box-shadow: 0 0 0 1px var(--line); padding: 14px 16px; }
+  .kpi small { color: var(--muted); font-weight: 500; }
+  .kpi b { display: block; font-family: var(--display); font-size: 24px; letter-spacing: -.03em; margin: 2px 0; }
+  .kpi span { font-size: 12px; font-weight: 600; }
+  .up { color: var(--green); } .down { color: var(--red); }
+  .chart { grid-column: span 2; border-radius: 14px; box-shadow: 0 0 0 1px var(--line); padding: 14px 16px; }
+  .chart svg { width: 100%; height: 170px; display: block; }
+  .chart .area { fill: url(#ga); opacity: 0; transition: opacity 1s .8s; }
+  .chart .line { fill: none; stroke: var(--v); stroke-width: 2.5; stroke-linecap: round; stroke-dasharray: 900; stroke-dashoffset: 900; transition: stroke-dashoffset 2s var(--ease); }
+  .chart.on .area { opacity: 1; } .chart.on .line { stroke-dashoffset: 0; }
+  .chart .grid line { stroke: var(--line); }
+  .chead { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; font-weight: 600; }
+  .chead span { font-size: 12px; color: var(--muted); font-weight: 500; }
+  .bars { border-radius: 14px; box-shadow: 0 0 0 1px var(--line); padding: 14px 16px; display: flex; flex-direction: column; }
+  .bars__in { flex: 1; display: flex; align-items: flex-end; gap: 8px; height: 150px; margin-top: 10px; }
+  .bars__in div { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 6px; height: 100%; justify-content: flex-end; }
+  .bars__in i { width: 100%; border-radius: 6px 6px 3px 3px; background: linear-gradient(var(--v2), var(--v)); height: 0; transition: height 1.2s var(--ease); }
+  .bars__in div:nth-child(even) i { background: linear-gradient(#ffd18a, var(--amber)); }
+  .bars__in small { color: var(--muted); font-size: 11px; }
+  .tx { grid-column: 1 / -1; border-radius: 14px; box-shadow: 0 0 0 1px var(--line); padding: 14px 16px; }
+  .txl { display: grid; gap: 2px; margin-top: 8px; }
+  .t { display: grid; grid-template-columns: 34px 1fr auto auto; gap: 12px; align-items: center; padding: 8px 6px; border-radius: 10px; }
+  .t.new { animation: flash 1.6s var(--ease); }
+  @keyframes flash { 0% { background: #e9fff8; transform: translateY(-8px); opacity: 0; } 20% { opacity: 1; transform: none; } 100% { background: transparent; } }
+  .t i { width: 34px; height: 34px; border-radius: 10px; display: grid; place-items: center; font-style: normal; font-size: 15px; }
+  .t span { color: var(--muted); font-size: 12px; }
+  .t b { font-weight: 600; }
+  .t em { font-style: normal; font-size: 11px; font-weight: 600; padding: 3px 8px; border-radius: 999px; background: #e9fff8; color: var(--green); }
+
+  /* LOGOS */
+  .logos { padding: 50px 0 20px; text-align: center; }
+  .logos p { font-size: 14px; color: var(--muted); margin-bottom: 22px; }
+  .marq { overflow: hidden; mask-image: linear-gradient(90deg, transparent, #000 15%, #000 85%, transparent); }
+  .marq__t { display: flex; gap: 60px; width: max-content; animation: run 30s linear infinite; }
+  .marq__t span { font-family: var(--display); font-weight: 700; font-size: 24px; color: #b5b1cf; white-space: nowrap; letter-spacing: -.03em; }
+  @keyframes run { to { transform: translateX(-50%); } }
+
+  /* RECURSOS */
+  .feat { padding: 110px 0; }
+  .center { text-align: center; max-width: 700px; margin: 0 auto 54px; }
+  .center p { color: var(--muted); margin-top: 14px; font-size: 17px; }
+  .feat__grid { display: grid; grid-template-columns: .9fr 1.1fr; gap: 40px; align-items: center; }
+  .ftabs { display: grid; gap: 10px; }
+  .ft { text-align: left; padding: 20px 22px; border-radius: 18px; background: transparent; transition: background .3s, box-shadow .3s; position: relative; overflow: hidden; }
+  .ft h3 { font-size: 19px; letter-spacing: -.02em; display: flex; gap: 12px; align-items: center; }
+  .ft h3 i { width: 34px; height: 34px; border-radius: 10px; background: var(--soft); display: grid; place-items: center; font-style: normal; font-size: 16px; }
+  .ft p { color: var(--muted); font-size: 15px; max-height: 0; overflow: hidden; transition: max-height .5s var(--ease), margin .5s; }
+  .ft.on { background: var(--white); box-shadow: 0 0 0 1px var(--line), 0 20px 40px -30px rgba(13,11,31,.4); }
+  .ft.on p { max-height: 120px; margin-top: 8px; }
+  .ft .pb { position: absolute; left: 0; bottom: 0; height: 3px; background: var(--v); width: 0; }
+  .ft.on .pb { animation: pb 6s linear forwards; }
+  @keyframes pb { to { width: 100%; } }
+  .fview { background: linear-gradient(135deg, #efeaff, #fdf0ff); border-radius: 28px; padding: 34px; min-height: 420px; display: grid; place-items: center; }
+  .fv { width: 100%; background: var(--white); border-radius: 18px; padding: 22px; box-shadow: 0 30px 60px -30px rgba(53,34,160,.4); animation: fvin .6s var(--ease); }
+  @keyframes fvin { from { opacity: 0; transform: translateY(16px) scale(.98); } }
+  .row { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--line); font-size: 14px; }
+  .row:last-child { border-bottom: 0; }
+  .chip { font-size: 11px; font-weight: 700; padding: 4px 9px; border-radius: 999px; }
+  .match { display: grid; grid-template-columns: 1fr auto 1fr; gap: 12px; align-items: center; padding: 10px 0; font-size: 13px; }
+  .match div { padding: 10px 12px; border-radius: 10px; background: var(--soft); }
+  .match svg { width: 26px; color: var(--green); }
+  .nf { border: 1px dashed var(--line); border-radius: 14px; padding: 18px; font-size: 13px; }
+  .nf b { font-family: var(--display); }
+  .qr { width: 120px; height: 120px; margin: 10px auto; display: grid; grid-template-columns: repeat(8, 1fr); gap: 2px; }
+  .qr i { background: var(--ink); border-radius: 2px; }
+  .qr i.o { background: transparent; }
+
+  /* ROI */
+  .roi { padding: 110px 0; background: var(--ink); color: #fff; position: relative; overflow: hidden; }
+  .roi::before { content: ""; position: absolute; right: -200px; top: -200px; width: 600px; height: 600px; border-radius: 50%; background: radial-gradient(circle, rgba(107,77,255,.45), transparent 65%); }
+  .roi__grid { position: relative; display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center; }
+  .roi p { color: #b7b3d6; }
+  .sl { margin-top: 26px; }
+  .sl label { display: flex; justify-content: space-between; font-weight: 500; margin-bottom: 10px; color: #d6d3ef; }
+  .sl label output { font-family: var(--display); font-weight: 700; color: #fff; }
+  input[type=range] { width: 100%; -webkit-appearance: none; appearance: none; height: 6px; border-radius: 6px; background: linear-gradient(90deg, var(--v2) var(--p, 30%), #2c2850 var(--p, 30%)); outline: none; }
+  input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 22px; height: 22px; border-radius: 50%; background: #fff; box-shadow: 0 0 0 5px rgba(143,120,255,.4); cursor: grab; }
+  input[type=range]::-moz-range-thumb { width: 18px; height: 18px; border-radius: 50%; background: #fff; border: 0; cursor: grab; }
+  .roi__card { background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.12); border-radius: 24px; padding: 34px; backdrop-filter: blur(10px); }
+  .roi__big { font-family: var(--display); font-weight: 800; font-size: clamp(48px, 6vw, 76px); letter-spacing: -.05em; line-height: 1; margin: 10px 0; }
+  .roi__rows { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 24px 0; }
+  .roi__rows div { background: rgba(255,255,255,.05); border-radius: 14px; padding: 14px; }
+  .roi__rows b { display: block; font-family: var(--display); font-size: 22px; }
+  .roi__rows small { color: #b7b3d6; }
+
+  /* PREÇOS */
+  .price { padding: 110px 0; }
+  .tog { display: inline-flex; padding: 5px; border-radius: 12px; background: var(--white); box-shadow: 0 0 0 1px var(--line); margin-top: 22px; }
+  .tog button { padding: 10px 18px; border-radius: 9px; font-weight: 600; font-size: 14px; color: var(--muted); transition: all .25s; }
+  .tog button.on { background: var(--ink); color: #fff; }
+  .tog em { font-style: normal; color: var(--green); margin-left: 4px; }
+  .plans { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+  .pl { background: var(--white); border-radius: 24px; padding: 32px; box-shadow: 0 0 0 1px var(--line); display: flex; flex-direction: column; }
+  .pl.hot { box-shadow: 0 0 0 2px var(--v), 0 30px 60px -30px rgba(107,77,255,.5); position: relative; }
+  .pl.hot::before { content: "Mais popular"; position: absolute; top: -13px; left: 32px; background: var(--v); color: #fff; font-size: 12px; font-weight: 700; padding: 4px 12px; border-radius: 999px; }
+  .pl h3 { font-size: 20px; }
+  .pl > p { color: var(--muted); font-size: 14px; }
+  .amt { font-family: var(--display); font-weight: 800; font-size: 50px; letter-spacing: -.05em; margin: 18px 0 2px; }
+  .amt small { font-family: var(--sans); font-size: 15px; font-weight: 500; color: var(--muted); letter-spacing: 0; }
+  .pl ul { list-style: none; margin: 22px 0 28px; display: grid; gap: 10px; flex: 1; font-size: 15px; }
+  .pl li { display: flex; gap: 10px; }
+  .pl li::before { content: "✓"; color: var(--v); font-weight: 700; }
+
+  /* CASES + FAQ */
+  .cases { padding: 0 0 110px; }
+  .cgrid { display: grid; grid-template-columns: 1.2fr .8fr; gap: 18px; }
+  .case { position: relative; border-radius: 26px; overflow: hidden; min-height: 380px; color: #fff; display: flex; align-items: flex-end; }
+  .case img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .case::after { content: ""; position: absolute; inset: 0; background: linear-gradient(transparent 30%, rgba(13,11,31,.88)); }
+  .case div { position: relative; z-index: 1; padding: 30px; }
+  .case blockquote { font-family: var(--display); font-size: 22px; letter-spacing: -.02em; line-height: 1.3; }
+  .case small { display: block; margin-top: 12px; opacity: .8; }
+  .stat { background: var(--soft); border-radius: 26px; padding: 30px; display: grid; gap: 20px; align-content: center; }
+  .stat b { display: block; font-family: var(--display); font-size: 48px; letter-spacing: -.05em; line-height: 1; color: var(--v); }
+  .faq { padding: 0 0 110px; }
+  .faq__list { max-width: 780px; margin: 0 auto; }
+  details { border-bottom: 1px solid var(--line); }
+  summary { list-style: none; cursor: pointer; padding: 22px 0; display: flex; justify-content: space-between; gap: 20px; font-family: var(--display); font-weight: 600; font-size: 18px; letter-spacing: -.02em; }
+  summary::-webkit-details-marker { display: none; }
+  summary::after { content: "+"; font-size: 22px; color: var(--v); transition: transform .3s; }
+  details[open] summary::after { transform: rotate(45deg); }
+  details p { color: var(--muted); padding-bottom: 22px; }
+  .final { margin: 0 20px 20px; border-radius: 32px; background: linear-gradient(135deg, var(--v), #b04dff); color: #fff; text-align: center; padding: 90px 20px; }
+  .final p { opacity: .85; margin: 14px auto 30px; max-width: 520px; font-size: 18px; }
+  .final .btn { background: #fff; color: var(--v); }
+  footer { padding: 34px 0; font-size: 14px; color: var(--muted); }
+  .foot { display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; align-items: center; }
+  .wa { position: fixed; right: 22px; bottom: 22px; z-index: 60; width: 58px; height: 58px; border-radius: 50%; background: #25d366; color: #fff; display: grid; place-items: center; box-shadow: 0 12px 30px -8px rgba(37,211,102,.6); transition: transform .3s var(--ease); }
+  .wa:hover { transform: scale(1.08); }
+
+  @media (max-width: 1000px) {
+    .nav__links, .nav__right .btn--g { display: none; }
+    .burger { display: grid; }
+    .nav.open { background: var(--white); }
+    .nav.open .nav__links { display: flex; flex-direction: column; position: absolute; top: 70px; left: 0; right: 0; background: var(--white); padding: 24px 20px; gap: 18px; box-shadow: 0 1px 0 var(--line); }
+    .dash { grid-template-columns: 1fr; }
+    .side { display: none; }
+    .main { grid-template-columns: 1fr 1fr; }
+    .chart { grid-column: 1 / -1; }
+    .feat__grid, .roi__grid, .cgrid { grid-template-columns: 1fr; }
+    .plans { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 560px) {
+    .main { grid-template-columns: 1fr; padding: 14px; }
+    .bars { display: none; }
+    .t { grid-template-columns: 30px 1fr auto; } .t em { display: none; }
+    .signup { flex-direction: column; } .signup input { padding: 12px 14px; }
+    .fview { padding: 16px; min-height: 0; }
+    .roi__card { padding: 24px; }
+    .nav__right .btn--v { padding: 10px 14px; font-size: 13px; }
+    .final { margin: 0 8px 8px; }
+  }
+  @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; animation-delay: 0s !important; transition-duration: .01ms !important; } [data-r] { opacity: 1; transform: none; } }
+</style>
+</head>
+<body>
+
+<header class="nav" id="nav">
+  <div class="wrap nav__in">
+    <a href="#" class="logo"><svg viewBox="0 0 32 32" fill="none"><rect width="32" height="32" rx="9" fill="#6b4dff"/><path d="M8 20c4 0 4-8 8-8s4 8 8 8" stroke="#fff" stroke-width="3" stroke-linecap="round"/></svg>fluxo</a>
+    <nav class="nav__links"><a href="#recursos">Recursos</a><a href="#roi">Economia</a><a href="#precos">Preços</a><a href="#faq">Dúvidas</a></nav>
+    <div class="nav__right"><a href="#" class="btn btn--g" style="padding:10px 16px">Entrar</a><a href="#comecar" class="btn btn--v" style="padding:10px 16px">Teste grátis</a><button class="burger" aria-label="Menu"><span></span></button></div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <span class="eyebrow" data-r>✦ Novo: cobrança automática por Pix</span>
+    <h1 data-r style="--d:.05s">Seu financeiro no <span class="grad">piloto automático</span>.</h1>
+    <p data-r style="--d:.1s">Conciliação bancária, notas fiscais, cobranças e relatórios em um só lugar. Feito para pequenas empresas que querem parar de viver em planilhas.</p>
+    <form class="signup" id="comecar" data-r style="--d:.15s"><input type="email" id="email" placeholder="seu@email.com" required aria-label="E-mail" /><button class="btn btn--v">Começar grátis</button></form>
+    <p class="hint" data-r style="--d:.2s"><b>14 dias grátis</b> · sem cartão de crédito · cancele quando quiser</p>
+    <div class="dash-wrap" data-r style="--d:.25s">
+      <div class="dash" id="dash">
+        <aside class="side"><b><svg viewBox="0 0 32 32" width="22"><rect width="32" height="32" rx="9" fill="#6b4dff"/><path d="M8 20c4 0 4-8 8-8s4 8 8 8" stroke="#fff" stroke-width="3" stroke-linecap="round" fill="none"/></svg>Padaria Bom Grão</b><a class="on"><i></i>Visão geral</a><a><i></i>Lançamentos</a><a><i></i>Cobranças</a><a><i></i>Notas fiscais</a><a><i></i>Relatórios</a><a><i></i>Configurações</a></aside>
+        <div class="main">
+          <div class="kpi"><small>Saldo em conta</small><b data-v="48230">R$ 0</b><span class="up">▲ 12,4% no mês</span></div>
+          <div class="kpi"><small>A receber (30 dias)</small><b data-v="21780">R$ 0</b><span class="up">▲ 8 cobranças</span></div>
+          <div class="kpi"><small>A pagar (30 dias)</small><b data-v="13450">R$ 0</b><span class="down">▼ 3 vencem esta semana</span></div>
+          <div class="chart" id="chart"><div class="chead">Fluxo de caixa <span>últimos 6 meses</span></div>
+            <svg viewBox="0 0 600 170" preserveAspectRatio="none"><defs><linearGradient id="ga" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#6b4dff" stop-opacity=".28"/><stop offset="1" stop-color="#6b4dff" stop-opacity="0"/></linearGradient></defs><g class="grid"><line x1="0" y1="40" x2="600" y2="40"/><line x1="0" y1="90" x2="600" y2="90"/><line x1="0" y1="140" x2="600" y2="140"/></g><path class="area" d="M0 130 C60 120 80 100 120 104 S200 70 240 80 S320 60 360 52 S440 70 480 40 S560 22 600 18 V170 H0Z"/><path class="line" d="M0 130 C60 120 80 100 120 104 S200 70 240 80 S320 60 360 52 S440 70 480 40 S560 22 600 18"/></svg></div>
+          <div class="bars" id="bars"><div class="chead">Entradas x saídas</div><div class="bars__in"><div><i data-h="70"></i><small>Mai</small></div><div><i data-h="48"></i><small></small></div><div><i data-h="82"></i><small>Jun</small></div><div><i data-h="55"></i><small></small></div><div><i data-h="94"></i><small>Jul</small></div><div><i data-h="51"></i><small></small></div></div></div>
+          <div class="tx"><div class="chead">Movimentações em tempo real <span>conciliadas automaticamente</span></div><div class="txl" id="txl"></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="logos"><div class="wrap"><p>Mais de 6.000 pequenas empresas já organizaram o financeiro com o Fluxo</p></div><div class="marq"><div class="marq__t" id="marq"></div></div></section>
+
+<section class="feat" id="recursos">
+  <div class="wrap">
+    <div class="center" data-r><span class="eyebrow">Recursos</span><h2 class="h2" style="margin-top:14px">Tudo que o seu financeiro faz,<br /><span class="grad">só que sozinho</span></h2><p>Conecte sua conta bancária uma vez e deixe o Fluxo trabalhar.</p></div>
+    <div class="feat__grid">
+      <div class="ftabs" id="ftabs" data-r></div>
+      <div class="fview" id="fview" data-r style="--d:.1s"></div>
+    </div>
+  </div>
+</section>
+
+<section class="roi" id="roi">
+  <div class="wrap roi__grid">
+    <div data-r>
+      <span class="eyebrow" style="background:rgba(255,255,255,.1);color:#d6ccff">Calculadora de economia</span>
+      <h2 class="h2" style="margin-top:14px">Quanto o Fluxo devolve para você?</h2>
+      <p style="margin-top:14px">Clientes reduzem em média 70% do tempo gasto com tarefas financeiras manuais.</p>
+      <div class="sl"><label>Horas por semana com financeiro <output id="oH">10 h</output></label><input type="range" id="h" min="1" max="40" value="10" /></div>
+      <div class="sl"><label>Custo da sua hora <output id="oV">R$ 60</output></label><input type="range" id="v" min="20" max="300" step="5" value="60" /></div>
+      <div class="sl"><label>Notas fiscais por mês <output id="oN">40</output></label><input type="range" id="n" min="0" max="500" step="5" value="40" /></div>
+    </div>
+    <div class="roi__card" data-r style="--d:.1s">
+      <small style="color:#b7b3d6">Economia estimada por mês</small>
+      <div class="roi__big" id="roiBig">R$ 0</div>
+      <div class="roi__rows"><div><b id="rH">0 h</b><small>devolvidas por mês</small></div><div><b id="rX">0x</b><small>retorno sobre o plano</small></div><div><b id="rP">0</b><small>dias para se pagar</small></div><div><b id="rPl">Essencial</b><small>plano recomendado</small></div></div>
+      <a href="#precos" class="btn btn--v" style="width:100%">Ver planos</a>
+    </div>
+  </div>
+</section>
+
+<section class="price" id="precos">
+  <div class="wrap">
+    <div class="center" data-r><span class="eyebrow">Preços</span><h2 class="h2" style="margin-top:14px">Simples como deve ser</h2><div class="tog" id="tog"><button class="on" data-p="m">Mensal</button><button data-p="a">Anual <em>2 meses grátis</em></button></div></div>
+    <div class="plans" id="plans"></div>
+  </div>
+</section>
+
+<section class="cases">
+  <div class="wrap">
+    <div class="cgrid">
+      <div class="case" data-r><img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1300&q=78&auto=format&fit=crop" alt="Equipe trabalhando" loading="lazy" /><div><blockquote>“Fechávamos o mês com três dias de atraso. Hoje o relatório está pronto no dia 1º, sem ninguém abrir planilha.”</blockquote><small>Juliana Prado · CEO da Agência Mira</small></div></div>
+      <div class="stat" data-r style="--d:.1s"><div><b>-70%</b>tempo gasto com conciliação</div><div><b>2,3x</b>mais cobranças pagas em dia</div><div><b>4,8 ★</b>avaliação média dos clientes</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="faq" id="faq">
+  <div class="wrap">
+    <div class="center" data-r><h2 class="h2">Dúvidas frequentes</h2></div>
+    <div class="faq__list" data-r>
+      <details open><summary>Preciso de um contador para usar?</summary><p>Não. O Fluxo organiza tudo para você, e seu contador pode ter acesso gratuito para exportar os relatórios que precisar.</p></details>
+      <details><summary>Quais bancos são compatíveis?</summary><p>Conectamos com mais de 30 instituições via Open Finance, incluindo os principais bancos e bancos digitais do país.</p></details>
+      <details><summary>Meus dados ficam seguros?</summary><p>Criptografia de ponta a ponta, servidores no Brasil e conformidade total com a LGPD. Nunca temos acesso à sua senha bancária.</p></details>
+      <details><summary>Posso cancelar a qualquer momento?</summary><p>Sim, sem multa e sem burocracia. Você exporta todos os seus dados com um clique.</p></details>
+    </div>
+  </div>
+</section>
+
+<section class="final"><h2 class="h2">Comece hoje. Respire no fim do mês.</h2><p>Configure em 5 minutos e veja seu fluxo de caixa organizado ainda hoje.</p><a href="#comecar" class="btn">Testar grátis por 14 dias →</a></section>
+
+<footer><div class="wrap foot"><a href="#" class="logo"><svg viewBox="0 0 32 32" fill="none"><rect width="32" height="32" rx="9" fill="#6b4dff"/><path d="M8 20c4 0 4-8 8-8s4 8 8 8" stroke="#fff" stroke-width="3" stroke-linecap="round"/></svg>fluxo</a><span>© 2026 Fluxo Tecnologia Ltda. · Feito em Belo Horizonte</span></div></footer>
+
+<a class="wa" href="https://wa.me/5531999990000" target="_blank" rel="noopener" aria-label="WhatsApp"><svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21c5.46 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2Zm5.8 14.03c-.24.68-1.42 1.3-1.95 1.35-.5.05-.97.23-3.27-.68-2.77-1.09-4.52-3.92-4.66-4.1-.13-.18-1.1-1.47-1.1-2.8 0-1.34.7-2 .95-2.27.25-.27.54-.34.72-.34h.52c.17 0 .4-.06.62.47.24.56.8 1.94.87 2.08.07.14.12.3.02.48-.1.19-.14.3-.28.47-.14.16-.3.36-.42.49-.14.14-.29.29-.12.57.17.28.74 1.22 1.59 1.98 1.09.97 2.01 1.27 2.29 1.41.28.14.45.12.62-.07.17-.19.71-.83.9-1.11.19-.28.38-.24.64-.14.26.09 1.65.78 1.93.92.28.14.47.21.54.33.07.11.07.66-.17 1.34Z"/></svg></a>
+
+<script>
+(() => {
+  const reduz = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const $ = (s, el = document) => el.querySelector(s);
+  const $$ = (s, el = document) => [...el.querySelectorAll(s)];
+  const brl = (n, d = 0) => n.toLocaleString("pt-BR", { style: "currency", currency: "BRL", minimumFractionDigits: d, maximumFractionDigits: d });
+
+  const nav = $("#nav");
+  addEventListener("scroll", () => nav.classList.toggle("solid", scrollY > 20), { passive: true });
+  $(".burger").onclick = () => nav.classList.toggle("open");
+  $$(".nav__links a").forEach((a) => a.onclick = () => nav.classList.remove("open"));
+  const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("in"); e.target.dispatchEvent(new Event("visto")); io.unobserve(e.target); } }), { threshold: .15 });
+  $$("[data-r]").forEach((el) => io.observe(el));
+
+  /* Dashboard: endireita, conta números, desenha gráficos */
+  const dash = $("#dash"), wrapD = dash.parentElement;
+  wrapD.addEventListener("visto", () => {
+    setTimeout(() => dash.classList.add("flat"), 200);
+    $$(".kpi b", dash).forEach((b) => { const fim = +b.dataset.v, t0 = performance.now(); const p = (t) => { const k = Math.min(1, (t - t0) / 1600); b.textContent = brl(fim * (1 - Math.pow(1 - k, 3))); if (k < 1) requestAnimationFrame(p); }; requestAnimationFrame(p); });
+    $("#chart").classList.add("on");
+    $$("#bars i").forEach((i, k) => setTimeout(() => i.style.height = i.dataset.h + "%", 300 + k * 90));
+  });
+  if (matchMedia("(pointer:fine)").matches && !reduz) {
+    wrapD.addEventListener("mousemove", (e) => { if (!dash.classList.contains("flat")) return; const r = wrapD.getBoundingClientRect(); const x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5; dash.style.transform = `rotateY(${x * 5}deg) rotateX(${-y * 4}deg)`; });
+    wrapD.addEventListener("mouseleave", () => dash.style.transform = "");
+  }
+  /* Movimentações chegando */
+  const TX = [["💸", "Pix recebido", "Cliente: Mercado Sol", 1250, 1], ["🧾", "NF-e 1.284 emitida", "Buffet Aurora", 3480, 1], ["🏦", "Boleto pago", "Fornecedor: Moinho Real", -2140, 0], ["💸", "Pix recebido", "Cliente: Café Central", 680, 1], ["⚡", "Conta de energia", "Débito automático", -890, 0], ["💳", "Cartão — antecipação", "Vendas da semana", 5320, 1], ["🧾", "NF-e 1.285 emitida", "Hotel Serra Azul", 2150, 1]];
+  const txl = $("#txl"); let ti = 0;
+  const addTx = (anim) => {
+    const [ic, t, s, v, ent] = TX[ti++ % TX.length];
+    const el = document.createElement("div"); el.className = "t" + (anim ? " new" : "");
+    el.innerHTML = `<i style="background:${ent ? "#e9fff8" : "#fff0f3"}">${ic}</i><div><b>${t}</b><br /><span>${s}</span></div><em>Conciliado</em><b class="${ent ? "up" : "down"}">${v > 0 ? "+" : "−"} ${brl(Math.abs(v))}</b>`;
+    txl.prepend(el); while (txl.children.length > 4) txl.lastChild.remove();
+  };
+  for (let i = 0; i < 4; i++) addTx(false);
+  setInterval(() => { if (!document.hidden) addTx(true); }, 3200);
+
+  /* Logos */
+  const L = ["Padaria Bom Grão", "Agência Mira", "Studio Kora", "Oficina 21", "Buffet Aurora", "Café Central", "Clínica Vida", "Loja Ponto"];
+  $("#marq").innerHTML = [...L, ...L].map((l) => `<span>${l}</span>`).join("");
+
+  /* Recursos com troca automática */
+  const F = [
+    ["🔁", "Conciliação automática", "Cada movimentação do banco é casada com a venda ou conta certa. Você só confere.", () => `<div class="fv"><b>Conciliação de hoje</b>${[["Pix · Café Central", "Venda #4821", "R$ 680"], ["Boleto · Moinho Real", "Conta a pagar #112", "R$ 2.140"], ["Cartão · Antecipação", "Vendas 14–20/10", "R$ 5.320"]].map(([a, b, c]) => `<div class="match"><div>${a}<br /><b>${c}</b></div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg><div>${b}<br /><span class="chip" style="background:#e9fff8;color:var(--green)">✓ casado</span></div></div>`).join("")}</div>`],
+    ["🧾", "Notas fiscais em 1 clique", "Emita NF-e e NFS-e direto da venda, com impostos calculados e envio automático ao cliente.", () => `<div class="fv"><div class="nf"><div class="row"><b>NFS-e nº 1.285</b><span class="chip" style="background:#e9fff8;color:var(--green)">Autorizada</span></div><div class="row"><span>Tomador</span><b>Hotel Serra Azul Ltda.</b></div><div class="row"><span>Serviço</span><span>Fornecimento de pães e salgados</span></div><div class="row"><span>ISS (2%)</span><span>R$ 43,00</span></div><div class="row"><span>Total</span><b style="font-size:20px">R$ 2.150,00</b></div></div></div>`],
+    ["📲", "Cobrança por Pix", "Gere cobranças com QR Code e link, com lembretes automáticos por WhatsApp e e-mail.", () => `<div class="fv" style="text-align:center"><b>Cobrança · Buffet Aurora</b><div class="qr">${[...Array(64)].map((_, i) => `<i class="${(i * 7 + (i >> 3) * 3) % 5 === 0 || [0, 1, 8, 9, 6, 7, 14, 15, 48, 49, 56, 57].includes(i) ? "" : "o"}"></i>`).join("")}</div><div class="row"><span>Valor</span><b>R$ 3.480,00</b></div><div class="row"><span>Vencimento</span><span>28/10</span></div><div class="row"><span>Lembretes</span><span class="chip" style="background:var(--soft);color:var(--v)">3 dias antes · no dia · 2 dias depois</span></div></div>`],
+    ["📊", "Relatórios que se explicam", "DRE, fluxo de caixa e margem por produto atualizados em tempo real — em português claro.", () => `<div class="fv"><b>Resumo de outubro</b>${[["Receita", "R$ 86.420", "▲ 12%", "up"], ["Custos", "R$ 51.900", "▲ 4%", "down"], ["Lucro líquido", "R$ 22.310", "▲ 21%", "up"], ["Margem", "25,8%", "▲ 2,1 p.p.", "up"]].map(([a, b, c, d]) => `<div class="row"><span>${a}</span><span><b>${b}</b> <small class="${d}">${c}</small></span></div>`).join("")}<p style="margin-top:14px;font-size:13px;color:var(--muted)">💡 Seu melhor produto em margem foi o <b>pão de fermentação natural</b> (41%).</p></div>`],
+  ];
+  let fi = 0, ft;
+  function feat(i) {
+    fi = i;
+    $("#ftabs").innerHTML = F.map(([ic, t, d], k) => `<button class="ft ${k === i ? "on" : ""}" data-i="${k}"><h3><i>${ic}</i>${t}</h3><p>${d}</p><span class="pb"></span></button>`).join("");
+    $("#fview").innerHTML = F[i][3]();
+    clearTimeout(ft); ft = setTimeout(() => feat((fi + 1) % F.length), 6000);
+  }
+  $("#ftabs").onclick = (e) => { const b = e.target.closest(".ft"); if (b) feat(+b.dataset.i); };
+  feat(0);
+
+  /* ROI */
+  const fill = (el) => el.style.setProperty("--p", `${((el.value - el.min) / (el.max - el.min)) * 100}%`);
+  function roi() {
+    const h = +$("#h").value, v = +$("#v").value, n = +$("#n").value;
+    ["h", "v", "n"].forEach((k) => fill($("#" + k)));
+    $("#oH").textContent = `${h} h`; $("#oV").textContent = brl(v); $("#oN").textContent = n;
+    const horas = h * 4.3 * .7 + n * .08, eco = horas * v;
+    const plano = n > 200 || h > 25 ? ["Empresa", 349] : n > 60 || h > 12 ? ["Crescimento", 179] : ["Essencial", 89];
+    $("#roiBig").textContent = brl(eco);
+    $("#rH").textContent = `${Math.round(horas)} h`;
+    $("#rX").textContent = `${Math.max(1, eco / plano[1]).toFixed(1).replace(".", ",")}x`;
+    $("#rP").textContent = Math.max(1, Math.round(plano[1] / (eco / 30)));
+    $("#rPl").textContent = plano[0];
+  }
+  ["h", "v", "n"].forEach((k) => $("#" + k).addEventListener("input", roi)); roi();
+
+  /* Preços */
+  const PL = [["Essencial", "Para quem está começando", 89, ["1 conta bancária", "Conciliação automática", "Até 30 notas/mês", "Relatórios básicos"]], ["Crescimento", "Para empresas em expansão", 179, ["3 contas bancárias", "Notas ilimitadas", "Cobrança por Pix com lembretes", "DRE e fluxo de caixa", "Acesso para o contador"]], ["Empresa", "Para operações maiores", 349, ["Contas ilimitadas", "Multiempresa", "Centro de custos", "API e integrações", "Gerente de conta dedicado"]]];
+  let per = "m";
+  const plans = () => { $("#plans").innerHTML = PL.map(([n, d, p, li], i) => { const val = per === "a" ? Math.round(p * 10 / 12) : p; return `<div class="pl ${i === 1 ? "hot" : ""}"><h3>${n}</h3><p>${d}</p><div class="amt">${brl(val)}<small> /mês</small></div><small style="color:var(--muted)">${per === "a" ? `cobrado ${brl(p * 10)} por ano` : "cobrado mensalmente"}</small><ul>${li.map((x) => `<li>${x}</li>`).join("")}</ul><a href="#comecar" class="btn ${i === 1 ? "btn--v" : "btn--g"}">Começar teste grátis</a></div>`; }).join(""); };
+  $("#tog").onclick = (e) => { const b = e.target.closest("button"); if (!b) return; per = b.dataset.p; $$("#tog button").forEach((x) => x.classList.toggle("on", x === b)); plans(); };
+  plans();
+
+  $("#comecar").onsubmit = (e) => { e.preventDefault(); const f = e.target; f.innerHTML = `<p style="padding:12px 14px;font-weight:600;color:var(--green)">✓ Pronto! Enviamos o acesso para ${$("#email").value || "o seu e-mail"}.</p>`; };
+})();
+</script>
+</body>
+</html>

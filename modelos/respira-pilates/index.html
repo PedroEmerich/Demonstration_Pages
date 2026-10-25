@@ -1,0 +1,359 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Respira — Pilates & Yoga</title>
+<meta name="description" content="Respira Studio: pilates reformer, pilates solo, yoga e meditação em turmas pequenas. Experimente uma respiração guiada e agende sua aula experimental." />
+<meta name="theme-color" content="#f3efe8" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #f3efe8; --sand: #e9e2d6; --white: #fbf9f5; --ink: #2d2a26; --muted: #77716a; --line: #ddd5c7;
+    --sage: #7d8f69; --sage2: #a9b897; --clay: #c98b6b; --clay2: #e6b79e;
+    --serif: "Marcellus", Georgia, serif; --sans: "Figtree", system-ui, sans-serif;
+    --ease: cubic-bezier(.25,.8,.25,1);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { overflow-x: clip; scroll-behavior: smooth; scroll-padding-top: 90px; }
+  body { background: var(--bg); color: var(--ink); font-family: var(--sans); line-height: 1.7; -webkit-font-smoothing: antialiased; overflow-x: clip; }
+  img { display: block; max-width: 100%; }
+  a { color: inherit; text-decoration: none; }
+  button, input, select { font: inherit; color: inherit; }
+  button { background: none; border: 0; cursor: pointer; }
+  .wrap { width: min(1200px, 100% - 40px); margin-inline: auto; }
+  [class*="__grid"] > * { min-width: 0; }
+  h1, h2, h3 { font-family: var(--serif); font-weight: 400; line-height: 1.1; letter-spacing: .005em; }
+  .h2 { font-size: clamp(36px, 4.6vw, 64px); }
+  .h2 i, h1 i { font-style: normal; color: var(--sage); }
+  .small { font-size: 13px; letter-spacing: .2em; text-transform: uppercase; color: var(--clay); font-weight: 600; }
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 16px 30px; border-radius: 999px; font-weight: 600; font-size: 15px; transition: all .5s var(--ease); }
+  .btn--s { background: var(--sage); color: #fff; }
+  .btn--s:hover { background: var(--ink); }
+  .btn--o { box-shadow: inset 0 0 0 1px var(--ink); }
+  .btn--o:hover { background: var(--ink); color: var(--bg); }
+  [data-r] { opacity: 0; transform: translateY(24px); transition: opacity 1.2s var(--ease), transform 1.2s var(--ease); transition-delay: var(--d, 0s); }
+  [data-r].in { opacity: 1; transform: none; }
+
+  /* NAV */
+  .nav { position: fixed; inset: 0 0 auto; z-index: 50; transition: background .6s, box-shadow .6s; }
+  .nav.solid { background: rgba(243,239,232,.92); backdrop-filter: blur(12px); box-shadow: 0 1px 0 var(--line); }
+  .nav__in { height: 84px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+  .logo { font-family: var(--serif); font-size: 28px; letter-spacing: .06em; display: flex; align-items: center; gap: 10px; }
+  .logo svg { width: 30px; color: var(--sage); }
+  .nav__links { display: flex; gap: 30px; font-size: 15px; }
+  .nav__links a:hover { color: var(--sage); }
+  .burger { display: none; width: 46px; height: 46px; border-radius: 50%; box-shadow: inset 0 0 0 1px var(--ink); place-items: center; }
+  .burger span { width: 16px; height: 1px; background: var(--ink); box-shadow: 0 5px 0 var(--ink), 0 -5px 0 var(--ink); }
+
+  /* HERO */
+  .hero { min-height: 100svh; padding: 120px 0 60px; display: flex; align-items: center; position: relative; overflow: hidden; }
+  .hero__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+  .hero h1 { font-size: clamp(50px, 6.8vw, 104px); margin: 20px 0 24px; }
+  .hero h1 span { display: block; opacity: 0; filter: blur(10px); animation: in 1.8s var(--ease) forwards; }
+  .hero h1 span:nth-child(2) { animation-delay: .5s; } .hero h1 span:nth-child(3) { animation-delay: 1s; }
+  @keyframes in { to { opacity: 1; filter: none; } }
+  .hero p { font-size: 18px; color: var(--muted); max-width: 440px; }
+  .hero__ctas { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 34px; }
+  .breath { position: relative; aspect-ratio: 1; max-width: 540px; width: 100%; justify-self: center; display: grid; place-items: center; }
+  .ring { position: absolute; border-radius: 50%; }
+  .ring--1 { inset: 0; background: radial-gradient(circle, var(--sand) 0 55%, transparent 56%); }
+  .ring--2 { inset: 8%; border: 1px dashed var(--line); animation: spin 60s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .orb { position: relative; width: 62%; aspect-ratio: 1; border-radius: 50%; overflow: hidden; transform: scale(.82); transition: transform 4s var(--ease); box-shadow: 0 40px 80px -40px rgba(125,143,105,.6); }
+  .orb img { width: 100%; height: 100%; object-fit: cover; }
+  .orb::after { content: ""; position: absolute; inset: 0; background: radial-gradient(circle, transparent 40%, rgba(125,143,105,.35)); }
+  .breath.idle .orb { animation: idle 8s ease-in-out infinite; }
+  @keyframes idle { 50% { transform: scale(.9); } }
+  .guide { position: absolute; bottom: 2%; left: 50%; transform: translateX(-50%); text-align: center; background: var(--white); border-radius: 999px; padding: 12px 22px 12px 14px; display: flex; align-items: center; gap: 14px; box-shadow: 0 20px 40px -24px rgba(45,42,38,.4); white-space: nowrap; }
+  .guide button { width: 44px; height: 44px; border-radius: 50%; background: var(--sage); color: #fff; font-size: 16px; display: grid; place-items: center; transition: background .3s; }
+  .guide button:hover { background: var(--ink); }
+  .guide b { font-family: var(--serif); font-weight: 400; font-size: 22px; display: block; line-height: 1.1; min-width: 150px; text-align: left; }
+  .guide small { color: var(--muted); font-size: 13px; display: block; text-align: left; }
+  .count { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-family: var(--serif); font-size: 64px; color: #fff; text-shadow: 0 4px 20px rgba(0,0,0,.25); pointer-events: none; opacity: 0; transition: opacity .4s; }
+  .breath.on .count { opacity: 1; }
+
+  /* MODALIDADES */
+  .mods { padding: 120px 0; }
+  .head { display: flex; justify-content: space-between; align-items: end; gap: 30px; flex-wrap: wrap; margin-bottom: 50px; }
+  .head p { color: var(--muted); max-width: 420px; }
+  .mgrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 26px; }
+  .mod { cursor: default; }
+  .mod__img { aspect-ratio: 4/5; border-radius: 200px 200px 24px 24px; overflow: hidden; }
+  .mod__img img { width: 100%; height: 100%; object-fit: cover; transition: transform 2s var(--ease); }
+  .mod:hover .mod__img img { transform: scale(1.06); }
+  .mod h3 { font-size: 28px; margin-top: 20px; }
+  .mod p { color: var(--muted); font-size: 15px; margin: 6px 0 10px; }
+  .leaf { display: flex; gap: 4px; align-items: center; font-size: 13px; color: var(--muted); }
+  .leaf i { width: 12px; height: 12px; border-radius: 0 50% 0 50%; background: var(--line); }
+  .leaf i.on { background: var(--sage); }
+
+  /* GRADE */
+  .sched { padding: 110px 0; background: var(--white); }
+  .fil { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 26px; }
+  .fil button { padding: 9px 18px; border-radius: 999px; box-shadow: inset 0 0 0 1px var(--line); font-size: 14px; transition: all .3s; }
+  .fil button.on { background: var(--ink); color: var(--bg); box-shadow: none; }
+  .table { display: grid; grid-template-columns: 80px repeat(6, 1fr); gap: 6px; }
+  .table .h { font-family: var(--serif); font-size: 18px; text-align: center; padding: 8px 0; }
+  .table .h.today { color: var(--clay); }
+  .table .t { font-size: 13px; color: var(--muted); display: flex; align-items: center; }
+  .cell { min-height: 62px; border-radius: 14px; background: var(--bg); }
+  .cl { width: 100%; height: 100%; min-height: 62px; border-radius: 14px; padding: 8px 10px; text-align: left; font-size: 13px; line-height: 1.3; transition: transform .3s var(--ease), opacity .4s, box-shadow .3s; }
+  .cl b { display: block; font-weight: 600; }
+  .cl small { opacity: .75; }
+  .cl:hover { transform: scale(1.04); box-shadow: 0 10px 20px -12px rgba(45,42,38,.5); }
+  .cl.dim { opacity: .18; pointer-events: none; }
+  .cl.full { background-image: repeating-linear-gradient(-45deg, transparent 0 6px, rgba(0,0,0,.05) 6px 12px); }
+  .legend { display: flex; gap: 18px; flex-wrap: wrap; margin-top: 18px; font-size: 13px; color: var(--muted); }
+  .legend span { display: flex; gap: 6px; align-items: center; }
+  .legend i { width: 12px; height: 12px; border-radius: 4px; }
+
+  /* PLANOS */
+  .plans { padding: 120px 0; }
+  .pgrid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+  .pl { background: var(--white); border-radius: 28px; padding: 30px 26px; display: flex; flex-direction: column; transition: transform .6s var(--ease); }
+  .pl:hover { transform: translateY(-6px); }
+  .pl.hot { background: var(--sage); color: #fff; }
+  .pl h3 { font-size: 26px; }
+  .pl .price { font-family: var(--serif); font-size: 46px; margin: 16px 0 2px; }
+  .pl .price small { font-family: var(--sans); font-size: 14px; opacity: .7; }
+  .pl ul { list-style: none; margin: 18px 0 26px; display: grid; gap: 8px; font-size: 15px; flex: 1; }
+  .pl li::before { content: "~ "; color: var(--clay); }
+  .pl.hot li::before { color: var(--clay2); }
+  .pl.hot .btn--o { box-shadow: inset 0 0 0 1px #fff; }
+  .pl.hot .btn--o:hover { background: #fff; color: var(--sage); }
+  .free { margin-top: 24px; text-align: center; color: var(--muted); }
+  .free b { color: var(--ink); }
+
+  /* ESTÚDIO */
+  .studio { padding: 0 0 120px; }
+  .sgrid { display: grid; grid-template-columns: 1.3fr 1fr 1fr; grid-template-rows: 280px 280px; gap: 16px; }
+  .sgrid figure { border-radius: 24px; overflow: hidden; }
+  .sgrid figure:first-child { grid-row: span 2; }
+  .sgrid img { width: 100%; height: 100%; object-fit: cover; transition: transform 2s var(--ease); }
+  .sgrid figure:hover img { transform: scale(1.05); }
+
+  /* INSTRUTORAS + CONTATO */
+  .team { padding: 110px 0; background: var(--sand); }
+  .tgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+  .quote { font-family: var(--serif); font-size: clamp(26px, 3vw, 40px); line-height: 1.3; }
+  .ppl { display: flex; gap: 18px; margin-top: 30px; flex-wrap: wrap; }
+  .ppl div { display: flex; gap: 12px; align-items: center; }
+  .ppl img { width: 56px; height: 56px; border-radius: 50%; object-fit: cover; }
+  .ppl b { display: block; font-weight: 600; }
+  .ppl small { color: var(--muted); }
+  .tgrid figure { aspect-ratio: 4/5; border-radius: 300px 300px 30px 30px; overflow: hidden; }
+  .tgrid figure img { width: 100%; height: 100%; object-fit: cover; }
+  .contact { padding: 110px 0; text-align: center; }
+  .contact p { color: var(--muted); max-width: 520px; margin: 16px auto 30px; }
+  .cform { display: grid; grid-template-columns: 1fr 1fr 1fr auto; gap: 10px; max-width: 900px; margin: 0 auto; }
+  .cform input, .cform select { padding: 15px 18px; border-radius: 999px; border: 0; box-shadow: inset 0 0 0 1px var(--line); background: var(--white); outline: none; }
+  .cform input:focus, .cform select:focus { box-shadow: inset 0 0 0 2px var(--sage); }
+  .info { display: flex; justify-content: center; gap: 40px; flex-wrap: wrap; margin-top: 50px; font-size: 15px; color: var(--muted); }
+  footer { border-top: 1px solid var(--line); padding: 30px 0; font-size: 14px; color: var(--muted); }
+  .foot { display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
+  .wa { position: fixed; right: 22px; bottom: 22px; z-index: 60; width: 58px; height: 58px; border-radius: 50%; background: #25d366; color: #fff; display: grid; place-items: center; box-shadow: 0 12px 30px -8px rgba(37,211,102,.6); transition: transform .3s var(--ease); }
+  .wa:hover { transform: scale(1.08); }
+
+  @media (max-width: 1000px) {
+    .nav__links, .nav__cta { display: none; }
+    .burger { display: grid; }
+    .nav.open { background: var(--bg); }
+    .nav.open .nav__links { display: flex; flex-direction: column; position: absolute; top: 84px; left: 0; right: 0; background: var(--bg); padding: 24px 20px; gap: 18px; box-shadow: 0 1px 0 var(--line); }
+    .hero__grid, .tgrid { grid-template-columns: 1fr; }
+    .breath { max-width: 420px; }
+    .mgrid { grid-template-columns: 1fr 1fr; }
+    .pgrid { grid-template-columns: 1fr 1fr; }
+    .table { overflow-x: auto; grid-template-columns: 60px repeat(6, minmax(110px, 1fr)); }
+    .sgrid { grid-template-columns: 1fr 1fr; grid-template-rows: 220px 220px 220px; }
+    .sgrid figure:first-child { grid-column: span 2; grid-row: auto; }
+    .cform { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 600px) {
+    .mgrid, .pgrid { grid-template-columns: 1fr; }
+    .guide b { font-size: 18px; min-width: 120px; }
+    .tblwrap { overflow-x: auto; margin: 0 -20px; padding: 0 20px; }
+  }
+  @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; animation-delay: 0s !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; } [data-r] { opacity: 1; transform: none; } }
+</style>
+</head>
+<body>
+
+<header class="nav" id="nav">
+  <div class="wrap nav__in">
+    <a href="#" class="logo"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="16" cy="16" r="6"/><circle cx="16" cy="16" r="11" opacity=".55"/><circle cx="16" cy="16" r="15" opacity=".25"/></svg>Respira</a>
+    <nav class="nav__links"><a href="#modalidades">Modalidades</a><a href="#grade">Grade</a><a href="#planos">Planos</a><a href="#estudio">Estúdio</a><a href="#contato">Contato</a></nav>
+    <a href="#contato" class="btn btn--s nav__cta" style="padding:12px 22px">Aula experimental</a>
+    <button class="burger" aria-label="Menu"><span></span></button>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap hero__grid">
+    <div>
+      <span class="small">Pilates · Yoga · Meditação</span>
+      <h1><span>Respire.</span><span><i>Movimente.</i></span><span>Volte para você.</span></h1>
+      <p>Um estúdio pequeno, iluminado e silencioso, com turmas de até 6 pessoas e professoras que conhecem o seu corpo pelo nome.</p>
+      <div class="hero__ctas"><a href="#contato" class="btn btn--s">Agendar aula experimental</a><a href="#grade" class="btn btn--o">Ver horários</a></div>
+    </div>
+    <div class="breath idle" id="breath">
+      <div class="ring ring--1"></div><div class="ring ring--2"></div>
+      <div class="orb" id="orb"><img src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=900&q=78&auto=format&fit=crop" alt="Mulher meditando" /></div>
+      <span class="count" id="count"></span>
+      <div class="guide"><button id="play" aria-label="Iniciar respiração guiada">▶</button><div><b id="phase">Respire com a gente</b><small id="phaseSub">Técnica 4-7-8 · 3 ciclos</small></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="mods" id="modalidades">
+  <div class="wrap">
+    <div class="head"><div data-r><span class="small">Modalidades</span><h2 class="h2" style="margin-top:14px">Cinco caminhos,<br /><i>um só equilíbrio</i></h2></div><p data-r style="--d:.1s">Todas as aulas são adaptadas para iniciantes, gestantes e pessoas em reabilitação. Você não precisa ser flexível para começar.</p></div>
+    <div class="mgrid" id="mgrid"></div>
+  </div>
+</section>
+
+<section class="sched" id="grade">
+  <div class="wrap">
+    <div class="head"><div data-r><span class="small">Grade semanal</span><h2 class="h2" style="margin-top:14px">Encontre o <i>seu horário</i></h2></div><p data-r style="--d:.1s">Toque em uma aula para reservar sua vaga. Turmas com até 6 pessoas.</p></div>
+    <div class="fil" id="fil" data-r></div>
+    <div class="tblwrap"><div class="table" id="table" data-r></div></div>
+    <div class="legend" id="legend"></div>
+  </div>
+</section>
+
+<section class="plans" id="planos">
+  <div class="wrap">
+    <div class="head"><div data-r><span class="small">Planos</span><h2 class="h2" style="margin-top:14px">No ritmo <i>da sua semana</i></h2></div><p data-r style="--d:.1s">Valores mensais no plano semestral. Combine pilates e yoga livremente dentro do seu plano.</p></div>
+    <div class="pgrid">
+      <div class="pl" data-r><h3>1x por semana</h3><p class="price">R$ 280<small> /mês</small></p><ul><li>4 aulas no mês</li><li>Reposição em 30 dias</li><li>Avaliação postural</li></ul><a href="#contato" class="btn btn--o">Escolher</a></div>
+      <div class="pl hot" data-r style="--d:.08s"><h3>2x por semana</h3><p class="price">R$ 460<small> /mês</small></p><ul><li>8 aulas no mês</li><li>Reposição em 30 dias</li><li>Avaliação a cada 3 meses</li><li>Meditação inclusa</li></ul><a href="#contato" class="btn btn--o">Escolher</a></div>
+      <div class="pl" data-r style="--d:.16s"><h3>3x por semana</h3><p class="price">R$ 620<small> /mês</small></p><ul><li>12 aulas no mês</li><li>Prioridade na grade</li><li>Meditação inclusa</li></ul><a href="#contato" class="btn btn--o">Escolher</a></div>
+      <div class="pl" data-r style="--d:.24s"><h3>Particular</h3><p class="price">R$ 190<small> /aula</small></p><ul><li>Aula individual</li><li>Horário flexível</li><li>Ideal para reabilitação</li></ul><a href="#contato" class="btn btn--o">Escolher</a></div>
+    </div>
+    <p class="free" data-r>🌿 <b>Primeira aula grátis</b> em qualquer modalidade.</p>
+  </div>
+</section>
+
+<section class="studio" id="estudio">
+  <div class="wrap">
+    <div class="head"><div data-r><span class="small">O estúdio</span><h2 class="h2" style="margin-top:14px">Luz natural e <i>silêncio</i></h2></div></div>
+    <div class="sgrid" data-r>
+      <figure><img src="https://images.unsplash.com/photo-1783841193384-4269c68aa050?w=1100&q=78&auto=format&fit=crop" alt="Sala de pilates com aparelhos" loading="lazy" /></figure>
+      <figure><img src="https://images.unsplash.com/photo-1761971975724-31001b4de0bf?w=700&q=75&auto=format&fit=crop" alt="Sala de yoga" loading="lazy" /></figure>
+      <figure><img src="https://images.unsplash.com/photo-1747238415033-b74eec07eb59?w=700&q=75&auto=format&fit=crop" alt="Aluna no reformer" loading="lazy" /></figure>
+      <figure><img src="https://images.unsplash.com/photo-1761971975973-cbb3e59263de?w=700&q=75&auto=format&fit=crop" alt="Sala com janelas amplas" loading="lazy" /></figure>
+      <figure><img src="https://images.unsplash.com/photo-1683056255281-e52a141924f0?w=700&q=75&auto=format&fit=crop" alt="Turma de yoga" loading="lazy" /></figure>
+    </div>
+  </div>
+</section>
+
+<section class="team">
+  <div class="wrap tgrid">
+    <div data-r><span class="small">Quem conduz</span><p class="quote" style="margin-top:18px">“Não buscamos a postura perfeita. Buscamos que você saia da aula respirando melhor do que entrou.”</p>
+      <div class="ppl"><div><img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200&q=70&auto=format&fit=crop" alt="" /><span><b>Clara Nunes</b><small>Fisioterapeuta · Pilates</small></span></div><div><img src="https://images.unsplash.com/photo-1765005204058-10418f5123c5?w=200&q=70&auto=format&fit=crop" alt="" /><span><b>Aline Moura</b><small>Yoga e meditação</small></span></div></div></div>
+    <figure data-r style="--d:.1s"><img src="https://images.unsplash.com/photo-1763403921315-f2ef8697199f?w=900&q=78&auto=format&fit=crop" alt="Turma de yoga em ponte" loading="lazy" /></figure>
+  </div>
+</section>
+
+<section class="contact" id="contato">
+  <div class="wrap" data-r>
+    <span class="small">Aula experimental</span>
+    <h2 class="h2" style="margin-top:14px">Sua primeira aula <i>é por nossa conta</i></h2>
+    <p>Escolha a modalidade e o período. A gente confirma pelo WhatsApp em poucos minutos.</p>
+    <form class="cform" id="cform"><input id="cN" placeholder="Seu nome" required /><select id="cM"></select><select id="cP"><option>Manhã</option><option>Almoço</option><option>Noite</option><option>Sábado</option></select><button class="btn btn--s">Agendar</button></form>
+    <div class="info"><span>📍 Rua Fradique Coutinho, 420 — Vila Madalena</span><span>🕗 Seg a sex 6h30–21h · Sáb 8h–13h</span><span>☎ (11) 99999-0000</span></div>
+  </div>
+</section>
+
+<footer><div class="wrap foot"><span>© 2026 Respira Studio · Pilates & Yoga</span><span>Respire fundo. 🌿</span></div></footer>
+
+<a class="wa" href="https://wa.me/5511999990000" target="_blank" rel="noopener" aria-label="WhatsApp"><svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21c5.46 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2Zm5.8 14.03c-.24.68-1.42 1.3-1.95 1.35-.5.05-.97.23-3.27-.68-2.77-1.09-4.52-3.92-4.66-4.1-.13-.18-1.1-1.47-1.1-2.8 0-1.34.7-2 .95-2.27.25-.27.54-.34.72-.34h.52c.17 0 .4-.06.62.47.24.56.8 1.94.87 2.08.07.14.12.3.02.48-.1.19-.14.3-.28.47-.14.16-.3.36-.42.49-.14.14-.29.29-.12.57.17.28.74 1.22 1.59 1.98 1.09.97 2.01 1.27 2.29 1.41.28.14.45.12.62-.07.17-.19.71-.83.9-1.11.19-.28.38-.24.64-.14.26.09 1.65.78 1.93.92.28.14.47.21.54.33.07.11.07.66-.17 1.34Z"/></svg></a>
+
+<script>
+(() => {
+  const $ = (s, el = document) => el.querySelector(s);
+  const $$ = (s, el = document) => [...el.querySelectorAll(s)];
+  const u = (id, w) => `https://images.unsplash.com/photo-${id}?w=${w}&q=78&auto=format&fit=crop`;
+  const WA = "5511999990000";
+
+  const nav = $("#nav");
+  addEventListener("scroll", () => nav.classList.toggle("solid", scrollY > 30), { passive: true });
+  $(".burger").onclick = () => nav.classList.toggle("open");
+  $$(".nav__links a").forEach((a) => a.onclick = () => nav.classList.remove("open"));
+  const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }), { threshold: .12 });
+  $$("[data-r]").forEach((el) => io.observe(el));
+
+  /* Respiração guiada 4-7-8 */
+  const breath = $("#breath"), orb = $("#orb"), phase = $("#phase"), sub = $("#phaseSub"), count = $("#count"), play = $("#play");
+  const FASES = [["Inspire pelo nariz", 4, 1], ["Segure o ar", 7, 1], ["Expire pela boca", 8, .72]];
+  let rodando = false, timers = [];
+  const limpa = () => { timers.forEach(clearTimeout); timers = []; };
+  function parar(fim) {
+    limpa(); rodando = false; breath.classList.remove("on"); breath.classList.add("idle");
+    orb.style.transitionDuration = "2s"; orb.style.transform = "";
+    phase.textContent = fim ? "Muito bem 🌿" : "Respire com a gente"; sub.textContent = fim ? "Sinta a diferença. Repita quando quiser." : "Técnica 4-7-8 · 3 ciclos"; play.textContent = "▶";
+  }
+  function iniciar() {
+    rodando = true; breath.classList.remove("idle"); breath.classList.add("on"); play.textContent = "■";
+    let t = 0;
+    for (let ciclo = 0; ciclo < 3; ciclo++) FASES.forEach(([nome, seg, esc]) => {
+      timers.push(setTimeout(() => {
+        phase.textContent = nome; sub.textContent = `Ciclo ${ciclo + 1} de 3`;
+        orb.style.transitionDuration = `${seg}s`; orb.style.transform = `scale(${esc})`;
+        for (let s = 0; s < seg; s++) timers.push(setTimeout(() => count.textContent = seg - s, s * 1000));
+      }, t * 1000));
+      t += seg;
+    });
+    timers.push(setTimeout(() => parar(true), t * 1000));
+  }
+  play.onclick = () => rodando ? parar(false) : iniciar();
+
+  /* Modalidades */
+  const M = [["Pilates Reformer", "Força profunda, postura e alongamento com os aparelhos clássicos.", 3, "1747239069226-55382c570116", "#c98b6b"], ["Pilates Solo", "Exercícios no mat com bola, faixa e anel — ótimo para começar.", 2, "1747238415033-b74eec07eb59", "#e6b79e"], ["Yoga Vinyasa", "Sequências fluidas sincronizadas com a respiração.", 3, "1575052814086-f385e2e2ad1b", "#7d8f69"], ["Yoga Restaurativa", "Posturas longas com apoio para desacelerar o sistema nervoso.", 1, "1552196563-55cd4e45efb3", "#a9b897"], ["Meditação", "Práticas guiadas de atenção plena e respiração.", 1, "1506126613408-eca07ce68773", "#b9a68f"]];
+  $("#mgrid").innerHTML = M.slice(0, 3).concat(M.slice(3)).map(([n, d, int, img], i) => `<article class="mod" data-r style="--d:${(i % 3) * .1}s"><div class="mod__img"><img src="${u(img, 700)}" alt="${n}" loading="lazy" /></div><h3>${n}</h3><p>${d}</p><span class="leaf">Intensidade ${[1, 2, 3].map((k) => `<i class="${k <= int ? "on" : ""}"></i>`).join("")}</span></article>`).join("");
+  $$(".mod").forEach((m) => io.observe(m));
+  $("#cM").innerHTML = M.map((m) => `<option>${m[0]}</option>`).join("");
+
+  /* Grade semanal */
+  const DIAS = ["Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"], HORAS = ["07:00", "08:30", "12:15", "18:00", "19:30"];
+  const G = {};
+  DIAS.forEach((d, di) => HORAS.forEach((h, hi) => {
+    if (di === 5 && hi > 1) return;
+    const k = (di * 3 + hi * 2) % 7;
+    if (k === 6) return;
+    const m = M[(di + hi * 2) % M.length];
+    G[`${di}-${hi}`] = { m, vagas: (di * 5 + hi * 3) % 7 };
+  }));
+  let fm = "Todas";
+  const hoje = new Date().getDay() - 1;
+  $("#fil").innerHTML = ["Todas", ...M.map((m) => m[0])].map((n) => `<button class="${n === fm ? "on" : ""}">${n}</button>`).join("");
+  $("#legend").innerHTML = M.map((m) => `<span><i style="background:${m[4]}"></i>${m[0]}</span>`).join("") + `<span><i style="background:repeating-linear-gradient(-45deg,#ddd 0 3px,#fff 3px 6px)"></i>Lista de espera</span>`;
+  function grade() {
+    let html = `<div></div>` + DIAS.map((d, i) => `<div class="h ${i === hoje ? "today" : ""}">${d}</div>`).join("");
+    HORAS.forEach((h, hi) => {
+      html += `<div class="t">${h}</div>`;
+      DIAS.forEach((d, di) => {
+        const c = G[`${di}-${hi}`];
+        if (!c) { html += `<div class="cell"></div>`; return; }
+        const escuro = ["#7d8f69", "#c98b6b"].includes(c.m[4]);
+        html += `<button class="cl ${fm !== "Todas" && c.m[0] !== fm ? "dim" : ""} ${c.vagas === 0 ? "full" : ""}" data-k="${di}-${hi}" style="background-color:${c.m[4]};color:${escuro ? "#fff" : "var(--ink)"}"><b>${c.m[0]}</b><small>${c.vagas ? `${c.vagas} ${c.vagas === 1 ? "vaga" : "vagas"}` : "lista de espera"}</small></button>`;
+      });
+    });
+    $("#table").innerHTML = html;
+  }
+  $("#fil").onclick = (e) => { const b = e.target.closest("button"); if (!b) return; fm = b.textContent; $$("#fil button").forEach((x) => x.classList.toggle("on", x === b)); grade(); };
+  $("#table").onclick = (e) => {
+    const b = e.target.closest(".cl"); if (!b) return;
+    const [di, hi] = b.dataset.k.split("-").map(Number), c = G[b.dataset.k];
+    const msg = `Olá, Respira! Quero ${c.vagas ? "reservar" : "entrar na lista de espera de"} ${c.m[0]} na ${DIAS[di]} às ${HORAS[hi]}.`;
+    window.open(`https://wa.me/${WA}?text=${encodeURIComponent(msg)}`, "_blank");
+  };
+  grade();
+
+  $("#cform").onsubmit = (e) => { e.preventDefault(); const msg = `Olá, Respira! Quero agendar minha aula experimental.\nNome: ${$("#cN").value}\nModalidade: ${$("#cM").value}\nPeríodo: ${$("#cP").value}`; window.open(`https://wa.me/${WA}?text=${encodeURIComponent(msg)}`, "_blank"); };
+})();
+</script>
+</body>
+</html>

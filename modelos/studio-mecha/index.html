@@ -1,0 +1,370 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Studio Mecha — Salão de Beleza</title>
+<meta name="description" content="Studio Mecha: corte, coloração, mechas, tratamentos e penteados. Simule sua nova cor de cabelo e agende online." />
+<meta name="theme-color" content="#111" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Krona+One&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --ink: #111; --cream: #f7f2ea; --white: #fff; --muted: #77716a; --line: #e6dfd3;
+    --pink: #ff2e88; --pink2: #ffd1e5; --lilac: #b9a4ff; --gold: #f2c14e;
+    --display: "Krona One", system-ui, sans-serif; --sans: "Manrope", system-ui, sans-serif;
+    --ease: cubic-bezier(.2,.8,.2,1);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { overflow-x: clip; scroll-behavior: smooth; scroll-padding-top: 80px; }
+  body { background: var(--cream); color: var(--ink); font-family: var(--sans); line-height: 1.6; -webkit-font-smoothing: antialiased; overflow-x: clip; }
+  img { display: block; max-width: 100%; }
+  a { color: inherit; text-decoration: none; }
+  button, input, select { font: inherit; color: inherit; }
+  button { background: none; border: 0; cursor: pointer; }
+  .wrap { width: min(1260px, 100% - 40px); margin-inline: auto; }
+  [class*="__grid"] > * { min-width: 0; }
+  .d { font-family: var(--display); font-weight: 400; text-transform: uppercase; letter-spacing: -.03em; line-height: 1; }
+  .h2 { font-size: clamp(34px, 4.8vw, 66px); }
+  .pk { color: var(--pink); }
+  .tag { display: inline-flex; gap: 8px; align-items: center; font-size: 13px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; }
+  .tag::before { content: ""; width: 10px; height: 10px; border-radius: 50%; background: var(--pink); }
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 16px 28px; border-radius: 999px; font-weight: 800; font-size: 14px; letter-spacing: .06em; text-transform: uppercase; transition: all .3s var(--ease); }
+  .btn--p { background: var(--pink); color: #fff; }
+  .btn--p:hover { background: var(--ink); transform: translateY(-2px); }
+  .btn--k { background: var(--ink); color: #fff; }
+  .btn--k:hover { background: var(--pink); }
+  .btn--o { box-shadow: inset 0 0 0 2px var(--ink); }
+  .btn--o:hover { background: var(--ink); color: #fff; }
+  [data-r] { opacity: 0; transform: translateY(40px); transition: opacity .8s var(--ease), transform .8s var(--ease); transition-delay: var(--d, 0s); }
+  [data-r].in { opacity: 1; transform: none; }
+
+  /* NAV */
+  .nav { position: sticky; top: 0; z-index: 50; background: var(--ink); color: #fff; }
+  .nav__in { height: 70px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+  .logo { font-family: var(--display); font-size: 20px; letter-spacing: -.04em; display: flex; align-items: center; gap: 10px; }
+  .logo i { width: 34px; height: 34px; border-radius: 50%; background: conic-gradient(var(--pink), var(--gold), var(--lilac), var(--pink)); animation: spin 8s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .nav__links { display: flex; gap: 28px; font-weight: 600; font-size: 14px; }
+  .nav__links a { opacity: .75; } .nav__links a:hover { opacity: 1; color: var(--pink2); }
+  .burger { display: none; width: 44px; height: 44px; border-radius: 50%; background: var(--pink); place-items: center; }
+  .burger span { width: 16px; height: 2px; background: #fff; box-shadow: 0 5px 0 #fff, 0 -5px 0 #fff; }
+
+  /* HERO */
+  .hero { position: relative; overflow: hidden; }
+  .hero__grid { display: grid; grid-template-columns: 1fr 1fr; min-height: calc(100svh - 70px); }
+  .hero__text { padding: 70px 50px 60px 0; display: flex; flex-direction: column; justify-content: center; }
+  .hero h1 { font-size: clamp(34px, 4.4vw, 72px); margin: 22px 0; }
+  .hero h1 span { display: block; opacity: 0; transform: translateX(-40px); animation: slide .9s var(--ease) forwards; }
+  .hero h1 span:nth-child(2) { animation-delay: .12s; } .hero h1 span:nth-child(3) { animation-delay: .24s; }
+  @keyframes slide { to { opacity: 1; transform: none; } }
+  .hero p { font-size: 18px; color: var(--muted); max-width: 440px; }
+  .hero__ctas { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 32px; }
+  .rating { display: flex; gap: 12px; align-items: center; margin-top: 36px; font-weight: 600; font-size: 14px; }
+  .rating b { font-family: var(--display); font-size: 26px; }
+  .hero__img { position: relative; overflow: hidden; margin-right: calc((100vw - min(1260px, 100vw - 40px)) / -2); }
+  .hero__img img { width: 100%; height: 100%; object-fit: cover; transform: scale(1.15); animation: settle 1.8s var(--ease) forwards; }
+  @keyframes settle { to { transform: scale(1); } }
+  .sticker { position: absolute; left: 30px; bottom: 40px; width: 150px; height: 150px; border-radius: 50%; background: var(--gold); display: grid; place-items: center; text-align: center; font-family: var(--display); font-size: 13px; line-height: 1.2; text-transform: uppercase; animation: wob 4s ease-in-out infinite; }
+  .sticker b { display: block; font-size: 30px; }
+  @keyframes wob { 50% { transform: rotate(-10deg) scale(1.05); } }
+
+  .ticker { background: var(--pink); color: #fff; padding: 18px 0; overflow: hidden; }
+  .ticker__t { display: flex; gap: 40px; width: max-content; animation: run 26s linear infinite; }
+  .ticker span { font-family: var(--display); font-size: 24px; text-transform: uppercase; white-space: nowrap; display: flex; gap: 40px; align-items: center; }
+  .ticker span::after { content: "✂"; color: var(--ink); }
+  @keyframes run { to { transform: translateX(-50%); } }
+
+  /* SIMULADOR DE COR */
+  .color { padding: 110px 0; }
+  .head { display: flex; justify-content: space-between; align-items: end; gap: 30px; flex-wrap: wrap; margin-bottom: 44px; }
+  .head p { color: var(--muted); max-width: 420px; }
+  .color__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; }
+  .stage { position: relative; background: linear-gradient(160deg, var(--pink2), #e9e2ff); border-radius: 40px; aspect-ratio: 1; display: grid; place-items: center; overflow: hidden; }
+  .stage svg { width: 80%; height: auto; }
+  .hair { transition: fill .6s var(--ease); }
+  .stage__lbl { position: absolute; left: 24px; top: 24px; background: var(--white); border-radius: 999px; padding: 8px 16px; font-weight: 800; font-size: 14px; }
+  .ctrl h4 { font-size: 13px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; margin-bottom: 12px; }
+  .ctrl > div { margin-bottom: 28px; }
+  .sws { display: flex; gap: 10px; flex-wrap: wrap; }
+  .sw { width: 54px; height: 54px; border-radius: 50%; border: 4px solid var(--cream); box-shadow: 0 0 0 2px var(--line); transition: all .3s var(--ease); position: relative; }
+  .sw.on { box-shadow: 0 0 0 3px var(--ink); transform: scale(1.1); }
+  .sw:hover::after { content: attr(data-n); position: absolute; bottom: -26px; left: 50%; transform: translateX(-50%); font-size: 12px; font-weight: 700; white-space: nowrap; }
+  .seg { display: flex; gap: 6px; flex-wrap: wrap; }
+  .seg button { padding: 12px 18px; border-radius: 999px; box-shadow: inset 0 0 0 2px var(--line); font-weight: 700; font-size: 14px; transition: all .25s; }
+  .seg button.on { background: var(--ink); color: #fff; box-shadow: none; }
+  .quote { display: flex; justify-content: space-between; align-items: center; gap: 20px; padding: 22px 26px; border-radius: 24px; background: var(--ink); color: #fff; flex-wrap: wrap; }
+  .quote small { color: #bbb; display: block; }
+  .quote b { font-family: var(--display); font-size: 30px; }
+
+  /* SERVIÇOS */
+  .svc { padding: 110px 0; background: var(--ink); color: #fff; }
+  .svc .head p { color: #aaa; }
+  .len { display: inline-flex; padding: 5px; border-radius: 999px; background: #222; margin-bottom: 30px; }
+  .len button { padding: 10px 18px; border-radius: 999px; font-weight: 700; font-size: 14px; color: #aaa; transition: all .25s; }
+  .len button.on { background: var(--pink); color: #fff; }
+  .menu { display: grid; grid-template-columns: 1fr 1fr; gap: 0 60px; }
+  .cat h3 { font-family: var(--display); font-size: 18px; text-transform: uppercase; color: var(--pink); margin: 20px 0 6px; }
+  .it { display: flex; align-items: baseline; gap: 12px; padding: 14px 0; border-bottom: 1px solid #2a2a2a; }
+  .it span { font-weight: 600; }
+  .it small { color: #888; }
+  .it i { flex: 1; border-bottom: 1px dotted #444; transform: translateY(-4px); }
+  .it b { font-family: var(--display); font-size: 16px; white-space: nowrap; transition: color .3s; }
+  .it b.flash { color: var(--gold); }
+
+  /* GALERIA */
+  .gal { padding: 110px 0; }
+  .ggrid { display: grid; grid-template-columns: repeat(4, 1fr); grid-auto-rows: 260px; gap: 14px; }
+  .ggrid figure { position: relative; overflow: hidden; border-radius: 26px; }
+  .ggrid figure:nth-child(1) { grid-row: span 2; } .ggrid figure:nth-child(4) { grid-column: span 2; }
+  .ggrid img { width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s var(--ease); }
+  .ggrid figure:hover img { transform: scale(1.07); }
+  .ggrid figcaption { position: absolute; left: 14px; bottom: 14px; background: var(--white); border-radius: 999px; padding: 6px 14px; font-weight: 800; font-size: 13px; transform: translateY(60px); transition: transform .4s var(--ease); }
+  .ggrid figure:hover figcaption { transform: none; }
+
+  /* EQUIPE + AGENDA */
+  .team { padding: 0 0 110px; }
+  .tgrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+  .pro { background: var(--white); border-radius: 30px; overflow: hidden; }
+  .pro img { width: 100%; aspect-ratio: 4/4.2; object-fit: cover; object-position: top; transition: filter .5s; filter: grayscale(.6); }
+  .pro:hover img { filter: none; }
+  .pro div { padding: 20px 22px 24px; }
+  .pro h3 { font-family: var(--display); font-size: 18px; text-transform: uppercase; }
+  .pro p { color: var(--muted); font-size: 14px; }
+  .pro a { color: var(--pink); font-weight: 700; font-size: 14px; }
+  .book { padding: 100px 0; background: var(--pink2); }
+  .book__grid { display: grid; grid-template-columns: .9fr 1.1fr; gap: 50px; align-items: start; }
+  .bform { background: var(--white); border-radius: 30px; padding: 32px; display: grid; gap: 18px; }
+  .bform > * { min-width: 0; }
+  .bform h4 { font-size: 13px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; margin-bottom: 8px; }
+  .bform select, .bform input { width: 100%; padding: 14px 16px; border-radius: 14px; border: 2px solid var(--line); background: var(--cream); outline: none; font-weight: 600; }
+  .bform select:focus, .bform input:focus { border-color: var(--pink); }
+  .days { display: flex; gap: 6px; overflow-x: auto; padding-bottom: 4px; scrollbar-width: none; }
+  .dy { flex: none; width: 64px; padding: 10px 0; border-radius: 16px; text-align: center; background: var(--cream); font-weight: 800; transition: all .25s; }
+  .dy small { display: block; font-size: 11px; font-weight: 700; color: var(--muted); text-transform: uppercase; }
+  .dy.on { background: var(--ink); color: #fff; } .dy.on small { color: var(--pink2); }
+  .dy:disabled { opacity: .35; cursor: not-allowed; }
+  .hrs { display: grid; grid-template-columns: repeat(auto-fill, minmax(72px, 1fr)); gap: 6px; }
+  .hr { padding: 10px 0; border-radius: 12px; background: var(--cream); font-weight: 700; font-size: 14px; transition: all .2s; }
+  .hr.on { background: var(--pink); color: #fff; }
+  .hr:disabled { opacity: .3; text-decoration: line-through; cursor: not-allowed; }
+  .sum { padding: 16px 18px; border-radius: 16px; background: var(--ink); color: #fff; font-size: 14px; }
+  .sum b { color: var(--pink2); }
+  footer { background: var(--ink); color: #aaa; padding: 40px 0; font-size: 14px; }
+  .foot { display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; align-items: center; }
+  footer .logo { color: #fff; }
+  .wa { position: fixed; right: 22px; bottom: 22px; z-index: 60; width: 58px; height: 58px; border-radius: 50%; background: #25d366; color: #fff; display: grid; place-items: center; box-shadow: 0 12px 30px -8px rgba(37,211,102,.6); transition: transform .3s var(--ease); }
+  .wa:hover { transform: scale(1.08); }
+
+  @media (max-width: 1000px) {
+    .nav__links, .nav__cta { display: none; }
+    .burger { display: grid; }
+    .nav.open .nav__links { display: flex; flex-direction: column; position: absolute; top: 70px; left: 0; right: 0; background: var(--ink); padding: 24px 20px; gap: 18px; }
+    .hero__grid, .color__grid, .book__grid { grid-template-columns: 1fr; }
+    .hero__text { padding: 50px 0; }
+    .hero__img { height: 480px; margin: 0 -20px; }
+    .menu { grid-template-columns: 1fr; }
+    .ggrid { grid-template-columns: 1fr 1fr; grid-auto-rows: 200px; }
+    .ggrid figure:nth-child(4) { grid-column: auto; }
+    .tgrid { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 560px) {
+    .sw { width: 44px; height: 44px; }
+    .bform { padding: 22px 18px; }
+    .sticker { width: 120px; height: 120px; } .sticker b { font-size: 24px; }
+  }
+  @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; animation-delay: 0s !important; transition-duration: .01ms !important; } [data-r] { opacity: 1; transform: none; } }
+</style>
+</head>
+<body>
+
+<header class="nav" id="nav">
+  <div class="wrap nav__in">
+    <a href="#" class="logo"><i></i>Studio Mecha</a>
+    <nav class="nav__links"><a href="#cor">Simule sua cor</a><a href="#servicos">Serviços</a><a href="#galeria">Galeria</a><a href="#equipe">Equipe</a><a href="#agendar">Agendar</a></nav>
+    <a href="#agendar" class="btn btn--p nav__cta" style="padding:11px 20px">Agendar</a>
+    <button class="burger" aria-label="Menu"><span></span></button>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap hero__grid">
+    <div class="hero__text">
+      <span class="tag">Salão de beleza · Pinheiros</span>
+      <h1 class="d"><span>Seu cabelo,</span><span class="pk">sua</span><span>assinatura.</span></h1>
+      <p>Coloristas especializadas em loiros, ruivos e cores fantasia, com produtos que respeitam a saúde do fio. Do corte ao penteado de festa.</p>
+      <div class="hero__ctas"><a href="#cor" class="btn btn--p">Simular minha cor</a><a href="#agendar" class="btn btn--o">Agendar horário</a></div>
+      <div class="rating"><b>4,9</b><span>★★★★★<br />1.240 avaliações</span></div>
+    </div>
+    <div class="hero__img"><img src="https://images.unsplash.com/photo-1470259078422-826894b933aa?w=1400&q=80&auto=format&fit=crop" alt="Cabelo colorido em movimento" /><div class="sticker"><div><b>-20%</b>na primeira<br />coloração</div></div></div>
+  </div>
+</section>
+
+<div class="ticker" aria-hidden="true"><div class="ticker__t" id="ticker"></div></div>
+
+<section class="color" id="cor">
+  <div class="wrap">
+    <div class="head"><div data-r><span class="tag">Simulador de cor</span><h2 class="d h2" style="margin-top:14px">Experimente<br /><span class="pk">antes de pintar</span></h2></div><p data-r style="--d:.1s">Escolha a cor, a técnica e o comprimento. A gente mostra uma prévia e quanto vai custar.</p></div>
+    <div class="color__grid">
+      <div class="stage" data-r>
+        <span class="stage__lbl" id="lbl">Loiro mel · Global</span>
+        <svg viewBox="0 0 400 520" aria-label="Prévia da cor do cabelo">
+          <defs><linearGradient id="hg" x1="0" y1="0" x2="0" y2="1"><stop id="s1" offset="0" stop-color="#c9935a"/><stop id="s2" offset=".45" stop-color="#c9935a"/><stop id="s3" offset="1" stop-color="#c9935a"/></linearGradient></defs>
+          <path class="hair" id="hairBack" fill="url(#hg)" d="M114 190C114 70 286 70 286 190L300 380C300 430 100 430 100 380Z"/>
+          <ellipse cx="200" cy="200" rx="66" ry="84" fill="#f2c9a8"/>
+          <path d="M170 280c0 30 6 50 30 60 24-10 30-30 30-60" fill="#f2c9a8"/>
+          <path d="M134 400c10-50 40-60 66-60s56 10 66 60" fill="#111"/>
+          <path class="hair" id="hairFront" fill="url(#hg)" d="M128 205C124 110 276 100 274 200C252 150 214 128 176 140C156 147 140 168 128 205Z"/>
+          <ellipse cx="176" cy="205" rx="6" ry="4" fill="#3b2a26"/><ellipse cx="224" cy="205" rx="6" ry="4" fill="#3b2a26"/>
+          <path d="M186 248q14 10 28 0" stroke="#c96a6a" stroke-width="5" fill="none" stroke-linecap="round"/>
+          <g id="shine" opacity=".35"><path d="M150 150c12-28 32-42 56-46" stroke="#fff" stroke-width="6" fill="none" stroke-linecap="round"/></g>
+        </svg>
+      </div>
+      <div class="ctrl" data-r style="--d:.1s">
+        <div><h4>Cor</h4><div class="sws" id="sws"></div></div>
+        <div><h4>Técnica</h4><div class="seg" id="tec"></div></div>
+        <div><h4>Comprimento</h4><div class="seg" id="len"></div></div>
+        <div class="quote"><div><small>Investimento estimado</small><b id="preco">R$ 0</b><small id="dur"></small></div><a class="btn btn--p" id="colorBtn" href="#agendar">Quero essa cor</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="svc" id="servicos">
+  <div class="wrap">
+    <div class="head"><div data-r><span class="tag">Serviços</span><h2 class="d h2" style="margin-top:14px">Tabela<br /><span class="pk">sem surpresa</span></h2></div><p data-r style="--d:.1s">Os valores mudam conforme o comprimento. Escolha o seu e veja o preço exato.</p></div>
+    <div class="len" id="lenSvc" data-r></div>
+    <div class="menu" id="menu" data-r></div>
+  </div>
+</section>
+
+<section class="gal" id="galeria">
+  <div class="wrap">
+    <div class="head"><div data-r><span class="tag">Galeria</span><h2 class="d h2" style="margin-top:14px">Feito aqui</h2></div><p data-r style="--d:.1s">Trabalhos reais da nossa equipe. Mais no Instagram @studiomecha.</p></div>
+    <div class="ggrid" id="ggrid" data-r></div>
+  </div>
+</section>
+
+<section class="team" id="equipe">
+  <div class="wrap">
+    <div class="head"><div data-r><span class="tag">Equipe</span><h2 class="d h2" style="margin-top:14px">As mãos<br /><span class="pk">por trás da cor</span></h2></div></div>
+    <div class="tgrid" id="tgrid"></div>
+  </div>
+</section>
+
+<section class="book" id="agendar">
+  <div class="wrap book__grid">
+    <div data-r><span class="tag">Agendamento</span><h2 class="d h2" style="margin-top:14px">Reserve sua cadeira</h2><p style="color:var(--muted);margin-top:16px;max-width:400px">Escolha o serviço, a profissional e o horário. Confirmamos pelo WhatsApp em minutos.</p><p style="margin-top:30px;font-weight:600">📍 Rua dos Pinheiros, 1012 — São Paulo<br />🕘 Ter a sáb, 9h às 20h</p></div>
+    <form class="bform" id="bform" data-r style="--d:.1s">
+      <div><h4>Serviço</h4><select id="bS"></select></div>
+      <div><h4>Profissional</h4><select id="bP"><option>Sem preferência</option></select></div>
+      <div><h4>Dia</h4><div class="days" id="days"></div></div>
+      <div><h4>Horário</h4><div class="hrs" id="hrs"></div></div>
+      <input id="bN" placeholder="Seu nome" required />
+      <div class="sum" id="sum">Escolha um horário para continuar.</div>
+      <button class="btn btn--k">Confirmar pelo WhatsApp</button>
+    </form>
+  </div>
+</section>
+
+<footer><div class="wrap foot"><a href="#" class="logo"><i></i>Studio Mecha</a><span>© 2026 Studio Mecha · @studiomecha · (11) 99999-0000</span></div></footer>
+
+<a class="wa" href="https://wa.me/5511999990000" target="_blank" rel="noopener" aria-label="WhatsApp"><svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21c5.46 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2Zm5.8 14.03c-.24.68-1.42 1.3-1.95 1.35-.5.05-.97.23-3.27-.68-2.77-1.09-4.52-3.92-4.66-4.1-.13-.18-1.1-1.47-1.1-2.8 0-1.34.7-2 .95-2.27.25-.27.54-.34.72-.34h.52c.17 0 .4-.06.62.47.24.56.8 1.94.87 2.08.07.14.12.3.02.48-.1.19-.14.3-.28.47-.14.16-.3.36-.42.49-.14.14-.29.29-.12.57.17.28.74 1.22 1.59 1.98 1.09.97 2.01 1.27 2.29 1.41.28.14.45.12.62-.07.17-.19.71-.83.9-1.11.19-.28.38-.24.64-.14.26.09 1.65.78 1.93.92.28.14.47.21.54.33.07.11.07.66-.17 1.34Z"/></svg></a>
+
+<script>
+(() => {
+  const $ = (s, el = document) => el.querySelector(s);
+  const $$ = (s, el = document) => [...el.querySelectorAll(s)];
+  const u = (id, w) => `https://images.unsplash.com/photo-${id}?w=${w}&q=78&auto=format&fit=crop`;
+  const brl = (n) => `R$ ${Math.round(n).toLocaleString("pt-BR")}`;
+  const WA = "5511999990000";
+
+  const nav = $("#nav");
+  $(".burger").onclick = () => nav.classList.toggle("open");
+  $$(".nav__links a").forEach((a) => a.onclick = () => nav.classList.remove("open"));
+  const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }), { threshold: .12 });
+  $$("[data-r]").forEach((el) => io.observe(el));
+  const T = ["Coloração", "Mechas", "Balayage", "Corte", "Hidratação", "Penteado", "Cores fantasia"];
+  $("#ticker").innerHTML = [...T, ...T, ...T].map((t) => `<span>${t}</span>`).join("");
+
+  /* Simulador de cor */
+  const CORES = [["Loiro mel", "#c9935a"], ["Platinado", "#ece3cf"], ["Ruivo cobre", "#b5472a"], ["Castanho chocolate", "#5a3423"], ["Preto azulado", "#1d2233"], ["Rosé", "#e8879f"], ["Lilás", "#a98be0"], ["Azul petróleo", "#25596b"]];
+  const BASE = "#3a2a22";
+  const TEC = [["global", "Global", 1, 2], ["mechas", "Mechas", 1.6, 3.5], ["balayage", "Balayage", 1.9, 4], ["ombre", "Ombré", 1.7, 3.5]];
+  const LEN = [["curto", "Curto", 1], ["medio", "Médio", 1.3], ["longo", "Longo", 1.65]];
+  const st = { cor: 0, tec: "global", len: "medio" };
+  const mix = (a, b, t) => { const p = (h) => [1, 3, 5].map((i) => parseInt(h.slice(i, i + 2), 16)); const A = p(a), B = p(b); return "#" + A.map((x, i) => Math.round(x + (B[i] - x) * t).toString(16).padStart(2, "0")).join(""); };
+  $("#sws").innerHTML = CORES.map(([n, c], i) => `<button class="sw" data-i="${i}" data-n="${n}" style="background:${c}" aria-label="${n}"></button>`).join("");
+  $("#tec").innerHTML = TEC.map(([k, n]) => `<button data-k="${k}">${n}</button>`).join("");
+  $("#len").innerHTML = LEN.map(([k, n]) => `<button data-k="${k}">${n}</button>`).join("");
+  function cor() {
+    const [cn, c] = CORES[st.cor], t = TEC.find((x) => x[0] === st.tec), l = LEN.find((x) => x[0] === st.len);
+    $$("#sws .sw").forEach((b) => b.classList.toggle("on", +b.dataset.i === st.cor));
+    $$("#tec button").forEach((b) => b.classList.toggle("on", b.dataset.k === st.tec));
+    $$("#len button").forEach((b) => b.classList.toggle("on", b.dataset.k === st.len));
+    // gradiente por técnica: global = cor inteira, mechas = mistura, balayage/ombré = raiz natural até a cor
+    const g = st.tec === "global" ? [c, c, c] : st.tec === "mechas" ? [mix(BASE, c, .55), mix(BASE, c, .75), c] : st.tec === "balayage" ? [BASE, mix(BASE, c, .5), c] : [BASE, BASE, c];
+    ["s1", "s2", "s3"].forEach((id, i) => $("#" + id).setAttribute("stop-color", g[i]));
+    $("#s2").setAttribute("offset", st.tec === "ombre" ? ".55" : ".45");
+    // comprimento muda a altura do cabelo de trás
+    const fim = { curto: 300, medio: 380, longo: 450 }[st.len];
+    $("#hairBack").setAttribute("d", `M114 190C114 70 286 70 286 190L${300 + (fim - 380) * .05} ${fim}C${300 + (fim - 380) * .05} ${fim + 50} ${100 - (fim - 380) * .05} ${fim + 50} ${100 - (fim - 380) * .05} ${fim}Z`);
+    const fantasia = st.cor >= 5 ? 1.25 : st.cor === 1 ? 1.35 : 1;
+    const preco = 220 * t[2] * l[2] * fantasia;
+    $("#preco").textContent = `${brl(preco * .9)} – ${brl(preco * 1.15)}`;
+    $("#dur").textContent = `Duração média: ${Math.round(t[3] * (l[2] > 1.4 ? 1.25 : 1) * 10) / 10}h ${st.cor === 1 || st.cor >= 5 ? "· inclui descoloração" : ""}`;
+    $("#lbl").textContent = `${cn} · ${t[1]} · ${l[1]}`;
+    $("#colorBtn").onclick = () => { $("#bS").value = t[1] === "Global" ? "Coloração" : t[1] === "Ombré" ? "Balayage" : t[1]; agenda(); };
+  }
+  $("#sws").onclick = (e) => { const b = e.target.closest(".sw"); if (b) { st.cor = +b.dataset.i; cor(); } };
+  $("#tec").onclick = (e) => { const b = e.target.closest("button"); if (b) { st.tec = b.dataset.k; cor(); } };
+  $("#len").onclick = (e) => { const b = e.target.closest("button"); if (b) { st.len = b.dataset.k; cor(); } };
+  cor();
+
+  /* Tabela de serviços */
+  const S = { "Corte": [["Corte feminino", "com escova", 120], ["Franja", "manutenção", 40], ["Corte masculino", "", 80]], "Cor": [["Coloração", "raiz ou global", 220], ["Mechas", "papel ou touca", 350], ["Balayage", "à mão livre", 420], ["Cores fantasia", "inclui descoloração", 480]], "Tratamentos": [["Hidratação", "com máscara profissional", 110], ["Reconstrução", "para fios danificados", 160], ["Cronograma capilar", "4 sessões", 380]], "Finalização": [["Escova", "lisa ou modelada", 70], ["Penteado", "festas e eventos", 220], ["Babyliss", "ondas", 90]] };
+  let ln = "medio";
+  const MULT = { curto: 1, medio: 1.3, longo: 1.65 };
+  function menu(flash) {
+    $("#lenSvc").innerHTML = LEN.map(([k, n]) => `<button data-k="${k}" class="${k === ln ? "on" : ""}">${n}</button>`).join("");
+    $("#menu").innerHTML = Object.entries(S).map(([c, it]) => `<div class="cat"><h3>${c}</h3>${it.map(([n, d, p]) => `<div class="it"><span>${n} ${d ? `<small>· ${d}</small>` : ""}</span><i></i><b class="${flash ? "flash" : ""}">${brl(n.includes("masculino") || n === "Franja" ? p : p * MULT[ln])}</b></div>`).join("")}</div>`).join("");
+    if (flash) setTimeout(() => $$("#menu b").forEach((b) => b.classList.remove("flash")), 600);
+  }
+  $("#lenSvc").onclick = (e) => { const b = e.target.closest("button"); if (b) { ln = b.dataset.k; menu(true); } };
+  menu();
+
+  /* Galeria + equipe */
+  $("#ggrid").innerHTML = [["1586266195531-76cfa365cb43", "Ruivo vibrante"], ["1605980766335-d3a41c7332a1", "Platinado gelo"], ["1574773004910-1eeaabb62b55", "Lilás pastel"], ["1774660810725-fb04e002003d", "Penteado de festa"], ["1648157963892-fa90a04e278b", "Loiro mel"], ["1580618672591-eb180b1a973f", "Escova modelada"], ["1634449571010-02389ed0f9b0", "Corte e hidratação"]].map(([i, c]) => `<figure><img src="${u(i, 800)}" alt="${c}" loading="lazy" /><figcaption>${c}</figcaption></figure>`).join("");
+  const P = [["Bia Kanashiro", "Colorista · loiros e fantasia", "@bia.colorista", "1765005204058-10418f5123c5"], ["Rô Albuquerque", "Cortes e visagismo", "@ro.corta", "1580489944761-15a19d654956"], ["Duda Lemos", "Penteados e noivas", "@duda.penteados", "1494790108377-be9c29b29330"]];
+  $("#tgrid").innerHTML = P.map(([n, e, ig, img], i) => `<article class="pro" data-r style="--d:${i * .1}s"><img src="${u(img, 600)}" alt="${n}" loading="lazy" /><div><h3>${n}</h3><p>${e}</p><a href="#">${ig}</a></div></article>`).join("");
+  $$(".pro").forEach((p) => io.observe(p));
+
+  /* Agendamento */
+  $("#bS").innerHTML = Object.values(S).flat().map(([n]) => `<option>${n}</option>`).join("");
+  $("#bP").innerHTML += P.map((p) => `<option>${p[0]}</option>`).join("");
+  const DN = ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"];
+  const dias = [...Array(10)].map((_, i) => { const d = new Date(); d.setHours(0, 0, 0, 0); d.setDate(d.getDate() + i); return d; });
+  let dia = dias.find((d) => d.getDay() > 1), hora = null;
+  const ocup = (d, h) => Math.abs(Math.sin(d.getDate() * 7.13 + parseInt(h) * 3.7 + $("#bP").selectedIndex * 1.9)) > .62;
+  function agenda() {
+    $("#days").innerHTML = dias.map((d, i) => `<button type="button" class="dy ${d === dia ? "on" : ""}" data-i="${i}" ${d.getDay() < 2 ? "disabled" : ""}><small>${i === 0 ? "Hoje" : DN[d.getDay()]}</small>${d.getDate()}</button>`).join("");
+    const hs = []; for (let h = 9; h < 20; h++) hs.push(`${String(h).padStart(2, "0")}:00`);
+    const agora = new Date();
+    $("#hrs").innerHTML = hs.map((h) => { const t = new Date(dia); t.setHours(parseInt(h)); const off = t < agora || ocup(dia, h); if (off && hora === h) hora = null; return `<button type="button" class="hr ${hora === h ? "on" : ""}" ${off ? "disabled" : ""}>${h}</button>`; }).join("");
+    $("#sum").innerHTML = hora ? `<b>${$("#bS").value}</b> com <b>${$("#bP").selectedIndex ? $("#bP").value : "a primeira profissional livre"}</b><br />${dia.toLocaleDateString("pt-BR", { weekday: "long", day: "numeric", month: "long" })} às <b>${hora}</b>` : "Escolha um horário para continuar.";
+  }
+  $("#days").onclick = (e) => { const b = e.target.closest(".dy"); if (b && !b.disabled) { dia = dias[+b.dataset.i]; hora = null; agenda(); } };
+  $("#hrs").onclick = (e) => { const b = e.target.closest(".hr"); if (b && !b.disabled) { hora = b.textContent; agenda(); } };
+  ["#bS", "#bP"].forEach((s) => $(s).onchange = agenda);
+  agenda();
+  $("#bform").onsubmit = (e) => {
+    e.preventDefault();
+    if (!hora) { $("#sum").animate([{ transform: "translateX(-6px)" }, { transform: "translateX(6px)" }, { transform: "none" }], 300); return; }
+    const msg = `Olá, Studio Mecha! Quero agendar:\nNome: ${$("#bN").value}\nServiço: ${$("#bS").value}\nProfissional: ${$("#bP").value}\nDia: ${dia.toLocaleDateString("pt-BR", { weekday: "long", day: "numeric", month: "long" })} às ${hora}\nCor desejada: ${$("#lbl").textContent}`;
+    window.open(`https://wa.me/${WA}?text=${encodeURIComponent(msg)}`, "_blank");
+  };
+})();
+</script>
+</body>
+</html>

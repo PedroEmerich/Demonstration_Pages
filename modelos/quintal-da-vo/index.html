@@ -1,0 +1,450 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Quintal da Vó — Comida caseira de verdade</title>
+<meta name="description" content="Quintal da Vó: comida caseira feita na hora, prato do dia, marmitas e delivery no bairro. Desde 1987 com o tempero da Dona Lurdes." />
+<meta name="theme-color" content="#fbf3e4" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Young+Serif&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&family=Caveat:wght@600&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --paper: #fbf3e4; --paper2: #f4e7cf; --white: #fffdf8; --ink: #3a2a1f; --muted: #7a6656; --line: #e6d4b6;
+    --tomato: #d9452b; --mustard: #e8a33d; --leaf: #4b7a3d; --leaf2: #dfe8cf;
+    --serif: "Young Serif", Georgia, serif; --sans: "DM Sans", system-ui, sans-serif; --hand: "Caveat", cursive;
+    --ease: cubic-bezier(.2,.8,.2,1); --spring: cubic-bezier(.34,1.56,.64,1);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { overflow-x: clip; scroll-behavior: smooth; scroll-padding-top: 90px; }
+  body { background: var(--paper); color: var(--ink); font-family: var(--sans); line-height: 1.6; -webkit-font-smoothing: antialiased; overflow-x: clip;
+    background-image: radial-gradient(rgba(58,42,31,.06) 1px, transparent 1px); background-size: 22px 22px; }
+  img { display: block; max-width: 100%; }
+  a { color: inherit; text-decoration: none; }
+  button, input, select, textarea { font: inherit; color: inherit; }
+  button { background: none; border: 0; cursor: pointer; }
+  .wrap { width: min(1220px, 100% - 40px); margin-inline: auto; }
+  h1, h2, h3 { font-family: var(--serif); font-weight: 400; line-height: 1.04; letter-spacing: -.01em; }
+  .h2 { font-size: clamp(40px, 5.2vw, 70px); }
+  .hand { font-family: var(--hand); color: var(--tomato); font-size: 1.15em; }
+  .kick { font-family: var(--hand); font-size: 28px; color: var(--tomato); line-height: 1; display: inline-block; transform: rotate(-2deg); }
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 16px 28px; border-radius: 999px; font-weight: 700; font-size: 16px; transition: transform .35s var(--spring), background .3s, box-shadow .3s; }
+  .btn:hover { transform: translateY(-3px) rotate(-1deg); }
+  .btn--red { background: var(--tomato); color: #fff; box-shadow: 0 5px 0 #a8311c; }
+  .btn--ink { background: var(--ink); color: var(--paper); box-shadow: 0 5px 0 #1d140e; }
+  .btn--line { border: 2px solid var(--ink); }
+  [data-r] { opacity: 0; transform: translateY(36px) rotate(.6deg); transition: opacity .8s var(--ease), transform .9s var(--ease); transition-delay: var(--d, 0s); }
+  [data-r].in { opacity: 1; transform: none; }
+
+  /* NAV */
+  .nav { position: sticky; top: 0; z-index: 50; background: rgba(251,243,228,.92); backdrop-filter: blur(10px); border-bottom: 2px dashed var(--line); }
+  .nav__in { height: 78px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+  .logo { display: flex; align-items: center; gap: 10px; font-family: var(--serif); font-size: 26px; }
+  .logo svg { width: 40px; color: var(--tomato); }
+  .nav__links { display: flex; gap: 28px; font-weight: 500; }
+  .nav__links a { position: relative; }
+  .nav__links a:hover { color: var(--tomato); }
+  .status { display: inline-flex; align-items: center; gap: 8px; padding: 8px 14px; border-radius: 999px; font-weight: 700; font-size: 14px; background: var(--leaf2); color: var(--leaf); }
+  .status i { width: 9px; height: 9px; border-radius: 50%; background: currentColor; animation: pulse 1.6s infinite; }
+  .status.closed { background: #f6dcd5; color: var(--tomato); }
+  @keyframes pulse { 50% { opacity: .35; } }
+  .burger { display: none; width: 46px; height: 46px; border-radius: 50%; border: 2px solid var(--ink); place-items: center; }
+  .burger span { width: 18px; height: 2px; background: var(--ink); box-shadow: 0 6px 0 var(--ink), 0 -6px 0 var(--ink); border-radius: 2px; }
+
+  /* HERO */
+  .hero { padding: 70px 0 90px; position: relative; }
+  .hero__grid { display: grid; grid-template-columns: 1.1fr .9fr; gap: 50px; align-items: center; }
+  .hero h1 { font-size: clamp(54px, 7.2vw, 112px); margin: 14px 0 22px; }
+  .hero h1 .u { position: relative; color: var(--tomato); display: inline-block; }
+  .hero h1 .u svg { position: absolute; left: -2%; right: -2%; bottom: -.18em; width: 104%; height: .4em; }
+  .hero h1 .u path { fill: none; stroke: var(--mustard); stroke-width: 7; stroke-linecap: round; stroke-dasharray: 500; stroke-dashoffset: 500; animation: draw 1.4s .6s var(--ease) forwards; }
+  @keyframes draw { to { stroke-dashoffset: 0; } }
+  .hero h1 .w { display: inline-block; opacity: 0; transform: translateY(26px) rotate(-3deg); animation: in .9s var(--spring) forwards; }
+  @keyframes in { to { opacity: 1; transform: none; } }
+  .hero p { font-size: 19px; color: var(--muted); max-width: 470px; }
+  .hero__ctas { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 32px; }
+  .facts { display: flex; gap: 30px; margin-top: 40px; flex-wrap: wrap; }
+  .facts div { font-size: 14px; color: var(--muted); }
+  .facts b { display: block; font-family: var(--serif); font-weight: 400; font-size: 32px; color: var(--ink); line-height: 1.1; }
+  .plate { position: relative; aspect-ratio: 1; max-width: 520px; width: 100%; justify-self: center; }
+  .plate__bg { position: absolute; inset: 0; border-radius: 50%; background: var(--paper2); border: 2px dashed var(--line); }
+  .plate__img { position: absolute; inset: 8%; border-radius: 50%; overflow: hidden; box-shadow: 0 40px 60px -30px rgba(58,42,31,.6), inset 0 0 0 12px var(--white); animation: spin 60s linear infinite; }
+  .plate__img img { width: 100%; height: 100%; object-fit: cover; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .steam { position: absolute; left: 50%; top: -6%; width: 120px; margin-left: -60px; }
+  .steam path { fill: none; stroke: var(--muted); stroke-width: 3; stroke-linecap: round; opacity: 0; animation: steam 3s ease-in-out infinite; }
+  .steam path:nth-child(2) { animation-delay: .6s; } .steam path:nth-child(3) { animation-delay: 1.2s; }
+  @keyframes steam { 0% { opacity: 0; transform: translateY(20px); } 40% { opacity: .5; } 100% { opacity: 0; transform: translateY(-24px); } }
+  .badge { position: absolute; right: -2%; top: 6%; width: 140px; height: 140px; border-radius: 50%; background: var(--mustard); display: grid; place-items: center; text-align: center; transform: rotate(10deg); box-shadow: 0 16px 30px -16px rgba(58,42,31,.6); animation: wob 5s ease-in-out infinite; }
+  .badge small { display: block; font-weight: 700; font-size: 13px; }
+  .badge b { font-family: var(--serif); font-weight: 400; font-size: 40px; line-height: 1; }
+  @keyframes wob { 50% { transform: rotate(-4deg) scale(1.04); } }
+  .note { position: absolute; left: -4%; bottom: 8%; background: var(--white); padding: 14px 18px; border-radius: 4px; box-shadow: 0 16px 30px -18px rgba(58,42,31,.6); transform: rotate(-5deg); font-family: var(--hand); font-size: 26px; line-height: 1.1; }
+  .note::before { content: ""; position: absolute; left: 50%; top: -10px; width: 60px; height: 20px; margin-left: -30px; background: rgba(232,163,61,.55); transform: rotate(3deg); }
+
+  /* PRATO DO DIA */
+  .daily { padding: 100px 0; }
+  .center { text-align: center; max-width: 700px; margin: 0 auto 46px; }
+  .center p { color: var(--muted); margin-top: 14px; font-size: 17px; }
+  .days { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; margin-bottom: 34px; }
+  .day { width: 70px; padding: 12px 0; border-radius: 18px; border: 2px solid var(--line); background: var(--white); font-weight: 700; transition: all .3s var(--spring); position: relative; }
+  .day small { display: block; font-weight: 500; font-size: 11px; color: var(--muted); }
+  .day:hover { transform: translateY(-3px); }
+  .day.on { background: var(--ink); color: var(--paper); border-color: var(--ink); transform: translateY(-4px) rotate(-2deg); }
+  .day.on small { color: var(--mustard); }
+  .day.today::after { content: "hoje"; position: absolute; top: -12px; left: 50%; transform: translateX(-50%) rotate(-4deg); font-family: var(--hand); font-size: 20px; color: var(--tomato); }
+  .dcard { display: grid; grid-template-columns: 1fr 1fr; background: var(--white); border-radius: 36px; overflow: hidden; box-shadow: 0 30px 60px -40px rgba(58,42,31,.6); }
+  .dcard__img { position: relative; min-height: 420px; overflow: hidden; }
+  .dcard__img img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; animation: zoom .8s var(--ease) both; }
+  @keyframes zoom { from { opacity: 0; transform: scale(1.1); } }
+  .dcard__body { padding: 50px; display: flex; flex-direction: column; justify-content: center; animation: in .7s var(--ease) both; }
+  .dcard h3 { font-size: clamp(34px, 3.6vw, 52px); margin: 8px 0 14px; }
+  .dcard p { color: var(--muted); }
+  .dcard ul { list-style: none; display: flex; flex-wrap: wrap; gap: 8px; margin: 20px 0 26px; }
+  .dcard li { padding: 6px 12px; border-radius: 999px; background: var(--paper2); font-size: 14px; font-weight: 500; }
+  .dcard__row { display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
+  .dprice { font-family: var(--serif); font-size: 50px; line-height: 1; }
+  .dprice small { font-family: var(--sans); font-size: 15px; color: var(--muted); }
+
+  /* MARMITA */
+  .box { padding: 100px 0; background: var(--ink); color: var(--paper); border-radius: 48px; margin: 0 14px; position: relative; overflow: hidden; }
+  .box .center p { color: #cdbba5; }
+  .box__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: start; }
+  .step { margin-bottom: 28px; }
+  .step h4 { font-family: var(--serif); font-weight: 400; font-size: 24px; margin-bottom: 12px; display: flex; align-items: baseline; gap: 10px; }
+  .step h4 span { font-family: var(--hand); font-size: 26px; color: var(--mustard); }
+  .step h4 small { font-family: var(--sans); font-size: 13px; color: #b9a68f; }
+  .opts { display: flex; flex-wrap: wrap; gap: 8px; }
+  .opt { padding: 11px 16px; border-radius: 999px; border: 2px solid #5a4636; font-weight: 500; transition: all .3s var(--spring); display: inline-flex; gap: 8px; align-items: center; }
+  .opt small { color: #b9a68f; font-size: 13px; }
+  .opt:hover { border-color: var(--mustard); transform: translateY(-2px); }
+  .opt.on { background: var(--mustard); border-color: var(--mustard); color: var(--ink); }
+  .opt.on small { color: var(--ink); }
+  .opt:disabled { opacity: .35; cursor: not-allowed; transform: none; }
+  .tray { position: sticky; top: 100px; background: #4a3628; border-radius: 30px; padding: 30px; }
+  .tray svg { width: 100%; }
+  .tray .slot { transition: fill .5s var(--ease); }
+  .tray .lbl { font-family: var(--sans); font-size: 13px; fill: var(--paper); font-weight: 700; text-anchor: middle; }
+  .tray__sum { margin-top: 20px; display: grid; gap: 6px; font-size: 15px; color: #e6d7c2; }
+  .tray__total { display: flex; justify-content: space-between; align-items: baseline; border-top: 2px dashed #6b5442; margin-top: 14px; padding-top: 14px; }
+  .tray__total b { font-family: var(--serif); font-weight: 400; font-size: 44px; color: var(--paper); }
+  .qty { display: inline-flex; align-items: center; gap: 12px; }
+  .qty button { width: 40px; height: 40px; border-radius: 50%; border: 2px solid #6b5442; font-size: 20px; font-weight: 700; }
+  .qty output { font-family: var(--serif); font-size: 26px; min-width: 24px; text-align: center; }
+  .tray .btn { width: 100%; margin-top: 18px; }
+  .order { margin-top: 30px; background: var(--paper); color: var(--ink); border-radius: 26px; padding: 26px; display: none; }
+  .order.on { display: block; animation: in .5s var(--ease); }
+  .order h4 { font-family: var(--serif); font-weight: 400; font-size: 26px; }
+  .oitem { display: flex; justify-content: space-between; gap: 12px; padding: 12px 0; border-bottom: 1px dashed var(--line); font-size: 15px; }
+  .oitem small { display: block; color: var(--muted); }
+  .oitem button { color: var(--tomato); font-size: 13px; font-weight: 700; }
+  .deliv { display: flex; gap: 8px; margin: 16px 0; }
+  .deliv button { flex: 1; padding: 12px; border-radius: 14px; border: 2px solid var(--line); font-weight: 700; }
+  .deliv button.on { border-color: var(--ink); background: var(--ink); color: var(--paper); }
+  .order input { width: 100%; padding: 14px 16px; border-radius: 14px; border: 2px solid var(--line); background: var(--white); outline: none; margin-bottom: 12px; }
+  .order input:focus { border-color: var(--tomato); }
+  .ototal { display: flex; justify-content: space-between; font-weight: 700; font-size: 18px; margin: 6px 0 16px; }
+
+  /* HISTÓRIA */
+  .story { padding: 120px 0; }
+  .story__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 70px; align-items: center; }
+  .polas { position: relative; height: 560px; }
+  .pola { position: absolute; background: var(--white); padding: 12px 12px 46px; box-shadow: 0 24px 40px -24px rgba(58,42,31,.6); transition: transform .5s var(--spring); }
+  .pola img { width: 100%; height: 100%; object-fit: cover; }
+  .pola figcaption { position: absolute; left: 0; right: 0; bottom: 8px; text-align: center; font-family: var(--hand); font-size: 24px; }
+  .pola--a { width: 62%; height: 72%; left: 0; top: 0; transform: rotate(-5deg); }
+  .pola--b { width: 52%; height: 58%; right: 0; bottom: 0; transform: rotate(6deg); }
+  .pola:hover { transform: rotate(0) scale(1.03); z-index: 2; }
+  .story p { color: var(--muted); font-size: 17px; margin-top: 18px; }
+  .sign { font-family: var(--hand); font-size: 40px; color: var(--tomato); margin-top: 20px; transform: rotate(-3deg); display: inline-block; }
+  .tl { display: flex; gap: 0; margin-top: 34px; border-top: 2px dashed var(--line); padding-top: 20px; }
+  .tl div { flex: 1; }
+  .tl b { font-family: var(--serif); font-weight: 400; font-size: 28px; display: block; }
+  .tl span { font-size: 14px; color: var(--muted); }
+
+  /* AVALIAÇÕES */
+  .reviews { padding: 0 0 110px; }
+  .rv__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+  .rv { background: var(--white); border-radius: 26px; padding: 30px; box-shadow: 0 20px 40px -34px rgba(58,42,31,.7); transition: transform .4s var(--spring); }
+  .rv:nth-child(2) { transform: rotate(1.2deg); } .rv:nth-child(1) { transform: rotate(-1deg); }
+  .rv:hover { transform: rotate(0) translateY(-6px); }
+  .stars { color: var(--mustard); letter-spacing: 3px; }
+  .rv p { font-family: var(--serif); font-size: 21px; line-height: 1.35; margin: 14px 0 18px; }
+  .rv footer { font-size: 14px; color: var(--muted); }
+
+  /* VISITE */
+  .visit { padding: 0 0 110px; }
+  .visit__box { display: grid; grid-template-columns: 1fr 1fr; gap: 0; background: var(--white); border-radius: 40px; overflow: hidden; }
+  .visit__body { padding: 50px; }
+  .hours { margin-top: 24px; display: grid; gap: 4px; }
+  .hours div { display: flex; justify-content: space-between; padding: 10px 14px; border-radius: 12px; }
+  .hours div.today { background: var(--paper2); font-weight: 700; }
+  .hours div.today span:first-child::after { content: " · hoje"; color: var(--tomato); font-family: var(--hand); font-size: 20px; }
+  .map { position: relative; background: var(--leaf2); min-height: 380px; overflow: hidden; }
+  .map svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .pin { position: absolute; left: 52%; top: 46%; transform: translate(-50%, -100%); text-align: center; animation: drop .9s var(--spring) both; }
+  .pin span { display: block; background: var(--tomato); color: #fff; font-weight: 700; padding: 8px 14px; border-radius: 999px; font-size: 14px; white-space: nowrap; box-shadow: 0 10px 20px -10px rgba(0,0,0,.5); }
+  .pin i { display: block; width: 18px; height: 18px; margin: 4px auto 0; border-radius: 50%; background: var(--tomato); border: 4px solid #fff; }
+  @keyframes drop { from { opacity: 0; transform: translate(-50%, -260%); } }
+
+  footer.f { padding: 40px 0 50px; color: var(--muted); font-size: 14px; border-top: 2px dashed var(--line); }
+  .foot { display: flex; justify-content: space-between; align-items: center; gap: 20px; flex-wrap: wrap; }
+  .wa { position: fixed; right: 22px; bottom: 22px; z-index: 60; width: 58px; height: 58px; border-radius: 50%; background: #25d366; color: #fff; display: grid; place-items: center; box-shadow: 0 12px 30px -8px rgba(37,211,102,.6); transition: transform .3s var(--spring); }
+  .wa:hover { transform: scale(1.1) rotate(-8deg); }
+
+  @media (max-width: 1000px) {
+    .nav__links { display: none; }
+    .burger { display: grid; }
+    .nav.open .nav__links { display: flex; flex-direction: column; position: absolute; top: 100%; left: 0; right: 0; background: var(--paper); padding: 22px 20px; gap: 16px; border-bottom: 2px dashed var(--line); }
+    .hero__grid, .dcard, .box__grid, .story__grid, .visit__box { grid-template-columns: 1fr; }
+    .plate { max-width: 420px; }
+    .dcard__img { min-height: 300px; }
+    .dcard__body, .visit__body { padding: 34px 26px; }
+    .tray { position: static; }
+    .rv__grid { grid-template-columns: 1fr; }
+    .polas { height: 460px; }
+    .box { margin: 0 8px; border-radius: 34px; }
+  }
+  @media (max-width: 560px) {
+    .status span { display: none; }
+    .badge { width: 110px; height: 110px; } .badge b { font-size: 32px; }
+    .note { font-size: 21px; }
+    .day { width: 58px; }
+    .polas { height: 380px; }
+    .tl { flex-direction: column; gap: 14px; }
+  }
+  @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; animation-delay: 0s !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; } [data-r] { opacity: 1; transform: none; } }
+</style>
+</head>
+<body>
+
+<header class="nav" id="nav">
+  <div class="wrap nav__in">
+    <a href="#" class="logo"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 20h28a14 14 0 0 1-28 0Z"/><path d="M14 13c0-3 3-3 3-6M20 13c0-3 3-3 3-6M26 13c0-3 3-3 3-6"/></svg>Quintal da Vó</a>
+    <nav class="nav__links"><a href="#prato">Prato do dia</a><a href="#marmita">Monte sua marmita</a><a href="#historia">Nossa história</a><a href="#visite">Visite</a></nav>
+    <span class="status" id="status"><i></i><span id="statusTxt">…</span></span>
+    <button class="burger" aria-label="Menu"><span></span></button>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap hero__grid">
+    <div>
+      <span class="kick">desde 1987, aqui no bairro ♥</span>
+      <h1><span class="w">Comida</span> <span class="w" style="animation-delay:.08s">de</span> <span class="w" style="animation-delay:.16s">vó,</span> <span class="u"><span class="w" style="animation-delay:.24s">todo</span> <span class="w" style="animation-delay:.32s">dia.</span><svg viewBox="0 0 300 30" preserveAspectRatio="none"><path d="M4 18c40-12 90-14 140-8s100 8 152-4"/></svg></span></h1>
+      <p>Arroz soltinho, feijão de panela e aquele tempero que você só encontrava na casa da avó. Feito na hora, com ingredientes da feira.</p>
+      <div class="hero__ctas"><a href="#marmita" class="btn btn--red">Montar minha marmita</a><a href="#prato" class="btn btn--line">Ver o prato do dia</a></div>
+      <div class="facts"><div><b>4,9 ★</b>no Google</div><div><b>38 anos</b>de tradição</div><div><b>30 min</b>entrega no bairro</div></div>
+    </div>
+    <div class="plate">
+      <div class="plate__bg"></div>
+      <svg class="steam" viewBox="0 0 120 80" aria-hidden="true"><path d="M30 70c-10-14 10-22 0-38s8-24 4-30"/><path d="M60 70c-10-14 10-22 0-38s8-24 4-30"/><path d="M90 70c-10-14 10-22 0-38s8-24 4-30"/></svg>
+      <div class="plate__img"><img src="https://images.unsplash.com/photo-1516714435131-44d6b64dc6a2?w=1100&q=80&auto=format&fit=crop" alt="Prato de comida caseira" /></div>
+      <div class="badge"><div><small>Prato do dia</small><b id="badgePrice">R$ 32</b></div></div>
+      <div class="note">feito com<br />amor e alho ✿</div>
+    </div>
+  </div>
+</section>
+
+<section class="daily" id="prato">
+  <div class="wrap">
+    <div class="center" data-r><span class="kick">cardápio da semana</span><h2 class="h2" style="margin-top:8px">Prato do dia</h2><p>Todo dia uma receita da família. Acompanha arroz, feijão e salada da horta.</p></div>
+    <div class="days" id="days" data-r></div>
+    <div class="dcard" id="dcard" data-r></div>
+  </div>
+</section>
+
+<section class="box" id="marmita">
+  <div class="wrap">
+    <div class="center" data-r><span class="kick" style="color:var(--mustard)">do seu jeito</span><h2 class="h2" style="margin-top:8px">Monte sua marmita</h2><p>Escolha o tamanho, a mistura e até três acompanhamentos. A gente prepara na hora e entrega quentinha.</p></div>
+    <div class="box__grid">
+      <div data-r>
+        <div class="step"><h4><span>1.</span> Tamanho</h4><div class="opts" id="oTam"></div></div>
+        <div class="step"><h4><span>2.</span> Mistura</h4><div class="opts" id="oProt"></div></div>
+        <div class="step"><h4><span>3.</span> Acompanhamentos <small id="acompN">escolha até 3</small></h4><div class="opts" id="oAcomp"></div></div>
+        <div class="step"><h4><span>4.</span> Bebida</h4><div class="opts" id="oBeb"></div></div>
+      </div>
+      <div data-r style="--d:.1s">
+        <div class="tray">
+          <svg viewBox="0 0 400 260" aria-hidden="true">
+            <rect x="10" y="10" width="380" height="240" rx="28" fill="#2c2018"/>
+            <rect class="slot" id="s0" x="26" y="26" width="200" height="208" rx="18" fill="#3b2c21"/>
+            <rect class="slot" id="s1" x="238" y="26" width="136" height="64" rx="16" fill="#3b2c21"/>
+            <rect class="slot" id="s2" x="238" y="98" width="136" height="64" rx="16" fill="#3b2c21"/>
+            <rect class="slot" id="s3" x="238" y="170" width="136" height="64" rx="16" fill="#3b2c21"/>
+            <text class="lbl" id="l0" x="126" y="134">mistura</text>
+            <text class="lbl" id="l1" x="306" y="63">—</text>
+            <text class="lbl" id="l2" x="306" y="135">—</text>
+            <text class="lbl" id="l3" x="306" y="207">—</text>
+          </svg>
+          <div class="tray__sum" id="traySum"></div>
+          <div class="tray__total"><div class="qty"><button id="qMenos" aria-label="Menos">−</button><output id="qN">1</output><button id="qMais" aria-label="Mais">+</button></div><b id="trayTotal">R$ 0</b></div>
+          <button class="btn btn--red" id="addBox">Adicionar ao pedido</button>
+        </div>
+        <div class="order" id="order">
+          <h4>Seu pedido</h4>
+          <div id="oList"></div>
+          <div class="deliv" id="deliv"><button class="on" data-d="entrega">🛵 Entrega (+R$ 5)</button><button data-d="retirada">🏠 Retirada</button></div>
+          <input id="addr" placeholder="Rua, número e complemento" />
+          <div class="ototal"><span>Total</span><span id="oTotal">R$ 0</span></div>
+          <button class="btn btn--ink" id="sendOrder" style="width:100%">Enviar pedido pelo WhatsApp</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="story" id="historia">
+  <div class="wrap story__grid">
+    <div class="polas" data-r>
+      <figure class="pola pola--a"><img src="https://images.unsplash.com/photo-1761839257845-9283b7d1b933?w=900&q=75&auto=format&fit=crop" alt="Cozinheiras preparando comida" loading="lazy" /><figcaption>a cozinha de sempre</figcaption></figure>
+      <figure class="pola pola--b"><img src="https://images.unsplash.com/photo-1765454195979-812683c802aa?w=800&q=75&auto=format&fit=crop" alt="Conservas caseiras" loading="lazy" /><figcaption>conservas da casa</figcaption></figure>
+    </div>
+    <div data-r style="--d:.1s">
+      <span class="kick">nossa história</span>
+      <h2 class="h2" style="margin-top:8px">Começou num quintal, com uma panela e muita vontade.</h2>
+      <p>Em 1987, a Dona Lurdes começou a vender marmitas para os vizinhos no quintal de casa. A fila cresceu, a família entrou na cozinha e o quintal virou restaurante — mas as receitas continuam exatamente as mesmas.</p>
+      <p>Até hoje compramos legumes na feira de quarta, fazemos o feijão no fogão a lenha e ninguém sai daqui com fome.</p>
+      <span class="sign">— Dona Lurdes</span>
+      <div class="tl"><div><b>1987</b><span>as primeiras marmitas</span></div><div><b>2004</b><span>o quintal vira salão</span></div><div><b>2026</b><span>3ª geração na cozinha</span></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="reviews">
+  <div class="wrap">
+    <div class="center" data-r><span class="kick">quem prova, volta</span><h2 class="h2" style="margin-top:8px">O que dizem por aí</h2></div>
+    <div class="rv__grid">
+      <article class="rv" data-r><span class="stars">★★★★★</span><p>“A feijoada de sábado é a melhor da região. Parece almoço de domingo em família.”</p><footer>Marcos A. · cliente desde 2015</footer></article>
+      <article class="rv" data-r style="--d:.1s"><span class="stars">★★★★★</span><p>“Peço marmita toda semana para o escritório. Chega quentinha e o tempero é impecável.”</p><footer>Fernanda R. · via WhatsApp</footer></article>
+      <article class="rv" data-r style="--d:.2s"><span class="stars">★★★★★</span><p>“Preço justo, comida de verdade e um atendimento que faz a gente se sentir em casa.”</p><footer>Seu Antônio · vizinho</footer></article>
+    </div>
+  </div>
+</section>
+
+<section class="visit" id="visite">
+  <div class="wrap">
+    <div class="visit__box" data-r>
+      <div class="visit__body">
+        <span class="kick">venha almoçar</span>
+        <h2 class="h2" style="margin-top:8px">A porta tá aberta.</h2>
+        <p style="color:var(--muted);margin-top:14px">Rua Cardeal Arcoverde, 812 — Pinheiros, São Paulo<br />(11) 99999-0000 · entrega num raio de 3 km</p>
+        <div class="hours" id="hours"></div>
+      </div>
+      <div class="map" aria-hidden="true">
+        <svg viewBox="0 0 400 380" preserveAspectRatio="xMidYMid slice"><g stroke="#fff" stroke-width="14" fill="none" stroke-linecap="round"><path d="M-20 90 L420 140"/><path d="M-20 260 L420 230"/><path d="M120 -20 L160 400"/><path d="M290 -20 L250 400"/></g><g stroke="#fff" stroke-width="6" fill="none" opacity=".7"><path d="M-20 180 L420 190"/><path d="M60 -20 L40 400"/><path d="M350 -20 L370 400"/></g><circle cx="320" cy="320" r="40" fill="#c9dbb4"/><circle cx="70" cy="40" r="30" fill="#c9dbb4"/></svg>
+        <div class="pin"><span>Quintal da Vó</span><i></i></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="f"><div class="wrap foot"><a href="#" class="logo"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 20h28a14 14 0 0 1-28 0Z"/><path d="M14 13c0-3 3-3 3-6M20 13c0-3 3-3 3-6M26 13c0-3 3-3 3-6"/></svg>Quintal da Vó</a><span>© 2026 Quintal da Vó · Comida caseira desde 1987</span></div></footer>
+
+<a class="wa" href="https://wa.me/5511999990000" target="_blank" rel="noopener" aria-label="WhatsApp"><svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21c5.46 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2Zm5.8 14.03c-.24.68-1.42 1.3-1.95 1.35-.5.05-.97.23-3.27-.68-2.77-1.09-4.52-3.92-4.66-4.1-.13-.18-1.1-1.47-1.1-2.8 0-1.34.7-2 .95-2.27.25-.27.54-.34.72-.34h.52c.17 0 .4-.06.62.47.24.56.8 1.94.87 2.08.07.14.12.3.02.48-.1.19-.14.3-.28.47-.14.16-.3.36-.42.49-.14.14-.29.29-.12.57.17.28.74 1.22 1.59 1.98 1.09.97 2.01 1.27 2.29 1.41.28.14.45.12.62-.07.17-.19.71-.83.9-1.11.19-.28.38-.24.64-.14.26.09 1.65.78 1.93.92.28.14.47.21.54.33.07.11.07.66-.17 1.34Z"/></svg></a>
+
+<script>
+(() => {
+  const $ = (s, el = document) => el.querySelector(s);
+  const $$ = (s, el = document) => [...el.querySelectorAll(s)];
+  const u = (id, w) => `https://images.unsplash.com/photo-${id}?w=${w}&q=78&auto=format&fit=crop`;
+  const brl = (n) => n.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
+  const WA = "5511999990000";
+
+  const nav = $("#nav");
+  $(".burger").onclick = () => nav.classList.toggle("open");
+  $$(".nav__links a").forEach((a) => a.onclick = () => nav.classList.remove("open"));
+  const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }), { threshold: .12 });
+  $$("[data-r]").forEach((el) => io.observe(el));
+
+  /* Horários e status */
+  const H = [["Domingo", 11, 16], ["Segunda", 11, 15], ["Terça", 11, 15], ["Quarta", 11, 15], ["Quinta", 11, 15], ["Sexta", 11, 15], ["Sábado", 11, 16]];
+  const agora = new Date(), hoje = agora.getDay(), hora = agora.getHours() + agora.getMinutes() / 60;
+  const aberto = hora >= H[hoje][1] && hora < H[hoje][2];
+  const st = $("#status");
+  if (aberto) $("#statusTxt").textContent = `Aberto agora · até ${H[hoje][2]}h`;
+  else { st.classList.add("closed"); const prox = hora < H[hoje][1] ? `hoje às ${H[hoje][1]}h` : `amanhã às ${H[(hoje + 1) % 7][1]}h`; $("#statusTxt").textContent = `Fechado · abre ${prox}`; }
+  $("#hours").innerHTML = [1, 2, 3, 4, 5, 6, 0].map((i) => `<div class="${i === hoje ? "today" : ""}"><span>${H[i][0]}</span><span>${H[i][1]}h às ${H[i][2]}h</span></div>`).join("");
+
+  /* Prato do dia */
+  const PRATOS = [
+    ["Dom", "Macarronada da Vó", "Massa caseira com almôndegas ao molho de tomate cozido por horas.", ["Almôndegas", "Molho da casa", "Parmesão"], 34, "1515516969-d4008cc6241a"],
+    ["Seg", "Virado à Paulista", "Tutu de feijão, bisteca, couve refogada, banana à milanesa e ovo.", ["Bisteca", "Tutu", "Couve", "Ovo"], 32, "1516714435131-44d6b64dc6a2"],
+    ["Ter", "Bife à Rolê", "Rolê recheado com bacon, cenoura e cheiro-verde, servido com purê.", ["Purê de batata", "Arroz", "Salada"], 34, "1622516411596-530349df0abf"],
+    ["Qua", "Feijoada da Casa", "Feijão preto com carnes selecionadas, couve, farofa e laranja.", ["Couve", "Farofa", "Laranja", "Torresmo"], 38, "1773209927898-a0a7e0a13125"],
+    ["Qui", "Frango com Quiabo", "Frango caipira ensopado com quiabo e angu cremoso.", ["Angu", "Arroz", "Pimenta da casa"], 32, "1762631383556-7fa1365898b7"],
+    ["Sex", "Peixe na Panela", "Filé de peixe ensopado com legumes, leite de coco e pirão.", ["Pirão", "Arroz", "Legumes"], 36, "1601226809816-b8c32440158a"],
+    ["Sáb", "Feijoada Completa", "A tradicional de sábado, com todos os acompanhamentos e caipirinha opcional.", ["Couve", "Farofa", "Bisteca", "Laranja"], 42, "1660634806611-d3d03b7c28fe"],
+  ];
+  let dia = hoje;
+  function renderDia() {
+    $("#days").innerHTML = [1, 2, 3, 4, 5, 6, 0].map((i) => `<button class="day ${i === dia ? "on" : ""} ${i === hoje ? "today" : ""}" data-i="${i}">${PRATOS[i][0]}<small>R$ ${PRATOS[i][4]}</small></button>`).join("");
+    const [, n, d, it, p, img] = PRATOS[dia];
+    $("#dcard").innerHTML = `<div class="dcard__img"><img src="${u(img, 1100)}" alt="${n}" /></div><div class="dcard__body"><span class="kick">${dia === hoje ? "hoje tem" : PRATOS[dia][0].toLowerCase() + " tem"}</span><h3>${n}</h3><p>${d}</p><ul>${it.map((x) => `<li>${x}</li>`).join("")}</ul><div class="dcard__row"><span class="dprice">R$ ${p}<small> por prato</small></span><a href="#marmita" class="btn btn--red" id="pedirDia">Pedir este prato</a></div></div>`;
+  }
+  $("#days").onclick = (e) => { const b = e.target.closest(".day"); if (b) { dia = +b.dataset.i; renderDia(); } };
+  $("#dcard").addEventListener("click", (e) => { if (e.target.id === "pedirDia") { escolha.prot = "dia"; renderBox(); } });
+  $("#badgePrice").textContent = `R$ ${PRATOS[hoje][4]}`;
+  renderDia();
+
+  /* Marmita */
+  const TAM = [["P", "Pequena", 24], ["M", "Média", 29], ["G", "Grande", 34]];
+  const PROT = [["frango", "Frango grelhado", 0, "#c98a4b"], ["bife", "Bife acebolado", 4, "#7a4a2e"], ["linguica", "Linguiça toscana", 2, "#a0442c"], ["omelete", "Omelete de queijo", 0, "#f0c95a"], ["dia", "Prato do dia", 6, "#8c5a3c"]];
+  const ACOMP = [["arroz", "Arroz", 0, "#f7f1e3"], ["feijao", "Feijão", 0, "#5b3a26"], ["farofa", "Farofa", 0, "#d9b77a"], ["salada", "Salada", 0, "#7aa64f"], ["pure", "Purê", 2, "#f1d98a"], ["fritas", "Batata frita", 4, "#e8b34a"], ["legumes", "Legumes", 2, "#e07b3c"]];
+  const BEB = [["nada", "Sem bebida", 0], ["suco", "Suco natural", 8], ["refri", "Refrigerante lata", 6]];
+  const escolha = { tam: "M", prot: "frango", acomp: ["arroz", "feijao", "salada"], beb: "nada", q: 1 };
+  const preco = () => { const t = TAM.find((x) => x[0] === escolha.tam)[2]; const p = PROT.find((x) => x[0] === escolha.prot)[2]; const a = escolha.acomp.reduce((s, k) => s + ACOMP.find((x) => x[0] === k)[2], 0); const b = BEB.find((x) => x[0] === escolha.beb)[2]; return t + p + a + b; };
+  const nomeProt = (k) => k === "dia" ? `Prato do dia (${PRATOS[hoje][1]})` : PROT.find((x) => x[0] === k)[1];
+  function renderBox() {
+    $("#oTam").innerHTML = TAM.map(([k, n, p]) => `<button class="opt ${escolha.tam === k ? "on" : ""}" data-k="${k}">${n} <small>${brl(p)}</small></button>`).join("");
+    $("#oProt").innerHTML = PROT.map(([k, n, p]) => `<button class="opt ${escolha.prot === k ? "on" : ""}" data-k="${k}">${n}${p ? ` <small>+${brl(p)}</small>` : ""}</button>`).join("");
+    const cheio = escolha.acomp.length >= 3;
+    $("#oAcomp").innerHTML = ACOMP.map(([k, n, p]) => { const on = escolha.acomp.includes(k); return `<button class="opt ${on ? "on" : ""}" data-k="${k}" ${!on && cheio ? "disabled" : ""}>${n}${p ? ` <small>+${brl(p)}</small>` : ""}</button>`; }).join("");
+    $("#acompN").textContent = `${escolha.acomp.length} de 3`;
+    $("#oBeb").innerHTML = BEB.map(([k, n, p]) => `<button class="opt ${escolha.beb === k ? "on" : ""}" data-k="${k}">${n}${p ? ` <small>${brl(p)}</small>` : ""}</button>`).join("");
+    /* bandeja */
+    const pr = PROT.find((x) => x[0] === escolha.prot);
+    $("#s0").setAttribute("fill", pr[3]); $("#l0").textContent = escolha.prot === "dia" ? PRATOS[hoje][1] : pr[1];
+    [1, 2, 3].forEach((i) => { const k = escolha.acomp[i - 1], a = k && ACOMP.find((x) => x[0] === k); $("#s" + i).setAttribute("fill", a ? a[3] : "#3b2c21"); const l = $("#l" + i); l.textContent = a ? a[1] : "—"; l.style.fill = a && ["arroz", "pure", "farofa", "fritas"].includes(k) ? "#3a2a1f" : ""; });
+    $("#l0").style.fill = escolha.prot === "omelete" ? "#3a2a1f" : "";
+    const tam = TAM.find((x) => x[0] === escolha.tam);
+    $("#traySum").innerHTML = `<span>Marmita ${tam[1].toLowerCase()} · ${nomeProt(escolha.prot)}</span><span>${escolha.acomp.map((k) => ACOMP.find((x) => x[0] === k)[1]).join(", ") || "sem acompanhamentos"}${escolha.beb !== "nada" ? " · " + BEB.find((x) => x[0] === escolha.beb)[1] : ""}</span>`;
+    $("#qN").textContent = escolha.q;
+    $("#trayTotal").textContent = brl(preco() * escolha.q);
+  }
+  $("#oTam").onclick = (e) => { const b = e.target.closest(".opt"); if (b) { escolha.tam = b.dataset.k; renderBox(); } };
+  $("#oProt").onclick = (e) => { const b = e.target.closest(".opt"); if (b) { escolha.prot = b.dataset.k; renderBox(); } };
+  $("#oAcomp").onclick = (e) => { const b = e.target.closest(".opt"); if (!b || b.disabled) return; const k = b.dataset.k, i = escolha.acomp.indexOf(k); i >= 0 ? escolha.acomp.splice(i, 1) : escolha.acomp.push(k); renderBox(); };
+  $("#oBeb").onclick = (e) => { const b = e.target.closest(".opt"); if (b) { escolha.beb = b.dataset.k; renderBox(); } };
+  $("#qMenos").onclick = () => { escolha.q = Math.max(1, escolha.q - 1); renderBox(); };
+  $("#qMais").onclick = () => { escolha.q = Math.min(20, escolha.q + 1); renderBox(); };
+  renderBox();
+
+  /* Pedido */
+  const pedido = []; let modo = "entrega";
+  function renderPedido() {
+    const sub = pedido.reduce((s, p) => s + p.v * p.q, 0), taxa = modo === "entrega" && pedido.length ? 5 : 0;
+    $("#order").classList.toggle("on", pedido.length > 0);
+    $("#oList").innerHTML = pedido.map((p, i) => `<div class="oitem"><span>${p.q}× ${p.t}<small>${p.d}</small></span><span style="text-align:right">${brl(p.v * p.q)}<br /><button data-i="${i}">remover</button></span></div>`).join("");
+    $("#oTotal").textContent = brl(sub + taxa);
+    $("#addr").style.display = modo === "entrega" ? "" : "none";
+  }
+  $("#addBox").onclick = () => {
+    const tam = TAM.find((x) => x[0] === escolha.tam);
+    pedido.push({ t: `Marmita ${tam[1].toLowerCase()} — ${nomeProt(escolha.prot)}`, d: escolha.acomp.map((k) => ACOMP.find((x) => x[0] === k)[1]).join(", ") + (escolha.beb !== "nada" ? " + " + BEB.find((x) => x[0] === escolha.beb)[1] : ""), v: preco(), q: escolha.q });
+    escolha.q = 1; renderBox(); renderPedido();
+    $("#order").scrollIntoView({ behavior: "smooth", block: "nearest" });
+  };
+  $("#oList").onclick = (e) => { const b = e.target.closest("button[data-i]"); if (b) { pedido.splice(+b.dataset.i, 1); renderPedido(); } };
+  $("#deliv").onclick = (e) => { const b = e.target.closest("button"); if (!b) return; modo = b.dataset.d; $$("#deliv button").forEach((x) => x.classList.toggle("on", x === b)); renderPedido(); };
+  $("#sendOrder").onclick = () => {
+    if (modo === "entrega" && !$("#addr").value.trim()) { $("#addr").focus(); $("#addr").style.borderColor = "var(--tomato)"; return; }
+    const linhas = pedido.map((p) => `• ${p.q}× ${p.t}\n   (${p.d})`).join("\n");
+    const msg = `Olá, Quintal da Vó! Quero fazer um pedido:\n\n${linhas}\n\n${modo === "entrega" ? `Entrega em: ${$("#addr").value}` : "Vou retirar no balcão"}\nTotal: ${$("#oTotal").textContent}`;
+    window.open(`https://wa.me/${WA}?text=${encodeURIComponent(msg)}`, "_blank");
+  };
+})();
+</script>
+</body>
+</html>

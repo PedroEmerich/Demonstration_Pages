@@ -1,0 +1,424 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Residencial Aurora — Lançamento na Vila Mariana</title>
+<meta name="description" content="Residencial Aurora: lançamento com studios, 2 dormitórios, 3 suítes e coberturas na Vila Mariana. Escolha sua unidade, veja as plantas e simule o pagamento na planta." />
+<meta name="theme-color" content="#1b1530" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --night: #1b1530; --night2: #251d40; --card: #2c2349; --line: rgba(255,255,255,.12); --text: #f6f1ff; --muted: #b6abd1;
+    --peach: #ffb38a; --peach2: #ffd2b3; --lilac: #c9b6ff; --green: #6ee7b7; --red: #ff7d8f; --amber: #ffd166;
+    --serif: "Instrument Serif", Georgia, serif; --sans: "Instrument Sans", system-ui, sans-serif;
+    --ease: cubic-bezier(.2,.8,.2,1);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { overflow-x: clip; scroll-behavior: smooth; scroll-padding-top: 86px; }
+  body { background: var(--night); color: var(--text); font-family: var(--sans); line-height: 1.6; -webkit-font-smoothing: antialiased; overflow-x: clip; }
+  img { display: block; max-width: 100%; }
+  a { color: inherit; text-decoration: none; }
+  button, input, select { font: inherit; color: inherit; }
+  button { background: none; border: 0; cursor: pointer; }
+  .wrap { width: min(1260px, 100% - 40px); margin-inline: auto; }
+  [class*="__grid"] > * { min-width: 0; }
+  h1, h2, h3 { font-family: var(--serif); font-weight: 400; line-height: 1; letter-spacing: -.01em; }
+  h1 em, h2 em { color: var(--peach); }
+  .h2 { font-size: clamp(42px, 5.6vw, 84px); }
+  .label { font-size: 12px; font-weight: 600; letter-spacing: .22em; text-transform: uppercase; color: var(--lilac); }
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 16px 28px; border-radius: 999px; font-weight: 600; font-size: 15px; transition: all .35s var(--ease); }
+  .btn--p { background: linear-gradient(90deg, var(--peach), #ff8fa3); color: var(--night); }
+  .btn--p:hover { transform: translateY(-2px); box-shadow: 0 16px 30px -12px rgba(255,143,163,.7); }
+  .btn--o { box-shadow: inset 0 0 0 1px rgba(255,255,255,.4); }
+  .btn--o:hover { background: var(--text); color: var(--night); }
+  [data-r] { opacity: 0; transform: translateY(34px); transition: opacity 1s var(--ease), transform 1s var(--ease); transition-delay: var(--d, 0s); }
+  [data-r].in { opacity: 1; transform: none; }
+
+  /* NAV */
+  .nav { position: fixed; inset: 0 0 auto; z-index: 50; transition: background .4s, border-color .4s; border-bottom: 1px solid transparent; }
+  .nav.solid { background: rgba(27,21,48,.86); backdrop-filter: blur(14px); border-color: var(--line); }
+  .nav__in { height: 82px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+  .logo { font-family: var(--serif); font-size: 30px; display: flex; align-items: center; gap: 10px; }
+  .logo svg { width: 34px; }
+  .nav__links { display: flex; gap: 30px; font-size: 14px; color: var(--muted); font-weight: 500; }
+  .nav__links a:hover { color: var(--text); }
+  .burger { display: none; width: 46px; height: 46px; border-radius: 50%; box-shadow: inset 0 0 0 1px var(--line); place-items: center; }
+  .burger span { width: 16px; height: 1.5px; background: var(--text); box-shadow: 0 5px 0 var(--text), 0 -5px 0 var(--text); }
+
+  /* HERO */
+  .hero { position: relative; min-height: 100svh; display: flex; align-items: flex-end; overflow: hidden; padding: 0 0 70px; }
+  .hero__bg { position: absolute; inset: 0; background: url("https://images.unsplash.com/photo-1624204386084-dd8c05e32226?w=2200&q=80&auto=format&fit=crop") center 30% / cover; transform: scale(1.12); animation: settle 3s var(--ease) forwards; }
+  @keyframes settle { to { transform: scale(1); } }
+  .hero::after { content: ""; position: absolute; inset: 0; background: linear-gradient(0deg, var(--night) 4%, rgba(27,21,48,.55) 45%, rgba(27,21,48,.25)); }
+  .hero__in { position: relative; z-index: 1; display: grid; grid-template-columns: 1.3fr .7fr; gap: 40px; align-items: end; }
+  .hero h1 { font-size: clamp(64px, 10vw, 170px); line-height: .88; }
+  .hero h1 span { display: block; overflow: hidden; }
+  .hero h1 span i { display: block; font-style: normal; transform: translateY(105%); animation: up 1.2s var(--ease) forwards; }
+  .hero h1 span:nth-child(2) i { animation-delay: .15s; font-style: italic; color: var(--peach); }
+  @keyframes up { to { transform: none; } }
+  .hero p { color: #e2d9f7; font-size: 18px; max-width: 480px; margin: 22px 0 28px; }
+  .launch { background: rgba(37,29,64,.7); backdrop-filter: blur(16px); border: 1px solid var(--line); border-radius: 24px; padding: 26px; }
+  .cd { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin: 14px 0 20px; text-align: center; }
+  .cd b { display: block; font-family: var(--serif); font-size: 46px; line-height: 1; font-variant-numeric: tabular-nums; }
+  .cd small { font-size: 11px; color: var(--muted); letter-spacing: .1em; text-transform: uppercase; }
+  .launch dl { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; border-top: 1px solid var(--line); padding-top: 16px; margin-bottom: 18px; }
+  .launch dt { font-size: 12px; color: var(--muted); }
+  .launch dd { font-family: var(--serif); font-size: 24px; }
+
+  /* PRÉDIO INTERATIVO */
+  .units { padding: 120px 0; }
+  .head { display: flex; justify-content: space-between; align-items: end; gap: 30px; flex-wrap: wrap; margin-bottom: 44px; }
+  .head p { color: var(--muted); max-width: 420px; }
+  .units__grid { display: grid; grid-template-columns: 1fr 380px; gap: 40px; align-items: start; }
+  .bld { background: linear-gradient(180deg, #ffcfb3 0%, #c9a7ff 55%, var(--night2) 100%); border-radius: 30px; padding: 40px 40px 0; position: relative; overflow: hidden; }
+  .bld__in { max-width: 520px; margin: 0 auto; background: #2a2142; border-radius: 10px 10px 0 0; padding: 18px 18px 0; box-shadow: 0 -20px 60px -20px rgba(27,21,48,.6); }
+  .floors { display: grid; gap: 5px; }
+  .floor { display: grid; grid-template-columns: 34px repeat(4, 1fr); gap: 5px; align-items: center; }
+  .floor span { font-size: 11px; color: var(--muted); text-align: right; padding-right: 4px; }
+  .u { height: 26px; border-radius: 4px; transition: transform .2s, box-shadow .2s, opacity .3s; position: relative; }
+  .u.d { background: rgba(110,231,183,.85); }
+  .u.r { background: rgba(255,209,102,.85); }
+  .u.v { background: rgba(255,255,255,.12); cursor: not-allowed; }
+  .u.cob { height: 34px; }
+  .u:not(.v):hover { transform: scale(1.12); box-shadow: 0 0 0 2px #fff; z-index: 2; }
+  .u.sel { box-shadow: 0 0 0 3px #fff, 0 0 20px rgba(255,255,255,.6); transform: scale(1.12); z-index: 3; }
+  .u.dim { opacity: .2; }
+  .lobby { height: 60px; margin-top: 8px; display: flex; gap: 6px; }
+  .lobby i { flex: 1; background: rgba(255,179,138,.25); border-radius: 4px 4px 0 0; }
+  .lobby i:nth-child(2) { flex: 1.4; background: rgba(255,179,138,.5); }
+  .lg { display: flex; gap: 16px; flex-wrap: wrap; margin-top: 16px; font-size: 13px; color: var(--muted); }
+  .lg span { display: flex; gap: 6px; align-items: center; }
+  .lg i { width: 12px; height: 12px; border-radius: 3px; }
+  .ufil { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 16px; }
+  .ufil button { padding: 9px 14px; border-radius: 999px; box-shadow: inset 0 0 0 1px var(--line); font-size: 13px; font-weight: 600; transition: all .25s; }
+  .ufil button.on { background: var(--text); color: var(--night); box-shadow: none; }
+  .panel { background: var(--card); border-radius: 26px; padding: 28px; position: sticky; top: 100px; }
+  .panel__empty { color: var(--muted); text-align: center; padding: 40px 10px; }
+  .panel h3 { font-size: 40px; }
+  .panel .tipo { color: var(--peach); font-weight: 600; }
+  .specs { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 20px 0; }
+  .specs div { background: rgba(255,255,255,.05); border-radius: 14px; padding: 12px 14px; }
+  .specs small { display: block; font-size: 12px; color: var(--muted); }
+  .specs b { font-weight: 600; }
+  .panel .price { font-family: var(--serif); font-size: 44px; line-height: 1; }
+  .status { display: inline-block; font-size: 12px; font-weight: 700; padding: 4px 10px; border-radius: 999px; margin-left: 8px; vertical-align: middle; }
+  .tip { position: fixed; z-index: 80; pointer-events: none; background: #fff; color: var(--night); font-size: 13px; font-weight: 600; padding: 8px 12px; border-radius: 10px; transform: translate(-50%, -130%); opacity: 0; transition: opacity .15s; white-space: nowrap; }
+
+  /* PLANTAS */
+  .plans { padding: 0 0 120px; }
+  .ptabs { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 26px; }
+  .ptabs button { padding: 12px 20px; border-radius: 999px; box-shadow: inset 0 0 0 1px var(--line); font-weight: 600; transition: all .3s; }
+  .ptabs button.on { background: var(--peach); color: var(--night); box-shadow: none; }
+  .plan__grid { display: grid; grid-template-columns: 1.2fr .8fr; gap: 40px; align-items: center; }
+  .blue { background: #f4eee6; border-radius: 26px; padding: 30px; }
+  .blue svg { width: 100%; height: auto; display: block; }
+  .blue rect.room { fill: #fff; stroke: #2a2142; stroke-width: 3; }
+  .blue rect.wet { fill: #dfe9f5; stroke: #2a2142; stroke-width: 3; }
+  .blue rect.ext { fill: #e5f1df; stroke: #2a2142; stroke-width: 3; stroke-dasharray: 6 4; }
+  .blue text { font-family: var(--sans); font-size: 13px; fill: #2a2142; font-weight: 600; text-anchor: middle; }
+  .blue text.m2 { font-weight: 400; font-size: 11px; fill: #6b6380; }
+  .blue .draw { animation: drawIn .7s var(--ease) both; }
+  @keyframes drawIn { from { opacity: 0; transform: scale(.96); transform-origin: center; } }
+  .feat h3 { font-size: 52px; }
+  .feat .m2b { font-family: var(--serif); font-size: 26px; color: var(--peach); }
+  .feat ul { list-style: none; display: grid; gap: 10px; margin: 20px 0 26px; }
+  .feat li { display: flex; gap: 10px; color: #e2d9f7; }
+  .feat li::before { content: "✦"; color: var(--peach); }
+
+  /* SIMULADOR */
+  .sim { padding: 110px 0; background: var(--night2); }
+  .sim__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; }
+  .sl label { display: flex; justify-content: space-between; font-weight: 600; margin-bottom: 10px; color: #e2d9f7; }
+  .sl output { font-family: var(--serif); font-size: 26px; color: var(--text); font-weight: 400; }
+  .sl { margin-bottom: 26px; }
+  input[type=range] { width: 100%; -webkit-appearance: none; appearance: none; height: 6px; border-radius: 6px; background: linear-gradient(90deg, var(--peach) var(--p, 30%), rgba(255,255,255,.15) var(--p, 30%)); outline: none; }
+  input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 24px; height: 24px; border-radius: 50%; background: #fff; box-shadow: 0 0 0 6px rgba(255,179,138,.3); cursor: grab; }
+  input[type=range]::-moz-range-thumb { width: 18px; height: 18px; border-radius: 50%; background: #fff; border: 0; cursor: grab; }
+  .flow { display: grid; gap: 12px; }
+  .fl { display: grid; grid-template-columns: 1fr auto; gap: 10px; align-items: center; padding: 18px 20px; border-radius: 18px; background: var(--card); }
+  .fl small { color: var(--muted); display: block; }
+  .fl b { font-family: var(--serif); font-size: 30px; font-weight: 400; }
+  .fl i { grid-column: 1 / -1; height: 6px; border-radius: 6px; background: rgba(255,255,255,.08); overflow: hidden; }
+  .fl i span { display: block; height: 100%; border-radius: 6px; transition: width .6s var(--ease); }
+
+  /* LAZER + LOCAL + OBRA */
+  .amen { padding: 120px 0; }
+  .agrid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+  .am { background: var(--card); border-radius: 22px; padding: 22px; display: flex; flex-direction: column; gap: 30px; transition: transform .4s var(--ease), background .3s; }
+  .am:hover { transform: translateY(-4px); background: #352a58; }
+  .am b { font-size: 30px; }
+  .am span { font-weight: 600; }
+  .photos { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 14px; margin-top: 14px; }
+  .photos figure { border-radius: 22px; overflow: hidden; aspect-ratio: 4/3; }
+  .photos img { width: 100%; height: 100%; object-fit: cover; transition: transform 1.4s var(--ease); }
+  .photos figure:hover img { transform: scale(1.05); }
+  .loc { padding: 0 0 120px; }
+  .loc__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start; }
+  .near { display: grid; gap: 8px; }
+  .nr { display: grid; grid-template-columns: 40px 1fr auto; gap: 14px; align-items: center; padding: 14px 18px; border-radius: 16px; background: var(--card); }
+  .nr i { font-style: normal; font-size: 22px; }
+  .nr b { font-weight: 600; }
+  .nr span { font-family: var(--serif); font-size: 22px; color: var(--peach); }
+  .work { position: relative; padding-left: 30px; }
+  .work::before { content: ""; position: absolute; left: 7px; top: 8px; bottom: 8px; width: 2px; background: var(--line); }
+  .wk { position: relative; padding-bottom: 26px; }
+  .wk::before { content: ""; position: absolute; left: -29px; top: 6px; width: 14px; height: 14px; border-radius: 50%; background: var(--night); border: 2px solid var(--muted); }
+  .wk.done::before { background: var(--green); border-color: var(--green); }
+  .wk.now::before { background: var(--peach); border-color: var(--peach); box-shadow: 0 0 0 6px rgba(255,179,138,.25); }
+  .wk b { font-weight: 600; display: block; }
+  .wk small { color: var(--muted); }
+
+  /* PRÉ-RESERVA */
+  .reserve { margin: 0 20px 20px; border-radius: 36px; overflow: hidden; position: relative; padding: 100px 0; }
+  .reserve::before { content: ""; position: absolute; inset: 0; background: url("https://images.unsplash.com/photo-1774199496664-a9690967be5a?w=2000&q=70&auto=format&fit=crop") center / cover; }
+  .reserve::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(27,21,48,.95) 35%, rgba(27,21,48,.55)); }
+  .reserve__grid { position: relative; z-index: 1; display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center; }
+  .rform { background: rgba(255,255,255,.08); backdrop-filter: blur(14px); border: 1px solid var(--line); border-radius: 24px; padding: 30px; display: grid; gap: 12px; }
+  .rform input, .rform select { width: 100%; padding: 15px 16px; border-radius: 14px; border: 1px solid var(--line); background: rgba(27,21,48,.6); outline: none; color-scheme: dark; }
+  .rform input:focus, .rform select:focus { border-color: var(--peach); }
+  footer { padding: 34px 0; font-size: 13px; color: var(--muted); }
+  .foot { display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
+  .wa { position: fixed; right: 22px; bottom: 22px; z-index: 60; width: 58px; height: 58px; border-radius: 50%; background: #25d366; color: #fff; display: grid; place-items: center; box-shadow: 0 12px 30px -8px rgba(37,211,102,.6); transition: transform .3s var(--ease); }
+  .wa:hover { transform: scale(1.08); }
+
+  @media (max-width: 1040px) {
+    .nav__links, .nav__cta { display: none; }
+    .burger { display: grid; }
+    .nav.open { background: var(--night); }
+    .nav.open .nav__links { display: flex; flex-direction: column; position: absolute; top: 82px; left: 0; right: 0; background: var(--night); padding: 24px 20px; gap: 18px; border-bottom: 1px solid var(--line); }
+    .hero__in, .units__grid, .plan__grid, .sim__grid, .loc__grid, .reserve__grid { grid-template-columns: 1fr; }
+    .hero { padding-top: 120px; }
+    .panel { position: static; }
+    .agrid { grid-template-columns: 1fr 1fr; }
+    .photos { grid-template-columns: 1fr 1fr; }
+    .photos figure:first-child { grid-column: span 2; }
+  }
+  @media (max-width: 600px) {
+    .bld { padding: 24px 16px 0; }
+    .bld__in { padding: 12px 10px 0; }
+    .floor { grid-template-columns: 26px repeat(4, 1fr); gap: 4px; }
+    .u { height: 20px; }
+    .cd b { font-size: 34px; }
+    .blue { padding: 14px; }
+    .reserve { margin: 0 8px 8px; padding: 70px 0; }
+    .rform { padding: 22px; }
+  }
+  @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; animation-delay: 0s !important; transition-duration: .01ms !important; } [data-r] { opacity: 1; transform: none; } }
+</style>
+</head>
+<body>
+
+<header class="nav" id="nav">
+  <div class="wrap nav__in">
+    <a href="#" class="logo"><svg viewBox="0 0 34 34" fill="none"><circle cx="17" cy="20" r="9" fill="#ffb38a"/><path d="M2 22h30" stroke="#f6f1ff" stroke-width="2"/><path d="M6 27h22M11 31h12" stroke="#c9b6ff" stroke-width="2"/></svg>Aurora</a>
+    <nav class="nav__links"><a href="#unidades">Unidades</a><a href="#plantas">Plantas</a><a href="#simulador">Simulador</a><a href="#lazer">Lazer</a><a href="#local">Localização</a></nav>
+    <a href="#reserva" class="btn btn--p nav__cta" style="padding:12px 22px">Pré-reserva</a>
+    <button class="burger" aria-label="Menu"><span></span></button>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero__bg"></div>
+  <div class="wrap hero__in">
+    <div>
+      <span class="label">Lançamento · Vila Mariana · São Paulo</span>
+      <h1><span><i>Residencial</i></span><span><i>Aurora</i></span></h1>
+      <p>Studios, 2 dormitórios, 3 suítes e coberturas a 6 minutos a pé do metrô. Todo o pôr do sol de São Paulo, da sua varanda.</p>
+      <div style="display:flex;gap:12px;flex-wrap:wrap"><a href="#unidades" class="btn btn--p">Escolher minha unidade</a><a href="#plantas" class="btn btn--o">Ver plantas</a></div>
+    </div>
+    <aside class="launch" data-r style="--d:.6s">
+      <span class="label">Lançamento oficial em</span>
+      <div class="cd" id="cd"><div><b>0</b><small>dias</small></div><div><b>00</b><small>horas</small></div><div><b>00</b><small>min</small></div><div><b>00</b><small>seg</small></div></div>
+      <dl><div><dt>A partir de</dt><dd>R$ 489 mil</dd></div><div><dt>Disponíveis</dt><dd id="dispN">—</dd></div></dl>
+      <a href="#reserva" class="btn btn--p" style="width:100%">Garantir condição de pré-lançamento</a>
+    </aside>
+  </div>
+</section>
+
+<section class="units" id="unidades">
+  <div class="wrap">
+    <div class="head"><div data-r><span class="label">Espelho de vendas</span><h2 class="h2" style="margin-top:14px">Escolha a sua <em>unidade</em></h2></div><p data-r style="--d:.1s">Toque em uma unidade disponível para ver planta, metragem, posição solar e preço. Atualizado em tempo real.</p></div>
+    <div class="units__grid">
+      <div data-r>
+        <div class="ufil" id="ufil"></div>
+        <div class="bld"><div class="bld__in"><div class="floors" id="floors"></div><div class="lobby"><i></i><i></i><i></i></div></div></div>
+        <div class="lg"><span><i style="background:var(--green)"></i>Disponível</span><span><i style="background:var(--amber)"></i>Reservada</span><span><i style="background:rgba(255,255,255,.15)"></i>Vendida</span></div>
+      </div>
+      <aside class="panel" id="panel" data-r style="--d:.1s"><div class="panel__empty">✦<br />Selecione uma unidade no prédio para ver os detalhes.</div></aside>
+    </div>
+  </div>
+</section>
+<div class="tip" id="tip"></div>
+
+<section class="plans" id="plantas">
+  <div class="wrap">
+    <div class="head"><div data-r><span class="label">Plantas</span><h2 class="h2" style="margin-top:14px">Do studio à <em>cobertura</em></h2></div></div>
+    <div class="ptabs" id="ptabs" data-r></div>
+    <div class="plan__grid">
+      <div class="blue" data-r><svg id="planSvg" viewBox="0 0 600 400" aria-label="Planta da unidade"></svg></div>
+      <div class="feat" id="feat" data-r style="--d:.1s"></div>
+    </div>
+  </div>
+</section>
+
+<section class="sim" id="simulador">
+  <div class="wrap sim__grid">
+    <div data-r>
+      <span class="label">Simulador na planta</span>
+      <h2 class="h2" style="margin-top:14px">Pague durante a <em>obra</em></h2>
+      <p style="color:var(--muted);margin:16px 0 30px">Entrada facilitada, parcelas mensais até a entrega e o saldo financiado nas chaves.</p>
+      <div class="sl"><label>Valor da unidade <output id="oV"></output></label><input type="range" id="v" min="489000" max="2900000" step="10000" value="890000" /></div>
+      <div class="sl"><label>Entrada <output id="oE"></output></label><input type="range" id="e" min="5" max="30" value="10" /></div>
+      <div class="sl"><label>Parcelas durante a obra <output id="oO"></output></label><input type="range" id="o" min="10" max="40" value="25" /></div>
+    </div>
+    <div class="flow" id="flow" data-r style="--d:.1s"></div>
+  </div>
+</section>
+
+<section class="amen" id="lazer">
+  <div class="wrap">
+    <div class="head"><div data-r><span class="label">Lazer no rooftop</span><h2 class="h2" style="margin-top:14px">O 19º andar é <em>de todos</em></h2></div><p data-r style="--d:.1s">Áreas comuns entregues equipadas e decoradas pelo escritório de interiores do projeto.</p></div>
+    <div class="agrid" id="agrid"></div>
+    <div class="photos">
+      <figure data-r><img src="https://images.unsplash.com/photo-1774199496664-a9690967be5a?w=1100&q=78&auto=format&fit=crop" alt="Living decorado" loading="lazy" /></figure>
+      <figure data-r style="--d:.08s"><img src="https://images.unsplash.com/photo-1758315417321-83eb30a39710?w=800&q=78&auto=format&fit=crop" alt="Cozinha com ilha" loading="lazy" /></figure>
+      <figure data-r style="--d:.16s"><img src="https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd?w=800&q=78&auto=format&fit=crop" alt="Suíte" loading="lazy" /></figure>
+    </div>
+  </div>
+</section>
+
+<section class="loc" id="local">
+  <div class="wrap loc__grid">
+    <div data-r><span class="label">Localização</span><h2 class="h2" style="margin-top:14px;margin-bottom:28px">Tudo a <em>poucos passos</em></h2><div class="near" id="near"></div></div>
+    <div data-r style="--d:.1s"><span class="label">Andamento da obra</span><h2 class="h2" style="margin-top:14px;margin-bottom:28px;font-size:clamp(34px,4vw,56px)">Entrega em <em>dez/2029</em></h2><div class="work" id="work"></div></div>
+  </div>
+</section>
+
+<section class="reserve" id="reserva">
+  <div class="wrap reserve__grid">
+    <div data-r><span class="label">Pré-reserva</span><h2 class="h2" style="margin-top:14px">Condição exclusiva de <em>pré-lançamento</em></h2><p style="color:#e2d9f7;margin-top:16px;max-width:440px">Até 8% de desconto e escolha antecipada de unidade para quem se cadastrar antes da data oficial.</p></div>
+    <form class="rform" id="rform" data-r style="--d:.1s">
+      <input id="rN" placeholder="Nome completo" required />
+      <input id="rT" placeholder="WhatsApp" inputmode="tel" required />
+      <select id="rU"><option>Studio · 32 m²</option><option>2 dormitórios · 68 m²</option><option>3 suítes · 112 m²</option><option>Cobertura · 210 m²</option></select>
+      <input id="rS" placeholder="Unidade de interesse (opcional)" />
+      <button class="btn btn--p">Quero minha pré-reserva</button>
+    </form>
+  </div>
+</section>
+
+<footer><div class="wrap foot"><span>Aurora Incorporadora SPE Ltda. · Incorporação registrada no 1º Cartório de Registro de Imóveis de São Paulo (demonstração).</span><span>Imagens ilustrativas · © 2026</span></div></footer>
+
+<a class="wa" href="https://wa.me/5511999990000" target="_blank" rel="noopener" aria-label="WhatsApp"><svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21c5.46 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2Zm5.8 14.03c-.24.68-1.42 1.3-1.95 1.35-.5.05-.97.23-3.27-.68-2.77-1.09-4.52-3.92-4.66-4.1-.13-.18-1.1-1.47-1.1-2.8 0-1.34.7-2 .95-2.27.25-.27.54-.34.72-.34h.52c.17 0 .4-.06.62.47.24.56.8 1.94.87 2.08.07.14.12.3.02.48-.1.19-.14.3-.28.47-.14.16-.3.36-.42.49-.14.14-.29.29-.12.57.17.28.74 1.22 1.59 1.98 1.09.97 2.01 1.27 2.29 1.41.28.14.45.12.62-.07.17-.19.71-.83.9-1.11.19-.28.38-.24.64-.14.26.09 1.65.78 1.93.92.28.14.47.21.54.33.07.11.07.66-.17 1.34Z"/></svg></a>
+
+<script>
+(() => {
+  const $ = (s, el = document) => el.querySelector(s);
+  const $$ = (s, el = document) => [...el.querySelectorAll(s)];
+  const brl = (n) => n.toLocaleString("pt-BR", { style: "currency", currency: "BRL", maximumFractionDigits: 0 });
+  const mil = (n) => n >= 1e6 ? `R$ ${(n / 1e6).toLocaleString("pt-BR", { maximumFractionDigits: 2 })} mi` : `R$ ${Math.round(n / 1000)} mil`;
+  const WA = "5511999990000";
+
+  const nav = $("#nav");
+  addEventListener("scroll", () => nav.classList.toggle("solid", scrollY > 40), { passive: true });
+  $(".burger").onclick = () => nav.classList.toggle("open");
+  $$(".nav__links a").forEach((a) => a.onclick = () => nav.classList.remove("open"));
+  const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }), { threshold: .12 });
+  $$("[data-r]").forEach((el) => io.observe(el));
+
+  /* Contagem para o lançamento */
+  const L = new Date(); L.setDate(L.getDate() + 18); L.setHours(10, 0, 0, 0);
+  const tick = () => { const s = Math.max(0, Math.floor((L - new Date()) / 1000)); const v = [Math.floor(s / 86400), Math.floor(s % 86400 / 3600), Math.floor(s % 3600 / 60), s % 60]; $$("#cd b").forEach((b, i) => b.textContent = i ? String(v[i]).padStart(2, "0") : v[i]); };
+  tick(); setInterval(tick, 1000);
+
+  /* Tipologias */
+  const T = {
+    studio: { n: "Studio", m2: 32, base: 489000, d: 0, b: 1, v: 0, feats: ["Varanda com tomada para churrasqueira elétrica", "Ponto para ar-condicionado", "Ideal para investimento e locação"] },
+    dois: { n: "2 dormitórios", m2: 68, base: 790000, d: 2, b: 2, v: 1, feats: ["1 suíte + 1 dormitório", "Varanda gourmet integrada", "Depósito privativo no subsolo"] },
+    tres: { n: "3 suítes", m2: 112, base: 1290000, d: 3, b: 4, v: 2, feats: ["3 suítes com janelas amplas", "Living para 2 ambientes", "Lavabo e área de serviço separada"] },
+    cob: { n: "Cobertura", m2: 210, base: 2690000, d: 3, b: 5, v: 3, feats: ["Duplex com piscina privativa", "Terraço de 60 m² voltado para o pôr do sol", "Elevador com acesso direto"] },
+  };
+  /* Espelho de vendas: 18 andares x 4 + cobertura */
+  const FACE = ["Norte", "Oeste", "Sul", "Leste"];
+  const U = [];
+  const h = (s) => [...s].reduce((a, c) => (a * 31 + c.charCodeAt(0)) % 997, 3);
+  for (let andar = 18; andar >= 1; andar--) {
+    for (let c = 0; c < 4; c++) {
+      const tipo = andar === 18 ? (c < 2 ? "cob" : null) : andar <= 3 ? (c % 2 ? "studio" : "dois") : c === 0 || c === 3 ? "tres" : c === 1 ? "dois" : "studio";
+      if (!tipo) continue;
+      const k = Math.floor(Math.abs(Math.sin(andar * 12.9898 + c * 78.233) * 43758.5453) % 1 * 10);
+      const st = k < 5 ? "d" : k < 7 ? "r" : "v";
+      const preco = Math.round(T[tipo].base * (1 + (andar - 1) * .009 + (c === 1 ? .015 : 0)) / 1000) * 1000;
+      U.push({ id: `${andar}${String(c + 1).padStart(2, "0")}`, andar, c, tipo, st, preco, face: FACE[c] });
+    }
+  }
+  $("#dispN").textContent = `${U.filter((x) => x.st === "d").length} unidades`;
+  let fil = "todas", sel = null;
+  $("#ufil").innerHTML = [["todas", "Todas"], ["studio", "Studio"], ["dois", "2 dorm."], ["tres", "3 suítes"], ["cob", "Cobertura"]].map(([k, n]) => `<button data-k="${k}" class="${k === fil ? "on" : ""}">${n}</button>`).join("");
+  function predio() {
+    let html = "";
+    for (let a = 18; a >= 1; a--) {
+      const us = U.filter((x) => x.andar === a);
+      html += `<div class="floor"><span>${a === 18 ? "Cob" : a + "º"}</span>${a === 18 ? us.map((x) => `<button class="u cob ${x.st} ${fil !== "todas" && x.tipo !== fil ? "dim" : ""} ${sel === x.id ? "sel" : ""}" style="grid-column:span 2" data-id="${x.id}" aria-label="Unidade ${x.id}"></button>`).join("") : us.map((x) => `<button class="u ${x.st} ${fil !== "todas" && x.tipo !== fil ? "dim" : ""} ${sel === x.id ? "sel" : ""}" data-id="${x.id}" aria-label="Unidade ${x.id}"></button>`).join("")}</div>`;
+    }
+    $("#floors").innerHTML = html;
+  }
+  const STL = { d: ["Disponível", "rgba(110,231,183,.2)", "#6ee7b7"], r: ["Reservada", "rgba(255,209,102,.2)", "#ffd166"], v: ["Vendida", "rgba(255,255,255,.1)", "#b6abd1"] };
+  function painel(x) {
+    const t = T[x.tipo], [sn, bg, cor] = STL[x.st];
+    $("#panel").innerHTML = `<span class="tipo">${t.n}</span><h3>Unidade ${x.id}<span class="status" style="background:${bg};color:${cor}">${sn}</span></h3><div class="specs"><div><small>Área privativa</small><b>${t.m2} m²</b></div><div><small>Andar</small><b>${x.andar === 18 ? "Cobertura" : x.andar + "º"}</b></div><div><small>Face</small><b>${x.face}${x.face === "Oeste" ? " · pôr do sol" : x.face === "Norte" ? " · sol o dia todo" : ""}</b></div><div><small>Vagas</small><b>${t.v || "Opcional"}</b></div></div><small style="color:var(--muted)">Preço de pré-lançamento</small><p class="price">${brl(x.preco)}</p><div style="display:grid;gap:8px;margin-top:20px"><button class="btn btn--p" id="simU">Simular pagamento</button><a class="btn btn--o" target="_blank" rel="noopener" href="https://wa.me/${WA}?text=${encodeURIComponent(`Olá! Tenho interesse na unidade ${x.id} (${t.n}, ${t.m2} m²) do Residencial Aurora.`)}">${x.st === "d" ? "Reservar esta unidade" : "Entrar na lista de espera"}</a></div>`;
+    $("#simU").onclick = () => { $("#v").value = Math.min(2900000, x.preco); sim(); $("#rS").value = `Unidade ${x.id}`; $("#simulador").scrollIntoView({ behavior: "smooth" }); };
+  }
+  $("#ufil").onclick = (e) => { const b = e.target.closest("button"); if (!b) return; fil = b.dataset.k; $$("#ufil button").forEach((x) => x.classList.toggle("on", x === b)); predio(); };
+  $("#floors").onclick = (e) => { const b = e.target.closest(".u"); if (!b) return; const x = U.find((y) => y.id === b.dataset.id); if (x.st === "v") return; sel = x.id; predio(); painel(x); };
+  const tip = $("#tip");
+  $("#floors").addEventListener("mouseover", (e) => { const b = e.target.closest(".u"); if (!b) return; const x = U.find((y) => y.id === b.dataset.id); tip.textContent = `${x.id} · ${T[x.tipo].n} · ${STL[x.st][0]}${x.st !== "v" ? " · " + mil(x.preco) : ""}`; tip.style.opacity = 1; });
+  $("#floors").addEventListener("mousemove", (e) => { tip.style.left = e.clientX + "px"; tip.style.top = e.clientY + "px"; });
+  $("#floors").addEventListener("mouseleave", () => tip.style.opacity = 0);
+  predio();
+
+  /* Plantas em SVG */
+  const R = (x, y, w, h, n, m2, cls = "room") => `<g class="draw"><rect class="${cls}" x="${x}" y="${y}" width="${w}" height="${h}"/><text x="${x + w / 2}" y="${y + h / 2}">${n}</text>${m2 ? `<text class="m2" x="${x + w / 2}" y="${y + h / 2 + 16}">${m2} m²</text>` : ""}</g>`;
+  const PL = {
+    studio: R(60, 40, 330, 250, "Living + quarto", 21) + R(390, 40, 150, 120, "Banho", 4, "wet") + R(390, 160, 150, 130, "Cozinha", 5) + R(60, 290, 480, 70, "Varanda", 6, "ext"),
+    dois: R(40, 30, 220, 160, "Suíte", 12) + R(40, 190, 100, 90, "Banho", 4, "wet") + R(140, 190, 120, 90, "Banho", 3.5, "wet") + R(260, 30, 160, 160, "Dormitório", 9) + R(260, 190, 300, 120, "Living / jantar", 24) + R(420, 30, 140, 160, "Cozinha", 8) + R(40, 310, 520, 60, "Varanda gourmet", 8, "ext"),
+    tres: R(30, 20, 170, 140, "Suíte 1", 15) + R(200, 20, 150, 140, "Suíte 2", 12) + R(350, 20, 150, 140, "Suíte 3", 12) + R(500, 20, 70, 140, "Banho", 4, "wet") + R(30, 160, 120, 70, "Banho", 4, "wet") + R(150, 160, 260, 150, "Living 2 ambientes", 34) + R(410, 160, 160, 90, "Cozinha", 11) + R(410, 250, 160, 60, "Serviço", 5, "wet") + R(30, 230, 120, 80, "Lavabo", 2, "wet") + R(30, 320, 540, 60, "Varanda", 13, "ext"),
+    cob: R(30, 20, 260, 160, "Living integrado", 52) + R(290, 20, 140, 160, "Cozinha gourmet", 18) + R(430, 20, 140, 160, "Suíte master", 24) + R(30, 180, 180, 100, "Escritório", 12) + R(210, 180, 220, 100, "Escada + lavabo", 10) + R(430, 180, 140, 100, "Banho master", 9, "wet") + R(30, 290, 380, 90, "Terraço + piscina", 60, "ext") + R(410, 290, 160, 90, "Spa", 8, "wet"),
+  };
+  let tp = "dois";
+  $("#ptabs").innerHTML = Object.entries(T).map(([k, t]) => `<button data-k="${k}" class="${k === tp ? "on" : ""}">${t.n} · ${t.m2} m²</button>`).join("");
+  function planta() {
+    const t = T[tp];
+    $("#planSvg").innerHTML = PL[tp] + `<g transform="translate(560 360)"><circle r="16" fill="none" stroke="#2a2142" stroke-width="2"/><path d="M0 -12 L5 4 L0 0 L-5 4Z" fill="#2a2142"/><text y="-20" style="font-size:11px">N</text></g>`;
+    $("#feat").innerHTML = `<span class="label">${t.d ? `${t.d} dormitório${t.d > 1 ? "s" : ""} · ` : ""}${t.b} banheiro${t.b > 1 ? "s" : ""} · ${t.v || "sem"} vaga${t.v > 1 ? "s" : ""}</span><h3 style="margin:10px 0">${t.n}</h3><span class="m2b">${t.m2} m² privativos · a partir de ${mil(t.base)}</span><ul>${t.feats.map((f) => `<li>${f}</li>`).join("")}</ul><a href="#unidades" class="btn btn--p" data-k="${tp}" id="verU">Ver unidades disponíveis</a>`;
+    $("#verU").onclick = () => { fil = tp; $$("#ufil button").forEach((x) => x.classList.toggle("on", x.dataset.k === tp)); predio(); };
+  }
+  $("#ptabs").onclick = (e) => { const b = e.target.closest("button"); if (!b) return; tp = b.dataset.k; $$("#ptabs button").forEach((x) => x.classList.toggle("on", x === b)); planta(); };
+  planta();
+
+  /* Simulador na planta */
+  function sim() {
+    const V = +$("#v").value, E = +$("#e").value / 100, O = +$("#o").value / 100, meses = 38;
+    ["v", "e", "o"].forEach((k) => { const el = $("#" + k); el.style.setProperty("--p", `${((el.value - el.min) / (el.max - el.min)) * 100}%`); });
+    $("#oV").textContent = mil(V); $("#oE").textContent = `${Math.round(E * 100)}%`; $("#oO").textContent = `${Math.round(O * 100)}%`;
+    const ent = V * E, obra = V * O, chaves = V - ent - obra;
+    const it = [["Entrada (em até 3x)", ent, `3x de ${brl(ent / 3)}`, "#ffb38a"], ["Mensais durante a obra", obra, `${meses}x de ${brl(obra / meses)} · corrigidas pelo INCC`, "#c9b6ff"], ["Nas chaves (financiamento)", chaves, `ou FGTS + financiamento bancário`, "#6ee7b7"]];
+    $("#flow").innerHTML = it.map(([n, v, d, c]) => `<div class="fl"><div><small>${n}</small><b>${brl(v)}</b><small>${d}</small></div><span style="font-family:var(--serif);font-size:22px;color:${c}">${Math.round(v / V * 100)}%</span><i><span style="width:${v / V * 100}%;background:${c}"></span></i></div>`).join("");
+  }
+  ["v", "e", "o"].forEach((k) => $("#" + k).addEventListener("input", sim)); sim();
+
+  /* Lazer, localização, obra */
+  const A = [["🏊", "Piscina com raia"], ["🔥", "Lounge com lareira"], ["🏋️", "Academia equipada"], ["🍷", "Espaço gourmet"], ["🧘", "Sala de yoga"], ["💼", "Coworking"], ["🐾", "Pet place"], ["🚲", "Bicicletário"]];
+  $("#agrid").innerHTML = A.map(([i, n], k) => `<div class="am" data-r style="--d:${(k % 4) * .06}s"><b>${i}</b><span>${n}</span></div>`).join("");
+  $$(".am").forEach((a) => io.observe(a));
+  $("#near").innerHTML = [["🚇", "Metrô Vila Mariana", "6 min"], ["🌳", "Parque Ibirapuera", "12 min"], ["🛒", "Supermercado", "3 min"], ["🏥", "Hospital", "9 min"], ["🎓", "Escolas e faculdades", "5 min"]].map(([i, n, t]) => `<div class="nr"><i>${i}</i><b>${n}</b><span>${t}</span></div>`).join("");
+  $("#work").innerHTML = [["Lançamento", "nov/2026", "now"], ["Fundação", "mar/2027", ""], ["Estrutura", "jan/2028", ""], ["Acabamento", "mar/2029", ""], ["Entrega das chaves", "dez/2029", ""]].map(([n, d, s]) => `<div class="wk ${s}"><b>${n}</b><small>${d}</small></div>`).join("");
+
+  $("#rform").onsubmit = (e) => { e.preventDefault(); const msg = `Olá! Quero minha pré-reserva no Residencial Aurora.\nNome: ${$("#rN").value}\nTipologia: ${$("#rU").value}${$("#rS").value ? `\n${$("#rS").value}` : ""}`; window.open(`https://wa.me/${WA}?text=${encodeURIComponent(msg)}`, "_blank"); };
+})();
+</script>
+</body>
+</html>

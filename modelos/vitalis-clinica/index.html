@@ -1,0 +1,430 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Vitalis — Clínica Médica Integrada</title>
+<meta name="description" content="Vitalis Clínica Médica: 12 especialidades, exames no mesmo lugar e telemedicina. Encontre seu médico, veja horários livres e agende online." />
+<meta name="theme-color" content="#f5f8ff" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #f5f8ff; --white: #fff; --ink: #0f1b33; --muted: #5d6a82; --line: #e1e8f5;
+    --blue: #1f5bd8; --blue2: #3a77f2; --sky: #e6efff; --mint: #14b8a6; --coral: #ff6b5b;
+    --sans: "Plus Jakarta Sans", system-ui, sans-serif; --ease: cubic-bezier(.2,.8,.2,1); --r: 22px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { overflow-x: clip; scroll-behavior: smooth; scroll-padding-top: 90px; }
+  body { background: var(--bg); color: var(--ink); font-family: var(--sans); line-height: 1.6; -webkit-font-smoothing: antialiased; overflow-x: clip; }
+  img { display: block; max-width: 100%; }
+  a { color: inherit; text-decoration: none; }
+  button, input, select { font: inherit; color: inherit; }
+  button { background: none; border: 0; cursor: pointer; }
+  .wrap { width: min(1240px, 100% - 40px); margin-inline: auto; }
+  [class*="__grid"] > * { min-width: 0; }
+  h1, h2, h3 { font-weight: 800; letter-spacing: -.035em; line-height: 1.04; }
+  .h2 { font-size: clamp(34px, 4.4vw, 58px); }
+  .h2 span, h1 span { color: var(--blue); }
+  .pill { display: inline-flex; align-items: center; gap: 8px; padding: 7px 14px; border-radius: 999px; background: var(--sky); color: var(--blue); font-weight: 700; font-size: 13px; }
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 15px 26px; border-radius: 14px; font-weight: 700; font-size: 15px; transition: transform .3s var(--ease), box-shadow .3s, background .3s; }
+  .btn--b { background: var(--blue); color: #fff; box-shadow: 0 12px 24px -12px rgba(31,91,216,.7); }
+  .btn--b:hover { background: var(--blue2); transform: translateY(-2px); }
+  .btn--w { background: var(--white); box-shadow: 0 0 0 1px var(--line); }
+  .btn--w:hover { box-shadow: 0 0 0 1px var(--blue); color: var(--blue); }
+  [data-r] { opacity: 0; transform: translateY(30px); transition: opacity .8s var(--ease), transform .8s var(--ease); transition-delay: var(--d, 0s); }
+  [data-r].in { opacity: 1; transform: none; }
+
+  /* NAV */
+  .nav { position: fixed; inset: 0 0 auto; z-index: 50; transition: background .3s, box-shadow .3s; }
+  .nav.solid { background: rgba(255,255,255,.92); backdrop-filter: blur(12px); box-shadow: 0 1px 0 var(--line); }
+  .nav__in { height: 76px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+  .logo { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 22px; letter-spacing: -.03em; }
+  .logo i { width: 36px; height: 36px; border-radius: 11px; background: var(--blue); display: grid; place-items: center; color: #fff; font-style: normal; }
+  .logo i svg { width: 20px; }
+  .nav__links { display: flex; gap: 28px; font-weight: 600; font-size: 15px; color: var(--muted); }
+  .nav__links a:hover { color: var(--blue); }
+  .burger { display: none; width: 46px; height: 46px; border-radius: 12px; background: var(--white); box-shadow: 0 0 0 1px var(--line); place-items: center; }
+  .burger span { width: 18px; height: 2px; border-radius: 2px; background: var(--ink); box-shadow: 0 6px 0 var(--ink), 0 -6px 0 var(--ink); }
+
+  /* HERO */
+  .hero { padding: 130px 0 80px; position: relative; overflow: hidden; }
+  .hero::before { content: ""; position: absolute; right: -15%; top: -30%; width: 70vw; height: 70vw; border-radius: 50%; background: radial-gradient(circle, #dfe9ff, transparent 65%); z-index: -1; }
+  .hero__grid { display: grid; grid-template-columns: 1.05fr .95fr; gap: 50px; align-items: center; }
+  .hero h1 { font-size: clamp(44px, 5.8vw, 84px); margin: 18px 0 20px; }
+  .hero p { font-size: 18px; color: var(--muted); max-width: 500px; }
+  .search { margin-top: 32px; background: var(--white); border-radius: 20px; padding: 8px; display: grid; grid-template-columns: 1fr 1fr auto; gap: 6px; box-shadow: 0 30px 60px -36px rgba(15,27,51,.35); }
+  .sf { padding: 10px 16px; border-radius: 14px; background: var(--bg); }
+  .sf label { display: block; font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+  .sf select { width: 100%; border: 0; background: transparent; font-weight: 700; font-size: 15px; outline: none; cursor: pointer; }
+  .trust { display: flex; gap: 22px; margin-top: 26px; flex-wrap: wrap; font-size: 14px; color: var(--muted); font-weight: 600; }
+  .trust b { color: var(--ink); }
+  .visual { position: relative; }
+  .visual__img { aspect-ratio: 4/4.4; border-radius: 40px; overflow: hidden; }
+  .visual__img img { width: 100%; height: 100%; object-fit: cover; animation: zoom 1.6s var(--ease) both; }
+  @keyframes zoom { from { transform: scale(1.1); opacity: 0; } }
+  .fcard { position: absolute; background: var(--white); border-radius: 18px; padding: 14px 18px; box-shadow: 0 24px 50px -24px rgba(15,27,51,.45); display: flex; gap: 12px; align-items: center; font-size: 14px; animation: in .8s var(--ease) both, bob 6s ease-in-out infinite; }
+  .fcard b { display: block; font-size: 16px; }
+  .fcard small { color: var(--muted); }
+  .fcard i { width: 42px; height: 42px; border-radius: 12px; display: grid; place-items: center; font-style: normal; font-size: 20px; flex: none; }
+  .fcard--a { left: -30px; top: 12%; animation-delay: .5s, 0s; }
+  .fcard--b { right: -20px; bottom: 14%; animation-delay: .7s, -3s; }
+  .ecg { width: 80px; height: 30px; }
+  .ecg path { fill: none; stroke: var(--coral); stroke-width: 2.5; stroke-dasharray: 160; animation: ecg 2s linear infinite; }
+  @keyframes ecg { from { stroke-dashoffset: 160; } to { stroke-dashoffset: -160; } }
+  @keyframes in { from { opacity: 0; transform: translateY(20px); } }
+  @keyframes bob { 50% { translate: 0 -10px; } }
+
+  /* ESPECIALIDADES */
+  .specs { padding: 100px 0; }
+  .head { display: flex; justify-content: space-between; align-items: end; gap: 30px; flex-wrap: wrap; margin-bottom: 44px; }
+  .head p { color: var(--muted); max-width: 420px; }
+  .sgrid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+  .sp { background: var(--white); border-radius: var(--r); padding: 24px; text-align: left; box-shadow: 0 0 0 1px var(--line); transition: transform .35s var(--ease), box-shadow .35s; }
+  .sp:hover, .sp.on { transform: translateY(-4px); box-shadow: 0 0 0 2px var(--blue), 0 20px 40px -26px rgba(31,91,216,.6); }
+  .sp i { width: 50px; height: 50px; border-radius: 14px; background: var(--sky); color: var(--blue); display: grid; place-items: center; margin-bottom: 16px; font-style: normal; }
+  .sp i svg { width: 26px; height: 26px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+  .sp h3 { font-size: 18px; letter-spacing: -.02em; }
+  .sp small { color: var(--muted); font-size: 13px; }
+
+  /* MÉDICOS */
+  .docs { padding: 100px 0; background: var(--white); }
+  .docs__bar { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin-bottom: 26px; }
+  .docs__bar select { padding: 12px 16px; border-radius: 12px; border: 1px solid var(--line); background: var(--bg); font-weight: 600; outline: none; }
+  .docs__bar span { margin-left: auto; color: var(--muted); font-weight: 600; font-size: 14px; }
+  .dlist { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+  .doc { display: grid; grid-template-columns: 110px 1fr; gap: 20px; padding: 18px; border-radius: var(--r); background: var(--bg); animation: in .5s var(--ease) both; }
+  .doc img { width: 110px; height: 130px; object-fit: cover; border-radius: 16px; }
+  .doc h3 { font-size: 19px; letter-spacing: -.02em; }
+  .doc p { font-size: 13px; color: var(--muted); }
+  .tags { display: flex; gap: 6px; flex-wrap: wrap; margin: 8px 0 12px; }
+  .tags span { font-size: 12px; font-weight: 600; padding: 3px 9px; border-radius: 999px; background: var(--white); color: var(--muted); }
+  .tags .tele { background: #dcfaf5; color: #0d8a7c; }
+  .slots { display: flex; gap: 6px; flex-wrap: wrap; }
+  .slots small { width: 100%; font-weight: 700; font-size: 12px; color: var(--muted); }
+  .slot { padding: 7px 11px; border-radius: 10px; background: var(--white); font-weight: 700; font-size: 13px; color: var(--blue); box-shadow: 0 0 0 1px var(--line); transition: all .2s; }
+  .slot:hover { background: var(--blue); color: #fff; box-shadow: none; }
+  .empty { grid-column: 1 / -1; padding: 50px; text-align: center; color: var(--muted); background: var(--bg); border-radius: var(--r); }
+
+  /* CONVÊNIO */
+  .plan { padding: 100px 0; }
+  .plan__box { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; background: var(--blue); color: #fff; border-radius: 36px; padding: 56px; position: relative; overflow: hidden; }
+  .plan__box::after { content: ""; position: absolute; right: -80px; bottom: -120px; width: 320px; height: 320px; border-radius: 50%; border: 50px solid rgba(255,255,255,.07); }
+  .plan__box p { opacity: .85; margin-top: 14px; }
+  .pchk { position: relative; z-index: 1; background: var(--white); color: var(--ink); border-radius: 24px; padding: 28px; }
+  .pchk select { width: 100%; padding: 14px 16px; border-radius: 12px; border: 1px solid var(--line); background: var(--bg); font-weight: 700; outline: none; margin: 10px 0 16px; }
+  .pres { min-height: 120px; }
+  .pres div { animation: in .4s var(--ease); }
+  .ok { display: flex; gap: 12px; align-items: flex-start; }
+  .ok i { width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; font-style: normal; font-weight: 800; flex: none; }
+  .ok b { display: block; font-size: 18px; }
+  .ok ul { list-style: none; margin-top: 8px; display: flex; flex-wrap: wrap; gap: 6px; }
+  .ok li { font-size: 12px; font-weight: 600; padding: 4px 10px; border-radius: 999px; background: var(--bg); }
+
+  /* CHECK-UPS */
+  .packs { padding: 0 0 100px; }
+  .pgrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+  .pk { background: var(--white); border-radius: 28px; padding: 32px; box-shadow: 0 0 0 1px var(--line); display: flex; flex-direction: column; transition: transform .35s var(--ease); }
+  .pk:hover { transform: translateY(-6px); }
+  .pk.hot { background: var(--ink); color: #fff; box-shadow: none; }
+  .pk h3 { font-size: 24px; }
+  .pk .price { font-size: 44px; font-weight: 800; letter-spacing: -.04em; margin: 14px 0 4px; }
+  .pk .price small { font-size: 15px; font-weight: 600; color: var(--muted); }
+  .pk.hot .price small { color: #9fb0cf; }
+  .pk ul { list-style: none; margin: 18px 0 26px; display: grid; gap: 10px; flex: 1; font-size: 15px; }
+  .pk li { display: flex; gap: 10px; }
+  .pk li::before { content: "✓"; color: var(--mint); font-weight: 800; }
+
+  /* TELEMEDICINA */
+  .tele { padding: 0 0 100px; }
+  .tele__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+  .phone { width: 300px; height: 600px; margin: 0 auto; border-radius: 46px; background: var(--ink); padding: 12px; box-shadow: 0 40px 80px -40px rgba(15,27,51,.6); position: relative; }
+  .phone__in { width: 100%; height: 100%; border-radius: 36px; overflow: hidden; position: relative; background: #000; }
+  .phone__in img { width: 100%; height: 100%; object-fit: cover; opacity: .92; }
+  .phone__self { position: absolute; right: 14px; top: 46px; width: 84px; height: 116px; border-radius: 16px; overflow: hidden; border: 2px solid #fff; }
+  .phone__self img { width: 100%; height: 100%; object-fit: cover; }
+  .phone__bar { position: absolute; left: 0; right: 0; bottom: 0; padding: 18px; display: flex; justify-content: center; gap: 14px; background: linear-gradient(transparent, rgba(0,0,0,.7)); }
+  .phone__bar span { width: 50px; height: 50px; border-radius: 50%; background: rgba(255,255,255,.2); display: grid; place-items: center; color: #fff; font-size: 18px; }
+  .phone__bar span.end { background: var(--coral); }
+  .timer { position: absolute; left: 18px; top: 46px; background: rgba(0,0,0,.5); color: #fff; padding: 5px 10px; border-radius: 999px; font-size: 13px; font-weight: 700; display: flex; gap: 6px; align-items: center; }
+  .timer i { width: 8px; height: 8px; border-radius: 50%; background: #2ee08a; }
+  .steps { list-style: none; counter-reset: s; display: grid; gap: 16px; margin: 26px 0 30px; }
+  .steps li { counter-increment: s; display: flex; gap: 16px; align-items: flex-start; }
+  .steps li::before { content: counter(s); width: 36px; height: 36px; border-radius: 12px; background: var(--sky); color: var(--blue); font-weight: 800; display: grid; place-items: center; flex: none; }
+
+  /* RODAPÉ */
+  .visit { padding: 0 0 100px; }
+  .visit__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .vc { background: var(--white); border-radius: var(--r); padding: 28px; box-shadow: 0 0 0 1px var(--line); }
+  .vc h4 { font-size: 13px; letter-spacing: .08em; text-transform: uppercase; color: var(--blue); margin-bottom: 10px; }
+  .vc .stars { color: #f5b301; letter-spacing: 2px; }
+  footer { background: var(--ink); color: #9fb0cf; padding: 40px 0; font-size: 14px; }
+  .foot { display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; align-items: center; }
+  footer .logo { color: #fff; }
+
+  /* MODAL */
+  .modal { position: fixed; inset: 0; z-index: 100; display: grid; place-items: center; background: rgba(15,27,51,.5); backdrop-filter: blur(4px); opacity: 0; pointer-events: none; transition: opacity .3s; padding: 20px; }
+  .modal.on { opacity: 1; pointer-events: auto; }
+  .modal__box { width: min(460px, 100%); background: var(--white); border-radius: 28px; padding: 32px; transform: translateY(20px) scale(.97); transition: transform .4s var(--ease); }
+  .modal.on .modal__box { transform: none; }
+  .modal h3 { font-size: 26px; }
+  .modal__doc { display: flex; gap: 14px; align-items: center; margin: 18px 0; padding: 14px; border-radius: 16px; background: var(--bg); }
+  .modal__doc img { width: 56px; height: 56px; border-radius: 14px; object-fit: cover; }
+  .modal input, .modal select { width: 100%; padding: 13px 15px; border-radius: 12px; border: 1px solid var(--line); background: var(--bg); outline: none; margin-bottom: 10px; font-weight: 500; }
+  .modal input:focus { border-color: var(--blue); }
+  .mrow { display: flex; gap: 10px; margin-top: 8px; }
+  .mrow .btn { flex: 1; }
+  .wa { position: fixed; right: 22px; bottom: 22px; z-index: 60; width: 58px; height: 58px; border-radius: 50%; background: #25d366; color: #fff; display: grid; place-items: center; box-shadow: 0 12px 30px -8px rgba(37,211,102,.6); transition: transform .3s var(--ease); }
+  .wa:hover { transform: scale(1.08); }
+
+  @media (max-width: 1040px) {
+    .nav__links, .nav__cta { display: none; }
+    .burger { display: grid; }
+    .nav.open { background: var(--white); }
+    .nav.open .nav__links { display: flex; flex-direction: column; position: absolute; top: 76px; left: 0; right: 0; background: var(--white); padding: 24px 20px; gap: 18px; box-shadow: 0 1px 0 var(--line); }
+    .hero__grid, .plan__box, .tele__grid { grid-template-columns: 1fr; }
+    .visual { max-width: 460px; margin: 0 auto; width: 100%; }
+    .fcard--a { left: -10px; } .fcard--b { right: -6px; }
+    .sgrid { grid-template-columns: 1fr 1fr; }
+    .dlist, .pgrid, .visit__grid { grid-template-columns: 1fr; }
+    .plan__box { padding: 34px 24px; }
+  }
+  @media (max-width: 560px) {
+    .search { grid-template-columns: 1fr; }
+    .doc { grid-template-columns: 80px 1fr; gap: 14px; }
+    .doc img { width: 80px; height: 100px; }
+    .docs__bar span { margin-left: 0; width: 100%; }
+    .phone { width: 260px; height: 520px; }
+  }
+  @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; animation-delay: 0s !important; transition-duration: .01ms !important; } [data-r] { opacity: 1; transform: none; } }
+</style>
+</head>
+<body>
+
+<header class="nav" id="nav">
+  <div class="wrap nav__in">
+    <a href="#" class="logo"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></i>Vitalis</a>
+    <nav class="nav__links"><a href="#especialidades">Especialidades</a><a href="#medicos">Médicos</a><a href="#convenios">Convênios</a><a href="#checkups">Check-ups</a><a href="#telemedicina">Telemedicina</a></nav>
+    <a href="#medicos" class="btn btn--b nav__cta" style="padding:11px 20px">Agendar consulta</a>
+    <button class="burger" aria-label="Menu"><span></span></button>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap hero__grid">
+    <div>
+      <span class="pill">● Agenda aberta para esta semana</span>
+      <h1>Saúde completa, <span>sem espera</span> e sem complicação.</h1>
+      <p>12 especialidades, exames laboratoriais e de imagem no mesmo prédio e consultas por vídeo. Você escolhe o médico e o horário em segundos.</p>
+      <form class="search" id="search">
+        <div class="sf"><label for="qEsp">Especialidade</label><select id="qEsp"></select></div>
+        <div class="sf"><label for="qConv">Convênio</label><select id="qConv"></select></div>
+        <button class="btn btn--b" type="submit">Ver horários</button>
+      </form>
+      <div class="trust"><span><b>4,9 ★</b> no Google</span><span><b>+40 mil</b> pacientes</span><span><b>Resultados</b> online</span></div>
+    </div>
+    <div class="visual">
+      <div class="visual__img"><img src="https://images.unsplash.com/photo-1758691462123-8a17ae95d203?w=1100&q=80&auto=format&fit=crop" alt="Médico aferindo pressão de paciente" /></div>
+      <div class="fcard fcard--a"><i style="background:#ffe9e6">❤</i><div><small>Check-up cardíaco</small><svg class="ecg" viewBox="0 0 80 30"><path d="M0 15h22l4-10 6 20 5-14 3 4h40"/></svg></div></div>
+      <div class="fcard fcard--b"><i style="background:var(--sky)">🗓</i><div><small>Próximo horário livre</small><b id="nextFree">hoje, 14:20</b></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="specs" id="especialidades">
+  <div class="wrap">
+    <div class="head"><div data-r><span class="pill">Especialidades</span><h2 class="h2" style="margin-top:14px">Cuidado para <span>toda a família</span></h2></div><p data-r style="--d:.1s">Toque em uma especialidade para ver os médicos e os horários disponíveis.</p></div>
+    <div class="sgrid" id="sgrid"></div>
+  </div>
+</section>
+
+<section class="docs" id="medicos">
+  <div class="wrap">
+    <div class="head"><div data-r><span class="pill">Corpo clínico</span><h2 class="h2" style="margin-top:14px">Escolha seu <span>médico</span></h2></div></div>
+    <div class="docs__bar" data-r><select id="fEsp" aria-label="Especialidade"></select><select id="fConv" aria-label="Convênio"></select><select id="fTipo" aria-label="Modalidade"><option value="">Presencial ou vídeo</option><option value="tele">Só telemedicina</option></select><span id="fCount"></span></div>
+    <div class="dlist" id="dlist"></div>
+  </div>
+</section>
+
+<section class="plan" id="convenios">
+  <div class="wrap">
+    <div class="plan__box" data-r>
+      <div><span class="pill" style="background:rgba(255,255,255,.15);color:#fff">Convênios</span><h2 class="h2" style="margin-top:14px">Seu plano é aceito aqui?</h2><p>Atendemos os principais convênios do país e também particular, com valores acessíveis e reembolso facilitado.</p></div>
+      <div class="pchk"><b>Verifique em 2 segundos</b><select id="pSel"></select><div class="pres" id="pRes"></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="packs" id="checkups">
+  <div class="wrap">
+    <div class="head"><div data-r><span class="pill">Check-ups</span><h2 class="h2" style="margin-top:14px">Exames em <span>uma manhã</span></h2></div><p data-r style="--d:.1s">Coleta, exames de imagem e consulta de retorno no mesmo lugar. Resultados no app em até 48 horas.</p></div>
+    <div class="pgrid">
+      <div class="pk" data-r><h3>Essencial</h3><p class="price">R$ 290<small> /particular</small></p><ul><li>Hemograma e glicemia</li><li>Colesterol e triglicerídeos</li><li>Urina e função renal</li><li>Consulta com clínico</li></ul><a href="#medicos" class="btn btn--w">Agendar</a></div>
+      <div class="pk hot" data-r style="--d:.1s"><h3>Completo</h3><p class="price">R$ 690<small> /particular</small></p><ul><li>Tudo do Essencial</li><li>Eletrocardiograma</li><li>Ultrassom de abdome</li><li>Tireoide e vitaminas</li><li>Retorno com especialista</li></ul><a href="#medicos" class="btn btn--b">Agendar</a></div>
+      <div class="pk" data-r style="--d:.2s"><h3>Executivo</h3><p class="price">R$ 1.490<small> /particular</small></p><ul><li>Tudo do Completo</li><li>Teste ergométrico</li><li>Ecocardiograma</li><li>Avaliação nutricional</li><li>Relatório médico completo</li></ul><a href="#medicos" class="btn btn--w">Agendar</a></div>
+    </div>
+  </div>
+</section>
+
+<section class="tele" id="telemedicina">
+  <div class="wrap tele__grid">
+    <div class="phone" data-r>
+      <div class="phone__in"><img src="https://images.unsplash.com/photo-1758691462651-611d730c5272?w=700&q=78&auto=format&fit=crop" alt="Médica em teleconsulta" loading="lazy" /><div class="timer"><i></i><span id="callT">00:00</span></div><div class="phone__self"><img src="https://images.unsplash.com/photo-1758691461935-202e2ef6b69f?w=300&q=70&auto=format&fit=crop" alt="" loading="lazy" /></div><div class="phone__bar"><span>🎙</span><span>📷</span><span class="end">✕</span></div></div>
+    </div>
+    <div data-r style="--d:.1s">
+      <span class="pill">Telemedicina</span>
+      <h2 class="h2" style="margin-top:14px">Consulte de casa, <span>com receita digital</span></h2>
+      <ol class="steps"><li><div><b>Escolha o médico</b><br /><span style="color:var(--muted)">Filtre por "só telemedicina" e veja os horários de hoje.</span></div></li><li><div><b>Receba o link</b><br /><span style="color:var(--muted)">Chega por WhatsApp e e-mail, sem instalar nada.</span></div></li><li><div><b>Receita e atestado digitais</b><br /><span style="color:var(--muted)">Válidos em qualquer farmácia do Brasil.</span></div></li></ol>
+      <a href="#medicos" class="btn btn--b" id="teleBtn">Ver médicos por vídeo</a>
+    </div>
+  </div>
+</section>
+
+<section class="visit">
+  <div class="wrap visit__grid">
+    <div class="vc" data-r><h4>Endereço</h4><p>Av. Brigadeiro Faria Lima, 1811 — 6º andar<br />Jardim Paulistano, São Paulo</p></div>
+    <div class="vc" data-r style="--d:.1s"><h4>Horários</h4><p>Seg a sex, 7h às 21h<br />Sábado, 7h às 14h</p></div>
+    <div class="vc" data-r style="--d:.2s"><h4>Avaliação</h4><p><span class="stars">★★★★★</span><br />“Fui atendida no horário, exames no mesmo dia e o médico explicou tudo com calma.” — Paula R.</p></div>
+  </div>
+</section>
+
+<footer><div class="wrap foot"><a href="#" class="logo"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></i>Vitalis</a><span>Responsável técnico: Dr. Henrique Lobo · CRM-SP 120.453</span><span>© 2026 Vitalis Clínica Médica</span></div></footer>
+
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-label="Confirmar consulta">
+  <form class="modal__box" id="mForm">
+    <h3>Confirmar consulta</h3>
+    <div class="modal__doc" id="mDoc"></div>
+    <input id="mNome" placeholder="Nome do paciente" required />
+    <input id="mTel" placeholder="WhatsApp" inputmode="tel" required />
+    <select id="mConv"></select>
+    <div class="mrow"><button type="button" class="btn btn--w" id="mCancel">Voltar</button><button class="btn btn--b">Confirmar</button></div>
+  </form>
+</div>
+
+<a class="wa" href="https://wa.me/5511999990000" target="_blank" rel="noopener" aria-label="WhatsApp"><svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21c5.46 0 9.910-4.45 9.91-9.91S17.5 2 12.04 2Zm5.8 14.03c-.24.68-1.42 1.3-1.95 1.35-.5.05-.97.23-3.27-.68-2.77-1.09-4.52-3.92-4.66-4.1-.13-.18-1.1-1.47-1.1-2.8 0-1.34.7-2 .95-2.27.25-.27.54-.34.72-.34h.52c.17 0 .4-.06.62.47.24.56.8 1.94.87 2.08.07.14.12.3.02.48-.1.19-.14.3-.28.47-.14.16-.3.36-.42.49-.14.14-.29.29-.12.57.17.28.74 1.22 1.59 1.98 1.09.97 2.01 1.27 2.29 1.41.28.14.45.12.62-.07.17-.19.71-.83.9-1.11.19-.28.38-.24.64-.14.26.09 1.65.78 1.93.92.28.14.47.21.54.33.07.11.07.66-.17 1.34Z"/></svg></a>
+
+<script>
+(() => {
+  const $ = (s, el = document) => el.querySelector(s);
+  const $$ = (s, el = document) => [...el.querySelectorAll(s)];
+  const u = (id, w) => `https://images.unsplash.com/photo-${id}?w=${w}&q=78&auto=format&fit=crop`;
+  const WA = "5511999990000";
+
+  const nav = $("#nav");
+  addEventListener("scroll", () => nav.classList.toggle("solid", scrollY > 20), { passive: true });
+  $(".burger").onclick = () => nav.classList.toggle("open");
+  $$(".nav__links a").forEach((a) => a.onclick = () => nav.classList.remove("open"));
+  const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }), { threshold: .12 });
+  $$("[data-r]").forEach((el) => io.observe(el));
+
+  /* Dados */
+  const IC = {
+    "Clínica geral": '<path d="M8 3v6a4 4 0 0 0 8 0V3"/><path d="M12 13v3a5 5 0 0 0 10 0v-2"/><circle cx="22" cy="12" r="0"/>',
+    "Cardiologia": '<path d="M12 20s-7-4.4-9-9a5 5 0 0 1 9-3 5 5 0 0 1 9 3c-2 4.6-9 9-9 9Z"/><path d="M5 12h3l2-3 3 6 2-3h4"/>',
+    "Dermatologia": '<circle cx="12" cy="12" r="8"/><circle cx="9" cy="10" r="1"/><circle cx="14" cy="14" r="1.4"/><circle cx="15" cy="9" r=".8"/>',
+    "Pediatria": '<circle cx="12" cy="8" r="4"/><path d="M5 21a7 7 0 0 1 14 0"/><path d="M10 8h.01M14 8h.01"/>',
+    "Ortopedia": '<path d="M8 3a2 2 0 1 0-2 3l9 9a2 2 0 1 0 3 3 2 2 0 1 0-3-3l-9-9a2 2 0 1 0 2-3Z"/>',
+    "Endocrinologia": '<path d="M12 3c3 4 6 7 6 11a6 6 0 0 1-12 0c0-4 3-7 6-11Z"/>',
+    "Ginecologia": '<circle cx="12" cy="9" r="5"/><path d="M12 14v7M9 18h6"/>',
+    "Psicologia": '<path d="M12 4a6 6 0 0 0-6 6c0 3 2 4 2 7h8c0-3 2-4 2-7a6 6 0 0 0-6-6Z"/><path d="M10 21h4"/>',
+  };
+  const ESP = Object.keys(IC);
+  const CONV = ["Particular", "Amil", "Bradesco Saúde", "SulAmérica", "Porto Saúde", "Unimed", "NotreDame", "Omint"];
+  const D = [
+    ["Dra. Camila Rocha", "Clínica geral", "CRM-SP 145.902", "1758691462651-611d730c5272", ["Particular", "Amil", "Bradesco Saúde", "SulAmérica", "Unimed"], true, "Adultos e idosos · check-ups"],
+    ["Dr. Henrique Lobo", "Cardiologia", "CRM-SP 120.453", "1612349317150-e413f6a5b16d", ["Particular", "Bradesco Saúde", "SulAmérica", "Omint"], false, "Arritmias e prevenção"],
+    ["Dra. Luiza Fontes", "Dermatologia", "CRM-SP 158.330", "1673865641073-4479f93a7776", ["Particular", "Amil", "Porto Saúde"], true, "Clínica e estética"],
+    ["Dr. Rafael Tanaka", "Ortopedia", "CRM-SP 139.871", "1612276529731-4b21494e6d71", ["Particular", "SulAmérica", "Unimed", "NotreDame"], false, "Joelho e medicina esportiva"],
+    ["Dra. Beatriz Mendes", "Pediatria", "CRM-SP 162.044", "1758691462878-6edc3d3da1be", ["Particular", "Amil", "Bradesco Saúde", "Unimed", "NotreDame"], true, "Recém-nascidos a adolescentes"],
+    ["Dr. Otávio Saraiva", "Endocrinologia", "CRM-SP 098.512", "1758691461935-202e2ef6b69f", ["Particular", "Omint", "SulAmérica"], true, "Diabetes e tireoide"],
+    ["Dra. Helena Duarte", "Ginecologia", "CRM-SP 150.778", "1638202993928-7267aad84c31", ["Particular", "Amil", "Porto Saúde", "Unimed"], false, "Saúde da mulher e pré-natal"],
+    ["Dr. Caio Ventura", "Psicologia", "CRP 06/154.221", "1612349316228-5942a9b489c2", ["Particular", "Bradesco Saúde", "SulAmérica"], true, "Ansiedade e terapia de casal"],
+  ];
+  // horários livres determinísticos a partir do nome
+  const hash = (s) => [...s].reduce((h, c) => (h * 31 + c.charCodeAt(0)) % 9973, 7);
+  const DN = ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"];
+  function slots(nome) {
+    const out = [], agora = new Date();
+    for (let d = 0; out.length < 4 && d < 7; d++) {
+      const dia = new Date(); dia.setDate(dia.getDate() + d);
+      if (dia.getDay() === 0) continue;
+      const fim = dia.getDay() === 6 ? 13 : 20;
+      for (let h = 8; h < fim && out.length < 4; h++) for (const m of [0, 20, 40]) {
+        if (out.length >= 4) break;
+        const t = new Date(dia); t.setHours(h, m, 0, 0);
+        if (t < agora) continue;
+        if (hash(nome + t.toISOString()) % 5 === 0) out.push(t);
+      }
+    }
+    return out;
+  }
+  const lbl = (t) => { const hoje = new Date().toDateString() === t.toDateString(); const am = new Date(); am.setDate(am.getDate() + 1); return `${hoje ? "hoje" : am.toDateString() === t.toDateString() ? "amanhã" : DN[t.getDay()].toLowerCase()}, ${String(t.getHours()).padStart(2, "0")}:${String(t.getMinutes()).padStart(2, "0")}`; };
+
+  const opt = (arr, first) => `<option value="">${first}</option>` + arr.map((x) => `<option>${x}</option>`).join("");
+  $("#qEsp").innerHTML = opt(ESP, "Todas"); $("#fEsp").innerHTML = opt(ESP, "Todas as especialidades");
+  $("#qConv").innerHTML = opt(CONV, "Qualquer"); $("#fConv").innerHTML = opt(CONV, "Todos os convênios");
+  $("#pSel").innerHTML = opt(CONV.slice(1).concat(["Hapvida", "Golden Cross"]), "Selecione seu convênio");
+  $("#mConv").innerHTML = CONV.map((c) => `<option>${c}</option>`).join("");
+
+  /* Especialidades */
+  $("#sgrid").innerHTML = ESP.map((e, i) => `<button class="sp" data-e="${e}" data-r style="--d:${(i % 4) * .06}s"><i><svg viewBox="0 0 24 24">${IC[e]}</svg></i><h3>${e}</h3><small>${D.filter((d) => d[1] === e).length} especialista · a partir de amanhã</small></button>`).join("");
+  $$(".sp").forEach((s) => io.observe(s));
+  $("#sgrid").onclick = (e) => { const b = e.target.closest(".sp"); if (!b) return; $("#fEsp").value = b.dataset.e; render(); $("#medicos").scrollIntoView({ behavior: "smooth" }); };
+
+  /* Médicos */
+  const cache = {};
+  function render() {
+    const fe = $("#fEsp").value, fc = $("#fConv").value, ft = $("#fTipo").value;
+    $$(".sp").forEach((s) => s.classList.toggle("on", s.dataset.e === fe));
+    const l = D.filter((d) => (!fe || d[1] === fe) && (!fc || d[4].includes(fc)) && (!ft || d[5]));
+    $("#fCount").textContent = `${l.length} ${l.length === 1 ? "médico encontrado" : "médicos encontrados"}`;
+    $("#dlist").innerHTML = l.length ? l.map((d, i) => {
+      const s = cache[d[0]] ||= slots(d[0]);
+      return `<article class="doc" style="animation-delay:${i * 60}ms"><img src="${u(d[3], 300)}" alt="${d[0]}" loading="lazy" /><div><h3>${d[0]}</h3><p>${d[1]} · ${d[2]}</p><div class="tags"><span>${d[6]}</span>${d[5] ? '<span class="tele">● Telemedicina</span>' : ""}</div><div class="slots"><small>Próximos horários</small>${s.map((t, k) => `<button class="slot" data-d="${D.indexOf(d)}" data-k="${k}">${lbl(t)}</button>`).join("")}</div></div></article>`;
+    }).join("") : `<div class="empty">Nenhum médico com esses filtros. Tente outro convênio ou atendimento particular.</div>`;
+  }
+  ["#fEsp", "#fConv", "#fTipo"].forEach((s) => $(s).onchange = render);
+  $("#search").onsubmit = (e) => { e.preventDefault(); $("#fEsp").value = $("#qEsp").value; $("#fConv").value = $("#qConv").value; render(); $("#medicos").scrollIntoView({ behavior: "smooth" }); };
+  $("#teleBtn").onclick = () => { $("#fTipo").value = "tele"; render(); };
+  render();
+  // próximo horário livre (hero)
+  const todos = D.flatMap((d) => cache[d[0]] || slots(d[0])).sort((a, b) => a - b);
+  if (todos[0]) $("#nextFree").textContent = lbl(todos[0]);
+
+  /* Modal de agendamento */
+  const modal = $("#modal"); let escolha;
+  $("#dlist").onclick = (e) => {
+    const b = e.target.closest(".slot"); if (!b) return;
+    const d = D[+b.dataset.d], t = cache[d[0]][+b.dataset.k];
+    escolha = { d, t };
+    $("#mDoc").innerHTML = `<img src="${u(d[3], 200)}" alt="" /><div><b>${d[0]}</b><br /><small style="color:var(--muted)">${d[1]} · ${lbl(t)}</small></div>`;
+    if ($("#fConv").value) $("#mConv").value = $("#fConv").value;
+    modal.classList.add("on"); setTimeout(() => $("#mNome").focus(), 300);
+  };
+  const fecha = () => modal.classList.remove("on");
+  $("#mCancel").onclick = fecha; modal.onclick = (e) => { if (e.target === modal) fecha(); };
+  addEventListener("keydown", (e) => { if (e.key === "Escape") fecha(); });
+  $("#mForm").onsubmit = (e) => {
+    e.preventDefault();
+    const { d, t } = escolha;
+    const msg = `Olá! Quero confirmar uma consulta na Vitalis:\nPaciente: ${$("#mNome").value}\nMédico: ${d[0]} (${d[1]})\nHorário: ${t.toLocaleDateString("pt-BR", { weekday: "long", day: "numeric", month: "long" })} às ${lbl(t).split(", ")[1]}\nConvênio: ${$("#mConv").value}`;
+    window.open(`https://wa.me/${WA}?text=${encodeURIComponent(msg)}`, "_blank"); fecha();
+  };
+
+  /* Verificador de convênio */
+  const COB = { "Amil": ["Consultas", "Exames laboratoriais", "Imagem", "Telemedicina"], "Bradesco Saúde": ["Consultas", "Exames", "Check-up"], "SulAmérica": ["Consultas", "Exames", "Imagem", "Telemedicina"], "Porto Saúde": ["Consultas", "Dermatologia", "Ginecologia"], "Unimed": ["Consultas", "Exames laboratoriais"], "NotreDame": ["Consultas", "Pediatria", "Ortopedia"], "Omint": ["Consultas", "Exames", "Imagem", "Check-up executivo"] };
+  $("#pSel").onchange = (e) => {
+    const c = e.target.value;
+    if (!c) { $("#pRes").innerHTML = ""; return; }
+    $("#pRes").innerHTML = COB[c]
+      ? `<div class="ok"><i style="background:#dcfaf5;color:#0d8a7c">✓</i><div><b>Aceitamos ${c}</b><span style="color:var(--muted);font-size:14px">${D.filter((d) => d[4].includes(c)).length} médicos atendem pelo seu plano.</span><ul>${COB[c].map((x) => `<li>${x}</li>`).join("")}</ul></div></div>`
+      : `<div class="ok"><i style="background:#ffe9e6;color:var(--coral)">!</i><div><b>${c} não é credenciado</b><span style="color:var(--muted);font-size:14px">Atendemos como particular com nota para reembolso — em média 70% do valor volta para você.</span></div></div>`;
+  };
+
+  /* Cronômetro da teleconsulta */
+  let s = 0; setInterval(() => { s++; $("#callT").textContent = `${String(Math.floor(s / 60)).padStart(2, "0")}:${String(s % 60).padStart(2, "0")}`; }, 1000);
+})();
+</script>
+</body>
+</html>

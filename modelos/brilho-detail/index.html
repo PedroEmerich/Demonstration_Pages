@@ -1,0 +1,436 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Brilho Detail — Estética Automotiva</title>
+<meta name="description" content="Brilho Detail: lavagem detalhada, polimento técnico e vitrificação. Monte seu pacote, veja o preço na hora e agende com leva-e-traz." />
+<meta name="theme-color" content="#0a0f1a" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;800&family=Inter+Tight:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #0a0f1a; --bg2: #101828; --card: #141e30; --line: #22304a; --ink: #eef3fa; --muted: #8796ad;
+    --c: #3ad1ff; --c2: #7b6bff; --light: #f3f6fa;
+    --disp: "Unbounded", system-ui, sans-serif; --sans: "Inter Tight", system-ui, sans-serif;
+    --ease: cubic-bezier(.2,.8,.2,1);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { overflow-x: clip; scroll-behavior: smooth; scroll-padding-top: 80px; }
+  body { background: var(--bg); color: var(--ink); font-family: var(--sans); line-height: 1.6; -webkit-font-smoothing: antialiased; overflow-x: clip; }
+  img { display: block; max-width: 100%; }
+  a { color: inherit; text-decoration: none; }
+  button, input, select { font: inherit; color: inherit; }
+  button { background: none; border: 0; cursor: pointer; }
+  .wrap { width: min(1260px, 100% - 40px); margin-inline: auto; }
+  [class*="__grid"] > * { min-width: 0; }
+  .h2 { font-family: var(--disp); font-weight: 800; font-size: clamp(32px, 4.6vw, 64px); line-height: 1.02; letter-spacing: -.03em; }
+  .grad { background: linear-gradient(90deg, var(--c), var(--c2)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .eyebrow { font-size: 12px; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; color: var(--c); }
+  .lead { color: var(--muted); font-size: 18px; max-width: 520px; }
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 16px 26px; border-radius: 999px; font-weight: 600; transition: transform .3s var(--ease), box-shadow .3s; }
+  .btn--c { background: linear-gradient(90deg, var(--c), var(--c2)); color: #061020; box-shadow: 0 14px 40px -14px var(--c); }
+  .btn--c:hover { transform: translateY(-2px); box-shadow: 0 20px 50px -14px var(--c); }
+  .btn--o { box-shadow: inset 0 0 0 1px var(--line); }
+  .btn--o:hover { box-shadow: inset 0 0 0 1px var(--c); }
+  [data-r] { opacity: 0; transform: translateY(34px); transition: opacity .9s var(--ease), transform .9s var(--ease); transition-delay: var(--d, 0s); }
+  [data-r].in { opacity: 1; transform: none; }
+
+  /* NAV */
+  .nav { position: fixed; inset: 0 0 auto; z-index: 50; transition: background .3s; }
+  .nav.s { background: rgba(10,15,26,.85); backdrop-filter: blur(14px); border-bottom: 1px solid var(--line); }
+  .nav__in { height: 74px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+  .logo { font-family: var(--disp); font-weight: 800; font-size: 19px; letter-spacing: -.02em; display: flex; align-items: center; gap: 10px; }
+  .logo svg { width: 28px; height: 28px; }
+  .links { display: flex; gap: 30px; font-size: 15px; color: #c3cee0; }
+  .links a:hover { color: var(--c); }
+  .burger { display: none; width: 44px; height: 44px; border-radius: 50%; background: var(--card); place-items: center; }
+  .burger span { width: 18px; height: 2px; background: var(--ink); box-shadow: 0 -6px var(--ink), 0 6px var(--ink); }
+  .menu { position: fixed; inset: 74px 0 auto; background: var(--bg); border-bottom: 1px solid var(--line); padding: 20px; display: none; flex-direction: column; gap: 14px; z-index: 49; font-family: var(--disp); font-size: 24px; }
+  .menu.on { display: flex; }
+
+  /* HERO com "lavagem" */
+  .hero { position: relative; min-height: 100svh; display: grid; align-items: center; padding: 110px 0 60px; overflow: hidden; }
+  .hero::before { content: ""; position: absolute; width: 900px; height: 900px; right: -300px; top: -300px; background: radial-gradient(circle, rgba(58,209,255,.18), transparent 60%); }
+  .hero__grid { position: relative; display: grid; grid-template-columns: .9fr 1.1fr; gap: 50px; align-items: center; }
+  .hero h1 { font-family: var(--disp); font-weight: 800; font-size: clamp(40px, 5vw, 74px); line-height: .98; letter-spacing: -.04em; margin: 18px 0 22px; }
+  .hero h1 span { display: block; }
+  .hero__cta { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 30px; }
+  .stats { display: flex; gap: 34px; margin-top: 44px; flex-wrap: wrap; }
+  .stats b { display: block; font-family: var(--disp); font-size: 28px; }
+  .stats span { color: var(--muted); font-size: 14px; }
+  .wash { position: relative; aspect-ratio: 4/3.3; border-radius: 26px; overflow: hidden; box-shadow: 0 40px 100px -30px rgba(0,0,0,.8), 0 0 0 1px var(--line); touch-action: none; cursor: crosshair; }
+  .wash img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .wash canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .wash__hint { position: absolute; left: 50%; bottom: 18px; transform: translateX(-50%); background: rgba(10,15,26,.82); backdrop-filter: blur(8px); padding: 10px 16px; border-radius: 999px; font-size: 13px; font-weight: 500; white-space: nowrap; display: flex; align-items: center; gap: 10px; pointer-events: none; transition: opacity .4s; }
+  .wash__hint i { width: 90px; height: 5px; background: var(--line); border-radius: 5px; overflow: hidden; }
+  .wash__hint i b { display: block; height: 100%; width: 0; background: linear-gradient(90deg, var(--c), var(--c2)); transition: width .2s; }
+  .wash.done .wash__hint { opacity: 0; }
+  .sparkle { position: absolute; width: 22px; height: 22px; pointer-events: none; opacity: 0; }
+  .wash.done .sparkle { animation: spk 1.6s var(--ease) forwards; }
+  @keyframes spk { 40% { opacity: 1; transform: scale(1) rotate(45deg); } to { opacity: 0; transform: scale(.2) rotate(90deg); } }
+
+  /* LOGOS / MARQUEE */
+  .mq { border-block: 1px solid var(--line); overflow: hidden; padding: 20px 0; }
+  .mq__in { display: flex; gap: 60px; width: max-content; animation: mq 30s linear infinite; font-family: var(--disp); font-weight: 600; color: #4a5a76; font-size: 18px; white-space: nowrap; }
+  @keyframes mq { to { transform: translateX(-50%); } }
+
+  /* BUILDER */
+  .build { padding: 110px 0; }
+  .build__grid { display: grid; grid-template-columns: 1.25fr .75fr; gap: 30px; margin-top: 46px; align-items: start; }
+  .step { background: var(--card); border: 1px solid var(--line); border-radius: 20px; padding: 26px; margin-bottom: 16px; }
+  .step h3 { font-family: var(--disp); font-weight: 600; font-size: 15px; display: flex; gap: 12px; align-items: center; margin-bottom: 18px; }
+  .step h3 i { font-style: normal; width: 28px; height: 28px; border-radius: 50%; background: var(--bg2); display: grid; place-items: center; font-size: 12px; color: var(--c); }
+  .sizes { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+  .size { padding: 16px 8px 12px; border-radius: 14px; background: var(--bg2); border: 1px solid transparent; display: grid; justify-items: center; gap: 6px; font-size: 14px; font-weight: 500; transition: all .25s; }
+  .size svg { width: 80%; max-width: 92px; height: 34px; }
+  .size svg path { fill: none; stroke: var(--muted); stroke-width: 2.2; stroke-linejoin: round; }
+  .size small { color: var(--muted); font-size: 12px; }
+  .size.on { border-color: var(--c); background: rgba(58,209,255,.08); }
+  .size.on svg path { stroke: var(--c); }
+  .pkgs { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .pkg { text-align: left; padding: 18px; border-radius: 14px; background: var(--bg2); border: 1px solid transparent; transition: all .25s; display: grid; gap: 4px; }
+  .pkg b { font-size: 16px; }
+  .pkg small { color: var(--muted); font-size: 13px; line-height: 1.45; }
+  .pkg span { font-family: var(--disp); font-size: 14px; color: var(--c); margin-top: 6px; }
+  .pkg.on { border-color: var(--c); background: rgba(58,209,255,.08); }
+  .ext { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .ex { display: flex; justify-content: space-between; gap: 10px; align-items: center; padding: 13px 16px; border-radius: 12px; background: var(--bg2); font-size: 14px; cursor: pointer; transition: background .2s; }
+  .ex input { accent-color: var(--c); width: 18px; height: 18px; }
+  .ex:has(input:checked) { background: rgba(58,209,255,.1); }
+  .ex label { flex: 1; cursor: pointer; }
+  .ex em { font-style: normal; color: var(--muted); font-size: 13px; }
+  .quote { position: sticky; top: 94px; background: linear-gradient(160deg, #162441, #0f1626); border: 1px solid var(--line); border-radius: 22px; padding: 28px; }
+  .quote small { color: var(--muted); }
+  .price { font-family: var(--disp); font-weight: 800; font-size: clamp(40px, 4vw, 54px); letter-spacing: -.03em; margin: 6px 0; }
+  .lines { list-style: none; display: grid; gap: 8px; font-size: 14px; margin: 18px 0; padding: 18px 0; border-block: 1px dashed var(--line); }
+  .lines li { display: flex; justify-content: space-between; gap: 10px; color: #c3cee0; }
+  .meter { margin: 6px 0 20px; }
+  .meter p { display: flex; justify-content: space-between; font-size: 13px; color: var(--muted); margin-bottom: 8px; }
+  .meter div { height: 10px; border-radius: 10px; background: var(--bg); overflow: hidden; }
+  .meter i { display: block; height: 100%; width: 0; border-radius: 10px; background: linear-gradient(90deg, var(--c2), var(--c)); transition: width .8s var(--ease); }
+  .quote .btn { width: 100%; }
+
+  /* PROTEÇÃO */
+  .prot { padding: 110px 0; background: var(--light); color: #0b1220; }
+  .prot .lead { color: #5a6a82; }
+  .prot__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+  .bead { position: relative; aspect-ratio: 1.15; border-radius: 26px; overflow: hidden; background: linear-gradient(140deg, #0c1424, #1d3355 60%, #0c1424); }
+  .bead::after { content: ""; position: absolute; inset: 0; background: linear-gradient(115deg, transparent 30%, rgba(255,255,255,.12) 45%, transparent 55%); animation: shine 5s var(--ease) infinite; }
+  @keyframes shine { from { transform: translateX(-60%); } to { transform: translateX(60%); } }
+  .drop { position: absolute; border-radius: 50%; background: radial-gradient(circle at 35% 30%, rgba(255,255,255,.95), rgba(180,220,255,.35) 30%, rgba(60,120,200,.25) 70%, rgba(255,255,255,.4)); box-shadow: 0 4px 8px rgba(0,0,0,.35), inset 0 -2px 4px rgba(255,255,255,.3); }
+  .bead__lbl { position: absolute; left: 20px; top: 20px; background: rgba(255,255,255,.12); backdrop-filter: blur(6px); color: #fff; padding: 8px 14px; border-radius: 999px; font-size: 13px; z-index: 2; }
+  .cmp { display: grid; gap: 18px; margin-top: 30px; }
+  .cmp p { display: flex; justify-content: space-between; font-weight: 600; margin-bottom: 8px; }
+  .cmp p span { color: #5a6a82; font-weight: 400; }
+  .cmp .bar { height: 14px; border-radius: 14px; background: #e2e8f0; overflow: hidden; }
+  .cmp .bar i { display: block; height: 100%; width: 0; border-radius: 14px; background: linear-gradient(90deg, #7b6bff, #3ad1ff); transition: width 1.6s var(--ease); }
+  .cmp.in .bar i { width: var(--w); }
+
+  /* PROCESSO */
+  .proc { padding: 110px 0; }
+  .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 46px; counter-reset: s; }
+  .ps { background: var(--card); border: 1px solid var(--line); border-radius: 20px; overflow: hidden; }
+  .ps img { width: 100%; aspect-ratio: 4/3; object-fit: cover; transition: transform 1s var(--ease); }
+  .ps:hover img { transform: scale(1.06); }
+  .ps div { padding: 20px; }
+  .ps h3 { font-family: var(--disp); font-weight: 600; font-size: 17px; margin-bottom: 6px; }
+  .ps h3::before { counter-increment: s; content: "0" counter(s) " "; color: var(--c); }
+  .ps p { color: var(--muted); font-size: 14px; }
+
+  /* GALERIA */
+  .gal { padding: 0 0 110px; }
+  .mos { display: grid; grid-template-columns: 2fr 1fr 1fr; grid-template-rows: 260px 260px; gap: 12px; margin-top: 40px; }
+  .mos figure { position: relative; border-radius: 18px; overflow: hidden; }
+  .mos figure:first-child { grid-row: span 2; }
+  .mos img { width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s var(--ease); }
+  .mos figure:hover img { transform: scale(1.05); }
+  .mos figcaption { position: absolute; left: 14px; bottom: 14px; background: rgba(10,15,26,.75); backdrop-filter: blur(6px); padding: 6px 12px; border-radius: 999px; font-size: 13px; }
+
+  /* DEPOIMENTOS + CTA */
+  .rev { padding: 0 0 110px; }
+  .revs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 40px; }
+  .rv { background: var(--card); border: 1px solid var(--line); border-radius: 20px; padding: 26px; }
+  .rv .st { color: #ffc940; letter-spacing: 2px; }
+  .rv p { margin: 12px 0 18px; color: #c3cee0; }
+  .rv b { display: block; } .rv small { color: var(--muted); }
+  .cta { padding: 0 0 110px; }
+  .cta__box { border-radius: 30px; padding: clamp(30px, 6vw, 70px); background: radial-gradient(circle at 80% 0%, rgba(58,209,255,.35), transparent 50%), radial-gradient(circle at 0% 100%, rgba(123,107,255,.35), transparent 50%), var(--card); border: 1px solid var(--line); display: grid; grid-template-columns: 1.1fr .9fr; gap: 40px; align-items: center; }
+  .cform { display: grid; gap: 10px; }
+  .cform input, .cform select { width: 100%; padding: 15px 18px; border-radius: 14px; border: 1px solid var(--line); background: rgba(10,15,26,.6); outline: none; color-scheme: dark; }
+  .cform input:focus, .cform select:focus { border-color: var(--c); }
+  .cform .row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .cform label { display: flex; gap: 10px; align-items: center; font-size: 14px; color: #c3cee0; }
+  .cform label input { width: 18px; height: 18px; accent-color: var(--c); }
+  footer { border-top: 1px solid var(--line); padding: 40px 0; color: var(--muted); font-size: 14px; }
+  .foot { display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; align-items: center; }
+  .wa { position: fixed; right: 22px; bottom: 22px; z-index: 60; width: 58px; height: 58px; border-radius: 50%; background: #25d366; color: #fff; display: grid; place-items: center; box-shadow: 0 12px 30px -8px rgba(37,211,102,.6); transition: transform .3s var(--ease); }
+  .wa:hover { transform: scale(1.08); }
+
+  @media (max-width: 1000px) {
+    .links, .nav .btn { display: none; } .burger { display: grid; }
+    .hero__grid, .build__grid, .prot__grid, .cta__box { grid-template-columns: 1fr; }
+    .quote { position: static; }
+    .steps { grid-template-columns: 1fr 1fr; }
+    .revs { grid-template-columns: 1fr; }
+    .mos { grid-template-columns: 1fr 1fr; grid-template-rows: 240px 180px 180px; }
+    .mos figure:first-child { grid-row: auto; grid-column: span 2; }
+  }
+  @media (max-width: 600px) {
+    .sizes { grid-template-columns: 1fr 1fr; }
+    .pkgs, .ext, .cform .row { grid-template-columns: 1fr; }
+    .steps { grid-template-columns: 1fr; }
+    .step, .quote { padding: 20px; }
+  }
+  @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; } [data-r] { opacity: 1; transform: none; } }
+</style>
+</head>
+<body>
+
+<header class="nav" id="nav">
+  <div class="wrap nav__in">
+    <a href="#" class="logo"><svg viewBox="0 0 32 32"><defs><linearGradient id="lg" x1="0" x2="1"><stop offset="0" stop-color="#3ad1ff" /><stop offset="1" stop-color="#7b6bff" /></linearGradient></defs><path d="M16 2l3.5 10.5L30 16l-10.5 3.5L16 30l-3.5-10.5L2 16l10.5-3.5z" fill="url(#lg)" /></svg>BRILHO DETAIL</a>
+    <nav class="links"><a href="#pacote">Monte seu pacote</a><a href="#protecao">Vitrificação</a><a href="#processo">Processo</a><a href="#agendar">Agendar</a></nav>
+    <a href="#pacote" class="btn btn--c" style="padding:12px 22px">Orçamento</a>
+    <button class="burger" id="burger" aria-label="Menu"><span></span></button>
+  </div>
+</header>
+<nav class="menu" id="menu"><a href="#pacote">Monte seu pacote</a><a href="#protecao">Vitrificação</a><a href="#processo">Processo</a><a href="#agendar">Agendar</a></nav>
+
+<section class="hero">
+  <div class="wrap hero__grid">
+    <div>
+      <span class="eyebrow" data-r>Estética automotiva · Campinas</span>
+      <h1 data-r style="--d:.1s"><span>Seu carro</span><span class="grad">mais brilhante</span><span style="white-space:nowrap">que no dia 1.</span></h1>
+      <p class="lead" data-r style="--d:.2s">Lavagem detalhada, polimento técnico e vitrificação com garantia. Buscamos e entregamos o carro na sua porta.</p>
+      <div class="hero__cta" data-r style="--d:.3s"><a href="#pacote" class="btn btn--c">Montar meu pacote</a><a href="#protecao" class="btn btn--o">Como funciona a vitrificação</a></div>
+      <div class="stats" data-r style="--d:.4s"><div><b data-n="4200">0</b><span>carros atendidos</span></div><div><b>4,9 ★</b><span>no Google</span></div><div><b>3 anos</b><span>de garantia</span></div></div>
+    </div>
+    <div class="wash" id="wash" data-r style="--d:.2s">
+      <img src="https://images.unsplash.com/photo-1788581171092-bdcff4e69fbf?w=1200&q=82&auto=format&fit=crop" alt="Carro esportivo com gotas de água na pintura" />
+      <canvas id="dirt" aria-hidden="true"></canvas>
+      <div class="wash__hint"><span id="hintTxt">Passe o mouse para lavar</span><i><b id="hintBar"></b></i></div>
+    </div>
+  </div>
+</section>
+
+<div class="mq" aria-hidden="true"><div class="mq__in" id="mq"></div></div>
+
+<section class="build" id="pacote">
+  <div class="wrap">
+    <span class="eyebrow" data-r>Orçamento na hora</span>
+    <h2 class="h2" data-r style="margin-top:14px">Monte seu <span class="grad">pacote</span></h2>
+    <div class="build__grid">
+      <div data-r>
+        <div class="step"><h3><i>1</i>Tamanho do veículo</h3><div class="sizes" id="sizes"></div></div>
+        <div class="step"><h3><i>2</i>Serviço principal</h3><div class="pkgs" id="pkgs"></div></div>
+        <div class="step"><h3><i>3</i>Adicionais</h3><div class="ext" id="ext"></div></div>
+      </div>
+      <aside class="quote" data-r style="--d:.1s">
+        <small>Investimento estimado</small>
+        <p class="price" id="price">R$ 0</p>
+        <small id="parc"></small>
+        <ul class="lines" id="lines"></ul>
+        <div class="meter"><p><span>Nível de brilho</span><b id="glossTxt"></b></p><div><i id="gloss"></i></div></div>
+        <div class="meter"><p><span>Proteção da pintura</span><b id="protTxt"></b></p><div><i id="protBar"></i></div></div>
+        <p style="font-size:14px;color:var(--muted);margin-bottom:16px">Tempo no estúdio: <b id="tempo" style="color:var(--ink)"></b></p>
+        <a class="btn btn--c" id="qGo" target="_blank" rel="noopener" href="#">Agendar este pacote</a>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<section class="prot" id="protecao">
+  <div class="wrap prot__grid">
+    <div class="bead" data-r id="bead"><span class="bead__lbl">Efeito hidrofóbico</span></div>
+    <div data-r style="--d:.1s">
+      <span class="eyebrow" style="color:#7b6bff">Vitrificação cerâmica</span>
+      <h2 class="h2" style="margin-top:14px">A água <span class="grad">escorre.</span><br />A sujeira não gruda.</h2>
+      <p class="lead" style="margin-top:18px">Uma camada de cerâmica líquida cria uma película dura sobre o verniz. Protege contra sol, chuva ácida e riscos finos, e mantém o brilho por anos.</p>
+      <div class="cmp" id="cmp">
+        <div><p>Cera de carnaúba <span>até 3 meses</span></p><div class="bar"><i style="--w:8%"></i></div></div>
+        <div><p>Selante sintético <span>até 6 meses</span></p><div class="bar"><i style="--w:17%"></i></div></div>
+        <div><p>Vitrificação Brilho Pro <span>até 3 anos</span></p><div class="bar"><i style="--w:100%"></i></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="proc" id="processo">
+  <div class="wrap">
+    <span class="eyebrow" data-r>Processo</span>
+    <h2 class="h2" data-r style="margin-top:14px">Do pré-lavado ao <span class="grad">acabamento</span></h2>
+    <div class="steps">
+      <article class="ps" data-r><img src="https://images.unsplash.com/photo-1761312834150-4beefff097a7?w=700&q=78&auto=format&fit=crop" alt="Carro coberto de espuma" loading="lazy" /><div><h3>Pré-lavagem</h3><p>Espuma ativa de pH neutro solta a sujeira sem atrito.</p></div></article>
+      <article class="ps" data-r style="--d:.08s"><img src="https://images.unsplash.com/photo-1708805282683-50a060eba80f?w=700&q=78&auto=format&fit=crop" alt="Limpeza de pneu com escova" loading="lazy" /><div><h3>Detalhamento</h3><p>Rodas, caixas de roda, frisos e emblemas com pincéis.</p></div></article>
+      <article class="ps" data-r style="--d:.16s"><img src="https://images.unsplash.com/photo-1780558852670-3f49298ecc1f?w=700&q=78&auto=format&fit=crop" alt="Polimento da pintura" loading="lazy" /><div><h3>Correção</h3><p>Polimento em etapas remove riscos e marcas de lavagem.</p></div></article>
+      <article class="ps" data-r style="--d:.24s"><img src="https://images.unsplash.com/photo-1605437241278-c1806d14a4d9?w=700&q=78&auto=format&fit=crop" alt="Interior do carro limpo" loading="lazy" /><div><h3>Proteção</h3><p>Vitrificação ou selante e interior higienizado.</p></div></article>
+    </div>
+  </div>
+</section>
+
+<section class="gal">
+  <div class="wrap">
+    <span class="eyebrow" data-r>Portfólio</span>
+    <h2 class="h2" data-r style="margin-top:14px">Saídos do <span class="grad">estúdio</span></h2>
+    <div class="mos" data-r>
+      <figure><img src="https://images.unsplash.com/photo-1728926580875-a479706f866c?w=1100&q=80&auto=format&fit=crop" alt="Esportivo preto" loading="lazy" /><figcaption>Vitrificação 3 anos</figcaption></figure>
+      <figure><img src="https://images.unsplash.com/photo-1788273224786-291298763877?w=600&q=78&auto=format&fit=crop" alt="Detalhe do capô" loading="lazy" /><figcaption>Polimento técnico</figcaption></figure>
+      <figure><img src="https://images.unsplash.com/photo-1771491237218-cbd4a707497e?w=600&q=78&auto=format&fit=crop" alt="Painel do carro" loading="lazy" /><figcaption>Higienização</figcaption></figure>
+      <figure><img src="https://images.unsplash.com/photo-1633014041037-f5446fb4ce99?w=600&q=78&auto=format&fit=crop" alt="Carro com espuma" loading="lazy" /><figcaption>Lavagem detalhada</figcaption></figure>
+      <figure><img src="https://images.unsplash.com/photo-1567808291548-fc3ee04dbcf0?w=600&q=78&auto=format&fit=crop" alt="Carro após detalhamento" loading="lazy" /><figcaption>Revitalização</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<section class="rev">
+  <div class="wrap">
+    <span class="eyebrow" data-r>Clientes</span>
+    <h2 class="h2" data-r style="margin-top:14px">Quem já brilhou</h2>
+    <div class="revs">
+      <article class="rv" data-r><span class="st">★★★★★</span><p>“Meu carro de 2016 saiu parecendo zero. O leva-e-traz salvou meu dia.”</p><b>Camila R.</b><small>Polimento + vitrificação</small></article>
+      <article class="rv" data-r style="--d:.08s"><span class="st">★★★★★</span><p>“Atendimento impecável, mandaram fotos de cada etapa pelo WhatsApp.”</p><b>Thiago M.</b><small>Lavagem detalhada</small></article>
+      <article class="rv" data-r style="--d:.16s"><span class="st">★★★★★</span><p>“Faz um ano da vitrificação e a água ainda escorre como no primeiro dia.”</p><b>Renata S.</b><small>Vitrificação 3 anos</small></article>
+    </div>
+  </div>
+</section>
+
+<section class="cta" id="agendar">
+  <div class="wrap">
+    <div class="cta__box" data-r>
+      <div><span class="eyebrow">Agendamento</span><h2 class="h2" style="margin-top:14px">Reserve seu <span class="grad">horário</span></h2><p class="lead" style="margin-top:16px">Respondemos em minutos pelo WhatsApp. Atendemos de segunda a sábado, das 8h às 18h.</p></div>
+      <form class="cform" id="cform">
+        <input id="cN" placeholder="Seu nome" required />
+        <div class="row"><input id="cC" placeholder="Modelo do carro" required /><input id="cD" type="date" required aria-label="Data" /></div>
+        <select id="cS" aria-label="Serviço"><option>Lavagem detalhada</option><option>Polimento técnico</option><option>Vitrificação</option><option>Higienização interna</option></select>
+        <label><input type="checkbox" id="cL" />Quero leva-e-traz (R$ 50)</label>
+        <button class="btn btn--c">Enviar pelo WhatsApp</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer><div class="wrap foot"><a href="#" class="logo" style="font-size:16px">BRILHO DETAIL</a><span>Av. Norte-Sul, 1500 · Campinas — SP · (19) 99999-0000</span><span>© 2026 Brilho Detail</span></div></footer>
+
+<a class="wa" href="https://wa.me/5519999990000" target="_blank" rel="noopener" aria-label="WhatsApp"><svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21c5.46 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2Zm5.8 14.03c-.24.68-1.42 1.3-1.95 1.35-.5.05-.97.23-3.27-.68-2.77-1.09-4.52-3.92-4.66-4.1-.13-.18-1.1-1.47-1.1-2.8 0-1.34.7-2 .95-2.27.25-.27.54-.34.72-.34h.52c.17 0 .4-.06.62.47.24.56.8 1.94.87 2.08.07.14.12.3.02.48-.1.19-.14.3-.28.47-.14.16-.3.36-.42.49-.14.14-.29.29-.12.57.17.28.74 1.22 1.59 1.98 1.09.97 2.01 1.27 2.29 1.41.28.14.45.12.62-.07.17-.19.71-.83.9-1.11.19-.28.38-.24.64-.14.26.09 1.65.78 1.93.92.28.14.47.21.54.33.07.11.07.66-.17 1.34Z"/></svg></a>
+
+<script>
+(() => {
+  const reduz = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const $ = (s, el = document) => el.querySelector(s);
+  const $$ = (s, el = document) => [...el.querySelectorAll(s)];
+  const brl = (n) => n.toLocaleString("pt-BR", { style: "currency", currency: "BRL", maximumFractionDigits: 0 });
+  const WA = "5519999990000";
+
+  const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }), { threshold: .15 });
+  $$("[data-r], #cmp").forEach((el) => io.observe(el));
+  const nav = $("#nav");
+  addEventListener("scroll", () => nav.classList.toggle("s", scrollY > 40), { passive: true });
+  $("#burger").onclick = () => $("#menu").classList.toggle("on");
+  $$("#menu a").forEach((a) => a.onclick = () => $("#menu").classList.remove("on"));
+  $("#mq").innerHTML = Array(2).fill(["Lavagem detalhada", "Polimento técnico", "Vitrificação cerâmica", "Higienização interna", "Leva-e-traz", "Hidratação de couro", "Cristalização de vidros"].map((t) => `<span>✦ ${t}</span>`).join("")).join("");
+
+  // contador
+  const cnt = $("[data-n]");
+  new IntersectionObserver(([e], o) => { if (!e.isIntersecting) return; o.disconnect(); const alvo = +cnt.dataset.n, t0 = performance.now(); const f = (t) => { const p = Math.min(1, (t - t0) / 1600); cnt.textContent = Math.round(alvo * (1 - Math.pow(1 - p, 3))).toLocaleString("pt-BR") + "+"; if (p < 1) requestAnimationFrame(f); }; requestAnimationFrame(f); }).observe(cnt);
+
+  /* Hero: raspar a sujeira */
+  const wash = $("#wash"), cv = $("#dirt"), ctx = cv.getContext("2d");
+  let limpo = false, ultimo = null;
+  function sujar() {
+    const r = wash.getBoundingClientRect(), dpr = Math.min(2, devicePixelRatio || 1);
+    cv.width = r.width * dpr; cv.height = r.height * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    const g = ctx.createLinearGradient(0, 0, r.width, r.height);
+    g.addColorStop(0, "rgba(120,98,70,.92)"); g.addColorStop(1, "rgba(80,66,50,.94)");
+    ctx.fillStyle = g; ctx.fillRect(0, 0, r.width, r.height);
+    let s = 7; const rnd = () => (s = (s * 9301 + 49297) % 233280) / 233280;
+    for (let i = 0; i < 900; i++) { const t = rnd(); ctx.fillStyle = `rgba(${Math.round(70 + t * 70)},${Math.round(56 + t * 54)},${Math.round(38 + t * 38)},${.2 + rnd() * .4})`; ctx.beginPath(); ctx.arc(rnd() * r.width, rnd() * r.height, 1 + rnd() * 9, 0, 7); ctx.fill(); }
+    ctx.globalCompositeOperation = "destination-out";
+  }
+  function esfregar(x, y) {
+    const r = wash.getBoundingClientRect(), px = x - r.left, py = y - r.top, raio = Math.max(34, r.width * .07);
+    ctx.lineCap = "round"; ctx.lineWidth = raio * 2;
+    ctx.beginPath(); ctx.moveTo(ultimo ? ultimo[0] : px, ultimo ? ultimo[1] : py); ctx.lineTo(px, py); ctx.stroke();
+    ultimo = [px, py];
+  }
+  function medir() {
+    if (limpo) return;
+    const d = ctx.getImageData(0, 0, cv.width, cv.height).data; let vazio = 0, tot = 0;
+    for (let i = 3; i < d.length; i += 64) { tot++; if (d[i] < 40) vazio++; }
+    const p = vazio / tot;
+    $("#hintBar").style.width = `${Math.min(100, p / .6 * 100)}%`;
+    if (p > .6) acabar();
+  }
+  function acabar() {
+    limpo = true; cv.style.transition = "opacity .8s"; cv.style.opacity = 0; wash.classList.add("done");
+    [[22, 30], [64, 22], [78, 58], [36, 68], [52, 44]].forEach(([x, y], i) => wash.insertAdjacentHTML("beforeend", `<svg class="sparkle" style="left:${x}%;top:${y}%;animation-delay:${i * .15}s" viewBox="0 0 24 24"><path d="M12 0l2.5 9.5L24 12l-9.5 2.5L12 24l-2.5-9.5L0 12l9.5-2.5z" fill="#fff"/></svg>`));
+  }
+  sujar();
+  let rz; addEventListener("resize", () => { clearTimeout(rz); rz = setTimeout(() => { if (!limpo) sujar(); }, 200); });
+  let mt;
+  wash.addEventListener("pointermove", (e) => { if (limpo || (e.pointerType !== "mouse" && !e.buttons)) return; esfregar(e.clientX, e.clientY); clearTimeout(mt); mt = setTimeout(medir, 60); });
+  wash.addEventListener("pointerdown", (e) => { ultimo = null; if (!limpo) esfregar(e.clientX, e.clientY); });
+  wash.addEventListener("pointerleave", () => ultimo = null);
+  if (matchMedia("(hover: none)").matches) $("#hintTxt").textContent = "Arraste o dedo para lavar";
+  if (reduz) acabar();
+  else {
+    // demonstração: uma "passada" diagonal automática
+    const demo = new IntersectionObserver(([e], o) => {
+      if (!e.isIntersecting) return; o.disconnect();
+      setTimeout(() => {
+        const t0 = performance.now(); ultimo = null;
+        const f = (t) => { if (limpo) return; const p = Math.min(1, (t - t0) / 1100), r = wash.getBoundingClientRect(); esfregar(r.left + r.width * (.08 + p * .84), r.top + r.height * (.78 - p * .5)); if (p < 1) requestAnimationFrame(f); else { ultimo = null; medir(); } };
+        requestAnimationFrame(f);
+      }, 900);
+    }, { threshold: .4 });
+    demo.observe(wash);
+  }
+
+  /* Builder */
+  const SZ = [["Hatch", "Compacto", 1, "M6 30h88M14 30c0-14 4-18 16-18h22c10 0 16 8 26 9 8 1 12 3 12 9"], ["Sedã", "Médio", 1.15, "M4 30h92M10 30c0-6 6-9 16-10l12-8h26l14 8c10 1 16 4 16 10"], ["SUV", "Grande", 1.3, "M6 30h88M10 30V18c0-4 3-8 8-8h48c6 0 10 6 14 10 8 0 12 4 12 10"], ["Picape", "Extra", 1.45, "M2 30h96M6 30V18c0-3 2-6 6-6h30l8 8h44c2 0 2 4 2 10"]];
+  const PK = [["Lavagem detalhada", "Externa e interna, rodas, cera de proteção", 160, 2, 30, 10, 3], ["Polimento técnico", "Correção em 2 etapas + selante", 690, 8, 75, 35, 6], ["Vitrificação 1 ano", "Polimento + coating cerâmico", 1290, 14, 90, 70, 12], ["Vitrificação 3 anos", "Polimento 3 etapas + coating Pro", 1990, 20, 100, 100, 36]];
+  const EX = [["Higienização interna", 220, 3], ["Hidratação de couro", 160, 1], ["Limpeza de motor", 120, 1], ["Cristalização de vidros", 140, 1], ["Vitrificação de rodas", 280, 2], ["Leva-e-traz", 50, 0]];
+  let sz = 1, pk = 1; const ex = new Set();
+  $("#sizes").innerHTML = SZ.map(([n, d, , p], i) => `<button class="size" data-i="${i}"><svg viewBox="0 0 100 36"><path d="${p}" /><circle cx="26" cy="30" r="5" fill="#141e30" stroke="currentColor" /><circle cx="76" cy="30" r="5" fill="#141e30" stroke="currentColor" /></svg>${n}<small>${d}</small></button>`).join("");
+  $("#pkgs").innerHTML = PK.map(([n, d, p], i) => `<button class="pkg" data-i="${i}"><b>${n}</b><small>${d}</small><span>a partir de ${brl(p)}</span></button>`).join("");
+  $("#ext").innerHTML = EX.map(([n, p], i) => `<div class="ex"><input type="checkbox" id="x${i}" data-i="${i}" /><label for="x${i}">${n}</label><em>+${brl(p)}</em></div>`).join("");
+  function calc() {
+    $$(".size").forEach((b, i) => b.classList.toggle("on", i === sz));
+    $$(".pkg").forEach((b, i) => b.classList.toggle("on", i === pk));
+    const [sn, , mult] = SZ[sz], [pn, , pp, ph, gl, pr, meses] = PK[pk];
+    const base = Math.round(pp * mult / 10) * 10;
+    let tot = base, horas = ph;
+    const linhas = [[`${pn} · ${sn}`, base]];
+    ex.forEach((i) => { const [n, p, h] = EX[i]; const v = i === 5 ? p : Math.round(p * mult / 10) * 10; tot += v; horas += h; linhas.push([n, v]); });
+    $("#price").textContent = brl(tot);
+    $("#parc").textContent = tot >= 600 ? `ou 10x de ${brl(tot / 10)} sem juros` : "à vista no Pix ou cartão";
+    $("#lines").innerHTML = linhas.map(([n, v]) => `<li><span>${n}</span><b>${brl(v)}</b></li>`).join("");
+    $("#gloss").style.width = `${gl}%`; $("#glossTxt").textContent = `${gl}%`;
+    $("#protBar").style.width = `${pr}%`; $("#protTxt").textContent = meses >= 12 ? `${meses / 12} ano${meses > 12 ? "s" : ""}` : `${meses} meses`;
+    $("#tempo").textContent = horas <= 4 ? `${horas} horas · retire no mesmo dia` : horas > 8 ? `${Math.ceil(horas / 8)} dias úteis` : "1 dia útil";
+    const msg = `Olá, Brilho Detail! Quero agendar:\n${linhas.map(([n, v]) => `• ${n} — ${brl(v)}`).join("\n")}\nTotal estimado: ${brl(tot)}`;
+    $("#qGo").href = `https://wa.me/${WA}?text=${encodeURIComponent(msg)}`;
+  }
+  $("#sizes").onclick = (e) => { const b = e.target.closest(".size"); if (b) { sz = +b.dataset.i; calc(); } };
+  $("#pkgs").onclick = (e) => { const b = e.target.closest(".pkg"); if (b) { pk = +b.dataset.i; calc(); } };
+  $("#ext").onchange = (e) => { const i = +e.target.dataset.i; e.target.checked ? ex.add(i) : ex.delete(i); calc(); };
+  calc();
+
+  /* Gotas */
+  const bead = $("#bead");
+  let s = 3; const rnd = () => (s = (s * 9301 + 49297) % 233280) / 233280;
+  for (let i = 0; i < 46; i++) { const d = 8 + rnd() * 34; bead.insertAdjacentHTML("beforeend", `<span class="drop" style="width:${d}px;height:${d * .92}px;left:${rnd() * 94}%;top:${rnd() * 92}%"></span>`); }
+  if (!reduz) {
+    const gotas = $$(".drop", bead).filter((_, i) => i % 3 === 0);
+    gotas.forEach((g, i) => g.animate([{ transform: "translateY(0)" }, { transform: "translateY(0)", offset: .55 }, { transform: "translateY(420px)" }], { duration: 3800 + i * 400, iterations: Infinity, delay: i * 700, easing: "cubic-bezier(.6,0,.9,.5)" }));
+  }
+
+  /* Agendamento */
+  const hoje = new Date(); hoje.setMinutes(hoje.getMinutes() - hoje.getTimezoneOffset());
+  $("#cD").min = hoje.toISOString().slice(0, 10);
+  $("#cform").onsubmit = (e) => { e.preventDefault(); const msg = `Olá, Brilho Detail!\nNome: ${$("#cN").value}\nCarro: ${$("#cC").value}\nServiço: ${$("#cS").value}\nData: ${$("#cD").value.split("-").reverse().join("/")}${$("#cL").checked ? "\nQuero leva-e-traz" : ""}`; window.open(`https://wa.me/${WA}?text=${encodeURIComponent(msg)}`, "_blank"); };
+})();
+</script>
+</body>
+</html>

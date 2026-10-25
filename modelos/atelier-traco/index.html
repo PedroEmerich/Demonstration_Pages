@@ -1,0 +1,397 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Atelier Traço — Arquitetura e Interiores</title>
+<meta name="description" content="Atelier Traço: arquitetura residencial, interiores e reformas com desenho autoral. Calcule uma estimativa de honorários para o seu projeto." />
+<meta name="theme-color" content="#f4f3ef" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@500;600;700;800&family=IBM+Plex+Sans:wght@300;400;500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #f4f3ef; --white: #fbfaf7; --ink: #151515; --muted: #6d6b66; --line: #d9d6ce; --line2: #e7e4dc;
+    --terra: #b8502f; --blue: #2b4a9a;
+    --display: "Syne", system-ui, sans-serif; --sans: "IBM Plex Sans", system-ui, sans-serif; --mono: "IBM Plex Mono", monospace;
+    --ease: cubic-bezier(.2,.8,.2,1);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { overflow-x: clip; scroll-behavior: smooth; scroll-padding-top: 80px; }
+  body { background: var(--bg); color: var(--ink); font-family: var(--sans); font-weight: 300; line-height: 1.65; -webkit-font-smoothing: antialiased; overflow-x: clip;
+    background-image: linear-gradient(var(--line2) 1px, transparent 1px), linear-gradient(90deg, var(--line2) 1px, transparent 1px); background-size: 80px 80px; background-position: -1px -1px; }
+  img { display: block; max-width: 100%; }
+  a { color: inherit; text-decoration: none; }
+  button, input { font: inherit; color: inherit; }
+  button { background: none; border: 0; cursor: pointer; }
+  .wrap { width: min(1280px, 100% - 40px); margin-inline: auto; }
+  [class*="__grid"] > * { min-width: 0; }
+  h1, h2, h3 { font-family: var(--display); font-weight: 700; letter-spacing: -.03em; line-height: .98; }
+  .h2 { font-size: clamp(40px, 5.6vw, 84px); }
+  .mono { font-family: var(--mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+  .idx { font-family: var(--mono); font-size: 13px; color: var(--terra); }
+  .btn { display: inline-flex; align-items: center; gap: 12px; padding: 16px 26px; font-family: var(--mono); font-size: 13px; letter-spacing: .08em; text-transform: uppercase; border: 1px solid var(--ink); transition: background .3s, color .3s; }
+  .btn:hover, .btn--k { background: var(--ink); color: var(--bg); }
+  .btn--k:hover { background: var(--terra); border-color: var(--terra); }
+  [data-r] { opacity: 0; transform: translateY(30px); transition: opacity .9s var(--ease), transform .9s var(--ease); transition-delay: var(--d, 0s); }
+  [data-r].in { opacity: 1; transform: none; }
+
+  /* NAV */
+  .nav { position: fixed; inset: 0 0 auto; z-index: 50; background: rgba(244,243,239,.88); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
+  .nav__in { height: 72px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+  .logo { font-family: var(--display); font-weight: 800; font-size: 22px; letter-spacing: -.02em; display: flex; align-items: center; gap: 10px; }
+  .logo i { width: 26px; height: 2px; background: var(--terra); display: block; transform-origin: left; animation: line 1.2s var(--ease) both; }
+  @keyframes line { from { transform: scaleX(0); } }
+  .nav__links { display: flex; gap: 34px; font-size: 14px; }
+  .nav__links a { display: flex; gap: 8px; align-items: baseline; }
+  .nav__links a span { font-family: var(--mono); font-size: 11px; color: var(--terra); }
+  .nav__links a:hover { color: var(--terra); }
+  .burger { display: none; width: 44px; height: 44px; border: 1px solid var(--ink); place-items: center; }
+  .burger span { width: 16px; height: 1px; background: var(--ink); box-shadow: 0 5px 0 var(--ink), 0 -5px 0 var(--ink); }
+
+  /* HERO */
+  .hero { padding: 130px 0 80px; }
+  .hero__top { display: grid; grid-template-columns: 1.3fr .7fr; gap: 40px; align-items: end; margin-bottom: 50px; }
+  .hero h1 { font-size: clamp(46px, 6.2vw, 100px); }
+  .hero h1 .ln { display: block; overflow: hidden; padding-bottom: .04em; }
+  .hero h1 .ln span { display: inline-block; transform: translateY(105%); animation: up 1s var(--ease) forwards; }
+  .hero h1 .ln:nth-child(2) span { animation-delay: .1s; } .hero h1 .ln:nth-child(3) span { animation-delay: .2s; }
+  .hero h1 em { font-style: normal; color: var(--terra); }
+  @keyframes up { to { transform: none; } }
+  .hero__side p { color: var(--muted); font-size: 17px; margin-bottom: 26px; }
+  .plan { position: relative; }
+  .plan__img { position: relative; aspect-ratio: 16/7.4; overflow: hidden; clip-path: inset(0 100% 0 0); animation: wipe 1.6s .5s var(--ease) forwards; }
+  @keyframes wipe { to { clip-path: inset(0 0 0 0); } }
+  .plan__img img { width: 100%; height: 115%; object-fit: cover; will-change: transform; }
+  .dims { position: absolute; inset: -34px -34px -40px -34px; pointer-events: none; overflow: visible; }
+  .dims line, .dims rect, .dims path { stroke: var(--blue); stroke-width: 1; fill: none; vector-effect: non-scaling-stroke; stroke-dasharray: 2000; stroke-dashoffset: 2000; animation: draw 2.4s .2s var(--ease) forwards; }
+  .dims text { font-family: var(--mono); font-size: 12px; fill: var(--blue); opacity: 0; animation: fade .6s 2s forwards; }
+  @keyframes draw { to { stroke-dashoffset: 0; } }
+  @keyframes fade { to { opacity: 1; } }
+  .plan__meta { display: flex; justify-content: space-between; gap: 20px; margin-top: 50px; flex-wrap: wrap; }
+
+  /* PROJETOS */
+  .work { padding: 120px 0; }
+  .head { display: flex; justify-content: space-between; align-items: end; gap: 30px; flex-wrap: wrap; margin-bottom: 50px; }
+  .head p { max-width: 380px; color: var(--muted); }
+  .fil { display: flex; gap: 6px; flex-wrap: wrap; }
+  .fil button { padding: 9px 16px; border: 1px solid var(--line); font-family: var(--mono); font-size: 12px; letter-spacing: .06em; text-transform: uppercase; background: var(--white); transition: all .25s; }
+  .fil button.on { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+  .pgrid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 24px; }
+  .proj { cursor: pointer; animation: pin .7s var(--ease) both; }
+  .proj:nth-child(4n+1) { grid-column: span 7; } .proj:nth-child(4n+2) { grid-column: span 5; margin-top: 90px; }
+  .proj:nth-child(4n+3) { grid-column: span 5; } .proj:nth-child(4n+4) { grid-column: span 7; margin-top: -60px; }
+  @keyframes pin { from { opacity: 0; transform: translateY(30px); } }
+  .proj__img { position: relative; aspect-ratio: 4/3; overflow: hidden; background: var(--line2); }
+  .proj__img img { width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s var(--ease), filter .6s; filter: grayscale(.35); }
+  .proj:hover .proj__img img { transform: scale(1.04); filter: none; }
+  .proj__img::after { content: "+ ver projeto"; position: absolute; right: 14px; bottom: 14px; font-family: var(--mono); font-size: 12px; text-transform: uppercase; background: var(--bg); padding: 6px 10px; opacity: 0; transform: translateY(8px); transition: all .4s var(--ease); }
+  .proj:hover .proj__img::after { opacity: 1; transform: none; }
+  .proj__info { display: flex; justify-content: space-between; gap: 16px; padding-top: 14px; border-top: 1px solid var(--ink); margin-top: 14px; }
+  .proj h3 { font-size: 24px; }
+  .proj__info .mono { text-align: right; }
+
+  /* LIGHTBOX */
+  .lb { position: fixed; inset: 0; z-index: 100; background: rgba(21,21,21,.94); color: var(--bg); display: grid; grid-template-columns: 1.5fr .5fr; opacity: 0; pointer-events: none; transition: opacity .4s; }
+  .lb.on { opacity: 1; pointer-events: auto; }
+  .lb__img { position: relative; overflow: hidden; }
+  .lb__img img { width: 100%; height: 100%; object-fit: cover; animation: lbin .7s var(--ease); }
+  @keyframes lbin { from { opacity: 0; transform: scale(1.04); } }
+  .lb__side { padding: 50px 40px; display: flex; flex-direction: column; gap: 20px; }
+  .lb__side h3 { font-size: 40px; }
+  .lb__side .mono { color: #a9a6a0; }
+  .lb dl { display: grid; grid-template-columns: 1fr 1fr; gap: 16px 20px; border-top: 1px solid #333; padding-top: 20px; }
+  .lb dt { font-family: var(--mono); font-size: 11px; text-transform: uppercase; color: #8a877f; }
+  .lb dd { font-family: var(--display); font-size: 20px; }
+  .lb__nav { margin-top: auto; display: flex; gap: 8px; }
+  .lb__nav button { width: 52px; height: 52px; border: 1px solid #444; color: var(--bg); font-size: 20px; transition: background .2s; }
+  .lb__nav button:hover { background: var(--terra); border-color: var(--terra); }
+
+  /* PROCESSO */
+  .process { padding: 120px 0; background: var(--ink); color: var(--bg); }
+  .process .mono { color: #a9a6a0; }
+  .rail { position: relative; display: grid; grid-template-columns: repeat(5, 1fr); gap: 0; margin-top: 60px; }
+  .rail::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 1px; background: #3a3a3a; }
+  .rail__fill { position: absolute; left: 0; top: 0; height: 1px; background: var(--terra); width: 0; }
+  .st { padding: 30px 24px 0 0; position: relative; }
+  .st::before { content: ""; position: absolute; left: 0; top: -5px; width: 11px; height: 11px; background: var(--ink); border: 1px solid #5a5a5a; transition: background .4s, border-color .4s; }
+  .st.on::before { background: var(--terra); border-color: var(--terra); }
+  .st h3 { font-size: 24px; margin: 12px 0 10px; }
+  .st p { color: #a9a6a0; font-size: 15px; }
+  .st small { font-family: var(--mono); font-size: 12px; color: var(--terra); }
+
+  /* ESTÚDIO */
+  .studio { padding: 120px 0; }
+  .studio__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 70px; align-items: center; }
+  .studio__img { position: relative; aspect-ratio: 4/5; overflow: hidden; }
+  .studio__img img { width: 100%; height: 100%; object-fit: cover; }
+  .studio p { color: var(--muted); margin-top: 22px; font-size: 17px; }
+  .nums { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--ink); margin-top: 40px; }
+  .nums div { padding: 20px 16px 0 0; }
+  .nums b { font-family: var(--display); font-weight: 700; font-size: 48px; line-height: 1; display: block; }
+
+  /* CALCULADORA */
+  .calc { padding: 120px 0; }
+  .calc__grid { display: grid; grid-template-columns: 1.1fr .9fr; gap: 0; border: 1px solid var(--ink); background: var(--white); }
+  .calc__in { padding: 44px; border-right: 1px solid var(--ink); display: grid; gap: 30px; }
+  .calc__in h4 { font-family: var(--mono); font-size: 12px; font-weight: 500; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 12px; display: flex; justify-content: space-between; }
+  .calc__in h4 output { font-family: var(--display); font-size: 22px; font-weight: 700; letter-spacing: -.02em; text-transform: none; color: var(--terra); }
+  .opts { display: flex; gap: 6px; flex-wrap: wrap; }
+  .o { padding: 11px 16px; border: 1px solid var(--line); font-size: 15px; transition: all .2s; background: var(--bg); }
+  .o:hover { border-color: var(--ink); }
+  .o.on { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+  input[type=range] { width: 100%; -webkit-appearance: none; appearance: none; height: 2px; background: linear-gradient(90deg, var(--terra) var(--p, 30%), var(--line) var(--p, 30%)); outline: none; }
+  input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 20px; height: 20px; background: var(--bg); border: 2px solid var(--ink); cursor: grab; }
+  input[type=range]::-moz-range-thumb { width: 16px; height: 16px; background: var(--bg); border: 2px solid var(--ink); cursor: grab; border-radius: 0; }
+  .chk { display: flex; gap: 12px; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--line2); cursor: pointer; font-size: 15px; }
+  .chk input { width: 18px; height: 18px; accent-color: var(--terra); }
+  .chk small { margin-left: auto; font-family: var(--mono); font-size: 12px; color: var(--muted); }
+  .calc__out { padding: 44px; display: flex; flex-direction: column; }
+  .range { font-family: var(--display); font-weight: 700; font-size: clamp(36px, 3.8vw, 56px); line-height: 1.02; letter-spacing: -.03em; margin: 10px 0 6px; }
+  .bars { margin: 30px 0; display: grid; gap: 12px; }
+  .bar { display: grid; grid-template-columns: 120px 1fr 60px; gap: 12px; align-items: center; font-size: 14px; }
+  .bar i { height: 8px; background: var(--line2); position: relative; }
+  .bar i b { position: absolute; inset: 0 auto 0 0; background: var(--ink); transition: width .7s var(--ease); }
+  .bar span:last-child { font-family: var(--mono); font-size: 12px; text-align: right; }
+  .calc__out .btn { margin-top: auto; justify-content: center; }
+  .note { font-size: 12px; color: var(--muted); margin-top: 12px; }
+
+  /* CONTATO */
+  .contact { padding: 120px 0 80px; border-top: 1px solid var(--ink); }
+  .contact__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; }
+  .q { font-family: var(--display); font-weight: 600; font-size: clamp(26px, 2.6vw, 38px); line-height: 1.2; letter-spacing: -.02em; }
+  .q + .mono { margin-top: 20px; }
+  form { display: grid; gap: 22px; }
+  .f input, .f textarea { width: 100%; border: 0; border-bottom: 1px solid var(--ink); background: transparent; padding: 12px 0; outline: none; font-size: 17px; resize: none; }
+  .f input:focus, .f textarea:focus { border-color: var(--terra); }
+  .f label { font-family: var(--mono); font-size: 11px; text-transform: uppercase; color: var(--muted); }
+  .ok { font-family: var(--mono); font-size: 13px; color: var(--terra); min-height: 20px; }
+  footer { padding: 30px 0; border-top: 1px solid var(--line); }
+  .foot { display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
+  .wa { position: fixed; right: 22px; bottom: 22px; z-index: 60; width: 58px; height: 58px; border-radius: 50%; background: #25d366; color: #fff; display: grid; place-items: center; box-shadow: 0 12px 30px -8px rgba(37,211,102,.6); transition: transform .3s var(--ease); }
+  .wa:hover { transform: scale(1.08); }
+
+  @media (max-width: 1000px) {
+    .nav__links { display: none; }
+    .burger { display: grid; }
+    .nav.open .nav__links { display: flex; flex-direction: column; position: absolute; top: 72px; left: 0; right: 0; background: var(--bg); padding: 24px 20px; gap: 18px; border-bottom: 1px solid var(--line); }
+    .hero__top, .studio__grid, .calc__grid, .contact__grid { grid-template-columns: 1fr; }
+    .plan__img { aspect-ratio: 4/3; }
+    .dims { display: none; }
+    .proj { grid-column: 1 / -1 !important; margin-top: 0 !important; }
+    .rail { grid-template-columns: 1fr; gap: 30px; }
+    .rail::before, .rail__fill { display: none; }
+    .st { padding: 0 0 0 26px; } .st::before { top: 6px; }
+    .calc__in { border-right: 0; border-bottom: 1px solid var(--ink); }
+    .lb { grid-template-columns: 1fr; grid-template-rows: 55vh auto; overflow: auto; }
+  }
+  @media (max-width: 560px) { .calc__in, .calc__out { padding: 26px 20px; } .nums b { font-size: 36px; } .bar { grid-template-columns: 90px 1fr 50px; } .lb__side { padding: 26px 20px; } }
+  @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; animation-delay: 0s !important; transition-duration: .01ms !important; } [data-r] { opacity: 1; transform: none; } }
+</style>
+</head>
+<body>
+
+<header class="nav" id="nav">
+  <div class="wrap nav__in">
+    <a href="#" class="logo">Atelier Traço<i></i></a>
+    <nav class="nav__links"><a href="#projetos"><span>01</span>Projetos</a><a href="#processo"><span>02</span>Processo</a><a href="#estudio"><span>03</span>Estúdio</a><a href="#orcamento"><span>04</span>Orçamento</a><a href="#contato"><span>05</span>Contato</a></nav>
+    <button class="burger" aria-label="Menu"><span></span></button>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <div class="hero__top">
+      <h1><span class="ln"><span>Tudo começa</span></span><span class="ln"><span>com um <em>traço</em>.</span></span><span class="ln"><span>Termina em lar.</span></span></h1>
+      <div class="hero__side" data-r style="--d:.4s"><p>Escritório de arquitetura e interiores em Curitiba. Projetos residenciais autorais, com luz natural, materiais honestos e atenção ao modo como você vive.</p><a href="#orcamento" class="btn btn--k">Estimar meu projeto →</a></div>
+    </div>
+    <div class="plan">
+      <div class="plan__img"><img id="heroImg" src="https://images.unsplash.com/photo-1787088988806-7ec503692b85?w=2000&q=80&auto=format&fit=crop" alt="Casa com parede de pedra e grande abertura para o jardim" /></div>
+      <svg class="dims" viewBox="0 0 1000 480" preserveAspectRatio="none" aria-hidden="true">
+        <rect x="34" y="34" width="932" height="406"/>
+        <line x1="34" y1="12" x2="966" y2="12"/><line x1="34" y1="4" x2="34" y2="20"/><line x1="966" y1="4" x2="966" y2="20"/>
+        <line x1="988" y1="34" x2="988" y2="440"/><line x1="980" y1="34" x2="996" y2="34"/><line x1="980" y1="440" x2="996" y2="440"/>
+        <path d="M34 460 L120 460 M100 452 L120 460 L100 468"/>
+        <text x="470" y="8">18,60 m</text><text x="900" y="232" transform="rotate(90 993 232)">7,40 m</text><text x="132" y="464">N ↑ fachada sul</text>
+      </svg>
+      <div class="plan__meta"><span class="mono">Casa Pedra · Santa Felicidade · 2025</span><span class="mono">380 m² · residencial unifamiliar</span><span class="mono">Fotografia: acervo do estúdio</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="work" id="projetos">
+  <div class="wrap">
+    <div class="head"><div data-r><span class="idx">01 — Projetos</span><h2 class="h2" style="margin-top:14px">Obras<br />selecionadas</h2></div><div data-r style="--d:.1s"><p style="margin-bottom:18px">Clique em um projeto para ver ficha técnica e fotos.</p><div class="fil" id="fil"></div></div></div>
+    <div class="pgrid" id="pgrid"></div>
+  </div>
+</section>
+
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Projeto">
+  <div class="lb__img" id="lbImg"></div>
+  <div class="lb__side"><span class="mono" id="lbTipo"></span><h3 id="lbNome"></h3><p id="lbDesc" style="color:#cfccc5"></p><dl id="lbDl"></dl><div class="lb__nav"><button id="lbPrev" aria-label="Anterior">←</button><button id="lbNext" aria-label="Próximo">→</button><button id="lbClose" aria-label="Fechar" style="margin-left:auto">✕</button></div></div>
+</div>
+
+<section class="process" id="processo">
+  <div class="wrap">
+    <div data-r><span class="idx">02 — Processo</span><h2 class="h2" style="margin-top:14px">Do primeiro café<br />à entrega das chaves</h2></div>
+    <div class="rail" id="rail"><div class="rail__fill" id="railFill"></div>
+      <div class="st"><small>Semana 1</small><h3>Briefing</h3><p>Visita ao terreno, conversa sobre rotina, desejos e orçamento.</p></div>
+      <div class="st"><small>Semanas 2–5</small><h3>Estudo</h3><p>Plantas, volumetria e maquete 3D para você sentir o espaço.</p></div>
+      <div class="st"><small>Semanas 6–10</small><h3>Projeto</h3><p>Detalhamento executivo, compatibilização e aprovação na prefeitura.</p></div>
+      <div class="st"><small>Contínuo</small><h3>Obra</h3><p>Acompanhamento semanal com relatório fotográfico e controle de custos.</p></div>
+      <div class="st"><small>Final</small><h3>Entrega</h3><p>Vistoria, ajustes finos e o seu primeiro café em casa nova.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="studio" id="estudio">
+  <div class="wrap studio__grid">
+    <div class="studio__img" data-r><img src="https://images.unsplash.com/photo-1782292932568-149f950c4d0d?w=1000&q=78&auto=format&fit=crop" alt="Mesa de desenho do estúdio" loading="lazy" /></div>
+    <div data-r style="--d:.1s">
+      <span class="idx">03 — Estúdio</span>
+      <h2 class="h2" style="margin-top:14px">Poucos projetos.<br />Muita atenção.</h2>
+      <p>Somos quatro arquitetas e um desenhista. Aceitamos no máximo oito projetos por ano para acompanhar cada um de perto — do primeiro croqui à última tomada instalada.</p>
+      <p>Acreditamos em casas que envelhecem bem: luz natural, ventilação cruzada, materiais locais e nada que precise de manutenção desnecessária.</p>
+      <div class="nums"><div><b data-count="14">0</b><span class="mono">anos</span></div><div><b data-count="96">0</b><span class="mono">obras entregues</span></div><div><b data-count="8">0</b><span class="mono">projetos por ano</span></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="calc" id="orcamento">
+  <div class="wrap">
+    <div class="head"><div data-r><span class="idx">04 — Orçamento</span><h2 class="h2" style="margin-top:14px">Quanto custa<br />o seu projeto?</h2></div><p data-r style="--d:.1s">Uma estimativa honesta dos honorários de projeto (não inclui a obra). Ajuste as opções e veja o valor mudar.</p></div>
+    <div class="calc__grid" data-r>
+      <div class="calc__in">
+        <div><h4>Tipo de projeto</h4><div class="opts" id="cTipo"></div></div>
+        <div><h4>Área <output id="oArea">180 m²</output></h4><input type="range" id="area" min="30" max="800" step="10" value="180" aria-label="Área" /></div>
+        <div><h4>Padrão de acabamento</h4><div class="opts" id="cPad"></div></div>
+        <div><h4>Complementares</h4><div id="cExtra"></div></div>
+      </div>
+      <div class="calc__out">
+        <span class="mono">Honorários estimados</span>
+        <div class="range" id="range">R$ 0</div>
+        <span class="mono" id="prazo"></span>
+        <div class="bars" id="bars"></div>
+        <a class="btn btn--k" id="calcBtn" target="_blank" rel="noopener" href="#">Agendar conversa com esta estimativa →</a>
+        <p class="note">Valores de referência. O orçamento final depende de visita técnica e escopo detalhado.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="contato">
+  <div class="wrap contact__grid">
+    <div data-r><span class="idx">05 — Contato</span><p class="q" style="margin-top:24px">“Elas desenharam a casa como se conhecessem a nossa família há anos. Cada janela está no lugar certo.”</p><p class="mono">Marina e Pedro · Casa Pedra, 2025</p><p style="margin-top:40px;color:var(--muted)">Rua Comendador Araújo, 590 — Batel, Curitiba<br />contato@ateliertraco.arq.br · (41) 99999-0000</p></div>
+    <form id="form" data-r style="--d:.1s">
+      <div class="f"><label for="n">Nome</label><input id="n" required /></div>
+      <div class="f"><label for="e">E-mail ou WhatsApp</label><input id="e" required /></div>
+      <div class="f"><label for="m">Conte sobre o seu projeto</label><textarea id="m" rows="4"></textarea></div>
+      <button class="btn btn--k" style="justify-self:start">Enviar mensagem →</button>
+      <p class="ok" id="ok"></p>
+    </form>
+  </div>
+</section>
+
+<footer><div class="wrap foot"><span class="mono">© 2026 Atelier Traço Arquitetura · CAU PJ 00000-0</span><span class="mono">Curitiba — PR</span></div></footer>
+
+<a class="wa" href="https://wa.me/5541999990000" target="_blank" rel="noopener" aria-label="WhatsApp"><svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21c5.46 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2Zm5.8 14.03c-.24.68-1.42 1.3-1.95 1.35-.5.05-.97.23-3.27-.68-2.77-1.09-4.52-3.92-4.66-4.1-.13-.18-1.1-1.47-1.1-2.8 0-1.34.7-2 .95-2.27.25-.27.54-.34.72-.34h.52c.17 0 .4-.06.62.47.24.56.8 1.94.87 2.08.07.14.12.3.02.48-.1.19-.14.3-.28.47-.14.16-.3.36-.42.49-.14.14-.29.29-.12.57.17.28.74 1.22 1.59 1.98 1.09.97 2.01 1.27 2.29 1.41.28.14.45.12.62-.07.17-.19.71-.83.9-1.11.19-.28.38-.24.64-.14.26.09 1.65.78 1.93.92.28.14.47.21.54.33.07.11.07.66-.17 1.34Z"/></svg></a>
+
+<script>
+(() => {
+  const reduz = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const $ = (s, el = document) => el.querySelector(s);
+  const $$ = (s, el = document) => [...el.querySelectorAll(s)];
+  const u = (id, w) => `https://images.unsplash.com/photo-${id}?w=${w}&q=78&auto=format&fit=crop`;
+  const brl = (n) => n.toLocaleString("pt-BR", { style: "currency", currency: "BRL", maximumFractionDigits: 0 });
+
+  const nav = $("#nav");
+  $(".burger").onclick = () => nav.classList.toggle("open");
+  $$(".nav__links a").forEach((a) => a.onclick = () => nav.classList.remove("open"));
+  const io = new IntersectionObserver((es) => es.forEach((e) => {
+    if (!e.isIntersecting) return;
+    e.target.classList.add("in");
+    $$("[data-count]", e.target).forEach((c) => { const fim = +c.dataset.count, t0 = performance.now(); const p = (t) => { const k = Math.min(1, (t - t0) / 1400); c.textContent = Math.round(fim * (1 - Math.pow(1 - k, 3))); if (k < 1) requestAnimationFrame(p); }; requestAnimationFrame(p); });
+    io.unobserve(e.target);
+  }), { threshold: .15 });
+  $$("[data-r]").forEach((el) => io.observe(el));
+
+  /* Projetos + lightbox */
+  const P = [
+    ["Casa Pedra", "Residencial", "Santa Felicidade", 2025, 380, "Térrea, com parede de pedra local que organiza a casa e se abre inteira para o jardim.", ["1787088988806-7ec503692b85", "1786051376076-9ff627bcdcba"]],
+    ["Casa Duna", "Residencial", "Guaratuba", 2024, 210, "Volume branco pousado sobre a areia, protegido do vento e voltado para o nascer do sol.", ["1779089042981-038ee31d348e", "1784790601988-7915393bc5a1"]],
+    ["Casa Mirante", "Residencial", "Florianópolis", 2023, 460, "Grandes vãos de vidro e beirais profundos para contemplar o mar sem calor excessivo.", ["1781795290283-893dd050eeb3", "1600210491892-03d54c0aaf87"]],
+    ["Apartamento Batel", "Interiores", "Batel", 2025, 140, "Reforma completa com marcenaria em freijó, paleta neutra e iluminação indireta.", ["1618221195710-dd6b41faaea6", "1784790601988-7915393bc5a1"]],
+    ["Casa Madeira", "Residencial", "Campo Largo", 2022, 320, "Fachada em madeira certificada e estrutura mista, integrada à mata existente.", ["1766603636483-84b2a2b8ee89", "1786051376076-9ff627bcdcba"]],
+    ["Loft Concreto", "Comercial", "Centro", 2024, 260, "Escritório criativo em concreto aparente, com pé-direito duplo e mezanino.", ["1790213680570-79cb3f02d4d2", "1618221195710-dd6b41faaea6"]],
+    ["Casa Bosque", "Residencial", "São José dos Pinhais", 2023, 290, "Dois volumes conectados por um pátio interno, com vista para as araucárias.", ["1756706718604-ef4af3970e33", "1600210491892-03d54c0aaf87"]],
+    ["Sala Alto Glória", "Interiores", "Alto da Glória", 2024, 95, "Living e home office integrados, com estante sob medida e cores terrosas.", ["1786051376076-9ff627bcdcba", "1618221195710-dd6b41faaea6"]],
+  ];
+  const cats = ["Todos", "Residencial", "Interiores", "Comercial"];
+  let cat = "Todos", lista = P, atual = 0;
+  const renderP = () => {
+    $("#fil").innerHTML = cats.map((c) => `<button class="${c === cat ? "on" : ""}">${c}</button>`).join("");
+    lista = P.filter((p) => cat === "Todos" || p[1] === cat);
+    $("#pgrid").innerHTML = lista.map(([n, t, l, a, m, , img], i) => `<article class="proj" data-i="${i}" style="animation-delay:${i * 70}ms" tabindex="0"><div class="proj__img"><img src="${u(img[0], 1100)}" alt="${n}" loading="lazy" /></div><div class="proj__info"><div><span class="idx">${String(i + 1).padStart(2, "0")}</span><h3>${n}</h3></div><span class="mono">${t} · ${m} m²<br />${l} · ${a}</span></div></article>`).join("");
+  };
+  $("#fil").onclick = (e) => { const b = e.target.closest("button"); if (b) { cat = b.textContent; renderP(); } };
+  const lb = $("#lb");
+  const abre = (i) => {
+    atual = (i + lista.length) % lista.length;
+    const [n, t, l, a, m, d, img] = lista[atual];
+    $("#lbImg").innerHTML = `<img src="${u(img[0], 1800)}" alt="${n}" />`;
+    $("#lbTipo").textContent = `${t} · ${String(atual + 1).padStart(2, "0")}/${String(lista.length).padStart(2, "0")}`;
+    $("#lbNome").textContent = n; $("#lbDesc").textContent = d;
+    $("#lbDl").innerHTML = `<div><dt>Local</dt><dd>${l}</dd></div><div><dt>Ano</dt><dd>${a}</dd></div><div><dt>Área</dt><dd>${m} m²</dd></div><div><dt>Status</dt><dd>Concluído</dd></div>`;
+    lb.classList.add("on"); document.body.style.overflow = "hidden";
+  };
+  const fecha = () => { lb.classList.remove("on"); document.body.style.overflow = ""; };
+  $("#pgrid").addEventListener("click", (e) => { const p = e.target.closest(".proj"); if (p) abre(+p.dataset.i); });
+  $("#pgrid").addEventListener("keydown", (e) => { if (e.key === "Enter") { const p = e.target.closest(".proj"); if (p) abre(+p.dataset.i); } });
+  $("#lbPrev").onclick = () => abre(atual - 1); $("#lbNext").onclick = () => abre(atual + 1); $("#lbClose").onclick = fecha;
+  addEventListener("keydown", (e) => { if (!lb.classList.contains("on")) return; if (e.key === "Escape") fecha(); if (e.key === "ArrowRight") abre(atual + 1); if (e.key === "ArrowLeft") abre(atual - 1); });
+  renderP();
+
+  /* Processo: linha preenche com scroll; parallax do hero */
+  const rail = $("#rail"), fill = $("#railFill"), sts = $$(".st"), hi = $("#heroImg");
+  addEventListener("scroll", () => {
+    const r = rail.getBoundingClientRect(), p = Math.min(1, Math.max(0, (innerHeight * .75 - r.top) / (innerHeight * .6)));
+    fill.style.width = `${p * 100}%`;
+    sts.forEach((s, i) => s.classList.toggle("on", p >= i / 5 + .05));
+    if (!reduz) hi.style.transform = `translateY(${scrollY * -.08}px)`;
+  }, { passive: true });
+
+  /* Calculadora de honorários */
+  const TIPO = [["arq", "Arquitetônico", 120, 10], ["int", "Interiores", 95, 6], ["ref", "Reforma", 80, 6], ["com", "Comercial", 110, 8]];
+  const PAD = [["ess", "Essencial", 1], ["alto", "Alto padrão", 1.35], ["exc", "Exclusivo", 1.8]];
+  const EXT = [["pais", "Paisagismo", 18], ["lum", "Luminotécnico", 12], ["obra", "Acompanhamento de obra", 30]];
+  const st = { tipo: "arq", pad: "alto", ext: new Set(["lum"]) };
+  $("#cTipo").innerHTML = TIPO.map(([k, n]) => `<button class="o" data-k="${k}">${n}</button>`).join("");
+  $("#cPad").innerHTML = PAD.map(([k, n]) => `<button class="o" data-k="${k}">${n}</button>`).join("");
+  $("#cExtra").innerHTML = EXT.map(([k, n, v]) => `<label class="chk"><input type="checkbox" data-k="${k}" ${st.ext.has(k) ? "checked" : ""} />${n}<small>+R$ ${v}/m²</small></label>`).join("");
+  function calc() {
+    $$("#cTipo .o").forEach((b) => b.classList.toggle("on", b.dataset.k === st.tipo));
+    $$("#cPad .o").forEach((b) => b.classList.toggle("on", b.dataset.k === st.pad));
+    const a = +$("#area").value, ar = $("#area");
+    ar.style.setProperty("--p", `${((a - ar.min) / (ar.max - ar.min)) * 100}%`);
+    $("#oArea").textContent = `${a} m²`;
+    const [, tn, base, sem] = TIPO.find((x) => x[0] === st.tipo), mult = PAD.find((x) => x[0] === st.pad)[2];
+    const proj = a * base * mult, extras = EXT.filter(([k]) => st.ext.has(k)).map(([k, n, v]) => [n, a * v * (k === "obra" ? mult : 1)]);
+    const total = proj + extras.reduce((s, x) => s + x[1], 0);
+    $("#range").textContent = `${brl(total * .9)} – ${brl(total * 1.1)}`;
+    const semanas = Math.round(sem + a / 60 + (st.pad === "exc" ? 3 : 0));
+    $("#prazo").textContent = `Prazo de projeto: cerca de ${semanas} semanas · ${brl(total / a)} por m²`;
+    const itens = [[tn, proj], ...extras], max = Math.max(...itens.map((x) => x[1]));
+    $("#bars").innerHTML = itens.map(([n, v]) => `<div class="bar"><span>${n}</span><i><b style="width:${(v / max) * 100}%"></b></i><span>${Math.round(v / total * 100)}%</span></div>`).join("");
+    $("#calcBtn").href = `https://wa.me/5541999990000?text=${encodeURIComponent(`Olá! Fiz a estimativa no site: ${tn}, ${a} m², padrão ${PAD.find((x) => x[0] === st.pad)[1].toLowerCase()}${extras.length ? ", com " + extras.map((x) => x[0].toLowerCase()).join(", ") : ""}. Faixa: ${$("#range").textContent}. Gostaria de conversar.`)}`;
+  }
+  $("#cTipo").onclick = (e) => { const b = e.target.closest(".o"); if (b) { st.tipo = b.dataset.k; calc(); } };
+  $("#cPad").onclick = (e) => { const b = e.target.closest(".o"); if (b) { st.pad = b.dataset.k; calc(); } };
+  $("#cExtra").onchange = (e) => { const k = e.target.dataset.k; e.target.checked ? st.ext.add(k) : st.ext.delete(k); calc(); };
+  $("#area").addEventListener("input", calc);
+  calc();
+
+  $("#form").onsubmit = (e) => { e.preventDefault(); $("#ok").textContent = "Mensagem recebida — respondemos em até 1 dia útil."; e.target.reset(); };
+})();
+</script>
+</body>
+</html>
