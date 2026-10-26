@@ -95,12 +95,8 @@
   .hero__ctas { display: flex; gap: 12px; flex-wrap: wrap; opacity: 0; animation: fadeUp 1s .75s var(--ease) forwards; }
   @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
   .live { display: inline-flex; align-items: center; gap: 12px; margin-top: 44px; padding: 10px 18px 10px 14px; border-radius: 999px; background: rgba(255,255,255,.05); border: 1px solid var(--line); backdrop-filter: blur(8px); font-size: 14px; opacity: 0; animation: fadeUp 1s 1s var(--ease) forwards; }
-  .live i { width: 9px; height: 9px; border-radius: 50%; background: var(--red); box-shadow: 0 0 0 0 rgba(255,61,46,.7); animation: ping 1.6s infinite; }
-  @keyframes ping { 70% { box-shadow: 0 0 0 12px rgba(255,61,46,0); } 100% { box-shadow: 0 0 0 0 rgba(255,61,46,0); } }
-  .live b { font-family: var(--display); font-weight: 400; font-size: 20px; color: var(--red); display: inline-block; min-width: 2ch; }
-  .ecg { position: absolute; left: 0; right: 0; bottom: 3%; height: 80px; z-index: 1; pointer-events: none; opacity: .7; }
-  .ecg path { stroke: var(--red); stroke-width: 2; fill: none; stroke-dasharray: 1200 3200; animation: beat 3.2s linear infinite; filter: drop-shadow(0 0 6px rgba(255,61,46,.8)); }
-  @keyframes beat { from { stroke-dashoffset: 1200; } to { stroke-dashoffset: -3200; } }
+  .live i { width: 9px; height: 9px; border-radius: 50%; background: var(--red); }
+  .live b { font-family: var(--display); font-weight: 400; font-size: 20px; color: var(--red); font-variant-numeric: tabular-nums; }
 
   /* FAIXA */
   .band { border-block: 1px solid var(--line); padding: 22px 0; overflow: hidden; }
@@ -311,13 +307,12 @@
 
 <section class="hero" id="top">
   <div class="hero__img"><img id="heroImg" src="https://images.unsplash.com/photo-1605296867724-fa87a8ef53fd?w=1600&q=80&auto=format&fit=crop" alt="Atleta em treino de força" /></div>
-  <svg class="ecg" viewBox="0 0 1600 120" preserveAspectRatio="none" aria-hidden="true"><path d="M0 70h420l18-30 22 60 26-96 30 110 20-44h220l14-20 18 40 20-70 26 84 18-14h300l16-26 20 52 24-88 28 98 18-36h400"/></svg>
   <div class="wrap hero__content">
     <p class="tag" style="margin-bottom:24px">Performance Training · São Paulo</p>
     <h1 class="d" id="heroH1"><span class="ln"><span>Treine com</span></span><span class="ln"><span class="red">propósito.</span></span><span class="ln"><span>Evolua sempre.</span></span></h1>
     <p class="lead">Musculação, HIIT, boxe e funcional com coaches que acompanham cada repetição. Resultados medidos, não prometidos.</p>
     <div class="hero__ctas"><a href="#experimental" class="btn btn--red" data-mag>Agendar aula grátis <span class="arr">→</span></a><a href="#planos" class="btn btn--out" data-mag>Ver planos</a></div>
-    <div class="live"><i></i><span><b id="live">87</b> alunos treinando agora</span></div>
+    <div class="live"><i></i><span><b id="live" data-total="1240">0</b> alunos ativos na PULSO</span></div>
   </div>
 </section>
 
@@ -480,13 +475,14 @@
   }), { threshold: .15, rootMargin: "0px 0px -6% 0px" });
   $$("[data-r], [data-split]").forEach((el) => io.observe(el));
 
-  /* Alunos treinando agora */
-  let vivos = 87;
-  setInterval(() => {
-    vivos = clamp(vivos + Math.round((Math.random() - .45) * 3), 60, 120);
-    const b = $("#live"); b.textContent = vivos;
-    b.animate([{ transform: "translateY(-6px)", opacity: .3 }, { transform: "none", opacity: 1 }], { duration: 400, easing: "ease-out" });
-  }, 2600);
+  /* Alunos ativos: conta até o total quando o selo aparece */
+  const live = $("#live"), total = +live.dataset.total;
+  setTimeout(() => {
+    if (reduz) { live.textContent = fmt(total); return; }
+    const t0 = performance.now();
+    const passo = (t) => { const k = Math.min(1, (t - t0) / 1800); live.textContent = fmt(total * (1 - Math.pow(1 - k, 4))); if (k < 1) requestAnimationFrame(passo); };
+    requestAnimationFrame(passo);
+  }, 1000);
 
   /* Faixa */
   const band = $("#band");
