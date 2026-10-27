@@ -50,7 +50,7 @@
   .burger span { width: 16px; height: 1px; background: var(--ink); box-shadow: 0 5px 0 var(--ink), 0 -5px 0 var(--ink); }
 
   /* HERO */
-  .hero { padding: 130px 0 80px; }
+  .hero { padding: 130px 0 56px; }
   .hero__top { display: grid; grid-template-columns: 1.3fr .7fr; gap: 40px; align-items: end; margin-bottom: 50px; }
   .hero h1 { font-size: clamp(46px, 6.2vw, 100px); }
   .hero h1 .ln { display: block; overflow: hidden; padding-bottom: .04em; }
@@ -59,16 +59,36 @@
   .hero h1 em { font-style: normal; color: var(--terra); }
   @keyframes up { to { transform: none; } }
   .hero__side p { color: var(--muted); font-size: 17px; margin-bottom: 26px; }
-  .plan { position: relative; }
-  .plan__img { position: relative; aspect-ratio: 16/7.4; overflow: hidden; clip-path: inset(0 100% 0 0); animation: wipe 1.6s .5s var(--ease) forwards; }
-  @keyframes wipe { to { clip-path: inset(0 0 0 0); } }
-  .plan__img img { width: 100%; height: 115%; object-fit: cover; will-change: transform; }
+  /* MONTAGEM DA CASA (rolagem presa) */
+  .build { position: relative; height: 430vh; }
+  .build__pin { position: sticky; top: 72px; height: calc(100svh - 72px); display: flex; flex-direction: column; justify-content: center; overflow: clip; }
+  .plan { position: relative; width: min(100%, calc((100svh - 72px - 190px) * 2.162)); margin-inline: auto; }
+  .plan__img { position: relative; aspect-ratio: 16/7.4; background: #e9e7e1; outline: 1px solid var(--line); }
+  .cena { position: absolute; inset: 0; }
+  .cena > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; will-change: opacity; }
+  .plan__img::before { content: ""; position: absolute; inset: 0; background: linear-gradient(100deg, transparent 30%, rgba(255,255,255,.55) 50%, transparent 70%) -100% 0 / 60% 100% no-repeat; animation: shimmer 1.4s linear infinite; }
+  .plan__img.pronto::before { display: none; }
+  @keyframes shimmer { to { background-position: 220% 0; } }
+  .lay { position: absolute; display: block; pointer-events: none; transform-origin: 50% 50%; will-change: transform; visibility: hidden; }
+  .lay.full { inset: 0; width: 100%; height: 100%; visibility: visible; }
+  .lay.barro { opacity: 0; transition: opacity 1.2s var(--ease); }
+  .pronto .lay.barro { opacity: 1; }
+  .plan__tag { position: absolute; left: 14px; top: 14px; z-index: 3; display: flex; gap: 10px; align-items: center; background: var(--bg); border: 1px solid var(--line); padding: 7px 12px; font-family: var(--mono); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; }
+  .plan__tag b { font-weight: 500; color: var(--terra); min-width: 4ch; text-align: right; }
+  .steps { display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; margin-top: 30px; }
+  .step { position: relative; padding-top: 14px; font-family: var(--mono); font-size: 12px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); transition: color .4s; }
+  .step::before, .step i { content: ""; position: absolute; left: 0; top: 0; height: 2px; }
+  .step::before { right: 0; background: var(--line); }
+  .step i { width: 100%; background: var(--terra); transform-origin: left; transform: scaleX(var(--k, 0)); }
+  .step span { display: block; font-family: var(--sans); font-size: 13px; letter-spacing: 0; text-transform: none; color: var(--muted); margin-top: 4px; opacity: 0; transform: translateY(6px); transition: opacity .5s, transform .5s var(--ease); }
+  .step.on { color: var(--ink); }
+  .step.on span { opacity: 1; transform: none; }
   .dims { position: absolute; inset: -34px -34px -40px -34px; pointer-events: none; overflow: visible; }
   .dims line, .dims rect, .dims path { stroke: var(--blue); stroke-width: 1; fill: none; vector-effect: non-scaling-stroke; stroke-dasharray: 2000; stroke-dashoffset: 2000; animation: draw 2.4s .2s var(--ease) forwards; }
   .dims text { font-family: var(--mono); font-size: 12px; fill: var(--blue); opacity: 0; animation: fade .6s 2s forwards; }
   @keyframes draw { to { stroke-dashoffset: 0; } }
   @keyframes fade { to { opacity: 1; } }
-  .plan__meta { display: flex; justify-content: space-between; gap: 20px; margin-top: 50px; flex-wrap: wrap; }
+  .plan__meta { display: flex; justify-content: space-between; gap: 20px; margin-top: 22px; flex-wrap: wrap; }
 
   /* PROJETOS */
   .work { padding: 120px 0; }
@@ -121,11 +141,34 @@
   .st small { font-family: var(--mono); font-size: 12px; color: var(--terra); }
 
   /* ESTÚDIO */
-  .studio { padding: 120px 0; }
-  .studio__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 70px; align-items: center; }
-  .studio__img { position: relative; aspect-ratio: 4/5; overflow: hidden; }
-  .studio__img img { width: 100%; height: 100%; object-fit: cover; }
-  .studio p { color: var(--muted); margin-top: 22px; font-size: 17px; }
+  .studio { position: relative; z-index: 2; padding: 150px 0 140px; }
+  .studio__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 100px; align-items: center; }
+  /* a foto é uma impressão que desce girando e pousa sobre duas pranchas */
+  .studio__stage { position: relative; aspect-ratio: 4/5; perspective: 1600px; }
+  .sheet { position: absolute; inset: 3% 4%; background-color: var(--white); background-image: linear-gradient(rgba(43,74,154,.07) 1px, transparent 1px), linear-gradient(90deg, rgba(43,74,154,.07) 1px, transparent 1px); background-size: 22px 22px; border: 1px solid var(--line); box-shadow: 0 30px 60px -36px rgba(21,21,21,.4); opacity: 0; will-change: transform, opacity; }
+  .sheet--b { background-color: #efece5; }
+  .sheet::after { content: ""; position: absolute; left: 18px; right: 18px; bottom: 42px; height: 1px; background: var(--ink); opacity: .35; }
+  .sheet span { position: absolute; left: 18px; bottom: 16px; font-size: 10px; }
+  .sheet i { position: absolute; right: 18px; bottom: 19px; width: 26px; height: 2px; background: var(--terra); }
+  .print { position: absolute; inset: 0; margin: 0; padding: 14px 14px 58px; background: #fff; box-shadow: 0 var(--sy, 26px) var(--sb, 50px) -22px rgba(21,21,21,var(--sa, .3)); transform-origin: 50% 65%; will-change: transform, opacity; opacity: 0; }
+  .print__img { position: relative; height: 100%; overflow: hidden; background: var(--line2); }
+  .print__img img { width: 100%; height: 100%; object-fit: cover; transform: translate3d(var(--ix, 0px), var(--iy, 0px), 0) scale(var(--z, 1.2)); will-change: transform; }
+  .print__glare { position: absolute; inset: 0; pointer-events: none; background: radial-gradient(640px circle at var(--gx, 30%) var(--gy, 0%), rgba(255,255,255,.6), transparent 45%); mix-blend-mode: soft-light; opacity: var(--go, 0); }
+  .print__cap { position: absolute; left: 16px; right: 16px; bottom: 19px; display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+  .print__cap b { font-family: var(--display); font-weight: 700; font-size: 16px; letter-spacing: -.01em; }
+  .studio__txt .h2 { margin-top: 18px; }
+  .studio__txt .h2 .ln { display: block; overflow: hidden; padding-bottom: .06em; }
+  .studio__txt .h2 .ln > span { display: inline-block; transform: translateY(105%); transition: transform 1.1s var(--ease); }
+  .studio__txt .h2 .ln:nth-child(2) > span { transition-delay: .12s; }
+  .studio__txt.in .h2 .ln > span { transform: none; }
+  .studio__txt .lead { color: var(--ink); font-size: 20px; line-height: 1.55; margin-top: 30px; max-width: 36ch; }
+  .studio__txt .sub { color: var(--muted); font-size: 16px; margin-top: 26px; }
+  .princ { list-style: none; margin-top: 12px; border-top: 1px solid var(--line); }
+  .princ li { position: relative; display: flex; align-items: baseline; gap: 16px; padding: 13px 0; border-bottom: 1px solid var(--line); font-size: 16px; opacity: 0; transform: translateX(-14px); transition: opacity .8s var(--ease), transform .8s var(--ease); transition-delay: calc(.35s + var(--i) * .09s); }
+  .studio__txt.in .princ li { opacity: 1; transform: none; }
+  .princ li::after { content: ""; position: absolute; left: 0; right: 0; bottom: -1px; height: 1px; background: var(--terra); transform: scaleX(0); transform-origin: left; transition: transform .6s var(--ease); }
+  .princ li:hover::after { transform: scaleX(1); }
+  .princ li small { margin-left: auto; font-family: var(--mono); font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
   .nums { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--ink); margin-top: 40px; }
   .nums div { padding: 20px 16px 0 0; }
   .nums b { font-family: var(--display); font-weight: 700; font-size: 48px; line-height: 1; display: block; }
@@ -176,8 +219,17 @@
     .burger { display: grid; }
     .nav.open .nav__links { display: flex; flex-direction: column; position: absolute; top: 72px; left: 0; right: 0; background: var(--bg); padding: 24px 20px; gap: 18px; border-bottom: 1px solid var(--line); }
     .hero__top, .studio__grid, .calc__grid, .contact__grid { grid-template-columns: 1fr; }
-    .plan__img { aspect-ratio: 4/3; }
+    .studio__grid { gap: 70px; }
+    .studio__stage { width: min(100%, 460px); margin-inline: auto; }
     .dims { display: none; }
+    .build { height: 330vh; }
+    /* no celular a moldura fica mais alta e mostra o miolo da casa (onde estão os móveis) */
+    .plan__img { aspect-ratio: 3/2; overflow: hidden; }
+    .cena { inset: 0 auto; left: 50%; width: auto; aspect-ratio: 16/7.4; transform: translateX(-54.95%); }
+    .plan__tag { left: 8px; top: 8px; padding: 4px 8px; font-size: 9px; gap: 6px; }
+    .steps { grid-template-columns: repeat(5, 1fr); gap: 6px; }
+    .step { font-size: 10px; letter-spacing: 0; }
+    .step span { display: none; }
     .proj { grid-column: 1 / -1 !important; margin-top: 0 !important; }
     .rail { grid-template-columns: 1fr; gap: 30px; }
     .rail::before, .rail__fill { display: none; }
@@ -186,7 +238,7 @@
     .lb { grid-template-columns: 1fr; grid-template-rows: 55vh auto; overflow: auto; }
   }
   @media (max-width: 560px) { .calc__in, .calc__out { padding: 26px 20px; } .nums b { font-size: 36px; } .bar { grid-template-columns: 90px 1fr 50px; } .lb__side { padding: 26px 20px; } }
-  @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; animation-delay: 0s !important; transition-duration: .01ms !important; } [data-r] { opacity: 1; transform: none; } }
+  @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; animation-delay: 0s !important; transition-duration: .01ms !important; } [data-r] { opacity: 1; transform: none; } .build { height: auto; } .build__pin { position: static; height: auto; padding: 20px 0 60px; } }
 </style>
 </head>
 <body>
@@ -205,8 +257,17 @@
       <h1><span class="ln"><span>Tudo começa</span></span><span class="ln"><span>com um <em>traço</em>.</span></span><span class="ln"><span>Termina em lar.</span></span></h1>
       <div class="hero__side" data-r style="--d:.4s"><p>Escritório de arquitetura e interiores em Curitiba. Projetos residenciais autorais, com luz natural, materiais honestos e atenção ao modo como você vive.</p><a href="#orcamento" class="btn btn--k">Estimar meu projeto →</a></div>
     </div>
+  </div>
+</section>
+
+<section class="build" id="montagem" aria-label="Montagem da Casa Pedra">
+  <div class="build__pin">
+    <div class="wrap">
     <div class="plan">
-      <div class="plan__img"><img id="heroImg" src="https://images.unsplash.com/photo-1787088988806-7ec503692b85?w=2000&q=80&auto=format&fit=crop" alt="Casa com parede de pedra e grande abertura para o jardim" /></div>
+      <div class="plan__img" id="moldura">
+        <div class="cena" id="stage"><img id="heroImg" src="https://images.unsplash.com/photo-1787088988806-7ec503692b85?w=2000&q=80&auto=format&fit=crop" alt="Casa com parede de pedra e grande abertura para o jardim" /></div>
+        <span class="plan__tag">Casa Pedra · montagem <b id="pct">0%</b></span>
+      </div>
       <svg class="dims" viewBox="0 0 1000 480" preserveAspectRatio="none" aria-hidden="true">
         <rect x="34" y="34" width="932" height="406"/>
         <line x1="34" y1="12" x2="966" y2="12"/><line x1="34" y1="4" x2="34" y2="20"/><line x1="966" y1="4" x2="966" y2="20"/>
@@ -214,7 +275,15 @@
         <path d="M34 460 L120 460 M100 452 L120 460 L100 468"/>
         <text x="470" y="8">18,60 m</text><text x="900" y="232" transform="rotate(90 993 232)">7,40 m</text><text x="132" y="464">N ↑ fachada sul</text>
       </svg>
-      <div class="plan__meta"><span class="mono">Casa Pedra · Santa Felicidade · 2025</span><span class="mono">380 m² · residencial unifamiliar</span><span class="mono">Fotografia: acervo do estúdio</span></div>
+    </div>
+    <div class="steps" id="steps">
+      <div class="step"><i></i>01 Estrutura<span>Laje, paredes e piso, ainda crus.</span></div>
+      <div class="step"><i></i>02 Acabamentos<span>Pedra, esquadrias, marcenaria e piso.</span></div>
+      <div class="step"><i></i>03 Paisagismo<span>Jardim, céu e luz natural.</span></div>
+      <div class="step"><i></i>04 Mobiliário<span>Cada peça no seu lugar.</span></div>
+      <div class="step"><i></i>05 Lar<span>Casa Pedra, entregue em 2025.</span></div>
+    </div>
+    <div class="plan__meta"><span class="mono">Casa Pedra · Santa Felicidade · 2025</span><span class="mono">380 m² · residencial unifamiliar</span><span class="mono">Fotografia: acervo do estúdio</span></div>
     </div>
   </div>
 </section>
@@ -246,12 +315,26 @@
 
 <section class="studio" id="estudio">
   <div class="wrap studio__grid">
-    <div class="studio__img" data-r><img src="https://images.unsplash.com/photo-1782292932568-149f950c4d0d?w=1000&q=78&auto=format&fit=crop" alt="Mesa de desenho do estúdio" loading="lazy" /></div>
-    <div data-r style="--d:.1s">
+    <div class="studio__stage" id="stStage">
+      <div class="sheet sheet--a" aria-hidden="true"><span class="mono">Prancha 02 / 08</span><i></i></div>
+      <div class="sheet sheet--b" aria-hidden="true"><span class="mono">Estudo de luz · março</span><i></i></div>
+      <figure class="print" id="stPrint">
+        <div class="print__img"><img src="https://images.unsplash.com/photo-1782292932568-149f950c4d0d?w=1000&q=78&auto=format&fit=crop" alt="Mesa de desenho do estúdio" loading="lazy" /></div>
+        <figcaption class="print__cap"><b>O ateliê</b><span class="mono">Batel · Curitiba</span></figcaption>
+        <span class="print__glare" aria-hidden="true"></span>
+      </figure>
+    </div>
+    <div class="studio__txt" data-r style="--d:.1s">
       <span class="idx">03 — Estúdio</span>
-      <h2 class="h2" style="margin-top:14px">Poucos projetos.<br />Muita atenção.</h2>
-      <p>Somos quatro arquitetas e um desenhista. Aceitamos no máximo oito projetos por ano para acompanhar cada um de perto — do primeiro croqui à última tomada instalada.</p>
-      <p>Acreditamos em casas que envelhecem bem: luz natural, ventilação cruzada, materiais locais e nada que precise de manutenção desnecessária.</p>
+      <h2 class="h2"><span class="ln"><span>Poucos projetos.</span></span><span class="ln"><span>Muita atenção.</span></span></h2>
+      <p class="lead">Somos quatro arquitetas e um desenhista. Aceitamos no máximo oito projetos por ano para acompanhar cada um de perto — do primeiro croqui à última tomada instalada.</p>
+      <p class="sub">Acreditamos em casas que envelhecem bem:</p>
+      <ul class="princ">
+        <li style="--i:0"><span class="idx">01</span>Luz natural em todos os ambientes<small>orientação solar</small></li>
+        <li style="--i:1"><span class="idx">02</span>Ventilação cruzada<small>conforto passivo</small></li>
+        <li style="--i:2"><span class="idx">03</span>Materiais locais e honestos<small>pedra, madeira, cal</small></li>
+        <li style="--i:3"><span class="idx">04</span>Nada de manutenção desnecessária<small>durabilidade</small></li>
+      </ul>
       <div class="nums"><div><b data-count="14">0</b><span class="mono">anos</span></div><div><b data-count="96">0</b><span class="mono">obras entregues</span></div><div><b data-count="8">0</b><span class="mono">projetos por ano</span></div></div>
     </div>
   </div>
@@ -351,14 +434,281 @@
   addEventListener("keydown", (e) => { if (!lb.classList.contains("on")) return; if (e.key === "Escape") fecha(); if (e.key === "ArrowRight") abre(atual + 1); if (e.key === "ArrowLeft") abre(atual - 1); });
   renderP();
 
-  /* Processo: linha preenche com scroll; parallax do hero */
-  const rail = $("#rail"), fill = $("#railFill"), sts = $$(".st"), hi = $("#heroImg");
+  /* Processo: linha preenche com scroll */
+  const rail = $("#rail"), fill = $("#railFill"), sts = $$(".st");
   addEventListener("scroll", () => {
     const r = rail.getBoundingClientRect(), p = Math.min(1, Math.max(0, (innerHeight * .75 - r.top) / (innerHeight * .6)));
     fill.style.width = `${p * 100}%`;
     sts.forEach((s, i) => s.classList.toggle("on", p >= i / 5 + .05));
-    if (!reduz) hi.style.transform = `translateY(${scrollY * -.08}px)`;
   }, { passive: true });
+
+  /* MONTAGEM DA CASA — tudo sai da própria foto: a casa começa vazia e crua (como uma
+     maquete de concreto), os acabamentos e os móveis reais entram vindos de fora da tela
+     e, no fim, a foto original assume. Coordenadas em unidades da foto (largura 1274). */
+  (() => {
+    const build = $("#montagem"), moldura = $("#moldura"), stage = $("#stage"), foto = $("#heroImg"), pct = $("#pct");
+    const marcaPronto = () => { stage.classList.add("pronto"); moldura.classList.add("pronto"); };
+    const passos = $$("#steps .step"), LIM = [0, .06, .42, .54, .86, 1];
+    const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
+    const outCubic = (t) => 1 - Math.pow(1 - t, 3), outQuart = (t) => 1 - Math.pow(1 - t, 4);
+    const outBack = (t) => { const c = .9; return 1 + (c + 1) * Math.pow(t - 1, 3) + c * Math.pow(t - 1, 2); };
+    const UW = 1274, UH = 1274 / (16 / 7.4);
+
+    const MAT = [
+      { t: [.12, .24], de: "esq", poly: [[0,488],[52,488],[52,495],[276,495],[279,490],[349,481],[600,481],[600,479],[1032,479],[1032,494],[1190,497],[1192,528],[1192,546],[1080,546],[1080,534],[0,534]] },
+      { t: [.16, .30], de: "dir", poly: [[1031,318],[1235,262],[1237,252],[1274,252],[1274,542],[1192,528],[1190,497],[1032,494]] },
+      { t: [.22, .32], de: "esq", poly: [[279,432],[349,432],[349,481],[279,490]] },
+      { t: [.26, .38], de: "cima", poly: [[829,320],[1031,320],[1031,479],[829,479]] },
+      { t: [.32, .41], de: "cima", poly: [[554,349],[601,349],[601,463],[554,463]] },
+      { t: [.34, .43], de: "cima", poly: [[798,349],[829,349],[829,463],[798,463]] },
+    ];
+    const PAISAGEM = [
+      [[0,0],[1274,0],[1274,252],[0,252]],
+      [[0,286],[52,299],[52,488],[0,488]],
+      [[601,349],[798,349],[798,479],[601,479]],
+      [[0,534],[1080,534],[1080,546],[1192,546],[1192,528],[1274,542],[1274,UH],[0,UH]],
+    ];
+    const MOV = [
+      { id: "ilha", t: [.54, .64], de: "baixo", rot: 7, poly: [[368,432],[470,432],[470,486],[441.5,489],[441.5,492],[368,492]] },
+      { id: "tv", t: [.58, .67], de: "cima", rot: -9, poly: [[410,379],[480,379],[480,421],[410,421]] },
+      { id: "sofa", t: [.61, .71], de: "esq", rot: 0, poly: [[620.5,439],[626,436],[626,431.5],[729,431.5],[730,437],[736,439],[736,463],[729,463],[729,469],[725,469],[725,463],[630,463],[630,469],[626,469],[626,463],[620.5,463]] },
+      { id: "mesa", t: [.65, .74], de: "dir", rot: 12, poly: [[893,440],[903,440],[905,446],[934,446],[934,486],[920,486],[918,466],[909,466],[908,486],[894,486]] },
+      { id: "cadeira", t: [.68, .77], de: "dir", rot: -14, poly: [[938,441],[962,441],[964,449],[991,448],[991,494],[982,494],[980,472],[968,472],[967,488],[957,488],[956,472],[948,472],[946,494],[936,494],[936,452]] },
+      { id: "banco", t: [.72, .82], de: "dir", rot: 9, poly: [[1054,421],[1115,419],[1117,424],[1114,446],[1112,452],[1111,492],[1100,492],[1100,483],[1084,483],[1084,493],[1075,493],[1075,481],[1031,484],[1025,484],[1024,452],[1023,447],[1054,447]] },
+    ];
+    // como tapar o lugar de cada móvel na casa vazia
+    const FUROS = [
+      { r: [848,433,893,478], clone: [0,-40], mult: [.91,.84,.84] }, // cadeiras atrás do vidro (voltam com a foto final)
+      { r: [407,376,483,424], interp: [405,485] },
+      { r: [365,429,473,496], interp: [363,475] },
+      { r: [617,428,736,472], estica: 737.2, m: 5 },
+      { r: [888,434,995,479], clone: [0,-60] },
+      { r: [886,476,997,499], estica: 885 },
+      { r: [1019,412,1121,488], clone: [0,-80], ganho: [[1.3,1.33,1.38],[1.4,1.42,1.48]], m: 5 },
+      { r: [1017,486,1114,500], estica: 1016 },
+    ];
+    // ao pousar, o recorte original (com a sombra de contato) volta suavemente
+    const RESTAURA = [
+      { de: ["tv"], r: [407,376,483,424] },
+      { de: ["ilha"], r: [365,429,473,496] },
+      { de: ["sofa"], r: [617,428,737,472] },
+      { de: ["mesa", "cadeira"], r: [886,434,997,499] },
+      { de: ["banco"], r: [1017,412,1123,500] },
+    ];
+
+    let pecas = [], remendos = [], arq = null, paisagem = null, pronto = false, soFoto = false;
+    const mk = (w, h) => { const c = document.createElement("canvas"); c.width = Math.max(1, Math.round(w)); c.height = Math.max(1, Math.round(h)); return c; };
+    const caixa = (pts) => { let x0 = 1e9, y0 = 1e9, x1 = -1e9, y1 = -1e9; pts.forEach(([x, y]) => { x0 = Math.min(x0, x); y0 = Math.min(y0, y); x1 = Math.max(x1, x); y1 = Math.max(y1, y); }); return [Math.max(0, x0 - 3), Math.max(0, y0 - 3), Math.min(UW, x1 + 3), Math.min(UH, y1 + 3)]; };
+    const posiciona = (c, [x0, y0, x1, y1]) => Object.assign(c.style, { left: x0 / UW * 100 + "%", top: y0 / UH * 100 + "%", width: (x1 - x0) / UW * 100 + "%", height: (y1 - y0) / UH * 100 + "%" });
+
+    function prepara() {
+      const nw = foto.naturalWidth, nh = foto.naturalHeight, A = 16 / 7.4;
+      let sx = 0, sy = 0, cw = nw, ch = nh;
+      if (nw / nh > A) { cw = nh * A; sx = (nw - cw) / 2; } else { ch = nw / A; sy = (nh - ch) / 2; }
+      // resolução de trabalho: a da foto, limitada ao que a tela realmente mostra (economiza memória no celular)
+      const W = Math.round(Math.min(cw, 2000, Math.max(1100, stage.clientWidth * (devicePixelRatio || 1) * 1.25))), s = W / UW, H = Math.round(UH * s), P = (v) => v * s;
+
+      const orig = mk(W, H), oc = orig.getContext("2d");
+      oc.imageSmoothingQuality = "high";
+      oc.drawImage(foto, sx, sy, cw, ch, 0, 0, W, H);
+
+      // bordas suaves: rampas de alfa nos quatro lados
+      const pena = (ctx, w, h, m) => {
+        ctx.globalCompositeOperation = "destination-in";
+        [[w, 0], [0, h]].forEach(([gx, gy]) => {
+          const g = ctx.createLinearGradient(0, 0, gx, gy), f = Math.min(.45, m / (gx || gy));
+          g.addColorStop(0, "rgba(0,0,0,0)"); g.addColorStop(f, "#000"); g.addColorStop(1 - f, "#000"); g.addColorStop(1, "rgba(0,0,0,0)");
+          ctx.fillStyle = g; ctx.fillRect(0, 0, w, h);
+        });
+        ctx.globalCompositeOperation = "source-over";
+      };
+      const coluna = (xu, y, h) => { const c = mk(1, h), x = c.getContext("2d"); x.imageSmoothingQuality = "high"; x.drawImage(orig, P(xu) - 1.5, y, 3, h, 0, 0, 1, c.height); return c; };
+
+      // 1) casa vazia: tapa o lugar dos móveis com a parede, o vidro e o piso ao redor
+      const vazio = mk(W, H), vc = vazio.getContext("2d");
+      vc.drawImage(orig, 0, 0);
+      FUROS.forEach((f) => {
+        const M = f.m || 3, [x0, y0, x1, y1] = f.r, X = P(x0 - M), Y = P(y0 - M), w = P(x1 - x0 + 2 * M), h = P(y1 - y0 + 2 * M);
+        const t = mk(w, h), tc = t.getContext("2d");
+        if (f.clone) tc.drawImage(orig, X + P(f.clone[0]), Y + P(f.clone[1]), w, h, 0, 0, t.width, t.height);
+        else if (f.estica != null) tc.drawImage(coluna(f.estica, Y, h), 0, 0, t.width, t.height);
+        else {
+          tc.drawImage(coluna(f.interp[0], Y, h), 0, 0, t.width, t.height);
+          const d = mk(w, h), dc = d.getContext("2d");
+          dc.drawImage(coluna(f.interp[1], Y, h), 0, 0, d.width, d.height);
+          dc.globalCompositeOperation = "destination-in";
+          const g = dc.createLinearGradient(0, 0, d.width, 0); g.addColorStop(0, "rgba(0,0,0,0)"); g.addColorStop(1, "#000");
+          dc.fillStyle = g; dc.fillRect(0, 0, d.width, d.height);
+          tc.drawImage(d, 0, 0);
+        }
+        // acerto de tom medido na foto: multiplica (escurece) ou "dodge" (clareia, de cima para baixo)
+        if (f.mult) { tc.globalCompositeOperation = "multiply"; tc.fillStyle = `rgb(${f.mult.map((v) => v * 255 | 0)})`; tc.fillRect(0, 0, t.width, t.height); }
+        if (f.ganho) {
+          const g = tc.createLinearGradient(0, 0, 0, t.height), cor = (k) => `rgb(${k.map((v) => (1 - 1 / v) * 255 | 0)})`;
+          g.addColorStop(0, cor(f.ganho[0])); g.addColorStop(1, cor(f.ganho[1]));
+          tc.globalCompositeOperation = "color-dodge"; tc.fillStyle = g; tc.fillRect(0, 0, t.width, t.height);
+        }
+        tc.globalCompositeOperation = "source-over";
+        pena(tc, t.width, t.height, P(M));
+        vc.drawImage(t, X, Y);
+      });
+
+      // 2) estrutura crua: a casa vazia sem cor e sem textura, como uma maquete de concreto
+      const barro = mk(W, H), bc = barro.getContext("2d");
+      bc.drawImage(vazio, 0, 0);
+      const peq = mk(W / 3, H / 3); peq.getContext("2d").drawImage(vazio, 0, 0, peq.width, peq.height);
+      bc.globalAlpha = .55; bc.drawImage(peq, 0, 0, W, H); bc.globalAlpha = 1;
+      bc.globalCompositeOperation = "saturation"; bc.fillStyle = "#808080"; bc.fillRect(0, 0, W, H);
+      bc.globalCompositeOperation = "screen"; bc.fillStyle = "rgb(66,64,60)"; bc.fillRect(0, 0, W, H);
+      bc.globalCompositeOperation = "source-over"; bc.fillStyle = "rgba(241,238,232,.26)"; bc.fillRect(0, 0, W, H);
+
+      const recorte = (src, polys, alvo, sobra) => {
+        const [x0, y0, x1, y1] = caixa(polys.flat());
+        const c = mk(P(x1 - x0), P(y1 - y0)), cc = c.getContext("2d");
+        cc.beginPath();
+        polys.forEach((pl) => { pl.forEach(([x, y], i) => cc[i ? "lineTo" : "moveTo"](P(x - x0), P(y - y0))); cc.closePath(); });
+        cc.fill();
+        if (sobra) { cc.lineWidth = P(2.4); cc.lineJoin = "round"; cc.stroke(); }
+        cc.globalCompositeOperation = "source-in";
+        cc.drawImage(src, P(x0), P(y0), c.width, c.height, 0, 0, c.width, c.height);
+        c.className = "lay";
+        posiciona(c, [x0, y0, x1, y1]);
+        stage.insertBefore(c, foto);
+        return { el: c, ...alvo, ux: x0, uy: y0, uw: x1 - x0, uh: y1 - y0 };
+      };
+      const cheia = (cls) => { const c = mk(W, H); c.className = "lay full " + cls; stage.insertBefore(c, foto); return c; };
+
+      // camadas: maquete → acabamentos aplicados (pintura) → paisagismo → peças que voam
+      cheia("barro").getContext("2d").drawImage(barro, 0, 0);
+      arq = cheia("arq");
+      const ac = arq.getContext("2d");
+      ac.drawImage(vazio, 0, 0);
+      ac.globalCompositeOperation = "destination-out";
+      [...MAT.map((m) => m.poly), ...PAISAGEM].forEach((pl) => { ac.beginPath(); pl.forEach(([x, y], i) => ac[i ? "lineTo" : "moveTo"](P(x), P(y))); ac.closePath(); ac.fill(); });
+      paisagem = cheia("paisagem");
+      const pc = paisagem.getContext("2d");
+      pc.beginPath(); PAISAGEM.forEach((pl) => { pl.forEach(([x, y], i) => pc[i ? "lineTo" : "moveTo"](P(x), P(y))); pc.closePath(); });
+      pc.fill(); pc.lineWidth = P(2.4); pc.lineJoin = "round"; pc.stroke();
+      pc.globalCompositeOperation = "source-in"; pc.drawImage(vazio, 0, 0);
+      paisagem.style.opacity = 0;
+
+      pecas = MAT.map((m) => recorte(vazio, [m.poly], { t: m.t, de: m.de, rot: 0, esc: 1.06, mat: true }, true));
+      const moveis = MOV.map((m) => recorte(orig, [m.poly], { id: m.id, t: m.t, de: m.de, rot: m.rot, esc: 1.3 }));
+      pecas = pecas.concat(moveis);
+      remendos = RESTAURA.map((r) => {
+        const [x0, y0, x1, y1] = r.r, c = mk(P(x1 - x0), P(y1 - y0)), cc = c.getContext("2d");
+        cc.drawImage(orig, P(x0), P(y0), c.width, c.height, 0, 0, c.width, c.height);
+        pena(cc, c.width, c.height, P(3));
+        c.className = "lay"; posiciona(c, r.r); stage.insertBefore(c, foto);
+        return { el: c, de: moveis.filter((m) => r.de.includes(m.id)) };
+      });
+      pronto = true;
+      marcaPronto();
+    }
+
+    function voo(pc, p, sr) {
+      const t = clamp((p - pc.t[0]) / (pc.t[1] - pc.t[0]));
+      pc.k = t;
+      const el = pc.el;
+      if (t <= 0) { el.style.visibility = "hidden"; return; }
+      el.style.visibility = "visible";
+      if (t >= 1) { el.style.transform = ""; el.style.filter = ""; return; }
+      const e = pc.mat ? outQuart(t) : outBack(t), r = 1 - e;
+      const L = sr.left + pc.ux / UW * sr.width, T = sr.top + pc.uy / UH * sr.height, w = pc.uw / UW * sr.width, h = pc.uh / UH * sr.height;
+      const folga = 60 + Math.max(w, h) * (pc.esc - 1);
+      const dx = pc.de === "esq" ? -(L + w) - folga : pc.de === "dir" ? innerWidth - L + folga : 0;
+      const dy = pc.de === "cima" ? -(T + h) - folga : pc.de === "baixo" ? innerHeight - T + folga : 0;
+      el.style.transform = `translate3d(${(dx * r).toFixed(1)}px,${(dy * r).toFixed(1)}px,0) rotate(${(pc.rot * r).toFixed(2)}deg) scale(${(1 + (pc.esc - 1) * Math.max(0, r)).toFixed(3)})`;
+      const sh = Math.max(0, r);
+      el.style.filter = sh > .01 ? `drop-shadow(0 ${(24 * sh).toFixed(1)}px ${(22 * sh).toFixed(1)}px rgba(0,0,0,${(.32 * sh).toFixed(3)}))` : "";
+    }
+
+    function pinta(p) {
+      if (pronto) {
+        const sr = stage.getBoundingClientRect();
+        const w = outCubic(clamp((p - .06) / .12)) * 130;
+        arq.style.webkitMaskImage = arq.style.maskImage = `linear-gradient(100deg,#000 ${(w - 18).toFixed(1)}%,transparent ${w.toFixed(1)}%)`;
+        paisagem.style.opacity = outCubic(clamp((p - .42) / .12));
+        pecas.forEach((pc) => voo(pc, p, sr));
+        remendos.forEach((rm) => { rm.el.style.visibility = "visible"; rm.el.style.opacity = clamp((Math.min(...rm.de.map((m) => m.k || 0)) - .92) / .08); });
+      }
+      foto.style.opacity = soFoto ? 1 : pronto ? outCubic(clamp((p - .86) / .1)) : 0;
+      pct.textContent = Math.round(p * 100) + "%";
+      passos.forEach((st, i) => {
+        st.style.setProperty("--k", clamp((p - LIM[i]) / (LIM[i + 1] - LIM[i])));
+        st.classList.toggle("on", p >= LIM[i] && (p < LIM[i + 1] || i === 4));
+      });
+    }
+
+    if (reduz) { soFoto = true; marcaPronto(); pinta(1); return; }
+    const inicia = () => { try { prepara(); } catch (e) { pronto = false; soFoto = true; marcaPronto(); } };
+    const decodifica = () => (foto.decode ? foto.decode().catch(() => {}) : Promise.resolve()).then(() => setTimeout(inicia, 0));
+    if (foto.complete && foto.naturalWidth) decodifica();
+    else { foto.addEventListener("load", decodifica, { once: true }); foto.addEventListener("error", () => { soFoto = true; marcaPronto(); }, { once: true }); }
+
+    let alvo = 0, atual = 0;
+    const medir = () => { const r = build.getBoundingClientRect(), pin = build.firstElementChild.offsetHeight; alvo = clamp((72 - r.top) / (build.offsetHeight - pin)); };
+    (function loop() {
+      medir();
+      atual += (alvo - atual) * .12;
+      if (Math.abs(alvo - atual) < .0005) atual = alvo;
+      pinta(atual);
+      requestAnimationFrame(loop);
+    })();
+  })();
+
+  /* ESTÚDIO: a foto do ateliê desce girando e pousa sobre as pranchas; depois inclina seguindo o mouse */
+  (() => {
+    const stage = $("#stStage"), print = $("#stPrint"), img = $(".print__img img", print), glare = $(".print__glare", print), sheets = $$(".sheet", stage);
+    const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
+    const outCubic = (t) => 1 - Math.pow(1 - t, 3);
+    const LEQUE = [{ x: -11, y: 5, r: -7 }, { x: 11, y: -4, r: 6 }]; // posição final das pranchas
+    const pousa = (q, mx = 0, my = 0, land = 0) => {
+      print.style.transform = `translate3d(${(-8 * q).toFixed(2)}%,${(-46 * q).toFixed(2)}%,0) rotateZ(${(-17 * q).toFixed(2)}deg) rotateX(${(28 * q - my * 9 * land).toFixed(2)}deg) rotateY(${(-14 * q + mx * 12 * land).toFixed(2)}deg) scale(${(1 - .2 * q).toFixed(4)})`;
+    };
+    if (reduz) {
+      print.style.opacity = 1; pousa(0); img.style.setProperty("--z", 1.04);
+      sheets.forEach((s, i) => { s.style.opacity = 1; s.style.transform = `translate(${LEQUE[i].x}%,${LEQUE[i].y}%) rotate(${LEQUE[i].r}deg)`; });
+      return;
+    }
+    const m = { x: 0, y: 0, tx: 0, ty: 0, on: 0, ton: 0 };
+    stage.addEventListener("pointermove", (e) => {
+      if (e.pointerType !== "mouse") return;
+      const r = stage.getBoundingClientRect();
+      m.tx = (e.clientX - r.left) / r.width - .5; m.ty = (e.clientY - r.top) / r.height - .5; m.ton = 1;
+    });
+    stage.addEventListener("pointerleave", () => { m.tx = 0; m.ty = 0; m.ton = 0; });
+    let atual = 0;
+    (function loop() {
+      const r = stage.getBoundingClientRect(), vh = innerHeight;
+      if (r.bottom > -300 && r.top < vh + 300) {
+        // progresso: começa quando a foto entra por baixo e termina perto do topo da tela
+        const alvo = clamp((vh - r.top) / (vh * .82));
+        atual += (alvo - atual) * .085;
+        m.x += (m.tx - m.x) * .07; m.y += (m.ty - m.y) * .07; m.on += (m.ton - m.on) * .06;
+        const q = 1 - outCubic(atual);                 // quanto falta para pousar
+        const land = clamp((atual - .8) / .2);         // o mouse só mexe depois de pousada
+        print.style.opacity = clamp(atual * 3.5).toFixed(3);
+        pousa(q, m.x, m.y, land);
+        print.style.setProperty("--sy", `${(26 + 50 * q).toFixed(1)}px`);
+        print.style.setProperty("--sb", `${(50 + 70 * q).toFixed(1)}px`);
+        print.style.setProperty("--sa", (.3 - .12 * q).toFixed(3));
+        img.style.setProperty("--z", (1.05 + .25 * q).toFixed(4));
+        img.style.setProperty("--ix", `${(m.x * -14 * land).toFixed(2)}px`);
+        img.style.setProperty("--iy", `${(m.y * -14 * land).toFixed(2)}px`);
+        glare.style.setProperty("--gx", `${(50 + m.x * 90).toFixed(1)}%`);
+        glare.style.setProperty("--gy", `${(m.y * 90 - 10).toFixed(1)}%`);
+        glare.style.setProperty("--go", (Math.max(q * .5, m.on * land * .9)).toFixed(3));
+        const k = outCubic(clamp((atual - .35) / .6));  // pranchas se abrem em leque atrás da foto
+        sheets.forEach((s, i) => {
+          const L = LEQUE[i], d = (i ? -10 : 10) * land;
+          s.style.opacity = k.toFixed(3);
+          s.style.transform = `translate(${(L.x * k).toFixed(2)}%,${(L.y * k).toFixed(2)}%) translate(${(m.x * d).toFixed(1)}px,${(m.y * d).toFixed(1)}px) rotate(${(L.r * k).toFixed(2)}deg) scale(${(.94 + .06 * k).toFixed(4)})`;
+        });
+      }
+      requestAnimationFrame(loop);
+    })();
+  })();
 
   /* Calculadora de honorários */
   const TIPO = [["arq", "Arquitetônico", 120, 10], ["int", "Interiores", 95, 6], ["ref", "Reforma", 80, 6], ["com", "Comercial", 110, 8]];

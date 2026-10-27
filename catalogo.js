@@ -173,7 +173,7 @@ window.MODELOS = [
     pasta: "atelier-traco",
     titulo: "Atelier Traço — Arquitetura e Interiores",
     segmento: "Arquitetura",
-    descricao: "Escritório de arquitetura com cotas de planta desenhadas no hero, portfólio filtrável, linha do processo e calculadora de honorários por m².",
+    descricao: "Escritório de arquitetura em que a rolagem monta a casa da foto: da estrutura crua aos acabamentos e móveis reais. Portfólio filtrável, processo e calculadora de honorários.",
     tags: ["Portfólio", "Calculadora", "Blueprint"],
     cor: "#c24b2c",
     novo: true,
