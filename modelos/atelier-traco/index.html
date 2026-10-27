@@ -63,11 +63,16 @@
   .build { position: relative; height: 430vh; }
   .build__pin { position: sticky; top: 72px; height: calc(100svh - 72px); display: flex; flex-direction: column; justify-content: center; overflow: clip; }
   .plan { position: relative; width: min(100%, calc((100svh - 72px - 190px) * 2.162)); margin-inline: auto; }
-  .plan__img { position: relative; aspect-ratio: 16/7.4; background: var(--white); outline: 1px solid var(--line); }
-  .plan__img > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; will-change: opacity; }
-  .house { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
-  .house .ln { stroke: var(--blue); stroke-width: 1.2; vector-effect: non-scaling-stroke; stroke-dasharray: 1; stroke-dashoffset: 1; animation: draw 2.2s var(--ease) forwards; animation-delay: var(--dl, .3s); }
-  .house .fl { fill-opacity: 0; }
+  .plan__img { position: relative; aspect-ratio: 16/7.4; background: #e9e7e1; outline: 1px solid var(--line); }
+  .cena { position: absolute; inset: 0; }
+  .cena > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; will-change: opacity; }
+  .plan__img::before { content: ""; position: absolute; inset: 0; background: linear-gradient(100deg, transparent 30%, rgba(255,255,255,.55) 50%, transparent 70%) -100% 0 / 60% 100% no-repeat; animation: shimmer 1.4s linear infinite; }
+  .plan__img.pronto::before { display: none; }
+  @keyframes shimmer { to { background-position: 220% 0; } }
+  .lay { position: absolute; display: block; pointer-events: none; transform-origin: 50% 50%; will-change: transform; visibility: hidden; }
+  .lay.full { inset: 0; width: 100%; height: 100%; visibility: visible; }
+  .lay.barro { opacity: 0; transition: opacity 1.2s var(--ease); }
+  .pronto .lay.barro { opacity: 1; }
   .plan__tag { position: absolute; left: 14px; top: 14px; z-index: 3; display: flex; gap: 10px; align-items: center; background: var(--bg); border: 1px solid var(--line); padding: 7px 12px; font-family: var(--mono); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; }
   .plan__tag b { font-weight: 500; color: var(--terra); min-width: 4ch; text-align: right; }
   .steps { display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; margin-top: 30px; }
@@ -193,6 +198,10 @@
     .hero__top, .studio__grid, .calc__grid, .contact__grid { grid-template-columns: 1fr; }
     .dims { display: none; }
     .build { height: 330vh; }
+    /* no celular a moldura fica mais alta e mostra o miolo da casa (onde estão os móveis) */
+    .plan__img { aspect-ratio: 3/2; overflow: hidden; }
+    .cena { inset: 0 auto; left: 50%; width: auto; aspect-ratio: 16/7.4; transform: translateX(-54.95%); }
+    .plan__tag { left: 8px; top: 8px; padding: 4px 8px; font-size: 9px; gap: 6px; }
     .steps { grid-template-columns: repeat(5, 1fr); gap: 6px; }
     .step { font-size: 10px; letter-spacing: 0; }
     .step span { display: none; }
@@ -230,57 +239,8 @@
   <div class="build__pin">
     <div class="wrap">
     <div class="plan">
-      <div class="plan__img">
-        <svg class="house" id="house" viewBox="0 0 1280 592" aria-hidden="true">
-          <defs>
-            <linearGradient id="gSky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#a9c6e4"/><stop offset=".75" stop-color="#e8eff4"/></linearGradient>
-            <linearGradient id="gGlass" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#7f9395" stop-opacity=".7"/><stop offset="1" stop-color="#3c4a4c" stop-opacity=".6"/></linearGradient>
-            <clipPath id="cStone"><path d="M1040 272H1280V565H1040Z"/></clipPath>
-            <clipPath id="cAbove"><path d="M-400 -400H1700V272H-400Z"/></clipPath>
-          </defs>
-          <!-- céu -->
-          <g data-a=".70 .84 0 0 0 fade"><rect width="1280" height="300" fill="url(#gSky)"/><g fill="#fff" opacity=".75"><ellipse cx="300" cy="140" rx="150" ry="36"/><ellipse cx="380" cy="120" rx="90" ry="34"/><ellipse cx="880" cy="90" rx="130" ry="30"/><ellipse cx="1120" cy="170" rx="120" ry="28"/></g></g>
-          <!-- árvores ao fundo (sobem por trás da laje) -->
-          <g clip-path="url(#cAbove)"><g data-a=".64 .78 0 260 0" id="treesBg"></g></g>
-
-          <!-- ESTRUTURA: traço desenha ao carregar, preenchimento entra com a rolagem -->
-          <g id="estrutura" stroke-linejoin="round">
-            <path class="ln fl" style="--dl:.2s" pathLength="1" d="M0 561H1280V592H0Z" fill="#ddd8cc"/>
-            <path class="ln fl" style="--dl:.3s" pathLength="1" d="M282 326H1040V513H282Z" fill="#9b958b"/>
-            <path class="ln fl" style="--dl:.35s" pathLength="1" d="M557 373H802V488H557Z" fill="#eef0ea"/>
-            <path class="ln fl" style="--dl:.4s" pathLength="1" d="M0 513H1192L1212 555H0Z" fill="#d9d5cb"/>
-            <path class="ln fl" style="--dl:.45s" pathLength="1" d="M0 555H1214V561H0Z" fill="#2c2b29"/>
-            <path class="ln fl" style="--dl:.5s" pathLength="1" d="M52 301H282V513H52Z" fill="#ebe9e3"/>
-            <path class="ln fl" style="--dl:.55s" pathLength="1" d="M1040 272H1280V565H1040Z" fill="#d4cfc4"/>
-            <path class="ln fl" style="--dl:.6s" pathLength="1" d="M0 301H1040V330L0 324Z" fill="#b9b4aa"/>
-            <path class="ln fl" style="--dl:.65s" pathLength="1" d="M0 270H1243V301H0Z" fill="#d3cec4"/>
-          </g>
-
-          <!-- ACABAMENTOS -->
-          <path data-a=".36 .48 -1500 0 0" d="M282 330H557V513H282ZM802 330H1040V513H802ZM557 330H802V373H557ZM557 488H802V513H557Z" fill="#46413b"/>
-          <g data-a=".38 .50 1500 0 0"><g clip-path="url(#cStone)" id="stones"></g></g>
-          <g data-a=".40 .52 -1500 0 0" stroke="#bdb8ad" stroke-width="1" id="deckLines"></g>
-          <g data-a=".42 .54 -1500 0 0"><rect x="282" y="455" width="67" height="58" fill="#a8683a"/><rect x="280" y="450" width="71" height="6" fill="#ece6da"/><path d="M315 458V511" stroke="#7d4b27" stroke-width="1.5"/></g>
-          <g data-a=".44 .56 0 -900 0" fill="#f3f0ea"><rect x="557" y="373" width="34" height="115" opacity=".92"/><rect x="768" y="373" width="34" height="115" opacity=".92"/></g>
-          <g data-a=".46 .58 0 -1000 0"><rect x="802" y="336" width="238" height="177" fill="url(#gGlass)"/><g stroke="#1d1d1d" stroke-width="3"><path d="M802 336H1040M802 513H1040M802 336V513M862 336V513M922 336V513M982 336V513M1040 336V513"/></g></g>
-          <g id="spots"></g>
-
-          <!-- MOBILIÁRIO -->
-          <g data-a=".60 .70 0 800 14 back"><rect x="370" y="457" width="102" height="56" fill="#a9b2a1"/><rect x="366" y="452" width="110" height="7" fill="#dcdfd5"/><rect x="370" y="459" width="102" height="4" fill="#8f988a"/></g>
-          <g data-a=".62 .72 0 -900 -14 back"><rect x="412" y="401" width="70" height="40" rx="1" fill="#141414"/><rect x="415" y="404" width="64" height="34" fill="#262626"/></g>
-          <g data-a=".63 .74 -1700 0 0 back"><rect x="626" y="455" width="107" height="17" rx="4" fill="#3a3836"/><rect x="620" y="469" width="119" height="16" rx="3" fill="#2a2928"/><rect x="618" y="460" width="10" height="25" rx="3" fill="#2f2e2c"/><rect x="731" y="460" width="10" height="25" rx="3" fill="#2f2e2c"/></g>
-          <g data-a=".65 .76 1700 0 18 back" id="chairA"></g>
-          <g data-a=".67 .78 1700 0 -16 back" id="chairB"></g>
-          <g data-a=".66 .77 1700 -200 -10 back"><rect x="938" y="478" width="34" height="5" fill="#9a6d3c"/><path d="M942 483V513M968 483V513" stroke="#7b5530" stroke-width="3"/></g>
-          <g data-a=".69 .80 1700 0 -10 back" id="bench"></g>
-
-          <!-- PAISAGISMO -->
-          <path data-a=".70 .80 0 160 0" d="M0 561H1280V592H0Z" fill="#6f8c4a"/>
-          <g data-a=".72 .82 0 260 0" id="agave"></g>
-          <g data-a=".72 .84 -800 -300 -18" id="branchL"></g>
-          <g data-a=".73 .85 800 -300 18" id="branchR"></g>
-        </svg>
-        <img id="heroImg" src="https://images.unsplash.com/photo-1787088988806-7ec503692b85?w=2000&q=80&auto=format&fit=crop" alt="Casa com parede de pedra e grande abertura para o jardim" />
+      <div class="plan__img" id="moldura">
+        <div class="cena" id="stage"><img id="heroImg" src="https://images.unsplash.com/photo-1787088988806-7ec503692b85?w=2000&q=80&auto=format&fit=crop" alt="Casa com parede de pedra e grande abertura para o jardim" /></div>
         <span class="plan__tag">Casa Pedra · montagem <b id="pct">0%</b></span>
       </div>
       <svg class="dims" viewBox="0 0 1000 480" preserveAspectRatio="none" aria-hidden="true">
@@ -292,9 +252,9 @@
       </svg>
     </div>
     <div class="steps" id="steps">
-      <div class="step"><i></i>01 Traço<span>O desenho define cada linha.</span></div>
-      <div class="step"><i></i>02 Estrutura<span>Laje, paredes e piso.</span></div>
-      <div class="step"><i></i>03 Acabamentos<span>Pedra, vidro, madeira e luz.</span></div>
+      <div class="step"><i></i>01 Estrutura<span>Laje, paredes e piso, ainda crus.</span></div>
+      <div class="step"><i></i>02 Acabamentos<span>Pedra, esquadrias, marcenaria e piso.</span></div>
+      <div class="step"><i></i>03 Paisagismo<span>Jardim, céu e luz natural.</span></div>
       <div class="step"><i></i>04 Mobiliário<span>Cada peça no seu lugar.</span></div>
       <div class="step"><i></i>05 Lar<span>Casa Pedra, entregue em 2025.</span></div>
     </div>
@@ -443,106 +403,210 @@
     sts.forEach((s, i) => s.classList.toggle("on", p >= i / 5 + .05));
   }, { passive: true });
 
-  /* MONTAGEM DA CASA: a rolagem leva do traço vazio à casa mobiliada */
+  /* MONTAGEM DA CASA — tudo sai da própria foto: a casa começa vazia e crua (como uma
+     maquete de concreto), os acabamentos e os móveis reais entram vindos de fora da tela
+     e, no fim, a foto original assume. Coordenadas em unidades da foto (largura 1274). */
   (() => {
-    const NS = "http://www.w3.org/2000/svg";
-    const svg = $("#house"), build = $("#montagem"), foto = $("#heroImg"), pct = $("#pct");
-    const el = (tag, attrs, pai) => { const n = document.createElementNS(NS, tag); for (const k in attrs) n.setAttribute(k, attrs[k]); pai && pai.append(n); return n; };
-    let seed = 7; const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
-
-    // pedra: fiadas irregulares
-    const stones = $("#stones");
-    for (let y = 272; y < 566;) {
-      const h = 13 + rnd() * 10;
-      for (let x = 1040 - rnd() * 30; x < 1280;) {
-        const w = 18 + rnd() * 26, t = 178 + rnd() * 50 | 0;
-        el("rect", { x: x.toFixed(1), y: y.toFixed(1), width: (w - 2).toFixed(1), height: (h - 2).toFixed(1), rx: 3, fill: `rgb(${t},${t - 6},${t - 16})` }, stones);
-        x += w;
-      }
-      y += h;
-    }
-    // réguas do deck em perspectiva
-    const deck = $("#deckLines");
-    for (let x = 30; x < 1200; x += 46) el("path", { d: `M${x} 513L${(x * 1.015).toFixed(1)} 555` }, deck);
-    el("path", { d: "M0 534H1202" }, deck);
-    // spots na laje caindo um a um
-    const spots = $("#spots");
-    [70, 210, 370, 520, 690, 850, 990, 1150].forEach((x, i) => {
-      const g = el("g", { "data-a": `${(.47 + i * .012).toFixed(3)} ${(.55 + i * .012).toFixed(3)} 0 -700 0 back` }, spots);
-      el("rect", { x, y: 301, width: 8, height: 11, fill: "#1a1a1a" }, g);
-      el("ellipse", { cx: x + 4, cy: 313, rx: 5, ry: 2, fill: "#ffe7a8", opacity: .9 }, g);
-    });
-    // cadeiras e poltrona de madeira
-    const cadeira = (g, x) => {
-      el("rect", { x, y: 461, width: 36, height: 26, fill: "#b8874c" }, g);
-      for (let i = 0; i < 4; i++) el("rect", { x: x + 2 + i * 9, y: 463, width: 5, height: 22, fill: "#c99a5c" }, g);
-      el("rect", { x: x - 2, y: 487, width: 40, height: 6, fill: "#a5763f" }, g);
-      el("path", { d: `M${x} 493V513M${x + 34} 493V513`, stroke: "#7b5530", "stroke-width": 3 }, g);
-    };
-    cadeira($("#chairA"), 897); cadeira($("#chairB"), 975);
-    const bench = $("#bench");
-    el("rect", { x: 1040, y: 433, width: 76, height: 40, fill: "#b8874c" }, bench);
-    for (let i = 0; i < 6; i++) el("rect", { x: 1043 + i * 12.4, y: 436, width: 7, height: 34, fill: "#cb9c5e" }, bench);
-    el("rect", { x: 1032, y: 470, width: 92, height: 10, fill: "#a5763f" }, bench);
-    el("rect", { x: 1030, y: 452, width: 8, height: 30, fill: "#9a6c38" }, bench);
-    el("rect", { x: 1118, y: 452, width: 8, height: 30, fill: "#9a6c38" }, bench);
-    el("path", { d: "M1036 480V513M1120 480V513", stroke: "#7b5530", "stroke-width": 4 }, bench);
-    // árvores ao fundo
-    const tb = $("#treesBg");
-    [[520, 230, 150], [1080, 230, 120]].forEach(([cx, cy, r]) => {
-      for (let i = 0; i < 40; i++) { const a = rnd() * Math.PI, d = rnd() * r; el("circle", { cx: (cx + Math.cos(a) * d * 1.3).toFixed(1), cy: (cy + 50 - Math.sin(a) * d * .7).toFixed(1), r: (10 + rnd() * 16).toFixed(1), fill: rnd() > .5 ? "#9aa684" : "#b4bc9c", opacity: .85 }, tb); }
-    });
-    // agaves no canto
-    const ag = $("#agave");
-    [[1215, 592], [1260, 590], [1170, 592]].forEach(([x, y]) => { for (let i = 0; i < 9; i++) { const a = -Math.PI / 2 + (i - 4) * .3, l = 50 + rnd() * 30; el("path", { d: `M${x - 4} ${y}Q${(x + Math.cos(a) * l * .5).toFixed(1)} ${(y + Math.sin(a) * l * .6).toFixed(1)} ${(x + Math.cos(a) * l).toFixed(1)} ${(y + Math.sin(a) * l).toFixed(1)}L${x + 4} ${y}Z`, fill: i % 2 ? "#5f7f52" : "#76946a" }, ag); } });
-    // galhos em primeiro plano
-    const galho = (g, pts, lado) => {
-      el("path", { d: `M${pts.map((p) => p.join(" ")).join("L")}`, stroke: "#4b4032", "stroke-width": 2.5, fill: "none", "stroke-linecap": "round" }, g);
-      for (let i = 0; i < pts.length - 1; i++) for (let j = 0; j < 13; j++) {
-        const k = rnd(), x = pts[i][0] + (pts[i + 1][0] - pts[i][0]) * k, y = pts[i][1] + (pts[i + 1][1] - pts[i][1]) * k, a = (rnd() - .5) * 140 + lado * 30;
-        el("ellipse", { cx: x.toFixed(1), cy: (y + (rnd() - .5) * 16).toFixed(1), rx: (10 + rnd() * 7).toFixed(1), ry: (4 + rnd() * 2.5).toFixed(1), fill: rnd() > .4 ? "#3e5a2b" : "#5d7d3c", transform: `rotate(${a.toFixed(0)} ${x.toFixed(1)} ${y.toFixed(1)})` }, g);
-      }
-    };
-    galho($("#branchL"), [[-20, 10], [90, 60], [190, 120], [260, 190]], 1);
-    galho($("#branchL"), [[-20, 200], [70, 230], [150, 300], [190, 360]], 1);
-    galho($("#branchR"), [[1300, 40], [1190, 90], [1110, 120], [1040, 150]], -1);
-    galho($("#branchR"), [[1300, 200], [1220, 260], [1170, 330]], -1);
-
-    const preenche = $$("#estrutura .fl"), linhas = $$("#estrutura .ln");
-    const itens = $$("[data-a]", svg).map((n) => {
-      const [s, e, dx, dy, rot, tipo] = n.dataset.a.split(" ");
-      const bb = n.getBBox();
-      return { n, s: +s, e: +e, dx: +dx, dy: +dy, rot: +rot, tipo, cx: bb.x + bb.width / 2, cy: bb.y + bb.height / 2 };
-    });
+    const build = $("#montagem"), moldura = $("#moldura"), stage = $("#stage"), foto = $("#heroImg"), pct = $("#pct");
+    const marcaPronto = () => { stage.classList.add("pronto"); moldura.classList.add("pronto"); };
+    const passos = $$("#steps .step"), LIM = [0, .06, .42, .54, .86, 1];
     const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
-    const outCubic = (t) => 1 - Math.pow(1 - t, 3);
-    const outBack = (t) => { const c = 1.35; return 1 + (c + 1) * Math.pow(t - 1, 3) + c * Math.pow(t - 1, 2); };
-    const passos = $$("#steps .step"), LIM = [0, .14, .36, .60, .86, 1];
+    const outCubic = (t) => 1 - Math.pow(1 - t, 3), outQuart = (t) => 1 - Math.pow(1 - t, 4);
+    const outBack = (t) => { const c = .9; return 1 + (c + 1) * Math.pow(t - 1, 3) + c * Math.pow(t - 1, 2); };
+    const UW = 1274, UH = 1274 / (16 / 7.4);
+
+    const MAT = [
+      { t: [.12, .24], de: "esq", poly: [[0,488],[52,488],[52,495],[276,495],[279,490],[349,481],[600,481],[600,479],[1032,479],[1032,494],[1190,497],[1192,528],[1192,546],[1080,546],[1080,534],[0,534]] },
+      { t: [.16, .30], de: "dir", poly: [[1031,318],[1235,262],[1237,252],[1274,252],[1274,542],[1192,528],[1190,497],[1032,494]] },
+      { t: [.22, .32], de: "esq", poly: [[279,432],[349,432],[349,481],[279,490]] },
+      { t: [.26, .38], de: "cima", poly: [[829,320],[1031,320],[1031,479],[829,479]] },
+      { t: [.32, .41], de: "cima", poly: [[554,349],[601,349],[601,463],[554,463]] },
+      { t: [.34, .43], de: "cima", poly: [[798,349],[829,349],[829,463],[798,463]] },
+    ];
+    const PAISAGEM = [
+      [[0,0],[1274,0],[1274,252],[0,252]],
+      [[0,286],[52,299],[52,488],[0,488]],
+      [[601,349],[798,349],[798,479],[601,479]],
+      [[0,534],[1080,534],[1080,546],[1192,546],[1192,528],[1274,542],[1274,UH],[0,UH]],
+    ];
+    const MOV = [
+      { id: "ilha", t: [.54, .64], de: "baixo", rot: 7, poly: [[368,432],[470,432],[470,486],[441.5,489],[441.5,492],[368,492]] },
+      { id: "tv", t: [.58, .67], de: "cima", rot: -9, poly: [[410,379],[480,379],[480,421],[410,421]] },
+      { id: "sofa", t: [.61, .71], de: "esq", rot: 0, poly: [[620.5,439],[626,436],[626,431.5],[729,431.5],[730,437],[736,439],[736,463],[729,463],[729,469],[725,469],[725,463],[630,463],[630,469],[626,469],[626,463],[620.5,463]] },
+      { id: "mesa", t: [.65, .74], de: "dir", rot: 12, poly: [[893,440],[903,440],[905,446],[934,446],[934,486],[920,486],[918,466],[909,466],[908,486],[894,486]] },
+      { id: "cadeira", t: [.68, .77], de: "dir", rot: -14, poly: [[938,441],[962,441],[964,449],[991,448],[991,494],[982,494],[980,472],[968,472],[967,488],[957,488],[956,472],[948,472],[946,494],[936,494],[936,452]] },
+      { id: "banco", t: [.72, .82], de: "dir", rot: 9, poly: [[1054,421],[1115,419],[1117,424],[1114,446],[1112,452],[1111,492],[1100,492],[1100,483],[1084,483],[1084,493],[1075,493],[1075,481],[1031,484],[1025,484],[1024,452],[1023,447],[1054,447]] },
+    ];
+    // como tapar o lugar de cada móvel na casa vazia
+    const FUROS = [
+      { r: [848,433,893,478], clone: [0,-40], mult: [.91,.84,.84] }, // cadeiras atrás do vidro (voltam com a foto final)
+      { r: [407,376,483,424], interp: [405,485] },
+      { r: [365,429,473,496], interp: [363,475] },
+      { r: [617,428,736,472], estica: 737.2, m: 5 },
+      { r: [888,434,995,479], clone: [0,-60] },
+      { r: [886,476,997,499], estica: 885 },
+      { r: [1019,412,1121,488], clone: [0,-80], ganho: [[1.3,1.33,1.38],[1.4,1.42,1.48]], m: 5 },
+      { r: [1017,486,1114,500], estica: 1016 },
+    ];
+    // ao pousar, o recorte original (com a sombra de contato) volta suavemente
+    const RESTAURA = [
+      { de: ["tv"], r: [407,376,483,424] },
+      { de: ["ilha"], r: [365,429,473,496] },
+      { de: ["sofa"], r: [617,428,737,472] },
+      { de: ["mesa", "cadeira"], r: [886,434,997,499] },
+      { de: ["banco"], r: [1017,412,1123,500] },
+    ];
+
+    let pecas = [], remendos = [], arq = null, paisagem = null, pronto = false, soFoto = false;
+    const mk = (w, h) => { const c = document.createElement("canvas"); c.width = Math.max(1, Math.round(w)); c.height = Math.max(1, Math.round(h)); return c; };
+    const caixa = (pts) => { let x0 = 1e9, y0 = 1e9, x1 = -1e9, y1 = -1e9; pts.forEach(([x, y]) => { x0 = Math.min(x0, x); y0 = Math.min(y0, y); x1 = Math.max(x1, x); y1 = Math.max(y1, y); }); return [Math.max(0, x0 - 3), Math.max(0, y0 - 3), Math.min(UW, x1 + 3), Math.min(UH, y1 + 3)]; };
+    const posiciona = (c, [x0, y0, x1, y1]) => Object.assign(c.style, { left: x0 / UW * 100 + "%", top: y0 / UH * 100 + "%", width: (x1 - x0) / UW * 100 + "%", height: (y1 - y0) / UH * 100 + "%" });
+
+    function prepara() {
+      const nw = foto.naturalWidth, nh = foto.naturalHeight, A = 16 / 7.4;
+      let sx = 0, sy = 0, cw = nw, ch = nh;
+      if (nw / nh > A) { cw = nh * A; sx = (nw - cw) / 2; } else { ch = nw / A; sy = (nh - ch) / 2; }
+      // resolução de trabalho: a da foto, limitada ao que a tela realmente mostra (economiza memória no celular)
+      const W = Math.round(Math.min(cw, 2000, Math.max(1100, stage.clientWidth * (devicePixelRatio || 1) * 1.25))), s = W / UW, H = Math.round(UH * s), P = (v) => v * s;
+
+      const orig = mk(W, H), oc = orig.getContext("2d");
+      oc.imageSmoothingQuality = "high";
+      oc.drawImage(foto, sx, sy, cw, ch, 0, 0, W, H);
+
+      // bordas suaves: rampas de alfa nos quatro lados
+      const pena = (ctx, w, h, m) => {
+        ctx.globalCompositeOperation = "destination-in";
+        [[w, 0], [0, h]].forEach(([gx, gy]) => {
+          const g = ctx.createLinearGradient(0, 0, gx, gy), f = Math.min(.45, m / (gx || gy));
+          g.addColorStop(0, "rgba(0,0,0,0)"); g.addColorStop(f, "#000"); g.addColorStop(1 - f, "#000"); g.addColorStop(1, "rgba(0,0,0,0)");
+          ctx.fillStyle = g; ctx.fillRect(0, 0, w, h);
+        });
+        ctx.globalCompositeOperation = "source-over";
+      };
+      const coluna = (xu, y, h) => { const c = mk(1, h), x = c.getContext("2d"); x.imageSmoothingQuality = "high"; x.drawImage(orig, P(xu) - 1.5, y, 3, h, 0, 0, 1, c.height); return c; };
+
+      // 1) casa vazia: tapa o lugar dos móveis com a parede, o vidro e o piso ao redor
+      const vazio = mk(W, H), vc = vazio.getContext("2d");
+      vc.drawImage(orig, 0, 0);
+      FUROS.forEach((f) => {
+        const M = f.m || 3, [x0, y0, x1, y1] = f.r, X = P(x0 - M), Y = P(y0 - M), w = P(x1 - x0 + 2 * M), h = P(y1 - y0 + 2 * M);
+        const t = mk(w, h), tc = t.getContext("2d");
+        if (f.clone) tc.drawImage(orig, X + P(f.clone[0]), Y + P(f.clone[1]), w, h, 0, 0, t.width, t.height);
+        else if (f.estica != null) tc.drawImage(coluna(f.estica, Y, h), 0, 0, t.width, t.height);
+        else {
+          tc.drawImage(coluna(f.interp[0], Y, h), 0, 0, t.width, t.height);
+          const d = mk(w, h), dc = d.getContext("2d");
+          dc.drawImage(coluna(f.interp[1], Y, h), 0, 0, d.width, d.height);
+          dc.globalCompositeOperation = "destination-in";
+          const g = dc.createLinearGradient(0, 0, d.width, 0); g.addColorStop(0, "rgba(0,0,0,0)"); g.addColorStop(1, "#000");
+          dc.fillStyle = g; dc.fillRect(0, 0, d.width, d.height);
+          tc.drawImage(d, 0, 0);
+        }
+        // acerto de tom medido na foto: multiplica (escurece) ou "dodge" (clareia, de cima para baixo)
+        if (f.mult) { tc.globalCompositeOperation = "multiply"; tc.fillStyle = `rgb(${f.mult.map((v) => v * 255 | 0)})`; tc.fillRect(0, 0, t.width, t.height); }
+        if (f.ganho) {
+          const g = tc.createLinearGradient(0, 0, 0, t.height), cor = (k) => `rgb(${k.map((v) => (1 - 1 / v) * 255 | 0)})`;
+          g.addColorStop(0, cor(f.ganho[0])); g.addColorStop(1, cor(f.ganho[1]));
+          tc.globalCompositeOperation = "color-dodge"; tc.fillStyle = g; tc.fillRect(0, 0, t.width, t.height);
+        }
+        tc.globalCompositeOperation = "source-over";
+        pena(tc, t.width, t.height, P(M));
+        vc.drawImage(t, X, Y);
+      });
+
+      // 2) estrutura crua: a casa vazia sem cor e sem textura, como uma maquete de concreto
+      const barro = mk(W, H), bc = barro.getContext("2d");
+      bc.drawImage(vazio, 0, 0);
+      const peq = mk(W / 3, H / 3); peq.getContext("2d").drawImage(vazio, 0, 0, peq.width, peq.height);
+      bc.globalAlpha = .55; bc.drawImage(peq, 0, 0, W, H); bc.globalAlpha = 1;
+      bc.globalCompositeOperation = "saturation"; bc.fillStyle = "#808080"; bc.fillRect(0, 0, W, H);
+      bc.globalCompositeOperation = "screen"; bc.fillStyle = "rgb(66,64,60)"; bc.fillRect(0, 0, W, H);
+      bc.globalCompositeOperation = "source-over"; bc.fillStyle = "rgba(241,238,232,.26)"; bc.fillRect(0, 0, W, H);
+
+      const recorte = (src, polys, alvo, sobra) => {
+        const [x0, y0, x1, y1] = caixa(polys.flat());
+        const c = mk(P(x1 - x0), P(y1 - y0)), cc = c.getContext("2d");
+        cc.beginPath();
+        polys.forEach((pl) => { pl.forEach(([x, y], i) => cc[i ? "lineTo" : "moveTo"](P(x - x0), P(y - y0))); cc.closePath(); });
+        cc.fill();
+        if (sobra) { cc.lineWidth = P(2.4); cc.lineJoin = "round"; cc.stroke(); }
+        cc.globalCompositeOperation = "source-in";
+        cc.drawImage(src, P(x0), P(y0), c.width, c.height, 0, 0, c.width, c.height);
+        c.className = "lay";
+        posiciona(c, [x0, y0, x1, y1]);
+        stage.insertBefore(c, foto);
+        return { el: c, ...alvo, ux: x0, uy: y0, uw: x1 - x0, uh: y1 - y0 };
+      };
+      const cheia = (cls) => { const c = mk(W, H); c.className = "lay full " + cls; stage.insertBefore(c, foto); return c; };
+
+      // camadas: maquete → acabamentos aplicados (pintura) → paisagismo → peças que voam
+      cheia("barro").getContext("2d").drawImage(barro, 0, 0);
+      arq = cheia("arq");
+      const ac = arq.getContext("2d");
+      ac.drawImage(vazio, 0, 0);
+      ac.globalCompositeOperation = "destination-out";
+      [...MAT.map((m) => m.poly), ...PAISAGEM].forEach((pl) => { ac.beginPath(); pl.forEach(([x, y], i) => ac[i ? "lineTo" : "moveTo"](P(x), P(y))); ac.closePath(); ac.fill(); });
+      paisagem = cheia("paisagem");
+      const pc = paisagem.getContext("2d");
+      pc.beginPath(); PAISAGEM.forEach((pl) => { pl.forEach(([x, y], i) => pc[i ? "lineTo" : "moveTo"](P(x), P(y))); pc.closePath(); });
+      pc.fill(); pc.lineWidth = P(2.4); pc.lineJoin = "round"; pc.stroke();
+      pc.globalCompositeOperation = "source-in"; pc.drawImage(vazio, 0, 0);
+      paisagem.style.opacity = 0;
+
+      pecas = MAT.map((m) => recorte(vazio, [m.poly], { t: m.t, de: m.de, rot: 0, esc: 1.06, mat: true }, true));
+      const moveis = MOV.map((m) => recorte(orig, [m.poly], { id: m.id, t: m.t, de: m.de, rot: m.rot, esc: 1.3 }));
+      pecas = pecas.concat(moveis);
+      remendos = RESTAURA.map((r) => {
+        const [x0, y0, x1, y1] = r.r, c = mk(P(x1 - x0), P(y1 - y0)), cc = c.getContext("2d");
+        cc.drawImage(orig, P(x0), P(y0), c.width, c.height, 0, 0, c.width, c.height);
+        pena(cc, c.width, c.height, P(3));
+        c.className = "lay"; posiciona(c, r.r); stage.insertBefore(c, foto);
+        return { el: c, de: moveis.filter((m) => r.de.includes(m.id)) };
+      });
+      pronto = true;
+      marcaPronto();
+    }
+
+    function voo(pc, p, sr) {
+      const t = clamp((p - pc.t[0]) / (pc.t[1] - pc.t[0]));
+      pc.k = t;
+      const el = pc.el;
+      if (t <= 0) { el.style.visibility = "hidden"; return; }
+      el.style.visibility = "visible";
+      if (t >= 1) { el.style.transform = ""; el.style.filter = ""; return; }
+      const e = pc.mat ? outQuart(t) : outBack(t), r = 1 - e;
+      const L = sr.left + pc.ux / UW * sr.width, T = sr.top + pc.uy / UH * sr.height, w = pc.uw / UW * sr.width, h = pc.uh / UH * sr.height;
+      const folga = 60 + Math.max(w, h) * (pc.esc - 1);
+      const dx = pc.de === "esq" ? -(L + w) - folga : pc.de === "dir" ? innerWidth - L + folga : 0;
+      const dy = pc.de === "cima" ? -(T + h) - folga : pc.de === "baixo" ? innerHeight - T + folga : 0;
+      el.style.transform = `translate3d(${(dx * r).toFixed(1)}px,${(dy * r).toFixed(1)}px,0) rotate(${(pc.rot * r).toFixed(2)}deg) scale(${(1 + (pc.esc - 1) * Math.max(0, r)).toFixed(3)})`;
+      const sh = Math.max(0, r);
+      el.style.filter = sh > .01 ? `drop-shadow(0 ${(24 * sh).toFixed(1)}px ${(22 * sh).toFixed(1)}px rgba(0,0,0,${(.32 * sh).toFixed(3)}))` : "";
+    }
 
     function pinta(p) {
-      // estrutura ganha massa
-      const kf = outCubic(clamp((p - .04) / .14));
-      preenche.forEach((n, i) => n.style.fillOpacity = clamp(kf * 1.6 - i * .07));
-      linhas.forEach((n) => n.style.strokeOpacity = 1 - kf * .75);
-      itens.forEach((it) => {
-        const t = clamp((p - it.s) / (it.e - it.s));
-        if (it.tipo === "fade") { it.n.style.opacity = outCubic(t); return; }
-        const k = it.tipo === "back" ? outBack(t) : outCubic(t), r = 1 - k;
-        it.n.setAttribute("transform", `translate(${(it.dx * r).toFixed(1)} ${(it.dy * r).toFixed(1)}) rotate(${(it.rot * r).toFixed(2)} ${it.cx.toFixed(1)} ${it.cy.toFixed(1)})`);
-        it.n.style.opacity = t <= 0 ? 0 : clamp(t * 5);
-      });
-      // no fim, o desenho vira a foto real
-      const kFoto = outCubic(clamp((p - .87) / .1));
-      foto.style.opacity = kFoto;
-      svg.style.opacity = 1 - kFoto; // galhos e plantas que passam da moldura somem junto
+      if (pronto) {
+        const sr = stage.getBoundingClientRect();
+        const w = outCubic(clamp((p - .06) / .12)) * 130;
+        arq.style.webkitMaskImage = arq.style.maskImage = `linear-gradient(100deg,#000 ${(w - 18).toFixed(1)}%,transparent ${w.toFixed(1)}%)`;
+        paisagem.style.opacity = outCubic(clamp((p - .42) / .12));
+        pecas.forEach((pc) => voo(pc, p, sr));
+        remendos.forEach((rm) => { rm.el.style.visibility = "visible"; rm.el.style.opacity = clamp((Math.min(...rm.de.map((m) => m.k || 0)) - .92) / .08); });
+      }
+      foto.style.opacity = soFoto ? 1 : pronto ? outCubic(clamp((p - .86) / .1)) : 0;
       pct.textContent = Math.round(p * 100) + "%";
       passos.forEach((st, i) => {
-        const k = clamp((p - LIM[i]) / (LIM[i + 1] - LIM[i]));
-        st.style.setProperty("--k", k);
+        st.style.setProperty("--k", clamp((p - LIM[i]) / (LIM[i + 1] - LIM[i])));
         st.classList.toggle("on", p >= LIM[i] && (p < LIM[i + 1] || i === 4));
       });
     }
-    if (reduz) { pinta(1); return; }
+
+    if (reduz) { soFoto = true; marcaPronto(); pinta(1); return; }
+    const inicia = () => { try { prepara(); } catch (e) { pronto = false; soFoto = true; marcaPronto(); } };
+    const decodifica = () => (foto.decode ? foto.decode().catch(() => {}) : Promise.resolve()).then(() => setTimeout(inicia, 0));
+    if (foto.complete && foto.naturalWidth) decodifica();
+    else { foto.addEventListener("load", decodifica, { once: true }); foto.addEventListener("error", () => { soFoto = true; marcaPronto(); }, { once: true }); }
+
     let alvo = 0, atual = 0;
     const medir = () => { const r = build.getBoundingClientRect(), pin = build.firstElementChild.offsetHeight; alvo = clamp((72 - r.top) / (build.offsetHeight - pin)); };
     (function loop() {
