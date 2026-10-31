@@ -26,6 +26,11 @@ vitrine-landing-pages/
 2. Em `catalogo.js`, adicione um item em `MODELOS` com `pasta: "<nome-do-modelo>"`.
 3. Gere as capturas: `node gerar-capas.mjs <nome-do-modelo>` (precisa do Node 22+ e Chrome/Edge).
 
+Página já publicada em outro endereço (outro repositório, outro site)?
+Não precisa copiar: adicione o item em `MODELOS` com `url: "https://..."`
+e um `pasta` qualquer (só identificador). O catálogo abre a página desse
+endereço, e `node gerar-capas.mjs <pasta>` salva as capas em `modelos/<pasta>/`.
+
 Sem as capturas o catálogo ainda funciona (mostra a página ao vivo em miniatura),
 mas a vitrine animada e a história da página inicial usam as imagens.
 

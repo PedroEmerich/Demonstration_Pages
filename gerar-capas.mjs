@@ -8,7 +8,7 @@
      node gerar-capas.mjs sbc-dev      -> só um modelo
    ========================================================================== */
 import { spawn } from "node:child_process";
-import { existsSync, readdirSync, writeFileSync, mkdtempSync, rmSync } from "node:fs";
+import { existsSync, readdirSync, readFileSync, writeFileSync, mkdirSync, mkdtempSync, rmSync } from "node:fs";
 import { join, dirname } from "node:path";
 import { tmpdir } from "node:os";
 import { fileURLToPath, pathToFileURL } from "node:url";
@@ -82,10 +82,19 @@ const pastas = readdirSync(join(RAIZ, "modelos"), { withFileTypes: true })
   .filter((d) => d.isDirectory() && (!filtro || d.name === filtro))
   .map((d) => d.name);
 
-for (const pasta of pastas) {
-  const index = join(RAIZ, "modelos", pasta, "index.html");
-  if (!existsSync(index)) continue;
-  const url = pathToFileURL(index).href;
+// modelos publicados em outro endereço (campo "url" no catalogo.js)
+const janela = {};
+new Function("window", readFileSync(join(RAIZ, "catalogo.js"), "utf8"))(janela);
+const externos = (janela.MODELOS || []).filter((m) => m.url && (!filtro || m.pasta === filtro));
+
+const alvos = [
+  ...pastas.filter((p) => existsSync(join(RAIZ, "modelos", p, "index.html")))
+    .map((p) => [p, pathToFileURL(join(RAIZ, "modelos", p, "index.html")).href]),
+  ...externos.map((m) => [m.pasta, m.url]),
+];
+
+for (const [pasta, url] of alvos) {
+  mkdirSync(join(RAIZ, "modelos", pasta), { recursive: true });
   process.stdout.write(`Capturando ${pasta}... `);
   await captura(url, join(RAIZ, "modelos", pasta, "capa.jpg"), 1440, 900, 1, false);
   await captura(url, join(RAIZ, "modelos", pasta, "capa-mobile.jpg"), 390, 844, 2, true);
