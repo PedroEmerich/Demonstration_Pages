@@ -65,23 +65,16 @@
   .btn .arr { transition: transform .45s var(--ease); }
   .btn:hover .arr { transform: translateX(4px); }
 
-  /* cursor em forma de mira */
-  .cur-dot, .cur-ring { position: fixed; left: 0; top: 0; z-index: 100; pointer-events: none; opacity: 0; transition: opacity .4s; }
+  /* cursor: ponto com halo suave */
+  .cur-dot, .cur-ring { position: fixed; left: 0; top: 0; z-index: 100; pointer-events: none; border-radius: 50%; opacity: 0; transition: opacity .4s; }
   body.cur-on .cur-dot, body.cur-on .cur-ring { opacity: 1; }
-  .cur-dot { width: 6px; height: 6px; margin: -3px 0 0 -3px; border-radius: 50%; background: var(--ink); transition: background .3s; }
-  .cur-ring { width: 44px; height: 44px; margin: -22px 0 0 -22px; transition: width .55s var(--ease), height .55s var(--ease), margin .55s var(--ease); }
-  .cur-ring::before { content: ""; position: absolute; inset: 0; border-radius: 50%; border: 1px solid rgba(9,23,38,.28); transition: border-color .3s, background .3s; }
-  .cur-ring i { position: absolute; background: var(--ink); opacity: .55; transition: opacity .3s, transform .55s var(--ease), background .3s; }
-  .cur-ring i:nth-child(1) { left: 50%; top: -6px; width: 1px; height: 8px; }
-  .cur-ring i:nth-child(2) { left: 50%; bottom: -6px; width: 1px; height: 8px; }
-  .cur-ring i:nth-child(3) { top: 50%; left: -6px; width: 8px; height: 1px; }
-  .cur-ring i:nth-child(4) { top: 50%; right: -6px; width: 8px; height: 1px; }
-  .cur-ring.hov { width: 68px; height: 68px; margin: -34px 0 0 -34px; }
-  .cur-ring.hov::before { border-color: var(--teal); background: rgba(17,179,163,.08); }
-  .cur-ring.hov i { opacity: 0; }
-  .cur-ring.dark::before { border-color: rgba(255,255,255,.4); }
-  .cur-ring.dark i, .cur-dot.dark { background: #fff; }
-  @media (pointer: fine) { body.has-cur, body.has-cur a, body.has-cur button { cursor: none; } body.has-cur input { cursor: text; } }
+  .cur-dot { width: 8px; height: 8px; margin: -4px 0 0 -4px; background: var(--ink); transition: opacity .4s, background .3s, scale .4s var(--ease); }
+  .cur-ring { width: 40px; height: 40px; margin: -20px 0 0 -20px; background: radial-gradient(circle, rgba(17,179,163,.22), rgba(17,179,163,.05) 60%, transparent 72%); border: 1px solid rgba(17,179,163,.28); transition: opacity .4s, width .55s var(--ease), height .55s var(--ease), margin .55s var(--ease), background .4s, border-color .4s; }
+  .cur-ring.hov { width: 66px; height: 66px; margin: -33px 0 0 -33px; background: radial-gradient(circle, rgba(17,179,163,.3), rgba(60,141,255,.1) 60%, transparent 72%); border-color: rgba(17,179,163,.5); }
+  body.cur-on .cur-ring.hov ~ .cur-dot, .cur-dot.hov { scale: .5; }
+  .cur-ring.dark { border-color: rgba(255,255,255,.35); background: radial-gradient(circle, rgba(95,224,207,.25), transparent 70%); }
+  .cur-dot.dark { background: #fff; }
+  @media (pointer: fine) { body.has-cur, body.has-cur * { cursor: none !important; } body.has-cur input { cursor: text !important; } }
 
   .progress { position: fixed; inset: 0 0 auto; height: 2px; z-index: 60; background: var(--grad); transform-origin: left; transform: scaleX(0); }
 
@@ -106,11 +99,12 @@
   .hero::before { content: ""; position: absolute; inset: 0; background-image: radial-gradient(rgba(9,23,38,.16) 1px, transparent 1.3px); background-size: 26px 26px; -webkit-mask-image: radial-gradient(ellipse 60% 60% at 72% 48%, #000 15%, transparent 72%); mask-image: radial-gradient(ellipse 60% 60% at 72% 48%, #000 15%, transparent 72%); opacity: .5; pointer-events: none; }
   .aurora { position: absolute; left: 0; top: 0; width: 820px; height: 820px; margin: -410px 0 0 -410px; border-radius: 50%; background: radial-gradient(circle, rgba(17,179,163,.2), rgba(60,141,255,.1) 42%, transparent 70%); pointer-events: none; will-change: transform; }
   .hero__grid { display: grid; grid-template-columns: 1.05fr .95fr; gap: 30px; align-items: center; }
-  .hero h1 { font-size: clamp(54px, 7.2vw, 112px); margin: 26px 0 28px; }
+  .hero h1 { font-size: clamp(50px, 6.1vw, 96px); margin: 26px 0 28px; }
   .hero h1 .ln { display: block; overflow: hidden; padding-bottom: .12em; margin-bottom: -.12em; }
   .hero h1 .ln > span { display: inline-block; transform: translateY(105%); animation: up 1.2s var(--ease) forwards; }
   .hero h1 .ln:nth-child(2) > span { animation-delay: .12s; }
   @keyframes up { to { transform: none; } }
+  .hero__em { font-family: var(--serif); font-style: italic; font-weight: 400; letter-spacing: -.02em; padding-right: .08em; }
   .rot { display: inline-grid; perspective: 600px; }
   .rot em { grid-area: 1 / 1; font-family: var(--serif); font-style: italic; font-weight: 400; letter-spacing: -.02em; padding-right: .08em; opacity: 0; transform: translateY(55%) rotateX(-50deg); transform-origin: 50% 100%; transition: opacity .8s var(--ease), transform .9s var(--ease); }
   .rot em.on { opacity: 1; transform: none; }
@@ -232,7 +226,24 @@
   .dx__txt .h2 { margin-top: 18px; max-width: 13ch; }
   .dx__txt > p { color: var(--ink2); max-width: 460px; margin-top: 26px; font-size: 17px; }
   .dx__stage { position: sticky; top: 14vh; height: 72vh; display: flex; flex-direction: column; align-items: center; justify-content: center; }
-  .dx__orb { width: min(100%, 54vh); }
+  .dxph { position: relative; width: min(100%, 520px); aspect-ratio: 4/5; max-height: 64vh; margin: 0 0 18px; transform: perspective(1200px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)); transition: transform .9s var(--ease); }
+  .dxph__img { position: absolute; inset: 0; border-radius: 28px; overflow: hidden; background: #dfe7ec; box-shadow: 0 50px 90px -50px rgba(9,23,38,.6); }
+  .dxph__img img { position: absolute; left: 0; top: -8%; width: 100%; height: 116%; object-fit: cover; will-change: transform; }
+  .dxph__img::after { content: ""; position: absolute; inset: 0; background: linear-gradient(transparent 55%, rgba(6,17,31,.45)); }
+  .laudo { position: absolute; left: -34px; bottom: 34px; width: 270px; padding: 16px 18px; border-radius: 20px; background: rgba(255,255,255,.78); backdrop-filter: blur(16px) saturate(1.4); -webkit-backdrop-filter: blur(16px) saturate(1.4); border: 1px solid rgba(255,255,255,.95); box-shadow: 0 30px 60px -30px rgba(9,23,38,.55); }
+  .laudo__top { display: flex; justify-content: space-between; align-items: start; gap: 10px; }
+  .laudo small { display: block; font-family: var(--mono); font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+  .laudo strong { font-size: 14px; font-weight: 600; }
+  .laudo__top b { font-family: var(--display); font-weight: 400; font-size: 22px; letter-spacing: -.04em; font-variant-numeric: tabular-nums; }
+  .laudo__bar { display: block; position: relative; height: 4px; margin: 12px 0 12px; border-radius: 4px; background: rgba(9,23,38,.08); overflow: hidden; }
+  .laudo__bar i { position: absolute; inset: 0 auto 0 0; width: 0; background: var(--grad); border-radius: 4px; }
+  .laudo ul { list-style: none; display: grid; gap: 7px; font-size: 13px; }
+  .laudo li { display: flex; align-items: center; gap: 9px; color: var(--muted); transition: color .4s; }
+  .laudo li::before { content: ""; flex: none; width: 16px; height: 16px; border-radius: 50%; border: 1px solid var(--line2); transition: background .4s, border-color .4s; }
+  .laudo li.ok { color: var(--ink); }
+  .laudo li.ok::before { background: var(--teal) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M4.5 8.2 7 10.5l4.5-5' fill='none' stroke='%23fff' stroke-width='1.8' stroke-linecap='round'/%3E%3C/svg%3E") center / 100% no-repeat; border-color: var(--teal); }
+  .dxph__tag { position: absolute; right: 18px; top: 18px; padding: 8px 14px; border-radius: 999px; background: rgba(255,255,255,.85); backdrop-filter: blur(10px); font-size: 13px; font-weight: 500; color: var(--teal-d); opacity: 0; transform: translateY(-8px); transition: opacity .6s var(--ease), transform .6s var(--ease); }
+  .dxph__tag.on { opacity: 1; transform: none; }
   .dx__cap { font-family: var(--mono); font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); text-align: center; }
   .steps { list-style: none; position: relative; margin-top: 56px; padding-left: 36px; }
   .steps__line { position: absolute; left: 6px; top: 8px; bottom: 54px; width: 1px; background: var(--line2); }
@@ -396,7 +407,8 @@
     .drow__go { grid-column: 3; grid-row: 1 / 3; width: 40px; height: 40px; }
     .reveal { display: none; }
     .dx__stage { position: relative; top: 0; height: auto; order: -1; }
-    .dx__orb { width: min(72vw, 360px); }
+    .dxph { width: min(86vw, 420px); }
+    .laudo { left: 12px; bottom: 12px; width: auto; right: 12px; }
     .packs__grid, .info { grid-template-columns: 1fr; }
     .conv__box { padding: 28px 22px; gap: 30px; }
     .phone { width: 260px; height: 530px; }
@@ -416,7 +428,7 @@
 <canvas id="sculpt" aria-hidden="true"></canvas>
 <div class="progress" id="progress" aria-hidden="true"></div>
 <div class="cur-dot" aria-hidden="true"></div>
-<div class="cur-ring" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+<div class="cur-ring" aria-hidden="true"></div>
 <div class="reveal" id="reveal" aria-hidden="true"><img alt="" /><img alt="" /><span></span></div>
 
 <header class="nav" id="nav">
@@ -434,16 +446,16 @@
   <div class="wrap hero__grid">
     <div class="hero__txt">
       <p class="eyebrow"><i></i>Clínica médica integrada · Jardim Paulistano, SP</p>
-      <h1><span class="ln"><span>Cuidado que</span></span><span class="ln"><span><span class="rot" id="rot"><em class="grad">escuta.</em><em class="grad">previne.</em><em class="grad">acompanha.</em><em class="grad">acolhe.</em></span></span></span></h1>
-      <p class="lead">Especialistas, laboratório e imagem no mesmo prédio, e consultas por vídeo quando você não puder vir. Tecnologia a serviço de um atendimento humano.</p>
+      <h1><span class="ln"><span>Cuidado para o</span></span><span class="ln"><span><em class="hero__em grad">corpo inteiro.</em></span></span></h1>
+      <p class="lead">Da cabeça aos pés: especialistas, laboratório e imagem no mesmo prédio, e consultas por vídeo quando você não puder vir. Uma visão completa da sua saúde, com atendimento humano.</p>
       <div class="ctas"><a class="btn btn--ink" data-wa data-mag><span class="dot"></span>Agendar pelo WhatsApp <span class="arr">→</span></a><a class="btn btn--line" href="#especialidades" data-mag>Conhecer especialidades</a></div>
       <ul class="trust"><li><b>4,9 ★</b><span>no Google</span></li><li><b data-count="40" data-suf=" mil">0</b><span>pacientes atendidos</span></li><li><b>48h</b><span>resultados no app</span></li></ul>
     </div>
-    <div class="orb hero__orb" data-anchor data-shape="coracao">
+    <div class="orb hero__orb" data-anchor data-shape="corpo">
       <svg class="leads" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><line x1="24" y1="22" x2="40" y2="38"/><line x1="82" y1="14" x2="64" y2="34"/><line x1="78" y1="80" x2="60" y2="64"/><circle cx="40" cy="38" r=".9"/><circle cx="64" cy="34" r=".9"/><circle cx="60" cy="64" r=".9"/></svg>
       <span class="scan" aria-hidden="true"></span>
       <div class="hud hud--a"><small>Frequência cardíaca</small><strong><span id="bpm">68</span><sub>bpm</sub></strong><canvas id="hudEcg" width="272" height="68"></canvas></div>
-      <div class="hud hud--b"><small>SpO₂</small><strong>98<sub>%</sub></strong></div>
+      <div class="hud hud--b"><small>Check-up</small><strong>360<sub>°</sub></strong></div>
       <div class="hud hud--c"><i><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 3h6M10 3v6l-5 9a2 2 0 0 0 1.7 3h10.6a2 2 0 0 0 1.7-3l-5-9V3"/></svg></i><div><small>No mesmo prédio</small><strong>Laboratório e imagem</strong></div></div>
     </div>
   </div>
@@ -501,7 +513,18 @@
       </ol>
       <div class="chips" data-r><span>Hemograma</span><span>Glicemia</span><span>Perfil lipídico</span><span>Tireoide</span><span>Ultrassom</span><span>Raio-X digital</span><span>Ecocardiograma</span><span>Teste ergométrico</span><span>Holter 24h</span><span>Densitometria</span></div>
     </div>
-    <div class="dx__stage"><div class="orb dx__orb" data-anchor data-shape="dna"><span class="orb__ring"></span></div><p class="dx__cap">+300 exames · laudos em até 48h</p></div>
+    <div class="dx__stage">
+      <figure class="dxph" id="dxph">
+        <div class="dxph__img"><img id="dxImg" src="https://images.unsplash.com/photo-1758691462123-8a17ae95d203?w=1100&q=80&auto=format&fit=crop" alt="Médico atendendo paciente no consultório" loading="lazy" /></div>
+        <div class="laudo" id="laudo">
+          <div class="laudo__top"><span><small>Resultado do check-up</small><strong>Paciente · Marina S.</strong></span><b id="laudoPct">0%</b></div>
+          <i class="laudo__bar"><i id="laudoBar"></i></i>
+          <ul><li>Coleta laboratorial</li><li>Exames de imagem</li><li>Consulta de retorno</li><li>Laudo no app</li></ul>
+        </div>
+        <span class="dxph__tag" id="dxTag">Tudo dentro do esperado ✓</span>
+      </figure>
+      <p class="dx__cap">+300 exames · laudos em até 48h</p>
+    </div>
   </div>
 </section>
 
@@ -594,14 +617,14 @@
 
   /* ---------------- Dados ---------------- */
   const ESP = [
-    { n: "Clínica geral", f: "cruz", d: "Sua porta de entrada: check-ups, acompanhamento contínuo e o encaminhamento certo quando precisar.", t: ["Adultos e idosos", "Check-up", "Por vídeo"] },
-    { n: "Cardiologia", f: "coracao", d: "Prevenção, hipertensão e arritmias, com eletrocardiograma, ecocardiograma e teste ergométrico na própria clínica.", t: ["ECG", "Ecocardiograma", "Holter"] },
-    { n: "Dermatologia", f: "pele", d: "Saúde da pele, do cabelo e das unhas, do mapeamento de pintas aos tratamentos estéticos.", t: ["Mapeamento de pintas", "Acne", "Estética"] },
-    { n: "Pediatria", f: "ursinho", d: "Do recém-nascido ao adolescente, num consultório pensado para as crianças se sentirem em casa.", t: ["Puericultura", "Vacinas", "Por vídeo"] },
-    { n: "Ortopedia", f: "osso", d: "Joelho, coluna e medicina esportiva, com raio-X e ultrassom no mesmo andar.", t: ["Coluna", "Joelho", "Esporte"] },
-    { n: "Endocrinologia", f: "gota", d: "Diabetes, tireoide e metabolismo, com metas claras e acompanhamento próximo.", t: ["Diabetes", "Tireoide", "Metabolismo"] },
-    { n: "Ginecologia", f: "flor", d: "Saúde da mulher em todas as fases, do preventivo ao pré-natal.", t: ["Preventivo", "Pré-natal", "Menopausa"] },
-    { n: "Psicologia", f: "cerebro", d: "Escuta qualificada para ansiedade, relações e momentos de mudança, presencial ou por vídeo.", t: ["Ansiedade", "Casal", "Por vídeo"] },
+    { n: "Clínica geral", c: "#077a70", f: "cruz", d: "Sua porta de entrada: check-ups, acompanhamento contínuo e o encaminhamento certo quando precisar.", t: ["Adultos e idosos", "Check-up", "Por vídeo"] },
+    { n: "Cardiologia", c: "#b3182b", f: "coracao", d: "Prevenção, hipertensão e arritmias, com eletrocardiograma, ecocardiograma e teste ergométrico na própria clínica.", t: ["ECG", "Ecocardiograma", "Holter"] },
+    { n: "Dermatologia", c: "#a85f40", f: "pele", d: "Saúde da pele, do cabelo e das unhas, do mapeamento de pintas aos tratamentos estéticos.", t: ["Mapeamento de pintas", "Acne", "Estética"] },
+    { n: "Pediatria", c: "#8a5a2b", f: "ursinho", d: "Do recém-nascido ao adolescente, num consultório pensado para as crianças se sentirem em casa.", t: ["Puericultura", "Vacinas", "Por vídeo"] },
+    { n: "Ortopedia", c: "#7d6c50", f: "osso", d: "Joelho, coluna e medicina esportiva, com raio-X e ultrassom no mesmo andar.", t: ["Coluna", "Joelho", "Esporte"] },
+    { n: "Endocrinologia", c: "#1557c0", f: "gota", d: "Diabetes, tireoide e metabolismo, com metas claras e acompanhamento próximo.", t: ["Diabetes", "Tireoide", "Metabolismo"] },
+    { n: "Ginecologia", c: "#b0306a", f: "flor", d: "Saúde da mulher em todas as fases, do preventivo ao pré-natal.", t: ["Preventivo", "Pré-natal", "Menopausa"] },
+    { n: "Psicologia", c: "#93445a", f: "cerebro", d: "Escuta qualificada para ansiedade, relações e momentos de mudança, presencial ou por vídeo.", t: ["Ansiedade", "Casal", "Por vídeo"] },
   ];
   const DOC = [
     ["Dra. Camila Rocha", "Clínica geral", "CRM-SP 145.902", "1758691462651-611d730c5272", "Adultos e idosos, check-ups", true],
@@ -704,8 +727,8 @@
 
   // palavra que troca no título
   const rot = $$("#rot em"); let ri = 0;
-  rot[0].classList.add("on");
-  if (!reduz) setInterval(() => {
+  if (rot.length) rot[0].classList.add("on");
+  if (rot.length && !reduz) setInterval(() => {
     const a = rot[ri]; ri = (ri + 1) % rot.length; const b = rot[ri];
     a.classList.remove("on"); a.classList.add("out"); b.classList.remove("out"); b.classList.add("on");
     setTimeout(() => a.classList.remove("out"), 950);
@@ -734,7 +757,7 @@
     document.body.classList.add("has-cur");
     document.addEventListener("mouseover", (e) => {
       const t = e.target;
-      ring.classList.toggle("hov", !!t.closest("a, button, input, .erow, .cv"));
+      const h = !!t.closest("a, button, input, .erow, .cv"); ring.classList.toggle("hov", h); dot.classList.toggle("hov", h);
       const escuro = !!t.closest(".tele, .pk--hot");
       ring.classList.toggle("dark", escuro); dot.classList.toggle("dark", escuro);
     });
@@ -754,7 +777,7 @@
     let gl = null;
     try { gl = cv.getContext("webgl", { alpha: true, antialias: false, premultipliedAlpha: true }); } catch (e) {}
     if (!gl) { cv.remove(); return null; }
-    const N = innerWidth < 760 ? 2800 : 6000;
+    const N = innerWidth < 760 ? 4200 : 9000;
     let sd = 20260511;
     const R = () => (sd = (sd * 16807) % 2147483647) / 2147483647;
     const gauss = () => Math.sqrt(-2 * Math.log(R() + 1e-9)) * Math.cos(6.2832 * R());
@@ -794,6 +817,21 @@
       amostra: () => { const a = R() * 6.2832; return [x0 + R() * (x1 - x0), Math.cos(a) * r, Math.sin(a) * r]; },
       dentro: (p) => p[0] > x0 && p[0] < x1 && p[1] * p[1] + p[2] * p[2] < r * r * .95,
     });
+    const capsula = (a, b, r) => {
+      const d = [b[0] - a[0], b[1] - a[1], b[2] - a[2]], L = Math.hypot(d[0], d[1], d[2]), u = d.map((v) => v / L);
+      const t1 = Math.abs(u[1]) < .9 ? [0, 1, 0] : [1, 0, 0];
+      let e1 = [u[1] * t1[2] - u[2] * t1[1], u[2] * t1[0] - u[0] * t1[2], u[0] * t1[1] - u[1] * t1[0]]; const l1 = Math.hypot(...e1); e1 = e1.map((v) => v / l1);
+      const e2 = [u[1] * e1[2] - u[2] * e1[1], u[2] * e1[0] - u[0] * e1[2], u[0] * e1[1] - u[1] * e1[0]];
+      return {
+        area: 2 * Math.PI * r * L + 4 * Math.PI * r * r,
+        amostra: () => {
+          if (R() < (4 * r) / (2 * L + 4 * r)) { const c = R() < .5 ? a : b, q = dir(); return [c[0] + q[0] * r, c[1] + q[1] * r, c[2] + q[2] * r]; }
+          const t = R(), an = R() * 6.2832, ca = Math.cos(an) * r, sa = Math.sin(an) * r;
+          return [a[0] + d[0] * t + e1[0] * ca + e2[0] * sa, a[1] + d[1] * t + e1[1] * ca + e2[1] * sa, a[2] + d[2] * t + e1[2] * ca + e2[2] * sa];
+        },
+        dentro: (p) => { const w = [p[0] - a[0], p[1] - a[1], p[2] - a[2]], t = clamp((w[0] * u[0] + w[1] * u[1] + w[2] * u[2]) / L); return Math.hypot(p[0] - a[0] - d[0] * t, p[1] - a[1] - d[1] * t, p[2] - a[2] - d[2] * t) < r * .96; },
+      };
+    };
     const caixa = (h, rr = .06) => ({
       area: 8 * (h[0] * h[1] + h[0] * h[2] + h[1] * h[2]),
       amostra: () => {
@@ -865,6 +903,13 @@
       },
       osso: () => gira(uniao([cilX(-.62, .62, .11), elip([-.74, .15, 0], [.2, .2, .2]), elip([-.74, -.15, 0], [.2, .2, .2]), elip([.74, .15, 0], [.2, .2, .2]), elip([.74, -.15, 0], [.2, .2, .2])]), .55),
       cruz: () => uniao([caixa([.62, .2, .2]), caixa([.2, .62, .2])]),
+      corpo: () => {
+        const P = [elip([0, .86, 0], [.11, .135, .12]), capsula([0, .76, 0], [0, .66, 0], .05), elip([0, .5, 0], [.23, .17, .12]), elip([0, .34, 0], [.19, .18, .11]), elip([0, .12, 0], [.19, .12, .11])];
+        for (const sx of [-1, 1]) P.push(
+          capsula([sx * .25, .58, 0], [sx * .33, .3, .01], .055), capsula([sx * .33, .3, .01], [sx * .38, .05, .05], .045), elip([sx * .39, -.02, .06], [.035, .06, .03]),
+          capsula([sx * .1, .06, 0], [sx * .12, -.4, 0], .078), capsula([sx * .12, -.4, 0], [sx * .13, -.84, -.01], .055), elip([sx * .13, -.89, .04], [.045, .026, .085]));
+        return uniao(P);
+      },
       ursinho: () => uniao([
         elip([0, .44, 0], [.33, .3, .3]), elip([-.27, .7, -.02], [.12, .12, .07]), elip([.27, .7, -.02], [.12, .12, .07]),
         elip([0, .35, .27], [.13, .1, .1]), elip([0, -.22, 0], [.38, .42, .32]),
@@ -907,23 +952,40 @@
       },
     };
     // como cada forma se apresenta: inclinação, se gira e quanto pulsa
-    const CONF = { nuvem: [0, 1, 0], coracao: [.05, 0, .075], celula: [.2, 1, .035], cerebro: [.12, 0, .02], dna: [.05, 1, .012], osso: [.15, 1, .012], cruz: [.25, 1, .02], ursinho: [.08, 0, .02], gota: [.1, 1, .03], pele: [.55, 0, .012], flor: [.65, 1, .02] };
+    // inclinação, gira?, pulso, tremor e cores (longe, perto, luz) de cada forma
+    const C = (h) => [parseInt(h.slice(1, 3), 16) / 255, parseInt(h.slice(3, 5), 16) / 255, parseInt(h.slice(5, 7), 16) / 255];
+    const CONF = {
+      nuvem: [0, 1, 0, .012, ["#5fb4cc", "#073f58", "#5fd8ff"]],
+      corpo: [.04, 0, .006, .006, ["#5fb4cc", "#073f58", "#5fd8ff"]],
+      celula: [.2, 1, 0, .006, ["#5fc9b8", "#065a52", "#2fe0c8"]],
+      cruz: [.25, 1, 0, .003, ["#4fc4b4", "#05665d", "#22d6c1"]],
+      coracao: [.05, 0, .06, .003, ["#e8606a", "#7a0a17", "#ff5a6a"]],
+      pele: [.55, 0, 0, .003, ["#e3a07f", "#8a4528", "#ffb08f"]],
+      ursinho: [.08, 0, 0, .003, ["#c99460", "#5a3412", "#ffcc85"]],
+      osso: [.15, 1, 0, .003, ["#cdbf9f", "#6b5b3f", "#fff6e0"]],
+      gota: [.1, 1, .015, .003, ["#5d9ff0", "#0b3d99", "#7cc0ff"]],
+      flor: [.65, 1, 0, .003, ["#e77aa8", "#8f1f52", "#ff9cc4"]],
+      cerebro: [.12, 0, 0, .003, ["#de8a9a", "#7d3247", "#ffb3c2"]],
+      dna: [.05, 1, 0, .003, ["#5d9ff0", "#0b3d99", "#7cc0ff"]],
+    };
+    for (const k in CONF) CONF[k][4] = CONF[k][4].map(C);
+    const cor = CONF.corpo[4].map((c) => c.slice());
     const cache = {};
     const forma = (n) => cache[n] || (cache[n] = n === "nuvem" ? GERA.nuvem() : normaliza(GERA[n]()));
 
     const vs = `
       attribute vec3 aDe; attribute vec3 aPara; attribute float aSeed;
-      uniform float uMix, uTime, uPulso, uAmp, uEscala, uAspecto, uMouseOn, uTam;
+      uniform float uMix, uTime, uPulso, uAmp, uEscala, uAspecto, uMouseOn, uTam, uTreme, uHalo;
       uniform vec2 uCentro, uMouse;
       uniform mat4 uRot;
-      varying float vProf; varying float vSeed;
+      varying float vProf; varying float vSeed; varying float vLuz;
       void main() {
         float m = clamp((uMix - aSeed * 0.35) / 0.65, 0.0, 1.0);
         m = m * m * (3.0 - 2.0 * m);
         vec3 p = mix(aDe, aPara, m);
         vec3 sw = vec3(sin(aSeed * 91.0), cos(aSeed * 47.0), sin(aSeed * 13.0 + 1.3));
         p += sw * sin(3.14159 * m) * 0.35;
-        p += 0.012 * vec3(sin(uTime * 1.3 + aSeed * 40.0), cos(uTime * 1.1 + aSeed * 23.0), sin(uTime * 0.9 + aSeed * 61.0));
+        p += uTreme * vec3(sin(uTime * 1.3 + aSeed * 40.0), cos(uTime * 1.1 + aSeed * 23.0), sin(uTime * 0.9 + aSeed * 61.0));
         p *= 1.0 + uPulso * uAmp;
         vec4 r = uRot * vec4(p, 1.0);
         float persp = 2.6 / (3.2 - r.z);
@@ -938,20 +1000,22 @@
         gl_Position = vec4(ndc, 0.0, 1.0);
         vProf = clamp((r.z + 1.0) * 0.5, 0.0, 1.0);
         vSeed = aSeed;
-        gl_PointSize = uTam * (0.55 + vProf * 0.9) * (0.7 + fract(aSeed * 7.31) * 0.6);
+        vLuz = clamp(dot(normalize(r.xyz + vec3(0.0001)), normalize(vec3(-0.45, 0.6, 0.66))), 0.0, 1.0);
+        gl_PointSize = uTam * (0.5 + vProf * 0.8) * (0.75 + fract(aSeed * 7.31) * 0.5) * (1.0 + uHalo * 4.0);
       }`;
     const fs = `
       precision mediump float;
-      uniform vec3 uLonge, uPerto, uBrilho; uniform float uOpac, uPisca;
-      varying float vProf; varying float vSeed;
+      uniform vec3 uLonge, uPerto, uBrilho; uniform float uOpac, uPisca, uHaloF;
+      varying float vProf; varying float vSeed; varying float vLuz;
       void main() {
         vec2 c = gl_PointCoord - 0.5; float r = length(c);
         if (r > 0.5) discard;
-        float a = smoothstep(0.5, 0.1, r);
+        float a = mix(smoothstep(0.5, 0.32, r), smoothstep(0.5, 0.0, r) * 0.085, uHaloF);
         vec3 col = mix(uLonge, uPerto, vProf);
+        col = mix(col, uBrilho, vLuz * vLuz * 0.55);
         float tw = step(0.92, fract(vSeed * 13.7)) * (0.55 + 0.45 * sin(uPisca + vSeed * 50.0));
         col = mix(col, uBrilho, tw);
-        float al = a * (0.26 + vProf * 0.74) * uOpac;
+        float al = a * (0.5 + vProf * 0.5) * uOpac;
         gl_FragColor = vec4(col * al, al);
       }`;
     const compila = (tipo, src) => { const s = gl.createShader(tipo); gl.shaderSource(s, src); gl.compileShader(s); if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) throw new Error(gl.getShaderInfoLog(s)); return s; };
@@ -964,13 +1028,12 @@
     } catch (e) { console.warn("Escultura indisponível:", e.message); cv.remove(); return null; }
     gl.useProgram(pr);
     const U = {};
-    ["uMix", "uTime", "uPulso", "uAmp", "uEscala", "uAspecto", "uMouseOn", "uTam", "uCentro", "uMouse", "uRot", "uLonge", "uPerto", "uBrilho", "uOpac", "uPisca"].forEach((n) => (U[n] = gl.getUniformLocation(pr, n)));
+    ["uMix", "uTime", "uPulso", "uAmp", "uEscala", "uAspecto", "uMouseOn", "uTam", "uCentro", "uMouse", "uRot", "uLonge", "uPerto", "uBrilho", "uOpac", "uPisca", "uTreme", "uHalo", "uHaloF"].forEach((n) => (U[n] = gl.getUniformLocation(pr, n)));
     const buf = (loc, dados, tam) => { const b = gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER, b); gl.bufferData(gl.ARRAY_BUFFER, dados, gl.DYNAMIC_DRAW); const l = gl.getAttribLocation(pr, loc); gl.enableVertexAttribArray(l); gl.vertexAttribPointer(l, tam, gl.FLOAT, false, 0, 0); return b; };
     const seeds = new Float32Array(N); for (let i = 0; i < N; i++) seeds[i] = R();
-    let de = forma("nuvem"), para = forma("coracao"), atual = "coracao", mix = 0, dur = 2.4;
+    let de = forma("nuvem"), para = forma("corpo"), atual = "corpo", mix = 0, dur = 2.4;
     const bDe = buf("aDe", de, 3), bPara = buf("aPara", para, 3); buf("aSeed", seeds, 1);
-    gl.uniform3f(U.uLonge, .62, .8, .83); gl.uniform3f(U.uPerto, .03, .16, .23); gl.uniform3f(U.uBrilho, .07, .72, .66);
-    gl.enable(gl.BLEND); gl.blendFunc(gl.ONE, gl.ONE_MINUS_SRC_ALPHA); gl.clearColor(0, 0, 0, 0);
+        gl.enable(gl.BLEND); gl.blendFunc(gl.ONE, gl.ONE_MINUS_SRC_ALPHA); gl.clearColor(0, 0, 0, 0);
 
     let dpr = 1;
     const ajusta = () => { dpr = Math.min(innerWidth < 760 ? 1.5 : 2, devicePixelRatio || 1); cv.width = Math.round(innerWidth * dpr); cv.height = Math.round(innerHeight * dpr); gl.viewport(0, 0, cv.width, cv.height); };
@@ -991,7 +1054,7 @@
       gl.bindBuffer(gl.ARRAY_BUFFER, bPara); gl.bufferData(gl.ARRAY_BUFFER, para, gl.DYNAMIC_DRAW);
     }
     // pré-calcula as formas aos poucos, sem travar a rolagem
-    const fila = ["celula", "cruz", "dna", "cerebro", "osso", "pele", "ursinho", "gota", "flor"];
+    const fila = ["celula", "cruz", "coracao", "cerebro", "osso", "pele", "ursinho", "gota", "flor"];
     const prepara = () => { const n = fila.shift(); if (!n) return; forma(n); (window.requestIdleCallback || setTimeout)(prepara); };
     setTimeout(prepara, 1200);
 
@@ -1004,7 +1067,10 @@
         if (st.opac < .01) { if (!limpo) { gl.clear(gl.COLOR_BUFFER_BIT); limpo = true; } return; }
         limpo = false;
         mix = reduz ? 1 : Math.min(1, mix + dt / dur);
-        const [pBase, roda, amp] = CONF[atual] || [0, 0, 0];
+        const [pBase, roda, amp, treme, pal] = CONF[atual] || CONF.corpo;
+        const kc = Math.min(1, dt * 2.4);
+        for (let j = 0; j < 3; j++) for (let c = 0; c < 3; c++) cor[j][c] += (pal[j][c] - cor[j][c]) * kc;
+        gl.uniform3fv(U.uLonge, cor[0]); gl.uniform3fv(U.uPerto, cor[1]); gl.uniform3fv(U.uBrilho, cor[2]); gl.uniform1f(U.uTreme, treme);
         if (roda && !reduz) rot.spin = (rot.spin + dt * .45) % 6.2832;
         const yawT = (roda ? rot.spin : 0) + (reduz ? 0 : Math.sin(t * .4) * .35) + mouse.nx * .55;
         let dy = yawT - rot.yaw; dy = Math.atan2(Math.sin(dy), Math.cos(dy)); rot.yaw += dy * .06;
@@ -1017,7 +1083,9 @@
         gl.uniform1f(U.uEscala, st.escala); gl.uniform1f(U.uAspecto, innerWidth / innerHeight);
         gl.uniform2f(U.uCentro, st.x, st.y); gl.uniform2f(U.uMouse, mouse.nx, mouse.ny); gl.uniform1f(U.uMouseOn, st.mouseOn);
         gl.uniform1f(U.uTam, st.tam * dpr); gl.uniform1f(U.uOpac, st.opac); gl.uniform1f(U.uPisca, (t * 2.5) % 6283.2);
-        gl.drawArrays(gl.POINTS, 0, N);
+        // primeiro um halo suave (dá volume e cor), depois os pontos nítidos
+        gl.uniform1f(U.uHalo, 1); gl.uniform1f(U.uHaloF, 1); gl.drawArrays(gl.POINTS, 0, N);
+        gl.uniform1f(U.uHalo, 0); gl.uniform1f(U.uHaloF, 0); gl.drawArrays(gl.POINTS, 0, N);
       },
     };
   })();
@@ -1048,7 +1116,7 @@
     esc.o = lerp(esc.o, melhor ? clamp((mv - .08) / .35) : 0, .08);
     esc.mouseOn = lerp(esc.mouseOn, mouse.on && fino ? 1 : 0, .08);
     const px = esc.s * vh / 2;
-    Escultura.quadro(t, dt, { x: esc.x, y: esc.y, escala: esc.s, opac: esc.o, pulso: pulsoAgora, mouseOn: esc.mouseOn, tam: clamp(px / 140, 1.5, 2.8) });
+    Escultura.quadro(t, dt, { x: esc.x, y: esc.y, escala: esc.s, opac: esc.o, pulso: pulsoAgora, mouseOn: esc.mouseOn, tam: clamp(px / 145, 1.6, 2.8) });
   }
 
   /* ---------------- ECG do HUD ---------------- */
@@ -1101,7 +1169,7 @@
     erows.forEach((r, k) => r.classList.toggle("on", k === i));
     $("#espIdx").textContent = `${pad(i + 1)} / ${pad(ESP.length)}`;
     const nome = $("#espNome");
-    nome.textContent = ESP[i].n;
+    nome.textContent = ESP[i].n; nome.style.color = ESP[i].c;
     nome.animate([{ opacity: 0, transform: "translateY(10px)", filter: "blur(6px)" }, { opacity: 1, transform: "none", filter: "blur(0)" }], { duration: 600, easing: "cubic-bezier(.16,1,.3,1)" });
   }
   erows.forEach((r, i) => {
@@ -1141,6 +1209,11 @@
 
   /* ---------------- Exames: linha de progresso ---------------- */
   const steps = $("#steps"), sFill = $("#stepsFill"), sItens = $$(".step", steps);
+  const dxph = $("#dxph"), dxImg = $("#dxImg"), lItens = $$("#laudo li"), laudoBar = $("#laudoBar"), laudoPct = $("#laudoPct"), dxTag = $("#dxTag");
+  if (fino && !reduz) {
+    dxph.addEventListener("pointermove", (e) => { const r = dxph.getBoundingClientRect(); dxph.style.setProperty("--ry", `${((e.clientX - r.left) / r.width - .5) * 8}deg`); dxph.style.setProperty("--rx", `${((e.clientY - r.top) / r.height - .5) * -8}deg`); });
+    dxph.addEventListener("pointerleave", () => { dxph.style.setProperty("--rx", "0deg"); dxph.style.setProperty("--ry", "0deg"); });
+  }
 
   /* ---------------- Check-ups: luz e inclinação ---------------- */
   if (fino && !reduz) $$(".pk").forEach((c) => {
@@ -1232,7 +1305,16 @@
 
     // exames
     const sr = steps.getBoundingClientRect();
-    if (sr.top < vh && sr.bottom > 0) { const p = clamp((vh * .6 - sr.top) / (sr.height - 40)); sFill.style.height = `${p * 100}%`; sItens.forEach((s, i) => s.classList.toggle("on", p >= i / sItens.length + .02)); }
+    if (sr.top < vh && sr.bottom > 0) {
+      const p = clamp((vh * .6 - sr.top) / (sr.height - 40));
+      sFill.style.height = `${p * 100}%`;
+      sItens.forEach((s, i) => { const on = p >= i / sItens.length + .02; s.classList.toggle("on", on); lItens[i].classList.toggle("ok", on); });
+      const feitos = sItens.filter((s) => s.classList.contains("on")).length;
+      laudoBar.style.width = `${p * 100}%`; laudoPct.textContent = `${Math.round(p * 100)}%`;
+      dxTag.classList.toggle("on", feitos === sItens.length);
+    }
+    const dr = dxph.getBoundingClientRect();
+    if (dr.top < vh && dr.bottom > 0 && !reduz) dxImg.style.transform = `translateY(${((dr.top + dr.height / 2 - vh / 2) / vh) * -8}%)`;
 
     // telemedicina: onda de voz
     if (teleVis) waveI.forEach((b, i) => { b.style.height = `${18 + (Math.sin(agora / 140 + i * .7) * .5 + .5) * (40 + 40 * Math.sin(agora / 900 + i)) }%`; });
