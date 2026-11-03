@@ -188,7 +188,7 @@ window.MODELOS = [
     pasta: "vitalis-clinica",
     titulo: "Vitalis — Clínica Médica",
     segmento: "Saúde",
-    descricao: "Clínica com escultura 3D de partículas que pulsa e muda de forma a cada especialidade, corpo clínico interativo, verificador de convênio, check-ups e telemedicina.",
+    descricao: "Clínica com escultura 3D de partículas: corpo humano no topo e formas coloridas para cada especialidade, corpo clínico interativo, verificador de convênio, check-ups e telemedicina.",
     tags: ["3D interativo", "Especialidades", "Telemedicina"],
     cor: "#0e8f7e",
     novo: true,
