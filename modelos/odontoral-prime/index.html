@@ -210,6 +210,33 @@
   .bento-card .media { position: absolute; z-index: 0; pointer-events: none; transition: transform 1.2s var(--ease-out); }
   .bento-card:hover .media { transform: scale(1.04); }
 
+  /* celular: cartões menores, dois lado a lado */
+  @media (max-width: 767px) {
+    .bento { grid-template-columns: 1fr 1fr !important; grid-auto-rows: auto !important; gap: 10px !important; }
+    .bento > * { grid-column: span 2 !important; }
+    .bento > .b-half { grid-column: span 1 !important; }
+    .bento-card { border-radius: 22px; }
+    .b-est { min-height: 410px !important; padding: 22px !important; }
+    .b-est .media { object-position: 50% 0% !important; height: 62% !important; bottom: auto !important; }
+    .b-est h3 { font-size: 26px; }
+    .b-est p { font-size: 14px; margin-top: 8px; }
+    .b-est ul { margin-top: 14px; }
+    .b-est .glass { left: 18px !important; top: 18px !important; }
+    .b-half { min-height: 230px; padding: 16px !important; gap: 8px !important; }
+    .b-half h3 { font-size: 17px; line-height: 1.15; margin-top: 6px; }
+    .b-half p { font-size: 12px; line-height: 1.45; margin-top: 6px; }
+    .b-imp .media { top: 6px !important; right: -8px !important; height: 104px !important; transform: none !important; }
+    .b-imp .lift.max-w-\[62\%\] { max-width: 100%; }
+    .b-sono > div { margin: 0; }
+    .b-sono h3 { margin-top: 10px; }
+    .b-sono svg { position: absolute; right: 10px; top: 8px; height: 58px !important; opacity: .9; }
+    .b-lentes .shade-photo { min-height: 210px !important; }
+    .b-lentes .lift { padding: 18px !important; }
+    .b-lentes h3 { font-size: 20px; }
+    .b-cta { padding: 20px !important; gap: 18px !important; }
+    .b-cta p { font-size: 19px; }
+  }
+
 
   /* =========================================================
      LENTES — escala de cor 3D
@@ -446,7 +473,7 @@
 
     <div class="relative z-10 -mt-[100vh] [margin-top:-100svh]">
       <!-- Seção: Diagnóstico -->
-      <section id="diagnostico" class="flex min-h-[100svh] items-start lg:items-center">
+      <section id="diagnostico" class="flex items-start pb-[46svh] lg:min-h-[100svh] lg:items-center lg:pb-0">
         <div class="mx-auto grid w-full max-w-[1440px] px-4 pt-24 sm:px-8 lg:grid-cols-12 lg:pt-0">
           <div class="lg:col-span-5">
             <p class="eyebrow reveal mb-5">02 — Diagnóstico completo</p>
@@ -470,11 +497,11 @@
       </section>
 
       <!-- Respiro entre as seções: aqui o dente gira, se transforma e troca de lado -->
-      <div class="h-[70vh]" aria-hidden="true"></div>
+      <div class="h-[14vh] lg:h-[70vh]" aria-hidden="true"></div>
 
       <!-- Seção: Tratamento / resultado -->
-      <section id="tratamento" class="flex min-h-[100svh] items-end lg:items-center">
-        <div class="mx-auto grid w-full max-w-[1440px] px-4 pb-16 sm:px-8 lg:grid-cols-12 lg:pb-0">
+      <section id="tratamento" class="flex items-start pt-[54svh] lg:min-h-[100svh] lg:items-center lg:pt-0">
+        <div class="mx-auto grid w-full max-w-[1440px] px-4 pb-12 sm:px-8 lg:grid-cols-12 lg:pb-0">
           <div class="lg:col-span-5 lg:col-start-8">
             <p class="eyebrow reveal mb-5">03 — Tratamento</p>
             <h2 class="reveal text-[clamp(2rem,4.6vw,4.2rem)] font-bold leading-[1] tracking-tightest">
@@ -497,7 +524,7 @@
   <!-- =========================================================
        4. BENTO GRID DE TRATAMENTOS
        ========================================================= -->
-  <section id="tratamentos" class="relative mx-auto max-w-[1440px] px-4 py-28 sm:px-8 sm:py-36">
+  <section id="tratamentos" class="relative mx-auto max-w-[1440px] px-4 pb-24 pt-14 sm:px-8 sm:py-36">
     <div class="mb-14 flex flex-col justify-between gap-8 md:flex-row md:items-end">
       <div>
         <p class="eyebrow reveal mb-5">04 — Tratamentos</p>
@@ -511,7 +538,7 @@
     <div class="bento grid auto-rows-[minmax(280px,auto)] grid-cols-1 gap-4 md:grid-cols-6 lg:grid-cols-12">
 
       <!-- Estética avançada -->
-      <article class="bento-card reveal flex min-h-[460px] flex-col justify-end p-8 md:col-span-6 lg:col-span-7 lg:row-span-2">
+      <article class="bento-card b-est reveal flex min-h-[460px] flex-col justify-end p-8 md:col-span-6 lg:col-span-7 lg:row-span-2">
         <img class="media inset-0 h-full w-full object-cover object-[50%_35%]" src="assets/img/sorriso.jpg" alt="Sorriso com dentes alinhados e claros após tratamento estético" loading="lazy">
         <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-white from-10% via-white/85 via-40% to-transparent to-75%" style="z-index:1"></div>
         <span class="glass absolute left-8 top-8 rounded-full px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[.16em] text-slate2" style="position:absolute">Mais procurado</span>
@@ -527,7 +554,7 @@
       </article>
 
       <!-- Implantes -->
-      <article class="bento-card reveal flex flex-col justify-between bg-gradient-to-br from-paper to-pearl p-8 md:col-span-3 lg:col-span-5">
+      <article class="bento-card b-half b-imp reveal flex flex-col justify-between bg-gradient-to-br from-paper to-pearl p-8 md:col-span-3 lg:col-span-5">
         <img class="media -right-4 top-1/2 h-[125%] w-auto -translate-y-1/2 object-contain" src="assets/img/implante.png" alt="Implante dentário com pilar e coroa cerâmica" loading="lazy">
         <span class="lift text-xs font-bold text-aqua">02</span>
         <div class="lift max-w-[62%]">
@@ -537,7 +564,7 @@
       </article>
 
       <!-- Odontologia do sono -->
-      <article class="bento-card reveal flex flex-col justify-between gap-6 p-8 text-white sm:flex-row sm:items-end md:col-span-3 lg:col-span-5" style="background:linear-gradient(150deg,#12355B,#0B2140)">
+      <article class="bento-card b-half b-sono reveal flex flex-col justify-between gap-6 p-8 text-white sm:flex-row sm:items-end md:col-span-3 lg:col-span-5" style="background:linear-gradient(150deg,#12355B,#0B2140)">
         <div class="lift max-w-md">
           <span class="text-xs font-bold text-gold">03</span>
           <h3 class="mt-6 text-2xl font-bold tracking-tight sm:text-3xl">Odontologia do Sono</h3>
@@ -556,7 +583,7 @@
       </article>
 
       <!-- Lentes de contato — simulador de tom (passe o mouse na escala de cor) -->
-      <article id="lentes" class="bento-card reveal grid overflow-hidden md:col-span-6 lg:col-span-8 sm:grid-cols-[minmax(0,.95fr)_minmax(0,1.05fr)]" data-no-tilt>
+      <article id="lentes" class="bento-card b-lentes reveal grid overflow-hidden md:col-span-6 lg:col-span-8 sm:grid-cols-[minmax(0,.95fr)_minmax(0,1.05fr)]" data-no-tilt>
         <div class="relative self-stretch overflow-hidden bg-pearl">
           <div class="shade-photo relative h-full min-h-[320px]">
             <img src="assets/img/sorriso-lentes.jpg" alt="Sorriso com lentes de contato dental" class="absolute inset-0 h-full w-full object-cover object-[30%_45%]">
@@ -580,7 +607,7 @@
       </article>
 
       <!-- CTA -->
-      <a href="#agendar" data-cursor="hover" class="bento-card reveal group flex flex-col justify-between gap-10 p-8 text-white md:col-span-6 lg:col-span-4" style="background:linear-gradient(140deg,#1B4674,#0E2847)">
+      <a href="#agendar" data-cursor="hover" class="bento-card b-cta reveal group flex flex-col justify-between gap-10 p-8 text-white md:col-span-6 lg:col-span-4" style="background:linear-gradient(140deg,#1B4674,#0E2847)">
         <span class="lift text-[11px] font-semibold uppercase tracking-[.2em] text-white/80">Primeira consulta</span>
         <div class="lift flex items-end justify-between gap-4">
           <p class="text-2xl font-bold leading-tight">Descubra o tratamento ideal para você.</p>
