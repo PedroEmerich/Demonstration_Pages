@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" role="img" aria-label="Juliano de Paula Ignácio — Advocacia">
+  <title>Juliano de Paula Ignácio — Advocacia</title>
+  <circle cx="24" cy="24" r="23" fill="#13233F"/>
+  <circle cx="24" cy="24" r="19.5" fill="none" stroke="#D9BF8C" stroke-width="0.8" opacity="0.6"/>
+  <circle cx="24" cy="12" r="5.2" fill="#E7D3A6"/>
+  <path d="M23.1 8.9h1.8v2.2h2.2v1.8h-2.2v2.2h-1.8v-2.2h-2.2v-1.8h2.2z" fill="#13233F"/>
+  <g fill="none" stroke="#D9BF8C" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M24 17.2V37"/><path d="M18 37.5h12"/><path d="M9.5 18.5c5 0 9.5-1.5 14.5-1.5s9.5 1.5 14.5 1.5"/>
+    <path d="M10 18.5 6.6 28M10 18.5l3.4 9.5M38 18.5 34.6 28M38 18.5l3.4 9.5"/>
+    <path d="M5.6 28h8.8a4.4 2.6 0 0 1-8.8 0ZM33.6 28h8.8a4.4 2.6 0 0 1-8.8 0Z"/>
+  </g>
+</svg>

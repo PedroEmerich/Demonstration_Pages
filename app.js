@@ -6,6 +6,7 @@
   const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
   const capa = (m, tipo = "capa") => `modelos/${m.pasta}/${tipo}.jpg`;
   const linkVer = (m) => `ver.html?m=${encodeURIComponent(m.pasta)}`;
+  const pagina = (m) => m.url || `modelos/${m.pasta}/index.html`;
 
   /* ---------- Dados do estúdio ---------- */
   const whatsUrl = (msg) =>
@@ -40,13 +41,22 @@
     const base = MODELOS.map((_, i) => MODELOS[(i + r * Math.ceil(MODELOS.length / 2)) % MODELOS.length]);
     const tile = (m) => `
       <a class="tile" href="${linkVer(m)}" data-view>
-        <img src="${esc(capa(m))}" alt="Prévia de ${esc(m.titulo)}" loading="lazy" />
+        <img src="${esc(capa(m))}" alt="Prévia de ${esc(m.titulo)}" loading="lazy" data-titulo="${esc(m.titulo)}" data-cor="${esc(m.cor || "")}" />
         <div class="tile__info"><strong>${esc(m.titulo)}</strong><span>${esc(m.segmento || "")}</span></div>
       </a>`;
     // repete até ter largura suficiente e duplica para o loop infinito
     let lista = [...base];
     while (lista.length < 8) lista = lista.concat(base);
     track.innerHTML = lista.map(tile).join("") + lista.map(tile).join("");
+    // capa ainda não gerada: mostra um bloco com o nome do modelo na cor dele
+    $$("img", track).forEach((img) => img.addEventListener("error", () => {
+      const ph = document.createElement("div");
+      const c = img.dataset.cor || "#333";
+      ph.className = "tile__ph";
+      ph.style.cssText = `width:100%;height:100%;display:grid;place-items:center;padding:24px;text-align:center;font-weight:700;font-size:18px;line-height:1.25;color:#fff;background:radial-gradient(circle at 30% 20%,color-mix(in srgb,${c} 70%,#fff),${c} 60%,#000)`;
+      ph.textContent = img.dataset.titulo;
+      img.replaceWith(ph);
+    }, { once: true }));
   });
 
   /* ---------- Catálogo (catalogo.html) ---------- */
@@ -77,7 +87,7 @@
       <a class="card" href="${linkVer(m)}" style="${m.cor ? `--c:${esc(m.cor)}` : ""}">
         <div class="thumb">
           <div class="thumb__bar"><i></i><i></i><i></i></div>
-          <img src="${esc(m.capa || capa(m))}" alt="" loading="lazy" data-fallback="modelos/${esc(m.pasta)}/index.html" />
+          <img src="${esc(m.capa || capa(m))}" alt="" loading="lazy" data-fallback="${esc(pagina(m))}" />
           <div class="thumb__hover"><span>Ver página completa →</span></div>
         </div>
         <div class="card__body">

@@ -1,0 +1,541 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>InfoG · Software house completa: desenvolvimento, sustentação, infraestrutura e apps</title>
+  <meta name="description" content="Software house com squads dedicados para desenvolvimento sob medida, manutenção de sistemas, servidores e firewall e aplicativos. Um só time responsável por toda a sua tecnologia.">
+  <!-- Página de demonstração com empresa fictícia: remova o noindex ao usar com uma empresa real. -->
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#0A0B10">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:title" content="InfoG · Uma software house para toda a sua tecnologia">
+  <meta property="og:description" content="Desenvolvimento, manutenção, servidores e firewall e apps com um único time responsável.">
+  <link rel="icon" type="image/png" href="shared/logo-g-64.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..125,400..900&display=swap">
+  <link rel="stylesheet" href="shared/base.css">
+  <link rel="stylesheet" href="style.css">
+  <script>
+    // Ativa o modo com JS antes da primeira pintura; se lp.js não carregar, volta ao modo sem JS.
+    document.documentElement.classList.add('js');
+    setTimeout(function () { if (!window.lpReady) document.documentElement.classList.remove('js'); }, 3000);
+  </script>
+  <script src="shared/lp.js" defer></script>
+  <script src="fx.js" defer></script>
+</head>
+<body data-whatsapp="5511970803077">
+  <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+
+  <svg width="0" height="0" class="sr-only" aria-hidden="true" focusable="false">
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></symbol>
+    <symbol id="i-arrow-left" viewBox="0 0 24 24"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></symbol>
+    <symbol id="i-arrow-up" viewBox="0 0 24 24"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16"/><path d="M4 12h16"/><path d="M4 17h16"/></symbol>
+    <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="M12 5v14"/></symbol>
+    <symbol id="i-code" viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></symbol>
+    <symbol id="i-wrench" viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></symbol>
+    <symbol id="i-phone" viewBox="0 0 24 24"><rect width="14" height="20" x="5" y="2" rx="2"/><path d="M12 18h.01"/></symbol>
+    <symbol id="i-layers" viewBox="0 0 24 24"><path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"/><path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"/><path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"/></symbol>
+    <symbol id="i-whatsapp" viewBox="0 0 24 24"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.16-.17.2-.35.22-.64.07-.3-.15-1.26-.46-2.39-1.47-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.6.13-.14.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.03-.52-.07-.15-.67-1.61-.92-2.2-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.21 3.07c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.7.63.71.22 1.36.19 1.87.12.57-.09 1.76-.72 2-1.41.25-.7.25-1.29.18-1.41-.08-.13-.27-.2-.57-.35M12.05 21.79h-.01a9.87 9.87 0 0 1-5.03-1.38l-.36-.21-3.74.98 1-3.65-.24-.37A9.86 9.86 0 0 1 2.16 11.9c0-5.45 4.44-9.88 9.9-9.88a9.83 9.83 0 0 1 6.98 2.9 9.83 9.83 0 0 1 2.9 6.99c-.01 5.45-4.44 9.88-9.89 9.88M20.46 3.49A11.82 11.82 0 0 0 12.05 0C5.5 0 .16 5.34.16 11.89c0 2.1.55 4.14 1.59 5.95L.06 24l6.3-1.65a11.88 11.88 0 0 0 5.69 1.45h.01c6.55 0 11.89-5.34 11.89-11.89a11.82 11.82 0 0 0-3.48-8.42"/></symbol>
+  </svg>
+
+  <header class="site-header" data-header>
+    <div class="container site-header__inner">
+      <a class="brand" href="#topo" aria-label="InfoG — início">
+        <img class="brand__mark" src="shared/logo-g.png" alt="" width="46" height="38">
+        <span class="brand__name">InfoG<small>software house</small></span>
+      </a>
+
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="menu" aria-label="Menu" data-nav-toggle>
+        <svg class="icon icon-open" aria-hidden="true"><use href="#i-menu"/></svg>
+        <svg class="icon icon-close" aria-hidden="true"><use href="#i-x"/></svg>
+      </button>
+
+      <nav class="site-nav" id="menu" aria-label="Principal" data-nav>
+        <ul role="list">
+          <li><a href="#servicos">Serviços</a></li>
+          <li><a href="#contratacao">Contratação</a></li>
+          <li><a href="#diferenciais">Por que a InfoG</a></li>
+          <li><a href="#cases">Cases</a></li>
+          <li><a href="#faq">Dúvidas</a></li>
+        </ul>
+        <a class="btn btn--dark btn--sm" href="#orcamento">Falar com consultor <svg class="icon" aria-hidden="true"><use href="#i-arrow-up"/></svg></a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="conteudo">
+    <!-- Hero -->
+    <section class="hero" id="topo">
+      <div class="container hero__grid">
+        <div class="hero__copy">
+          <p class="num-label">Software house · B2B · Brasil inteiro</p>
+          <h1>Uma software house para <mark>toda a sua tecnologia.</mark></h1>
+          <p class="hero__lead">Desenvolvimento sob medida, manutenção de sistemas, servidores e firewall e aplicativos — com um time sênior responsável de ponta a ponta. Menos fornecedores, menos ruído, mais entrega.</p>
+          <ul class="hero__checks" role="list">
+            <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Squads começam em até 2 semanas</li>
+            <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Contrato único com SLA</li>
+            <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Sem lock-in</li>
+          </ul>
+        </div>
+
+        <div class="quote-card" id="orcamento">
+          <form class="lead-form" id="form-orcamento" method="post" data-lead-form data-wa-intro="Olá! Montei uma proposta pelo site da InfoG.">
+            <div class="steps-head" data-js-only>
+              <p class="steps-head__title">Orçamento em 3 passos</p>
+              <p class="steps-head__status" data-step-status aria-live="polite">Etapa 1 de 3</p>
+              <div class="steps-head__bar" aria-hidden="true"><span data-step-progress></span></div>
+            </div>
+
+            <div class="step is-current" data-step>
+              <fieldset class="tiles-group">
+                <legend class="step__title">Do que você precisa? *</legend>
+                <div class="tiles">
+                  <label class="tile">
+                    <input type="radio" name="servico" value="Desenvolvimento de software" required>
+                    <span class="tile__box"><svg class="icon" aria-hidden="true"><use href="#i-code"/></svg><strong>Desenvolvimento</strong><small>Sistemas, SaaS e integrações</small></span>
+                  </label>
+                  <label class="tile">
+                    <input type="radio" name="servico" value="Manutenção de sistemas">
+                    <span class="tile__box"><svg class="icon" aria-hidden="true"><use href="#i-wrench"/></svg><strong>Manutenção</strong><small>Sustentação e melhorias</small></span>
+                  </label>
+                  <label class="tile">
+                    <input type="radio" name="servico" value="Servidores e firewall">
+                    <span class="tile__box"><svg class="icon" aria-hidden="true"><use href="#i-shield"/></svg><strong>Servidores e firewall</strong><small>Infra, nuvem e segurança</small></span>
+                  </label>
+                  <label class="tile">
+                    <input type="radio" name="servico" value="Aplicativo iOS e Android">
+                    <span class="tile__box"><svg class="icon" aria-hidden="true"><use href="#i-phone"/></svg><strong>Aplicativo</strong><small>iOS e Android</small></span>
+                  </label>
+                  <label class="tile tile--wide">
+                    <input type="radio" name="servico" value="Mais de um serviço">
+                    <span class="tile__box"><svg class="icon" aria-hidden="true"><use href="#i-layers"/></svg><strong>Mais de um serviço</strong><small>Sistema, app, infraestrutura e suporte juntos</small></span>
+                  </label>
+                </div>
+              </fieldset>
+              <div class="step-nav">
+                <button class="btn btn--dark" type="button" data-step-next data-js-only>Continuar <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></button>
+              </div>
+            </div>
+
+            <div class="step" data-step role="group" aria-labelledby="passo-2">
+              <p class="step__title" id="passo-2">Sobre o projeto</p>
+              <div class="field-row">
+                <div class="field">
+                  <label for="v-porte">Porte da empresa *</label>
+                  <select id="v-porte" name="porte" required>
+                    <option value="">Selecione</option>
+                    <option>Até 20 colaboradores</option>
+                    <option>21 a 100 colaboradores</option>
+                    <option>101 a 500 colaboradores</option>
+                    <option>Mais de 500 colaboradores</option>
+                  </select>
+                </div>
+                <div class="field">
+                  <label for="v-inicio">Quando quer começar? *</label>
+                  <select id="v-inicio" name="inicio" required>
+                    <option value="">Selecione</option>
+                    <option>Imediatamente</option>
+                    <option>Em até 30 dias</option>
+                    <option>Em 1 a 3 meses</option>
+                    <option>Só pesquisando</option>
+                  </select>
+                </div>
+              </div>
+              <div class="field">
+                <label for="v-msg">Conte em poucas palavras <span>(opcional)</span></label>
+                <textarea id="v-msg" name="mensagem" rows="3" placeholder="Ex.: queremos integrar o e-commerce ao ERP e criar um app para vendedores."></textarea>
+              </div>
+              <div class="step-nav">
+                <button class="btn btn--ghost" type="button" data-step-prev data-js-only><svg class="icon" aria-hidden="true"><use href="#i-arrow-left"/></svg> Voltar</button>
+                <button class="btn btn--dark" type="button" data-step-next data-js-only>Continuar <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></button>
+              </div>
+            </div>
+
+            <div class="step" data-step role="group" aria-labelledby="passo-3">
+              <p class="step__title" id="passo-3">Para quem enviamos a proposta?</p>
+              <div class="field">
+                <label for="v-nome">Nome *</label>
+                <input id="v-nome" name="nome" type="text" autocomplete="name" required>
+              </div>
+              <div class="field-row">
+                <div class="field">
+                  <label for="v-email">E-mail corporativo *</label>
+                  <input id="v-email" name="email" type="email" autocomplete="email" required>
+                </div>
+                <div class="field">
+                  <label for="v-whats">WhatsApp *</label>
+                  <input id="v-whats" name="whatsapp" type="tel" inputmode="tel" autocomplete="tel" placeholder="(11) 97080-3077" pattern="[0-9()+ .\-]{10,20}" data-mask="phone" required>
+                </div>
+              </div>
+              <div class="field">
+                <label for="v-empresa">Empresa *</label>
+                <input id="v-empresa" name="empresa" type="text" autocomplete="organization" required>
+              </div>
+              <div class="step-nav">
+                <button class="btn btn--ghost" type="button" data-step-prev data-js-only><svg class="icon" aria-hidden="true"><use href="#i-arrow-left"/></svg> Voltar</button>
+                <button class="btn btn--blue" type="submit">Receber proposta <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></button>
+              </div>
+            </div>
+
+            <p class="form-note">Resposta em até 24h úteis · seus dados protegidos pela LGPD (<a href="#privacidade">privacidade</a>)</p>
+
+            <div class="form-success" data-form-success hidden>
+              <p class="num-label">Proposta solicitada</p>
+              <h2>Obrigado<span data-success-name></span>!</h2>
+              <p>Um consultor vai analisar seu cenário e enviar uma proposta em até 24 horas úteis. Prefere adiantar pelo WhatsApp?</p>
+              <a class="btn btn--blue" href="https://wa.me/5511970803077" target="_blank" rel="noopener" data-success-whatsapp data-track="sucesso-formulario">
+                <svg class="icon icon--fill" aria-hidden="true"><use href="#i-whatsapp"/></svg> Continuar no WhatsApp
+              </a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- Números -->
+    <section class="numbers" aria-label="Números da InfoG">
+      <div class="container">
+        <dl class="numbers__grid">
+          <div><dt>projetos entregues</dt><dd data-count="320" data-prefix="+">+320</dd></div>
+          <div><dt>anos de mercado</dt><dd data-count="14">14</dd></div>
+          <div><dt>especialistas no time</dt><dd data-count="85">85</dd></div>
+          <div><dt>de renovação de contratos</dt><dd data-count="97" data-suffix="%">97%</dd></div>
+        </dl>
+      </div>
+    </section>
+
+    <!-- Serviços em abas -->
+    <section class="section" id="servicos" aria-labelledby="services-title">
+      <div class="container">
+        <header class="section-head" data-reveal>
+          <p class="num-label">01 — Serviços</p>
+          <h2 id="services-title">Quatro frentes. Um único time responsável.</h2>
+        </header>
+
+        <div class="tabs" data-tabs data-reveal>
+          <div class="tabs__list" role="tablist" aria-label="Serviços" data-js-only>
+            <button class="tabs__tab" type="button" role="tab" id="aba-dev" aria-controls="painel-dev" aria-selected="true"><span>01</span>Desenvolvimento</button>
+            <button class="tabs__tab" type="button" role="tab" id="aba-manutencao" aria-controls="painel-manutencao" aria-selected="false" tabindex="-1"><span>02</span>Manutenção</button>
+            <button class="tabs__tab" type="button" role="tab" id="aba-infra" aria-controls="painel-infra" aria-selected="false" tabindex="-1"><span>03</span>Servidores &amp; firewall</button>
+            <button class="tabs__tab" type="button" role="tab" id="aba-apps" aria-controls="painel-apps" aria-selected="false" tabindex="-1"><span>04</span>Apps</button>
+          </div>
+
+          <div class="tabs__panel" id="painel-dev" role="tabpanel" aria-labelledby="aba-dev" tabindex="0">
+            <div class="panel__copy">
+              <h3>Desenvolvimento de software sob medida</h3>
+              <p>Sistemas web, plataformas SaaS, ERPs, CRMs e integrações construídos com arquitetura moderna e escalável.</p>
+              <ul class="ticks" role="list">
+                <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Discovery e design de produto (UX/UI)</li>
+                <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Arquitetura em nuvem e microsserviços quando faz sentido</li>
+                <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Integrações com ERPs, gateways de pagamento e APIs</li>
+                <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Testes automatizados e entrega contínua desde o primeiro sprint</li>
+              </ul>
+              <a class="btn btn--blue" href="#orcamento" data-prefill="servico=Desenvolvimento de software">Quero desenvolver um sistema <svg class="icon" aria-hidden="true"><use href="#i-arrow-up"/></svg></a>
+            </div>
+            <dl class="panel__facts">
+              <div><dt>Prazo típico</dt><dd>3 a 6 meses</dd></div>
+              <div><dt>Tecnologias</dt><dd>React, Node.js, .NET, Java e Python</dd></div>
+              <div><dt>Modelos</dt><dd>Projeto fechado ou squad dedicado</dd></div>
+            </dl>
+          </div>
+
+          <div class="tabs__panel" id="painel-manutencao" role="tabpanel" aria-labelledby="aba-manutencao" tabindex="0">
+            <div class="panel__copy">
+              <h3>Manutenção e sustentação de sistemas</h3>
+              <p>Assumimos sistemas próprios ou herdados de outros fornecedores, com SLA, monitoramento e evolução contínua.</p>
+              <ul class="ticks" role="list">
+                <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Diagnóstico técnico e plano de estabilização</li>
+                <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Correções com SLA de 30 min a 8h, conforme a criticidade</li>
+                <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Atualização de linguagens, frameworks e dependências</li>
+                <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Relatório mensal de horas, chamados e melhorias</li>
+              </ul>
+              <a class="btn btn--blue" href="#orcamento" data-prefill="servico=Manutenção de sistemas">Quero sustentação com SLA <svg class="icon" aria-hidden="true"><use href="#i-arrow-up"/></svg></a>
+            </div>
+            <dl class="panel__facts">
+              <div><dt>Início típico</dt><dd>Em 2 semanas</dd></div>
+              <div><dt>Tecnologias</dt><dd>PHP, .NET, Java, Node.js, Delphi e outras</dd></div>
+              <div><dt>Modelos</dt><dd>Banco de horas ou squad dedicado</dd></div>
+            </dl>
+          </div>
+
+          <div class="tabs__panel" id="painel-infra" role="tabpanel" aria-labelledby="aba-infra" tabindex="0">
+            <div class="panel__copy">
+              <h3>Servidores, firewall e nuvem</h3>
+              <p>Infraestrutura segura e monitorada 24/7 para os seus sistemas e para a rede da sua empresa.</p>
+              <ul class="ticks" role="list">
+                <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Firewall gerenciado com IPS e filtro de conteúdo</li>
+                <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Servidores em AWS, Azure, Google Cloud ou on-premise</li>
+                <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>VPN para filiais e home office com dois fatores</li>
+                <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Backup imutável e plano de recuperação de desastres</li>
+              </ul>
+              <a class="btn btn--blue" href="#orcamento" data-prefill="servico=Servidores e firewall">Quero proteger minha infra <svg class="icon" aria-hidden="true"><use href="#i-arrow-up"/></svg></a>
+            </div>
+            <dl class="panel__facts">
+              <div><dt>Monitoramento</dt><dd>24/7, com plantão</dd></div>
+              <div><dt>Incidentes críticos</dt><dd>Resposta em até 15 min</dd></div>
+              <div><dt>Ferramentas</dt><dd>pfSense, FortiGate, Zabbix e Veeam</dd></div>
+            </dl>
+          </div>
+
+          <div class="tabs__panel" id="painel-apps" role="tabpanel" aria-labelledby="aba-apps" tabindex="0">
+            <div class="panel__copy">
+              <h3>Aplicativos iOS e Android</h3>
+              <p>Apps nativos ou multiplataforma integrados aos seus sistemas, do protótipo à publicação nas lojas.</p>
+              <ul class="ticks" role="list">
+                <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Protótipo navegável testado no seu celular</li>
+                <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Flutter, React Native, Swift e Kotlin</li>
+                <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Backend, painel administrativo e notificações push</li>
+                <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Publicação e gestão na App Store e no Google Play</li>
+              </ul>
+              <a class="btn btn--blue" href="#orcamento" data-prefill="servico=Aplicativo iOS e Android">Quero criar um app <svg class="icon" aria-hidden="true"><use href="#i-arrow-up"/></svg></a>
+            </div>
+            <dl class="panel__facts">
+              <div><dt>Prazo típico</dt><dd>8 a 16 semanas</dd></div>
+              <div><dt>Plataformas</dt><dd>iOS, Android e web</dd></div>
+              <div><dt>Depois do lançamento</dt><dd>Planos mensais de evolução</dd></div>
+            </dl>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Modelos de contratação -->
+    <section class="section section--soft" id="contratacao" aria-labelledby="models-title">
+      <div class="container">
+        <header class="section-head" data-reveal>
+          <p class="num-label">02 — Contratação</p>
+          <h2 id="models-title">Escolha como quer trabalhar com a gente</h2>
+        </header>
+        <ul class="models" role="list">
+          <li class="model" data-reveal>
+            <h3>Projeto fechado</h3>
+            <p>Escopo, prazo e preço definidos antes de começar.</p>
+            <p class="model__fit"><strong>Ideal para</strong> sistemas e apps com requisitos claros.</p>
+          </li>
+          <li class="model model--featured" data-reveal style="--delay: .06s">
+            <span class="model__badge">Mais contratado</span>
+            <h3>Squad dedicado</h3>
+            <p>Time multidisciplinar exclusivo, com PO, devs, QA e designer.</p>
+            <p class="model__fit"><strong>Ideal para</strong> produtos digitais em evolução constante.</p>
+          </li>
+          <li class="model" data-reveal style="--delay: .12s">
+            <h3>Sustentação com SLA</h3>
+            <p>Mensalidade fixa para manutenção, suporte e infraestrutura.</p>
+            <p class="model__fit"><strong>Ideal para</strong> sistemas críticos em produção.</p>
+          </li>
+          <li class="model" data-reveal style="--delay: .18s">
+            <h3>Alocação de profissionais</h3>
+            <p>Especialistas sêniores integrados ao seu time interno.</p>
+            <p class="model__fit"><strong>Ideal para</strong> reforçar times de TI existentes.</p>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Diferenciais -->
+    <section class="section" id="diferenciais" aria-labelledby="why-title">
+      <div class="container">
+        <header class="section-head" data-reveal>
+          <p class="num-label">03 — Por que a InfoG</p>
+          <h2 id="why-title">O que muda quando um só parceiro cuida de tudo</h2>
+        </header>
+        <ol class="reasons" role="list">
+          <li data-reveal><span class="reasons__num" aria-hidden="true">01</span><h3>Um contrato, um responsável</h3><p>Nada de empurra-empurra entre o fornecedor do sistema e o da infraestrutura.</p></li>
+          <li data-reveal style="--delay: .05s"><span class="reasons__num" aria-hidden="true">02</span><h3>Time sênior de verdade</h3><p>Mais de 70% do time tem mais de cinco anos de experiência.</p></li>
+          <li data-reveal style="--delay: .1s"><span class="reasons__num" aria-hidden="true">03</span><h3>Transparência total</h3><p>Board compartilhado, demonstrações quinzenais e relatório semanal de progresso.</p></li>
+          <li data-reveal><span class="reasons__num" aria-hidden="true">04</span><h3>Segurança desde o código</h3><p>Boas práticas OWASP, revisão de código e infraestrutura com hardening.</p></li>
+          <li data-reveal style="--delay: .05s"><span class="reasons__num" aria-hidden="true">05</span><h3>Sem lock-in</h3><p>Código-fonte, documentação e acessos são sempre da sua empresa.</p></li>
+          <li data-reveal style="--delay: .1s"><span class="reasons__num" aria-hidden="true">06</span><h3>Começo rápido</h3><p>Squads montados e trabalhando em até duas semanas após a assinatura.</p></li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- Processo -->
+    <section class="section section--dark" aria-labelledby="process-title">
+      <div class="container">
+        <header class="section-head" data-reveal>
+          <p class="num-label num-label--lime">04 — Processo</p>
+          <h2 id="process-title">Como transformamos sua demanda em entrega</h2>
+        </header>
+        <ol class="process" role="list">
+          <li data-reveal><span class="process__num" aria-hidden="true">1</span><h3>Diagnóstico</h3><p>Entendemos o negócio, o cenário técnico e os objetivos. Sai daqui uma proposta clara.</p></li>
+          <li data-reveal style="--delay: .06s"><span class="process__num" aria-hidden="true">2</span><h3>Planejamento</h3><p>Roadmap, arquitetura e time definidos. Você sabe o que será entregue e quando.</p></li>
+          <li data-reveal style="--delay: .12s"><span class="process__num" aria-hidden="true">3</span><h3>Execução</h3><p>Sprints com entregas contínuas, métricas de qualidade e ritos de acompanhamento.</p></li>
+          <li data-reveal style="--delay: .18s"><span class="process__num" aria-hidden="true">4</span><h3>Operação</h3><p>Sustentação, monitoramento 24/7 e evolução: o sistema não fica órfão depois do go-live.</p></li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- Cases -->
+    <section class="section" id="cases" aria-labelledby="cases-title">
+      <div class="container">
+        <header class="section-head" data-reveal>
+          <p class="num-label">05 — Cases</p>
+          <h2 id="cases-title">Resultados que falam por nós</h2>
+        </header>
+        <div class="cases">
+          <article class="case" data-reveal>
+            <p class="case__sector">Varejo</p>
+            <p class="case__metric">+31%</p>
+            <p class="case__metric-label">de vendas digitais</p>
+            <h3>Rede Bom Preço</h3>
+            <p>Plataforma omnichannel integrando 48 lojas, e-commerce e app de fidelidade.</p>
+          </article>
+          <article class="case" data-reveal style="--delay: .05s">
+            <p class="case__sector">Saúde</p>
+            <p class="case__metric">99,97%</p>
+            <p class="case__metric-label">de disponibilidade</p>
+            <h3>Instituto Vida Plena</h3>
+            <p>Migração do sistema legado e sustentação 24/7 do prontuário eletrônico.</p>
+          </article>
+          <article class="case" data-reveal style="--delay: .1s">
+            <p class="case__sector">Logística</p>
+            <p class="case__metric">−22%</p>
+            <p class="case__metric-label">de custo por entrega</p>
+            <h3>Translog Express</h3>
+            <p>App de entregas com roteirização e firewall gerenciado nos centros de distribuição.</p>
+          </article>
+          <article class="case" data-reveal style="--delay: .15s">
+            <p class="case__sector">Financeiro</p>
+            <p class="case__metric">2×</p>
+            <p class="case__metric-label">mais entregas por trimestre</p>
+            <h3>Coopercred</h3>
+            <p>Squad dedicado evoluindo o internet banking com segurança e conformidade.</p>
+          </article>
+        </div>
+
+        <div class="voices">
+          <figure class="voice" data-reveal>
+            <blockquote><p>“Antes tínhamos quatro fornecedores de tecnologia e nenhum responsável. Com a InfoG, temos um único time que resolve — do servidor ao aplicativo.”</p></blockquote>
+            <figcaption><strong>Cláudio Mendes</strong> CTO · Rede Bom Preço</figcaption>
+          </figure>
+          <figure class="voice" data-reveal style="--delay: .08s">
+            <blockquote><p>“O squad dedicado se integrou ao nosso time em duas semanas. Hoje entregamos o dobro, com menos incidentes em produção.”</p></blockquote>
+            <figcaption><strong>Aline Duarte</strong> Head de Produto · Coopercred</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- Segmentos -->
+    <section class="industries" aria-label="Segmentos atendidos">
+      <div class="marquee">
+        <ul class="marquee__track" role="list">
+          <li>Varejo</li><li>Saúde</li><li>Logística</li><li>Indústria</li><li>Financeiro</li><li>Educação</li><li>Agronegócio</li><li>Serviços</li>
+        </ul>
+        <ul class="marquee__track" role="list" aria-hidden="true">
+          <li>Varejo</li><li>Saúde</li><li>Logística</li><li>Indústria</li><li>Financeiro</li><li>Educação</li><li>Agronegócio</li><li>Serviços</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="section" id="faq" aria-labelledby="faq-title">
+      <div class="container faq-layout">
+        <header class="section-head" data-reveal>
+          <p class="num-label">06 — Dúvidas</p>
+          <h2 id="faq-title">Perguntas frequentes</h2>
+        </header>
+        <div class="faq">
+          <details name="faq">
+            <summary>Qual a diferença entre uma software house e uma fábrica de software?<svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg></summary>
+            <p>Uma software house participa de todo o ciclo — do entendimento do problema à operação em produção. Não apenas executamos especificações: ajudamos a decidir o que construir.</p>
+          </details>
+          <details name="faq">
+            <summary>Posso contratar só uma das frentes?<svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg></summary>
+            <p>Sim. Muitos clientes começam com uma frente — como manutenção ou infraestrutura — e ampliam quando veem o resultado.</p>
+          </details>
+          <details name="faq">
+            <summary>Vocês assumem sistemas feitos por outra empresa?<svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg></summary>
+            <p>Sim. Fazemos um diagnóstico técnico, documentamos o sistema e assumimos a sustentação com SLA — sem precisar reescrever tudo do zero.</p>
+          </details>
+          <details name="faq">
+            <summary>Cuidam dos servidores e do firewall que já temos?<svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg></summary>
+            <p>Sim. Assumimos a gestão de servidores locais ou em nuvem, firewall, VPN e backups, com monitoramento 24/7 e resposta a incidentes críticos em até 15 minutos.</p>
+          </details>
+          <details name="faq">
+            <summary>O aplicativo fica no nome da minha empresa?<svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg></summary>
+            <p>Sim. As contas da Apple e do Google, o código-fonte e todos os acessos são da sua empresa — você nunca fica preso a nós.</p>
+          </details>
+          <details name="faq">
+            <summary>Como funciona o squad dedicado?<svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg></summary>
+            <p>Montamos um time exclusivo para o seu produto, com papéis definidos conforme a necessidade e cobrança mensal. O time pode crescer ou diminuir com 30 dias de aviso.</p>
+          </details>
+          <details name="faq">
+            <summary>Em quanto tempo vocês começam?<svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg></summary>
+            <p>Projetos fechados começam em até 2 semanas após a aprovação da proposta. Squads e alocações, em até 15 dias úteis.</p>
+          </details>
+          <details name="faq">
+            <summary>Vocês atendem empresas de todo o Brasil?<svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg></summary>
+            <p>Sim. Trabalhamos remotamente com clientes em todos os estados e fazemos imersões presenciais quando o projeto pede.</p>
+          </details>
+          <details name="faq">
+            <summary>Como vocês garantem a segurança dos meus dados?<svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg></summary>
+            <p>NDA em contrato, acessos com dois fatores, ambientes segregados, revisão de código e práticas alinhadas à LGPD.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA final -->
+    <section class="final-cta" aria-labelledby="final-title">
+      <div class="container final-cta__inner" data-reveal>
+        <h2 id="final-title">Pronto para simplificar sua tecnologia?</h2>
+        <p>Fale com um consultor e receba um diagnóstico do seu cenário em até 24h úteis.</p>
+        <div class="final-cta__actions">
+          <a class="btn btn--lime" href="#orcamento">Montar minha proposta <svg class="icon" aria-hidden="true"><use href="#i-arrow-up"/></svg></a>
+          <a class="btn btn--outline-light" href="https://wa.me/5511970803077?text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20InfoG%20e%20quero%20falar%20com%20um%20consultor." target="_blank" rel="noopener" data-track="cta-final">
+            <svg class="icon icon--fill" aria-hidden="true"><use href="#i-whatsapp"/></svg> Chamar no WhatsApp
+          </a>
+        </div>
+      </div>
+    </section>
+    <a class="wa-float" href="https://wa.me/5511970803077?text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20InfoG%20e%20quero%20falar%20com%20um%20consultor." target="_blank" rel="noopener" aria-label="Conversar no WhatsApp" data-track="botao-flutuante">
+      <svg class="icon icon--fill" aria-hidden="true"><use href="#i-whatsapp"/></svg>
+    </a>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container site-footer__grid">
+      <div>
+        <a class="brand brand--light" href="#topo" aria-label="InfoG — voltar ao topo">
+          <img class="brand__mark" src="shared/logo-g-dark.png" alt="" width="46" height="38">
+          <span class="brand__name">InfoG<small>software house</small></span>
+        </a>
+        <p class="site-footer__about">Desenvolvimento, sustentação, infraestrutura e aplicativos com um único time responsável.</p>
+      </div>
+      <div>
+        <h2 class="site-footer__title">Contato</h2>
+        <ul role="list">
+          <li><a href="https://wa.me/5511970803077?text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20InfoG%20e%20quero%20falar%20com%20um%20consultor." target="_blank" rel="noopener" data-track="rodape">(11) 97080-3077</a></li>
+          <li><a href="mailto:contato@infog.com.br">contato@infog.com.br</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2 class="site-footer__title">Navegação</h2>
+        <ul role="list">
+          <li><a href="#servicos">Serviços</a></li>
+          <li><a href="#contratacao">Contratação</a></li>
+          <li><a href="#cases">Cases</a></li>
+          <li><a href="#faq">Dúvidas</a></li>
+        </ul>
+      </div>
+      <div id="privacidade">
+        <h2 class="site-footer__title">Privacidade</h2>
+        <p>Usamos os dados do formulário apenas para preparar sua proposta e responder ao contato, conforme a LGPD.</p>
+      </div>
+    </div>
+    <div class="container site-footer__bottom">
+      <p>© <span data-year>2026</span> InfoG</p>
+      <p>Página de demonstração: números, cases e depoimentos são ilustrativos. <a href="../../catalogo.html">Voltar ao catálogo</a></p>
+    </div>
+  </footer>
+</body>
+</html>

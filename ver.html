@@ -88,7 +88,7 @@
         return;
       }
 
-      const src = `modelos/${m.pasta}/index.html`;
+      const src = m.url || `modelos/${m.pasta}/index.html`;
       document.title = `${m.titulo} — ${E.nome || "Catálogo"}`;
       document.getElementById("titulo").textContent = m.titulo;
       document.getElementById("segmento").textContent = m.segmento || "";

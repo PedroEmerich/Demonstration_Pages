@@ -18,8 +18,14 @@ window.ESTUDIO = {
      2. Coloque o arquivo da landing como  index.html  dentro dela
      3. Adicione um bloco abaixo com o mesmo "pasta"
 
+   Página publicada em outro endereço? Use "url" em vez de criar a pasta:
+     o catálogo abre a página desse endereço e as capas ficam em
+     modelos/<pasta>/ (gere com  node gerar-capas.mjs <pasta>).
+
    Campos:
-     pasta      -> nome da pasta dentro de /modelos (obrigatório)
+     pasta      -> nome da pasta dentro de /modelos (obrigatório; para páginas
+                   externas é só um identificador, sem espaços/acentos)
+     url        -> endereço da página publicada fora deste projeto (opcional)
      titulo     -> nome exibido no card
      segmento   -> categoria usada nos filtros (ex: "Arquitetura", "Saúde")
      descricao  -> uma ou duas frases sobre o modelo
@@ -293,6 +299,50 @@ window.MODELOS = [
     descricao: "Clube de assinatura de plantas com quiz de planta ideal, catálogo com nível de luz e rega, planos mensal, bimestral e anual.",
     tags: ["Quiz", "Assinatura", "Pet friendly"],
     cor: "#2f5a3f",
+    novo: true,
+  },
+  {
+    pasta: "creass-reumatologia",
+    titulo: "Creass — Reumatologia e Especialidades",
+    segmento: "Saúde",
+    descricao: "Clínica de reumatologia em Mogi das Cruzes: doenças tratadas, especialidades médicas e agendamento pelo WhatsApp.",
+    tags: ["Clínica médica", "Agendamento", "Cliente real"],
+    cor: "#b7856b",
+    novo: true,
+  },
+  {
+    pasta: "juliano-advocacia",
+    titulo: "Juliano de Paula Ignácio — Direito Médico e do Consumidor",
+    segmento: "Advocacia",
+    descricao: "Advogado de direito médico, da saúde e do consumidor: plano de saúde, erro médico, medicamentos pelo SUS e cobranças indevidas.",
+    tags: ["Direito da saúde", "Atendimento online", "Cliente real"],
+    cor: "#0b1527",
+    novo: true,
+  },
+  {
+    pasta: "infog-bastiao",
+    titulo: "InfoG Bastião — Software House e Segurança",
+    segmento: "Tecnologia",
+    descricao: "Software house com DNA de segurança: sistemas e aplicativos, manutenção com SLA, servidores e firewall com monitoramento 24/7.",
+    tags: ["Segurança", "Infraestrutura", "Dark mode"],
+    cor: "#3b82f6",
+    novo: true,
+  },
+  {
+    pasta: "infog-vetor",
+    titulo: "InfoG Vetor — Software House Completa",
+    segmento: "Tecnologia",
+    descricao: "Squads dedicados para desenvolvimento sob medida, sustentação de sistemas, servidores, firewall e aplicativos.",
+    tags: ["Squads", "Sob medida", "Apps"],
+    cor: "#8b5cf6",
+    novo: true,
+  },  {
+    pasta: "plancar",
+    titulo: "PlanCar — Agendamento para Lava-Rápidos",
+    segmento: "Automotivo",
+    descricao: "Sistema de agendamento online para lava-rápidos: agenda, fila do dia, equipe, pagamento antecipado com Pix e cartão e relatórios.",
+    tags: ["SaaS", "Agendamento", "Cliente real"],
+    cor: "#2563eb",
     novo: true,
   },
 ];
