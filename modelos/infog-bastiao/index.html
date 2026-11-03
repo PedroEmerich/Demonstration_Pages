@@ -1,0 +1,537 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>InfoG · Desenvolvimento, manutenção, servidores, firewall e aplicativos</title>
+  <meta name="description" content="Software house com DNA de segurança: desenvolvemos sistemas e aplicativos, fazemos a manutenção com SLA e gerenciamos servidores e firewall com monitoramento 24/7. Diagnóstico gratuito.">
+  <!-- Página de demonstração com empresa fictícia: remova o noindex ao usar com uma empresa real. -->
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#070B14">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:title" content="InfoG · Sistemas, apps e servidores seguros e sempre no ar">
+  <meta property="og:description" content="Desenvolvimento, manutenção, servidores e firewall e aplicativos com um único time técnico e monitoramento 24/7.">
+  <link rel="icon" type="image/png" href="shared/logo-g-64.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@500;600;700&display=swap">
+  <link rel="stylesheet" href="shared/base.css">
+  <link rel="stylesheet" href="style.css">
+  <script>
+    // Ativa o modo com JS antes da primeira pintura; se lp.js não carregar, volta ao modo sem JS.
+    document.documentElement.classList.add('js');
+    setTimeout(function () { if (!window.lpReady) document.documentElement.classList.remove('js'); }, 3000);
+  </script>
+  <script src="shared/lp.js" defer></script>
+  <script src="fx.js" defer></script>
+</head>
+<body data-whatsapp="5511970803077">
+  <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+
+  <svg width="0" height="0" class="sr-only" aria-hidden="true" focusable="false">
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16"/><path d="M4 12h16"/><path d="M4 17h16"/></symbol>
+    <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="M12 5v14"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></symbol>
+    <symbol id="i-server" viewBox="0 0 24 24"><rect width="20" height="8" x="2" y="2" rx="2"/><rect width="20" height="8" x="2" y="14" rx="2"/><path d="M6 6h.01"/><path d="M6 18h.01"/></symbol>
+    <symbol id="i-lock" viewBox="0 0 24 24"><rect width="18" height="11" x="3" y="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></symbol>
+    <symbol id="i-cloud" viewBox="0 0 24 24"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/></symbol>
+    <symbol id="i-monitor" viewBox="0 0 24 24"><rect width="20" height="14" x="2" y="3" rx="2"/><path d="M8 21h8"/><path d="M12 17v4"/></symbol>
+    <symbol id="i-code" viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></symbol>
+    <symbol id="i-wrench" viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></symbol>
+    <symbol id="i-phone" viewBox="0 0 24 24"><rect width="14" height="20" x="5" y="2" rx="2"/><path d="M12 18h.01"/></symbol>
+    <symbol id="i-whatsapp" viewBox="0 0 24 24"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.16-.17.2-.35.22-.64.07-.3-.15-1.26-.46-2.39-1.47-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.6.13-.14.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.03-.52-.07-.15-.67-1.61-.92-2.2-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.21 3.07c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.7.63.71.22 1.36.19 1.87.12.57-.09 1.76-.72 2-1.41.25-.7.25-1.29.18-1.41-.08-.13-.27-.2-.57-.35M12.05 21.79h-.01a9.87 9.87 0 0 1-5.03-1.38l-.36-.21-3.74.98 1-3.65-.24-.37A9.86 9.86 0 0 1 2.16 11.9c0-5.45 4.44-9.88 9.9-9.88a9.83 9.83 0 0 1 6.98 2.9 9.83 9.83 0 0 1 2.9 6.99c-.01 5.45-4.44 9.88-9.89 9.88M20.46 3.49A11.82 11.82 0 0 0 12.05 0C5.5 0 .16 5.34.16 11.89c0 2.1.55 4.14 1.59 5.95L.06 24l6.3-1.65a11.88 11.88 0 0 0 5.69 1.45h.01c6.55 0 11.89-5.34 11.89-11.89a11.82 11.82 0 0 0-3.48-8.42"/></symbol>
+  </svg>
+
+  <header class="site-header" data-header>
+    <div class="container site-header__inner">
+      <a class="brand" href="#topo" aria-label="InfoG — início">
+        <img class="brand__mark" src="shared/logo-g-dark.png" alt="" width="46" height="38">
+        <span class="brand__name">InfoG<small>tecnologia &amp; segurança</small></span>
+      </a>
+
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="menu" aria-label="Menu" data-nav-toggle>
+        <svg class="icon icon-open" aria-hidden="true"><use href="#i-menu"/></svg>
+        <svg class="icon icon-close" aria-hidden="true"><use href="#i-x"/></svg>
+      </button>
+
+      <nav class="site-nav" id="menu" aria-label="Principal" data-nav>
+        <ul role="list">
+          <li><a href="#servicos">Serviços</a></li>
+          <li><a href="#autodiagnostico">Autodiagnóstico</a></li>
+          <li><a href="#como-funciona">Como funciona</a></li>
+          <li><a href="#faq">Dúvidas</a></li>
+        </ul>
+        <a class="btn btn--accent btn--sm" href="#contato">Diagnóstico gratuito</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="conteudo">
+    <!-- Hero -->
+    <section class="hero" id="topo">
+      <div class="container hero__grid">
+        <div class="hero__copy">
+          <p class="mono-label"><span aria-hidden="true">//</span> desenvolvimento · manutenção · servidores · apps</p>
+          <h1>Sistemas, apps e servidores <span class="accent">seguros e sempre no ar.</span></h1>
+          <p class="hero__lead">Desenvolvemos sistemas e aplicativos sob medida, fazemos a manutenção com SLA e gerenciamos servidores e firewall com monitoramento 24/7 — um único time técnico, do código ao servidor.</p>
+          <div class="hero__actions">
+            <a class="btn btn--accent" href="#contato">Agendar diagnóstico gratuito <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+            <a class="btn btn--line" href="https://wa.me/5511970803077?text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20InfoG%20e%20quero%20falar%20com%20um%20engenheiro." target="_blank" rel="noopener" data-track="hero">
+              <svg class="icon icon--fill" aria-hidden="true"><use href="#i-whatsapp"/></svg> Falar com um engenheiro
+            </a>
+          </div>
+          <ul class="hero__badges" role="list" aria-label="Serviços">
+            <li><b>dev</b> sistemas e integrações</li>
+            <li><b>sla</b> manutenção com prazo</li>
+            <li><b>noc</b> servidores e firewall 24/7</li>
+            <li><b>app</b> iOS e Android</li>
+          </ul>
+        </div>
+
+        <div class="terminal" aria-hidden="true">
+          <div class="terminal__bar"><i></i><i></i><i></i><span>infog@ops:~$ tail -f operacao.log</span></div>
+          <div class="terminal__body">
+            <p class="t-line"><time>09:41:02</time><b class="t-dev">DEPLOY</b><span>erp-web v3.2.0 → produção</span><em>testes ok · sem indisponibilidade</em></p>
+            <p class="t-line"><time>09:41:15</time><b class="t-fix">FIX</b><span>chamado #482 resolvido</span><em>SLA de 4h cumprido</em></p>
+            <p class="t-line"><time>09:41:23</time><b class="t-block">BLOCK</b><span>203.0.113.45 → 3389/tcp</span><em>força bruta (RDP)</em></p>
+            <p class="t-line"><time>09:41:30</time><b class="t-ok">OK</b><span>backup srv-db01</span><em>214 GB · restauração testada</em></p>
+            <p class="t-line"><time>09:41:44</time><b class="t-app">APP</b><span>app-ios 2.4.0</span><em>aprovado na App Store</em></p>
+            <p class="t-line"><time>09:41:51</time><b class="t-ok">OK</b><span>vpn-filial-02</span><em>túnel IPsec ativo · 38 ms</em></p>
+            <p class="t-line"><time>09:41:52</time><span class="cursor"></span></p>
+          </div>
+          <div class="terminal__foot">
+            <span><b>4</b> frentes monitoradas</span>
+            <span><i class="dot"></i><b>0</b> incidentes abertos</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Números -->
+    <section class="metrics" aria-label="Números da InfoG">
+      <div class="container">
+        <dl class="metrics__grid">
+          <div><dt>projetos entregues entre sistemas, apps e infraestrutura</dt><dd data-count="250" data-prefix="+">+250</dd></div>
+          <div><dt>de disponibilidade média dos ambientes</dt><dd data-count="99.95" data-decimals="2" data-suffix="%">99,95%</dd></div>
+          <div><dt>para responder a incidentes críticos</dt><dd><span data-count="15">15</span> min</dd></div>
+          <div><dt>de monitoramento com equipe própria</dt><dd>24/7</dd></div>
+        </dl>
+      </div>
+    </section>
+
+    <!-- Autodiagnóstico -->
+    <section class="section" id="autodiagnostico" aria-labelledby="quiz-title">
+      <div class="container">
+        <header class="section-head" data-reveal>
+          <p class="mono-label"><span aria-hidden="true">01</span> autodiagnóstico · 1 minuto</p>
+          <h2 id="quiz-title">Sua tecnologia está segura e pronta para crescer?</h2>
+          <p>Marque o que acontece hoje na sua empresa — são dois sinais de cada frente. O resultado é calculado na hora, aqui mesmo no seu navegador.</p>
+        </header>
+
+        <div class="quiz" data-risk data-reveal>
+          <fieldset class="quiz__items">
+            <legend class="sr-only">Situações que acontecem na sua empresa</legend>
+            <label class="quiz__item"><input type="checkbox" data-weight="2" data-label="Processos importantes ainda rodam em planilhas"><span><small>Desenvolvimento</small>Processos importantes ainda rodam em planilhas</span></label>
+            <label class="quiz__item"><input type="checkbox" data-weight="2" data-label="Os sistemas da empresa não conversam entre si"><span><small>Desenvolvimento</small>Os sistemas da empresa não conversam entre si</span></label>
+            <label class="quiz__item"><input type="checkbox" data-weight="3" data-label="Ninguém dá manutenção ao sistema, ou o fornecedor sumiu"><span><small>Manutenção</small>Ninguém dá manutenção ao sistema — ou o fornecedor sumiu</span></label>
+            <label class="quiz__item"><input type="checkbox" data-weight="2" data-label="Os mesmos bugs voltam a cada atualização"><span><small>Manutenção</small>Os mesmos bugs voltam a cada atualização</span></label>
+            <label class="quiz__item"><input type="checkbox" data-weight="3" data-label="Não temos firewall dedicado nem VPN para o acesso remoto"><span><small>Servidores e firewall</small>Não temos firewall dedicado nem VPN para o acesso remoto</span></label>
+            <label class="quiz__item"><input type="checkbox" data-weight="3" data-label="Os backups nunca foram testados"><span><small>Servidores e firewall</small>Os backups nunca foram testados</span></label>
+            <label class="quiz__item"><input type="checkbox" data-weight="2" data-label="Clientes pedem um aplicativo que ainda não temos"><span><small>Aplicativos</small>Clientes pedem um aplicativo que ainda não temos</span></label>
+            <label class="quiz__item"><input type="checkbox" data-weight="2" data-label="Nosso app está desatualizado ou com avaliações ruins"><span><small>Aplicativos</small>Nosso app está desatualizado ou com avaliações ruins</span></label>
+          </fieldset>
+
+          <div class="quiz__result" data-js-only>
+            <p class="quiz__count"><span data-risk-count>0 de 8</span> itens marcados</p>
+            <div class="quiz__meter" aria-hidden="true"><span data-risk-bar></span></div>
+            <div class="quiz__levels" aria-live="polite">
+              <div data-risk-level="0" data-risk-name="nenhum" data-risk-label="nenhum item marcado">
+                <h3>Marque os itens ao lado</h3>
+                <p>Mesmo sem nenhum item, vale um diagnóstico técnico: muitos riscos não aparecem no dia a dia.</p>
+              </div>
+              <div data-risk-level="1" data-risk-name="baixo" data-risk-label="risco baixo" hidden>
+                <h3>Risco baixo</h3>
+                <p>Sua base está boa. Um diagnóstico ajuda a priorizar as próximas melhorias em sistemas, servidores e apps.</p>
+              </div>
+              <div data-risk-level="30" data-risk-name="moderado" data-risk-label="risco moderado" hidden>
+                <h3>Risco moderado</h3>
+                <p>Há pontos que podem virar incidentes ou travar o crescimento. Vale corrigir nos próximos 30 dias.</p>
+              </div>
+              <div data-risk-level="55" data-risk-name="alto" data-risk-label="risco alto" hidden>
+                <h3>Risco alto</h3>
+                <p>Sistemas, dados ou clientes estão expostos a problemas comuns. Priorize um plano de ação.</p>
+              </div>
+              <div data-risk-level="80" data-risk-name="critico" data-risk-label="risco crítico" hidden>
+                <h3>Risco crítico</h3>
+                <p>A chance de um incidente sério — ou de perder clientes — é alta. Fale com um engenheiro hoje mesmo.</p>
+              </div>
+            </div>
+            <a class="btn btn--accent btn--block" href="#contato" data-risk-cta data-prefill="">Receber plano de ação gratuito <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+            <p class="quiz__privacy"><svg class="icon" aria-hidden="true"><use href="#i-lock"/></svg>Nada é enviado: o cálculo acontece no seu navegador.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Serviços -->
+    <section class="section section--alt" id="servicos" aria-labelledby="services-title">
+      <div class="container">
+        <header class="section-head" data-reveal>
+          <p class="mono-label"><span aria-hidden="true">02</span> serviços</p>
+          <h2 id="services-title">Quatro frentes, um único time técnico</h2>
+          <p>Contrate uma ou todas. Quem desenvolve conhece a infraestrutura, e quem cuida da infraestrutura conhece o código.</p>
+        </header>
+        <div class="services">
+          <article class="service" data-reveal>
+            <span class="service__icon"><svg class="icon" aria-hidden="true"><use href="#i-code"/></svg></span>
+            <h3>Desenvolvimento de sistemas</h3>
+            <p>Sistemas web, ERPs, portais e integrações sob medida, com segurança desde o primeiro sprint.</p>
+            <ul class="service__list" role="list">
+              <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Sistemas de gestão e automação de processos</li>
+              <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Integrações com ERPs, pagamentos e APIs</li>
+              <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Revisão de código e boas práticas OWASP</li>
+              <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Testes automatizados e entrega contínua</li>
+            </ul>
+          </article>
+          <article class="service" data-reveal style="--delay: .05s">
+            <span class="service__icon"><svg class="icon" aria-hidden="true"><use href="#i-wrench"/></svg></span>
+            <h3>Manutenção de sistemas</h3>
+            <p>Sustentação com SLA para sistemas próprios ou herdados de outros fornecedores.</p>
+            <ul class="service__list" role="list">
+              <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Correções com SLA de 30 min a 8h</li>
+              <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Atualização de versões e falhas de segurança</li>
+              <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Documentação e plano de estabilização</li>
+              <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Melhorias e novas funcionalidades todo mês</li>
+            </ul>
+          </article>
+          <article class="service" data-reveal>
+            <span class="service__icon"><svg class="icon" aria-hidden="true"><use href="#i-shield"/></svg></span>
+            <h3>Servidores e firewall</h3>
+            <p>Infraestrutura local ou em nuvem, protegida e monitorada pelo nosso NOC 24 horas por dia.</p>
+            <ul class="service__list" role="list">
+              <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Firewall gerenciado com IPS (pfSense, OPNsense, FortiGate)</li>
+              <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Servidores Windows e Linux, on-premise ou na nuvem</li>
+              <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>VPN para filiais e home office com dois fatores</li>
+              <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Backup imutável e plano de recuperação de desastres</li>
+            </ul>
+          </article>
+          <article class="service" data-reveal style="--delay: .05s">
+            <span class="service__icon"><svg class="icon" aria-hidden="true"><use href="#i-phone"/></svg></span>
+            <h3>Aplicativos iOS e Android</h3>
+            <p>Apps nativos ou multiplataforma com APIs protegidas, hospedados na mesma estrutura monitorada.</p>
+            <ul class="service__list" role="list">
+              <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Flutter, React Native, Swift e Kotlin</li>
+              <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Backend, painel administrativo e notificações</li>
+              <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Publicação na App Store e no Google Play</li>
+              <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Atualizações e correções depois do lançamento</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Arquitetura -->
+    <section class="section" aria-labelledby="arch-title">
+      <div class="container arch">
+        <div class="arch__copy" data-reveal>
+          <p class="mono-label"><span aria-hidden="true">03</span> como tudo se conecta</p>
+          <h2 id="arch-title">Do aplicativo ao servidor, tudo integrado e protegido</h2>
+          <ol class="layers" role="list">
+            <li><b>Sistemas e aplicativos</b>Desenvolvidos com boas práticas de segurança desde o primeiro sprint.</li>
+            <li><b>Firewall e acesso</b>IPS, VPN e dois fatores bloqueiam ataques antes que cheguem à rede.</li>
+            <li><b>Servidores e nuvem</b>Atualizados, monitorados e com backup imutável testado todo mês.</li>
+            <li><b>Manutenção 24/7</b>Correções com SLA, monitoramento contínuo e evolução de sistemas e apps.</li>
+          </ol>
+        </div>
+        <figure class="diagram" data-reveal style="--delay: .1s">
+          <svg viewBox="0 0 520 380" role="img" aria-labelledby="diagram-title diagram-desc">
+            <title id="diagram-title">Como sistemas, aplicativos e servidores se conectam com a InfoG</title>
+            <desc id="diagram-desc">Aplicativos e sistemas web acessam servidores e nuvem passando pelo firewall gerenciado, que bloqueia ataques. Tudo fica dentro da manutenção e do monitoramento 24 horas.</desc>
+            <rect class="diagram__frame" x="8" y="64" width="504" height="290" rx="22"/>
+            <g class="diagram__links">
+              <path id="rota-ataque" class="diagram__threat" d="M260 34V168"/>
+              <path id="rota-app" d="M118 126C170 126 180 200 212 200"/>
+              <path id="rota-web" d="M118 280C170 280 180 200 212 200"/>
+              <path id="rota-servidores" d="M308 200C340 200 350 126 402 126"/>
+              <path id="rota-nuvem" d="M308 200C340 200 350 280 402 280"/>
+            </g>
+            <text class="diagram__threat-label" x="276" y="40">ataques</text>
+            <g class="diagram__node" transform="translate(70 126)">
+              <rect x="-48" y="-32" width="96" height="64" rx="16"/>
+              <use href="#i-phone" x="-14" y="-14" width="28" height="28"/>
+              <text y="58">Aplicativos</text>
+            </g>
+            <g class="diagram__node" transform="translate(70 280)">
+              <rect x="-48" y="-32" width="96" height="64" rx="16"/>
+              <use href="#i-monitor" x="-14" y="-14" width="28" height="28"/>
+              <text y="58">Sistemas</text>
+            </g>
+            <g class="diagram__node diagram__node--fw" transform="translate(260 200)">
+              <rect x="-48" y="-32" width="96" height="64" rx="16"/>
+              <use href="#i-shield" x="-14" y="-14" width="28" height="28"/>
+              <text y="58">Firewall</text>
+            </g>
+            <g class="diagram__node" transform="translate(450 126)">
+              <rect x="-48" y="-32" width="96" height="64" rx="16"/>
+              <use href="#i-server" x="-14" y="-14" width="28" height="28"/>
+              <text y="58">Servidores</text>
+            </g>
+            <g class="diagram__node" transform="translate(450 280)">
+              <rect x="-48" y="-32" width="96" height="64" rx="16"/>
+              <use href="#i-cloud" x="-14" y="-14" width="28" height="28"/>
+              <text y="58">Nuvem</text>
+            </g>
+            <g class="diagram__pill" transform="translate(260 354)">
+              <rect x="-112" y="-17" width="224" height="34" rx="17"/>
+              <text y="6">Manutenção 24/7</text>
+            </g>
+            <g class="diagram__packets">
+              <circle class="pkt pkt--bad" r="5"><animateMotion dur="1.8s" repeatCount="indefinite"><mpath href="#rota-ataque"/></animateMotion></circle>
+              <circle class="pkt pkt--bad" r="5"><animateMotion dur="1.8s" begin="0.9s" repeatCount="indefinite"><mpath href="#rota-ataque"/></animateMotion></circle>
+              <circle class="pkt pkt--ok" r="4"><animateMotion dur="2.2s" repeatCount="indefinite"><mpath href="#rota-app"/></animateMotion></circle>
+              <circle class="pkt pkt--ok" r="4"><animateMotion dur="2.2s" begin="1.1s" repeatCount="indefinite"><mpath href="#rota-web"/></animateMotion></circle>
+              <circle class="pkt pkt--ok" r="4"><animateMotion dur="2.2s" begin="0.5s" repeatCount="indefinite"><mpath href="#rota-servidores"/></animateMotion></circle>
+              <circle class="pkt pkt--ok" r="4"><animateMotion dur="2.2s" begin="1.6s" repeatCount="indefinite"><mpath href="#rota-nuvem"/></animateMotion></circle>
+            </g>
+          </svg>
+          <figcaption><span class="legend legend--bad"></span>ataque bloqueado <span class="legend legend--ok"></span>tráfego liberado</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- Como funciona -->
+    <section class="section section--alt" id="como-funciona" aria-labelledby="how-title">
+      <div class="container">
+        <header class="section-head" data-reveal>
+          <p class="mono-label"><span aria-hidden="true">04</span> como funciona</p>
+          <h2 id="how-title">Da avaliação à operação, sem parar a sua empresa</h2>
+        </header>
+        <ol class="flow" role="list">
+          <li data-reveal>
+            <span class="flow__step">passo_01</span>
+            <h3>Diagnóstico e inventário</h3>
+            <p>Mapeamos sistemas, apps, servidores, acessos e vulnerabilidades. Você recebe um relatório com riscos priorizados.</p>
+          </li>
+          <li data-reveal style="--delay: .06s">
+            <span class="flow__step">passo_02</span>
+            <h3>Proposta e arquitetura</h3>
+            <p>Escopo, prazos e a arquitetura ideal para o seu porte — seja um sistema novo, um app ou a migração para a nuvem.</p>
+          </li>
+          <li data-reveal style="--delay: .12s">
+            <span class="flow__step">passo_03</span>
+            <h3>Execução sem paradas</h3>
+            <p>Desenvolvimento em sprints e mudanças de infraestrutura em janelas noturnas, sempre com plano de retorno.</p>
+          </li>
+          <li data-reveal style="--delay: .18s">
+            <span class="flow__step">passo_04</span>
+            <h3>Gestão contínua</h3>
+            <p>Manutenção com SLA, monitoramento 24/7 e relatório mensal de segurança e evolução.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- Cases e depoimentos -->
+    <section class="section" aria-labelledby="cases-title">
+      <div class="container">
+        <header class="section-head" data-reveal>
+          <p class="mono-label"><span aria-hidden="true">05</span> resultados</p>
+          <h2 id="cases-title">Um resultado em cada frente</h2>
+        </header>
+        <div class="cases">
+          <article class="case" data-reveal>
+            <p class="case__meta">Desenvolvimento · indústria</p>
+            <p class="case__metric">−35% <span>no tempo de apontamento</span></p>
+            <p>Sistema de chão de fábrica integrado às máquinas e ao ERP, com painéis em tempo real.</p>
+          </article>
+          <article class="case" data-reveal style="--delay: .05s">
+            <p class="case__meta">Manutenção · distribuidora</p>
+            <p class="case__metric">98% <span>dos chamados dentro do SLA</span></p>
+            <p>Sistema legado em Delphi assumido, documentado e estabilizado em seis semanas.</p>
+          </article>
+          <article class="case" data-reveal style="--delay: .1s">
+            <p class="case__meta">Servidores e firewall · clínicas</p>
+            <p class="case__metric">0 <span>dados perdidos em um ataque</span></p>
+            <p>Ransomware contido em 40 minutos graças ao backup imutável e ao firewall gerenciado.</p>
+          </article>
+          <article class="case" data-reveal style="--delay: .15s">
+            <p class="case__meta">Aplicativo · varejo</p>
+            <p class="case__metric">+27% <span>de recompra pelo app</span></p>
+            <p>App de pedidos e fidelidade integrado ao ERP e hospedado na mesma estrutura monitorada.</p>
+          </article>
+        </div>
+
+        <div class="quotes">
+          <figure class="quote" data-reveal>
+            <blockquote><p>“Em uma madrugada de domingo o firewall bloqueou um ataque, e o plantão da InfoG já tinha agido antes de chegarmos ao escritório.”</p></blockquote>
+            <figcaption><strong>Eduardo Ramos</strong> Gerente de TI · Metalúrgica Santa Rita</figcaption>
+          </figure>
+          <figure class="quote" data-reveal style="--delay: .08s">
+            <blockquote><p>“Eles criaram nosso app de pedidos, assumiram a manutenção do ERP e migraram tudo para a nuvem. Um só time para tudo.”</p></blockquote>
+            <figcaption><strong>Luciana Freitas</strong> Diretora de Operações · Freitas Distribuidora</figcaption>
+          </figure>
+        </div>
+
+        <div class="tech" data-reveal>
+          <p class="tech__label">Trabalhamos com</p>
+          <ul class="tech__list" role="list">
+            <li>Node.js</li><li>.NET</li><li>Java</li><li>Python</li><li>React</li><li>Flutter</li><li>React Native</li><li>PostgreSQL</li><li>pfSense</li><li>FortiGate</li><li>Linux</li><li>Windows Server</li><li>AWS</li><li>Microsoft Azure</li><li>Proxmox</li><li>Veeam</li><li>Zabbix</li><li>Wazuh</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="section section--alt" id="faq" aria-labelledby="faq-title">
+      <div class="container faq-layout">
+        <header class="section-head" data-reveal>
+          <p class="mono-label"><span aria-hidden="true">06</span> dúvidas</p>
+          <h2 id="faq-title">Perguntas frequentes</h2>
+          <p>Sua dúvida não está aqui? <a href="https://wa.me/5511970803077?text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20InfoG%20e%20quero%20falar%20com%20um%20engenheiro." target="_blank" rel="noopener" data-track="faq">Pergunte a um engenheiro</a>.</p>
+        </header>
+        <div class="faq">
+          <details name="faq">
+            <summary>Vocês desenvolvem sistemas e aplicativos?<svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg></summary>
+            <p>Sim. Criamos sistemas web, integrações e aplicativos iOS e Android sob medida, com boas práticas de segurança desde o primeiro sprint.</p>
+          </details>
+          <details name="faq">
+            <summary>Fazem manutenção em sistemas de outros fornecedores?<svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg></summary>
+            <p>Sim. Começamos com um diagnóstico do código e da infraestrutura e assumimos a sustentação com SLA de 30 minutos a 8 horas, conforme a criticidade.</p>
+          </details>
+          <details name="faq">
+            <summary>Vocês atendem empresas de qual porte?<svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg></summary>
+            <p>De 10 a 500 colaboradores, em qualquer região do Brasil. Desenvolvimento, monitoramento e suporte são remotos; implantações físicas são feitas por técnicos próprios ou parceiros locais.</p>
+          </details>
+          <details name="faq">
+            <summary>Preciso comprar equipamentos novos?<svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg></summary>
+            <p>Nem sempre. No diagnóstico avaliamos o que pode ser aproveitado. Quando um firewall físico é necessário, indicamos opções para o seu porte — ou usamos firewall virtual.</p>
+          </details>
+          <details name="faq">
+            <summary>Como funciona o atendimento em caso de incidente?<svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg></summary>
+            <p>Incidentes críticos — um sistema fora do ar, um app travando ou um ataque — são detectados pelo monitoramento ou abertos pelo seu time a qualquer hora. A primeira resposta acontece em até 15 minutos, 24 horas por dia.</p>
+          </details>
+          <details name="faq">
+            <summary>Vocês ajudam com a LGPD?<svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg></summary>
+            <p>Ajudamos na parte técnica: controle de acessos, registros (logs), criptografia, backup e resposta a incidentes — nos sistemas, nos apps e nos servidores.</p>
+          </details>
+          <details name="faq">
+            <summary>Posso contratar só um dos serviços?<svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg></summary>
+            <p>Sim. Dá para contratar só o desenvolvimento de um app, só a manutenção de um sistema ou só o monitoramento dos servidores — e ampliar quando quiser.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contato -->
+    <section class="section contact" id="contato" aria-labelledby="contact-title">
+      <div class="container contact__grid">
+        <div class="contact__copy" data-reveal>
+          <p class="mono-label"><span aria-hidden="true">07</span> diagnóstico gratuito</p>
+          <h2 id="contact-title">Agende seu diagnóstico gratuito</h2>
+          <p>Um engenheiro analisa seus sistemas, apps, servidores e firewall e entrega um relatório com riscos e prioridades. Sem custo e sem compromisso.</p>
+          <ul class="contact__list" role="list">
+            <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Relatório entregue em até 5 dias úteis</li>
+            <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Análise feita por engenheiro, não por vendedor</li>
+            <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Confidencialidade garantida por NDA</li>
+          </ul>
+        </div>
+
+        <div class="form-shell">
+          <form class="lead-form" id="form-diagnostico" method="post" data-lead-form data-wa-intro="Olá! Agendei um diagnóstico pelo site da InfoG.">
+            <div class="field">
+              <label for="c-nome">Nome *</label>
+              <input id="c-nome" name="nome" type="text" autocomplete="name" required>
+            </div>
+            <div class="field-row">
+              <div class="field">
+                <label for="c-email">E-mail corporativo *</label>
+                <input id="c-email" name="email" type="email" autocomplete="email" required>
+              </div>
+              <div class="field">
+                <label for="c-whats">WhatsApp *</label>
+                <input id="c-whats" name="whatsapp" type="tel" inputmode="tel" autocomplete="tel" placeholder="(11) 97080-3077" pattern="[0-9()+ .\-]{10,20}" data-mask="phone" required>
+              </div>
+            </div>
+            <div class="field-row">
+              <div class="field">
+                <label for="c-empresa">Empresa *</label>
+                <input id="c-empresa" name="empresa" type="text" autocomplete="organization" required>
+              </div>
+              <div class="field">
+                <label for="c-porte">Nº de colaboradores *</label>
+                <select id="c-porte" name="colaboradores" required>
+                  <option value="">Selecione</option>
+                  <option>Até 20</option>
+                  <option>21 a 50</option>
+                  <option>51 a 200</option>
+                  <option>Mais de 200</option>
+                </select>
+              </div>
+            </div>
+            <div class="field">
+              <label for="c-servico">Serviço de interesse *</label>
+              <select id="c-servico" name="servico" required>
+                <option value="">Selecione</option>
+                <option>Desenvolvimento de sistemas</option>
+                <option>Manutenção de sistemas</option>
+                <option>Servidores e firewall</option>
+                <option>Aplicativos iOS e Android</option>
+                <option>Mais de um serviço</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="c-msg">Mensagem <span>(opcional)</span></label>
+              <textarea id="c-msg" name="mensagem" rows="4"></textarea>
+            </div>
+            <button class="btn btn--accent btn--block" type="submit">Agendar diagnóstico <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></button>
+            <p class="form-note"><svg class="icon" aria-hidden="true"><use href="#i-lock"/></svg><span>Dados usados apenas para retornar seu contato (<a href="#privacidade">privacidade</a>).</span></p>
+
+            <div class="form-success" data-form-success hidden>
+              <p class="mono-label">status: recebido</p>
+              <h3>Diagnóstico solicitado<span data-success-name></span>!</h3>
+              <p>Um engenheiro vai entrar em contato em até 1 dia útil para agendar a análise. Se estiver com um incidente agora, fale direto com o plantão:</p>
+              <a class="btn btn--accent" href="https://wa.me/5511970803077" target="_blank" rel="noopener" data-success-whatsapp data-track="sucesso-formulario">
+                <svg class="icon icon--fill" aria-hidden="true"><use href="#i-whatsapp"/></svg> Continuar no WhatsApp
+              </a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+    <a class="wa-float" href="https://wa.me/5511970803077?text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20InfoG%20e%20quero%20falar%20com%20um%20engenheiro." target="_blank" rel="noopener" aria-label="Conversar no WhatsApp" data-track="botao-flutuante">
+      <svg class="icon icon--fill" aria-hidden="true"><use href="#i-whatsapp"/></svg>
+    </a>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container site-footer__grid">
+      <div>
+        <a class="brand" href="#topo" aria-label="InfoG — voltar ao topo">
+          <img class="brand__mark" src="shared/logo-g-dark.png" alt="" width="46" height="38">
+          <span class="brand__name">InfoG<small>tecnologia &amp; segurança</small></span>
+        </a>
+        <p class="site-footer__about">Desenvolvimento de sistemas e aplicativos, manutenção com SLA e servidores e firewall gerenciados 24/7.</p>
+      </div>
+      <div>
+        <h2 class="site-footer__title">Contato</h2>
+        <ul role="list">
+          <li><a href="https://wa.me/5511970803077?text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20InfoG%20e%20quero%20falar%20com%20um%20engenheiro." target="_blank" rel="noopener" data-track="rodape">(11) 97080-3077 · plantão 24/7</a></li>
+          <li><a href="mailto:contato@infog.com.br">contato@infog.com.br</a></li>
+        </ul>
+      </div>
+      <div id="privacidade">
+        <h2 class="site-footer__title">Privacidade</h2>
+        <p>As informações enviadas são usadas apenas para responder ao seu contato e tratadas conforme a LGPD.</p>
+      </div>
+    </div>
+    <div class="container site-footer__bottom">
+      <p>© <span data-year>2026</span> InfoG</p>
+      <p>Página de demonstração: números, cases e depoimentos são ilustrativos. <a href="../../catalogo.html">Voltar ao catálogo</a></p>
+    </div>
+  </footer>
+</body>
+</html>

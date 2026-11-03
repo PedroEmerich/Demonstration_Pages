@@ -303,7 +303,6 @@ window.MODELOS = [
   },
   {
     pasta: "creass-reumatologia",
-    url: "https://pedroemerich.github.io/Clinica_Reumatologia_LP/",
     titulo: "Creass — Reumatologia e Especialidades",
     segmento: "Saúde",
     descricao: "Clínica de reumatologia em Mogi das Cruzes: doenças tratadas, especialidades médicas e agendamento pelo WhatsApp.",
@@ -313,7 +312,6 @@ window.MODELOS = [
   },
   {
     pasta: "juliano-advocacia",
-    url: "https://pedroemerich.github.io/Catalogo_Advocacia/",
     titulo: "Juliano de Paula Ignácio — Direito Médico e do Consumidor",
     segmento: "Advocacia",
     descricao: "Advogado de direito médico, da saúde e do consumidor: plano de saúde, erro médico, medicamentos pelo SUS e cobranças indevidas.",
@@ -323,7 +321,6 @@ window.MODELOS = [
   },
   {
     pasta: "infog-bastiao",
-    url: "https://pedroemerich.github.io/Catalogo_Devs/landing-pages/bastiao/index.html",
     titulo: "InfoG Bastião — Software House e Segurança",
     segmento: "Tecnologia",
     descricao: "Software house com DNA de segurança: sistemas e aplicativos, manutenção com SLA, servidores e firewall com monitoramento 24/7.",
@@ -333,12 +330,19 @@ window.MODELOS = [
   },
   {
     pasta: "infog-vetor",
-    url: "https://pedroemerich.github.io/Catalogo_Devs/landing-pages/vetor/index.html",
     titulo: "InfoG Vetor — Software House Completa",
     segmento: "Tecnologia",
     descricao: "Squads dedicados para desenvolvimento sob medida, sustentação de sistemas, servidores, firewall e aplicativos.",
     tags: ["Squads", "Sob medida", "Apps"],
     cor: "#8b5cf6",
+    novo: true,
+  },  {
+    pasta: "plancar",
+    titulo: "PlanCar — Agendamento para Lava-Rápidos",
+    segmento: "Automotivo",
+    descricao: "Sistema de agendamento online para lava-rápidos: agenda, fila do dia, equipe, pagamento antecipado com Pix e cartão e relatórios.",
+    tags: ["SaaS", "Agendamento", "Cliente real"],
+    cor: "#2563eb",
     novo: true,
   },
 ];

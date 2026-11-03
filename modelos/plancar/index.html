@@ -1,0 +1,1033 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PlanCar — Agendamento online para lava-rápidos</title>
+  <meta name="description" content="O PlanCar organiza agendamentos, equipe, pagamentos com Pix e cartão e relatórios do seu lava-rápido. O cliente agenda pelo celular em segundos.">
+  <meta name="theme-color" content="#070F24">
+  <meta property="og:title" content="PlanCar — Agendamento online para lava-rápidos">
+  <meta property="og:description" content="Agenda online, fila do dia, pagamento antecipado e relatórios para lava-rápidos e estéticas automotivas.">
+  <meta property="og:image" content="img/plancar-logo.png">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="img/plancar-logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ink: #070F24;
+      --ink-2: #0D1B3E;
+      --blue: #2563EB;
+      --blue-2: #1D4ED8;
+      --sky: #38BDF8;
+      --violet: #818CF8;
+      --green: #16A34A;
+      --green-2: #15803D;
+      --text: #0F172A;
+      --muted: #64748B;
+      --line: #E2E8F0;
+      --bg: #F6F8FB;
+      --card: #FFFFFF;
+      --radius: 18px;
+      --ease: cubic-bezier(.2, .7, .2, 1);
+      --shadow: 0 1px 2px rgba(15, 23, 42, .04), 0 12px 32px rgba(15, 23, 42, .07);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+    body {
+      margin: 0; font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      color: var(--text); background: var(--bg); line-height: 1.55; -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+    img { max-width: 100%; display: block; }
+    a { color: inherit; text-decoration: none; }
+    .wrap { width: 100%; max-width: 1180px; margin: 0 auto; padding: 0 22px; }
+    ::selection { background: rgba(56, 189, 248, .35); }
+
+    /* ---------- Barra de progresso + cursor ---------- */
+    .progress { position: fixed; inset: 0 0 auto 0; height: 3px; z-index: 60; transform-origin: 0 50%; transform: scaleX(0);
+      background: linear-gradient(90deg, var(--sky), var(--blue), var(--violet)); }
+    .cursor, .cursor-dot { position: fixed; left: 0; top: 0; pointer-events: none; z-index: 70; border-radius: 50%; opacity: 0;
+      transition: opacity .3s, width .25s var(--ease), height .25s var(--ease), background .25s, border-color .25s; }
+    .cursor { width: 36px; height: 36px; margin: -18px 0 0 -18px; border: 1.5px solid rgba(56, 189, 248, .8); }
+    .cursor-dot { width: 6px; height: 6px; margin: -3px 0 0 -3px; background: var(--sky); }
+    .cursor.is-link { width: 58px; height: 58px; margin: -29px 0 0 -29px; background: rgba(56, 189, 248, .12); border-color: rgba(56, 189, 248, .5); }
+    body.has-cursor .cursor, body.has-cursor .cursor-dot { opacity: 1; }
+
+    /* ---------- Botões ---------- */
+    .btn {
+      position: relative; display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+      height: 50px; padding: 0 24px; border-radius: 14px; border: 1px solid transparent;
+      font-weight: 600; font-size: 15px; cursor: pointer; white-space: nowrap; isolation: isolate;
+      transition: transform .25s var(--ease), background .2s, box-shadow .25s, border-color .2s;
+    }
+    .btn svg { width: 20px; height: 20px; flex: none; }
+    .btn-whats { background: var(--green); color: #fff; box-shadow: 0 10px 30px -8px rgba(22, 163, 74, .7); }
+    .btn-whats:hover { background: var(--green-2); box-shadow: 0 14px 34px -8px rgba(22, 163, 74, .85); }
+    .btn-primary { background: var(--blue); color: #fff; box-shadow: 0 10px 30px -10px rgba(37, 99, 235, .8); }
+    .btn-primary:hover { background: var(--blue-2); }
+    .btn-ghost { background: rgba(255, 255, 255, .06); color: #fff; border-color: rgba(255, 255, 255, .18); backdrop-filter: blur(6px); }
+    .btn-ghost:hover { background: rgba(255, 255, 255, .12); border-color: rgba(255, 255, 255, .3); }
+    .btn-sm { height: 40px; padding: 0 16px; font-size: 14px; border-radius: 11px; }
+    .btn .arrow { transition: transform .25s var(--ease); }
+    .btn:hover .arrow { transform: translateX(3px); }
+
+    /* ---------- Cabeçalho ---------- */
+    header.top { position: fixed; inset: 12px 0 auto 0; z-index: 50; transition: inset .35s var(--ease); }
+    .top .bar {
+      display: flex; align-items: center; gap: 24px; height: 62px; padding: 0 10px 0 16px; border-radius: 18px;
+      border: 1px solid transparent; transition: background .35s, border-color .35s, box-shadow .35s, height .35s var(--ease);
+    }
+    header.top.scrolled { inset: 8px 0 auto 0; }
+    header.top.scrolled .bar { height: 56px; background: rgba(7, 15, 36, .72); border-color: rgba(255, 255, 255, .1);
+      box-shadow: 0 10px 40px rgba(2, 6, 23, .35); backdrop-filter: saturate(160%) blur(14px); }
+    .brand { display: flex; align-items: center; gap: 10px; color: #fff; font-weight: 800; font-size: 20px; letter-spacing: -.4px; }
+    .brand img { width: 36px; height: 36px; border-radius: 10px; background: #fff; padding: 2px; object-fit: contain; }
+    .brand b { color: var(--sky); font-weight: 800; }
+    nav.links { display: flex; gap: 4px; margin-left: 8px; }
+    nav.links a { position: relative; color: rgba(255, 255, 255, .7); font-size: 14px; font-weight: 500; padding: 8px 12px; border-radius: 10px; transition: color .2s, background .2s; }
+    nav.links a:hover { color: #fff; background: rgba(255, 255, 255, .06); }
+    nav.links a.active { color: #fff; }
+    nav.links a.active::after { content: ""; position: absolute; left: 12px; right: 12px; bottom: 3px; height: 2px; border-radius: 2px; background: var(--sky); }
+    .top .actions { margin-left: auto; display: flex; gap: 8px; }
+
+    /* ---------- Hero ---------- */
+    .hero {
+      --x: 70%; --y: 30%;
+      position: relative; overflow: hidden; color: #fff; padding: 150px 0 120px;
+      background: var(--ink);
+    }
+    .hero::before { /* holofote que segue o cursor */
+      content: ""; position: absolute; inset: 0; pointer-events: none;
+      background: radial-gradient(600px circle at var(--x) var(--y), rgba(56, 189, 248, .16), transparent 60%);
+      transition: background .1s;
+    }
+    .hero .grid-bg { position: absolute; inset: -2px; pointer-events: none; opacity: .5;
+      background-image: linear-gradient(rgba(255, 255, 255, .05) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, .05) 1px, transparent 1px);
+      background-size: 56px 56px; mask-image: radial-gradient(ellipse 80% 70% at 50% 30%, #000 30%, transparent 75%);
+      -webkit-mask-image: radial-gradient(ellipse 80% 70% at 50% 30%, #000 30%, transparent 75%); }
+    .blob { position: absolute; border-radius: 50%; filter: blur(70px); pointer-events: none; opacity: .55; will-change: transform; }
+    .blob.b1 { width: 520px; height: 520px; background: #1D4ED8; left: -160px; bottom: -220px; }
+    .blob.b2 { width: 460px; height: 460px; background: #0EA5E9; right: -120px; top: -140px; opacity: .35; }
+    .blob.b3 { width: 300px; height: 300px; background: #6366F1; left: 45%; top: 55%; opacity: .25; }
+    .hero .wrap { position: relative; display: grid; grid-template-columns: 1.02fr .98fr; gap: 64px; align-items: center; }
+    .eyebrow { display: inline-flex; align-items: center; gap: 10px; padding: 6px 14px 6px 6px; border-radius: 999px;
+      background: rgba(255, 255, 255, .06); border: 1px solid rgba(255, 255, 255, .12); color: #CFE8FF; font-size: 13px; font-weight: 600; }
+    .eyebrow span { background: linear-gradient(90deg, var(--sky), var(--blue)); color: #fff; padding: 3px 10px; border-radius: 999px; font-size: 12px; }
+    .hero h1 { font-size: clamp(38px, 5.4vw, 68px); line-height: 1.02; letter-spacing: -2.2px; margin: 22px 0 22px; font-weight: 900; }
+    .hero h1 .line { display: block; overflow: hidden; padding-bottom: .06em; }
+    .hero h1 .line > span { display: inline-block; transform: translateY(105%); animation: rise .9s var(--ease) forwards; }
+    .hero h1 .line:nth-child(2) > span { animation-delay: .08s; }
+    .hero h1 .line:nth-child(3) > span { animation-delay: .16s; }
+    .hero h1 em { font-style: normal; background: linear-gradient(90deg, #7DD3FC, #60A5FA 45%, #A5B4FC); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    @keyframes rise { to { transform: none; } }
+    .hero p.lead { font-size: 18.5px; color: rgba(226, 232, 240, .78); max-width: 540px; margin: 0 0 32px; }
+    .ctas { display: flex; gap: 12px; flex-wrap: wrap; }
+    .checks { display: flex; flex-wrap: wrap; gap: 10px 24px; margin: 30px 0 0; padding: 0; list-style: none; color: rgba(226, 232, 240, .72); font-size: 14px; }
+    .checks li { display: flex; align-items: center; gap: 8px; }
+    .checks svg { width: 18px; height: 18px; color: #4ADE80; }
+    .fade-up { opacity: 0; transform: translateY(18px); animation: fadeUp .9s var(--ease) forwards; }
+    @keyframes fadeUp { to { opacity: 1; transform: none; } }
+
+    /* Mock do produto (inclina com o cursor, sobe com a rolagem) */
+    .mock-scene { perspective: 1200px; }
+    .mock { position: relative; transform-style: preserve-3d; transition: transform .2s ease-out; will-change: transform; }
+    .mock-card { position: relative; background: rgba(255, 255, 255, .98); color: var(--text); border-radius: 22px; padding: 18px;
+      box-shadow: 0 40px 100px -20px rgba(2, 6, 23, .7), 0 0 0 1px rgba(255, 255, 255, .5); transform: translateZ(0); }
+    .mock-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+    .mock-head b { font-size: 16px; }
+    .mock-head small { color: var(--muted); font-size: 12px; display: block; }
+    .live { display: inline-flex; align-items: center; gap: 7px; font-size: 12px; font-weight: 700; color: #067647; background: #ECFDF3; padding: 5px 10px; border-radius: 999px; }
+    .live i { position: relative; width: 7px; height: 7px; border-radius: 50%; background: #12B76A; }
+    .live i::after { content: ""; position: absolute; inset: -4px; border-radius: 50%; border: 2px solid #12B76A; animation: ping 1.6s infinite; }
+    @keyframes ping { from { transform: scale(.4); opacity: .9; } to { transform: scale(1.6); opacity: 0; } }
+    .row { display: grid; grid-template-columns: 76px 1fr auto; align-items: center; gap: 12px; padding: 10px; border: 1px solid var(--line); border-radius: 14px; margin-top: 10px; background: #fff; transition: box-shadow .3s, border-color .3s; }
+    .row.flash { border-color: #BFDBFE; box-shadow: 0 0 0 4px rgba(37, 99, 235, .08); }
+    .row .veh { color: var(--blue); background: #EFF6FF; border-radius: 10px; padding: 6px 4px; }
+    .row .veh svg { width: 100%; height: auto; display: block; }
+    .row b { font-size: 14px; display: block; }
+    .row small { color: var(--muted); font-size: 12.5px; }
+    .pill { font-size: 12px; font-weight: 700; padding: 5px 10px; border-radius: 999px; white-space: nowrap; transition: background .3s, color .3s; }
+    .pill.ok { color: #067647; background: #ECFDF3; }
+    .pill.prep { color: #175CD3; background: #EFF8FF; }
+    .pill.wait { color: #B54708; background: #FFFAEB; }
+    .float { position: absolute; background: #fff; color: var(--text); border-radius: 16px; padding: 10px 14px 10px 10px;
+      box-shadow: 0 24px 50px -12px rgba(2, 6, 23, .55); display: flex; align-items: center; gap: 10px; font-size: 13px; will-change: transform; }
+    .float .ic { width: 36px; height: 36px; border-radius: 11px; display: grid; place-items: center; flex: none; }
+    .float .ic svg { width: 18px; height: 18px; }
+    .float b { display: block; font-size: 14px; }
+    .float small { color: var(--muted); }
+    .float.pix { left: -34px; bottom: -30px; transform: translateZ(60px); }
+    .float.pix .ic { background: #ECFDF3; color: #12B76A; }
+    .float.new { right: -24px; top: -62px; transform: translateZ(80px); }
+    .float.new .ic { background: #EFF6FF; color: var(--blue); }
+    .float.pop { animation: pop .6s var(--ease); }
+    @keyframes pop { 0% { opacity: 0; scale: .85; } 100% { opacity: 1; scale: 1; } }
+    .scroll-hint { position: absolute; left: 50%; bottom: 26px; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 8px;
+      color: rgba(226, 232, 240, .55); font-size: 12px; letter-spacing: .6px; }
+    .scroll-hint i { width: 22px; height: 34px; border: 1.5px solid rgba(226, 232, 240, .4); border-radius: 12px; position: relative; }
+    .scroll-hint i::after { content: ""; position: absolute; left: 50%; top: 7px; width: 3px; height: 7px; margin-left: -1.5px; border-radius: 2px; background: var(--sky); animation: wheel 1.6s infinite; }
+    @keyframes wheel { 0% { transform: translateY(0); opacity: 1; } 100% { transform: translateY(10px); opacity: 0; } }
+
+    /* ---------- Faixa de veículos (marquee) ---------- */
+    .strip { background: #fff; border-bottom: 1px solid var(--line); padding: 26px 0; overflow: hidden; }
+    .strip p { margin: 0 0 14px; text-align: center; color: var(--muted); font-size: 13px; font-weight: 600; letter-spacing: .6px; text-transform: uppercase; }
+    .marquee { display: flex; width: max-content; animation: marquee 40s linear infinite; }
+    .strip:hover .marquee { animation-play-state: paused; }
+    .marquee .item { display: flex; align-items: center; gap: 12px; padding: 8px 28px; color: #94A3B8; font-weight: 600; font-size: 15px; transition: color .3s; }
+    .marquee .item:hover { color: var(--blue); }
+    .marquee .item svg { width: 92px; height: auto; }
+    @keyframes marquee { to { transform: translateX(-50%); } }
+
+    /* ---------- Seções ---------- */
+    section.block { padding: 112px 0; position: relative; }
+    .sec-head { max-width: 700px; margin: 0 auto 56px; text-align: center; }
+    .kicker { display: inline-flex; align-items: center; gap: 8px; color: var(--blue); font-weight: 700; font-size: 13px; letter-spacing: .9px; text-transform: uppercase; }
+    .kicker::before { content: ""; width: 18px; height: 2px; border-radius: 2px; background: currentColor; }
+    .sec-head h2, .h2 { font-size: clamp(30px, 3.6vw, 46px); line-height: 1.08; letter-spacing: -1.4px; margin: 14px 0 14px; font-weight: 800; }
+    .sec-head p { color: var(--muted); font-size: 18px; margin: 0; }
+
+    /* Revelar ao rolar */
+    [data-reveal] { opacity: 0; transform: translateY(28px); transition: opacity .8s var(--ease), transform .8s var(--ease); transition-delay: var(--d, 0s); }
+    [data-reveal].in { opacity: 1; transform: none; }
+
+    /* Cards com brilho que segue o cursor */
+    .bento { display: grid; grid-template-columns: repeat(6, 1fr); gap: 18px; }
+    .card { --mx: 50%; --my: 50%; position: relative; background: var(--card); border: 1px solid var(--line); border-radius: var(--radius);
+      padding: 28px; box-shadow: var(--shadow); overflow: hidden; transition: transform .35s var(--ease), box-shadow .35s; }
+    .card::before { content: ""; position: absolute; inset: 0; pointer-events: none; opacity: 0; transition: opacity .35s;
+      background: radial-gradient(420px circle at var(--mx) var(--my), rgba(37, 99, 235, .09), transparent 45%); }
+    .card::after { content: ""; position: absolute; inset: 0; border-radius: inherit; padding: 1px; pointer-events: none; opacity: 0; transition: opacity .35s;
+      background: radial-gradient(260px circle at var(--mx) var(--my), rgba(37, 99, 235, .75), transparent 45%);
+      -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude; }
+    .card:hover { transform: translateY(-4px); box-shadow: 0 2px 4px rgba(15, 23, 42, .04), 0 24px 48px -12px rgba(15, 23, 42, .16); }
+    .card:hover::before, .card:hover::after { opacity: 1; }
+    .card .ico { width: 48px; height: 48px; border-radius: 14px; display: grid; place-items: center; color: #fff; margin-bottom: 18px;
+      background: linear-gradient(135deg, var(--sky), var(--blue)); box-shadow: 0 10px 20px -8px rgba(37, 99, 235, .7); }
+    .card .ico svg { width: 24px; height: 24px; }
+    .card h3 { margin: 0 0 8px; font-size: 19px; letter-spacing: -.3px; }
+    .card p { margin: 0; color: var(--muted); font-size: 15px; }
+    .span-3 { grid-column: span 3; } .span-2 { grid-column: span 2; } .span-4 { grid-column: span 4; }
+    .card.feature-big { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: center; }
+    .mini-queue { display: grid; gap: 8px; }
+    .mini-queue div { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 10px 12px; border-radius: 12px; border: 1px solid var(--line); font-size: 13px; background: #fff; }
+    .bars { display: flex; align-items: flex-end; gap: 8px; height: 110px; margin-top: 18px; }
+    .bars i { flex: 1; border-radius: 6px 6px 2px 2px; background: linear-gradient(180deg, var(--sky), var(--blue)); transform-origin: bottom; transform: scaleY(.1); transition: transform 1s var(--ease); transition-delay: calc(var(--i) * 70ms); }
+    .in .bars i, .bars.in i { transform: scaleY(1); }
+
+    /* Números */
+    .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; margin-top: 18px; }
+    .stat { text-align: center; padding: 26px 16px; border-radius: var(--radius); background: var(--ink); color: #fff; position: relative; overflow: hidden; }
+    .stat::before { content: ""; position: absolute; inset: auto -40% -60% -40%; height: 120%; background: radial-gradient(closest-side, rgba(56, 189, 248, .25), transparent); }
+    .stat b { position: relative; display: block; font-size: clamp(30px, 3.4vw, 42px); font-weight: 900; letter-spacing: -1.5px;
+      background: linear-gradient(90deg, #fff, #BAE6FD); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .stat > span { position: relative; color: rgba(226, 232, 240, .7); font-size: 14px; }
+
+    /* ---------- Como funciona: celular fixo + passos ---------- */
+    .story { background: #fff; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+    .story-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; }
+    .story-steps { padding: 6vh 0; }
+    .story-step { min-height: 62vh; display: flex; flex-direction: column; justify-content: center; opacity: .3; transition: opacity .5s var(--ease); }
+    .story-step.active { opacity: 1; }
+    .story-step .num { width: 44px; height: 44px; border-radius: 14px; display: grid; place-items: center; font-weight: 800; color: #fff; margin-bottom: 18px;
+      background: linear-gradient(135deg, var(--sky), var(--blue)); }
+    .story-step h3 { font-size: clamp(24px, 2.6vw, 32px); letter-spacing: -.8px; line-height: 1.15; margin: 0 0 12px; }
+    .story-step p { color: var(--muted); font-size: 17px; margin: 0; max-width: 460px; }
+    .story-step .shot { display: none; }
+    .phone-col { position: relative; }
+    .phone-sticky { position: sticky; top: 14vh; height: 72vh; display: grid; place-items: center; }
+    .phone { position: relative; height: min(600px, 70vh); width: calc(min(600px, 70vh) / 2); border-radius: 46px; padding: 12px; background: #0B1220;
+      box-shadow: 0 50px 100px -30px rgba(15, 23, 42, .55), inset 0 0 0 2px #1E293B; }
+    .phone::before { content: ""; position: absolute; top: 20px; left: 50%; width: 90px; height: 24px; margin-left: -45px; border-radius: 14px; background: #0B1220; z-index: 3; }
+    .screen { position: absolute; inset: 12px; border-radius: 36px; overflow: hidden; background: #F6F8FB; padding: 58px 18px 18px;
+      opacity: 0; transform: translateY(14px) scale(.98); transition: opacity .5s var(--ease), transform .5s var(--ease); }
+    .phone[data-screen="0"] .s0, .phone[data-screen="1"] .s1, .phone[data-screen="2"] .s2 { opacity: 1; transform: none; }
+    .screen h4 { margin: 0 0 4px; font-size: 18px; letter-spacing: -.3px; }
+    .screen .sub { color: var(--muted); font-size: 12.5px; margin-bottom: 14px; }
+    .ui-card { background: #fff; border: 1px solid var(--line); border-radius: 16px; padding: 12px; margin-bottom: 10px; }
+    .plate { display: flex; flex-direction: column; border: 2px solid #1D2939; border-radius: 8px; overflow: hidden; width: 172px; margin: 4px auto 10px; background: #fff; }
+    .plate i { background: #1E40AF; color: #fff; font-style: normal; font-size: 8px; font-weight: 800; letter-spacing: 1.4px; text-align: center; padding: 1px 0; }
+    .plate b { text-align: center; font-size: 22px; letter-spacing: 2px; font-weight: 900; color: #101828; padding: 2px 0; min-height: 34px; white-space: nowrap; }
+    .plate b::after { content: "|"; color: var(--blue); animation: blink 1s steps(1) infinite; margin-left: 1px; }
+    @keyframes blink { 50% { opacity: 0; } }
+    .field { display: flex; justify-content: space-between; font-size: 12.5px; padding: 8px 2px; border-bottom: 1px dashed var(--line); }
+    .field span { color: var(--muted); }
+    .field b { opacity: 0; transform: translateX(6px); transition: opacity .4s, transform .4s var(--ease); }
+    .filled .field b { opacity: 1; transform: none; }
+    .filled .field:nth-child(2) b { transition-delay: .1s; } .filled .field:nth-child(3) b { transition-delay: .2s; } .filled .field:nth-child(4) b { transition-delay: .3s; }
+    .s0 .veh-big { color: var(--blue); margin: 6px auto 0; width: 190px; opacity: 0; transform: translateX(-30px); transition: opacity .6s .35s, transform .6s .35s var(--ease); }
+    .filled .veh-big { opacity: 1; transform: none; }
+    .svc { display: flex; justify-content: space-between; align-items: center; padding: 10px 12px; border: 1px solid var(--line); border-radius: 12px; margin-bottom: 8px; font-size: 13px; background: #fff; }
+    .svc.sel { border-color: var(--blue); background: #EFF6FF; box-shadow: 0 0 0 3px rgba(37, 99, 235, .1); }
+    .svc small { display: block; color: var(--muted); font-size: 11.5px; }
+    .slots { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+    .slots span { text-align: center; padding: 8px 0; font-size: 12.5px; font-weight: 600; border-radius: 10px; border: 1px solid var(--line); background: #fff; }
+    .slots span.off { color: #CBD5E1; text-decoration: line-through; background: #F8FAFC; }
+    .slots span.sel { background: var(--blue); color: #fff; border-color: var(--blue); }
+    .qr { width: 132px; height: 132px; margin: 8px auto; padding: 8px; border-radius: 12px; background: #fff; box-shadow: 0 0 0 1px var(--line); }
+    .qr svg { width: 100%; height: 100%; display: block; }
+    .paid { display: flex; align-items: center; gap: 10px; padding: 12px; border-radius: 14px; background: #ECFDF3; color: #067647; font-weight: 700; font-size: 14px;
+      opacity: 0; transform: translateY(10px); transition: opacity .5s .5s, transform .5s .5s var(--ease); }
+    .paid svg { width: 22px; height: 22px; }
+    .phone[data-screen="2"] .paid { opacity: 1; transform: none; }
+    .total { display: flex; justify-content: space-between; font-weight: 800; font-size: 15px; padding: 4px 2px 10px; }
+
+    /* ---------- Público ---------- */
+    .split { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .aud { position: relative; border-radius: 24px; padding: 38px; border: 1px solid var(--line); background: #fff; display: flex; flex-direction: column; overflow: hidden; }
+    .aud.dark { background: var(--ink); color: #fff; border-color: transparent; }
+    .aud.dark::before { content: ""; position: absolute; width: 380px; height: 380px; right: -120px; top: -160px; border-radius: 50%; background: radial-gradient(closest-side, rgba(56, 189, 248, .3), transparent); }
+    .aud h3 { position: relative; font-size: 28px; letter-spacing: -.8px; line-height: 1.15; margin: 8px 0 18px; }
+    .aud ul { position: relative; list-style: none; padding: 0; margin: 0 0 30px; display: grid; gap: 12px; }
+    .aud li { display: flex; gap: 10px; align-items: flex-start; font-size: 15.5px; }
+    .aud li svg { width: 20px; height: 20px; flex: none; margin-top: 2px; color: var(--green); }
+    .aud.dark li { color: rgba(226, 232, 240, .86); }
+    .aud.dark li svg { color: #4ADE80; }
+    .aud .tag { position: relative; font-size: 13px; font-weight: 700; color: var(--blue); text-transform: uppercase; letter-spacing: .9px; }
+    .aud.dark .tag { color: #7DD3FC; }
+    .aud .btn { margin-top: auto; align-self: flex-start; }
+
+    /* ---------- Patrocinadores ---------- */
+    .sponsors { background: #fff; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: 84px 0; }
+    .sponsor-list { display: flex; justify-content: center; gap: 22px; flex-wrap: wrap; }
+    .sponsor { display: flex; align-items: center; gap: 18px; padding: 18px 28px 18px 18px; border: 1px solid var(--line); border-radius: 22px; background: var(--bg); min-width: 300px;
+      transition: transform .35s var(--ease), box-shadow .35s, border-color .35s; }
+    .sponsor:hover { transform: translateY(-4px) rotate(-.5deg); box-shadow: var(--shadow); border-color: #CBD5E1; }
+    .sponsor img { width: 84px; height: 84px; border-radius: 50%; object-fit: cover; background: #fff; box-shadow: var(--shadow); transition: transform .5s var(--ease); }
+    .sponsor:hover img { transform: rotate(-8deg) scale(1.05); }
+    .sponsor b { display: block; font-size: 18px; letter-spacing: -.2px; }
+    .sponsor small { color: var(--muted); font-size: 14px; }
+    .sponsor small { display: block; }
+    .sponsor .visit { display: flex; align-items: center; gap: 4px; margin-top: 6px; color: var(--blue); font-size: 13px; font-weight: 600; }
+    .sponsor .visit svg { width: 14px; height: 14px; transition: transform .25s var(--ease); }
+    a.sponsor:hover .visit svg { transform: translateX(3px); }
+    a.sponsor:focus-visible { outline: 3px solid rgba(37, 99, 235, .45); outline-offset: 3px; }
+
+    /* ---------- CTA final ---------- */
+    .cta-final { padding: 112px 0; }
+    .cta-box { --x: 50%; --y: 0%; position: relative; overflow: hidden; border-radius: 32px; padding: 72px 40px; text-align: center; color: #fff; background: var(--ink); }
+    .cta-box::before { content: ""; position: absolute; inset: 0; background: radial-gradient(520px circle at var(--x) var(--y), rgba(56, 189, 248, .28), transparent 60%); transition: background .1s; }
+    .cta-box .grid-bg { position: absolute; inset: 0; opacity: .35; background-image: linear-gradient(rgba(255, 255, 255, .06) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, .06) 1px, transparent 1px);
+      background-size: 44px 44px; mask-image: radial-gradient(ellipse at center, #000 20%, transparent 70%); -webkit-mask-image: radial-gradient(ellipse at center, #000 20%, transparent 70%); }
+    .cta-box > *:not(.grid-bg) { position: relative; }
+    .cta-box h2 { font-size: clamp(30px, 4vw, 50px); letter-spacing: -1.6px; line-height: 1.05; margin: 0 0 14px; font-weight: 900; }
+    .cta-box p { color: rgba(226, 232, 240, .78); font-size: 18px; margin: 0 auto 32px; max-width: 560px; }
+    .cta-box .ctas { justify-content: center; }
+    .cta-box .cta-email { margin: 24px auto 0; font-size: 15px; }
+    .cta-box .cta-email a { color: #fff; font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
+
+    /* ---------- Rodapé ---------- */
+    footer { background: var(--ink); color: rgba(226, 232, 240, .65); padding: 44px 0; font-size: 14px; }
+    footer .wrap { display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
+    footer .links { display: flex; gap: 22px; flex-wrap: wrap; }
+    footer a:hover { color: #fff; }
+    footer .emails { display: flex; flex-direction: column; gap: 4px; }
+    footer .emails a { color: rgba(226, 232, 240, .9); }
+
+    /* ---------- Botão flutuante ---------- */
+    .fab { position: fixed; right: 22px; bottom: 22px; z-index: 40; width: 62px; height: 62px; border-radius: 50%;
+      background: var(--green); color: #fff; display: grid; place-items: center; box-shadow: 0 14px 34px -8px rgba(22, 163, 74, .8);
+      transform: scale(0); transition: transform .45s var(--ease); }
+    .fab.show { transform: scale(1); }
+    .fab::before { content: ""; position: absolute; inset: 0; border-radius: 50%; border: 2px solid var(--green); animation: ping 2.2s infinite; }
+    .fab svg { width: 30px; height: 30px; }
+
+    /* ---------- Responsivo ---------- */
+    @media (max-width: 1000px) {
+      nav.links { display: none; }
+      .hero { padding: 120px 0 110px; }
+      .hero .wrap { grid-template-columns: 1fr; gap: 80px; }
+      .mock-scene { max-width: 540px; margin: 0 auto; width: 100%; }
+      .bento { grid-template-columns: 1fr 1fr; }
+      .span-2, .span-3, .span-4 { grid-column: span 1; }
+      .card.feature-big { grid-column: span 2; }
+      .stats { grid-template-columns: 1fr 1fr; }
+      .story-grid { grid-template-columns: 1fr; gap: 0; }
+      .phone-col { display: none; }
+      .story-step { min-height: auto; opacity: 1; padding: 22px 0; }
+      .story-step .shot { display: block; color: var(--blue); width: 200px; margin-top: 18px; }
+    }
+    @media (max-width: 680px) {
+      .wrap { padding: 0 18px; }
+      header.top, header.top.scrolled { inset: 8px 0 auto 0; }
+      .top .bar { height: 56px; padding: 0 8px 0 12px; }
+      .top .actions .btn-ghost { display: none; }
+      .brand { font-size: 18px; }
+      .brand img { width: 32px; height: 32px; }
+
+      /* Hero: título menos apertado, lista em coluna, mock sem invadir o texto */
+      .hero { padding: 100px 0 84px; }
+      .hero .wrap { gap: 0; }
+      .eyebrow { font-size: 12px; }
+      .hero h1 { font-size: clamp(34px, 10.4vw, 42px); letter-spacing: -1px; line-height: 1.06; margin: 18px 0 16px; }
+      .hero p.lead { font-size: 16px; margin-bottom: 24px; }
+      .hero .ctas { gap: 10px; }
+      .hero .ctas .btn { flex: 1 1 100%; }
+      .checks { flex-direction: column; gap: 8px; margin-top: 22px; font-size: 13.5px; }
+      .scroll-hint { display: none; }
+      .mock-scene { margin-top: 72px; }
+      .mock-card { padding: 14px; border-radius: 18px; }
+      .mock-head b { font-size: 15px; }
+      .row { grid-template-columns: 52px 1fr auto; gap: 10px; padding: 8px; border-radius: 12px; }
+      .row .veh { padding: 4px 3px; border-radius: 8px; }
+      .row b { font-size: 13px; line-height: 1.3; }
+      .row small { font-size: 11.5px; }
+      .pill { font-size: 11px; padding: 4px 8px; }
+      .float { padding: 7px 12px 7px 7px; gap: 8px; font-size: 12px; border-radius: 14px; }
+      .float .ic { width: 30px; height: 30px; border-radius: 9px; }
+      .float .ic svg { width: 16px; height: 16px; }
+      .float b { font-size: 13px; }
+      .float.new { right: 8px; top: -46px; }
+      .float.pix { left: 8px; bottom: -40px; }
+
+      /* Faixa de veículos e seções mais compactas */
+      .strip { padding: 22px 0; }
+      .marquee .item { padding: 6px 16px; font-size: 14px; gap: 8px; }
+      .marquee .item svg { width: 70px; }
+      section.block { padding: 72px 0; }
+      .sec-head { margin-bottom: 32px; }
+      .sec-head h2, .h2 { font-size: clamp(26px, 7.6vw, 30px); letter-spacing: -.6px; line-height: 1.15; }
+      .sec-head p { font-size: 16px; }
+      .stat b { letter-spacing: -.8px; }
+      .bento, .split { grid-template-columns: 1fr; gap: 14px; }
+      .card { padding: 22px; }
+      .card.feature-big { grid-column: auto; grid-template-columns: 1fr; gap: 18px; }
+      .card .ico { width: 42px; height: 42px; margin-bottom: 14px; }
+      /* Cards simples: ícone ao lado do texto (a seção ficava longa demais empilhada) */
+      .card:not(.feature-big) { display: grid; grid-template-columns: 42px 1fr; column-gap: 14px; padding: 18px; }
+      .card:not(.feature-big) .ico { grid-row: span 2; margin: 2px 0 0; }
+      .card:not(.feature-big) h3 { font-size: 17px; margin-bottom: 4px; }
+      .card:not(.feature-big) p { grid-column: 2; font-size: 14.5px; }
+      .card:not(.feature-big) .bars { grid-column: 1 / -1; }
+      .bars { height: 72px; }
+      .stats { gap: 12px; }
+      .stat { padding: 20px 10px; }
+      .stat > span { font-size: 13px; }
+
+      /* Como funciona: passos em cartões, com a ilustração ao lado do número */
+      .story-steps { padding: 0; display: grid; gap: 14px; }
+      .story-step { display: grid; grid-template-columns: auto 1fr; column-gap: 14px; align-items: center;
+        padding: 20px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--bg); }
+      .story-step .num { margin: 0; width: 40px; height: 40px; border-radius: 12px; }
+      .story-step h3 { font-size: 19px; letter-spacing: -.3px; margin: 0; }
+      .story-step p { grid-column: 1 / -1; font-size: 15px; margin-top: 10px; }
+      .story-step .shot { grid-column: 1 / -1; width: 160px; margin: 14px 0 0; }
+
+      .aud { padding: 26px; border-radius: 20px; }
+      .aud h3 { font-size: 23px; }
+      .aud li { font-size: 15px; }
+      .aud .btn { align-self: stretch; }
+      .sponsors { padding: 64px 0; }
+      .sponsor { min-width: 0; width: 100%; padding: 14px 18px 14px 14px; }
+      .sponsor img { width: 64px; height: 64px; }
+      .cta-final { padding: 72px 0; }
+      .cta-box { padding: 48px 20px; border-radius: 24px; }
+      .cta-box h2 { font-size: clamp(28px, 8vw, 32px); letter-spacing: -.8px; line-height: 1.12; }
+      .cta-box p { font-size: 16px; }
+      .cta-box .ctas .btn { flex: 1 1 100%; }
+      footer .wrap { flex-direction: column; align-items: flex-start; gap: 18px; }
+      footer .links { gap: 14px 20px; }
+      .fab { right: 16px; bottom: 16px; width: 56px; height: 56px; }
+    }
+    @media (max-width: 360px) {
+      .hero h1 { font-size: 32px; }
+      .row { grid-template-columns: 44px 1fr; }
+      .row .pill { grid-column: 2; justify-self: start; }
+      .stat b { font-size: 26px; }
+    }
+    /* Quem pede "reduzir movimento" no sistema vê a página estática.
+       html.force-motion (?movimento=1) só serve para testar as animações. */
+    @media (prefers-reduced-motion: reduce) {
+      html:not(.force-motion) *, html:not(.force-motion) *::before, html:not(.force-motion) *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+      html:not(.force-motion) .hero h1 .line > span, html:not(.force-motion) .fade-up, html:not(.force-motion) [data-reveal] { opacity: 1 !important; transform: none !important; }
+      html:not(.force-motion) .bars i { transform: none !important; }
+      html:not(.force-motion) .fab.show { transform: scale(1); }
+    }
+  </style>
+  <script src="config.js"></script>
+  <script>if (/[?&]movimento=1/.test(location.search)) document.documentElement.classList.add('force-motion');</script>
+</head>
+<body>
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="i-whats" viewBox="0 0 24 24">
+      <path fill="currentColor" d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21c5.46 0 9.91-4.45 9.91-9.91C21.95 6.45 17.5 2 12.04 2Zm0 18.15c-1.48 0-2.93-.4-4.2-1.150l-.3-.18-3.12.82.83-3.04-.2-.31a8.24 8.24 0 0 1-1.26-4.380c0-4.54 3.7-8.24 8.25-8.24 4.54 0 8.24 3.7 8.24 8.24 0 4.55-3.7 8.24-8.24 8.24Zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.16.24-.64.8-.78.97-.14.16-.29.18-.54.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.02-.38.11-.5.11-.11.25-.29.37-.43.13-.15.17-.25.25-.41.08-.17.04-.31-.02-.43-.06-.13-.56-1.35-.76-1.84-.2-.48-.41-.42-.56-.43h-.48c-.17 0-.43.06-.66.31-.22.25-.86.85-.86 2.07 0 1.22.89 2.4 1.01 2.56.12.17 1.75 2.67 4.23 3.74.59.26 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.67-1.18.21-.58.21-1.07.15-1.18-.06-.11-.22-.17-.47-.29Z"/>
+    </symbol>
+    <symbol id="i-check" viewBox="0 0 24 24">
+      <path fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" d="M5 12.5l4.5 4.5L19 7.5"/>
+    </symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24">
+      <path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M13 6l6 6-6 6"/>
+    </symbol>
+  </svg>
+
+  <div class="progress" aria-hidden="true"></div>
+  <div class="cursor" aria-hidden="true"></div>
+  <div class="cursor-dot" aria-hidden="true"></div>
+
+  <header class="top">
+    <div class="wrap">
+      <div class="bar">
+        <a class="brand" href="#inicio" aria-label="PlanCar, início">
+          <img src="img/plancar-logo.png" alt="">
+          <span>Plan<b>Car</b></span>
+        </a>
+        <nav class="links" aria-label="Seções">
+          <a href="#recursos">Recursos</a>
+          <a href="#como-funciona">Como funciona</a>
+          <a href="#para-quem">Para quem</a>
+          <a href="#patrocinadores">Patrocinadores</a>
+        </nav>
+        <div class="actions">
+          <a class="btn btn-ghost btn-sm" href="#">Entrar</a>
+          <a class="btn btn-whats btn-sm js-whats magnetic" href="#" target="_blank" rel="noopener">
+            <svg><use href="#i-whats"/></svg> WhatsApp
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main id="inicio">
+    <!-- ================= HERO ================= -->
+    <section class="hero" id="hero">
+      <div class="grid-bg"></div>
+      <div class="blob b1" data-parallax="0.18"></div>
+      <div class="blob b2" data-parallax="-0.12"></div>
+      <div class="blob b3" data-parallax="0.08"></div>
+      <div class="wrap">
+        <div>
+          <span class="eyebrow fade-up"><span>Novo</span> Agendamento online para lava-rápidos</span>
+          <h1>
+            <span class="line"><span>Agenda cheia,</span></span>
+            <span class="line"><span><em>sem fila</em> e sem</span></span>
+            <span class="line"><span>WhatsApp lotado.</span></span>
+          </h1>
+          <p class="lead fade-up" style="animation-delay:.3s">
+            O PlanCar organiza agendamentos, equipe, pagamentos e relatórios do seu lava-rápido em um só lugar.
+            O cliente agenda pelo celular em segundos e você só se preocupa em lavar.
+          </p>
+          <div class="ctas fade-up" style="animation-delay:.42s">
+            <a class="btn btn-whats js-whats magnetic" href="#" target="_blank" rel="noopener">
+              <svg><use href="#i-whats"/></svg> Falar no WhatsApp
+            </a>
+            <a class="btn btn-ghost magnetic" href="#recursos">Conhecer o sistema <svg class="arrow"><use href="#i-arrow"/></svg></a>
+          </div>
+          <ul class="checks fade-up" style="animation-delay:.55s">
+            <li><svg><use href="#i-check"/></svg> Pix e cartão pelo Mercado Pago</li>
+            <li><svg><use href="#i-check"/></svg> Celular e computador</li>
+            <li><svg><use href="#i-check"/></svg> Sem instalar nada</li>
+          </ul>
+        </div>
+
+        <div class="mock-scene fade-up" style="animation-delay:.25s" aria-hidden="true">
+          <div class="mock" id="mock">
+            <div class="float new" id="float-new">
+              <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><rect x="3.5" y="5" width="17" height="15" rx="3"/><path d="M8 3v4M16 3v4M3.5 10h17M12 13.5v3.5M10.25 15.25h3.5"/></svg></span>
+              <div><b>Novo agendamento</b><small id="float-new-txt">Lavagem completa · 14:00</small></div>
+            </div>
+            <div class="mock-card">
+              <div class="mock-head">
+                <div><b>Fila de hoje</b><small>Lava-rápido Centro</small></div>
+                <span class="live"><i></i> Ao vivo</span>
+              </div>
+              <div class="row" data-row="0">
+                <div class="veh"><!--veiculo:suv_pequeno--></div>
+                <div><b>Hyundai Creta · GEW-9D04</b><small>Lavagem completa · 09:30</small></div>
+                <span class="pill ok">Pronto</span>
+              </div>
+              <div class="row" data-row="1">
+                <div class="veh"><!--veiculo:picape--></div>
+                <div><b>Fiat Strada · RTA-2E18</b><small>Lavagem + cera · 10:30</small></div>
+                <span class="pill prep">Em preparo</span>
+              </div>
+              <div class="row" data-row="2">
+                <div class="veh"><!--veiculo:hatchback--></div>
+                <div><b>VW Polo · QXB-7C51</b><small>Higienização interna · 11:30</small></div>
+                <span class="pill wait">Agendado</span>
+              </div>
+            </div>
+            <div class="float pix">
+              <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>
+              <div><b>Pix aprovado</b><small>R$ 80,00 · pago antes de chegar</small></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="scroll-hint" aria-hidden="true"><i></i>role para ver</div>
+    </section>
+
+    <!-- ================= FAIXA DE VEÍCULOS ================= -->
+    <div class="strip" aria-label="Tipos de veículo atendidos">
+      <p>Funciona com todo tipo de veículo</p>
+      <div class="marquee">
+        <div class="item"><!--veiculo:hatchback-->Hatch</div>
+        <div class="item"><!--veiculo:sedan-->Sedã</div>
+        <div class="item"><!--veiculo:suv_pequeno-->SUV compacto</div>
+        <div class="item"><!--veiculo:suv-->SUV</div>
+        <div class="item"><!--veiculo:picape-->Picape</div>
+        <div class="item"><!--veiculo:caminhonete-->Caminhonete</div>
+        <div class="item"><!--veiculo:moto-->Moto</div>
+        <div class="item" aria-hidden="true"><!--veiculo:hatchback-->Hatch</div>
+        <div class="item" aria-hidden="true"><!--veiculo:sedan-->Sedã</div>
+        <div class="item" aria-hidden="true"><!--veiculo:suv_pequeno-->SUV compacto</div>
+        <div class="item" aria-hidden="true"><!--veiculo:suv-->SUV</div>
+        <div class="item" aria-hidden="true"><!--veiculo:picape-->Picape</div>
+        <div class="item" aria-hidden="true"><!--veiculo:caminhonete-->Caminhonete</div>
+        <div class="item" aria-hidden="true"><!--veiculo:moto-->Moto</div>
+      </div>
+    </div>
+
+    <!-- ================= RECURSOS (bento) ================= -->
+    <section class="block" id="recursos">
+      <div class="wrap">
+        <div class="sec-head" data-reveal>
+          <span class="kicker">Recursos</span>
+          <h2>Tudo o que o lava-rápido precisa, em um só lugar</h2>
+          <p>Do agendamento ao pagamento, sem planilha, sem caderno e sem mensagens perdidas.</p>
+        </div>
+        <div class="bento">
+          <article class="card span-4 feature-big" data-reveal>
+            <div>
+              <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="5" height="16" rx="1.5"/><rect x="9.5" y="4" width="5" height="11" rx="1.5"/><rect x="16" y="4" width="5" height="7" rx="1.5"/></svg></div>
+              <h3>Fila do dia ao vivo</h3>
+              <p>Agendados, em preparo e prontos em um painel único. A equipe inteira vê o mesmo quadro, atualizado a cada mudança.</p>
+            </div>
+            <div class="mini-queue">
+              <div><span>Corolla · 08:30</span><span class="pill ok">Pronto</span></div>
+              <div><span>Hilux · 09:00</span><span class="pill prep">Em preparo</span></div>
+              <div><span>Onix · 09:30</span><span class="pill wait">Agendado</span></div>
+            </div>
+          </article>
+          <article class="card span-2" data-reveal style="--d:.08s">
+            <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="15" rx="3"/><path d="M8 3v4M16 3v4M3.5 10h17"/><path d="M8 14h3M8 17h6"/></svg></div>
+            <h3>Agenda online 24h</h3>
+            <p>O cliente escolhe serviço, dia e horário livre. Horário ocupado é bloqueado na hora.</p>
+          </article>
+          <article class="card span-2" data-reveal>
+            <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="5.5" width="19" height="13" rx="2.5"/><path d="M2.5 10h19M6.5 15h4"/></svg></div>
+            <h3>Pagamento antecipado</h3>
+            <p>Pix e cartão pelo Mercado Pago, com o valor direto na conta do lava-rápido.</p>
+          </article>
+          <article class="card span-2" data-reveal style="--d:.08s">
+            <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="7" width="19" height="10" rx="2"/><path d="M6 12h2M10 12h2M14 12h4"/></svg></div>
+            <h3>Cadastro pela placa</h3>
+            <p>Digitou a placa, o sistema preenche marca, modelo, cor, ano e o tipo do veículo.</p>
+          </article>
+          <article class="card span-2" data-reveal style="--d:.16s">
+            <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.2"/><path d="M3.5 19c.6-3 2.8-4.8 5.5-4.8s4.9 1.8 5.5 4.8"/><circle cx="17" cy="9" r="2.4"/><path d="M15.8 14.4c2.3.1 4 1.6 4.7 4.1"/></svg></div>
+            <h3>Equipe e permissões</h3>
+            <p>Cada funcionário vê só o que precisa. O gerente controla serviços, preços e acessos.</p>
+          </article>
+          <article class="card span-3" data-reveal>
+            <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></div>
+            <h3>Relatórios que mostram o que importa</h3>
+            <p>Lavagens, faturamento e clientes por período, para decidir com números e não no achismo.</p>
+            <div class="bars" aria-hidden="true">
+              <i style="--i:0;height:38%"></i><i style="--i:1;height:52%"></i><i style="--i:2;height:46%"></i><i style="--i:3;height:68%"></i>
+              <i style="--i:4;height:60%"></i><i style="--i:5;height:84%"></i><i style="--i:6;height:100%"></i>
+            </div>
+          </article>
+          <article class="card span-3" data-reveal style="--d:.08s">
+            <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.5"/></svg></div>
+            <h3>No mapa para quem está perto</h3>
+            <p>O cliente encontra o lava-rápido pelo mapa, vê serviços com preço, avaliações e agenda sem precisar ligar.</p>
+          </article>
+        </div>
+
+        <div class="stats">
+          <div class="stat" data-reveal><b><span data-count="24">0</span>h</b><span>agenda aberta por dia</span></div>
+          <div class="stat" data-reveal style="--d:.08s"><b>&lt; <span data-count="1">0</span> min</b><span>para o cliente agendar</span></div>
+          <div class="stat" data-reveal style="--d:.16s"><b><span data-count="7">0</span></b><span>tipos de veículo</span></div>
+          <div class="stat" data-reveal style="--d:.24s"><b><span data-count="100">0</span>%</b><span>online, sem instalar</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= COMO FUNCIONA (celular fixo) ================= -->
+    <section class="block story" id="como-funciona">
+      <div class="wrap">
+        <div class="sec-head" data-reveal>
+          <span class="kicker">Como funciona</span>
+          <h2>Para o cliente, agendar leva menos de um minuto</h2>
+          <p>Sem ligar, sem esperar resposta. Tudo pelo navegador do celular.</p>
+        </div>
+        <div class="story-grid">
+          <div class="story-steps">
+            <div class="story-step active" data-step="0">
+              <div class="num">1</div>
+              <h3>Cadastra o veículo só com a placa</h3>
+              <p>Marca, modelo, cor e ano aparecem sozinhos. Funciona com carro, SUV, picape, caminhonete e moto.</p>
+              <div class="shot"><!--veiculo:picape--></div>
+            </div>
+            <div class="story-step" data-step="1">
+              <div class="num">2</div>
+              <h3>Escolhe o serviço e um horário livre</h3>
+              <p>Os serviços aparecem com preço e duração. Só os horários realmente disponíveis podem ser escolhidos.</p>
+              <div class="shot"><!--veiculo:sedan--></div>
+            </div>
+            <div class="story-step" data-step="2">
+              <div class="num">3</div>
+              <h3>Paga online e é só chegar</h3>
+              <p>Pix ou cartão na hora. O agendamento entra confirmado direto na fila do lava-rápido.</p>
+              <div class="shot"><!--veiculo:suv--></div>
+            </div>
+          </div>
+          <div class="phone-col" aria-hidden="true">
+            <div class="phone-sticky">
+              <div class="phone" id="phone" data-screen="0">
+                <div class="screen s0" id="screen-placa">
+                  <h4>Novo veículo</h4>
+                  <div class="sub">Digite a placa e preenchemos o resto</div>
+                  <div class="ui-card">
+                    <div class="plate"><i>BRASIL</i><b id="typed"></b></div>
+                    <div class="field"><span>Marca</span><b>FIAT</b></div>
+                    <div class="field"><span>Modelo</span><b>STRADA VOLCANO</b></div>
+                    <div class="field"><span>Cor</span><b>BRANCA</b></div>
+                    <div class="field"><span>Ano</span><b>2024</b></div>
+                  </div>
+                  <div class="veh-big"><!--veiculo:picape--></div>
+                </div>
+                <div class="screen s1">
+                  <h4>Escolha o serviço</h4>
+                  <div class="sub">Lava-rápido Centro · hoje</div>
+                  <div class="svc"><div><b>Lavagem simples</b><small>40 min</small></div><b>R$ 45</b></div>
+                  <div class="svc sel"><div><b>Lavagem completa</b><small>1h · com aspiração</small></div><b>R$ 80</b></div>
+                  <div class="svc"><div><b>Polimento</b><small>3h</small></div><b>R$ 220</b></div>
+                  <div class="sub" style="margin:14px 0 8px">Horários livres</div>
+                  <div class="slots">
+                    <span class="off">08:00</span><span>09:00</span><span class="off">10:00</span>
+                    <span>11:00</span><span class="sel">14:00</span><span>15:00</span>
+                  </div>
+                </div>
+                <div class="screen s2">
+                  <h4>Pagamento</h4>
+                  <div class="sub">Lavagem completa · hoje às 14:00</div>
+                  <div class="ui-card">
+                    <div class="total"><span>Total</span><span>R$ 80,00</span></div>
+                    <div class="qr"></div>
+                    <div class="sub" style="text-align:center;margin:6px 0 0">Pix copia e cola ou cartão</div>
+                  </div>
+                  <div class="paid"><svg><use href="#i-check"/></svg> Pagamento aprovado!</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= PARA QUEM ================= -->
+    <section class="block" id="para-quem">
+      <div class="wrap">
+        <div class="sec-head" data-reveal>
+          <span class="kicker">Para quem</span>
+          <h2>Um sistema, dois lados felizes</h2>
+          <p>O lava-rápido ganha organização e o cliente ganha praticidade.</p>
+        </div>
+        <div class="split">
+          <div class="aud dark" data-reveal>
+            <span class="tag">Para o lava-rápido</span>
+            <h3>Gestão completa, do agendamento ao caixa</h3>
+            <ul>
+              <li><svg><use href="#i-check"/></svg> Agenda online aberta 24 horas, sem conflito de horário</li>
+              <li><svg><use href="#i-check"/></svg> Recebimento antecipado por Pix e cartão</li>
+              <li><svg><use href="#i-check"/></svg> Painel da equipe com a fila do dia</li>
+              <li><svg><use href="#i-check"/></svg> Serviços, preços e horário de funcionamento do seu jeito</li>
+              <li><svg><use href="#i-check"/></svg> Relatórios de lavagens, faturamento e clientes</li>
+            </ul>
+            <a class="btn btn-whats js-whats magnetic" href="#" target="_blank" rel="noopener">
+              <svg><use href="#i-whats"/></svg> Quero o PlanCar
+            </a>
+          </div>
+          <div class="aud" data-reveal style="--d:.1s">
+            <span class="tag">Para o cliente</span>
+            <h3>Carro limpo sem perder tempo na fila</h3>
+            <ul>
+              <li><svg><use href="#i-check"/></svg> Encontra lava-rápidos perto no mapa</li>
+              <li><svg><use href="#i-check"/></svg> Agenda em poucos toques, a qualquer hora</li>
+              <li><svg><use href="#i-check"/></svg> Paga online com segurança</li>
+              <li><svg><use href="#i-check"/></svg> Acompanha os agendamentos e o histórico</li>
+              <li><svg><use href="#i-check"/></svg> Avalia o serviço depois da lavagem</li>
+            </ul>
+            <a class="btn btn-primary magnetic" href="#">Agendar uma lavagem <svg class="arrow"><use href="#i-arrow"/></svg></a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= PATROCINADORES ================= -->
+    <section class="sponsors" id="patrocinadores">
+      <div class="wrap">
+        <div class="sec-head" style="margin-bottom:36px" data-reveal>
+          <span class="kicker">Patrocinadores</span>
+          <h2>Quem acredita no PlanCar</h2>
+        </div>
+        <div class="sponsor-list">
+          <a class="sponsor" data-reveal href="https://pedroemerich.github.io/MeAndMyCompany/" target="_blank" rel="noopener" aria-label="SBC DEV: visitar o site (abre em nova aba)">
+            <img src="img/patrocinador-sbc-dev.png" alt="Logo da SBC DEV" loading="lazy">
+            <div><b>SBC DEV</b><small>Desenvolvimento de software</small><span class="visit">Visitar site <svg><use href="#i-arrow"/></svg></span></div>
+          </a>
+          <a class="sponsor" data-reveal style="--d:.1s" href="https://bebetomultimarcas.com.br" target="_blank" rel="noopener" aria-label="Bebeto Multimarcas: visitar o site (abre em nova aba)">
+            <img src="img/patrocinador-bebeto-multimarcas.png" alt="Logo da Bebeto Multimarcas" loading="lazy">
+            <div><b>Bebeto Multimarcas</b><small>Veículos, imóveis e muito mais</small><span class="visit">Visitar site <svg><use href="#i-arrow"/></svg></span></div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= CTA FINAL ================= -->
+    <section class="cta-final" id="contato">
+      <div class="wrap">
+        <div class="cta-box" id="cta-box" data-reveal>
+          <div class="grid-bg"></div>
+          <h2>Quer o PlanCar no seu lava-rápido?</h2>
+          <p>Fale com a gente no WhatsApp, tire suas dúvidas e veja o sistema funcionando.</p>
+          <div class="ctas">
+            <a class="btn btn-whats js-whats magnetic" href="#" target="_blank" rel="noopener">
+              <svg><use href="#i-whats"/></svg> Falar no WhatsApp
+            </a>
+            <a class="btn btn-ghost magnetic" href="#">Sou cliente, quero agendar</a>
+          </div>
+          <p class="cta-email">Prefere e-mail? Escreva para <a href="mailto:plancar@gmail.com">plancar@gmail.com</a></p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <a class="brand" href="#inicio"><img src="img/plancar-logo.png" alt=""><span>Plan<b>Car</b></span></a>
+      <div class="links">
+        <a href="#">Sou cliente</a>
+        <a href="#">Área do lava-rápido</a>
+        <a href="#patrocinadores">Patrocinadores</a>
+        <a class="js-whats" href="#" target="_blank" rel="noopener">Contato</a>
+      </div>
+      <div class="emails">
+        <span>Contratar o PlanCar: <a href="mailto:plancar@gmail.com">plancar@gmail.com</a></span>
+        <span>Suporte: <a href="mailto:plancarsuporte@gmail.com">plancarsuporte@gmail.com</a></span>
+      </div>
+      <small>© <span id="ano"></span> PlanCar. Todos os direitos reservados.</small>
+    </div>
+  </footer>
+
+  <a class="fab js-whats" href="#" target="_blank" rel="noopener" aria-label="Falar no WhatsApp">
+    <svg><use href="#i-whats"/></svg>
+  </a>
+
+  <script>
+    (function () {
+      // ---------- WhatsApp (número em config.js) ----------
+      var cfg = window.PLANCAR || {};
+      var numero = String(cfg.whatsapp || '').replace(/\D/g, '');
+      var texto = encodeURIComponent(cfg.mensagem || 'Olá! Quero conhecer o PlanCar.');
+      var link = numero ? 'https://wa.me/' + numero + '?text=' + texto : 'https://wa.me/?text=' + texto;
+      document.querySelectorAll('.js-whats').forEach(function (a) { a.href = link; });
+      document.getElementById('ano').textContent = new Date().getFullYear();
+
+      var reduz = window.matchMedia('(prefers-reduced-motion: reduce)').matches &&
+        !document.documentElement.classList.contains('force-motion');
+      var mouseFino = window.matchMedia('(pointer: fine)').matches;
+      var $ = function (s, r) { return (r || document).querySelector(s); };
+      var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
+
+      // ---------- Rolagem: progresso, cabeçalho, parallax, botão flutuante ----------
+      var progresso = $('.progress'), header = $('header.top'), fab = $('.fab');
+      var hero = $('#hero'), mock = $('#mock'), blobs = $$('[data-parallax]');
+      var tilt = { x: 0, y: 0 }, rolando = false, ctaVisivel = false;
+      // No bloco final o botão grande já está na tela: o flutuante só atrapalharia.
+      if ('IntersectionObserver' in window) {
+        new IntersectionObserver(function (es) {
+          ctaVisivel = es[0].isIntersecting;
+          fab.classList.toggle('show', !ctaVisivel && window.scrollY > innerHeight * 0.6);
+        }, { threshold: 0.2 }).observe($('#contato'));
+      }
+      function aoRolar() {
+        rolando = false;
+        var y = window.scrollY, h = document.documentElement.scrollHeight - innerHeight;
+        progresso.style.transform = 'scaleX(' + (h > 0 ? y / h : 0) + ')';
+        header.classList.toggle('scrolled', y > 24);
+        fab.classList.toggle('show', !ctaVisivel && y > innerHeight * 0.6);
+        if (reduz) return;
+        if (y < innerHeight * 1.2) {
+          blobs.forEach(function (b) { b.style.transform = 'translate3d(0,' + (y * parseFloat(b.dataset.parallax)) + 'px,0)'; });
+          aplicaMock(y);
+        }
+      }
+      function aplicaMock(y) {
+        if (!mock) return;
+        // Com uma coluna (celular/tablet) o mock fica abaixo do texto: subir com a
+        // rolagem faria ele passar por cima dos botões.
+        if (innerWidth <= 1000) { mock.style.transform = ''; return; }
+        var sobe = (y === undefined ? window.scrollY : y) * -0.12;
+        mock.style.transform = 'translate3d(0,' + sobe + 'px,0) rotateX(' + tilt.x + 'deg) rotateY(' + tilt.y + 'deg)';
+      }
+      window.addEventListener('scroll', function () { if (!rolando) { rolando = true; requestAnimationFrame(aoRolar); } }, { passive: true });
+      aoRolar();
+
+      // ---------- Menu: link ativo da seção visível ----------
+      var navLinks = $$('nav.links a');
+      if ('IntersectionObserver' in window) {
+        var ioNav = new IntersectionObserver(function (es) {
+          es.forEach(function (e) {
+            if (!e.isIntersecting) return;
+            navLinks.forEach(function (a) { a.classList.toggle('active', a.getAttribute('href') === '#' + e.target.id); });
+          });
+        }, { rootMargin: '-45% 0px -50% 0px' });
+        navLinks.forEach(function (a) { var s = $(a.getAttribute('href')); if (s) ioNav.observe(s); });
+      }
+
+      // ---------- Revelar ao rolar + contadores ----------
+      function conta(el) {
+        var alvo = parseInt(el.dataset.count, 10), t0 = performance.now(), dur = 1400;
+        (function passo(t) {
+          var p = Math.min(1, (t - t0) / dur), e = 1 - Math.pow(1 - p, 3);
+          el.textContent = Math.round(alvo * e);
+          if (p < 1) requestAnimationFrame(passo);
+        })(t0);
+      }
+      var revelar = $$('[data-reveal]');
+      if (reduz || !('IntersectionObserver' in window)) {
+        revelar.forEach(function (el) { el.classList.add('in'); });
+        $$('[data-count]').forEach(function (el) { el.textContent = el.dataset.count; });
+      } else {
+        var io = new IntersectionObserver(function (es) {
+          es.forEach(function (e) {
+            if (!e.isIntersecting) return;
+            e.target.classList.add('in');
+            $$('[data-count]', e.target).forEach(conta);
+            io.unobserve(e.target);
+          });
+        }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+        revelar.forEach(function (el) { io.observe(el); });
+      }
+
+      // ---------- Fila "ao vivo" do hero ----------
+      var estados = [['wait', 'Agendado'], ['prep', 'Em preparo'], ['ok', 'Pronto']];
+      var linhas = $$('.mock-card .row'), passoFila = 0;
+      var novos = ['Lavagem completa · 14:00', 'Polimento · 15:30', 'Lavagem simples · 16:00', 'Higienização · 17:00'];
+      var floatNew = $('#float-new'), floatTxt = $('#float-new-txt');
+      if (!reduz && linhas.length) {
+        setInterval(function () {
+          if (document.hidden) return;
+          passoFila++;
+          var i = passoFila % linhas.length, pill = $('.pill', linhas[i]);
+          var atual = estados.findIndex(function (s) { return pill.classList.contains(s[0]); });
+          var prox = estados[(atual + 1) % estados.length];
+          pill.className = 'pill ' + prox[0];
+          pill.textContent = prox[1];
+          linhas[i].classList.add('flash');
+          setTimeout(function () { linhas[i].classList.remove('flash'); }, 900);
+          if (passoFila % 2 === 0) {
+            floatTxt.textContent = novos[(passoFila / 2) % novos.length];
+            floatNew.classList.remove('pop'); void floatNew.offsetWidth; floatNew.classList.add('pop');
+          }
+        }, 2600);
+      }
+
+      // ---------- QR "de mentira" da tela de pagamento (só ilustração) ----------
+      var qr = $('.qr');
+      if (qr) {
+        var N = 25, seed = 7, quad = '';
+        var aleatorio = function () { seed = (seed * 9301 + 49297) % 233280; return seed / 233280; };
+        var canto = function (x, y) { return (x < 8 && y < 8) || (x >= N - 8 && y < 8) || (x < 8 && y >= N - 8); };
+        for (var y = 0; y < N; y++) for (var x = 0; x < N; x++) {
+          if (!canto(x, y) && aleatorio() > 0.52) quad += '<rect x="' + x + '" y="' + y + '" width="1" height="1"/>';
+        }
+        [[0, 0], [N - 7, 0], [0, N - 7]].forEach(function (p) {
+          quad += '<rect x="' + p[0] + '" y="' + p[1] + '" width="7" height="7"/><rect x="' + (p[0] + 1) + '" y="' + (p[1] + 1) + '" width="5" height="5" fill="#fff"/><rect x="' + (p[0] + 2) + '" y="' + (p[1] + 2) + '" width="3" height="3"/>';
+        });
+        qr.innerHTML = '<svg viewBox="0 0 ' + N + ' ' + N + '" fill="#0F172A" shape-rendering="crispEdges">' + quad + '</svg>';
+      }
+
+      // ---------- Como funciona: troca a tela do celular conforme o passo ----------
+      var phone = $('#phone'), passos = $$('.story-step'), typed = $('#typed'), telaPlaca = $('#screen-placa');
+      var digitando = null;
+      function digitaPlaca() {
+        if (!typed) return;
+        clearInterval(digitando);
+        var placa = 'GEW-9D04', n = 0;
+        telaPlaca.classList.remove('filled');
+        typed.textContent = '';
+        if (reduz) { typed.textContent = placa; telaPlaca.classList.add('filled'); return; }
+        digitando = setInterval(function () {
+          typed.textContent = placa.slice(0, ++n);
+          if (n >= placa.length) { clearInterval(digitando); setTimeout(function () { telaPlaca.classList.add('filled'); }, 250); }
+        }, 140);
+      }
+      if (phone && 'IntersectionObserver' in window) {
+        var ioPassos = new IntersectionObserver(function (es) {
+          es.forEach(function (e) {
+            if (!e.isIntersecting) return;
+            var i = e.target.dataset.step;
+            passos.forEach(function (p) { p.classList.toggle('active', p === e.target); });
+            if (phone.dataset.screen !== i) {
+              phone.dataset.screen = i;
+              if (i === '0') digitaPlaca();
+            }
+          });
+        }, { rootMargin: '-45% 0px -45% 0px' });
+        passos.forEach(function (p) { ioPassos.observe(p); });
+      }
+      digitaPlaca();
+
+      // ---------- Cursor (só em mouse/trackpad) ----------
+      if (!mouseFino || reduz) return;
+      document.body.classList.add('has-cursor');
+      var anel = $('.cursor'), ponto = $('.cursor-dot');
+      var mx = innerWidth / 2, my = innerHeight / 2, ax = mx, ay = my;
+      window.addEventListener('mousemove', function (e) {
+        mx = e.clientX; my = e.clientY;
+        ponto.style.transform = 'translate3d(' + mx + 'px,' + my + 'px,0)';
+      }, { passive: true });
+      (function segue() {
+        ax += (mx - ax) * 0.18; ay += (my - ay) * 0.18;
+        anel.style.transform = 'translate3d(' + ax + 'px,' + ay + 'px,0)';
+        requestAnimationFrame(segue);
+      })();
+      document.addEventListener('mouseover', function (e) { anel.classList.toggle('is-link', !!e.target.closest('a, button, .card, .sponsor')); });
+      document.addEventListener('mouseleave', function () { document.body.classList.remove('has-cursor'); });
+      document.addEventListener('mouseenter', function () { document.body.classList.add('has-cursor'); });
+
+      // Holofote do hero e do CTA final
+      [hero, $('#cta-box')].forEach(function (el) {
+        if (!el) return;
+        el.addEventListener('mousemove', function (e) {
+          var r = el.getBoundingClientRect();
+          el.style.setProperty('--x', (e.clientX - r.left) + 'px');
+          el.style.setProperty('--y', (e.clientY - r.top) + 'px');
+        });
+      });
+
+      // Mock inclina na direção do cursor
+      hero.addEventListener('mousemove', function (e) {
+        var r = hero.getBoundingClientRect();
+        var px = (e.clientX - r.left) / r.width - 0.5, py = (e.clientY - r.top) / r.height - 0.5;
+        tilt.y = px * 14; tilt.x = -py * 10;
+        aplicaMock();
+      });
+      hero.addEventListener('mouseleave', function () { tilt.x = 0; tilt.y = 0; aplicaMock(); });
+
+      // Brilho dos cards seguindo o cursor
+      $$('.card').forEach(function (c) {
+        c.addEventListener('mousemove', function (e) {
+          var r = c.getBoundingClientRect();
+          c.style.setProperty('--mx', (e.clientX - r.left) + 'px');
+          c.style.setProperty('--my', (e.clientY - r.top) + 'px');
+        });
+      });
+
+      // Botões "magnéticos": puxam levemente na direção do cursor
+      $$('.magnetic').forEach(function (b) {
+        b.addEventListener('mousemove', function (e) {
+          var r = b.getBoundingClientRect();
+          var dx = e.clientX - (r.left + r.width / 2), dy = e.clientY - (r.top + r.height / 2);
+          b.style.transform = 'translate(' + dx * 0.18 + 'px,' + dy * 0.28 + 'px)';
+        });
+        b.addEventListener('mouseleave', function () { b.style.transform = ''; });
+      });
+    })();
+  </script>
+</body>
+</html>
