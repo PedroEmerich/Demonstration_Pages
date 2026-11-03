@@ -62,7 +62,7 @@ window.MODELOS = [
   {
     pasta: "seguranca-digital",
     titulo: "Segurança Digital",
-    segmento: "Educação",
+    segmento: "Informativo",
     descricao: "Página de campanha educativa com passo a passo, teste de força de senha e checklist interativo.",
     tags: ["Campanha", "Interativo", "Conteúdo"],
     cor: "#5cc8ec",
@@ -196,7 +196,7 @@ window.MODELOS = [
   {
     pasta: "fluxo-saas",
     titulo: "Fluxo — Software Financeiro",
-    segmento: "Tecnologia",
+    segmento: "Financeiro",
     descricao: "SaaS com dashboard ao vivo que se inclina no scroll, abas de recursos automáticas, calculadora de ROI e preços mensal/anual.",
     tags: ["SaaS", "Dashboard", "ROI"],
     cor: "#6b4dff",
