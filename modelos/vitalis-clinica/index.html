@@ -66,6 +66,7 @@
   .btn:hover .arr { transform: translateX(4px); }
 
   /* cursor: ponto com halo suave */
+  .so-mob { display: none; }
   .cur-dot, .cur-ring { position: fixed; left: 0; top: 0; z-index: 100; pointer-events: none; border-radius: 50%; opacity: 0; transition: opacity .4s; }
   body.cur-on .cur-dot, body.cur-on .cur-ring { opacity: 1; }
   .cur-dot { width: 8px; height: 8px; margin: -4px 0 0 -4px; background: var(--ink); transition: opacity .4s, background .3s, scale .4s var(--ease); }
@@ -347,8 +348,8 @@
   .dep__rate b { display: block; font-family: var(--display); font-weight: 300; font-size: 64px; letter-spacing: -.05em; line-height: 1; margin-top: 18px; }
   .dep__rate span { color: var(--muted); font-size: 14px; }
   .dep__stars { color: #f5a524; letter-spacing: 3px; margin-top: 8px; }
-  .dep__q { position: relative; min-height: 300px; }
-  .dep__item { position: absolute; inset: 0; opacity: 0; transform: translateY(24px); filter: blur(8px); transition: opacity .9s var(--ease), transform .9s var(--ease), filter .9s var(--ease); pointer-events: none; }
+  .dep__q { position: relative; display: grid; }
+  .dep__item { grid-area: 1 / 1; margin: 0; opacity: 0; transform: translateY(24px); filter: blur(8px); transition: opacity .9s var(--ease), transform .9s var(--ease), filter .9s var(--ease); pointer-events: none; }
   .dep__item.on { opacity: 1; transform: none; filter: none; pointer-events: auto; }
   .dep__item blockquote { font-family: var(--display); font-weight: 300; font-size: clamp(26px, 2.8vw, 42px); line-height: 1.22; letter-spacing: -.035em; }
   .dep__who { display: flex; align-items: center; gap: 14px; margin-top: 30px; }
@@ -413,10 +414,62 @@
     .conv__box { padding: 28px 22px; gap: 30px; }
     .phone { width: 260px; height: 530px; }
     .notif { left: -20px; }
-    .dep__q { min-height: 360px; }
     .cur-dot, .cur-ring { display: none; }
   }
-  @media (max-width: 560px) { .trust { gap: 22px; } .trust b { font-size: 22px; } .conv__grid { grid-template-columns: 1fr; } .hero h1 { font-size: 50px; } }
+  @media (max-width: 980px) {
+    .so-desk { display: none; } .so-mob { display: inline; }
+    .head { margin-bottom: 36px; gap: 18px; }
+    section.esp, section.docs, section.dx, section.packs, section.conv, section.tele, section.dep { padding-top: 84px; padding-bottom: 84px; }
+    .hero__orb { width: min(86vw, 400px); }
+    .hud { padding: 9px 12px; border-radius: 13px; }
+    .hud small { font-size: 9px; }
+    .hud--a { top: 6%; left: -2%; } .hud--a strong { font-size: 19px; } .hud canvas { width: 92px; height: 26px; }
+    .hud--b { display: none; }
+    .hud--c { right: -2%; bottom: 8%; gap: 9px; } .hud--c i { width: 28px; height: 28px; border-radius: 8px; } .hud--c strong { font-size: 13px; }
+    .leads, .scrollhint { display: none; }
+    .mani__orb { max-width: 220px; margin-top: -10px; }
+    .esp__orb { width: min(66vw, 300px); }
+    .esp__now strong { font-size: 26px; }
+    .erow__top { grid-template-columns: 30px 1fr 36px; }
+    .erow h3 { font-size: 24px; transform: none !important; }
+    .erow__ic { width: 34px; height: 34px; }
+    /* exames: a foto fica presa no alto enquanto as etapas passam por baixo */
+    .dx__stage { position: sticky; top: 84px; z-index: 2; margin: 0 -4px 26px; }
+    .dxph { width: 100%; aspect-ratio: 16/10; max-height: 36svh; margin: 0; }
+    .dxph__img { border-radius: 20px; }
+    .dxph__img img { object-position: 60% 30%; }
+    .laudo { left: 10px; right: 10px; bottom: 10px; width: auto; padding: 10px 12px; border-radius: 14px; }
+    .laudo ul { display: none; }
+    .laudo__bar { margin: 8px 0 0; }
+    .laudo strong { font-size: 13px; } .laudo__top b { font-size: 18px; }
+    .dxph__tag { top: 10px; right: 10px; font-size: 12px; padding: 6px 11px; }
+    .dx__cap { display: none; }
+    .steps { margin-top: 36px; }
+    .step { padding-bottom: 34px; } .step h3 { font-size: 22px; }
+    /* check-ups em carrossel */
+    .packs__grid { display: flex; gap: 12px; overflow-x: auto; scroll-snap-type: x mandatory; margin: 0 -24px; padding: 6px 24px 18px; scrollbar-width: none; }
+    .packs__grid::-webkit-scrollbar { display: none; }
+    .pk { flex: none; width: 80vw; max-width: 340px; scroll-snap-align: center; padding: 26px 22px 22px; border-radius: 24px; transform: none !important; opacity: 1 !important; }
+    .pk h3 { font-size: 26px; } .pk__price { margin-top: 18px; } .pk__price b { font-size: 40px; }
+    .pk ul { margin: 18px 0 22px; padding-top: 16px; gap: 8px; font-size: 14px; }
+    .conv__grid { grid-template-columns: repeat(2, 1fr); gap: 6px; }
+    .cv { padding: 11px 12px; font-size: 14px; border-radius: 12px; }
+    .conv__field { height: 56px; padding: 0 16px; border-radius: 15px; }
+    .conv__field input { font-size: 16px; }
+    .tele__grid { gap: 50px; }
+    .phone { width: 210px; height: 430px; border-radius: 36px; padding: 9px; }
+    .phone__in { border-radius: 28px; }
+    .phone__self { width: 60px; height: 84px; top: 48px; right: 12px; border-radius: 12px; font-size: 12px; }
+    .wave { bottom: 86px; left: 18px; right: 18px; height: 30px; }
+    .phone__bar { bottom: 20px; gap: 12px; } .phone__bar span { width: 42px; height: 42px; }
+    .notif { left: -60px; top: 160px; width: 210px; padding: 10px 12px; }
+    .notif strong { font-size: 13px; }
+    .tsteps { margin: 28px 0 30px; }
+    .dep__box { gap: 26px; } .dep__rate b { font-size: 52px; }
+    .cta { padding: 60px 0 90px; } .cta__orb { width: min(200px, 52vw); }
+    .info { margin-top: 56px; gap: 10px; } .info > div { padding: 20px; }
+  }
+  @media (max-width: 560px) { .trust { gap: 22px; } .trust b { font-size: 22px; } .hero h1 { font-size: clamp(36px, 10.6vw, 50px); } }
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { animation-duration: .01ms !important; animation-delay: 0s !important; transition-duration: .01ms !important; }
     [data-r] { opacity: 1; transform: none; }
@@ -484,7 +537,7 @@
 
 <section class="esp" id="especialidades">
   <div class="wrap">
-    <div class="head"><div><p class="eyebrow"><i></i>Especialidades</p><h2 class="h2" data-split>Um só endereço para <em>toda a família</em>.</h2></div><p class="head__p" data-r>Passe o cursor ou role pela lista: a escultura assume a forma de cada cuidado.</p></div>
+    <div class="head"><div><p class="eyebrow"><i></i>Especialidades</p><h2 class="h2" data-split>Um só endereço para <em>toda a família</em>.</h2></div><p class="head__p" data-r><span class="so-desk">Passe o cursor ou role pela lista:</span><span class="so-mob">Deslize os cartões:</span> a escultura assume a forma de cada cuidado.</p></div>
     <div class="esp__grid">
       <div class="esp__stage"><div class="orb esp__orb" data-anchor data-shape="esp"><span class="orb__ring"></span></div><div class="esp__now"><span id="espIdx">01 / 08</span><strong id="espNome">Clínica geral</strong></div></div>
       <ol class="esp__list" id="espList"></ol>
