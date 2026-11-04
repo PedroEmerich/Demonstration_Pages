@@ -4,7 +4,7 @@
    ========================================================================== */
 
 window.ESTUDIO = {
-  nome: "Seu Estúdio",
+  nome: "ConvertPage",
   slogan: "Landing pages que vendem",
   whatsapp: "5511999999999", // só números, com DDI + DDD
   email: "contato@seuestudio.com.br",
