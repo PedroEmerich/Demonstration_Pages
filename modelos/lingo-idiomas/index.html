@@ -153,6 +153,19 @@
   .wa { position: fixed; right: 22px; bottom: 22px; z-index: 60; width: 58px; height: 58px; border-radius: 50%; background: #25d366; color: #fff; display: grid; place-items: center; box-shadow: 0 12px 30px -8px rgba(37,211,102,.6); transition: transform .3s var(--spring); }
   .wa:hover { transform: scale(1.1) rotate(-8deg); }
 
+  /* SCROLL: barra de progresso, palavras, carrosséis */
+  .prog { position: fixed; top: 0; left: 0; right: 0; height: 4px; z-index: 70; background: linear-gradient(90deg, var(--orange), var(--yellow), var(--pink)); transform-origin: 0 50%; transform: scaleX(0); }
+  .words { padding: 40px 0 70px; overflow: hidden; }
+  .words__row { white-space: nowrap; font-weight: 800; font-size: clamp(54px, 11vw, 150px); letter-spacing: -.05em; line-height: 1.05; will-change: transform; }
+  .words__row span { display: inline-block; margin-right: .35em; }
+  .words__row span:nth-child(3n+1) { color: var(--orange); } .words__row span:nth-child(3n+2) { color: var(--blue); } .words__row span:nth-child(3n) { color: var(--pink); }
+  .words__row--b span { color: transparent !important; -webkit-text-stroke: 2px var(--ink); }
+  .words__row--b span:nth-child(2n) { color: var(--yellow) !important; -webkit-text-stroke: 0; }
+  .trip { clip-path: inset(var(--clip, 0px) round 48px); }
+  .dots { display: none; justify-content: center; gap: 8px; margin-top: 18px; }
+  .dots i { width: 8px; height: 8px; border-radius: 8px; background: var(--line); transition: all .35s var(--spring); }
+  .dots i.on { width: 26px; background: var(--orange); }
+
   @media (max-width: 1000px) {
     .nav__links, .nav__cta { display: none; }
     .burger { display: grid; }
@@ -165,19 +178,66 @@
     .v:nth-child(2) { transform: none; }
   }
   @media (max-width: 560px) {
-    .ans, .two { grid-template-columns: 1fr; }
-    .qcard { padding: 24px 20px; }
-    .collage { height: 380px; }
-    .bub { font-size: 15px; }
-    .test, .trip { margin: 0 8px; border-radius: 34px; }
-    .mgrid { grid-template-columns: 1fr; }
+    .wrap { width: min(1220px, 100% - 32px); }
+    .nav__in { height: 68px; }
+    .nav.open .nav__links { top: 68px; padding: 10px 16px 24px; gap: 0; box-shadow: 0 20px 30px -20px rgba(26,26,46,.3); }
+    .nav.open .nav__links a { padding: 14px 4px; font-size: 20px; font-weight: 700; border-bottom: 2px dashed var(--line); }
+    .hero { padding: 28px 0 40px; }
+    .hero h1 { font-size: 42px; margin: 16px 0 14px; }
+    .hero p { font-size: 16.5px; }
+    .hero__ctas { margin-top: 24px; gap: 10px; }
+    .hero__ctas .btn { flex: 1 1 auto; padding: 15px 14px; font-size: 15px; white-space: nowrap; }
+    .hero__ctas .btn--o { flex-grow: 1.6; }
+    .flags { margin-top: 24px; }
+    .collage { height: 340px; margin-top: 10px; }
+    .ph { border-radius: 26px; }
+    .bub { font-size: 14px; padding: 10px 14px; }
+    .words { padding: 10px 0 50px; }
+    .h2 { font-size: 34px; }
+    .test { padding: 60px 0; margin: 0 8px; border-radius: 34px; }
+    .test__grid { gap: 28px; }
+    .qcard { padding: 22px 18px; min-height: 0; border-radius: 24px; }
+    .qq h3 { font-size: 21px; }
+    .an { padding: 14px; }
     .levels span { font-size: 12px; }
+    .result .lvl { font-size: 84px; }
+    .courses, .voices { padding: 72px 0; }
+    .head { margin-bottom: 24px; gap: 14px; }
+    .langs { flex-wrap: nowrap; gap: 6px; margin-bottom: 4px; }
+    .lg { flex: 1 1 0; justify-content: center; padding: 11px 6px; font-size: 14px; gap: 6px; }
+    .lg .fl { width: 24px !important; height: 24px !important; font-size: 10px !important; }
+    /* carrosséis com arrasto lateral */
+    .snap { display: grid !important; grid-auto-flow: column; grid-auto-columns: 84%; grid-template-columns: none !important; gap: 14px; overflow-x: auto; scroll-snap-type: x mandatory; margin: 0 -16px; padding: 18px 16px 14px; scroll-padding: 0 16px; scrollbar-width: none; overscroll-behavior-x: contain; }
+    .snap::-webkit-scrollbar { display: none; }
+    .snap > * { scroll-snap-align: start; }
+    .dots { display: flex; }
+    .course { padding: 24px; }
+    .course:hover { transform: none; }
+    .v p { font-size: 16.5px; }
+    /* método: cartões que se empilham com o scroll */
+    .method { padding: 0 0 60px; }
+    .mgrid { display: block; }
+    .m { position: sticky; top: calc(84px + var(--i, 0) * 12px); min-height: 210px; margin-bottom: 16px; box-shadow: 0 -10px 30px -18px rgba(26,26,46,.35); transform-origin: 50% 0; }
+    .m[data-r] { transform: none; }
+    .m.in, .m:hover { transform: scale(var(--s, 1)); }
+    .trip { margin: 0 8px; min-height: 78vh; clip-path: inset(var(--clip, 0px) round 34px); }
+    .trip__in { padding: 40px 0; }
+    .trip .btn { width: 100%; }
+    .enroll { padding: 0 0 72px; }
+    .enroll__box { padding: 28px 18px; border-radius: 30px; gap: 26px; }
+    .perks { margin-top: 18px; gap: 10px; }
+    .enroll input, .enroll select { padding: 14px; }
+    .two { gap: 10px; }
+    .enroll .btn { width: 100%; }
+    .foot { flex-direction: column; align-items: flex-start; gap: 10px; }
+    .wa { right: 16px; bottom: 16px; width: 54px; height: 54px; }
   }
   @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; animation-delay: 0s !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; } [data-r] { opacity: 1; transform: none; } }
 </style>
 </head>
 <body>
 
+<div class="prog" id="prog"></div>
 <header class="nav" id="nav">
   <div class="wrap nav__in">
     <a href="#" class="logo"><i>Li</i>lingo</a>
@@ -197,11 +257,16 @@
       <div class="flags"><span class="fl" style="background:#2f6bff">EN</span><span class="fl" style="background:#ff6b2c">ES</span><span class="fl" style="background:#ff8fb1">FR</span>Inglês, espanhol e francês · presencial e online</div>
     </div>
     <div class="collage">
-      <div class="ph ph--a"><img src="https://images.unsplash.com/photo-1758270704763-22072a90d3b6?w=1000&q=78&auto=format&fit=crop" alt="Alunos conversando em sala" /></div>
-      <div class="ph ph--b"><img src="https://images.unsplash.com/photo-1571260899304-425eee4c7efc?w=800&q=78&auto=format&fit=crop" alt="Aluna com livro" /></div>
-      <span class="bub bub--1">Hello! 👋</span><span class="bub bub--2">¡Hola, qué tal?</span><span class="bub bub--3">Bonjour ✨</span>
+      <div class="ph ph--a" data-par=".14"><img src="https://images.unsplash.com/photo-1758270704763-22072a90d3b6?w=1000&q=78&auto=format&fit=crop" alt="Alunos conversando em sala" /></div>
+      <div class="ph ph--b" data-par="-.1"><img src="https://images.unsplash.com/photo-1571260899304-425eee4c7efc?w=800&q=78&auto=format&fit=crop" alt="Aluna com livro" /></div>
+      <span class="bub bub--1" data-par=".3">Hello! 👋</span><span class="bub bub--2" data-par="-.22">¡Hola, qué tal?</span><span class="bub bub--3" data-par=".18">Bonjour ✨</span>
     </div>
   </div>
+</section>
+
+<section class="words" aria-hidden="true">
+  <div class="words__row" data-mq="1"><span>Hello</span><span>Hola</span><span>Bonjour</span><span>Hello</span><span>Hola</span><span>Bonjour</span><span>Hello</span><span>Hola</span></div>
+  <div class="words__row words__row--b" data-mq="-1"><span>Thank you</span><span>Gracias</span><span>Merci</span><span>Thank you</span><span>Gracias</span><span>Merci</span></div>
 </section>
 
 <section class="test" id="teste">
@@ -224,7 +289,8 @@
   <div class="wrap">
     <div class="head"><div data-r><span class="tag">Cursos</span><h2 class="h2" style="margin-top:14px">Escolha seu idioma<br />e o seu ritmo</h2></div><p data-r style="--d:.1s">Material incluso, certificado internacional ao final de cada nível e reposição de aulas sem custo.</p></div>
     <div class="langs" id="langs" data-r></div>
-    <div class="cgrid" id="cgrid"></div>
+    <div class="cgrid snap" id="cgrid"></div>
+    <div class="dots" data-for="cgrid"></div>
   </div>
 </section>
 
@@ -232,10 +298,10 @@
   <div class="wrap">
     <div class="head"><div data-r><span class="tag">Método Lingo</span><h2 class="h2" style="margin-top:14px">Por que funciona</h2></div></div>
     <div class="mgrid">
-      <div class="m" data-r style="background:var(--orange);color:#fff"><b>80%</b><div><h3>Conversação</h3><p>A maior parte da aula é você falando — não o professor.</p></div></div>
-      <div class="m" data-r style="--d:.08s;background:var(--blue);color:#fff"><b>8</b><div><h3>Alunos por turma</h3><p>Atenção individual e correção na hora.</p></div></div>
-      <div class="m" data-r style="--d:.16s;background:var(--yellow)"><b>10'</b><div><h3>Prática diária</h3><p>Exercícios no app que se adaptam aos seus erros.</p></div></div>
-      <div class="m" data-r style="--d:.24s;background:var(--pink)"><b>1x</b><div><h3>Por mês, imersão</h3><p>Clube de conversa, cinema e jantar no idioma.</p></div></div>
+      <div class="m" data-r style="--i:0;background:var(--orange);color:#fff"><b>80%</b><div><h3>Conversação</h3><p>A maior parte da aula é você falando — não o professor.</p></div></div>
+      <div class="m" data-r style="--i:1;--d:.08s;background:var(--blue);color:#fff"><b>8</b><div><h3>Alunos por turma</h3><p>Atenção individual e correção na hora.</p></div></div>
+      <div class="m" data-r style="--i:2;--d:.16s;background:var(--yellow)"><b>10'</b><div><h3>Prática diária</h3><p>Exercícios no app que se adaptam aos seus erros.</p></div></div>
+      <div class="m" data-r style="--i:3;--d:.24s;background:var(--pink)"><b>1x</b><div><h3>Por mês, imersão</h3><p>Clube de conversa, cinema e jantar no idioma.</p></div></div>
     </div>
   </div>
 </section>
@@ -251,11 +317,12 @@
 <section class="voices">
   <div class="wrap">
     <div class="head"><div data-r><span class="tag">Alunos</span><h2 class="h2" style="margin-top:14px">Quem já está falando</h2></div></div>
-    <div class="vgrid">
+    <div class="vgrid snap" id="vgrid">
       <div class="v" data-r><p>“Em 8 meses saí do básico para uma entrevista em inglês — e fui contratada!”</p><footer><i style="background:var(--orange)">M</i><div><b>Mariana T.</b><br />Inglês · B2</div></footer></div>
       <div class="v" data-r style="--d:.1s"><p>“As aulas de conversação me tiraram a vergonha de falar. Hoje viajo sozinho pela Espanha.”</p><footer><i style="background:var(--ink)">R</i><div><b>Rafael S.</b><br />Espanhol · B1</div></footer></div>
       <div class="v" data-r style="--d:.2s"><p>“O app é viciante. Pratico no ônibus e chego na aula muito mais confiante.”</p><footer><i style="background:var(--blue)">L</i><div><b>Letícia A.</b><br />Francês · A2</div></footer></div>
     </div>
+    <div class="dots" data-for="vgrid"></div>
   </div>
 </section>
 
@@ -348,13 +415,64 @@
     $("#langs").innerHTML = Object.keys(L).map((k) => `<button class="lg ${k === lang ? "on" : ""}" data-k="${k}"><span class="fl" style="width:28px;height:28px;font-size:11px;border-radius:9px;background:${L[k][2]};transform:none">${L[k][0]}</span>${k}</button>`).join("");
     $("#cgrid").innerHTML = C.map(([n, d, m, p, ic], i) => { const preco = lang === "Inglês" ? p : Math.round(p * (lang === "Francês" ? 1.12 : .94)); return `<article class="course" style="animation-delay:${i * 80}ms"><div class="course__ic" style="background:${L[lang][1]}">${ic}</div><h3>${lang} ${n.toLowerCase()}</h3><p>${d}</p><div class="meta">${m.map((x) => `<span>${x}</span>`).join("")}</div><div class="price"><b>R$ ${preco}</b><small>/mês</small></div><a href="#matricula" class="btn btn--k" style="margin-top:18px" data-l="${lang}" data-m="${n}">Escolher</a></article>`; }).join("");
   };
-  $("#langs").onclick = (e) => { const b = e.target.closest(".lg"); if (b) { lang = b.dataset.k; renderC(); } };
+  $("#langs").onclick = (e) => { const b = e.target.closest(".lg"); if (b) { lang = b.dataset.k; renderC(); $("#cgrid").scrollTo({ left: 0 }); } };
   $("#cgrid").onclick = (e) => { const a = e.target.closest("[data-l]"); if (!a) return; $("#fL").value = a.dataset.l; $("#fM").value = a.dataset.m.startsWith("Online") ? "Online ao vivo" : a.dataset.m === "Intensivo" ? "Intensivo" : "Presencial"; };
   renderC();
 
-  /* Parallax da viagem */
-  const tb = $("#tripBg");
-  addEventListener("scroll", () => { if (reduz) return; const r = tb.parentElement.getBoundingClientRect(); tb.style.transform = `translateY(${(r.top + r.height / 2 - innerHeight / 2) * -.12}px)`; }, { passive: true });
+  /* Carrosséis (celular): bolinhas acompanham o arrasto */
+  const dots = () => $$(".dots").forEach((d) => {
+    const g = $("#" + d.dataset.for), n = g.children.length;
+    d.innerHTML = "<i></i>".repeat(n);
+    const upd = () => { const w = g.children[0]?.offsetWidth || 1; const k = Math.round(g.scrollLeft / (w + 14)); $$("i", d).forEach((x, j) => x.classList.toggle("on", j === Math.min(k, n - 1))); };
+    g.onscroll = upd; upd();
+  });
+  dots();
+
+  /* Contadores do método */
+  const cnt = new IntersectionObserver((es) => es.forEach((e) => {
+    if (!e.isIntersecting) return; cnt.unobserve(e.target);
+    const b = e.target, m = b.textContent.match(/^(\d+)(.*)$/); if (!m || reduz) return;
+    const fim = +m[1], t0 = performance.now();
+    const passo = (t) => { const p = Math.min(1, (t - t0) / 1200); b.textContent = Math.round(fim * (1 - Math.pow(1 - p, 3))) + m[2]; if (p < 1) requestAnimationFrame(passo); };
+    requestAnimationFrame(passo);
+  }), { threshold: .6 });
+  $$(".m b").forEach((b) => cnt.observe(b));
+
+  /* Efeitos de scroll: progresso, parallax, palavras, viagem e cartões empilhados */
+  const tb = $("#tripBg"), trip = tb.parentElement, prog = $("#prog");
+  const par = $$("[data-par]"), mq = $$("[data-mq]"), ms = $$(".m");
+  const cel = matchMedia("(max-width: 560px)");
+  const clamp = (v, a = 0, b = 1) => Math.max(a, Math.min(b, v));
+  let pend = false;
+  function frame() {
+    pend = false;
+    const H = innerHeight, max = document.documentElement.scrollHeight - H;
+    prog.style.transform = `scaleX(${max > 0 ? scrollY / max : 0})`;
+    if (reduz) return;
+    par.forEach((el) => { const c = el.parentElement.getBoundingClientRect(); el.style.translate = `0 ${(c.top + c.height / 2 - H / 2) * (+el.dataset.par)}px`; });
+    mq.forEach((el) => {
+      const r = el.parentElement.getBoundingClientRect();
+      const p = clamp((H - r.top) / (H + r.height));
+      const dir = +el.dataset.mq;
+      el.style.transform = `translateX(${dir > 0 ? -p * 45 : -45 + p * 45}%)`;
+    });
+    const r = trip.getBoundingClientRect();
+    tb.style.transform = `translateY(${(r.top + r.height / 2 - H / 2) * -.12}px) scale(${1 + clamp(r.top / H) * .15})`;
+    const ent = clamp(1 - (r.top - H * .15) / (H * .7));
+    trip.style.setProperty("--clip", `${(1 - ent) * (cel.matches ? 7 : 5)}%`);
+    if (cel.matches) ms.forEach((m, i) => {
+      const nx = ms[i + 1]; if (!nx) return;
+      const a = m.getBoundingClientRect(), b = nx.getBoundingClientRect();
+      const p = clamp(1 - (b.top - a.top) / a.height);
+      m.style.setProperty("--s", (1 - p * .07).toFixed(3));
+      m.style.filter = p > 0 ? `brightness(${1 - p * .12})` : "";
+    });
+    else ms.forEach((m) => { m.style.removeProperty("--s"); m.style.filter = ""; });
+  }
+  const pedir = () => { if (!pend) { pend = true; requestAnimationFrame(frame); } };
+  addEventListener("scroll", pedir, { passive: true });
+  addEventListener("resize", pedir);
+  frame();
 
   $("#form").onsubmit = (e) => {
     e.preventDefault();
