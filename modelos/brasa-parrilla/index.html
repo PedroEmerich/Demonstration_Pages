@@ -488,7 +488,6 @@
         <div class="field"><label for="fNome">Nome</label><input id="fNome" required placeholder="Seu nome" /></div>
         <div class="field"><label for="fData">Data</label><input id="fData" type="date" required /></div>
       </div>
-      <div class="field"><label>Horário</label><div class="chips" id="hrs"></div></div>
       <div class="row2">
         <div class="field"><label>Pessoas</label><div class="stepper"><button type="button" data-s="-1" aria-label="Menos">−</button><output id="pax">2</output><button type="button" data-s="1" aria-label="Mais">+</button></div></div>
         <div class="field"><label for="fOc">Ocasião</label><select id="fOc"><option>Jantar</option><option>Aniversário</option><option>Encontro</option><option>Negócios</option><option>Comemoração</option></select></div>
@@ -1010,12 +1009,7 @@
   requestAnimationFrame(tick);
 
   /* Reserva */
-  const HRS = ["19:00", "19:30", "20:00", "20:30", "21:00", "21:30", "22:00"];
-  let hora = "20:00", pax = 2;
-  const hrs = $("#hrs");
-  const renderHrs = () => hrs.innerHTML = HRS.map((h) => `<button type="button" class="chip ${h === hora ? "on" : ""}">${h}</button>`).join("");
-  hrs.onclick = (e) => { const b = e.target.closest(".chip"); if (b) { hora = b.textContent; renderHrs(); } };
-  renderHrs();
+  let pax = 2;
   $$(".stepper button").forEach((b) => b.onclick = () => {
     pax = Math.max(1, Math.min(20, pax + +b.dataset.s));
     const o = $("#pax"); o.textContent = pax;
@@ -1026,7 +1020,7 @@
   $("#form").onsubmit = (e) => {
     e.preventDefault();
     const d = $("#fData").value.split("-").reverse().join("/");
-    const msg = `Olá! Gostaria de reservar uma mesa na Brasa.\n\nNome: ${$("#fNome").value}\nData: ${d}\nHorário: ${hora}\nPessoas: ${pax}\nOcasião: ${$("#fOc").value}`;
+    const msg = `Olá! Gostaria de reservar uma mesa na Brasa.\n\nNome: ${$("#fNome").value}\nData: ${d}\nPessoas: ${pax}\nOcasião: ${$("#fOc").value}`;
     window.open(`https://wa.me/5511999990000?text=${encodeURIComponent(msg)}`, "_blank");
   };
 })();
