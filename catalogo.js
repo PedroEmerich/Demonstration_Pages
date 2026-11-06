@@ -85,8 +85,8 @@ window.MODELOS = [
     pasta: "vasconcelos-advocacia",
     titulo: "Vasconcelos & Prado — Advocacia",
     segmento: "Advocacia",
-    descricao: "Escritório de advocacia editorial e sóbrio, com áreas de atuação, sócios e avaliação do caso em 3 perguntas.",
-    tags: ["Diagnóstico", "Credibilidade", "Captação"],
+    descricao: "Escritório de alto padrão com balança da justiça em 3D que reage ao cursor, áreas com foto em destaque, casos conduzidos, sócios e avaliação do caso em 3 perguntas.",
+    tags: ["3D", "Diagnóstico", "Alto padrão"],
     cor: "#b08d57",
   },
   {
