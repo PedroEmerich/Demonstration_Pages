@@ -34,7 +34,7 @@
   h1 em, h2 em { font-style: italic; color: var(--ember); }
 
   /* texto dividido em palavras que sobem */
-  .sw { display: inline-block; overflow: hidden; vertical-align: top; padding-bottom: .08em; margin-bottom: -.08em; }
+  .sw { display: inline-block; overflow: hidden; vertical-align: top; padding-bottom: .2em; margin-bottom: -.2em; }
   .sw > span { display: inline-block; transform: translateY(105%); transition: transform 1.1s var(--ease); transition-delay: calc(var(--i) * 55ms); }
   .in .sw > span, .sw.in > span { transform: none; }
 
@@ -295,6 +295,46 @@
     .exp__b, .exp__c { grid-column: 2 !important; aspect-ratio: 1; }
     .exp__quote { grid-column: 1 / -1 !important; padding: 26px 0 0; }
     .ph { border-radius: 16px; }
+    /* revisão geral do celular: respiros menores e elementos melhor distribuídos */
+    .wrap { width: min(1280px, 100% - 36px); }
+    .hero__pin { min-height: 0; height: 100svh; }
+    .hero__shade { background: linear-gradient(to top, rgba(14,11,9,.97) 10%, rgba(14,11,9,.7) 50%, rgba(14,11,9,.25) 80%, rgba(14,11,9,.5)); }
+    .hero__content { padding-bottom: 36px; }
+    .hero .eyebrow { font-size: 10px; letter-spacing: .16em; margin-bottom: 18px !important; white-space: nowrap; }
+    .hero h1 { font-size: 54px; line-height: .94; }
+    .hero__row { margin-top: 22px; gap: 22px; }
+    .hero__row p { font-size: 15.5px; }
+    .hero__ctas { width: 100%; flex-wrap: nowrap; }
+    .hero__ctas > * { flex: 1 1 0; justify-content: center; white-space: nowrap; }
+    .hero__scroll { display: none; }
+    .marquee { padding: 36px 0 0; }
+    .marquee__row span { font-size: 46px; }
+    .manifesto { padding: 64px 0 70px; }
+    .manifesto__grid { gap: 22px; }
+    .manifesto p.big { font-size: 27px; }
+    .stats { grid-template-columns: repeat(3, 1fr); margin-top: 48px; }
+    .stat { padding-top: 22px; }
+    .stat + .stat { padding-left: 14px; margin-top: 0; border-top: 0; border-left: 1px solid var(--line); }
+    .stat strong { font-size: 40px; }
+    .stat span { display: block; margin-top: 6px; font-size: 12px; line-height: 1.35; }
+    .cuts__sticky { padding: 64px 0 56px; }
+    .cuts__head { margin-bottom: 26px; }
+    .cuts__track { padding-left: 18px; padding-right: 18px; scroll-padding-left: 18px; gap: 14px; }
+    .cut { width: 80vw; }
+    .cut__img img { inset: 0; width: 100%; transform: none !important; }
+    .cut h3 { font-size: 26px; }
+    .cut__body { padding-top: 14px; }
+    .doneness { padding: 56px 0 64px; }
+    .menu { padding: 64px 0; }
+    .menu__head { margin-bottom: 26px; gap: 22px; }
+    .dish { padding: 20px 0; }
+    .exp { padding: 0 0 64px; }
+    .book { padding: 64px 0; }
+    .book__in { gap: 36px; }
+    .book__info > p { margin: 18px 0 26px; font-size: 15.5px; }
+    .footer { padding: 56px 0 28px; }
+    .footer__row { flex-direction: column; gap: 8px; margin-top: 32px; font-size: 13px; }
+    .wa { right: 14px; bottom: 14px; width: 50px; height: 50px; }
   }
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
@@ -448,7 +488,6 @@
         <div class="field"><label for="fNome">Nome</label><input id="fNome" required placeholder="Seu nome" /></div>
         <div class="field"><label for="fData">Data</label><input id="fData" type="date" required /></div>
       </div>
-      <div class="field"><label>Horário</label><div class="chips" id="hrs"></div></div>
       <div class="row2">
         <div class="field"><label>Pessoas</label><div class="stepper"><button type="button" data-s="-1" aria-label="Menos">−</button><output id="pax">2</output><button type="button" data-s="1" aria-label="Mais">+</button></div></div>
         <div class="field"><label for="fOc">Ocasião</label><select id="fOc"><option>Jantar</option><option>Aniversário</option><option>Encontro</option><option>Negócios</option><option>Comemoração</option></select></div>
@@ -970,12 +1009,7 @@
   requestAnimationFrame(tick);
 
   /* Reserva */
-  const HRS = ["19:00", "19:30", "20:00", "20:30", "21:00", "21:30", "22:00"];
-  let hora = "20:00", pax = 2;
-  const hrs = $("#hrs");
-  const renderHrs = () => hrs.innerHTML = HRS.map((h) => `<button type="button" class="chip ${h === hora ? "on" : ""}">${h}</button>`).join("");
-  hrs.onclick = (e) => { const b = e.target.closest(".chip"); if (b) { hora = b.textContent; renderHrs(); } };
-  renderHrs();
+  let pax = 2;
   $$(".stepper button").forEach((b) => b.onclick = () => {
     pax = Math.max(1, Math.min(20, pax + +b.dataset.s));
     const o = $("#pax"); o.textContent = pax;
@@ -986,7 +1020,7 @@
   $("#form").onsubmit = (e) => {
     e.preventDefault();
     const d = $("#fData").value.split("-").reverse().join("/");
-    const msg = `Olá! Gostaria de reservar uma mesa na Brasa.\n\nNome: ${$("#fNome").value}\nData: ${d}\nHorário: ${hora}\nPessoas: ${pax}\nOcasião: ${$("#fOc").value}`;
+    const msg = `Olá! Gostaria de reservar uma mesa na Brasa.\n\nNome: ${$("#fNome").value}\nData: ${d}\nPessoas: ${pax}\nOcasião: ${$("#fOc").value}`;
     window.open(`https://wa.me/5511999990000?text=${encodeURIComponent(msg)}`, "_blank");
   };
 })();
