@@ -184,6 +184,88 @@
   .wa { position: fixed; right: 22px; bottom: 22px; z-index: 60; width: 58px; height: 58px; border-radius: 50%; background: #25d366; color: #fff; display: grid; place-items: center; box-shadow: 0 12px 30px -8px rgba(37,211,102,.6); transition: transform .3s var(--ease); }
   .wa:hover { transform: scale(1.08); }
 
+
+  /* PRÉDIO 3D */
+  .x3d { position: absolute; inset: 0; z-index: 0; }
+  .x3d canvas { display: block; width: 100%; height: 100%; opacity: 0; transition: opacity 1.4s var(--ease); touch-action: none; }
+  .x3d.pronto canvas { opacity: 1; }
+  .hero.tem3d .hero__bg { display: none; }
+  .hero.tem3d::after { pointer-events: none; background: linear-gradient(90deg, rgba(27,21,48,.92) 0%, rgba(27,21,48,.55) 34%, rgba(27,21,48,0) 58%), linear-gradient(0deg, var(--night) 1%, rgba(27,21,48,0) 30%); }
+  .hero.tem3d .hero__in { pointer-events: none; grid-template-columns: minmax(0, 620px); }
+  .hero.tem3d .hero__in a, .hero.tem3d .hero__in button, .hero.tem3d .launch { pointer-events: auto; }
+  .hero.tem3d h1 { font-size: clamp(60px, 8vw, 132px); }
+  .hero.tem3d .launch { display: grid; grid-template-columns: auto 1fr; gap: 6px 22px; align-items: center; margin-top: 26px; padding: 16px 20px; border-radius: 20px; }
+  .hero.tem3d .launch .label { grid-column: 1 / -1; font-size: 11px; }
+  .hero.tem3d .cd { margin: 0; gap: 14px; }
+  .hero.tem3d .cd b { font-size: 32px; }
+  .hero.tem3d .cd small { font-size: 10px; }
+  .hero.tem3d .launch dl { border: 0; padding: 0 0 0 22px; margin: 0; border-left: 1px solid var(--line); }
+  .hero.tem3d .launch dd { font-size: 21px; }
+  .hero.tem3d .launch > .btn { grid-column: 1 / -1; padding: 12px 20px; margin-top: 8px; }
+  .x3d__dica { position: absolute; top: 0; left: 0; z-index: 5; pointer-events: none; white-space: nowrap; font-size: 13px; padding: 8px 12px; border-radius: 12px; background: rgba(27,21,48,.86); border: 1px solid var(--line); backdrop-filter: blur(8px); opacity: 0; transition: opacity .2s; }
+  .x3d__dica.on { opacity: 1; }
+  .x3d__ajuda { position: absolute; right: 4vw; bottom: 104px; z-index: 2; pointer-events: none; display: flex; align-items: center; gap: 10px; font-size: 12px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--peach2); }
+  .x3d__ajuda::before { content: ""; width: 9px; height: 9px; border-radius: 50%; background: var(--peach); box-shadow: 0 0 0 0 rgba(255,179,138,.7); animation: pulso 1.8s infinite; }
+  @keyframes pulso { 70% { box-shadow: 0 0 0 12px rgba(255,179,138,0); } 100% { box-shadow: 0 0 0 0 rgba(255,179,138,0); } }
+  .x3d__painel, .x3d__visita, .x3d__rotulos { display: none; }
+  .x3d.aberto { position: fixed; inset: 0; height: auto; z-index: 200; background: #0f0b1f; }
+  .x3d.aberto .x3d__ajuda { display: none; }
+  .x3d.aberto .x3d__painel { display: flex; position: absolute; top: 16px; left: 16px; right: 16px; z-index: 4; gap: 16px; align-items: center; justify-content: space-between; padding: 12px 14px; border-radius: 18px; background: rgba(27,21,48,.8); border: 1px solid var(--line); backdrop-filter: blur(14px); }
+  .x3d__painel > div { flex: 1; min-width: 0; }
+  .x3d__titulo { font-family: var(--serif); font-size: 28px; line-height: 1.05; }
+  .x3d__sub { font-size: 13px; color: var(--muted); }
+  .x3d__voltar, .x3d__olhar, .x3d__sair { padding: 10px 16px; border-radius: 999px; font-size: 13px; font-weight: 600; box-shadow: inset 0 0 0 1px rgba(255,255,255,.3); white-space: nowrap; transition: background .3s, color .3s; }
+  .x3d__voltar:hover, .x3d__olhar:hover, .x3d__sair:hover { background: var(--text); color: var(--night); }
+  .x3d__entrar { white-space: nowrap; padding: 13px 22px; }
+  .x3d.aberto .x3d__rotulos { display: block; position: absolute; inset: 0; z-index: 2; pointer-events: none; overflow: hidden; }
+  .x3d__rotulos button { position: absolute; left: 0; top: 0; pointer-events: auto; white-space: nowrap; transition: opacity .2s, background .2s; }
+  .x3d__un { display: flex; gap: 8px; align-items: center; padding: 6px 8px 6px 12px; border-radius: 999px; font-size: 12px; background: rgba(27,21,48,.88); border: 1px solid var(--line); backdrop-filter: blur(8px); }
+  .x3d__un b { font-family: var(--serif); font-size: 16px; font-weight: 400; }
+  .x3d__un i { font-style: normal; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 999px; }
+  .x3d__un i.d { background: var(--green); color: #0b2a1f; } .x3d__un i.r { background: var(--amber); color: #3a2a00; } .x3d__un i.v { background: rgba(255,255,255,.18); color: var(--muted); }
+  .x3d__comodo { padding: 5px 11px; border-radius: 999px; font-size: 11.5px; font-weight: 600; color: var(--night); background: rgba(255,255,255,.92); box-shadow: 0 8px 18px -8px rgba(0,0,0,.6); }
+  .x3d__comodo:hover { background: var(--peach); }
+  .x3d.visita .x3d__painel, .x3d.visita .x3d__rotulos { display: none; }
+  .x3d.visita .x3d__visita { display: block; }
+  .x3d__instr { position: absolute; top: 16px; left: 50%; transform: translateX(-50%); z-index: 4; display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 10px 14px; max-width: calc(100% - 32px); padding: 10px 12px 10px 18px; border-radius: 22px; font-size: 13px; background: rgba(27,21,48,.8); border: 1px solid var(--line); backdrop-filter: blur(14px); transition: opacity .3s; }
+  .x3d__instr span { color: var(--muted); }
+  .x3d__instr kbd { font: inherit; font-weight: 600; color: var(--text); padding: 1px 6px; border-radius: 6px; background: rgba(255,255,255,.12); }
+  .x3d.travado .x3d__instr { opacity: .4; }
+  .x3d__mira { position: absolute; left: 50%; top: 50%; width: 6px; height: 6px; margin: -3px; border-radius: 50%; background: rgba(255,255,255,.85); box-shadow: 0 0 0 2px rgba(0,0,0,.25); pointer-events: none; }
+  .x3d__joy { display: none; position: absolute; left: 22px; bottom: 28px; z-index: 4; width: 124px; height: 124px; border-radius: 50%; background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.35); backdrop-filter: blur(6px); touch-action: none; }
+  .x3d__joy i { position: absolute; left: 50%; top: 50%; width: 54px; height: 54px; margin: -27px; border-radius: 50%; background: rgba(255,255,255,.9); transition: transform .08s; }
+  .x3d__foto { position: absolute; inset: 0; z-index: 6; display: grid; place-items: center; padding: 16px; background: rgba(10,8,20,.74); backdrop-filter: blur(6px); opacity: 0; pointer-events: none; transition: opacity .35s; }
+  .x3d__foto.on { opacity: 1; pointer-events: auto; }
+  .x3d__foto figure { position: relative; width: min(1100px, 100%); border-radius: 22px; overflow: hidden; background: #000; box-shadow: 0 40px 80px -30px rgba(0,0,0,.8); transform: scale(.96); transition: transform .4s var(--ease); }
+  .x3d__foto.on figure { transform: none; }
+  .x3d__foto img { width: 100%; aspect-ratio: 16/10; max-height: 82vh; object-fit: cover; opacity: 0; transition: opacity .4s; }
+  .x3d__foto img.ok { opacity: 1; }
+  .x3d__foto figcaption { position: absolute; left: 0; right: 0; bottom: 0; padding: 60px 24px 22px; background: linear-gradient(transparent, rgba(0,0,0,.75)); }
+  .x3d__foto h3 { font-size: 34px; }
+  .x3d__foto p { font-size: 13px; color: #ddd3f2; }
+  .x3d__ant, .x3d__prox, .x3d__fechar { position: absolute; width: 46px; height: 46px; border-radius: 50%; display: grid; place-items: center; font-size: 24px; line-height: 1; color: #fff; background: rgba(0,0,0,.45); backdrop-filter: blur(8px); }
+  .x3d__ant { left: 14px; top: 50%; margin-top: -23px; } .x3d__prox { right: 14px; top: 50%; margin-top: -23px; } .x3d__fechar { right: 14px; top: 14px; }
+  .x3d__ant:hover, .x3d__prox:hover, .x3d__fechar:hover { background: var(--peach); color: var(--night); }
+  body.x3d-travado { overflow: hidden; }
+  @media (pointer: coarse) { .x3d__joy { display: block; } .x3d__olhar { display: none; } }
+  @media (max-width: 1040px) {
+    .hero.tem3d { padding-top: 58svh; }
+    .hero.tem3d::after { background: linear-gradient(0deg, var(--night) 40%, rgba(27,21,48,.6) 52%, rgba(27,21,48,0) 64%); }
+    .hero.tem3d .x3d:not(.aberto) { bottom: auto; height: 66svh; }
+    .x3d__ajuda { top: 84px; bottom: auto; right: 18px; white-space: nowrap; font-size: 10.5px; letter-spacing: .12em; }
+  }
+  @media (max-width: 600px) {
+    .hero.tem3d .launch { grid-template-columns: 1fr; }
+    .hero.tem3d .launch dl { border-left: 0; padding: 12px 0 0; border-top: 1px solid var(--line); }
+    .x3d.aberto .x3d__painel { flex-wrap: wrap; top: 10px; left: 10px; right: 10px; padding: 10px; gap: 10px; }
+    .x3d__painel > div { order: 3; flex-basis: 100%; }
+    .x3d__titulo { font-size: 22px; }
+    .x3d__sub { display: none; }
+    .x3d__entrar { padding: 10px 16px; font-size: 13px; }
+    .x3d__foto h3 { font-size: 24px; }
+    .x3d__foto img { aspect-ratio: 4/5; }
+  }
+
   @media (max-width: 1040px) {
     .nav__links, .nav__cta { display: none; }
     .burger { display: grid; }
@@ -222,6 +304,22 @@
 
 <section class="hero">
   <div class="hero__bg"></div>
+  <div class="x3d" id="x3d" aria-label="Prédio em 3D: passe o mouse sobre os andares e clique para explorar">
+    <div class="x3d__dica"></div>
+    <p class="x3d__ajuda">Passe o mouse e clique em um andar</p>
+    <div class="x3d__rotulos"></div>
+    <div class="x3d__painel">
+      <button class="x3d__voltar">← Voltar ao prédio</button>
+      <div><h3 class="x3d__titulo"></h3><p class="x3d__sub"></p></div>
+      <button class="btn btn--p x3d__entrar">Visualizar por dentro</button>
+    </div>
+    <div class="x3d__visita">
+      <div class="x3d__instr"><b>Visita virtual</b><span><kbd>W</kbd> <kbd>A</kbd> <kbd>S</kbd> <kbd>D</kbd> para andar · arraste para olhar · <kbd>Shift</kbd> corre</span><button class="x3d__olhar">Olhar com o mouse</button><button class="x3d__sair">Sair da visita</button></div>
+      <div class="x3d__mira"></div>
+      <div class="x3d__joy" aria-label="Controle de movimento"><i></i></div>
+    </div>
+    <div class="x3d__foto" role="dialog" aria-label="Foto do ambiente"><figure><img alt="" /><figcaption><h3></h3><p></p></figcaption><button class="x3d__ant" aria-label="Anterior">‹</button><button class="x3d__prox" aria-label="Próxima">›</button><button class="x3d__fechar" aria-label="Fechar">×</button></figure></div>
+  </div>
   <div class="wrap hero__in">
     <div>
       <span class="label">Lançamento · Vila Mariana · São Paulo</span>
@@ -356,6 +454,7 @@
     }
   }
   $("#dispN").textContent = `${U.filter((x) => x.st === "d").length} unidades`;
+  window.AURORA = { U, T };
   let fil = "todas", sel = null;
   $("#ufil").innerHTML = [["todas", "Todas"], ["studio", "Studio"], ["dois", "2 dorm."], ["tres", "3 suítes"], ["cob", "Cobertura"]].map(([k, n]) => `<button data-k="${k}" class="${k === fil ? "on" : ""}">${n}</button>`).join("");
   function predio() {
@@ -420,5 +519,8 @@
   $("#rform").onsubmit = (e) => { e.preventDefault(); const msg = `Olá! Quero minha pré-reserva no Residencial Aurora.\nNome: ${$("#rN").value}\nTipologia: ${$("#rU").value}${$("#rS").value ? `\n${$("#rS").value}` : ""}`; window.open(`https://wa.me/${WA}?text=${encodeURIComponent(msg)}`, "_blank"); };
 })();
 </script>
+<script type="importmap">{ "imports": { "three": "./vendor/three.module.min.js", "three/addons/": "./vendor/addons/" } }</script>
+<script type="module" src="predio3d.js"></script>
+<script>if (matchMedia("(pointer: coarse)").matches) { const a = document.querySelector(".x3d__ajuda"); if (a) a.textContent = "Toque em um andar"; }</script>
 </body>
 </html>
