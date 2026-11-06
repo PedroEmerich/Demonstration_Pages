@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Residencial Aurora — Lançamento na Vila Mariana</title>
-<meta name="description" content="Residencial Aurora: lançamento com studios, 2 dormitórios, 3 suítes e coberturas na Vila Mariana. Escolha sua unidade, veja as plantas e simule o pagamento na planta." />
+<meta name="description" content="Residencial Aurora: lançamento com 2 dormitórios, 3 suítes e coberturas na Vila Mariana. Escolha sua unidade, veja as plantas e simule o pagamento na planta." />
 <meta name="theme-color" content="#1b1530" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -221,6 +221,7 @@
   .x3d__rotulos button { position: absolute; left: 0; top: 0; pointer-events: auto; white-space: nowrap; transition: opacity .2s, background .2s; }
   .x3d__un { display: flex; gap: 8px; align-items: center; padding: 6px 8px 6px 12px; border-radius: 999px; font-size: 12px; background: rgba(27,21,48,.88); border: 1px solid var(--line); backdrop-filter: blur(8px); }
   .x3d__un b { font-family: var(--serif); font-size: 16px; font-weight: 400; }
+  .x3d__un.ativo { border-color: var(--peach); box-shadow: 0 0 0 1px var(--peach), 0 10px 24px -10px rgba(255,179,138,.6); }
   .x3d__un i { font-style: normal; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 999px; }
   .x3d__un i.d { background: var(--green); color: #0b2a1f; } .x3d__un i.r { background: var(--amber); color: #3a2a00; } .x3d__un i.v { background: rgba(255,255,255,.18); color: var(--muted); }
   .x3d__comodo { padding: 5px 11px; border-radius: 999px; font-size: 11.5px; font-weight: 600; color: var(--night); background: rgba(255,255,255,.92); box-shadow: 0 8px 18px -8px rgba(0,0,0,.6); }
@@ -324,13 +325,13 @@
     <div>
       <span class="label">Lançamento · Vila Mariana · São Paulo</span>
       <h1><span><i>Residencial</i></span><span><i>Aurora</i></span></h1>
-      <p>Studios, 2 dormitórios, 3 suítes e coberturas a 6 minutos a pé do metrô. Todo o pôr do sol de São Paulo, da sua varanda.</p>
+      <p>2 dormitórios até o 9º andar, 3 suítes do 10º para cima e coberturas, a 6 minutos a pé do metrô. Todo o pôr do sol de São Paulo, da sua varanda.</p>
       <div style="display:flex;gap:12px;flex-wrap:wrap"><a href="#unidades" class="btn btn--p">Escolher minha unidade</a><a href="#plantas" class="btn btn--o">Ver plantas</a></div>
     </div>
     <aside class="launch" data-r style="--d:.6s">
       <span class="label">Lançamento oficial em</span>
       <div class="cd" id="cd"><div><b>0</b><small>dias</small></div><div><b>00</b><small>horas</small></div><div><b>00</b><small>min</small></div><div><b>00</b><small>seg</small></div></div>
-      <dl><div><dt>A partir de</dt><dd>R$ 489 mil</dd></div><div><dt>Disponíveis</dt><dd id="dispN">—</dd></div></dl>
+      <dl><div><dt>A partir de</dt><dd>R$ 790 mil</dd></div><div><dt>Disponíveis</dt><dd id="dispN">—</dd></div></dl>
       <a href="#reserva" class="btn btn--p" style="width:100%">Garantir condição de pré-lançamento</a>
     </aside>
   </div>
@@ -353,7 +354,7 @@
 
 <section class="plans" id="plantas">
   <div class="wrap">
-    <div class="head"><div data-r><span class="label">Plantas</span><h2 class="h2" style="margin-top:14px">Do studio à <em>cobertura</em></h2></div></div>
+    <div class="head"><div data-r><span class="label">Plantas</span><h2 class="h2" style="margin-top:14px">Do 2 dormitórios à <em>cobertura</em></h2></div></div>
     <div class="ptabs" id="ptabs" data-r></div>
     <div class="plan__grid">
       <div class="blue" data-r><svg id="planSvg" viewBox="0 0 600 400" aria-label="Planta da unidade"></svg></div>
@@ -368,7 +369,7 @@
       <span class="label">Simulador na planta</span>
       <h2 class="h2" style="margin-top:14px">Pague durante a <em>obra</em></h2>
       <p style="color:var(--muted);margin:16px 0 30px">Entrada facilitada, parcelas mensais até a entrega e o saldo financiado nas chaves.</p>
-      <div class="sl"><label>Valor da unidade <output id="oV"></output></label><input type="range" id="v" min="489000" max="2900000" step="10000" value="890000" /></div>
+      <div class="sl"><label>Valor da unidade <output id="oV"></output></label><input type="range" id="v" min="690000" max="2900000" step="10000" value="890000" /></div>
       <div class="sl"><label>Entrada <output id="oE"></output></label><input type="range" id="e" min="5" max="30" value="10" /></div>
       <div class="sl"><label>Parcelas durante a obra <output id="oO"></output></label><input type="range" id="o" min="10" max="40" value="25" /></div>
     </div>
@@ -401,7 +402,7 @@
     <form class="rform" id="rform" data-r style="--d:.1s">
       <input id="rN" placeholder="Nome completo" required />
       <input id="rT" placeholder="WhatsApp" inputmode="tel" required />
-      <select id="rU"><option>Studio · 32 m²</option><option>2 dormitórios · 68 m²</option><option>3 suítes · 112 m²</option><option>Cobertura · 210 m²</option></select>
+      <select id="rU"><option>2 dormitórios · 68 m²</option><option>3 suítes · 142 m²</option><option>Cobertura · 210 m²</option></select>
       <input id="rS" placeholder="Unidade de interesse (opcional)" />
       <button class="btn btn--p">Quero minha pré-reserva</button>
     </form>
@@ -434,9 +435,8 @@
 
   /* Tipologias */
   const T = {
-    studio: { n: "Studio", m2: 32, base: 489000, d: 0, b: 1, v: 0, feats: ["Varanda com tomada para churrasqueira elétrica", "Ponto para ar-condicionado", "Ideal para investimento e locação"] },
     dois: { n: "2 dormitórios", m2: 68, base: 790000, d: 2, b: 2, v: 1, feats: ["1 suíte + 1 dormitório", "Varanda gourmet integrada", "Depósito privativo no subsolo"] },
-    tres: { n: "3 suítes", m2: 112, base: 1290000, d: 3, b: 4, v: 2, feats: ["3 suítes com janelas amplas", "Living para 2 ambientes", "Lavabo e área de serviço separada"] },
+    tres: { n: "3 suítes", m2: 142, base: 1590000, d: 3, b: 4, v: 2, feats: ["3 suítes com janelas amplas", "Living para 2 ambientes", "Lavabo e área de serviço separada"] },
     cob: { n: "Cobertura", m2: 210, base: 2690000, d: 3, b: 5, v: 3, feats: ["Duplex com piscina privativa", "Terraço de 60 m² voltado para o pôr do sol", "Elevador com acesso direto"] },
   };
   /* Espelho de vendas: 18 andares x 4 + cobertura */
@@ -445,7 +445,7 @@
   const h = (s) => [...s].reduce((a, c) => (a * 31 + c.charCodeAt(0)) % 997, 3);
   for (let andar = 18; andar >= 1; andar--) {
     for (let c = 0; c < 4; c++) {
-      const tipo = andar === 18 ? (c < 2 ? "cob" : null) : andar <= 3 ? (c % 2 ? "studio" : "dois") : c === 0 || c === 3 ? "tres" : c === 1 ? "dois" : "studio";
+      const tipo = andar === 18 ? (c < 2 ? "cob" : null) : andar >= 10 ? (c < 2 ? "tres" : null) : "dois";
       if (!tipo) continue;
       const k = Math.floor(Math.abs(Math.sin(andar * 12.9898 + c * 78.233) * 43758.5453) % 1 * 10);
       const st = k < 5 ? "d" : k < 7 ? "r" : "v";
@@ -456,12 +456,12 @@
   $("#dispN").textContent = `${U.filter((x) => x.st === "d").length} unidades`;
   window.AURORA = { U, T };
   let fil = "todas", sel = null;
-  $("#ufil").innerHTML = [["todas", "Todas"], ["studio", "Studio"], ["dois", "2 dorm."], ["tres", "3 suítes"], ["cob", "Cobertura"]].map(([k, n]) => `<button data-k="${k}" class="${k === fil ? "on" : ""}">${n}</button>`).join("");
+  $("#ufil").innerHTML = [["todas", "Todas"], ["dois", "2 dorm."], ["tres", "3 suítes"], ["cob", "Cobertura"]].map(([k, n]) => `<button data-k="${k}" class="${k === fil ? "on" : ""}">${n}</button>`).join("");
   function predio() {
     let html = "";
     for (let a = 18; a >= 1; a--) {
       const us = U.filter((x) => x.andar === a);
-      html += `<div class="floor"><span>${a === 18 ? "Cob" : a + "º"}</span>${a === 18 ? us.map((x) => `<button class="u cob ${x.st} ${fil !== "todas" && x.tipo !== fil ? "dim" : ""} ${sel === x.id ? "sel" : ""}" style="grid-column:span 2" data-id="${x.id}" aria-label="Unidade ${x.id}"></button>`).join("") : us.map((x) => `<button class="u ${x.st} ${fil !== "todas" && x.tipo !== fil ? "dim" : ""} ${sel === x.id ? "sel" : ""}" data-id="${x.id}" aria-label="Unidade ${x.id}"></button>`).join("")}</div>`;
+      html += `<div class="floor"><span>${a === 18 ? "Cob" : a + "º"}</span>${us.length <= 2 ? us.map((x) => `<button class="u ${x.tipo === "cob" ? "cob" : ""} ${x.st} ${fil !== "todas" && x.tipo !== fil ? "dim" : ""} ${sel === x.id ? "sel" : ""}" style="grid-column:span 2" data-id="${x.id}" aria-label="Unidade ${x.id}"></button>`).join("") : us.map((x) => `<button class="u ${x.st} ${fil !== "todas" && x.tipo !== fil ? "dim" : ""} ${sel === x.id ? "sel" : ""}" data-id="${x.id}" aria-label="Unidade ${x.id}"></button>`).join("")}</div>`;
     }
     $("#floors").innerHTML = html;
   }
