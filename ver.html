@@ -88,7 +88,8 @@
         return;
       }
 
-      const src = m.url || `modelos/${m.pasta}/index.html`;
+      // páginas deste site recebem ?v= para a moldura não mostrar uma versão antiga do cache
+      const src = m.url || `modelos/${m.pasta}/index.html?v=${Math.floor(Date.now() / 60000)}`;
       document.title = `${m.titulo} — ${E.nome || "Catálogo"}`;
       document.getElementById("titulo").textContent = m.titulo;
       document.getElementById("segmento").textContent = m.segmento || "";
