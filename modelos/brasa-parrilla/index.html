@@ -136,7 +136,9 @@
   .doneness__grid { display: grid; grid-template-columns: 1.15fr 1fr; gap: 72px; align-items: center; }
   .meat { position: relative; aspect-ratio: 4/3.4; border-radius: 24px; overflow: hidden; background: radial-gradient(circle at 50% 45%, #4a2018, #1a110c 70%); transform: perspective(1200px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)); transition: transform .8s var(--ease); box-shadow: 0 50px 100px -40px rgba(0,0,0,.8); }
   .meat canvas, .meat img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-  .meat canvas { opacity: 0; transition: opacity .12s linear; }
+  .meat canvas { display: block; }
+  .meat.sem-gl canvas { display: none; }
+  .meat img[hidden] { display: none; }
   .meat__zoom { position: absolute; inset: 0; transform: scale(1.06); transition: transform 1.6s var(--ease); }
   .meat:hover .meat__zoom { transform: scale(1.12); }
   .meat::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to top, rgba(14,11,9,.75), transparent 45%); pointer-events: none; }
@@ -157,6 +159,7 @@
   .slider:active .slider__knob, .slider input:focus-visible + .slider__knob { box-shadow: 0 0 0 12px rgba(255,95,31,.25), 0 6px 20px rgba(0,0,0,.5); scale: 1.12; }
   .slider__ticks { display: flex; justify-content: space-between; margin-top: 18px; font-size: 13px; color: var(--muted); }
   .slider__ticks button { transition: color .3s; }
+  .slider__ticks .sh { display: none; }
   .slider__ticks button:hover, .slider__ticks button.on { color: var(--bone); }
 
   /* CARDÁPIO */
@@ -262,8 +265,34 @@
   @media (max-width: 560px) {
     .row2 { grid-template-columns: 1fr; }
     .form { padding: 28px 22px; }
-    .slider__ticks { font-size: 11px; }
-    .slider__ticks button:nth-child(2), .slider__ticks button:nth-child(4) { visibility: hidden; }
+    .slider__ticks { font-size: 12px; margin-top: 14px; }
+    .slider__ticks .lg { display: none; }
+    .slider__ticks .sh { display: inline; }
+    .slider__ticks button { padding: 6px 0; }
+    /* ponto: título, carne e controle juntos na tela */
+    .doneness { padding: 80px 0; }
+    .doneness__grid { display: flex; flex-direction: column; align-items: stretch; gap: 0; }
+    .doneness__grid > div:last-child { display: contents; }
+    .doneness .eyebrow { order: 1; }
+    .doneness h2 { order: 2; margin: 14px 0 22px; }
+    .meat { order: 3; aspect-ratio: 4/3.6; border-radius: 20px; }
+    .dname { order: 4; margin-top: 22px; font-size: 30px; }
+    .slider { order: 5; margin-top: 8px; }
+    .slider__ticks { order: 6; }
+    .ddesc { order: 7; margin: 16px 0 0; min-height: 0; font-size: 15px; }
+    .meat__temp { left: 18px; bottom: 14px; }
+    .meat__temp strong { font-size: 46px; }
+    .meat__temp span { font-size: 11px; }
+    .meat__pill { top: 14px; right: 14px; }
+    .slider__knob { width: 30px; height: 30px; margin: -15px 0 0 -15px; }
+    .slider { padding: 20px 0; }
+    /* experiência: mosaico em vez de três blocos altos */
+    .exp { padding: 10px 0 90px; }
+    .exp__grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+    .exp__a { grid-column: 1 !important; grid-row: 1 / 3; aspect-ratio: auto; align-self: stretch; }
+    .exp__b, .exp__c { grid-column: 2 !important; aspect-ratio: 1; }
+    .exp__quote { grid-column: 1 / -1 !important; padding: 26px 0 0; }
+    .ph { border-radius: 16px; }
   }
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
@@ -352,7 +381,8 @@
   <div class="wrap doneness__grid">
     <div class="meat" id="meat" data-r>
       <div class="meat__zoom" id="meatLayers">
-        <img id="meatImg" alt="Picanha fatiada mostrando o miolo da carne" />
+        <canvas id="meatGL" role="img" aria-label="Picanha fatiada mostrando o miolo da carne no ponto escolhido"></canvas>
+        <img id="meatImg" alt="Picanha fatiada mostrando o miolo da carne" hidden />
       </div>
       <span class="meat__pill"><i></i><span id="pill">Ao ponto</span></span>
       <div class="meat__temp"><strong id="temp">60°</strong><span>temperatura interna</span></div>
@@ -368,7 +398,7 @@
         <span class="slider__knob" id="knob"></span>
       </div>
       <div class="slider__ticks" id="ticks">
-        <button data-i="0">Mal</button><button data-i="1">Ao ponto p/ mal</button><button data-i="2">Ao ponto</button><button data-i="3">Ao ponto p/ bem</button><button data-i="4">Bem</button>
+        <button data-i="0">Mal</button><button data-i="1"><span class="lg">Ao ponto p/ mal</span><span class="sh">P/ mal</span></button><button data-i="2">Ao ponto</button><button data-i="3"><span class="lg">Ao ponto p/ bem</span><span class="sh">P/ bem</span></button><button data-i="4">Bem</button>
       </div>
     </div>
   </div>
@@ -676,68 +706,172 @@
     requestAnimationFrame(tick);
   }
 
-  /* PONTO DA CARNE — foto real com o miolo recolorido para cada ponto */
+  /* PONTO DA CARNE — picanha renderizada em WebGL, cozinhando conforme o controle */
+  /* Picanha fatiada renderizada em WebGL; u_d vai de 0 (mal) a 4 (bem) */
+  function carneGL(canvas) {
+    const gl = canvas.getContext("webgl", { antialias: true, premultipliedAlpha: false }) || canvas.getContext("experimental-webgl");
+    if (!gl) return null;
+    const vs = "attribute vec2 p;void main(){gl_Position=vec4(p,0.,1.);}";
+    const fs = `
+  precision highp float;
+  
+  uniform vec2 R; uniform float D;
+  float h21(vec2 p){p=fract(p*vec2(123.34,456.21));p+=dot(p,p+45.32);return fract(p.x*p.y);}
+  float nz(vec2 p){vec2 i=floor(p),f=fract(p);f=f*f*(3.-2.*f);
+   return mix(mix(h21(i),h21(i+vec2(1,0)),f.x),mix(h21(i+vec2(0,1)),h21(i+vec2(1,1)),f.x),f.y);}
+  float fbm(vec2 p){float t=0.,a=.5;for(int i=0;i<5;i++){t+=a*nz(p);p=p*2.03+vec2(17.1,9.7);a*=.5;}return t/.97;}
+  #define hx(r,g,b) (vec3(float(r),float(g),float(b))/255.)
+  // tabela de pontos
+  float tab(float a0,float a1,float a2,float a3,float a4){float d=clamp(D,0.,4.);
+   return d<1.?mix(a0,a1,d):d<2.?mix(a1,a2,d-1.):d<3.?mix(a2,a3,d-2.):mix(a3,a4,d-3.);}
+  vec3 tab3(vec3 a0,vec3 a1,vec3 a2,vec3 a3,vec3 a4){float d=clamp(D,0.,4.);
+   return d<1.?mix(a0,a1,d):d<2.?mix(a1,a2,d-1.):d<3.?mix(a2,a3,d-2.):mix(a3,a4,d-3.);}
+  // fatia: centro c, raios ab, rotação r ; retorna q (<1 dentro) e coords locais uv
+  float forma(vec2 p,vec2 c,vec2 ab,float r,float sd,out vec2 uv){
+   vec2 d=p-c; float cs=cos(r),sn=sin(r); uv=vec2(d.x*cs+d.y*sn,-d.x*sn+d.y*cs)/ab;
+   float an=atan(uv.y,uv.x);
+   float bd=1.+(nz(vec2(cos(an),sin(an))*2.3+sd)-.5)*.10+(fbm(vec2(an*6.,sd))-.5)*.015;
+   bd*=1.+.13*uv.y; // topo (gordura) um pouco mais largo
+   return pow(pow(abs(uv.x),2.7)+pow(abs(uv.y),2.2),1./2.45)/bd;}
+  vec2 C[3]; vec2 AB[3]; float RO[3]; float HH[3];
+  void main(){
+   vec2 p=(gl_FragCoord.xy-.5*R)/R.y*.95*max(1.,1.25/(R.x/R.y))+vec2(0.,.03);
+   C[0]=vec2(-.25,.17);AB[0]=vec2(.25,.185);RO[0]=.20;HH[0]=.035;
+   C[1]=vec2(-.04,.06);AB[1]=vec2(.27,.195);RO[1]=.09;HH[1]=.04;
+   C[2]=vec2(.17,-.07);AB[2]=vec2(.30,.215);RO[2]=-.04;HH[2]=.045;
+   vec3 L=normalize(vec3(-.55,.65,.75));
+   // ----- tábua (ardósia) -----
+   vec2 bp=p*vec2(1.,1.);
+   float st=fbm(bp*vec2(2.2,9.)+3.)*.6+fbm(bp*28.)*.25+nz(bp*260.)*.15;
+   vec3 col=mix(hx(20,19,19),hx(44,41,39),st);
+   col*=1.15-length(p*vec2(.85,1.05))*1.05;
+   col+=hx(255,95,31)*.06*(1.-smoothstep(0.,.9,length(p-vec2(.75,-.55))));
+   // sombra das fatias
+   float sh=0.; for(int k=0;k<3;k++){vec2 uv;float q=forma(p-vec2(-.012,-HH[k]-.03),C[k],AB[k],RO[k],float(k)*7.,uv);
+     sh=max(sh,1.-smoothstep(.82,1.45,q)); q=forma(p-vec2(0.,-HH[k]-.004),C[k],AB[k]*1.01,RO[k],float(k)*7.,uv); sh=max(sh,(1.-smoothstep(.95,1.06,q))*1.1);}
+   col*=1.-.8*clamp(sh,0.,1.);
+   // caldo no pé da fatia da frente
+   {vec2 uv; float q=forma(p,vec2(.2,-.26),vec2(.33,.075),-.04,31.,uv);
+    q+=(fbm(p*vec2(9.,16.)+4.)-.5)*.5;
+    float j=(1.-smoothstep(.75,.95,q))*tab(.9,.7,.42,.16,0.);
+    vec3 jc=hx(58,6,10)*(.75+.5*fbm(p*10.));
+    col=mix(col,jc,j*.8);
+    col+=j*smoothstep(.62,.9,fbm(p*vec2(5.,30.)+2.))*.12;
+    col+=j*smoothstep(.7,.95,q)*hx(120,30,30)*.25;}
+   // ----- fatias (trás para frente) -----
+   for(int k=0;k<3;k++){
+    vec2 uv; float sd=float(k)*7.;
+    float q=forma(p,C[k],AB[k],RO[k],sd,uv);
+    float fatl=1.-(.30+(nz(vec2(uv.x*3.,sd))-.5)*.10+.05*uv.x);
+    if(q<1.){
+     if(uv.y>fatl){ // capa de gordura
+      float g=(uv.y-fatl)/(1.-fatl+.001); float e=smoothstep(.0,.25,1.-q);
+      vec3 fc=mix(hx(250,243,230),hx(238,220,182),fbm(uv*vec2(4.,10.)+sd));
+      fc=mix(fc,hx(214,170,150),(1.-smoothstep(0.,.25,g))*.35); // perto da carne, rosado
+      vec3 crisp=mix(hx(92,40,14),hx(196,118,48),fbm(uv*vec2(20.,40.)+sd));
+      float ed=smoothstep(.0,.055+.04*nz(uv*12.+sd),1.-q);
+      fc=mix(crisp,fc,ed);
+      fc=mix(fc,hx(222,168,96),(1.-smoothstep(.0,.22,1.-q))*ed*.5);
+      fc*=.88+.14*(1.-q)+.05*(nz(uv*120.)-.5);
+      float fs=pow(max(0.,fbm(uv*vec2(6.,16.)+sd+2.)-.5)*2.,4.);
+      fc+=fs*.45;
+      col=fc*(.84+.08*float(k));
+     } else { // miolo
+      float d=clamp(min((1.-q)/.55,(fatl-uv.y)/.7+.08),0.,1.);
+      float bw=tab(.03,.08,.17,.36,1.4);
+      vec3 core=tab3(hx(150,22,38),hx(184,42,54),hx(214,112,112),hx(200,148,134),hx(150,112,94));
+      vec3 ring=tab3(hx(196,64,70),hx(200,80,80),hx(200,98,92),hx(176,122,106),hx(142,106,88));
+      vec3 gray=hx(122,84,68);
+      vec3 m=mix(ring,core,smoothstep(.15,.85,d));
+      m=mix(gray,m,smoothstep(bw*.45,bw*1.2+.07,d-.04));
+      // crosta fina na borda do corte
+      float de=clamp((1.-q)/.55,0.,1.);
+      float cr=1.-smoothstep(.0,.035+.025*nz(uv*18.+sd),de);
+      m=mix(m,mix(hx(40,18,9),hx(96,46,20),fbm(uv*25.+sd)),cr);
+      // fibras e grão
+      vec2 fu=vec2(uv.x*3.+uv.y*1.4,uv.y*60.+fbm(uv*3.+sd)*2.5);
+      float fib=fbm(fu+sd), gr=nz(uv*vec2(160.,300.)+sd);
+      m*=.9+.13*fib+.06*(gr-.5);
+      // marmoreio discreto
+      float mb=fbm(uv*vec2(6.,8.)+sd*1.3);
+      float fl=smoothstep(.7,.78,mb)*.3*smoothstep(.55,.75,nz(uv*30.+sd))+(1.-smoothstep(0.,.008,abs(fbm(uv*2.1+sd+4.)-.5)))*.3;
+      m=mix(m,mix(hx(236,214,200),m,.35),fl*(1.-cr));
+      // umidade: normal pelas fibras
+      float e=.004; float h0=fbm(fu+sd);
+      vec3 n=normalize(vec3(-(fbm(fu+vec2(e*400.,0.)+sd)-h0)*.9,-(fbm(fu+vec2(0.,e*400.)+sd)-h0)*.9,1.));
+      float dif=.78+.32*max(dot(n,L),0.);
+      float spec=pow(max(dot(reflect(-L,n),vec3(0,0,1)),0.),60.)*tab(.38,.3,.2,.12,.05)+smoothstep(.82,.9,nz(uv*vec2(70.,140.)+sd))*tab(.22,.18,.1,.05,.02);
+      m=m*dif*(.92+.12*(1.-q))+spec*(1.-cr);
+      m*=1.-.18*smoothstep(.75,1.,q); // oclusão na borda
+      m*=.9+.2*fbm(uv*1.7+sd+11.);
+      m*=1.+.1*(-uv.x*.6+uv.y*.4);
+      col=m*(.82+.09*float(k));
+     }
+    } else {
+     // lateral selada (extrusão para baixo)
+     float hit=-1.; vec2 uv2;
+     for(int s=1;s<=10;s++){float o=HH[k]*float(s)/10.; vec2 u; float q2=forma(p+vec2(0.,o),C[k],AB[k],RO[k],sd,u);
+       if(q2<1.&&hit<0.){hit=float(s)/10.;uv2=u;}}
+     if(hit>0.){
+      float fat2=1.-(.30+(nz(vec2(uv2.x*3.,sd))-.5)*.10+.05*uv2.x);
+      vec2 sp=vec2(uv2.x*AB[k].x,p.y);
+      float b=fbm(sp*vec2(40.,55.)+sd), c2=fbm(sp*vec2(9.,14.)+sd+3.);
+      vec3 sc=mix(hx(26,11,6),hx(92,42,17),pow(b,1.6)*1.3);
+      sc=mix(sc,hx(10,5,3),smoothstep(.58,.72,c2)*.85);
+      if(uv2.y>fat2) sc=mix(hx(110,52,18),hx(200,132,60),b);
+      float sh2=.55+.45*(1.-hit); sh2*=.75+.35*(1.-pow(abs(uv2.x),3.));
+      sc*=sh2;
+      sc+=pow(max(0.,b-.5)*2.,5.)*.5*(1.-hit*.6);
+      // sal grosso na crosta
+      vec2 g=sp*70.; float r=h21(floor(g)+sd); if(r>.975&&length(fract(g)-.5)<.2) sc=mix(sc,hx(228,222,214),.8);
+      col=sc*(.84+.08*float(k));
+     }
+    }
+   }
+   // vinheta, tom e granulação
+   col*=1.-.35*smoothstep(.45,1.05,length(p*vec2(.9,1.1)));
+   col=pow(col,vec3(.95));
+   col+=(h21(gl_FragCoord.xy)-.5)*.025;
+   gl_FragColor=vec4(col,1.);
+  }`;
+    const sh = (t, s) => { const o = gl.createShader(t); gl.shaderSource(o, s); gl.compileShader(o); if (!gl.getShaderParameter(o, gl.COMPILE_STATUS)) throw new Error(gl.getShaderInfoLog(o)); return o; };
+    const pr = gl.createProgram(); gl.attachShader(pr, sh(gl.VERTEX_SHADER, vs)); gl.attachShader(pr, sh(gl.FRAGMENT_SHADER, fs)); gl.linkProgram(pr);
+    if (!gl.getProgramParameter(pr, gl.LINK_STATUS)) throw new Error(gl.getProgramInfoLog(pr));
+    gl.useProgram(pr);
+    const b = gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER, b); gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 3, -1, -1, 3]), gl.STATIC_DRAW);
+    const lp = gl.getAttribLocation(pr, "p"); gl.enableVertexAttribArray(lp); gl.vertexAttribPointer(lp, 2, gl.FLOAT, false, 0, 0);
+    const uR = gl.getUniformLocation(pr, "R"), uD = gl.getUniformLocation(pr, "D");
+    let ult = 2;
+    const desenha = (d = ult) => {
+      ult = d;
+      const dpr = Math.min(window.devicePixelRatio || 1, 2), w = Math.round(canvas.clientWidth * dpr), h = Math.round(canvas.clientHeight * dpr);
+      if (canvas.width !== w || canvas.height !== h) { canvas.width = w; canvas.height = h; }
+      gl.viewport(0, 0, w, h); gl.uniform2f(uR, w, h); gl.uniform1f(uD, d); gl.drawArrays(gl.TRIANGLES, 0, 3);
+    };
+    return desenha;
+  }
   const PONTOS = [
-    { n: "Mal passado", c: "#a0182f", d: "Centro vermelho e frio. Máxima suculência — para quem quer o sabor puro da carne.", f: { h: -4, s: 1.18, l: .8 } },
-    { n: "Ao ponto para mal", c: "#c9454a", d: "Centro vermelho e morno. O favorito dos nossos assadores para cortes marmorizados.", f: { h: 0, s: 1, l: 1 } },
-    { n: "Ao ponto", c: "#d2817a", d: "Centro rosado e quente. O equilíbrio perfeito entre maciez e sabor tostado.", f: { h: 7, s: .78, l: 1.07 } },
-    { n: "Ao ponto para bem", c: "#a77965", d: "Leve rosado no centro. Mais firme, ainda suculento.", f: { h: 16, s: .48, l: 1.02 } },
-    { n: "Bem passado", c: "#6b4a3a", d: "Totalmente cozido, sem rosado. Recomendamos cortes com mais gordura, como a costela.", f: { h: 24, s: .26, l: .8 } },
+    { n: "Mal passado", c: "#a0182f", d: "Centro vermelho e frio. Máxima suculência — para quem quer o sabor puro da carne." },
+    { n: "Ao ponto para mal", c: "#c9454a", d: "Centro vermelho e morno. O favorito dos nossos assadores para cortes marmorizados." },
+    { n: "Ao ponto", c: "#d2817a", d: "Centro rosado e quente. O equilíbrio perfeito entre maciez e sabor tostado." },
+    { n: "Ao ponto para bem", c: "#a77965", d: "Leve rosado no centro. Mais firme, ainda suculento." },
+    { n: "Bem passado", c: "#6b4a3a", d: "Totalmente cozido, sem rosado. Recomendamos cortes com mais gordura, como a costela." },
   ];
   const FOTO = "https://images.unsplash.com/photo-1558030006-450675393462?w=1400&q=80&auto=format&fit=crop";
-  const meat = $("#meat"), layers = $("#meatLayers"), meatImg = $("#meatImg");
+  const meat = $("#meat"), meatImg = $("#meatImg"), meatGL = $("#meatGL");
   const range = $("#range"), knob = $("#knob"), tempEl = $("#temp"), dName = $("#dName"), dDesc = $("#dDesc"), pill = $("#pill");
   const ticks = $$("#ticks button");
-  let canvases = null, modoCss = false, v = 2, idx = -1, snapAnim;
-
-  const smooth = (a, b, x) => { const t = clamp((x - a) / (b - a), 0, 1); return t * t * (3 - 2 * t); };
-  function hsl2rgb(h, s, l) {
-    h = ((h % 360) + 360) % 360 / 360;
-    if (!s) return [l, l, l];
-    const q = l < .5 ? l * (1 + s) : l + s - l * s, p = 2 * l - q;
-    const f = (t) => { t = (t + 1) % 1; return t < 1 / 6 ? p + (q - p) * 6 * t : t < .5 ? q : t < 2 / 3 ? p + (q - p) * (2 / 3 - t) * 6 : p; };
-    return [f(h + 1 / 3), f(h), f(h - 1 / 3)];
-  }
-  function recolore(img) {
-    const larg = Math.min(1100, img.naturalWidth), alt = Math.round(img.naturalHeight * larg / img.naturalWidth);
-    const base = document.createElement("canvas"); base.width = larg; base.height = alt;
-    const bctx = base.getContext("2d", { willReadFrequently: true });
-    bctx.drawImage(img, 0, 0, larg, alt);
-    const src = bctx.getImageData(0, 0, larg, alt).data; // lança erro se a imagem bloquear leitura
-    const n = larg * alt, H = new Float32Array(n), S = new Float32Array(n), L = new Float32Array(n), M = new Float32Array(n);
-    for (let i = 0, j = 0; i < n; i++, j += 4) {
-      const r = src[j] / 255, g = src[j + 1] / 255, b = src[j + 2] / 255;
-      const mx = Math.max(r, g, b), mn = Math.min(r, g, b), d = mx - mn, l = (mx + mn) / 2;
-      let h = 0, s = 0;
-      if (d) {
-        s = d / (1 - Math.abs(2 * l - 1));
-        h = mx === r ? ((g - b) / d) % 6 : mx === g ? (b - r) / d + 2 : (r - g) / d + 4;
-        h *= 60; if (h > 180) h -= 360;
-      }
-      // só o miolo rosado/vermelho: crosta marrom, gordura e fundo ficam como estão
-      const hw = h >= 0 ? 1 - smooth(11, 22, h) : 1 - smooth(28, 48, -h);
-      M[i] = hw * smooth(.22, .42, s) * smooth(.16, .3, l) * (1 - smooth(.86, .96, l));
-      H[i] = h; S[i] = s; L[i] = l;
-    }
-    return PONTOS.map((p) => {
-      const c = document.createElement("canvas"); c.width = larg; c.height = alt;
-      const cctx = c.getContext("2d"), out = cctx.createImageData(larg, alt), o = out.data;
-      for (let i = 0, j = 0; i < n; i++, j += 4) {
-        const m = M[i];
-        if (m < .01) { o[j] = src[j]; o[j + 1] = src[j + 1]; o[j + 2] = src[j + 2]; o[j + 3] = 255; continue; }
-        const [r, g, b] = hsl2rgb(H[i] + p.f.h * m, clamp(S[i] * (1 + (p.f.s - 1) * m), 0, 1), clamp(L[i] * (1 + (p.f.l - 1) * m), 0, 1));
-        o[j] = r * 255; o[j + 1] = g * 255; o[j + 2] = b * 255; o[j + 3] = 255;
-      }
-      cctx.putImageData(out, 0, 0);
-      layers.append(c);
-      return c;
-    });
-  }
+  let render = null, v = 2, idx = -1, snapAnim, quadro = 0;
+  try { render = carneGL(meatGL); } catch (err) { render = null; }
+  if (!render) { meat.classList.add("sem-gl"); meatImg.hidden = false; meatImg.src = FOTO; }
+  const pinta = () => { if (render && !quadro) quadro = requestAnimationFrame(() => { quadro = 0; render(v); }); };
+  addEventListener("resize", pinta);
+  new IntersectionObserver((es) => { if (es[0].isIntersecting) pinta(); }, { rootMargin: "400px" }).observe(meat);
   function desenha() {
     knob.style.left = `${(v / 4) * 100}%`;
     tempEl.textContent = Math.round(50 + v * 5) + "°";
-    if (canvases) canvases.forEach((c, i) => c.style.opacity = clamp(1 - Math.abs(v - i), 0, 1));
-    else if (modoCss) meatImg.style.filter = `saturate(${1.15 - v * .2}) hue-rotate(${v * 4}deg) sepia(${v * .1}) brightness(${1 - v * .04})`;
+    if (render) pinta();
+    else meatImg.style.filter = `saturate(${1.15 - v * .2}) hue-rotate(${v * 4}deg) sepia(${v * .1}) brightness(${1 - v * .04})`;
     const i = Math.round(v);
     if (i !== idx) {
       const p = PONTOS[i], desce = i > idx;
@@ -765,13 +899,6 @@
   ticks.forEach((b) => b.onclick = () => vaiPara(+b.dataset.i));
   desenha();
 
-  meatImg.crossOrigin = "anonymous";
-  meatImg.onload = () => {
-    const ok = () => { try { canvases = recolore(meatImg); meatImg.style.visibility = "hidden"; } catch (err) { modoCss = true; } desenha(); };
-    (window.requestIdleCallback || setTimeout)(ok);
-  };
-  // carrega a foto só quando a seção estiver chegando
-  new IntersectionObserver((es, o) => { if (es[0].isIntersecting) { meatImg.src = FOTO; o.disconnect(); } }, { rootMargin: "800px" }).observe(meat);
 
   // inclinação 3D leve da foto seguindo o mouse
   if (fino && !reduz) {
