@@ -31,13 +31,15 @@ window.ESTUDIO = {
      descricao  -> uma ou duas frases sobre o modelo
      tags       -> destaques curtos (opcional)
      cor        -> cor de destaque do card (opcional)
-     novo       -> true para exibir o selo "Novo" (opcional)
+     revisado   -> true quando você já fez suas alterações (bolinha verde);
+                   sem o campo, aparece a bolinha vermelha (falta mexer)
    -------------------------------------------------------------------------- */
 
 window.MODELOS = [
   {
     pasta: "aura-arquitetura",
     titulo: "AURA — Arquitetura & Interiores",
+    revisado: true,
     segmento: "Arquitetura",
     descricao: "Visual editorial e sofisticado para escritórios de arquitetura e design de interiores de alto padrão.",
     tags: ["Portfólio", "Galeria de projetos", "Alto padrão"],
@@ -46,6 +48,7 @@ window.MODELOS = [
   {
     pasta: "odontoral-prime",
     titulo: "Odontoral Prime — Clínica Odontológica",
+    revisado: true,
     segmento: "Saúde",
     descricao: "Clínica de implantes e estética dental com antes e depois, simulador de tons e tratamentos em destaque.",
     tags: ["Antes e depois", "Interativo", "Agendamento"],
@@ -54,6 +57,7 @@ window.MODELOS = [
   {
     pasta: "sbc-dev",
     titulo: "SBC Dev — Software Sob Medida",
+    revisado: true,
     segmento: "Tecnologia",
     descricao: "Página moderna para empresa de desenvolvimento: serviços, stack, portfólio e contato.",
     tags: ["Tech", "Serviços B2B", "Dark mode"],
@@ -62,6 +66,7 @@ window.MODELOS = [
   {
     pasta: "seguranca-digital",
     titulo: "Segurança Digital",
+    revisado: true,
     segmento: "Informativo",
     descricao: "Página de campanha educativa com passo a passo, teste de força de senha e checklist interativo.",
     tags: ["Campanha", "Interativo", "Conteúdo"],
@@ -70,11 +75,11 @@ window.MODELOS = [
   {
     pasta: "brasa-parrilla",
     titulo: "Brasa — Parrilla & Fogo de Chão",
+    revisado: true,
     segmento: "Gastronomia",
     descricao: "Restaurante com brasas animadas, cortes em rolagem horizontal, seletor do ponto da carne, cardápio e reserva de mesa.",
     tags: ["Reservas", "Cardápio", "Interativo"],
     cor: "#ff6a1a",
-    novo: true,
   },
   {
     pasta: "vasconcelos-advocacia",
@@ -83,16 +88,15 @@ window.MODELOS = [
     descricao: "Escritório de advocacia editorial e sóbrio, com áreas de atuação, sócios e avaliação do caso em 3 perguntas.",
     tags: ["Diagnóstico", "Credibilidade", "Captação"],
     cor: "#b08d57",
-    novo: true,
   },
   {
     pasta: "pulso-academia",
     titulo: "PULSO — Performance Training",
+    revisado: true,
     segmento: "Fitness",
     descricao: "Academia com visual intenso, modalidades em painéis, grade de horários, calculadora de IMC e planos.",
     tags: ["Calculadora", "Planos", "Aula grátis"],
     cor: "#ff3d2e",
-    novo: true,
   },
   {
     pasta: "horizonte-imoveis",
@@ -101,7 +105,6 @@ window.MODELOS = [
     descricao: "Imobiliária de alto padrão com busca que filtra imóveis, favoritos, galeria e simulador de financiamento.",
     tags: ["Busca", "Simulador", "Favoritos"],
     cor: "#2d6b5d",
-    novo: true,
   },
   {
     pasta: "lumiere-estetica",
@@ -110,7 +113,6 @@ window.MODELOS = [
     descricao: "Clínica de estética delicada, com tratamentos por categoria, ritual contado no scroll e quiz de protocolo.",
     tags: ["Quiz", "Pacotes", "Agendamento"],
     cor: "#c48b7c",
-    novo: true,
   },
   {
     pasta: "patavet-veterinaria",
@@ -119,7 +121,6 @@ window.MODELOS = [
     descricao: "Clínica veterinária acolhedora com plantão 24h, calculadora de idade do pet, calendário de vacinas e planos.",
     tags: ["24 horas", "Calculadora", "Planos pet"],
     cor: "#14837a",
-    novo: true,
   },
   {
     pasta: "forte-materiais",
@@ -128,7 +129,6 @@ window.MODELOS = [
     descricao: "Depósito de materiais com calculadora de blocos, cimento e tinta, orçamento com total ao vivo, ofertas e consulta de entrega por CEP.",
     tags: ["Calculadora", "Orçamento", "Entrega"],
     cor: "#ffcc00",
-    novo: true,
   },
   {
     pasta: "rua77-streetwear",
@@ -137,7 +137,6 @@ window.MODELOS = [
     descricao: "Loja de roupas de rua com contagem para o próximo drop, sacola lateral, escolha de tamanho, lookbook arrastável e guia de medidas.",
     tags: ["Loja", "Drop", "Sacola"],
     cor: "#5b72ff",
-    novo: true,
   },
   {
     pasta: "quintal-da-vo",
@@ -146,7 +145,6 @@ window.MODELOS = [
     descricao: "Restaurante independente com prato do dia automático, montador de marmita com bandeja ilustrada, delivery e status de aberto/fechado.",
     tags: ["Delivery", "Marmita", "Prato do dia"],
     cor: "#d9452b",
-    novo: true,
   },
   {
     pasta: "navalha-barbearia",
@@ -155,7 +153,6 @@ window.MODELOS = [
     descricao: "Barbearia clássica com poste animado, tabela de serviços, agendamento completo com horários ocupados e clube de assinatura.",
     tags: ["Agendamento", "Assinatura", "Vintage"],
     cor: "#c9a45c",
-    novo: true,
   },
   {
     pasta: "torque-autocenter",
@@ -164,7 +161,6 @@ window.MODELOS = [
     descricao: "Oficina mecânica com conta-giros animado, revisão por quilometragem, acompanhamento do carro pela placa e agendamento com leva e traz.",
     tags: ["Revisão por km", "Rastreio", "Agendamento"],
     cor: "#00c2ff",
-    novo: true,
   },
   {
     pasta: "flora-viva",
@@ -173,25 +169,24 @@ window.MODELOS = [
     descricao: "Orquidário e floricultura com pétalas caindo, montador de buquê com desenho ao vivo, guia de cuidados de orquídeas e entrega no dia.",
     tags: ["Monte seu buquê", "Loja", "Guia"],
     cor: "#8e4b8f",
-    novo: true,
   },
   {
     pasta: "atelier-traco",
     titulo: "Atelier Traço — Arquitetura e Interiores",
+    revisado: true,
     segmento: "Arquitetura",
     descricao: "Escritório de arquitetura em que a rolagem monta a casa da foto: da estrutura crua aos acabamentos e móveis reais. Portfólio filtrável, processo e calculadora de honorários.",
     tags: ["Portfólio", "Calculadora", "Blueprint"],
     cor: "#c24b2c",
-    novo: true,
   },
   {
     pasta: "vitalis-clinica",
     titulo: "Vitalis — Clínica Médica",
+    revisado: true,
     segmento: "Saúde",
     descricao: "Clínica com escultura 3D de partículas: corpo humano no topo e formas coloridas para cada especialidade, corpo clínico interativo, verificador de convênio, check-ups e telemedicina.",
     tags: ["3D interativo", "Especialidades", "Telemedicina"],
     cor: "#0e8f7e",
-    novo: true,
   },
   {
     pasta: "fluxo-saas",
@@ -200,16 +195,15 @@ window.MODELOS = [
     descricao: "SaaS com dashboard ao vivo que se inclina no scroll, abas de recursos automáticas, calculadora de ROI e preços mensal/anual.",
     tags: ["SaaS", "Dashboard", "ROI"],
     cor: "#6b4dff",
-    novo: true,
   },
   {
     pasta: "lingo-idiomas",
     titulo: "Lingo — Escola de Idiomas",
+    revisado: true,
     segmento: "Educação",
     descricao: "Escola de idiomas com efeito de digitação, teste de nivelamento que indica o nível CEFR, cursos por idioma e matrícula pelo WhatsApp.",
     tags: ["Teste de nível", "Cursos", "Matrícula"],
     cor: "#ff6b3d",
-    novo: true,
   },
   {
     pasta: "martins-previdenciario",
@@ -218,7 +212,6 @@ window.MODELOS = [
     descricao: "Advocacia previdenciária com simulador de aposentadoria pelas regras de idade e pontos, valor estimado do benefício e áreas de atuação.",
     tags: ["Simulador", "INSS", "Consulta"],
     cor: "#1f4e79",
-    novo: true,
   },
   {
     pasta: "respira-pilates",
@@ -227,7 +220,6 @@ window.MODELOS = [
     descricao: "Studio de pilates com respiração guiada 4-7-8 animada, grade semanal filtrável, reserva de aula e planos.",
     tags: ["Respiração guiada", "Grade de aulas", "Planos"],
     cor: "#7f9c86",
-    novo: true,
   },
   {
     pasta: "aurora-lancamento",
@@ -236,7 +228,6 @@ window.MODELOS = [
     descricao: "Lançamento na planta com contagem regressiva, prédio interativo com disponibilidade por unidade, plantas e simulador de pagamento.",
     tags: ["Espelho de vendas", "Plantas", "Simulador"],
     cor: "#e8916b",
-    novo: true,
   },
   {
     pasta: "studio-mecha",
@@ -245,7 +236,6 @@ window.MODELOS = [
     descricao: "Salão especializado em cor com simulador de mechas, balayage e ombré, tabela por comprimento, equipe e agendamento.",
     tags: ["Simulador de cor", "Agendamento", "Equipe"],
     cor: "#ff2e88",
-    novo: true,
   },
   {
     pasta: "bicho-feliz",
@@ -254,7 +244,6 @@ window.MODELOS = [
     descricao: "Hotelzinho pet com pet cam, calculadora de hospedagem por porte e período, rotina do dia ao vivo e checklist de check-in.",
     tags: ["Hospedagem", "Pet cam", "Creche"],
     cor: "#ffb703",
-    novo: true,
   },
   {
     pasta: "prumo-reformas",
@@ -263,7 +252,6 @@ window.MODELOS = [
     descricao: "Empresa de reformas com antes e depois arrastável, orçamento por cômodo com prazo estimado, portfólio e acompanhamento da obra.",
     tags: ["Antes e depois", "Orçamento", "Obra"],
     cor: "#ff5a1f",
-    novo: true,
   },
   {
     pasta: "maison-odete",
@@ -272,7 +260,6 @@ window.MODELOS = [
     descricao: "Boutique editorial com coleção filtrável e favoritos, monte seu look com desconto no conjunto e agendamento com personal stylist.",
     tags: ["Monte seu look", "Coleção", "Stylist"],
     cor: "#7a2e2e",
-    novo: true,
   },
   {
     pasta: "fade-club",
@@ -281,7 +268,6 @@ window.MODELOS = [
     descricao: "Barbearia urbana com fila ao vivo, consultoria de corte por formato de rosto, agenda por barbeiro e clube de assinatura.",
     tags: ["Fila ao vivo", "Formato do rosto", "Assinatura"],
     cor: "#e6ff3d",
-    novo: true,
   },
   {
     pasta: "brilho-detail",
@@ -290,7 +276,6 @@ window.MODELOS = [
     descricao: "Estética automotiva com hero para lavar raspando a sujeira, montador de pacote por porte do carro e comparativo de vitrificação.",
     tags: ["Monte seu pacote", "Vitrificação", "Interativo"],
     cor: "#3ad1ff",
-    novo: true,
   },
   {
     pasta: "folha-clube",
@@ -299,16 +284,15 @@ window.MODELOS = [
     descricao: "Clube de assinatura de plantas com quiz de planta ideal, catálogo com nível de luz e rega, planos mensal, bimestral e anual.",
     tags: ["Quiz", "Assinatura", "Pet friendly"],
     cor: "#2f5a3f",
-    novo: true,
   },
   {
     pasta: "creass-reumatologia",
     titulo: "Creass — Reumatologia e Especialidades",
+    revisado: true,
     segmento: "Saúde",
     descricao: "Clínica de reumatologia em Mogi das Cruzes: doenças tratadas, especialidades médicas e agendamento pelo WhatsApp.",
     tags: ["Clínica médica", "Agendamento", "Cliente real"],
     cor: "#b7856b",
-    novo: true,
   },
   {
     pasta: "juliano-advocacia",
@@ -317,7 +301,6 @@ window.MODELOS = [
     descricao: "Advogado de direito médico, da saúde e do consumidor: plano de saúde, erro médico, medicamentos pelo SUS e cobranças indevidas.",
     tags: ["Direito da saúde", "Atendimento online", "Cliente real"],
     cor: "#0b1527",
-    novo: true,
   },
   {
     pasta: "infog-bastiao",
@@ -326,7 +309,6 @@ window.MODELOS = [
     descricao: "Software house com DNA de segurança: sistemas e aplicativos, manutenção com SLA, servidores e firewall com monitoramento 24/7.",
     tags: ["Segurança", "Infraestrutura", "Dark mode"],
     cor: "#3b82f6",
-    novo: true,
   },
   {
     pasta: "infog-vetor",
@@ -335,23 +317,22 @@ window.MODELOS = [
     descricao: "Squads dedicados para desenvolvimento sob medida, sustentação de sistemas, servidores, firewall e aplicativos.",
     tags: ["Squads", "Sob medida", "Apps"],
     cor: "#8b5cf6",
-    novo: true,
   },  {
     pasta: "plancar",
     titulo: "PlanCar — Agendamento para Lava-Rápidos",
+    revisado: true,
     segmento: "Automotivo",
     descricao: "Sistema de agendamento online para lava-rápidos: agenda, fila do dia, equipe, pagamento antecipado com Pix e cartão e relatórios.",
     tags: ["SaaS", "Agendamento", "Cliente real"],
     cor: "#2563eb",
-    novo: true,
   },
   {
     pasta: "demao-tintas",
     titulo: "Demão — Tintas & Cores",
-    segmento: "Construção",
+    revisado: true,
+    segmento: "Tintas",
     descricao: "Loja de tintas com lata 3D que abre e leva para dentro da tinta, simulador de cor em sala real, galeria de ambientes, processo em rolagem horizontal e calculadora de litros.",
     tags: ["3D", "Simulador de cor", "Calculadora"],
     cor: "#b5643c",
-    novo: true,
   },
 ];

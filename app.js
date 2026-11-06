@@ -93,7 +93,7 @@
         <div class="card__body">
           <div class="card__top">
             <span class="card__seg">${esc(m.segmento || "Modelo")}</span>
-            ${m.novo ? `<span class="badge">Novo</span>` : ""}
+            <span class="status ${m.revisado ? "status--ok" : "status--todo"}" title="${m.revisado ? "Já revisado" : "Falta revisar"}" aria-label="${m.revisado ? "Já revisado" : "Falta revisar"}"></span>
           </div>
           <h3>${esc(m.titulo)}</h3>
           ${m.descricao ? `<p>${esc(m.descricao)}</p>` : ""}
