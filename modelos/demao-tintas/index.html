@@ -47,7 +47,7 @@
   .rv.in { opacity: 1; transform: none; }
 
   /* ---------- progresso: tinta escorrendo no topo ---------- */
-  .drip { position: fixed; top: 0; left: 0; right: 0; height: 40px; z-index: 120; pointer-events: none; }
+  .drip { position: fixed; top: 0; left: 0; right: 0; height: 3px; z-index: 120; pointer-events: none; }
   .drip svg { width: 100%; height: 100%; overflow: visible; }
   .drip path { fill: var(--accent); transition: fill .6s; }
 
@@ -83,7 +83,10 @@
   .menu-btn span { width: 16px; height: 1.5px; background: currentColor; box-shadow: 0 5px currentColor, 0 -5px currentColor; }
 
   /* ---------- abertura: a lata ---------- */
-  .intro { position: relative; height: 300vh; height: 300svh; }
+  .intro { position: relative; height: 380vh; height: 380svh; }
+  html.lenis, html.lenis body { height: auto; }
+  .lenis.lenis-smooth { scroll-behavior: auto !important; }
+  .lenis.lenis-stopped { overflow: hidden; }
   .stage { position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden; background: radial-gradient(120% 90% at 68% 40%, #fbf8f3 0%, #efe9e0 48%, #ddd4c7 100%); }
   .stage::after { content: ""; position: absolute; inset: 0; pointer-events: none; opacity: .3; mix-blend-mode: multiply; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .08 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
   #can { position: absolute; inset: 0; width: 100%; height: 100%; }
@@ -120,8 +123,8 @@
   .dentro-band h2 { font-size: clamp(54px, 9vw, 150px); max-width: 11ch; }
   .dentro-band h2 em { color: inherit; }
   .dentro-band p { margin-top: 26px; max-width: 40ch; font-size: clamp(16px, 1.3vw, 20px); opacity: .85; }
-  .dentro-drips { position: absolute; left: 0; right: 0; top: calc(100% - 1px); width: 100%; height: 120px; }
-  .dentro-drips path { fill: var(--accent); transition: fill .6s; }
+  .dentro-band::after { content: ""; position: absolute; left: 0; right: 0; top: calc(100% - 1px); height: 30vh; background: linear-gradient(var(--accent), color-mix(in srgb, var(--accent) 35%, transparent) 45%, transparent); pointer-events: none; transition: background .6s; }
+  .dentro-main { position: relative; z-index: 1; }
   .dentro-main { padding: clamp(140px, 20vh, 220px) 0 clamp(90px, 12vh, 140px); }
   .dentro-grid { display: grid; grid-template-columns: 1fr 1.1fr; gap: 56px; align-items: center; }
   .dentro-grid h2 { font-size: clamp(42px, 5.2vw, 84px); margin: 20px 0 24px; }
@@ -369,7 +372,7 @@
     .stats div:nth-child(n+3) { border-top: 1px solid var(--line); }
     .amb:nth-child(even) { margin-top: 0; }
     .dentro-band { padding: 16vh 0 10vh; }
-    .dentro-drips { height: 70px; }
+    .dentro-band::after { height: 22vh; }
     .dentro-main { padding-top: 110px; }
   }
   @media (max-width: 560px) {
@@ -468,7 +471,6 @@
         <h2 class="split">Agora você está <em>dentro da cor.</em></h2>
         <p class="rv">Bem-vindo à Demão. Aqui cada parede começa com uma conversa, passa por um teste e termina exatamente do jeito que você imaginou.</p>
       </div>
-      <svg class="dentro-drips" viewBox="0 0 1440 120" preserveAspectRatio="none" aria-hidden="true"><path d="M0 0H1440V18C1400 18 1392 30 1390 52C1388 76 1374 80 1372 52C1370 28 1352 20 1310 20C1240 20 1180 24 1120 22C1090 21 1084 34 1083 70C1082 104 1062 106 1061 70C1060 34 1050 24 1000 24C900 26 820 18 760 20C734 21 728 30 727 46C726 62 712 64 711 46C710 28 700 22 650 22C560 24 470 16 400 18C372 19 366 32 365 84C364 118 340 118 339 84C338 34 330 22 290 20C210 18 150 26 90 22C64 20 58 30 57 44C56 58 42 60 41 44C40 28 30 18 0 18Z"/></svg>
     </div>
     <div class="dentro-main">
       <div class="wrap dentro-grid">
@@ -689,7 +691,7 @@
 </footer>
 
 <script src="js/three.min.js"></script>
-<script src="js/room-env.js"></script>
+<script src="js/lenis.min.js"></script>
 <script>
 (() => {
   const $ = (s, el = document) => el.querySelector(s);
@@ -798,7 +800,7 @@
   const stage = $("#stage"), intro = $(".intro"), canvas = $("#can");
   const can3d = (() => {
     let ok = false;
-    try { ok = !!window.THREE && !!window.RoomEnvironment && !!(canvas.getContext("webgl2") || canvas.getContext("webgl")); } catch (e) {}
+    try { ok = !!window.THREE && !!(canvas.getContext("webgl2") || canvas.getContext("webgl")); } catch (e) {}
     if (!ok) return null;
     const T = THREE;
     let renderer;
@@ -806,71 +808,83 @@
     renderer.setPixelRatio(Math.min(devicePixelRatio || 1, 2));
     renderer.outputColorSpace = T.SRGBColorSpace;
     renderer.toneMapping = T.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = 1.05;
+    renderer.toneMappingExposure = 1.0;
     renderer.shadowMap.enabled = true;
-    renderer.shadowMap.type = T.PCFSoftShadowMap;
+    renderer.shadowMap.type = T.PCFShadowMap;
 
-    const scene = new T.Scene();
+    /* ----- estúdio fotográfico: fundo neutro + softboxes que viram reflexo no metal ----- */
+    const studio = new T.Scene();
+    studio.background = new T.Color(0x6f6a63);
+    const box = (w, h, intensity, pos, look, tint = 0xffffff) => {
+      const m = new T.Mesh(new T.PlaneGeometry(w, h), new T.MeshBasicMaterial({ color: new T.Color(tint).multiplyScalar(intensity), side: T.DoubleSide }));
+      m.position.set(...pos); m.lookAt(...look); studio.add(m);
+    };
+    box(2.2, 9, 9, [-6, 3, 2.5], [0, 1, 0]);          // softbox vertical à esquerda
+    box(1.4, 9, 6.5, [6, 3, 1], [0, 1, 0], 0xfff2e6); // tira de luz à direita
+    box(10, 10, 2.2, [0, 9, 0], [0, 0, 0]);            // difusor superior
+    box(12, 4, .9, [0, 2, -7], [0, 1, 0], 0xf3e9dc);   // rebatedor ao fundo
+    box(14, 14, .35, [0, -1, 0], [0, 1, 0], 0xe7ddd0); // piso claro
     const pmrem = new T.PMREMGenerator(renderer);
-    scene.environment = pmrem.fromScene(new RoomEnvironment(renderer), 0.04).texture;
-    const camera = new T.PerspectiveCamera(30, 1, 0.01, 100);
+    const scene = new T.Scene();
+    scene.environment = pmrem.fromScene(studio, 0.02).texture;
+    const camera = new T.PerspectiveCamera(28, 1, 0.01, 100);
 
-    // luzes de estúdio
-    const key = new T.DirectionalLight(0xfff1e0, 2.2);
-    key.position.set(-4, 7, 5); key.castShadow = true;
-    key.shadow.mapSize.set(2048, 2048); key.shadow.radius = 8; key.shadow.bias = -0.0004;
-    Object.assign(key.shadow.camera, { left: -5, right: 5, top: 5, bottom: -5, near: 1, far: 20 });
+    const key = new T.DirectionalLight(0xfff4e8, 1.6);
+    key.position.set(-5, 8, 4); key.castShadow = true;
+    key.shadow.mapSize.set(2048, 2048); key.shadow.radius = 6; key.shadow.bias = -0.0003; key.shadow.normalBias = .02;
+    Object.assign(key.shadow.camera, { left: -4, right: 4, top: 4, bottom: -4, near: 1, far: 22 });
     scene.add(key);
-    const rim = new T.DirectionalLight(0xdbe6ff, 1.2); rim.position.set(5, 3, -4); scene.add(rim);
-    scene.add(new T.HemisphereLight(0xffffff, 0xd8cbb8, .35));
+    scene.add(new T.HemisphereLight(0xffffff, 0xcabca9, .25));
 
-    // chão invisível que recebe sombra + sombra de contato suave
-    const floor = new T.Mesh(new T.PlaneGeometry(40, 40), new T.ShadowMaterial({ opacity: .16 }));
+    // chão que recebe sombra + oclusão de contato
+    const floor = new T.Mesh(new T.PlaneGeometry(40, 40), new T.ShadowMaterial({ opacity: .13 }));
     floor.rotation.x = -Math.PI / 2; floor.receiveShadow = true; scene.add(floor);
-    const blobTex = (() => { const c = document.createElement("canvas"); c.width = c.height = 256; const g = c.getContext("2d"); const gr = g.createRadialGradient(128, 128, 0, 128, 128, 128); gr.addColorStop(0, "rgba(40,28,18,.6)"); gr.addColorStop(.45, "rgba(40,28,18,.28)"); gr.addColorStop(1, "rgba(40,28,18,0)"); g.fillStyle = gr; g.fillRect(0, 0, 256, 256); return new T.CanvasTexture(c); })();
-    const blob = new T.Mesh(new T.PlaneGeometry(3.1, 3.1), new T.MeshBasicMaterial({ map: blobTex, transparent: true, depthWrite: false }));
-    blob.rotation.x = -Math.PI / 2; blob.position.y = 0.002; scene.add(blob);
-    const lidBlob = new T.Mesh(new T.PlaneGeometry(2.6, 2.6), new T.MeshBasicMaterial({ map: blobTex, transparent: true, depthWrite: false, opacity: 0 }));
-    lidBlob.rotation.x = -Math.PI / 2; lidBlob.position.y = 0.003; scene.add(lidBlob);
+    const radial = (stops) => { const c = document.createElement("canvas"); c.width = c.height = 256; const g = c.getContext("2d"); const gr = g.createRadialGradient(128, 128, 0, 128, 128, 128); stops.forEach(([o, a]) => gr.addColorStop(o, `rgba(38,27,18,${a})`)); g.fillStyle = gr; g.fillRect(0, 0, 256, 256); const t = new T.CanvasTexture(c); return t; };
+    const shadowMat = (tex, op) => new T.MeshBasicMaterial({ map: tex, transparent: true, depthWrite: false, opacity: op });
+    const ao = new T.Mesh(new T.PlaneGeometry(2.5, 2.5), shadowMat(radial([[0, .75], [.72, .55], [.84, .12], [1, 0]]), .9));
+    ao.rotation.x = -Math.PI / 2; ao.position.y = .002; scene.add(ao);
+    const soft = new T.Mesh(new T.PlaneGeometry(4.6, 4.6), shadowMat(radial([[0, .35], [.5, .14], [1, 0]]), .8));
+    soft.rotation.x = -Math.PI / 2; soft.position.y = .001; scene.add(soft);
 
-    // materiais
-    const metal = new T.MeshStandardMaterial({ color: 0xd4d2cd, metalness: 1, roughness: .26, envMapIntensity: 1.15, side: T.DoubleSide });
-    const metalDark = new T.MeshStandardMaterial({ color: 0xb9b5ad, metalness: 1, roughness: .34 });
-    const paintMat = new T.MeshPhysicalMaterial({ color: new T.Color(chosen.hex), roughness: .2, clearcoat: .8, clearcoatRoughness: .08, envMapIntensity: .55 });
-    const dripMat = new T.MeshPhysicalMaterial({ color: new T.Color(chosen.hex), roughness: .18, clearcoat: 1, clearcoatRoughness: .08 });
+    /* ----- texturas procedurais: metal com linhas de torno, papel do rótulo ----- */
+    const lathe = (() => { const c = document.createElement("canvas"); c.width = 16; c.height = 1024; const g = c.getContext("2d"); for (let y = 0; y < 1024; y++) { const v = 150 + Math.random() * 60 + Math.sin(y * .7) * 10; g.fillStyle = `rgb(${v},${v},${v})`; g.fillRect(0, y, 16, 1); } const t = new T.CanvasTexture(c); t.wrapS = t.wrapT = T.RepeatWrapping; return t; })();
+    const metal = new T.MeshPhysicalMaterial({ color: 0xdedbd5, metalness: 1, roughness: .26, roughnessMap: lathe, envMapIntensity: 1.25, side: T.DoubleSide });
+    const metalLid = new T.MeshPhysicalMaterial({ color: 0xcfcac2, metalness: 1, roughness: .3, roughnessMap: lathe, envMapIntensity: 1.2 });
+    const metalDark = new T.MeshStandardMaterial({ color: 0xa8a39a, metalness: 1, roughness: .38 });
+    const paintMat = new T.MeshPhysicalMaterial({ color: 0xb5643c, roughness: .26, clearcoat: .55, clearcoatRoughness: .12, envMapIntensity: .55 });
+    const residue = new T.MeshPhysicalMaterial({ color: 0xb5643c, roughness: .35, clearcoat: .3, side: T.BackSide, envMapIntensity: .5 });
+    const residueOut = new T.MeshPhysicalMaterial({ color: 0xb5643c, roughness: .3, clearcoat: .4, envMapIntensity: .5 });
 
     const group = new T.Group(); scene.add(group);
-    const PAINT_Y = 2.02;
+    const PAINT_Y = 2.0;
 
-    // corpo: perfil torneado com frisos, borda enrolada e parede interna
+    // corpo: perfil torneado com fundo, frisos, borda enrolada e canal da tampa
     const prof = [
-      [0.0, 0.03], [0.9, 0.03], [0.97, 0.0], [1.015, 0.03], [1.02, 0.07], [1.0, 0.1], [1.0, 0.24], [1.012, 0.26], [1.0, 0.28],
-      [1.0, 1.97], [1.012, 1.99], [1.0, 2.01], [1.0, 2.13], [1.03, 2.17], [1.04, 2.21], [1.028, 2.245], [0.99, 2.25], [0.955, 2.235],
-      [0.945, 2.19], [0.925, 2.17], [0.925, 0.12], [0.0, 0.12],
+      [0.0, 0.03], [0.9, 0.03], [0.965, 0.0], [1.012, 0.025], [1.02, 0.065], [1.0, 0.095], [1.0, 0.24], [1.01, 0.255], [1.0, 0.27],
+      [1.0, 1.98], [1.01, 1.995], [1.0, 2.01], [1.0, 2.13], [1.028, 2.165], [1.038, 2.205], [1.028, 2.24], [0.995, 2.252], [0.962, 2.24],
+      [0.952, 2.2], [0.94, 2.175], [0.926, 2.17], [0.925, 0.12], [0.0, 0.12],
     ].map(([x, y]) => new T.Vector2(x, y));
-    const body = new T.Mesh(new T.LatheGeometry(prof, 128), metal);
+    const body = new T.Mesh(new T.LatheGeometry(prof, 160), metal);
     body.castShadow = true; body.receiveShadow = true; group.add(body);
 
-    // rótulo desenhado em canvas
-    // proporção do rótulo = circunferência / altura (2π·1 / 1,62), para o texto não esticar
+    // rótulo impresso no metal, com verniz
     const LW = 3072, LH = 792;
     const labelCanvas = document.createElement("canvas"); labelCanvas.width = LW; labelCanvas.height = LH;
     const labelTex = new T.CanvasTexture(labelCanvas); labelTex.colorSpace = T.SRGBColorSpace; labelTex.anisotropy = renderer.capabilities.getMaxAnisotropy();
-    const grain = Array.from({ length: 3200 }, () => [Math.random() * LW, Math.random() * LH, Math.random() * .03]);
+    const grain = Array.from({ length: 4000 }, () => [Math.random() * LW, Math.random() * LH, Math.random() * .025]);
     function drawLabel(hex, name) {
-      const g = labelCanvas.getContext("2d"), cx = LW / 2;
-      g.fillStyle = "#f2eee6"; g.fillRect(0, 0, LW, LH);
+      const g = labelCanvas.getContext("2d"), cx = LW / 2, band = mix(hex, "#000000", .1);
+      g.fillStyle = "#efebe3"; g.fillRect(0, 0, LW, LH);
       grain.forEach(([x, y, a]) => { g.fillStyle = `rgba(0,0,0,${a})`; g.fillRect(x, y, 2, 2); });
-      g.fillStyle = hex; g.fillRect(0, 470, LW, 232);
-      g.fillStyle = "#16150f"; g.fillRect(0, 455, LW, 6);
+      g.fillStyle = band; g.fillRect(0, 470, LW, 232);
+      g.fillStyle = "#16150f"; g.fillRect(0, 455, LW, 5);
       g.textAlign = "center"; g.fillStyle = "#16150f";
       g.font = "800 170px Manrope, system-ui, sans-serif"; g.fillText("demão", cx, 250);
       g.font = "700 34px Manrope, system-ui, sans-serif"; g.fillText("ACRÍLICA PREMIUM  ·  FOSCO AVELUDADO", cx, 322);
       g.font = "500 29px Manrope, system-ui, sans-serif"; g.fillStyle = "#5a554c"; g.fillText("Lavável · Baixo odor · Rende até 43 m² por demão", cx, 380);
-      const ink = lum(hex) > .42 ? "#16150f" : "#ffffff";
-      g.fillStyle = ink; g.font = "italic 400 104px 'Instrument Serif', Georgia, serif"; g.fillText(name, cx, 600);
+      g.fillStyle = lum(hex) > .42 ? "#16150f" : "#ffffff";
+      g.font = "italic 400 104px 'Instrument Serif', Georgia, serif"; g.fillText(name, cx, 600);
       g.font = "700 32px Manrope, system-ui, sans-serif"; g.fillText(codeOf(hex) + "   ·   3,6 L", cx, 662);
-      // laterais
       g.textAlign = "left"; g.fillStyle = "#16150f"; g.font = "800 30px Manrope, sans-serif";
       g.fillText("INTERIOR · EXTERIOR", cx - 980, 200);
       g.font = "500 26px Manrope, sans-serif"; g.fillStyle = "#5a554c";
@@ -879,10 +893,13 @@
       g.textAlign = "center"; g.fillStyle = "#16150f"; g.font = "800 28px Manrope, sans-serif"; g.fillText("27", cx - 860, 318); g.font = "700 15px Manrope, sans-serif"; g.fillText("ANOS", cx - 860, 342);
       labelTex.needsUpdate = true;
     }
-    const label = new T.Mesh(new T.CylinderGeometry(1.004, 1.004, 1.62, 128, 1, true, Math.PI, Math.PI * 2), new T.MeshStandardMaterial({ map: labelTex, roughness: .5, metalness: 0 }));
-    label.position.y = 1.13; label.castShadow = true; group.add(label);
+    const label = new T.Mesh(
+      new T.CylinderGeometry(1.003, 1.003, 1.62, 160, 1, true, Math.PI, Math.PI * 2),
+      new T.MeshPhysicalMaterial({ map: labelTex, roughness: .55, metalness: 0, clearcoat: .7, clearcoatRoughness: .22, envMapIntensity: .8 })
+    );
+    label.position.y = 1.125; label.castShadow = true; label.receiveShadow = true; group.add(label);
 
-    // superfície da tinta: ondas calculadas no shader
+    // superfície da tinta (ondas suaves calculadas no shader)
     const uniforms = { uTime: { value: 0 }, uDrops: { value: Array.from({ length: 6 }, () => new T.Vector4(0, 0, -99, 0)) } };
     paintMat.onBeforeCompile = (sh) => {
       sh.uniforms.uTime = uniforms.uTime; sh.uniforms.uDrops = uniforms.uDrops;
@@ -891,15 +908,15 @@
           uniform float uTime; uniform vec4 uDrops[6];
           float hgt(vec2 p) {
             float r0 = length(p);
-            float h = 0.006 * sin(p.x * 5.0 + uTime * .7) * cos(p.y * 4.0 - uTime * .5);
+            float h = 0.0035 * sin(p.x * 3.2 + uTime * .35) * cos(p.y * 2.7 - uTime * .28);
             for (int i = 0; i < 6; i++) {
               vec4 d = uDrops[i]; float age = uTime - d.z;
-              if (age < 0.0 || age > 5.0) continue;
+              if (age < 0.0 || age > 6.0) continue;
               float r = length(p - d.xy);
-              h += d.w * sin(r * 30.0 - age * 10.0) * exp(-age * 1.1) * exp(-pow(r - age * .34, 2.0) * 16.0);
+              h += d.w * sin(r * 22.0 - age * 6.5) * exp(-age * .9) * exp(-pow(r - age * .3, 2.0) * 10.0);
             }
-            float edge = smoothstep(.925, .82, r0);
-            return h * edge + .018 * smoothstep(.84, .925, r0);
+            float edge = smoothstep(.925, .8, r0);
+            return h * edge + .022 * pow(smoothstep(.82, .925, r0), 2.0);
           }`)
         .replace("#include <beginnormal_vertex>", `
           float e = .006; vec2 pp = position.xy;
@@ -907,40 +924,34 @@
           vec3 objectNormal = normalize(vec3(-(hx - h0) / e, -(hy - h0) / e, 1.0));`)
         .replace("#include <begin_vertex>", "vec3 transformed = vec3(position.xy, h0);");
     };
-    const paint = new T.Mesh(new T.RingGeometry(0.0001, 0.926, 160, 64), paintMat);
+    const paint = new T.Mesh(new T.RingGeometry(0.0001, 0.926, 180, 72), paintMat);
     paint.rotation.x = -Math.PI / 2; paint.position.y = PAINT_Y; paint.receiveShadow = true;
     group.add(paint);
+    // película de tinta na parede interna e no canal da tampa
+    const film = new T.Mesh(new T.CylinderGeometry(.924, .924, .16, 160, 1, true), residue);
+    film.position.y = PAINT_Y + .07; group.add(film);
+    const channel = new T.Mesh(new T.TorusGeometry(.945, .016, 10, 120, Math.PI * 1.25), residueOut);
+    channel.rotation.x = -Math.PI / 2; channel.rotation.z = .6; channel.position.y = 2.19; group.add(channel);
 
-    // tinta escorrendo: sai da borda, passa pelo friso e desce pelo rótulo
-    const drips = [];
-    [[-0.66, .62], [-0.4, .34], [-0.14, .86], [0.38, .5]].forEach(([ang, len]) => {
-      const at = (r, y) => new T.Vector3(Math.sin(ang) * r, y, Math.cos(ang) * r);
-      const curve = new T.CatmullRomCurve3([at(.95, 2.252), at(1.0, 2.262), at(1.046, 2.236), at(1.05, 2.17), at(1.024, 2.08), at(1.017, 1.96), at(1.017, 1.96 - len * .5), at(1.017, 1.96 - len)]);
-      const geo = new T.TubeGeometry(curve, 80, .019, 10, false);
-      const m = new T.Mesh(geo, dripMat); m.castShadow = true;
-      const bead = new T.Mesh(new T.SphereGeometry(.036, 18, 14), dripMat); bead.scale.set(.85, 1.25, .6); bead.rotation.y = ang;
-      const pool = new T.Mesh(new T.SphereGeometry(.07, 18, 10), dripMat); pool.scale.set(1.1, .22, .7); pool.position.copy(at(1.02, 2.25)); pool.rotation.y = ang;
-      [m, bead, pool].forEach((o) => { o.visible = false; group.add(o); });
-      drips.push({ m, bead, pool, curve, count: geo.index.count });
-    });
+    // alça de arame deitada para trás
+    const bailCurve = new T.CatmullRomCurve3(Array.from({ length: 25 }, (_, i) => { const a = Math.PI * i / 24; return new T.Vector3(-Math.cos(a) * 1.07, Math.sin(a) * 1.07, 0); }));
+    const bail = new T.Mesh(new T.TubeGeometry(bailCurve, 80, 0.017, 10, false), metalDark);
+    bail.position.y = 1.86; bail.rotation.x = -1.36; bail.castShadow = true; group.add(bail);
+    [-1, 1].forEach((s) => { const ear = new T.Mesh(new T.CylinderGeometry(.075, .075, .028, 28), metalDark); ear.rotation.z = Math.PI / 2; ear.position.set(s * 1.012, 1.86, 0); group.add(ear); });
 
-    // alça de arame, deitada para trás
-    const bailCurve = new T.CatmullRomCurve3(Array.from({ length: 21 }, (_, i) => { const a = Math.PI * i / 20; return new T.Vector3(-Math.cos(a) * 1.07, Math.sin(a) * 1.07, 0); }));
-    const bail = new T.Mesh(new T.TubeGeometry(bailCurve, 64, 0.018, 8, false), metalDark);
-    bail.position.y = 1.86; bail.rotation.x = -1.32; bail.castShadow = true; group.add(bail);
-    [-1, 1].forEach((s) => { const ear = new T.Mesh(new T.CylinderGeometry(.07, .07, .03, 24), metalDark); ear.rotation.z = Math.PI / 2; ear.position.set(s * 1.01, 1.86, 0); group.add(ear); });
-
-    // tampa (com tinta do lado de dentro)
+    // tampa: sai devagar e é apoiada no chão com a tinta para cima
     const lid = new T.Group();
-    const lidProf = [[0, .045], [.78, .045], [.82, .03], [.86, .055], [.95, .055], [1.035, .035], [1.04, .0], [.99, -.01], [.95, -.075], [.92, -.075], [.92, -.02], [0, -.02]].map(([x, y]) => new T.Vector2(x, y));
-    const lidMesh = new T.Mesh(new T.LatheGeometry(lidProf, 128), metal); lidMesh.castShadow = true; lid.add(lidMesh);
-    const lidPaint = new T.Mesh(new T.CircleGeometry(.9, 64), dripMat); lidPaint.rotation.x = Math.PI / 2; lidPaint.position.y = -.024; lid.add(lidPaint);
+    const lidProf = [[0, .042], [.76, .042], [.8, .03], [.84, .052], [.95, .052], [1.035, .034], [1.04, .0], [.99, -.01], [.95, -.075], [.92, -.075], [.92, -.02], [0, -.02]].map(([x, y]) => new T.Vector2(x, y));
+    const lidMesh = new T.Mesh(new T.LatheGeometry(lidProf, 160), metalLid); lidMesh.castShadow = true; lidMesh.receiveShadow = true; lid.add(lidMesh);
+    const lidPaint = new T.Mesh(new T.CircleGeometry(.9, 96), residueOut); lidPaint.rotation.x = Math.PI / 2; lidPaint.position.y = -.023; lid.add(lidPaint);
     scene.add(lid);
+    const lidAo = new T.Mesh(new T.PlaneGeometry(2.4, 2.4), shadowMat(radial([[0, .5], [.75, .38], [.86, .08], [1, 0]]), 0));
+    lidAo.rotation.x = -Math.PI / 2; lidAo.position.y = .003; scene.add(lidAo);
 
     let dropIdx = 0;
-    function drop(x, y, amp = .022) { uniforms.uDrops.value[dropIdx++ % 6].set(x, y, uniforms.uTime.value, amp); }
+    const drop = (x, y, amp) => uniforms.uDrops.value[dropIdx++ % 6].set(x, y, uniforms.uTime.value, amp);
 
-    // mouse sobre a tinta faz ondas
+    // o mouse sobre a tinta cria ondas leves
     const ray = new T.Raycaster(), ndc = new T.Vector2();
     let lastDrop = 0, opened = false;
     stage.addEventListener("pointermove", (e) => {
@@ -948,31 +959,27 @@
       const r = canvas.getBoundingClientRect();
       ndc.set(((e.clientX - r.left) / r.width) * 2 - 1, -((e.clientY - r.top) / r.height) * 2 + 1);
       ray.setFromCamera(ndc, camera);
-      const hit = ray.intersectObject(paint)[0];
-      const now = uniforms.uTime.value;
-      if (hit && now - lastDrop > .16) { lastDrop = now; const lp = paint.worldToLocal(hit.point.clone()); drop(lp.x, lp.y, .014); }
+      const hit = ray.intersectObject(paint)[0], now = uniforms.uTime.value;
+      if (hit && now - lastDrop > .22) { lastDrop = now; const lp = paint.worldToLocal(hit.point.clone()); drop(lp.x, lp.y, .006); }
     });
 
-    // trajetória da câmera: do produto até dentro da tinta
-    const K = [
-      { p: 0, pos: [0, 4.9, 8.0], tgt: [0, 1.0, 0] },
-      { p: .32, pos: [0.4, 6.2, 4.0], tgt: [0, 1.6, 0] },
-      { p: .62, pos: [0, 6.4, 0.7], tgt: [0, PAINT_Y, 0] },
-      { p: .86, pos: [0, 3.0, 0.06], tgt: [0, PAINT_Y, 0] },
-      { p: 1, pos: [0, PAINT_Y + .06, 0.004], tgt: [0, PAINT_Y, 0] },
-    ];
+    /* ----- câmera: um único trajeto contínuo, do produto até dentro da tinta ----- */
+    const camPath = new T.CatmullRomCurve3([
+      new T.Vector3(0, 4.6, 8.4), new T.Vector3(1.6, 6.3, 5.0), new T.Vector3(.7, 6.6, 1.9),
+      new T.Vector3(.12, 4.6, .32), new T.Vector3(0, 2.9, .05), new T.Vector3(0, PAINT_Y + .05, .004),
+    ], false, "centripetal");
+    const tgtPath = new T.CatmullRomCurve3([
+      new T.Vector3(0, 1.0, 0), new T.Vector3(0, 1.45, 0), new T.Vector3(0, 1.85, 0),
+      new T.Vector3(0, PAINT_Y, 0), new T.Vector3(0, PAINT_Y, 0), new T.Vector3(0, PAINT_Y, 0),
+    ]);
+    const easeInOutSine = (t) => -(Math.cos(Math.PI * t) - 1) / 2;
     const vA = new T.Vector3(), vB = new T.Vector3();
     let W = 0, Hh = 0, mobile = false;
     function camAt(p) {
-      let i = 0; while (i < K.length - 2 && p > K[i + 1].p) i++;
-      const a = K[i], b = K[i + 1], t = smooth(clamp((p - a.p) / (b.p - a.p)));
-      // no celular a lata fica mais longe para caber abaixo do texto
-      const far = mobile ? 1.5 : 1, sc = [far, 1 + (far - 1) * .3, 1, 1, 1];
-      const place = (v, kf, s) => { v.set(...kf.pos); v.x *= s; v.z *= s; v.y = 1.15 + (v.y - 1.15) * s; };
-      place(vA, a, sc[i]); place(vB, b, sc[i + 1]);
-      camera.position.lerpVectors(vA, vB, t);
-      vA.set(...a.tgt); vB.set(...b.tgt);
-      camera.lookAt(vA.lerp(vB, t));
+      const u = easeInOutSine(p);
+      camPath.getPointAt(u, vA); tgtPath.getPointAt(u, vB);
+      if (mobile) { const k = 1 - smooth(clamp(u / .55)); vA.sub(vB).multiplyScalar(1 + .45 * k).add(vB); }
+      camera.position.copy(vA); camera.lookAt(vB);
     }
     function resize() {
       const r = stage.getBoundingClientRect(); W = r.width; Hh = r.height; mobile = W < 860;
@@ -980,71 +987,64 @@
     }
     resize();
 
-    // linha do tempo de entrada (segundos)
-    let t0 = null, nextAuto = 4.6, yaw = 0, tilt = 0;
-    const easeOutBack = (t) => { const c = 1.4; return 1 + (c + 1) * (t - 1) ** 3 + c * (t - 1) ** 2; };
+    /* ----- entrada: a lata surge, a tampa é retirada com calma ----- */
+    let t0 = null, yaw = 0, tilt = 0, nextAuto = 7;
     const easeOut = (t) => 1 - (1 - t) ** 3;
     const easeIO = (t) => (t < .5 ? 4 * t * t * t : 1 - (-2 * t + 2) ** 3 / 2);
-    const tl = { rise: [0, 1.4], pop: [1.6, 2.7], drip: [2.5, 4.4] };
-    const seg = (t, [a, b]) => clamp((t - a) / (b - a));
-    const LID_FROM = new T.Vector3(), LID_TO = new T.Vector3(2.15, 0.085, -0.75), tmp = new T.Vector3();
+    const seg = (t, a, b) => clamp((t - a) / (b - a));
+    const LID_ON = new T.Vector3(), LID_OFF = new T.Vector3(2.05, .078, -.55), tmp = new T.Vector3();
+    canvas.style.opacity = 0; canvas.style.transition = "opacity 1.4s cubic-bezier(.16,1,.3,1)";
 
-    function setPaint(hex) { paintMat.color.set(hex).multiplyScalar(.5); dripMat.color.set(hex).multiplyScalar(.58); drawLabel(hex, chosen.name); }
+    function setPaint(hex) {
+      paintMat.color.set(hex).multiplyScalar(.52);
+      residue.color.set(hex).multiplyScalar(.5); residueOut.color.set(hex).multiplyScalar(.56);
+      drawLabel(hex, chosen.name);
+    }
     setPaint(chosen.hex);
-    drawLabel(chosen.hex, chosen.name);
     document.fonts && document.fonts.ready.then(() => drawLabel(chosen.hex, chosen.name));
     onAccent.push(setPaint);
 
+    let wasDeep = false;
     function frame(now, p) {
-      if (t0 === null) t0 = now + 450;
-      const t = reduced ? 10 : (now - t0) / 1000;
+      if (t0 === null) { t0 = now + 350; canvas.style.opacity = 1; }
+      const t = reduced ? 20 : (now - t0) / 1000;
       uniforms.uTime.value = now / 1000;
 
-      // a lata sobe e gira até a posição
-      const r = easeOutBack(seg(t, tl.rise));
-      group.position.y = lerp(-3.4, 0, r);
-      const baseYaw = lerp(-1.2, 0.2, easeOut(seg(t, tl.rise)));
-      yaw = lerp(yaw, (mouse.x / innerWidth - .5) * .5, .05);
-      tilt = lerp(tilt, (mouse.y / innerHeight - .5) * .07, .05);
-      group.rotation.y = baseYaw + yaw * (1 - p) + p * .6;
+      // a lata surge subindo levemente e girando até a posição
+      const r = easeOut(seg(t, 0, 1.6));
+      group.position.y = lerp(-.7, 0, r);
+      yaw = lerp(yaw, (mouse.x / innerWidth - .5) * .35, .04);
+      tilt = lerp(tilt, (mouse.y / innerHeight - .5) * .05, .04);
+      group.rotation.y = lerp(-.55, .18, r) + yaw * (1 - p) + p * .35;
       group.rotation.x = tilt * (1 - p);
-      const lift = clamp((group.position.y + 3.4) / 3.4);
-      blob.material.opacity = lift; blob.scale.setScalar(.6 + .4 * lift);
+      ao.material.opacity = .9 * r; soft.material.opacity = .8 * r;
 
-      // a tampa salta e cai virada no chão, mostrando a tinta
-      const k = seg(t, tl.pop);
-      LID_FROM.set(0, 2.235, 0).applyEuler(group.rotation).add(group.position);
-      if (k <= 0) { lid.position.copy(LID_FROM); lid.rotation.set(group.rotation.x, group.rotation.y, 0); }
+      // tampa: desencaixa, sobe, vira e pousa no chão
+      const k = seg(t, 1.5, 3.7);
+      LID_ON.set(0, 2.233, 0).applyEuler(group.rotation).add(group.position);
+      if (k <= 0) { lid.position.copy(LID_ON); lid.rotation.set(group.rotation.x, group.rotation.y, 0); }
       else {
-        const e = easeIO(k);
-        tmp.lerpVectors(LID_FROM, LID_TO, e);
-        tmp.y += Math.sin(Math.PI * k) * 1.5;
+        const e1 = easeOut(clamp(k / .28)), e2 = easeIO(clamp((k - .2) / .8));
+        tmp.copy(LID_ON); tmp.y += .32 * e1;
+        tmp.lerp(LID_OFF, e2); tmp.y += Math.sin(Math.PI * e2) * .45;
         lid.position.copy(tmp);
-        lid.rotation.set(Math.PI * e, group.rotation.y * (1 - e) + .3 * e, -.06 * e);
-        if (k >= 1 && !opened) { opened = true; drop(0, 0, .03); drop(.3, -.2, .02); }
+        lid.rotation.set(Math.PI * e2 + .12 * e1 * (1 - e2), lerp(group.rotation.y, .4, e2), -.05 * e2);
+        if (k > .25 && !opened) { opened = true; drop(0, 0, .009); }
       }
-      lidBlob.position.set(lid.position.x, .003, lid.position.z);
-      lidBlob.material.opacity = k >= 1 ? .55 : clamp(1 - (lid.position.y - .1) / 2) * .55 * (k > 0 ? 1 : 0);
+      lidAo.position.set(lid.position.x, .003, lid.position.z);
+      lidAo.material.opacity = clamp(1 - (lid.position.y - .08) / 1.2) * (k > 0 ? 1 : 0);
 
-      // escorridos crescem
-      const dk = easeOut(seg(t, tl.drip));
-      drips.forEach((d, i) => {
-        const g = clamp(dk * 1.3 - i * .12), show = g > 0;
-        d.m.visible = d.bead.visible = d.pool.visible = show;
-        if (!show) return;
-        d.m.geometry.setDrawRange(0, Math.max(60, Math.floor(d.count * g / 60) * 60));
-        d.bead.position.copy(d.curve.getPoint(Math.max(.02, g)));
-        d.pool.scale.set(1.1 * Math.min(1, g * 3), .22, .7);
-      });
-
-      // pingos automáticos para a tinta não ficar parada
-      if (opened && !reduced && t > nextAuto) { nextAuto = t + 2.6 + Math.random() * 2; drop((Math.random() - .5), (Math.random() - .5), .016); }
+      // pequenas ondulações para a tinta parecer viva
+      if (opened && !reduced && t > nextAuto && p < .5) { nextAuto = t + 4 + Math.random() * 3; drop((Math.random() - .5) * .8, (Math.random() - .5) * .8, .004); }
+      // ao mergulhar, uma onda nasce no centro
+      const deep = p > .72;
+      if (deep && !wasDeep) drop(0, 0, .012);
+      wasDeep = deep;
 
       camAt(p);
-      // enquadramento: lata à direita no computador; abaixo do texto no celular
-      const k2 = 1 - smooth(clamp(p / .45));
-      if (mobile) camera.setViewOffset(W, Hh, 0, -Hh * .2 * k2, W, Hh);
-      else camera.setViewOffset(W, Hh, -W * .2 * k2, 0, W, Hh);
+      const k2 = 1 - smooth(clamp(p / .5));
+      if (mobile) camera.setViewOffset(W, Hh, 0, -Hh * .19 * k2, W, Hh);
+      else camera.setViewOffset(W, Hh, -W * .19 * k2, 0, W, Hh);
       renderer.render(scene, camera);
     }
     return { frame, resize };
@@ -1231,30 +1231,38 @@
 
   /* ---------- progresso: tinta escorrendo ---------- */
   const fin = $(".final"), dripPath = $("#dripPath");
-  const dripsBar = [.12, .27, .41, .58, .73, .9].map((x, i) => ({ x, len: 8 + (i * 37 % 22), seed: i }));
-  function drawDrip(p, now) {
-    const x = p * 1000;
-    let d = `M0 0H${x.toFixed(1)}C${(x + 6).toFixed(1)} 0 ${(x + 6).toFixed(1)} 6 ${x.toFixed(1)} 6`;
-    dripsBar.filter((dr) => dr.x * 1000 < x - 10).sort((a, b) => b.x - a.x).forEach((dr) => {
-      const cx = dr.x * 1000, grow = clamp((x - cx) / 120), L = 6 + dr.len * grow + Math.sin(now / 900 + dr.seed) * 1.2 * grow;
-      d += `H${(cx + 5).toFixed(1)}C${(cx + 4).toFixed(1)} ${(L * .6).toFixed(1)} ${(cx + 4).toFixed(1)} ${L.toFixed(1)} ${cx.toFixed(1)} ${L.toFixed(1)}S${(cx - 4).toFixed(1)} ${(L * .6).toFixed(1)} ${(cx - 5).toFixed(1)} 6`;
-    });
-    dripPath.setAttribute("d", d + "H0Z");
-  }
+  function drawDrip(p) { dripPath.setAttribute("d", `M0 0H${(p * 1000).toFixed(1)}V40H0Z`); }
 
   /* ---------- laço principal ---------- */
-  let lastY = -1;
+  let lastY = -1, introP = 0, lastNow = performance.now();
+
+  /* ---------- rolagem suave (somente mouse/trackpad) ---------- */
+  let lenis = null;
+  if (window.Lenis && finePointer && !reduced) {
+    lenis = new Lenis({ lerp: .085, wheelMultiplier: .9 });
+    document.addEventListener("click", (e) => {
+      const a = e.target.closest('a[href^="#"]'); if (!a) return;
+      const id = a.getAttribute("href"); if (id.length < 2) return;
+      const el = document.querySelector(id); if (!el) return;
+      e.preventDefault(); lenis.scrollTo(el, { duration: 1.6 });
+    });
+  }
   function frame(now) {
+    if (lenis) lenis.raf(now);
     ring.x = lerp(ring.x, mouse.x, reduced ? 1 : .2); ring.y = lerp(ring.y, mouse.y, reduced ? 1 : .2);
     cur.style.transform = `translate3d(${ring.x}px, ${ring.y}px, 0)`;
     dot.style.transform = `translate3d(${mouse.x}px, ${mouse.y}px, 0)`;
 
     const y = scrollY;
     const ir = intro.getBoundingClientRect();
-    const introP = clamp(-ir.top / (intro.offsetHeight - innerHeight));
+    // progresso suavizado: a câmera segue a rolagem com inércia, sem trancos
+    const introRaw = clamp(-ir.top / (intro.offsetHeight - innerHeight));
+    const dt = Math.min(.1, (now - lastNow) / 1000); lastNow = now;
+    introP = reduced ? introRaw : introP + (introRaw - introP) * (1 - Math.exp(-dt * 6));
+    if (Math.abs(introRaw - introP) < .0004) introP = introRaw;
     if (ir.bottom > 0) {
       stage.style.setProperty("--p", introP.toFixed(4));
-      stage.style.setProperty("--fill", smooth(clamp((introP - .74) / .22)).toFixed(3));
+      stage.style.setProperty("--fill", smooth(clamp((introP - .8) / .19)).toFixed(3));
       if (can3d) can3d.frame(now, introP);
     }
 
@@ -1263,7 +1271,7 @@
       collage.forEach((c) => { const d = +c.dataset.depth, r = c.getBoundingClientRect(); if (r.bottom < 0 || r.top > innerHeight) return; const sy = (r.top + r.height / 2 - innerHeight / 2) * d * -.004; c.style.transform = `translate3d(${nx * d}px, ${ny * d + sy}px, 0)`; });
     }
     tickRail();
-    drawDrip(clamp(y / (root.scrollHeight - innerHeight)), now);
+    drawDrip(clamp(y / (root.scrollHeight - innerHeight)));
     nav.classList.toggle("solid", y > 40);
 
     if (y !== lastY) {
