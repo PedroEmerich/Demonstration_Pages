@@ -1,0 +1,1085 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Demão — Tintas & Cores</title>
+<meta name="description" content="Demão Tintas: tintas premium, consultoria de cor gratuita e tingimento na hora com mais de 2.000 tons. Do primeiro teste à última parede." />
+<meta name="theme-color" content="#f4f1ec" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #f4f1ec; --fg: #16150f; --muted: #6e6a62; --line: rgba(22,21,15,.12);
+    --primer: #f4f1ec; --ink: #16150f;
+    --accent: #b5643c; --accent-text: #b5643c; --on-accent: #fff;
+    --serif: "Instrument Serif", Georgia, serif; --sans: "Manrope", system-ui, sans-serif;
+    --ease: cubic-bezier(.16,1,.3,1); --ease-io: cubic-bezier(.65,0,.35,1);
+    --glass: rgba(255,255,255,.42); --glass-line: rgba(255,255,255,.6);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { overflow-x: clip; scroll-behavior: smooth; }
+  body {
+    background: var(--bg); color: var(--fg); font-family: var(--sans); line-height: 1.6;
+    -webkit-font-smoothing: antialiased; overflow-x: clip;
+    transition: background-color .9s var(--ease), color .9s var(--ease);
+  }
+  img, svg { display: block; max-width: 100%; }
+  a { color: inherit; text-decoration: none; }
+  button, input, select { font: inherit; color: inherit; }
+  button { cursor: pointer; background: none; border: 0; }
+  ::selection { background: var(--accent); color: var(--on-accent); }
+  .wrap { width: min(1280px, 100% - 48px); margin-inline: auto; }
+  .eyebrow { font-size: 12px; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; color: var(--muted); display: inline-flex; align-items: center; gap: 12px; transition: color .9s; }
+  .eyebrow::before { content: ""; width: 22px; height: 10px; border-radius: 10px; background: var(--accent); transition: background .6s; }
+  h1, h2, h3 { font-weight: 400; letter-spacing: -.035em; line-height: .98; }
+  h2 { font-family: var(--serif); font-size: clamp(46px, 6.6vw, 108px); }
+  h2 em, h1 em { font-style: italic; color: var(--accent-text); transition: color .6s; }
+  .lead { font-size: clamp(16px, 1.25vw, 19px); color: var(--muted); max-width: 46ch; transition: color .9s; }
+
+  /* palavras que sobem */
+  .sw { display: inline-block; overflow: hidden; vertical-align: top; padding-bottom: .1em; margin-bottom: -.1em; }
+  .sw > span { display: inline-block; transform: translateY(108%); transition: transform 1.1s var(--ease); transition-delay: calc(var(--i) * 50ms); }
+  .in .sw > span { transform: none; }
+  .rv { opacity: 0; transform: translateY(36px); transition: opacity 1s var(--ease), transform 1.1s var(--ease); transition-delay: var(--d, 0ms); }
+  .rv.in { opacity: 1; transform: none; }
+
+  /* ---------- intro: faixas de tinta ---------- */
+  .intro { position: fixed; inset: 0; z-index: 200; display: flex; pointer-events: none; }
+  .intro i { flex: 1; transform-origin: top; animation: introOut 1.1s var(--ease-io) forwards; animation-delay: calc(.25s + var(--n) * 70ms); }
+  @keyframes introOut { to { transform: scaleY(0); } }
+
+  /* ---------- progresso: escorrido no topo ---------- */
+  .drip { position: fixed; top: 0; left: 0; right: 0; height: 40px; z-index: 120; pointer-events: none; }
+  .drip svg { width: 100%; height: 100%; overflow: visible; }
+  .drip path { fill: var(--accent); transition: fill .6s; }
+
+  /* ---------- cursor ---------- */
+  .cur, .cur-dot { position: fixed; top: 0; left: 0; pointer-events: none; z-index: 300; will-change: transform; }
+  .cur { width: 44px; height: 44px; margin: -22px 0 0 -22px; border-radius: 50%; border: 1.5px solid var(--fg); display: grid; place-items: center; transition: width .35s var(--ease), height .35s var(--ease), margin .35s var(--ease), background .35s, border-color .6s; }
+  .cur span { font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--on-accent); opacity: 0; transition: opacity .25s; white-space: nowrap; }
+  .cur.big { width: 92px; height: 92px; margin: -46px 0 0 -46px; background: var(--accent); border-color: transparent; }
+  .cur.big span { opacity: 1; }
+  .cur.brush { width: 18px; height: 18px; margin: -9px 0 0 -9px; background: var(--brush, var(--accent)); border-color: rgba(255,255,255,.9); box-shadow: 0 2px 14px rgba(0,0,0,.18); }
+  .cur-dot { width: 6px; height: 6px; margin: -3px 0 0 -3px; border-radius: 50%; background: var(--accent); transition: opacity .3s, background .6s; }
+  .cur.brush ~ .cur-dot, .cur.big ~ .cur-dot { opacity: 0; }
+  @media (hover: hover) and (pointer: fine) { html.has-cur, html.has-cur a, html.has-cur button, html.has-cur input, html.has-cur select { cursor: none; } }
+  @media (hover: none), (pointer: coarse) { .cur, .cur-dot, .hint { display: none !important; } }
+
+  /* ---------- navegação ---------- */
+  .nav { position: fixed; top: 16px; left: 50%; transform: translateX(-50%); z-index: 110; width: min(1280px, 100% - 32px); display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 10px 10px 10px 22px; border-radius: 999px; border: 1px solid transparent; transition: background .5s, border-color .5s, backdrop-filter .5s, color .9s, box-shadow .5s; }
+  .nav.solid { background: color-mix(in srgb, var(--bg) 62%, transparent); border-color: color-mix(in srgb, var(--fg) 10%, transparent); backdrop-filter: blur(18px) saturate(1.4); -webkit-backdrop-filter: blur(18px) saturate(1.4); box-shadow: 0 10px 40px -20px rgba(0,0,0,.25); }
+  .logo { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 19px; letter-spacing: -.04em; }
+  .logo-mark { width: 26px; height: 26px; border-radius: 8px 8px 8px 2px; background: conic-gradient(from 200deg, #b5643c, #e0a526, #9caf88, #5b7f95, #6b2d4a, #b5643c); position: relative; }
+  .logo-mark::after { content: ""; position: absolute; inset: 6px; border-radius: 50%; background: var(--bg); transition: background .9s; }
+  .nav ul { display: flex; gap: 4px; list-style: none; }
+  .nav ul a { display: block; padding: 8px 14px; border-radius: 999px; font-size: 14px; font-weight: 500; opacity: .75; transition: opacity .25s, background .25s; }
+  .nav ul a:hover { opacity: 1; background: color-mix(in srgb, var(--fg) 7%, transparent); }
+  .btn { display: inline-flex; align-items: center; gap: 10px; padding: 14px 24px; border-radius: 999px; font-weight: 600; font-size: 15px; background: var(--fg); color: var(--bg); position: relative; overflow: hidden; isolation: isolate; transition: color .4s, background .9s; will-change: transform; }
+  .btn::before { content: ""; position: absolute; inset: 0; z-index: -1; background: var(--accent); border-radius: inherit; transform: translateY(101%); transition: transform .55s var(--ease); }
+  .btn:hover::before { transform: none; }
+  .btn:hover { color: var(--on-accent); }
+  .btn svg { width: 16px; height: 16px; transition: transform .4s var(--ease); }
+  .btn:hover svg { transform: translateX(3px); }
+  .btn.ghost { background: transparent; color: var(--fg); box-shadow: inset 0 0 0 1.5px color-mix(in srgb, var(--fg) 25%, transparent); }
+  .btn.sm { padding: 11px 20px; font-size: 14px; }
+  .menu-btn { display: none; width: 44px; height: 44px; border-radius: 50%; background: var(--fg); color: var(--bg); place-items: center; }
+  .menu-btn span { width: 16px; height: 1.5px; background: currentColor; box-shadow: 0 5px currentColor, 0 -5px currentColor; }
+
+  /* ---------- hero ---------- */
+  .hero { position: relative; min-height: 100svh; display: flex; align-items: flex-end; padding: 140px 0 56px; overflow: hidden; }
+  #paint { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; }
+  .hero-grain { position: absolute; inset: 0; z-index: 1; pointer-events: none; opacity: .35; mix-blend-mode: multiply; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .09 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+  .hero .wrap { position: relative; z-index: 2; pointer-events: none; }
+  .hero .wrap a, .hero .wrap button { pointer-events: auto; }
+  .hero h1 { font-family: var(--serif); font-size: clamp(58px, 10.2vw, 172px); line-height: .9; letter-spacing: -.045em; max-width: 11ch; margin: 22px 0 34px; }
+  .hero-bottom { display: flex; justify-content: space-between; align-items: flex-end; gap: 40px; flex-wrap: wrap; }
+  .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 28px; }
+  .hint { display: inline-flex; align-items: center; gap: 12px; padding: 10px 18px 10px 10px; border-radius: 999px; font-size: 13px; font-weight: 500; background: var(--glass); border: 1px solid var(--glass-line); backdrop-filter: blur(14px) saturate(1.5); -webkit-backdrop-filter: blur(14px) saturate(1.5); }
+  .hint b { width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center; background: var(--brush, var(--accent)); color: #fff; transition: background .4s; }
+  .hint b svg { width: 15px; height: 15px; }
+  .chips { position: absolute; inset: 0; z-index: 2; pointer-events: none; }
+  .chip { position: absolute; width: 150px; padding: 8px 8px 12px; border-radius: 18px; background: rgba(255,255,255,.38); border: 1px solid rgba(255,255,255,.7); backdrop-filter: blur(16px) saturate(1.6); -webkit-backdrop-filter: blur(16px) saturate(1.6); box-shadow: 0 30px 60px -30px rgba(40,30,20,.35); font-size: 12px; will-change: transform; opacity: 0; animation: chipIn 1.2s var(--ease) forwards; animation-delay: var(--dl); }
+  .chip i { display: block; height: 96px; border-radius: 12px; margin-bottom: 10px; }
+  .chip b { display: block; font-size: 13px; font-weight: 700; padding-inline: 4px; }
+  .chip span { color: var(--muted); padding-inline: 4px; font-variant-numeric: tabular-nums; }
+  @keyframes chipIn { from { opacity: 0; translate: 0 40px; } to { opacity: 1; translate: 0 0; } }
+  .scroll-cue { display: flex; align-items: center; gap: 12px; font-size: 12px; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); }
+  .scroll-cue i { width: 1px; height: 46px; background: color-mix(in srgb, var(--fg) 20%, transparent); position: relative; overflow: hidden; }
+  .scroll-cue i::after { content: ""; position: absolute; left: 0; top: -40%; width: 100%; height: 40%; background: var(--fg); animation: cue 2s var(--ease-io) infinite; }
+  @keyframes cue { to { top: 100%; } }
+
+  /* ---------- manifesto ---------- */
+  .manifesto { padding: clamp(120px, 18vh, 220px) 0; }
+  .manifesto p { font-family: var(--serif); font-size: clamp(34px, 4.6vw, 76px); line-height: 1.08; letter-spacing: -.025em; max-width: 20ch; }
+  .manifesto .w { opacity: .14; transition: opacity .25s linear; }
+  .manifesto .w.on { opacity: 1; }
+  .manifesto .blob { display: inline-block; width: .9em; height: .62em; border-radius: 40% 60% 55% 45% / 55% 45% 60% 40%; vertical-align: .02em; margin: 0 .08em; transform: scale(0) rotate(-20deg); transition: transform .8s var(--ease); }
+  .manifesto .blob.on { transform: none; }
+  .manifesto-foot { display: flex; justify-content: space-between; gap: 40px; margin-top: 70px; flex-wrap: wrap; align-items: flex-end; }
+
+  /* ---------- seletor de cor ---------- */
+  .cores { padding: 60px 0 clamp(100px, 14vh, 180px); }
+  .cores-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 40px; flex-wrap: wrap; margin-bottom: 56px; }
+  .cores-grid { display: grid; grid-template-columns: 1.35fr 1fr; gap: 28px; align-items: start; }
+  .room { position: relative; border-radius: 28px; overflow: hidden; aspect-ratio: 4 / 3.1; background: var(--wall-old, #b5643c); box-shadow: 0 50px 100px -50px rgba(40,30,20,.5); position: sticky; top: 100px; }
+  .room .wall-new { position: absolute; inset: 0; background: var(--wall-new); clip-path: inset(0 100% 0 0); }
+  .room .wall-new.go { transition: clip-path 1.1s var(--ease-io); clip-path: inset(0 0 0 0); }
+  .room svg.scene { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .roller { position: absolute; top: 0; height: 74%; width: 34px; left: -40px; pointer-events: none; z-index: 3; }
+  .roller.go { transition: left 1.1s var(--ease-io); left: calc(100% + 6px); }
+  .roller::before { content: ""; position: absolute; inset: 6% 0 0; border-radius: 10px; background: var(--wall-new); box-shadow: inset -6px 0 10px rgba(0,0,0,.18), inset 4px 0 6px rgba(255,255,255,.25), 0 10px 20px rgba(0,0,0,.2); }
+  .room-tag { position: absolute; left: 18px; bottom: 18px; z-index: 4; display: flex; align-items: center; gap: 14px; padding: 10px 18px 10px 10px; border-radius: 18px; background: rgba(255,255,255,.55); border: 1px solid rgba(255,255,255,.75); backdrop-filter: blur(18px) saturate(1.6); -webkit-backdrop-filter: blur(18px) saturate(1.6); color: var(--ink); }
+  .room-tag i { width: 42px; height: 42px; border-radius: 12px; background: var(--wall-cur); box-shadow: inset 0 0 0 1px rgba(0,0,0,.08); transition: background .6s; }
+  .room-tag b { display: block; font-size: 15px; line-height: 1.2; }
+  .room-tag span { font-size: 12px; color: #6e6a62; font-variant-numeric: tabular-nums; }
+  .picker { padding: 28px; border-radius: 28px; background: color-mix(in srgb, #fff 55%, transparent); border: 1px solid rgba(255,255,255,.8); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); }
+  .tabs { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 22px; }
+  .tabs button { padding: 9px 16px; border-radius: 999px; font-size: 14px; font-weight: 600; color: var(--muted); transition: background .3s, color .3s; }
+  .tabs button[aria-selected="true"] { background: var(--ink); color: var(--primer); }
+  .swatches { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; }
+  .sw-btn { aspect-ratio: 1 / 1.25; border-radius: 14px; background: var(--c); position: relative; box-shadow: inset 0 0 0 1px rgba(0,0,0,.07); transition: transform .45s var(--ease), border-radius .45s var(--ease); animation: swIn .7s var(--ease) both; animation-delay: calc(var(--i) * 45ms); }
+  @keyframes swIn { from { opacity: 0; transform: translateY(14px) scale(.9); } }
+  .sw-btn:hover { transform: translateY(-4px); }
+  .sw-btn[aria-pressed="true"] { border-radius: 50% 50% 14px 14px; }
+  .sw-btn[aria-pressed="true"]::after { content: ""; position: absolute; left: 50%; bottom: 10px; width: 8px; height: 8px; margin-left: -4px; border-radius: 50%; background: #fff; box-shadow: 0 0 0 3px rgba(0,0,0,.12); }
+  .detail { margin-top: 24px; padding-top: 22px; border-top: 1px solid var(--line); display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+  .detail div span { display: block; font-size: 11px; text-transform: uppercase; letter-spacing: .14em; color: var(--muted); }
+  .detail div b { font-size: 16px; font-variant-numeric: tabular-nums; }
+  .pair { margin-top: 22px; }
+  .pair p { font-size: 13px; color: var(--muted); margin-bottom: 10px; }
+  .pair-row { display: flex; height: 54px; border-radius: 14px; overflow: hidden; }
+  .pair-row i { flex: 1; transition: background .6s, flex .6s var(--ease); }
+  .pair-row i:first-child { flex: 2.2; }
+  .picker .btn { margin-top: 24px; width: 100%; justify-content: center; }
+
+  /* ---------- processo horizontal ---------- */
+  .process { position: relative; }
+  .process-pin { position: sticky; top: 0; height: 100svh; overflow: hidden; display: flex; flex-direction: column; justify-content: center; }
+  .process-head { position: absolute; top: 110px; left: 0; right: 0; display: flex; justify-content: space-between; align-items: flex-start; gap: 24px; }
+  .process-head .count { white-space: nowrap; font-variant-numeric: tabular-nums; font-size: 14px; color: var(--muted); }
+  .process-head .count b { color: var(--fg); font-size: 40px; font-family: var(--serif); font-weight: 400; }
+  .track { display: flex; gap: 6vw; padding-left: max(24px, calc((100vw - 1280px) / 2)); padding-right: 30vw; will-change: transform; margin-top: 40px; }
+  .step { flex: 0 0 min(72vw, 880px); display: grid; grid-template-columns: 1fr 1.05fr; gap: 48px; align-items: center; }
+  .step .num { font-family: var(--serif); font-size: clamp(90px, 13vw, 200px); line-height: .8; color: transparent; -webkit-text-stroke: 1px color-mix(in srgb, var(--fg) 45%, transparent); }
+  .step h3 { font-family: var(--serif); font-size: clamp(38px, 4.4vw, 68px); margin: 18px 0 16px; }
+  .step p { color: var(--muted); max-width: 38ch; }
+  .step ul { list-style: none; margin-top: 22px; display: grid; gap: 8px; font-size: 14px; }
+  .step li { display: flex; gap: 10px; align-items: center; }
+  .step li::before { content: ""; width: 14px; height: 6px; border-radius: 4px; background: var(--sc); }
+  .card-vis { aspect-ratio: 1 / 1.08; border-radius: 30px; position: relative; overflow: hidden; background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.1); }
+  .card-vis .fill { position: absolute; inset: 0; background: var(--sc); clip-path: inset(0 calc(100% - var(--p, 0) * 100%) 0 0); }
+  .card-vis .inner { position: absolute; inset: 0; display: grid; place-items: center; }
+  .vis-palette { display: grid; grid-template-columns: repeat(3, 64px); gap: 12px; }
+  .vis-palette i { width: 64px; height: 64px; border-radius: 50%; background: var(--c); box-shadow: 0 10px 30px rgba(0,0,0,.2); }
+  .vis-pots { display: flex; gap: 14px; align-items: flex-end; }
+  .vis-pots i { width: 58px; border-radius: 10px 10px 16px 16px; background: var(--c); position: relative; box-shadow: 0 12px 30px rgba(0,0,0,.25); }
+  .vis-pots i::before { content: ""; position: absolute; left: -4px; right: -4px; top: -10px; height: 14px; border-radius: 6px; background: #1d1c18; }
+  .vis-calc { width: 70%; padding: 22px; border-radius: 22px; background: rgba(255,255,255,.18); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,.35); color: #fff; }
+  .vis-calc b { font-family: var(--serif); font-size: 64px; font-weight: 400; display: block; line-height: 1; }
+  .vis-calc span { font-size: 13px; opacity: .85; }
+  .vis-calc .bar { height: 8px; border-radius: 6px; background: rgba(255,255,255,.25); margin-top: 16px; overflow: hidden; }
+  .vis-calc .bar i { display: block; height: 100%; width: 72%; background: #fff; border-radius: inherit; }
+  .vis-truck { width: 70%; }
+  .stripe { position: absolute; left: 0; bottom: 8vh; height: 64px; width: calc(var(--pp, 0) * 100%); background: linear-gradient(90deg, #9caf88, #e0a526 35%, #2d4fd0 68%, #c97b55); border-radius: 0 40px 40px 0; filter: url(#rough); }
+  .stripe-roller { position: absolute; bottom: calc(8vh - 14px); left: calc(var(--pp, 0) * 100%); width: 70px; height: 150px; margin-left: -34px; }
+  .stripe-roller svg { width: 100%; height: 100%; overflow: visible; }
+
+  /* ---------- produtos ---------- */
+  .produtos { padding: clamp(120px, 16vh, 200px) 0; }
+  .prod-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 40px; flex-wrap: wrap; margin-bottom: 60px; }
+  .prod-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; perspective: 1200px; }
+  .prod { --mx: 50%; --my: 50%; position: relative; border-radius: 26px; padding: 24px; min-height: 470px; display: flex; flex-direction: column; overflow: hidden; background: linear-gradient(170deg, color-mix(in srgb, var(--pc) 22%, #fff) 0%, #fff 70%); border: 1px solid rgba(0,0,0,.06); transform-style: preserve-3d; transition: opacity 1s var(--ease), transform .6s var(--ease), box-shadow .6s var(--ease); color: var(--ink); }
+  .prod::before { content: ""; position: absolute; inset: 0; background: radial-gradient(360px circle at var(--mx) var(--my), color-mix(in srgb, var(--pc) 40%, transparent), transparent 60%); opacity: 0; transition: opacity .4s; pointer-events: none; }
+  .prod:hover::before { opacity: 1; }
+  .prod:hover { box-shadow: 0 40px 80px -40px color-mix(in srgb, var(--pc) 80%, #000); }
+  .prod .tag { align-self: flex-start; font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; padding: 6px 12px; border-radius: 999px; background: rgba(255,255,255,.6); border: 1px solid rgba(0,0,0,.06); backdrop-filter: blur(6px); }
+  .can { width: 62%; margin: 22px auto 18px; transform: translateZ(40px); transition: transform .6s var(--ease); }
+  .can .lid { transition: transform .6s var(--ease); transform-origin: 18px 22px; transform-box: view-box; }
+  .prod:hover .can .lid { transform: rotate(-14deg) translate(-4px, -12px); }
+  .can .drop { opacity: 0; transition: opacity .3s, transform 1s var(--ease); transform: translateY(-10px); }
+  .prod:hover .can .drop { opacity: 1; transform: none; }
+  .prod h3 { font-family: var(--serif); font-size: 32px; letter-spacing: -.02em; line-height: 1; margin-top: auto; transform: translateZ(24px); }
+  .prod p { font-size: 14px; color: #6e6a62; margin: 10px 0 16px; transform: translateZ(18px); }
+  .prod .meta { display: flex; gap: 6px; flex-wrap: wrap; transform: translateZ(18px); }
+  .prod .meta span { font-size: 12px; font-weight: 600; padding: 5px 10px; border-radius: 8px; background: rgba(0,0,0,.05); }
+
+  /* ---------- calculadora ---------- */
+  .calc { padding: clamp(100px, 14vh, 180px) 0; }
+  .calc-box { display: grid; grid-template-columns: 1fr 1fr; border-radius: 36px; overflow: hidden; background: rgba(255,255,255,.45); border: 1px solid rgba(255,255,255,.75); backdrop-filter: blur(24px) saturate(1.4); -webkit-backdrop-filter: blur(24px) saturate(1.4); box-shadow: 0 60px 120px -60px rgba(30,40,30,.35); }
+  .calc-form { padding: clamp(28px, 4vw, 56px); }
+  .calc-form h2 { font-size: clamp(42px, 4.8vw, 76px); margin: 18px 0 34px; }
+  .field { margin-bottom: 22px; }
+  .field-top { display: flex; justify-content: space-between; font-size: 14px; font-weight: 600; margin-bottom: 10px; }
+  .field-top output { font-variant-numeric: tabular-nums; color: var(--muted); }
+  input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; height: 8px; border-radius: 8px; background: linear-gradient(90deg, var(--accent) var(--v, 50%), rgba(0,0,0,.08) var(--v, 50%)); outline: none; }
+  input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 26px; height: 26px; border-radius: 50%; background: #fff; border: 7px solid var(--accent); box-shadow: 0 4px 14px rgba(0,0,0,.18); transition: transform .2s; }
+  input[type=range]::-moz-range-thumb { width: 14px; height: 14px; border-radius: 50%; background: #fff; border: 7px solid var(--accent); box-shadow: 0 4px 14px rgba(0,0,0,.18); }
+  input[type=range]:active::-webkit-slider-thumb { transform: scale(1.15); }
+  input[type=range]:focus-visible { box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 35%, transparent); }
+  .seg { display: flex; gap: 6px; padding: 5px; border-radius: 14px; background: rgba(0,0,0,.05); }
+  .seg button { flex: 1; padding: 10px 8px; border-radius: 10px; font-size: 13px; font-weight: 600; color: var(--muted); transition: background .3s, color .3s, box-shadow .3s; }
+  .seg button[aria-pressed="true"] { background: #fff; color: var(--ink); box-shadow: 0 4px 12px rgba(0,0,0,.08); }
+  .calc-out { position: relative; padding: clamp(28px, 4vw, 56px); background: var(--ink); color: var(--primer); display: flex; flex-direction: column; overflow: hidden; }
+  .calc-out > *:not(.tank) { position: relative; z-index: 1; }
+  .calc-out .liters { font-family: var(--serif); font-size: clamp(90px, 11vw, 170px); line-height: .85; letter-spacing: -.04em; font-variant-numeric: tabular-nums; position: relative; z-index: 1; }
+  .calc-out .liters small { font-size: .3em; letter-spacing: 0; margin-left: 8px; }
+  .calc-out > p { color: rgba(244,241,236,.6); position: relative; z-index: 1; margin-top: 6px; }
+  .cans { display: flex; gap: 12px; margin-top: auto; padding-top: 30px; position: relative; z-index: 1; flex-wrap: wrap; }
+  .cans div { flex: 1; min-width: 92px; padding: 16px; border-radius: 18px; background: rgba(22,21,15,.45); border: 1px solid rgba(255,255,255,.12); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
+  .cans b { font-family: var(--serif); font-size: 44px; font-weight: 400; line-height: 1; display: block; font-variant-numeric: tabular-nums; }
+  .cans span { font-size: 12px; opacity: .65; }
+  .tank { position: absolute; left: 0; right: 0; bottom: 0; height: var(--lvl, 30%); background: var(--accent); transition: height 1s var(--ease), background .6s; opacity: .55; }
+  .tank svg { position: absolute; bottom: 100%; left: 0; width: 200%; height: 24px; fill: var(--accent); animation: wave 6s linear infinite; transition: fill .6s; }
+  @keyframes wave { to { transform: translateX(-50%); } }
+  .calc-out .area { display: flex; gap: 24px; margin-top: 26px; position: relative; z-index: 1; font-size: 13px; color: rgba(244,241,236,.7); }
+  .calc-out .area b { color: var(--primer); font-size: 18px; display: block; font-variant-numeric: tabular-nums; }
+
+  /* ---------- números + depoimentos ---------- */
+  .prova { padding: 40px 0 clamp(100px, 14vh, 160px); }
+  .stats { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid var(--line); }
+  .stats div { padding: 34px 24px 34px 0; border-right: 1px solid var(--line); }
+  .stats div + div { padding-left: 24px; }
+  .stats div:last-child { border-right: 0; }
+  .stats b { font-family: var(--serif); font-weight: 400; font-size: clamp(52px, 6vw, 92px); line-height: 1; letter-spacing: -.03em; display: block; font-variant-numeric: tabular-nums; }
+  .stats span { color: var(--muted); font-size: 14px; }
+  .marquee { margin-top: 90px; overflow: hidden; mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent); -webkit-mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent); }
+  .marquee-track { display: flex; gap: 18px; width: max-content; animation: marq 60s linear infinite; }
+  .marquee:hover .marquee-track { animation-play-state: paused; }
+  @keyframes marq { to { transform: translateX(calc(-50% - 9px)); } }
+  .quote { width: 420px; padding: 26px; border-radius: 24px; background: rgba(255,255,255,.5); border: 1px solid rgba(255,255,255,.8); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+  .quote p { font-family: var(--serif); font-size: 23px; line-height: 1.25; letter-spacing: -.01em; }
+  .quote footer { display: flex; align-items: center; gap: 12px; margin-top: 20px; font-size: 13px; }
+  .quote footer i { width: 38px; height: 38px; border-radius: 50%; background: var(--c); }
+  .quote footer span { color: var(--muted); display: block; }
+
+  /* ---------- final: a cor escolhida inunda ---------- */
+  .final { position: relative; min-height: 112svh; display: flex; align-items: center; overflow: hidden; padding: 140px 0; }
+  .flood { position: absolute; inset: 0; background: var(--accent); transform: translateY(calc((1 - var(--f, 0)) * 100%)); transition: background .6s; }
+  .flood svg { position: absolute; left: 0; bottom: calc(100% - 1px); width: 100%; height: 90px; }
+  .flood svg path { fill: var(--accent); transition: fill .6s; }
+  .final .wrap { position: relative; z-index: 1; transition: color .5s; }
+  .final.lit .wrap { color: var(--on-accent); }
+  .final h2 { font-size: clamp(56px, 9vw, 150px); max-width: 12ch; }
+  .final.lit h2 em { color: inherit; }
+  .final .lead { color: inherit; opacity: .8; margin: 28px 0 40px; }
+  .final.lit .btn { background: var(--on-accent); color: var(--accent); }
+  .final.lit .btn::before { background: var(--ink); }
+  .final.lit .btn:hover { color: #fff; }
+  .final.lit .btn.ghost { background: transparent; color: var(--on-accent); box-shadow: inset 0 0 0 1.5px currentColor; }
+  .chosen { display: inline-flex; align-items: center; gap: 12px; padding: 8px 16px 8px 8px; border-radius: 999px; font-size: 14px; font-weight: 600; border: 1px solid color-mix(in srgb, currentColor 30%, transparent); background: color-mix(in srgb, #fff 18%, transparent); backdrop-filter: blur(8px); }
+  .chosen i { width: 28px; height: 28px; border-radius: 50%; background: var(--accent); box-shadow: inset 0 0 0 2px rgba(255,255,255,.7); }
+
+  /* ---------- rodapé ---------- */
+  .foot { background: var(--ink); color: var(--primer); padding: 90px 0 36px; position: relative; z-index: 2; }
+  .foot-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 40px; }
+  .foot h4 { font-size: 12px; font-weight: 600; letter-spacing: .18em; text-transform: uppercase; color: rgba(244,241,236,.5); margin-bottom: 18px; }
+  .foot p, .foot li { font-size: 14px; color: rgba(244,241,236,.8); }
+  .foot ul { list-style: none; display: grid; gap: 8px; }
+  .foot a:hover { color: #fff; }
+  .foot .logo-mark::after { background: var(--ink); }
+  .foot-big { font-family: var(--serif); font-size: clamp(80px, 19vw, 300px); line-height: .8; letter-spacing: -.05em; margin-top: 70px; background: linear-gradient(90deg, #b5643c, #e0a526, #9caf88, #5b7f95, #6b2d4a); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .foot-bar { display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; margin-top: 30px; padding-top: 24px; border-top: 1px solid rgba(244,241,236,.12); font-size: 13px; color: rgba(244,241,236,.5); }
+
+  /* ---------- responsivo ---------- */
+  @media (max-width: 1080px) {
+    .prod-grid { grid-template-columns: repeat(2, 1fr); }
+    .cores-grid { grid-template-columns: 1fr; }
+    .room { position: relative; top: 0; }
+    .foot-grid { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 860px) {
+    .nav ul, .nav .btn { display: none; }
+    .menu-btn { display: grid; }
+    .nav.open { border-radius: 26px; flex-wrap: wrap; background: color-mix(in srgb, var(--bg) 90%, transparent); backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); }
+    .nav.open ul { display: flex; flex-direction: column; width: 100%; order: 3; padding: 8px 0 6px; }
+    .nav.open ul a { font-size: 18px; padding: 10px 8px; }
+    .chip { width: 116px; }
+    .chip i { height: 64px; }
+    .chip.c3, .chip.c4 { display: none; }
+    .chip.c1 { right: 5% !important; top: 92px !important; }
+    .chip.c2 { right: 40% !important; top: 110px !important; }
+    .chip span { font-size: 10px; }
+    .tabs button { padding: 8px 12px; font-size: 13px; }
+    .hero h1 { margin-top: 18px; }
+    .process-pin { position: relative; height: auto; padding: 120px 0 80px; }
+    .process-head { position: static; width: min(1280px, 100% - 48px); margin: 0 auto 30px; }
+    .track { flex-direction: column; padding: 0 24px; transform: none !important; gap: 70px; }
+    .step { flex: none; grid-template-columns: 1fr; gap: 28px; }
+    .card-vis { aspect-ratio: 4 / 3; }
+    .stripe, .stripe-roller { display: none; }
+    .calc-box { grid-template-columns: 1fr; }
+    .calc-out { min-height: 460px; }
+    .stats { grid-template-columns: 1fr 1fr; }
+    .stats div:nth-child(2) { border-right: 0; }
+    .stats div:nth-child(3) { padding-left: 0; }
+    .stats div:nth-child(n+3) { border-top: 1px solid var(--line); }
+  }
+  @media (max-width: 560px) {
+    .wrap { width: calc(100% - 32px); }
+    .prod-grid { grid-template-columns: 1fr; }
+    .prod { min-height: 0; }
+    .swatches { grid-template-columns: repeat(5, 1fr); gap: 7px; }
+    .picker { padding: 18px; }
+    .detail { grid-template-columns: 1fr 1fr; }
+    .quote { width: 300px; }
+    .quote p { font-size: 19px; }
+    .foot-grid { grid-template-columns: 1fr; }
+    .hero { padding-bottom: 36px; }
+    .scroll-cue { display: none; }
+    .room-tag { left: 10px; bottom: 10px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+    .sw > span, .rv { transform: none; opacity: 1; }
+  }
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <filter id="rough"><feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="2" seed="4" /><feDisplacementMap in="SourceGraphic" scale="12" /></filter>
+</svg>
+
+<div class="intro" aria-hidden="true">
+  <i style="--n:0;background:#b5643c"></i><i style="--n:1;background:#e0a526"></i><i style="--n:2;background:#9caf88"></i><i style="--n:3;background:#5b7f95"></i><i style="--n:4;background:#6b2d4a"></i><i style="--n:5;background:#16150f"></i>
+</div>
+
+<div class="drip" aria-hidden="true"><svg viewBox="0 0 1000 40" preserveAspectRatio="none"><path id="dripPath" d="M0 0H0V4H0Z" /></svg></div>
+<div class="cur" aria-hidden="true"><span></span></div>
+<div class="cur-dot" aria-hidden="true"></div>
+
+<header class="nav" id="nav">
+  <a href="#topo" class="logo" aria-label="Demão Tintas, início"><span class="logo-mark"></span>demão</a>
+  <ul>
+    <li><a href="#cores">Cores</a></li>
+    <li><a href="#processo">Como funciona</a></li>
+    <li><a href="#produtos">Produtos</a></li>
+    <li><a href="#calculadora">Calculadora</a></li>
+    <li><a href="#lojas">Lojas</a></li>
+  </ul>
+  <a href="#contato" class="btn sm" data-magnet data-cursor="Falar">Falar com consultor</a>
+  <button class="menu-btn" aria-label="Abrir menu" aria-expanded="false"><span></span></button>
+</header>
+
+<main>
+  <!-- HERO: a parede em branco -->
+  <section class="hero" id="topo" data-bg="#f4f1ec" data-fg="#16150f" data-muted="#6e6a62">
+    <canvas id="paint" aria-hidden="true"></canvas>
+    <div class="hero-grain" aria-hidden="true"></div>
+    <div class="chips" aria-hidden="true">
+      <div class="chip c1" data-depth="26" style="right:8%;top:17%;--dl:1.3s"><i style="background:#9caf88"></i><b>Sálvia</b><span>DM-318 · LRV 42</span></div>
+      <div class="chip c2" data-depth="-18" style="right:24%;top:35%;--dl:1.45s"><i style="background:#e0a526"></i><b>Açafrão</b><span>DM-127 · LRV 48</span></div>
+      <div class="chip c3" data-depth="34" style="right:5%;top:52%;--dl:1.6s"><i style="background:#5b7f95"></i><b>Azul Maré</b><span>DM-541 · LRV 21</span></div>
+      <div class="chip c4" data-depth="-12" style="left:56%;top:13%;--dl:1.75s"><i style="background:#e2d8c6"></i><b>Linho</b><span>DM-902 · LRV 71</span></div>
+    </div>
+    <div class="wrap">
+      <span class="eyebrow rv">Casa de tintas · desde 1998</span>
+      <h1 class="split">Toda mudança começa com uma <em>demão.</em></h1>
+      <div class="hero-bottom">
+        <div>
+          <p class="lead rv" style="--d:500ms">Tintas premium, consultoria de cor gratuita e tingimento na hora com mais de 2.000 tons. Do primeiro teste à última parede.</p>
+          <div class="hero-actions rv" style="--d:650ms">
+            <a href="#cores" class="btn" data-magnet data-cursor="Ver">Explorar cores <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 8h12M9 3l5 5-5 5"/></svg></a>
+            <a href="#calculadora" class="btn ghost" data-magnet data-cursor="Calcular">Quanto de tinta preciso?</a>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:22px">
+          <span class="hint rv" style="--d:900ms"><b><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M10.5 2.5l3 3-6 6-3-3zM4.5 8.5L2 14l5.5-2.5"/></svg></b>Passe o cursor: a parede é sua</span>
+          <span class="scroll-cue"><i></i>Role para pintar</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MANIFESTO -->
+  <section class="manifesto" data-bg="#f4f1ec" data-fg="#16150f" data-muted="#6e6a62">
+    <div class="wrap">
+      <span class="eyebrow rv">Nosso propósito</span>
+      <p id="manifesto" style="margin-top:34px">Cor não é acabamento. É o que faz <span class="blob" style="background:#c97b55"></span> uma casa virar lar, uma sala ganhar <span class="blob" style="background:#e0a526"></span> luz e uma parede contar <span class="blob" style="background:#5b7f95"></span> quem você é. A gente ajuda você a encontrar a sua — e entrega pronta para pintar.</p>
+      <div class="manifesto-foot">
+        <p class="lead rv">Somos uma loja de bairro com laboratório de cor: tingimos na hora, testamos com você e só vendemos o que a sua parede precisa.</p>
+        <a href="#cores" class="btn ghost rv" data-magnet data-cursor="Ver">Começar pela cor</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- SELETOR DE COR -->
+  <section class="cores" id="cores" data-bg="#ebe5da" data-fg="#16150f" data-muted="#6e6a62">
+    <div class="wrap">
+      <div class="cores-head">
+        <div>
+          <span class="eyebrow rv">01 · Escolha</span>
+          <h2 class="split" style="margin-top:20px">Prove a cor <em>antes</em> de pintar.</h2>
+        </div>
+        <p class="lead rv">Clique em um tom e veja a parede mudar. A cor que você escolher acompanha você pelo resto da página.</p>
+      </div>
+      <div class="cores-grid">
+        <div class="room rv" id="room" data-cursor="Pintar">
+          <div class="wall-new"></div>
+          <div class="roller"></div>
+          <svg class="scene" viewBox="0 0 800 620" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+            <defs>
+              <radialGradient id="light" cx="22%" cy="8%" r="95%"><stop offset="0" stop-color="#fff" stop-opacity=".38" /><stop offset=".55" stop-color="#fff" stop-opacity="0" /><stop offset="1" stop-color="#000" stop-opacity=".28" /></radialGradient>
+              <linearGradient id="floor" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#c9a77f" /><stop offset="1" stop-color="#a7835c" /></linearGradient>
+              <linearGradient id="sofa" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#efe9df" /><stop offset="1" stop-color="#d9d0c2" /></linearGradient>
+              <filter id="soft" x="-20%" y="-20%" width="140%" height="160%"><feGaussianBlur stdDeviation="10" /></filter>
+            </defs>
+            <rect width="800" height="470" fill="url(#light)" />
+            <!-- quadro -->
+            <rect x="330" y="110" width="150" height="190" rx="3" fill="#f6f2ea" />
+            <rect x="344" y="124" width="122" height="162" fill="#e6ddcf" />
+            <circle cx="405" cy="190" r="38" fill="#c9774f" opacity=".9" />
+            <path d="M344 286 L392 228 L430 262 L466 222 L466 286Z" fill="#2c2b27" opacity=".85" />
+            <!-- luminária -->
+            <path d="M620 130 h70 l-14 -56 h-42z" fill="#e9dfcd" />
+            <rect x="652" y="130" width="3" height="230" fill="#2c2b27" />
+            <ellipse cx="653" cy="364" rx="30" ry="6" fill="#2c2b27" />
+            <ellipse cx="655" cy="150" rx="70" ry="30" fill="#fff6dc" opacity=".25" filter="url(#soft)" />
+            <!-- rodapé e piso -->
+            <rect x="0" y="462" width="800" height="12" fill="#f3efe7" />
+            <rect x="0" y="474" width="800" height="146" fill="url(#floor)" />
+            <g stroke="#9a7752" stroke-opacity=".35" stroke-width="1.5"><path d="M0 510h800M0 552h800M0 596h800" /><path d="M120 474v36M380 474v36M640 474v36M240 510v42M520 510v42M60 552v44M330 552v44M700 552v44" /></g>
+            <ellipse cx="350" cy="525" rx="290" ry="22" fill="#000" opacity=".18" filter="url(#soft)" />
+            <!-- sofá -->
+            <rect x="100" y="330" width="500" height="120" rx="34" fill="url(#sofa)" />
+            <rect x="80" y="380" width="540" height="110" rx="30" fill="#e4dccf" />
+            <rect x="74" y="352" width="70" height="140" rx="30" fill="#ebe4d9" />
+            <rect x="556" y="352" width="70" height="140" rx="30" fill="#ebe4d9" />
+            <rect x="150" y="372" width="200" height="34" rx="16" fill="#f2ede4" />
+            <rect x="350" y="372" width="200" height="34" rx="16" fill="#f2ede4" />
+            <rect x="170" y="318" width="96" height="74" rx="20" fill="#2f4a5a" transform="rotate(-8 218 355)" />
+            <rect x="452" y="320" width="90" height="70" rx="20" fill="#c9774f" transform="rotate(7 497 355)" />
+            <rect x="110" y="488" width="10" height="22" rx="3" fill="#3a2f26" />
+            <rect x="580" y="488" width="10" height="22" rx="3" fill="#3a2f26" />
+            <!-- planta -->
+            <path d="M712 470 h56 l-8 -62 h-40z" fill="#d8cdbb" />
+            <g fill="#4f6b4a"><path d="M740 410 C 700 360 690 300 708 250 C 730 300 742 350 740 410Z" /><path d="M742 410 C 760 340 790 300 800 268 C 800 330 776 380 742 410Z" /><path d="M738 410 C 700 390 668 360 660 322 C 700 336 726 370 738 410Z" opacity=".85" /><path d="M744 410 C 744 350 760 300 772 220 C 786 290 770 360 744 410Z" opacity=".9" /></g>
+          </svg>
+          <div class="room-tag"><i></i><div><b id="tagName">Argila</b><span id="tagCode">DM-576 · #B5643C</span></div></div>
+        </div>
+        <div class="picker rv" style="--d:120ms">
+          <div class="tabs" role="tablist" aria-label="Coleções de cores"></div>
+          <div class="swatches" id="swatches"></div>
+          <div class="detail">
+            <div><span>Tom</span><b id="dName">Argila</b></div>
+            <div><span>Código</span><b id="dCode">DM-576</b></div>
+            <div><span>Refletância</span><b id="dLrv">LRV 24</b></div>
+          </div>
+          <div class="pair">
+            <p>Combina com</p>
+            <div class="pair-row" id="pair"><i></i><i></i><i></i></div>
+          </div>
+          <a href="#contato" class="btn" id="sampleBtn" data-magnet data-cursor="Pedir">Pedir amostra grátis <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 8h12M9 3l5 5-5 5"/></svg></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESSO: rolagem horizontal com rolo de pintura -->
+  <section class="process" id="processo" data-bg="#16150f" data-fg="#f4f1ec" data-muted="#9a958a">
+    <div class="process-pin">
+      <div class="process-head wrap">
+        <div>
+          <span class="eyebrow">02 · Do primeiro tom à última demão</span>
+          <h2 class="split" style="margin-top:16px;font-size:clamp(40px,4.6vw,72px)">Como a gente <em>pinta junto.</em></h2>
+        </div>
+        <div class="count"><b id="stepNow">01</b> / 04</div>
+      </div>
+      <div class="track" id="track">
+        <article class="step" style="--sc:#9caf88">
+          <div>
+            <div class="num">01</div>
+            <h3>Inspire-se</h3>
+            <p>Consultoria de cor gratuita, na loja ou por vídeo. Traga fotos, planta e referências: montamos uma paleta que conversa com a luz da sua casa.</p>
+            <ul><li>Leitura de luz natural</li><li>Paleta de 3 a 5 tons</li><li>45 minutos, sem custo</li></ul>
+          </div>
+          <div class="card-vis"><div class="fill"></div><div class="inner"><div class="vis-palette"><i style="--c:#f1ece3"></i><i style="--c:#6f8f7a"></i><i style="--c:#c97b55"></i><i style="--c:#3c3d3f"></i><i style="--c:#e2d8c6"></i><i style="--c:#5b7f95"></i></div></div></div>
+        </article>
+        <article class="step" style="--sc:#e0a526">
+          <div>
+            <div class="num">02</div>
+            <h3>Teste na parede</h3>
+            <p>Amostras de 200 ml e adesivos de cor A4 para ver o tom de verdade, de manhã e à noite, antes de decidir.</p>
+            <ul><li>Amostra 200 ml por R$ 14</li><li>Adesivo A4 grátis</li><li>Troca de tom sem custo</li></ul>
+          </div>
+          <div class="card-vis"><div class="fill"></div><div class="inner"><div class="vis-pots"><i style="--c:#c97b55;height:96px"></i><i style="--c:#16150f;height:128px;background:#f4f1ec"></i><i style="--c:#5b7f95;height:110px"></i></div></div></div>
+        </article>
+        <article class="step" style="--sc:#2d4fd0">
+          <div>
+            <div class="num">03</div>
+            <h3>Calcule certo</h3>
+            <p>A calculadora e um consultor dizem exatamente quanto comprar. Nada de lata sobrando no depósito — nem faltando no meio da parede.</p>
+            <ul><li>Cálculo por cômodo</li><li>Margem de 10% inclusa</li><li>Combina latas e galões</li></ul>
+          </div>
+          <div class="card-vis"><div class="fill"></div><div class="inner"><div class="vis-calc"><span>Sala de estar · 2 demãos</span><b>14,2 L</b><span>1 galão 3,6 L × 4</span><div class="bar"><i></i></div></div></div></div>
+        </article>
+        <article class="step" style="--sc:#c97b55">
+          <div>
+            <div class="num">04</div>
+            <h3>Pinte em 24h</h3>
+            <p>Tingimento na hora, entrega no dia seguinte e indicação de pintores parceiros avaliados por quem já contratou.</p>
+            <ul><li>Entrega em toda a região</li><li>Pintores verificados</li><li>Kit de rolos e fitas</li></ul>
+          </div>
+          <div class="card-vis"><div class="fill"></div><div class="inner">
+            <svg class="vis-truck" viewBox="0 0 220 120" aria-hidden="true"><rect x="10" y="20" width="130" height="70" rx="10" fill="#f4f1ec" /><path d="M140 44h40l26 26v20h-66z" fill="#16150f" /><path d="M150 52h26l16 16h-42z" fill="#9fb6c4" /><circle cx="52" cy="94" r="15" fill="#16150f" /><circle cx="52" cy="94" r="6" fill="#f4f1ec" /><circle cx="172" cy="94" r="15" fill="#16150f" /><circle cx="172" cy="94" r="6" fill="#f4f1ec" /><rect x="26" y="38" width="20" height="34" rx="4" fill="#c97b55" /><rect x="52" y="38" width="20" height="34" rx="4" fill="#9caf88" /><rect x="78" y="38" width="20" height="34" rx="4" fill="#5b7f95" /><rect x="104" y="38" width="20" height="34" rx="4" fill="#e0a526" /></svg>
+          </div></div>
+        </article>
+      </div>
+      <div class="stripe" aria-hidden="true"></div>
+      <div class="stripe-roller" aria-hidden="true">
+        <svg viewBox="0 0 70 150"><rect x="4" y="74" width="62" height="72" rx="12" fill="#f4f1ec" /><rect x="4" y="74" width="62" height="72" rx="12" fill="none" stroke="#16150f" stroke-opacity=".15" /><g id="rollerLines" stroke="#16150f" stroke-opacity=".12" stroke-width="2"><path d="M4 90h62M4 104h62M4 118h62M4 132h62" /></g><path d="M35 74V40h28V8" fill="none" stroke="#f4f1ec" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" /><rect x="55" y="-26" width="16" height="40" rx="7" fill="#c97b55" /></svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRODUTOS -->
+  <section class="produtos" id="produtos" data-bg="#f4f1ec" data-fg="#16150f" data-muted="#6e6a62">
+    <div class="wrap">
+      <div class="prod-head">
+        <div>
+          <span class="eyebrow rv">03 · Linhas de produto</span>
+          <h2 class="split" style="margin-top:20px">Uma tinta para cada <em>superfície.</em></h2>
+        </div>
+        <p class="lead rv">Fórmulas de alta cobertura, baixo odor e acabamento que dura. Todas tingíveis no nosso laboratório.</p>
+      </div>
+      <div class="prod-grid" id="prodGrid"></div>
+    </div>
+  </section>
+
+  <!-- CALCULADORA -->
+  <section class="calc" id="calculadora" data-bg="#e6ebe2" data-fg="#16150f" data-muted="#66705f">
+    <div class="wrap">
+      <div class="calc-box rv">
+        <div class="calc-form">
+          <span class="eyebrow">04 · Calculadora</span>
+          <h2>Quanto de tinta você <em>precisa?</em></h2>
+          <div class="field"><div class="field-top"><label for="cW">Largura das paredes (soma)</label><output id="oW">12 m</output></div><input type="range" id="cW" min="2" max="60" value="12" step="0.5" /></div>
+          <div class="field"><div class="field-top"><label for="cH">Pé-direito</label><output id="oH">2,7 m</output></div><input type="range" id="cH" min="2.2" max="5" value="2.7" step="0.1" /></div>
+          <div class="field"><div class="field-top"><label for="cO">Portas e janelas</label><output id="oO">2</output></div><input type="range" id="cO" min="0" max="10" value="2" step="1" /></div>
+          <div class="field"><div class="field-top"><span>Demãos</span></div><div class="seg" data-group="coats"><button type="button" data-v="1" aria-pressed="false">1 demão</button><button type="button" data-v="2" aria-pressed="true">2 demãos</button><button type="button" data-v="3" aria-pressed="false">3 demãos</button></div></div>
+          <div class="field" style="margin-bottom:0"><div class="field-top"><span>Linha</span></div><div class="seg" data-group="line"><button type="button" data-v="12" aria-pressed="true">Premium</button><button type="button" data-v="9" aria-pressed="false">Standard</button><button type="button" data-v="7" aria-pressed="false">Fachada</button></div></div>
+        </div>
+        <div class="calc-out" aria-live="polite">
+          <div class="tank" aria-hidden="true"><svg viewBox="0 0 200 24" preserveAspectRatio="none"><path d="M0 12 Q 12.5 0 25 12 T 50 12 T 75 12 T 100 12 T 125 12 T 150 12 T 175 12 T 200 12 V24 H0Z" /></svg></div>
+          <span class="eyebrow" style="color:rgba(244,241,236,.6)">Você vai precisar de</span>
+          <div class="liters" style="margin-top:20px"><span id="rL">6,4</span><small>litros</small></div>
+          <p>Já com 10% de margem para retoques.</p>
+          <div class="area"><div><b id="rA">28,4 m²</b>área pintada</div><div><b id="rC">2</b>demãos</div></div>
+          <div class="cans" id="rCans"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROVA SOCIAL -->
+  <section class="prova" data-bg="#e6ebe2" data-fg="#16150f" data-muted="#66705f">
+    <div class="wrap">
+      <div class="stats">
+        <div class="rv"><b data-count="27">0</b><span>anos tingindo cor em Curitiba</span></div>
+        <div class="rv" style="--d:80ms"><b data-count="2140" data-sep>0</b><span>tons prontos na hora</span></div>
+        <div class="rv" style="--d:160ms"><b data-count="38" data-suffix="mil">0</b><span>paredes pintadas por ano</span></div>
+        <div class="rv" style="--d:240ms"><b data-count="4.9" data-dec>0</b><span>de nota em 1.280 avaliações</span></div>
+      </div>
+    </div>
+    <div class="marquee" aria-label="Depoimentos de clientes">
+      <div class="marquee-track" id="quotes"></div>
+    </div>
+  </section>
+
+  <!-- FINAL -->
+  <section class="final" id="contato" data-bg="#f4f1ec" data-fg="#16150f" data-muted="#6e6a62">
+    <div class="flood" aria-hidden="true"><svg viewBox="0 0 1440 90" preserveAspectRatio="none"><path d="M0 90V52C120 20 220 70 360 48s260-46 400-10 240 50 380 22 230-60 300-40V90Z" /><path d="M210 52c0 20 8 34 8 46h-16c0-12 8-26 8-46zM900 40c0 26 9 40 9 56h-18c0-16 9-30 9-56z" /></svg></div>
+    <div class="wrap">
+      <span class="chosen rv"><i></i><span id="chosenTxt">Sua cor: Argila</span></span>
+      <h2 class="split" style="margin-top:28px">Sua próxima parede já tem <em>cor.</em></h2>
+      <p class="lead">Leve uma amostra grátis do tom que você escolheu, agende uma consultoria ou peça seu orçamento pelo WhatsApp. A gente responde em minutos.</p>
+      <div class="hero-actions">
+        <a href="#" class="btn" id="waBtn" target="_blank" rel="noopener" data-magnet data-cursor="Enviar">Pedir pelo WhatsApp <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 8h12M9 3l5 5-5 5"/></svg></a>
+        <a href="#lojas" class="btn ghost" data-magnet data-cursor="Ver">Ver lojas</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="foot" id="lojas">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <a href="#topo" class="logo"><span class="logo-mark"></span>demão</a>
+        <p style="margin-top:18px;max-width:32ch">Tintas, cores e consultoria para quem quer acertar de primeira.</p>
+      </div>
+      <div><h4>Batel</h4><ul><li>Av. do Batel, 1820</li><li>Seg a sex · 8h às 19h</li><li>Sáb · 8h às 14h</li></ul></div>
+      <div><h4>Água Verde</h4><ul><li>R. Brasílio Itiberê, 3410</li><li>Seg a sex · 8h às 18h30</li><li>Sáb · 8h às 13h</li></ul></div>
+      <div><h4>Contato</h4><ul><li><a href="tel:+554130000000">(41) 3000-0000</a></li><li><a href="mailto:ola@demaotintas.com.br">ola@demaotintas.com.br</a></li><li><a href="#">@demaotintas</a></li></ul></div>
+    </div>
+    <div class="foot-big" aria-hidden="true">demão</div>
+    <div class="foot-bar"><span>© 2026 Demão Tintas — modelo de demonstração.</span><span>Cores na tela podem variar do tom real. Peça sua amostra.</span></div>
+  </div>
+</footer>
+
+<script>
+(() => {
+  const $ = (s, el = document) => el.querySelector(s);
+  const $$ = (s, el = document) => [...el.querySelectorAll(s)];
+  const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
+  const lerp = (a, b, t) => a + (b - a) * t;
+  const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const finePointer = matchMedia("(hover: hover) and (pointer: fine)").matches;
+  const root = document.documentElement;
+  const WHATSAPP = "5541999999999";
+
+  /* ---------- cores ---------- */
+  const COLECOES = {
+    "Terrosos": [["Argila", "#b5643c", 24], ["Terracota Seca", "#c97b55", 31], ["Canela", "#8a4f2f", 14], ["Areia do Cerrado", "#d9b48f", 52], ["Barro Cozido", "#9c5a3c", 19]],
+    "Serenos": [["Sálvia", "#9caf88", 42], ["Eucalipto", "#6f8f7a", 27], ["Névoa", "#c9d3d0", 63], ["Azul Maré", "#5b7f95", 21], ["Lavanda Seca", "#a99bb5", 40]],
+    "Vibrantes": [["Açafrão", "#e0a526", 48], ["Coral Vivo", "#e86f5a", 33], ["Azul Klein", "#2d4fd0", 10], ["Musgo", "#5d6b2f", 13], ["Ameixa", "#6b2d4a", 7]],
+    "Neutros": [["Algodão", "#f1ece3", 84], ["Linho", "#e2d8c6", 71], ["Concreto", "#a7a39b", 39], ["Grafite", "#3c3d3f", 6], ["Café", "#4a3a30", 5]],
+  };
+  const codeOf = (name, hex) => "DM-" + (parseInt(hex.slice(1), 16) % 900 + 100);
+  const hexRgb = (h) => [1, 3, 5].map((i) => parseInt(h.slice(i, i + 2), 16));
+  const lum = (h) => { const [r, g, b] = hexRgb(h).map((v) => { v /= 255; return v <= .03928 ? v / 12.92 : ((v + .055) / 1.055) ** 2.4; }); return .2126 * r + .7152 * g + .0722 * b; };
+  const mix = (a, b, t) => { const A = hexRgb(a), B = hexRgb(b); return "#" + A.map((v, i) => Math.round(lerp(v, B[i], t)).toString(16).padStart(2, "0")).join(""); };
+
+  let chosen = { name: "Argila", hex: "#b5643c", lrv: 24 };
+  function setAccent(hex) {
+    const L = lum(hex);
+    root.style.setProperty("--accent", hex);
+    root.style.setProperty("--accent-text", L > .42 ? mix(hex, "#16150f", .55) : hex);
+    root.style.setProperty("--on-accent", L > .42 ? "#16150f" : "#ffffff");
+  }
+
+  /* ---------- texto dividido ---------- */
+  $$(".split").forEach((el) => {
+    let i = 0;
+    const walk = (node) => {
+      [...node.childNodes].forEach((n) => {
+        if (n.nodeType === 3) {
+          const frag = document.createDocumentFragment();
+          n.textContent.split(/(\s+)/).forEach((part) => {
+            if (!part) return;
+            if (/^\s+$/.test(part)) { frag.append(" "); return; }
+            const w = document.createElement("span"); w.className = "sw";
+            const s = document.createElement("span"); s.textContent = part; s.style.setProperty("--i", i++);
+            w.append(s); frag.append(w);
+          });
+          n.replaceWith(frag);
+        } else if (n.nodeType === 1) walk(n);
+      });
+    };
+    walk(el);
+  });
+
+  /* ---------- revelar ao rolar ---------- */
+  const io = new IntersectionObserver((ents) => ents.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }), { threshold: .15, rootMargin: "0px 0px -6% 0px" });
+  $$(".rv, .split").forEach((el) => { if (!el.closest(".hero")) io.observe(el); });
+  setTimeout(() => $$(".hero .rv, .hero .split").forEach((el) => el.classList.add("in")), reduced ? 0 : 650);
+
+  /* ---------- tom da página muda por seção ---------- */
+  const sections = $$("[data-bg]");
+  let currentBg = null;
+  function updateTone() {
+    const mid = innerHeight * .5;
+    const s = sections.find((sec) => { const r = sec.getBoundingClientRect(); return r.top <= mid && r.bottom > mid; }) || sections[0];
+    if (s === currentBg) return;
+    currentBg = s;
+    root.style.setProperty("--bg", s.dataset.bg);
+    root.style.setProperty("--fg", s.dataset.fg);
+    root.style.setProperty("--muted", s.dataset.muted);
+    root.style.setProperty("--line", s.dataset.fg === "#f4f1ec" ? "rgba(244,241,236,.14)" : "rgba(22,21,15,.12)");
+    document.querySelector('meta[name="theme-color"]').content = s.dataset.bg;
+  }
+
+  /* ---------- nav ---------- */
+  const nav = $("#nav");
+  $(".menu-btn").addEventListener("click", (e) => { const o = nav.classList.toggle("open"); e.currentTarget.setAttribute("aria-expanded", o); });
+  $$(".nav ul a").forEach((a) => a.addEventListener("click", () => { nav.classList.remove("open"); $(".menu-btn").setAttribute("aria-expanded", false); }));
+
+  /* ---------- cursor ---------- */
+  const cur = $(".cur"), dot = $(".cur-dot"), curLabel = $(".cur span");
+  const mouse = { x: innerWidth / 2, y: innerHeight / 2 }, ring = { ...mouse };
+  let overHero = true;
+  if (finePointer) root.classList.add("has-cur");
+  addEventListener("pointermove", (e) => { mouse.x = e.clientX; mouse.y = e.clientY; });
+  document.addEventListener("pointerover", (e) => {
+    const t = e.target.closest("[data-cursor]");
+    if (t) { curLabel.textContent = t.dataset.cursor; cur.classList.add("big"); }
+  });
+  document.addEventListener("pointerout", (e) => {
+    const t = e.target.closest("[data-cursor]");
+    if (t && !t.contains(e.relatedTarget)) cur.classList.remove("big");
+  });
+
+  /* botões magnéticos */
+  if (finePointer && !reduced) $$("[data-magnet]").forEach((b) => {
+    b.addEventListener("pointermove", (e) => { const r = b.getBoundingClientRect(); b.style.transform = `translate(${(e.clientX - r.left - r.width / 2) * .22}px, ${(e.clientY - r.top - r.height / 2) * .32}px)`; });
+    b.addEventListener("pointerleave", () => { b.style.transition = "transform .6s cubic-bezier(.16,1,.3,1), color .4s, background .9s"; b.style.transform = ""; setTimeout(() => (b.style.transition = ""), 600); });
+  });
+
+  /* ---------- hero: pintar com o cursor ---------- */
+  const hero = $(".hero"), cv = $("#paint"), ctx = cv.getContext("2d");
+  const BRUSH = ["#b5643c", "#e0a526", "#9caf88", "#5b7f95", "#e86f5a", "#6f8f7a", "#2d4fd0", "#c97b55"];
+  let bi = 0, W = 0, H = 0, DPR = 1;
+  const strokes = [];
+  let live = null, lastMove = 0;
+  function sizeCanvas() {
+    DPR = Math.min(devicePixelRatio || 1, 1.75);
+    const r = hero.getBoundingClientRect(); W = r.width; H = r.height;
+    cv.width = W * DPR; cv.height = H * DPR;
+  }
+  sizeCanvas();
+  const baseW = () => clamp(Math.min(W, H) * .085, 30, 96);
+  function newStroke() {
+    const st = { color: BRUSH[bi++ % BRUSH.length], pts: [] };
+    strokes.push(st);
+    root.style.setProperty("--brush", st.color);
+    return st;
+  }
+  function push(st, x, y, life, now) {
+    const last = st.pts[st.pts.length - 1];
+    let w = baseW();
+    if (last) {
+      const d = Math.hypot(x - last.x, y - last.y);
+      if (d < 3) return;
+      w = lerp(last.w, clamp(baseW() * (1.25 - d / 90), baseW() * .35, baseW() * 1.15), .25);
+    }
+    st.pts.push({ x, y, w, t: now, life });
+  }
+  hero.addEventListener("pointermove", (e) => {
+    if (e.pointerType === "touch") return;
+    const r = hero.getBoundingClientRect(), now = performance.now();
+    if (!live || now - lastMove > 260) live = newStroke();
+    lastMove = now;
+    push(live, e.clientX - r.left, e.clientY - r.top, 5200, now);
+  });
+  hero.addEventListener("pointerenter", () => { overHero = true; });
+  hero.addEventListener("pointerleave", () => { overHero = false; live = null; });
+
+  // pinceladas de abertura (para a parede não começar vazia)
+  let introT0 = null;
+  const introPaths = [
+    { from: .05, to: .62, f: (t) => [lerp(.30, 1.04, t), .42 + Math.sin(t * Math.PI * 1.6) * .16 - t * .1] },
+    { from: .30, to: .95, f: (t) => [lerp(1.04, .40, t), .78 + Math.sin(t * Math.PI * 1.2 + 1) * .09] },
+  ];
+  const introDur = 2600;
+
+  function drawPaint(now) {
+    if (introT0 !== null) {
+      const k = (now - introT0) / introDur;
+      introPaths.forEach((p) => {
+        const t = (k - p.from) / (p.to - p.from);
+        if (t < 0 || t > 1) return;
+        if (!p.stroke) p.stroke = newStroke();
+        const [x, y] = p.f(t);
+        push(p.stroke, x * W, y * H, 16000, now);
+      });
+      if (k > 1) introT0 = null;
+    }
+    ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+    ctx.clearRect(0, 0, W, H);
+    ctx.lineCap = "round"; ctx.lineJoin = "round";
+    for (let s = strokes.length - 1; s >= 0; s--) {
+      const st = strokes[s];
+      while (st.pts.length && now - st.pts[0].t > st.pts[0].life) st.pts.shift();
+      if (!st.pts.length && st !== live) strokes.splice(s, 1);
+    }
+    strokes.forEach((st) => {
+      const p = st.pts;
+      ctx.strokeStyle = st.color;
+      for (let i = 1; i < p.length; i++) {
+        const a = p[i - 1], b = p[i];
+        const k = 1 - (now - b.t) / b.life;
+        const w = b.w * Math.min(1, k * 2.2);
+        if (w < .5) continue;
+        ctx.lineWidth = w;
+        ctx.beginPath();
+        if (i > 1) { const z = p[i - 2]; ctx.moveTo((z.x + a.x) / 2, (z.y + a.y) / 2); ctx.quadraticCurveTo(a.x, a.y, (a.x + b.x) / 2, (a.y + b.y) / 2); }
+        else { ctx.moveTo(a.x, a.y); ctx.lineTo((a.x + b.x) / 2, (a.y + b.y) / 2); }
+        ctx.stroke();
+      }
+      // brilho de tinta molhada: um único traço fino e contínuo
+      if (p.length > 2) {
+        ctx.save(); ctx.globalAlpha = .22; ctx.strokeStyle = "#fff"; ctx.beginPath();
+        let started = false, wsum = 0, n = 0;
+        for (let i = 1; i < p.length; i++) {
+          const b = p[i], k = Math.min(1, (1 - (now - b.t) / b.life) * 2.2);
+          if (k <= .15) { started = false; continue; }
+          const ox = b.x - b.w * .2 * k, oy = b.y - b.w * .2 * k;
+          if (!started) { ctx.moveTo(ox, oy); started = true; } else ctx.lineTo(ox, oy);
+          wsum += b.w * k; n++;
+        }
+        ctx.lineWidth = n ? (wsum / n) * .12 : 0;
+        if (n) ctx.stroke();
+        ctx.restore();
+      }
+    });
+  }
+
+  /* chips de cor com paralaxe */
+  const chips = $$(".chip");
+
+  /* ---------- manifesto: palavras ganham tinta ---------- */
+  const man = $("#manifesto");
+  (() => {
+    const frag = document.createDocumentFragment();
+    [...man.childNodes].forEach((n) => {
+      if (n.nodeType === 3) n.textContent.split(/(\s+)/).forEach((p) => { if (!p) return; if (/^\s+$/.test(p)) frag.append(" "); else { const s = document.createElement("span"); s.className = "w"; s.textContent = p; frag.append(s); } });
+      else frag.append(n);
+    });
+    man.replaceChildren(frag);
+  })();
+  const manItems = $$(".w, .blob", man);
+
+  /* ---------- seletor de cor ---------- */
+  const tabs = $(".tabs"), swWrap = $("#swatches"), room = $("#room"), wallNew = $(".wall-new", room), roller = $(".roller", room);
+  let tab = "Terrosos", painting = false;
+  Object.keys(COLECOES).forEach((k) => {
+    const b = document.createElement("button"); b.type = "button"; b.setAttribute("role", "tab"); b.textContent = k; b.setAttribute("aria-selected", k === tab);
+    b.addEventListener("click", () => { tab = k; $$("button", tabs).forEach((x) => x.setAttribute("aria-selected", x === b)); renderSwatches(); });
+    tabs.append(b);
+  });
+  function renderSwatches() {
+    swWrap.innerHTML = "";
+    COLECOES[tab].forEach(([name, hex, lrv], i) => {
+      const b = document.createElement("button"); b.type = "button"; b.className = "sw-btn";
+      b.style.setProperty("--c", hex); b.style.setProperty("--i", i);
+      b.setAttribute("aria-label", `${name}, ${codeOf(name, hex)}`); b.setAttribute("aria-pressed", hex === chosen.hex);
+      b.dataset.cursor = name.split(" ")[0];
+      b.addEventListener("click", () => paintWall({ name, hex, lrv }));
+      swWrap.append(b);
+    });
+  }
+  function pairFor(hex) {
+    const all = Object.values(COLECOES).flat().filter((c) => c[1] !== hex);
+    const L = lum(hex);
+    const neutral = all.filter((c) => COLECOES.Neutros.includes(c)).sort((a, b) => Math.abs(lum(a[1]) - (L > .3 ? .05 : .8)) - Math.abs(lum(b[1]) - (L > .3 ? .05 : .8)))[0];
+    const idx = Object.values(COLECOES).flat().findIndex((c) => c[1] === hex);
+    const other = all[(idx * 7 + 3) % all.length];
+    return [hex, neutral[1], other === neutral ? all[0][1] : other[1]];
+  }
+  function updateDetail() {
+    const code = codeOf(chosen.name, chosen.hex);
+    $("#tagName").textContent = chosen.name; $("#dName").textContent = chosen.name;
+    $("#tagCode").textContent = `${code} · ${chosen.hex.toUpperCase()}`; $("#dCode").textContent = code;
+    $("#dLrv").textContent = "LRV " + chosen.lrv;
+    room.style.setProperty("--wall-cur", chosen.hex);
+    $$("#pair i").forEach((el, i) => (el.style.background = pairFor(chosen.hex)[i]));
+    $("#chosenTxt").textContent = "Sua cor: " + chosen.name;
+    const msg = encodeURIComponent(`Olá! Vi o site da Demão e quero uma amostra do tom ${chosen.name} (${code}).`);
+    $("#waBtn").href = `https://wa.me/${WHATSAPP}?text=${msg}`;
+    setAccent(chosen.hex);
+  }
+  function paintWall(c) {
+    if (painting || c.hex === chosen.hex) return;
+    painting = true;
+    chosen = c;
+    $$(".sw-btn", swWrap).forEach((b) => b.setAttribute("aria-pressed", b.style.getPropertyValue("--c") === c.hex));
+    room.style.setProperty("--wall-new", c.hex);
+    wallNew.classList.remove("go"); roller.classList.remove("go");
+    void wallNew.offsetWidth;
+    wallNew.classList.add("go"); roller.classList.add("go");
+    updateDetail();
+    setTimeout(() => {
+      room.style.setProperty("--wall-old", c.hex);
+      wallNew.classList.remove("go"); roller.classList.remove("go");
+      painting = false;
+    }, reduced ? 30 : 1150);
+  }
+  room.style.setProperty("--wall-old", chosen.hex);
+  renderSwatches(); updateDetail();
+  // clicar na parede pinta com o próximo tom da coleção
+  room.addEventListener("click", () => {
+    const list = COLECOES[tab]; const i = list.findIndex((c) => c[1] === chosen.hex);
+    const [name, hex, lrv] = list[(i + 1) % list.length]; paintWall({ name, hex, lrv });
+  });
+
+  /* ---------- processo ---------- */
+  const proc = $(".process"), pin = $(".process-pin"), track = $("#track"), steps = $$(".step", track), stepNow = $("#stepNow");
+  const rollerLines = $("#rollerLines");
+  const horizontal = () => innerWidth > 860;
+  function sizeProcess() {
+    if (horizontal()) proc.style.height = (track.scrollWidth - innerWidth + innerHeight * 1.15) + "px";
+    else proc.style.height = "";
+  }
+
+  /* ---------- produtos ---------- */
+  const PRODUTOS = [
+    { nome: "Acrílica Premium", tag: "Mais vendida", cor: "#c97b55", desc: "Fosco aveludado, lavável e com baixíssimo odor. Pinta hoje, dorme no quarto hoje.", meta: ["18 L", "3,6 L", "0,9 L", "12 m²/L"] },
+    { nome: "Esmalte Base Água", tag: "Madeira e metal", cor: "#5b7f95", desc: "Acetinado ou brilhante, secagem ao toque em 1 hora e sem amarelar com o tempo.", meta: ["3,6 L", "0,9 L", "Seca em 1h"] },
+    { nome: "Texturas & Efeitos", tag: "Decorativo", cor: "#a7a39b", desc: "Cimento queimado, grafiato e marmorato com aplicação orientada pela nossa equipe.", meta: ["25 kg", "5 kg", "12 efeitos"] },
+    { nome: "Impermeabilizante", tag: "Fachada e laje", cor: "#6f8f7a", desc: "Membrana elástica que veda fissuras e protege contra chuva e sol por até 8 anos.", meta: ["18 L", "3,6 L", "8 anos"] },
+  ];
+  const canSvg = (c) => `<svg class="can" viewBox="0 0 160 190" aria-hidden="true">
+    <ellipse cx="80" cy="180" rx="62" ry="8" fill="#000" opacity=".12"/>
+    <path d="M20 40 v120 a60 14 0 0 0 120 0 v-120z" fill="#e9e5de"/>
+    <path d="M20 40 v120 a60 14 0 0 0 120 0 v-120z" fill="url(#shade)" opacity=".5"/>
+    <path d="M20 70 h120 v66 h-120z" fill="${c}"/>
+    <path d="M20 70 h120 v66 h-120z" fill="url(#shade)" opacity=".35"/>
+    <text x="80" y="108" text-anchor="middle" font-family="Manrope, sans-serif" font-weight="800" font-size="19" fill="${lum(c) > .4 ? "#16150f" : "#fff"}" letter-spacing="-1">demão</text>
+    <rect x="44" y="116" width="72" height="4" rx="2" fill="${lum(c) > .4 ? "#16150f" : "#fff"}" opacity=".5"/>
+    <path d="M30 40 C30 18 130 18 130 40" fill="none" stroke="#2c2b27" stroke-width="3"/>
+    <g class="lid"><ellipse cx="80" cy="40" rx="60" ry="14" fill="#d6d1c8"/><ellipse cx="80" cy="38" rx="52" ry="10" fill="#c7c1b6"/></g>
+    <ellipse cx="80" cy="44" rx="50" ry="9" fill="${c}" opacity=".9" class="drop"/>
+    <path class="drop" d="M126 46 c0 18 6 26 6 36 a5 5 0 0 1 -10 0 c0-10 4-18 4-36z" fill="${c}"/>
+  </svg>`;
+  $("#prodGrid").innerHTML = `<svg width="0" height="0" style="position:absolute"><defs><linearGradient id="shade" x1="0" x2="1"><stop offset="0" stop-color="#000" stop-opacity=".35"/><stop offset=".3" stop-color="#fff" stop-opacity=".35"/><stop offset=".55" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".4"/></linearGradient></defs></svg>` +
+    PRODUTOS.map((p, i) => `<article class="prod rv" style="--pc:${p.cor};--d:${i * 90}ms" data-cursor="Ver">
+      <span class="tag">${p.tag}</span>${canSvg(p.cor)}
+      <h3>${p.nome}</h3><p>${p.desc}</p><div class="meta">${p.meta.map((m) => `<span>${m}</span>`).join("")}</div></article>`).join("");
+  $$(".prod").forEach((c) => io.observe(c));
+  if (finePointer && !reduced) $$(".prod").forEach((c) => {
+    c.addEventListener("pointermove", (e) => {
+      const r = c.getBoundingClientRect(), x = (e.clientX - r.left) / r.width, y = (e.clientY - r.top) / r.height;
+      c.style.setProperty("--mx", x * 100 + "%"); c.style.setProperty("--my", y * 100 + "%");
+      c.style.transform = `rotateY(${(x - .5) * 12}deg) rotateX(${(.5 - y) * 10}deg) translateY(-6px)`;
+    });
+    c.addEventListener("pointerleave", () => (c.style.transform = ""));
+  });
+
+  /* ---------- calculadora ---------- */
+  const fmt = (n, d = 1) => n.toLocaleString("pt-BR", { minimumFractionDigits: d, maximumFractionDigits: d });
+  const inW = $("#cW"), inH = $("#cH"), inO = $("#cO");
+  const state = { coats: 2, line: 12 };
+  $$(".seg").forEach((g) => $$("button", g).forEach((b) => b.addEventListener("click", () => {
+    $$("button", g).forEach((x) => x.setAttribute("aria-pressed", x === b));
+    state[g.dataset.group] = +b.dataset.v; calc();
+  })));
+  function packs(L) {
+    let n18 = Math.floor(L / 18), rem = L - n18 * 18;
+    if (rem > 14.4) { n18++; rem = 0; }
+    let n36 = Math.floor(rem / 3.6); rem -= n36 * 3.6;
+    let n09 = rem > .01 ? Math.ceil(rem / .9 - 1e-9) : 0;
+    if (n09 >= 3) { n36++; n09 = 0; }
+    if (n36 >= 4) { n18++; n36 = 0; n09 = 0; }
+    return [[n18, "lata 18 L", "latas 18 L"], [n36, "galão 3,6 L", "galões 3,6 L"], [n09, "quarto 0,9 L", "quartos 0,9 L"]].filter((p) => p[0] > 0);
+  }
+  function calc() {
+    const w = +inW.value, h = +inH.value, o = +inO.value;
+    [inW, inH, inO].forEach((i) => i.style.setProperty("--v", ((i.value - i.min) / (i.max - i.min)) * 100 + "%"));
+    $("#oW").textContent = fmt(w, w % 1 ? 1 : 0) + " m"; $("#oH").textContent = fmt(h) + " m"; $("#oO").textContent = o;
+    const area = Math.max(1, w * h - o * 1.9);
+    const L = (area * state.coats / state.line) * 1.1;
+    $("#rL").textContent = fmt(L); $("#rA").textContent = fmt(area) + " m²"; $("#rC").textContent = state.coats;
+    $("#rCans").innerHTML = packs(L).map(([n, s, p]) => `<div><b>${n}</b><span>${n > 1 ? p : s}</span></div>`).join("");
+    $(".tank").style.setProperty("--lvl", clamp(L / 60, .08, .82) * 100 + "%");
+  }
+  [inW, inH, inO].forEach((i) => i.addEventListener("input", calc));
+  calc();
+
+  /* ---------- depoimentos ---------- */
+  const QUOTES = [
+    ["A consultora acertou o verde da sala pela foto da janela. Ficou exatamente como imaginei.", "Marina C.", "Batel", "#9caf88"],
+    ["Comprei a quantidade que a calculadora deu e sobrou só um pouquinho para retoque. Perfeito.", "Rafael T.", "Água Verde", "#e0a526"],
+    ["Testei três tons com as amostras antes de decidir. Ninguém mais faz isso com essa atenção.", "Luísa M.", "Mercês", "#c97b55"],
+    ["Pedi de manhã, chegou no outro dia já tingida. E o pintor que indicaram foi impecável.", "Carlos E.", "Portão", "#5b7f95"],
+    ["A tinta premium não tem cheiro mesmo. Pintamos o quarto do bebê sem sair de casa.", "Ana e Pedro", "Juvevê", "#a99bb5"],
+  ];
+  const qHtml = QUOTES.map(([t, n, b, c]) => `<blockquote class="quote"><p>“${t}”</p><footer><i style="--c:${c}"></i><div><b>${n}</b><span>${b}</span></div></footer></blockquote>`).join("");
+  $("#quotes").innerHTML = qHtml + qHtml.replace(/<blockquote/g, '<blockquote aria-hidden="true"');
+
+  /* números */
+  const cio = new IntersectionObserver((ents) => ents.forEach((e) => {
+    if (!e.isIntersecting) return; cio.unobserve(e.target);
+    const el = e.target, to = +el.dataset.count, dec = "dec" in el.dataset, suf = el.dataset.suffix || "";
+    const t0 = performance.now(), dur = reduced ? 1 : 1600;
+    const tick = (now) => {
+      const k = clamp((now - t0) / dur), v = to * (1 - (1 - k) ** 4);
+      el.textContent = (dec ? fmt(v) : Math.round(v).toLocaleString("pt-BR")) + (suf ? " " + suf : "");
+      if (k < 1) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  }), { threshold: .6 });
+  $$("[data-count]").forEach((el) => cio.observe(el));
+
+  /* ---------- final ---------- */
+  const fin = $(".final"), dripPath = $("#dripPath");
+
+  /* ---------- progresso: escorrido ---------- */
+  const drips = [.12, .27, .41, .58, .73, .9].map((x, i) => ({ x, len: 8 + (i * 37 % 22), seed: i }));
+  function drawDrip(p) {
+    const x = p * 1000;
+    let d = `M0 0H${x.toFixed(1)}`;
+    d += `C${(x + 6).toFixed(1)} 0 ${(x + 6).toFixed(1)} 6 ${x.toFixed(1)} 6`;
+    const passed = drips.filter((dr) => dr.x * 1000 < x - 10).sort((a, b) => b.x - a.x);
+    passed.forEach((dr) => {
+      const cx = dr.x * 1000, grow = clamp((x - cx) / 120), L = 6 + dr.len * grow + Math.sin(performance.now() / 900 + dr.seed) * 1.2 * grow;
+      d += `H${(cx + 5).toFixed(1)}C${(cx + 4).toFixed(1)} ${(L * .6).toFixed(1)} ${(cx + 4).toFixed(1)} ${L.toFixed(1)} ${cx.toFixed(1)} ${L.toFixed(1)}S${(cx - 4).toFixed(1)} ${(L * .6).toFixed(1)} ${(cx - 5).toFixed(1)} 6`;
+    });
+    d += "H0Z";
+    dripPath.setAttribute("d", d);
+  }
+
+  /* ---------- laço principal ---------- */
+  let lastY = -1;
+  function frame(now) {
+    // cursor
+    ring.x = lerp(ring.x, mouse.x, reduced ? 1 : .2); ring.y = lerp(ring.y, mouse.y, reduced ? 1 : .2);
+    cur.style.transform = `translate3d(${ring.x}px, ${ring.y}px, 0)`;
+    dot.style.transform = `translate3d(${mouse.x}px, ${mouse.y}px, 0)`;
+    const heroVisible = hero.getBoundingClientRect().bottom > 0;
+    cur.classList.toggle("brush", overHero && heroVisible && !cur.classList.contains("big") && mouse.y < hero.getBoundingClientRect().bottom);
+
+    if (heroVisible) {
+      drawPaint(now);
+      const nx = mouse.x / innerWidth - .5, ny = mouse.y / innerHeight - .5, sy = scrollY;
+      if (!reduced) chips.forEach((c) => { const d = +c.dataset.depth; c.style.transform = `translate3d(${nx * d}px, ${ny * d - sy * d * .012}px, 0) rotate(${nx * d * .08}deg)`; });
+    }
+
+    const y = scrollY;
+    const docH = document.documentElement.scrollHeight - innerHeight;
+    drawDrip(clamp(y / docH));
+    nav.classList.toggle("solid", y > 40);
+
+    if (y !== lastY) {
+      lastY = y;
+      updateTone();
+
+      // manifesto
+      const mr = man.getBoundingClientRect();
+      const mp = clamp((innerHeight * .82 - mr.top) / (mr.height + innerHeight * .25));
+      const on = Math.floor(mp * manItems.length * 1.05);
+      manItems.forEach((w, i) => w.classList.toggle("on", i < on));
+
+      // processo
+      if (horizontal()) {
+        const pr = proc.getBoundingClientRect();
+        const pp = clamp(-pr.top / (proc.offsetHeight - innerHeight));
+        const maxX = track.scrollWidth - innerWidth;
+        track.style.transform = `translate3d(${-pp * maxX}px,0,0)`;
+        pin.style.setProperty("--pp", pp);
+        rollerLines.style.transform = `translateY(${(pp * 900) % 14}px)`;
+        steps.forEach((s) => {
+          const r = s.getBoundingClientRect();
+          const k = clamp((innerWidth * .95 - r.left) / (innerWidth * .55));
+          s.querySelector(".card-vis").style.setProperty("--p", k);
+        });
+        const idx = clamp(Math.round(pp * (steps.length - 1)), 0, steps.length - 1);
+        stepNow.textContent = String(idx + 1).padStart(2, "0");
+      } else {
+        steps.forEach((s) => {
+          const r = s.querySelector(".card-vis").getBoundingClientRect();
+          s.querySelector(".card-vis").style.setProperty("--p", clamp((innerHeight * .9 - r.top) / (r.height * .9)));
+        });
+      }
+
+      // final: a cor escolhida sobe como tinta
+      const fr = fin.getBoundingClientRect();
+      const f = clamp((innerHeight - fr.top) / (innerHeight * 1.05));
+      const fe = 1 - (1 - f) ** 2;
+      fin.style.setProperty("--f", fe);
+      fin.classList.toggle("lit", fe > .62);
+    }
+    requestAnimationFrame(frame);
+  }
+
+  addEventListener("resize", () => { sizeCanvas(); sizeProcess(); lastY = -1; });
+  sizeProcess();
+  document.fonts && document.fonts.ready.then(() => { sizeProcess(); lastY = -1; });
+  setTimeout(() => (introT0 = performance.now()), reduced ? 0 : 900);
+  setTimeout(() => $(".intro").remove(), 2400);
+  requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>

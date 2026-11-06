@@ -345,4 +345,13 @@ window.MODELOS = [
     cor: "#2563eb",
     novo: true,
   },
+  {
+    pasta: "demao-tintas",
+    titulo: "Demão — Tintas & Cores",
+    segmento: "Construção",
+    descricao: "Loja de tintas com parede para pintar com o cursor, simulador de cor em ambiente, processo em rolagem horizontal e calculadora de litros.",
+    tags: ["Simulador de cor", "Calculadora", "Interativo"],
+    cor: "#b5643c",
+    novo: true,
+  },
 ];
