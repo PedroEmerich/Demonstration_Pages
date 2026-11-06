@@ -139,6 +139,8 @@
   .meat canvas { display: block; }
   .meat.sem-gl canvas { display: none; }
   .meat img[hidden] { display: none; }
+  .meat .pt { opacity: 0; will-change: opacity; }
+  .meat.com-fotos canvas { display: none; }
   .meat__zoom { position: absolute; inset: 0; transform: scale(1.06); transition: transform 1.6s var(--ease); }
   .meat:hover .meat__zoom { transform: scale(1.12); }
   .meat::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to top, rgba(14,11,9,.75), transparent 45%); pointer-events: none; }
@@ -864,13 +866,26 @@
   let render = null, v = 2, idx = -1, snapAnim, quadro = 0;
   try { render = carneGL(meatGL); } catch (err) { render = null; }
   if (!render) { meat.classList.add("sem-gl"); meatImg.hidden = false; meatImg.src = FOTO; }
+  /* Fotos reais: coloque pontos/0.jpg (mal) até pontos/4.jpg (bem), mesma carne e mesmo
+     enquadramento. Se as cinco existirem, elas substituem a carne gerada. */
+  let fotos = null;
+  Promise.all([0, 1, 2, 3, 4].map((i) => new Promise((ok, erro) => {
+    const im = new Image(); im.className = "pt"; im.alt = ""; im.decoding = "async";
+    im.onload = () => ok(im); im.onerror = erro; im.src = `pontos/${i}.jpg`;
+  }))).then((ims) => {
+    const zoom = meatGL.parentElement;
+    ims.forEach((im) => zoom.append(im));
+    fotos = ims; meat.classList.add("com-fotos"); meat.classList.remove("sem-gl"); meatImg.hidden = true; render = null;
+    desenha();
+  }).catch(() => {});
   const pinta = () => { if (render && !quadro) quadro = requestAnimationFrame(() => { quadro = 0; render(v); }); };
   addEventListener("resize", pinta);
   new IntersectionObserver((es) => { if (es[0].isIntersecting) pinta(); }, { rootMargin: "400px" }).observe(meat);
   function desenha() {
     knob.style.left = `${(v / 4) * 100}%`;
     tempEl.textContent = Math.round(50 + v * 5) + "°";
-    if (render) pinta();
+    if (fotos) { const b = Math.min(3, Math.floor(v)); fotos.forEach((im, i) => im.style.opacity = i === b ? 1 : i === b + 1 ? v - b : 0); }
+    else if (render) pinta();
     else meatImg.style.filter = `saturate(${1.15 - v * .2}) hue-rotate(${v * 4}deg) sepia(${v * .1}) brightness(${1 - v * .04})`;
     const i = Math.round(v);
     if (i !== idx) {
