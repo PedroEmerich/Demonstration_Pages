@@ -153,6 +153,7 @@
   .cores { padding: 40px 0 clamp(100px, 14vh, 170px); }
   .sec-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 24px 32px; flex-wrap: wrap; margin-bottom: 52px; }
   .cores-grid { display: grid; grid-template-columns: 1.5fr 1fr; gap: 24px; align-items: start; }
+  .cores-grid > *, .dentro-grid > *, .calc-box > * { min-width: 0; }
   .room { position: relative; border-radius: 28px; overflow: hidden; aspect-ratio: 3 / 2; background: #e9e2d8; box-shadow: 0 50px 100px -50px rgba(40,30,20,.5); }
   .room > img, .room .gray, .room .tint { position: absolute; inset: 0; width: 100%; height: 100%; }
   .room > img { object-fit: cover; }
@@ -400,7 +401,7 @@
     .calc-out .liters { font-size: 92px; }
     .seg button { font-size: 12px; padding: 10px 4px; }
     .final h2 { font-size: 54px; }
-    .stage-actions .btn.ghost { display: none; }
+    .stage-copy .btn.ghost { display: none; }
     .rail-hint span { font-size: 12px; }
   }
   @media (prefers-reduced-motion: reduce) {
@@ -835,7 +836,7 @@
     // materiais
     const metal = new T.MeshStandardMaterial({ color: 0xd4d2cd, metalness: 1, roughness: .26, envMapIntensity: 1.15, side: T.DoubleSide });
     const metalDark = new T.MeshStandardMaterial({ color: 0xb9b5ad, metalness: 1, roughness: .34 });
-    const paintMat = new T.MeshPhysicalMaterial({ color: new T.Color(chosen.hex), roughness: .16, clearcoat: 1, clearcoatRoughness: .06, envMapIntensity: .9 });
+    const paintMat = new T.MeshPhysicalMaterial({ color: new T.Color(chosen.hex), roughness: .2, clearcoat: .8, clearcoatRoughness: .08, envMapIntensity: .55 });
     const dripMat = new T.MeshPhysicalMaterial({ color: new T.Color(chosen.hex), roughness: .18, clearcoat: 1, clearcoatRoughness: .08 });
 
     const group = new T.Group(); scene.add(group);
@@ -915,10 +916,10 @@
     [[-0.66, .62], [-0.4, .34], [-0.14, .86], [0.38, .5]].forEach(([ang, len]) => {
       const at = (r, y) => new T.Vector3(Math.sin(ang) * r, y, Math.cos(ang) * r);
       const curve = new T.CatmullRomCurve3([at(.95, 2.252), at(1.0, 2.262), at(1.046, 2.236), at(1.05, 2.17), at(1.024, 2.08), at(1.017, 1.96), at(1.017, 1.96 - len * .5), at(1.017, 1.96 - len)]);
-      const geo = new T.TubeGeometry(curve, 80, .024, 10, false);
+      const geo = new T.TubeGeometry(curve, 80, .019, 10, false);
       const m = new T.Mesh(geo, dripMat); m.castShadow = true;
-      const bead = new T.Mesh(new T.SphereGeometry(.036, 18, 14), dripMat); bead.scale.set(1, 1.35, .75); bead.rotation.y = ang;
-      const pool = new T.Mesh(new T.SphereGeometry(.07, 18, 10), dripMat); pool.scale.set(1.3, .32, .8); pool.position.copy(at(1.0, 2.258)); pool.rotation.y = ang;
+      const bead = new T.Mesh(new T.SphereGeometry(.036, 18, 14), dripMat); bead.scale.set(.85, 1.25, .6); bead.rotation.y = ang;
+      const pool = new T.Mesh(new T.SphereGeometry(.07, 18, 10), dripMat); pool.scale.set(1.1, .22, .7); pool.position.copy(at(1.02, 2.25)); pool.rotation.y = ang;
       [m, bead, pool].forEach((o) => { o.visible = false; group.add(o); });
       drips.push({ m, bead, pool, curve, count: geo.index.count });
     });
@@ -988,7 +989,7 @@
     const seg = (t, [a, b]) => clamp((t - a) / (b - a));
     const LID_FROM = new T.Vector3(), LID_TO = new T.Vector3(2.15, 0.085, -0.75), tmp = new T.Vector3();
 
-    function setPaint(hex) { paintMat.color.set(hex).multiplyScalar(.68); dripMat.color.set(hex).multiplyScalar(.74); drawLabel(hex, chosen.name); }
+    function setPaint(hex) { paintMat.color.set(hex).multiplyScalar(.5); dripMat.color.set(hex).multiplyScalar(.58); drawLabel(hex, chosen.name); }
     setPaint(chosen.hex);
     drawLabel(chosen.hex, chosen.name);
     document.fonts && document.fonts.ready.then(() => drawLabel(chosen.hex, chosen.name));
@@ -1033,7 +1034,7 @@
         if (!show) return;
         d.m.geometry.setDrawRange(0, Math.max(60, Math.floor(d.count * g / 60) * 60));
         d.bead.position.copy(d.curve.getPoint(Math.max(.02, g)));
-        d.pool.scale.set(1.3 * Math.min(1, g * 3), .32, .8);
+        d.pool.scale.set(1.1 * Math.min(1, g * 3), .22, .7);
       });
 
       // pingos automáticos para a tinta não ficar parada
