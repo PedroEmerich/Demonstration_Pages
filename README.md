@@ -40,3 +40,21 @@ mas a vitrine animada e a história da página inicial usam as imagens.
 python -m http.server 5500
 ```
 e abra http://localhost:5500
+
+## Brasa: fotos reais dos pontos da carne
+
+A seção "O ponto perfeito" do modelo `brasa-parrilla` mostra uma picanha gerada
+em WebGL. Para usar fotos reais, coloque cinco imagens em
+`modelos/brasa-parrilla/pontos/`:
+
+| Arquivo | Ponto |
+| --- | --- |
+| `0.jpg` | Mal passado |
+| `1.jpg` | Ao ponto para mal |
+| `2.jpg` | Ao ponto |
+| `3.jpg` | Ao ponto para bem |
+| `4.jpg` | Bem passado |
+
+Use a mesma carne, o mesmo ângulo, a mesma luz e o mesmo enquadramento
+(cerca de 1400 × 1200 px). Com as cinco na pasta, a página troca a carne
+gerada pelas fotos, com transição suave entre os pontos.
