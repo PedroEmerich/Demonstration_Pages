@@ -345,4 +345,13 @@ window.MODELOS = [
     cor: "#2563eb",
     novo: true,
   },
+  {
+    pasta: "demao-tintas",
+    titulo: "Demão — Tintas & Cores",
+    segmento: "Construção",
+    descricao: "Loja de tintas com lata 3D que abre e leva para dentro da tinta, simulador de cor em sala real, galeria de ambientes, processo em rolagem horizontal e calculadora de litros.",
+    tags: ["3D", "Simulador de cor", "Calculadora"],
+    cor: "#b5643c",
+    novo: true,
+  },
 ];
