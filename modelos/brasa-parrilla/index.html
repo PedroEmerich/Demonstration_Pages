@@ -295,6 +295,46 @@
     .exp__b, .exp__c { grid-column: 2 !important; aspect-ratio: 1; }
     .exp__quote { grid-column: 1 / -1 !important; padding: 26px 0 0; }
     .ph { border-radius: 16px; }
+    /* revisão geral do celular: respiros menores e elementos melhor distribuídos */
+    .wrap { width: min(1280px, 100% - 36px); }
+    .hero__pin { min-height: 0; height: 100svh; }
+    .hero__shade { background: linear-gradient(to top, rgba(14,11,9,.97) 10%, rgba(14,11,9,.7) 50%, rgba(14,11,9,.25) 80%, rgba(14,11,9,.5)); }
+    .hero__content { padding-bottom: 36px; }
+    .hero .eyebrow { font-size: 10px; letter-spacing: .16em; margin-bottom: 18px !important; white-space: nowrap; }
+    .hero h1 { font-size: 54px; line-height: .9; }
+    .hero__row { margin-top: 22px; gap: 22px; }
+    .hero__row p { font-size: 15.5px; }
+    .hero__ctas { width: 100%; flex-wrap: nowrap; }
+    .hero__ctas > * { flex: 1 1 0; justify-content: center; white-space: nowrap; }
+    .hero__scroll { display: none; }
+    .marquee { padding: 36px 0 0; }
+    .marquee__row span { font-size: 46px; }
+    .manifesto { padding: 64px 0 70px; }
+    .manifesto__grid { gap: 22px; }
+    .manifesto p.big { font-size: 27px; }
+    .stats { grid-template-columns: repeat(3, 1fr); margin-top: 48px; }
+    .stat { padding-top: 22px; }
+    .stat + .stat { padding-left: 14px; margin-top: 0; border-top: 0; border-left: 1px solid var(--line); }
+    .stat strong { font-size: 40px; }
+    .stat span { display: block; margin-top: 6px; font-size: 12px; line-height: 1.35; }
+    .cuts__sticky { padding: 64px 0 56px; }
+    .cuts__head { margin-bottom: 26px; }
+    .cuts__track { padding-left: 18px; padding-right: 18px; scroll-padding-left: 18px; gap: 14px; }
+    .cut { width: 80vw; }
+    .cut__img img { inset: 0; width: 100%; transform: none !important; }
+    .cut h3 { font-size: 26px; }
+    .cut__body { padding-top: 14px; }
+    .doneness { padding: 56px 0 64px; }
+    .menu { padding: 64px 0; }
+    .menu__head { margin-bottom: 26px; gap: 22px; }
+    .dish { padding: 20px 0; }
+    .exp { padding: 0 0 64px; }
+    .book { padding: 64px 0; }
+    .book__in { gap: 36px; }
+    .book__info > p { margin: 18px 0 26px; font-size: 15.5px; }
+    .footer { padding: 56px 0 28px; }
+    .footer__row { flex-direction: column; gap: 8px; margin-top: 32px; font-size: 13px; }
+    .wa { right: 14px; bottom: 14px; width: 50px; height: 50px; }
   }
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
