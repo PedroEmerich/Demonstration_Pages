@@ -992,7 +992,7 @@
     const easeOut = (t) => 1 - (1 - t) ** 3;
     const easeIO = (t) => (t < .5 ? 4 * t * t * t : 1 - (-2 * t + 2) ** 3 / 2);
     const seg = (t, a, b) => clamp((t - a) / (b - a));
-    const LID_ON = new T.Vector3(), LID_OFF = new T.Vector3(2.05, .078, -.55), tmp = new T.Vector3();
+    const LID_ON = new T.Vector3(), LID_OFF = new T.Vector3(2.3, .078, -.6), tmp = new T.Vector3();
     canvas.style.opacity = 0; canvas.style.transition = "opacity 1.4s cubic-bezier(.16,1,.3,1)";
 
     function setPaint(hex) {
@@ -1020,16 +1020,18 @@
       ao.material.opacity = .9 * r; soft.material.opacity = .8 * r;
 
       // tampa: desencaixa, sobe, vira e pousa no chão
-      const k = seg(t, 1.5, 3.7);
+      // 1) desencaixa e sobe um pouco; 2) desliza deitada para o lado, acima da borda;
+      // 3) já fora da lata, vira enquanto desce e pousa no chão (nunca atravessa a lata)
+      const k = seg(t, 1.5, 4.6);
       LID_ON.set(0, 2.233, 0).applyEuler(group.rotation).add(group.position);
       if (k <= 0) { lid.position.copy(LID_ON); lid.rotation.set(group.rotation.x, group.rotation.y, 0); }
       else {
-        const e1 = easeOut(clamp(k / .28)), e2 = easeIO(clamp((k - .2) / .8));
-        tmp.copy(LID_ON); tmp.y += .32 * e1;
-        tmp.lerp(LID_OFF, e2); tmp.y += Math.sin(Math.PI * e2) * .45;
+        const up = easeIO(clamp(k / .25)), side = easeIO(clamp((k - .18) / .37));
+        const down = easeIO(clamp((k - .5) / .5)), flip = easeIO(clamp((k - .46) / .42));
+        tmp.set(lerp(LID_ON.x, LID_OFF.x, side), lerp(LID_ON.y + .35 * up, LID_OFF.y, down), lerp(LID_ON.z, LID_OFF.z, side));
         lid.position.copy(tmp);
-        lid.rotation.set(Math.PI * e2 + .12 * e1 * (1 - e2), lerp(group.rotation.y, .4, e2), -.05 * e2);
-        if (k > .25 && !opened) { opened = true; drop(0, 0, .009); }
+        lid.rotation.set(.1 * up * (1 - flip) + Math.PI * flip, lerp(group.rotation.y, .4, side), 0);
+        if (up > .5 && !opened) { opened = true; drop(0, 0, .009); }
       }
       lidAo.position.set(lid.position.x, .003, lid.position.z);
       lidAo.material.opacity = clamp(1 - (lid.position.y - .08) / 1.2) * (k > 0 ? 1 : 0);
