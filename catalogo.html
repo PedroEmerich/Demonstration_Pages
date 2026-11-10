@@ -42,8 +42,23 @@
 
     <section class="section section--tight">
       <div class="wrap">
+        <div class="toolbar" data-reveal>
+          <div class="status-filter" role="group" aria-label="Filtrar por situação"></div>
+          <label class="sort">
+            <span>Ordenar por</span>
+            <select id="ordem">
+              <option value="catalogo">Ordem do catálogo</option>
+              <option value="recentes">Mais recentes</option>
+              <option value="az">Nome (A–Z)</option>
+              <option value="za">Nome (Z–A)</option>
+              <option value="segmento">Segmento</option>
+              <option value="situacao">Finalizados primeiro</option>
+            </select>
+          </label>
+        </div>
         <div class="filters" role="tablist" aria-label="Filtrar por segmento" data-reveal></div>
         <div class="grid" id="grid"></div>
+        <p class="no-match" id="noMatch" hidden>Nenhum modelo com esses filtros. <button type="button" id="limpar">Limpar filtros</button></p>
         <div class="empty" id="empty" hidden>
           <p class="empty__title">Novos modelos em breve.</p>
           <p>Adicione suas landing pages na pasta <code>modelos/</code> e registre-as em <code>catalogo.js</code>.</p>

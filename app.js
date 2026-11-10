@@ -64,13 +64,50 @@
   if (!grid) return;
   const empty = $("#empty");
   const filtersEl = $(".filters");
+  const statusEl = $(".status-filter");
+  const ordemEl = $("#ordem");
+  const noMatch = $("#noMatch");
   const segmentos = ["Todos", ...new Set(MODELOS.map((m) => m.segmento).filter(Boolean))];
-  let ativo = "Todos";
+  const SITUACOES = [["todos", "Todos"], ["ok", "Finalizados"], ["todo", "Não finalizados"]];
+
+  // filtros guardados no endereço (?seg=&situacao=&ordem=), para recarregar ou compartilhar
+  const params = new URLSearchParams(location.search);
+  let ativo = segmentos.includes(params.get("seg")) ? params.get("seg") : "Todos";
+  let situacao = SITUACOES.some(([v]) => v === params.get("situacao")) ? params.get("situacao") : "todos";
+  let ordem = [...ordemEl.options].some((o) => o.value === params.get("ordem")) ? params.get("ordem") : "catalogo";
+  ordemEl.value = ordem;
+
+  const naSituacao = (m) => situacao === "todos" || (situacao === "ok" ? !!m.revisado : !m.revisado);
+  const noSegmento = (m) => ativo === "Todos" || m.segmento === ativo;
+
+  function salvarNoEndereco() {
+    const q = new URLSearchParams();
+    if (ativo !== "Todos") q.set("seg", ativo);
+    if (situacao !== "todos") q.set("situacao", situacao);
+    if (ordem !== "catalogo") q.set("ordem", ordem);
+    history.replaceState(null, "", location.pathname + (q.toString() ? "?" + q : "") + location.hash);
+  }
+
+  function renderSituacao() {
+    statusEl.innerHTML = SITUACOES.map(([v, rotulo]) => {
+      const n = MODELOS.filter((m) => noSegmento(m) && (v === "todos" || (v === "ok" ? m.revisado : !m.revisado))).length;
+      const dot = v === "todos" ? "" : `<span class="status status--${v}"></span>`;
+      return `<button type="button" class="seg-btn" aria-pressed="${v === situacao}" data-sit="${v}">${dot}${rotulo}<small>${n}</small></button>`;
+    }).join("");
+  }
+  statusEl.addEventListener("click", (e) => {
+    const b = e.target.closest(".seg-btn");
+    if (!b) return;
+    situacao = b.dataset.sit;
+    atualizar();
+  });
+  ordemEl.addEventListener("change", () => { ordem = ordemEl.value; atualizar(); });
+  $("#limpar").addEventListener("click", () => { ativo = "Todos"; situacao = "todos"; atualizar(); });
 
   function renderFiltros() {
     if (segmentos.length <= 2) { filtersEl.hidden = true; return; }
     filtersEl.innerHTML = segmentos.map((s) => {
-      const n = s === "Todos" ? MODELOS.length : MODELOS.filter((m) => m.segmento === s).length;
+      const n = MODELOS.filter((m) => naSituacao(m) && (s === "Todos" || m.segmento === s)).length;
       return `<button class="chip" role="tab" aria-selected="${s === ativo}" data-seg="${esc(s)}">${esc(s)}<small>${n}</small></button>`;
     }).join("");
   }
@@ -78,9 +115,15 @@
     const b = e.target.closest(".chip");
     if (!b) return;
     ativo = b.dataset.seg;
+    atualizar();
+  });
+
+  function atualizar() {
+    renderSituacao();
     renderFiltros();
     renderGrid();
-  });
+    salvarNoEndereco();
+  }
 
   function card(m) {
     return `
@@ -118,14 +161,26 @@
   }
 
   function renderGrid() {
-    const lista = ativo === "Todos" ? MODELOS : MODELOS.filter((m) => m.segmento === ativo);
-    grid.innerHTML = lista.map(card).join("");
+    const nome = (a, b) => a.titulo.localeCompare(b.titulo, "pt-BR", { sensitivity: "base" });
+    const lista = MODELOS.map((m, i) => ({ m, i })).filter(({ m }) => noSegmento(m) && naSituacao(m));
+    const ORDENS = {
+      catalogo: (a, b) => a.i - b.i,
+      recentes: (a, b) => b.i - a.i,                       // os últimos adicionados ao catalogo.js primeiro
+      az: (a, b) => nome(a.m, b.m),
+      za: (a, b) => nome(b.m, a.m),
+      segmento: (a, b) => (a.m.segmento || "").localeCompare(b.m.segmento || "", "pt-BR") || nome(a.m, b.m),
+      situacao: (a, b) => (!!b.m.revisado - !!a.m.revisado) || a.i - b.i,
+    };
+    lista.sort(ORDENS[ordem] || ORDENS.catalogo);
+    grid.innerHTML = lista.map(({ m }) => card(m)).join("");
     empty.hidden = MODELOS.length > 0;
+    noMatch.hidden = !(MODELOS.length > 0 && lista.length === 0);
     $$(".thumb img", grid).forEach((img) => {
       img.addEventListener("error", () => fallbackIframe(img), { once: true });
     });
   }
 
+  renderSituacao();
   renderFiltros();
   renderGrid();
 })();
