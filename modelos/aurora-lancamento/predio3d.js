@@ -931,7 +931,8 @@ function iniciar() {
     modo = "andar"; controls.enabled = false; fecharFoto(); realcar(null); dica.classList.remove("on");
     ui.rotulos.style.display = "none";
     tampas.forEach((t) => (t.visible = false)); tetos.forEach((t) => (t.visible = true));
-    host.classList.add("visita");
+    host.classList.add("visita"); host.classList.remove("calmo");
+    clearTimeout(entrarVisita.t); entrarVisita.t = setTimeout(() => { if (modo === "andar") host.classList.add("calmo"); }, 6000);
     const un = unidades[unidadeAtiva], pl = un.planta, sx = un.pos[2], sz = un.pos[3];
     const sp = un.centro(pl.spawn[0], pl.spawn[1]); posMundo.set(sp.x, 0, sp.z);
     yaw = sz > 0 ? Math.PI : 0; pitch = -0.04;
@@ -957,7 +958,7 @@ function iniciar() {
     modo = "explorar"; ui.rotulos.style.display = "";
     tampas.forEach((t) => (t.visible = true)); tetos.forEach((t) => (t.visible = false));
     luzesInt.forEach((l) => interior.remove(l)); luzesInt = [];
-    host.classList.remove("visita");
+    host.classList.remove("visita", "calmo"); clearTimeout(entrarVisita.t);
     camera.fov = 34; camera.near = 0.1; camera.updateProjectionMatrix();
     luzMaquete();
     const [pos, tgt] = vistaAndar(andarAberto); camera.position.copy(pos); controls.target.copy(tgt); controls.enabled = true;
