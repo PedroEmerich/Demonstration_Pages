@@ -232,6 +232,9 @@
   .x3d__instr span { color: var(--muted); }
   .x3d__instr kbd { font: inherit; font-weight: 600; color: var(--text); padding: 1px 6px; border-radius: 6px; background: rgba(255,255,255,.12); }
   .x3d.travado .x3d__instr { opacity: .4; }
+  .x3d.calmo .x3d__instr > b, .x3d.calmo .x3d__instr > span { display: none; }
+  .x3d.calmo .x3d__instr { padding: 6px; opacity: .75; }
+  .x3d.calmo .x3d__instr:hover { opacity: 1; }
   .x3d__mira { position: absolute; left: 50%; top: 50%; width: 6px; height: 6px; margin: -3px; border-radius: 50%; background: rgba(255,255,255,.85); box-shadow: 0 0 0 2px rgba(0,0,0,.25); pointer-events: none; }
   .x3d__joy { display: none; position: absolute; left: 22px; bottom: 28px; z-index: 4; width: 124px; height: 124px; border-radius: 50%; background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.35); backdrop-filter: blur(6px); touch-action: none; }
   .x3d__joy i { position: absolute; left: 50%; top: 50%; width: 54px; height: 54px; margin: -27px; border-radius: 50%; background: rgba(255,255,255,.9); transition: transform .08s; }
@@ -248,7 +251,8 @@
   .x3d__ant { left: 14px; top: 50%; margin-top: -23px; } .x3d__prox { right: 14px; top: 50%; margin-top: -23px; } .x3d__fechar { right: 14px; top: 14px; }
   .x3d__ant:hover, .x3d__prox:hover, .x3d__fechar:hover { background: var(--peach); color: var(--night); }
   body.x3d-travado { overflow: hidden; }
-  @media (pointer: coarse) { .x3d__joy { display: block; } .x3d__olhar { display: none; } }
+  .x3d__tc { display: none; }
+  @media (pointer: coarse) { .x3d__joy { display: block; } .x3d__olhar { display: none; } .x3d__pc { display: none; } .x3d__tc { display: inline; } }
   @media (max-width: 1040px) {
     .hero.tem3d { padding-top: 58svh; }
     .hero.tem3d::after { background: linear-gradient(0deg, var(--night) 40%, rgba(27,21,48,.6) 52%, rgba(27,21,48,0) 64%); }
@@ -315,7 +319,7 @@
       <button class="btn btn--p x3d__entrar">Visualizar por dentro</button>
     </div>
     <div class="x3d__visita">
-      <div class="x3d__instr"><b>Visita virtual</b><span><kbd>W</kbd> <kbd>A</kbd> <kbd>S</kbd> <kbd>D</kbd> para andar · arraste para olhar · <kbd>Shift</kbd> corre</span><button class="x3d__olhar">Olhar com o mouse</button><button class="x3d__sair">Sair da visita</button></div>
+      <div class="x3d__instr"><b>Visita virtual</b><span class="x3d__pc"><kbd>W</kbd> <kbd>A</kbd> <kbd>S</kbd> <kbd>D</kbd> para andar · mova o mouse para olhar · <kbd>Shift</kbd> corre · <kbd>Esc</kbd> solta o mouse</span><span class="x3d__tc">use o controle para andar e arraste para olhar</span><button class="x3d__olhar" hidden>Olhar com o mouse</button><button class="x3d__sair">Sair da visita</button></div>
       <div class="x3d__mira"></div>
       <div class="x3d__joy" aria-label="Controle de movimento"><i></i></div>
     </div>
