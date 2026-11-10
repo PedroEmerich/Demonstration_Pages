@@ -226,8 +226,8 @@ window.MODELOS = [
     pasta: "aurora-lancamento",
     titulo: "Aurora — Lançamento Imobiliário",
     segmento: "Imobiliária",
-    descricao: "Lançamento na planta com contagem regressiva, prédio interativo com disponibilidade por unidade, plantas e simulador de pagamento.",
-    tags: ["Espelho de vendas", "Plantas", "Simulador"],
+    descricao: "Lançamento de studios e 1 dormitório com prédio 3D interativo: acenda os andares, abra a maquete de cada pavimento, veja as fotos dos ambientes e caminhe pelo decorado.",
+    tags: ["Prédio 3D", "Tour virtual", "Plantas"],
     cor: "#e8916b",
   },
   {
