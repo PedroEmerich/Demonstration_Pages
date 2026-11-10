@@ -247,6 +247,20 @@ code { font-size: .9em; background: var(--card); border: 1px solid var(--line); 
 .cat-hero__count strong { display: block; font-family: var(--serif); font-weight: 400; font-size: 56px; line-height: 1; color: var(--text); }
 
 .filters { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 32px; }
+.toolbar { display: flex; justify-content: space-between; align-items: center; gap: 14px 24px; flex-wrap: wrap; margin-bottom: 18px; }
+.status-filter { display: inline-flex; gap: 4px; padding: 4px; border: 1px solid var(--line); border-radius: 999px; flex-wrap: wrap; }
+.seg-btn { font: inherit; font-size: 14px; font-weight: 500; cursor: pointer; background: transparent; color: var(--muted); border: 0; border-radius: 999px; padding: 8px 16px; display: inline-flex; align-items: center; gap: 8px; transition: all .2s; }
+.seg-btn:hover { color: var(--text); }
+.seg-btn[aria-pressed="true"] { background: var(--text); color: var(--bg); }
+.seg-btn small { opacity: .6; }
+.seg-btn .status { width: 8px; height: 8px; box-shadow: none; }
+.sort { display: inline-flex; align-items: center; gap: 12px; font-size: 14px; color: var(--muted); }
+.sort select { font: inherit; font-size: 14px; font-weight: 500; color: var(--text); background: transparent url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none' stroke='%23999' stroke-width='1.6'%3E%3Cpath d='M1 1.5l5 5 5-5'/%3E%3C/svg%3E") no-repeat right 14px center; border: 1px solid var(--line); border-radius: 999px; padding: 9px 40px 9px 16px; cursor: pointer; appearance: none; -webkit-appearance: none; }
+.sort select:hover, .sort select:focus-visible { border-color: var(--muted); outline: none; }
+.sort select option { background: var(--bg); color: var(--text); }
+.no-match { padding: 40px 0; color: var(--muted); }
+.no-match button { font: inherit; color: var(--text); background: none; border: 0; border-bottom: 1px solid currentColor; cursor: pointer; margin-left: 6px; }
+@media (max-width: 560px) { .toolbar { align-items: stretch; } .status-filter { width: 100%; display: grid; grid-template-columns: auto auto auto; flex-wrap: nowrap; gap: 2px; } .seg-btn { justify-content: center; padding: 9px 8px; font-size: 12.5px; gap: 6px; white-space: nowrap; } .seg-btn small { margin-left: -2px; } .sort { width: 100%; justify-content: space-between; } }
 .chip { font: inherit; font-size: 14px; font-weight: 500; cursor: pointer; background: transparent; color: var(--muted); border: 1px solid var(--line); border-radius: 999px; padding: 8px 16px; transition: all .2s; }
 .chip:hover { color: var(--text); border-color: var(--muted); }
 .chip[aria-selected="true"] { background: var(--text); color: var(--bg); border-color: var(--text); }
