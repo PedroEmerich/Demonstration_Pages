@@ -131,6 +131,14 @@
   .x3d.pronto .x3d__ajuda { opacity: 1; }
   .x3d__ajuda::before { content: ""; width: 9px; height: 9px; border-radius: 50%; background: var(--peach); box-shadow: 0 0 0 0 rgba(255,179,138,.7); animation: pulso 1.8s infinite; }
   @keyframes pulso { 70% { box-shadow: 0 0 0 12px rgba(255,179,138,0); } 100% { box-shadow: 0 0 0 0 rgba(255,179,138,0); } }
+  .x3d__hora { position: absolute; left: 50%; bottom: 60px; transform: translateX(-50%); z-index: 4; display: flex; gap: 3px; padding: 4px; border-radius: 999px; background: rgba(20,16,36,.62); border: 1px solid var(--line); backdrop-filter: blur(10px); opacity: 0; transition: opacity .8s .4s; }
+  .x3d.pronto .x3d__hora { opacity: 1; }
+  .x3d__hora button { display: inline-flex; align-items: center; gap: 6px; padding: 7px 13px; border-radius: 999px; font-size: 12.5px; font-weight: 600; color: var(--muted); transition: background .3s, color .3s; }
+  .x3d__hora button svg { width: 15px; }
+  .x3d__hora button:hover { color: var(--text); }
+  .x3d__hora button.on { background: var(--text); color: var(--night); }
+  .x3d.aberto .x3d__hora { left: auto; right: 18px; bottom: 18px; transform: none; }
+  .x3d.visita .x3d__hora { opacity: .85; }
   .x3d__painel, .x3d__visita, .x3d__rotulos { display: none; }
   .x3d.aberto { position: fixed; inset: 0; z-index: 200; background: #0f0b1f; }
   .x3d.aberto .x3d__ajuda { display: none; }
@@ -362,6 +370,8 @@
     .hero h1 { margin-top: 18px; }
     .lead { margin-top: 36px; max-width: 560px; }
     .x3d__ajuda { left: 16px; right: 16px; bottom: 18px; transform: none; justify-content: center; text-align: center; white-space: normal; font-size: 10.5px; letter-spacing: .12em; }
+    .x3d__hora { bottom: 48px; }
+    .x3d__hora button { padding: 6px 11px; font-size: 12px; }
     .sobre__grid, .plan__grid, .loc__grid, .obra__grid, .dec__grid { grid-template-columns: 1fr; }
     .sobre__vis { margin-bottom: 40px; }
     .nums { left: 16px; right: 16px; }
@@ -430,6 +440,7 @@
       <img class="x3d__alt" src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=900&q=75&auto=format&fit=crop" alt="Perspectiva ilustrativa da fachada" loading="lazy" />
       <div class="x3d__dica"></div>
       <p class="x3d__ajuda">Passe o mouse nos andares e clique para explorar</p>
+      <div class="x3d__hora" role="group" aria-label="Luz do dia"><button data-hora="manha"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 18h18M7 18a5 5 0 0 1 10 0M12 4v4M4.9 9.9l2.1 2.1M19.1 9.9 17 12"/></svg>Manhã</button><button data-hora="tarde"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 18h18M7 18a5 5 0 0 1 10 0M5 22h14"/><path d="M12 9V5m-3 2 3-3 3 3"/></svg>Tarde</button><button data-hora="noite"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5Z"/></svg>Noite</button></div>
       <div class="x3d__rotulos"></div>
       <div class="x3d__painel">
         <button class="x3d__voltar">← Prédio</button>
@@ -485,15 +496,15 @@
     <div data-r>
       <span class="label">O projeto</span>
       <h2 class="h2">Feito para morar bem. <em>Pensado para render.</em></h2>
-      <p class="intro" style="margin-top:24px">O Aurora Vila Mariana reúne 234 unidades em 22 pavimentos: studios a partir de 26 m², apartamentos de 1 dormitório a partir de 38 m² e unidades garden com jardim privativo no 1º pavimento.</p>
-      <p class="intro">As áreas comuns foram desenhadas para a rotina de quem mora e de quem aluga por temporada, com espera de check-in, maleiro, delivery e lavanderia. No alto, o rooftop com piscina; logo abaixo, fitness e coworking com vista.</p>
+      <p class="intro" style="margin-top:24px">O Aurora Vila Mariana reúne 425 unidades em 22 andares-tipo, num prédio em "H": studios de 26 m² nas alas laterais, apartamentos de 1 dormitório com 38 m² nas barras da frente e dos fundos e garden studios com jardim privativo no 2º andar.</p>
+      <p class="intro">As áreas comuns foram desenhadas para a rotina de quem mora e de quem aluga por temporada: portaria com espera de check-in, maleiro e delivery; brinquedoteca, sala de jogos, living gourmet e lavanderia no 1º pavimento; e, na cobertura, piscina com deck molhado, lounge com lareira, fitness e coworking.</p>
       <div class="acoes"><a class="btn btn--d" href="#galeria">Ver a galeria</a><a class="btn btn--l" href="#tour">Fazer o tour virtual</a></div>
     </div>
     <div class="sobre__vis" data-r style="--d:.1s">
       <figure class="sobre__foto"><img src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=1100&q=75&auto=format&fit=crop" alt="Perspectiva ilustrativa de fachada com varandas" loading="lazy" width="880" height="1100" /></figure>
       <dl class="nums">
         <div><dt>22</dt><dd>pavimentos</dd></div>
-        <div><dt>234</dt><dd>unidades</dd></div>
+        <div><dt>425</dt><dd>unidades</dd></div>
         <div><dt>3</dt><dd>níveis de lazer</dd></div>
         <div><dt>5 min</dt><dd>a pé do metrô</dd></div>
       </dl>
@@ -512,15 +523,15 @@
 
 <section class="sec claro" id="lazer">
   <div class="wrap">
-    <div data-r><span class="label">Lazer</span><h2 class="h2">Três níveis de lazer, <em>com a cidade de paisagem</em></h2><p class="intro" style="margin-top:20px">Do rooftop com piscina ao living gourmet do 1º pavimento, cada nível tem uma vocação. Abra qualquer um deles no prédio em 3D.</p></div>
+    <div data-r><span class="label">Lazer</span><h2 class="h2">Três níveis de lazer, <em>com a cidade de paisagem</em></h2><p class="intro" style="margin-top:20px">Da portaria ao rooftop com piscina, cada nível tem uma vocação. Abra a cobertura e o 1º pavimento no prédio em 3D.</p></div>
     <div class="lazer__grid">
       <article class="nivel" data-r>
-        <figure><img src="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=800&q=75&auto=format&fit=crop" alt="Piscina na cobertura" loading="lazy" /><span>22º pavimento</span></figure>
-        <div><h3>Rooftop</h3><ul><li>Piscina com deck molhado</li><li>Solário e pool bar</li><li>Lounge com lareira</li><li>Salão envidraçado</li></ul><button class="btn btn--d" data-3d data-andar="22" data-lazer="piscina">Ver no 3D</button></div>
+        <figure><img src="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=800&q=75&auto=format&fit=crop" alt="Piscina na cobertura" loading="lazy" /><span>Cobertura</span></figure>
+        <div><h3>Rooftop</h3><ul><li>Piscina com deck molhado</li><li>Solário e pool bar</li><li>Lounge com lareira</li><li>Pérgola com vista</li></ul><button class="btn btn--d" data-3d data-andar="24" data-lazer="piscina">Ver no 3D</button></div>
       </article>
       <article class="nivel" data-r style="--d:.06s">
-        <figure><img src="https://images.unsplash.com/photo-1540497077202-7c8a3999166f?w=800&q=75&auto=format&fit=crop" alt="Fitness" loading="lazy" /><span>21º pavimento</span></figure>
-        <div><h3>Bem-estar e trabalho</h3><ul><li>Fitness com vista</li><li>Espaço funcional</li><li>Coworking</li><li>Sala de reunião e cabines</li></ul><button class="btn btn--d" data-3d data-andar="21" data-lazer="fitness">Ver no 3D</button></div>
+        <figure><img src="https://images.unsplash.com/photo-1540497077202-7c8a3999166f?w=800&q=75&auto=format&fit=crop" alt="Fitness" loading="lazy" /><span>Cobertura</span></figure>
+        <div><h3>Fitness e coworking</h3><ul><li>Fitness com vista</li><li>Espaço funcional</li><li>Coworking</li><li>Cabines para chamadas</li></ul><button class="btn btn--d" data-3d data-andar="24" data-lazer="fitness">Ver no 3D</button></div>
       </article>
       <article class="nivel" data-r style="--d:.12s">
         <figure><img src="https://images.unsplash.com/photo-1528605248644-14dd04022da1?w=800&q=75&auto=format&fit=crop" alt="Living gourmet" loading="lazy" /><span>1º pavimento</span></figure>
@@ -655,7 +666,7 @@
       <label class="campo"><span>Nome</span><input name="nome" required autocomplete="name" /></label>
       <label class="campo"><span>WhatsApp</span><input name="fone" type="tel" required autocomplete="tel" placeholder="(11) 90000-0000" /></label>
       <label class="campo"><span>Melhor dia</span><select name="dia"><option>Durante a semana</option><option>Sábado</option><option>Domingo</option></select></label>
-      <label class="campo"><span>Planta de interesse</span><select name="tipo"><option>Studio · 26 m²</option><option>1 dormitório · 38 m²</option><option>Garden studio · 40 m²</option><option>Garden 1 dormitório · 58 m²</option></select></label>
+      <label class="campo"><span>Planta de interesse</span><select name="tipo"><option>Studio · 26 m²</option><option>1 dormitório · 38 m²</option><option>Garden studio · 36 m²</option></select></label>
       <button class="btn btn--p" type="submit">Agendar pelo WhatsApp</button>
     </form>
   </div>
@@ -750,7 +761,7 @@
 
   /* plantas desenhadas a partir dos mesmos dados do 3D */
   const OUT = new Set(["varanda", "jardim", "externo"]);
-  const COR = { social: "#f4e9dc", quarto: "#efe1d0", hall: "#f4e9dc", cozinha: "#e9e6f1", molhado: "#e1ebf3", servico: "#e9e6f1", varanda: "#ecdcc6", jardim: "#d9e8c9" };
+  const COR = { social: "#f4ece1", quarto: "#efe4d5", hall: "#f4ece1", cozinha: "#f4ece1", molhado: "#e1ebf3", servico: "#e9e6f1", varanda: "#e8ddce", jardim: "#d9e8c9", tecnica: "#dcd8d2" };
   function desenharPlanta(k) {
     const P = A.PLANTAS[k], ext = P.ext || [];
     const cs = P.comodos.map(([id, nome, tipo, u0, w0, u1, w1]) => ({ id, nome, tipo, u0, w0, u1, w1 }));
@@ -763,7 +774,7 @@
     for (const c of cs) {
       fundo += `<rect x="${c.u0}" y="${c.w0}" width="${c.u1 - c.u0}" height="${c.w1 - c.w0}" fill="${COR[c.tipo] || "#eee"}"/>`;
       const cx = (c.u0 + c.u1) / 2, cy = (c.w0 + c.w1) / 2, area = Math.round((c.u1 - c.u0) * (c.w1 - c.w0) * 10) / 10;
-      textos += `<text x="${cx}" y="${cy}">${c.nome}</text><text class="m2" x="${cx}" y="${cy + 0.3}">${area.toLocaleString("pt-BR")} m²</text>`;
+      if (area >= 2.5) textos += `<text x="${cx}" y="${cy}">${c.nome}</text><text class="m2" x="${cx}" y="${cy + 0.3}">${area.toLocaleString("pt-BR")} m²</text>`;
     }
     const linhas = new Map();
     for (const c of cs) for (const [eixo, v, a, b] of [["w", c.w0, c.u0, c.u1], ["w", c.w1, c.u0, c.u1], ["u", c.u0, c.w0, c.w1], ["u", c.u1, c.w0, c.w1]]) { const kk = `${eixo}|${v}`; if (!linhas.has(kk)) linhas.set(kk, []); linhas.get(kk).push({ a, b, id: c.id }); }
@@ -780,6 +791,7 @@
           const fx = OUT.has(X.tipo), fy = OUT.has(Y.tipo);
           if (fx && fy) continue;
           const p = P.portas.find(par(X.id, Y.id));
+          if (X.tipo === "tecnica" || Y.tipo === "tecnica") { const o = X.tipo === "tecnica" ? Y : X; paredes += o.tipo === "jardim" ? L(eixo, v, a, b, "gc") : comVaos(eixo, v, a, b, p ? [[p[2] - (p[3] || 0.7) / 2, p[2] + (p[3] || 0.7) / 2]] : [], "pi"); continue; }
           if (fx || fy) { const vaos = p ? [[p[2] - (p[3] || 1.6) / 2, p[2] + (p[3] || 1.6) / 2]] : []; paredes += comVaos(eixo, v, a, b, vaos, "vid"); continue; }
           if (p) {
             const lg = p[3] || 0.8, pc = Math.min(Math.max(p[2] ?? md, a + lg / 2 + 0.05), b - lg / 2 - 0.05), alvo = por[p[0]];
@@ -789,6 +801,7 @@
           continue;
         }
         const c = X;
+        if (c.tipo === "tecnica") { paredes += L(eixo, v, a, b, borda === "w1" ? "gc" : "pe"); continue; }
         if (OUT.has(c.tipo)) {
           if (borda === "w0") continue;
           paredes += L(eixo, v, a, b, borda === "u0" ? (c.tipo === "varanda" ? "pe" : "mu") : borda === "u1" && !ext.includes("u1") ? (c.tipo === "varanda" ? "pe" : "mu") : "gc");
@@ -811,7 +824,7 @@
     const regua = `<g transform="translate(0 ${P.W + 0.55})"><line class="pi" x1="0" y1="0" x2="1" y2="0"/><text class="m2" x="0.5" y="0.32">1 m</text></g>`;
     return `<svg viewBox="-0.45 -0.95 ${P.U + 0.9} ${P.W + 1.95}" role="img" aria-label="Planta ${k}">${fundo}${paredes}${textos}${regua}</svg>`;
   }
-  const TIP = ["studio", "um", "gstudio", "gum"];
+  const TIP = ["studio", "um", "gstudio"];
   let tp = "studio";
   $("#pabas").innerHTML = TIP.map((k) => `<button data-k="${k}" class="${k === tp ? "on" : ""}">${A.T[k].n} · ${A.T[k].m2} m²</button>`).join("");
   function planta() {
@@ -819,7 +832,7 @@
     const menor = Math.min(...A.U.filter((u) => u.tipo === tp && u.st !== "v").map((u) => u.preco));
     const nDisp = A.U.filter((u) => u.tipo === tp && u.st === "d").length;
     $("#planta").innerHTML = desenharPlanta(tp) + `<div class="planta__leg"><span><i></i>parede</span><span><i class="v"></i>vidro</span><span><i class="g"></i>guarda-corpo</span></div>`;
-    $("#ficha").innerHTML = `<span class="tipo">${garden ? "1º pavimento · com jardim" : "2º ao 20º andar"}</span><h3>${t.n}</h3><span class="m2b">${t.m2} m² privativos${t.jardim ? `, sendo ${t.jardim} m² de jardim` : ""} · ${nDisp} disponíveis</span><ul>${t.feats.map((f) => `<li>${f}</li>`).join("")}</ul><div class="preco"><small>a partir de</small><b>${mil(isFinite(menor) ? menor : t.base)}</b></div><div class="acoes" style="margin-top:0"><button class="btn btn--d" data-3d data-andar="${garden ? 1 : 12}" data-tipo="${tp}">Ver em 3D</button><a class="btn btn--l" target="_blank" rel="noopener" href="${A.wa(`Olá! Tenho interesse no ${t.n} de ${t.m2} m² do Aurora Vila Mariana.`)}">Tenho interesse</a></div>`;
+    $("#ficha").innerHTML = `<span class="tipo">${garden ? "2º andar · com jardim" : "Do 2º ao 23º andar"}</span><h3>${t.n}</h3><span class="m2b">${t.m2} m² privativos${t.jardim ? `, sendo ${t.jardim} m² de jardim` : ""} · ${nDisp} disponíveis</span><ul>${t.feats.map((f) => `<li>${f}</li>`).join("")}</ul><div class="preco"><small>a partir de</small><b>${mil(isFinite(menor) ? menor : t.base)}</b></div><div class="acoes" style="margin-top:0"><button class="btn btn--d" data-3d data-andar="${garden ? 2 : 12}" data-tipo="${tp}">Ver em 3D</button><a class="btn btn--l" target="_blank" rel="noopener" href="${A.wa(`Olá! Tenho interesse no ${t.n} de ${t.m2} m² do Aurora.`)}">Tenho interesse</a></div>`;
   }
   $("#pabas").onclick = (e) => { const b = e.target.closest("button"); if (!b) return; tp = b.dataset.k; $$("#pabas button").forEach((x) => x.classList.toggle("on", x === b)); planta(); };
   planta();
