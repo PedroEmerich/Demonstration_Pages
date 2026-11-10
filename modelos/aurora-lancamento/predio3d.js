@@ -11,6 +11,7 @@ import { GTAOPass } from "three/addons/postprocessing/GTAOPass.js";
 import { OutputPass } from "three/addons/postprocessing/OutputPass.js";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import { RoundedBoxGeometry } from "three/addons/geometries/RoundedBoxGeometry.js";
+import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
 
 const host = document.getElementById("x3d");
 const hero = host?.closest(".hero");
@@ -69,7 +70,9 @@ function iniciar() {
   scene.add(new THREE.Mesh(new THREE.SphereGeometry(1200, 48, 24), ceuMat));
   const pmrem = new THREE.PMREMGenerator(renderer);
   const ceuScene = new THREE.Scene(); ceuScene.add(new THREE.Mesh(new THREE.SphereGeometry(100, 48, 24), ceuMat));
-  scene.environment = pmrem.fromScene(ceuScene, 0.02).texture;
+  const envCeu = pmrem.fromScene(ceuScene, 0.02).texture;
+  const envInterno = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
+  scene.environment = envCeu;
 
   const hemi = new THREE.HemisphereLight(0x9a8ad8, 0x1a1426, 0.75); scene.add(hemi);
   const sol = new THREE.DirectionalLight(0xffb08a, 1.5); sol.position.set(-40, 26, -60); scene.add(sol);
@@ -149,7 +152,9 @@ function iniciar() {
     tronco: M({ color: 0x3a2a22, roughness: 1 }),
     poste: M({ color: 0xfff0d6, emissive: 0xffe2b0, emissiveIntensity: 2.5 }),
     // maquete
-    parede: M({ color: 0xf4f1ec, roughness: 0.92 }),
+    parede: M({ color: 0xf1ede7, roughness: 0.9 }),
+    rodape: M({ color: 0xfbfaf7, roughness: 0.5 }),
+    batente: M({ color: 0xf6f3ee, roughness: 0.45 }),
     tampa: M({ color: 0x3b3346, roughness: 0.8 }),
     madeira: M({ color: 0xffffff, map: madeiraTex, roughness: 0.5 }),
     deck: M({ color: 0xffffff, map: deckTex, roughness: 0.7 }),
@@ -181,7 +186,7 @@ function iniciar() {
     marmore: M({ color: 0xf1efea, roughness: 0.2 }),
     granito: M({ color: 0x2b2a30, roughness: 0.25 }),
     loucas: M({ color: 0xf8f8f6, roughness: 0.15 }),
-    espelho: M({ color: 0xdfe8f0, metalness: 1, roughness: 0.04 }),
+    espelho: M({ color: 0xb9c3cb, metalness: 0.35, roughness: 0.12, envMapIntensity: 0.6 }),
     planta: M({ color: 0x3f6d48, roughness: 0.9, flatShading: true }),
     planta2: M({ color: 0x5a8a4a, roughness: 0.9, flatShading: true }),
     vaso: M({ color: 0xc9b29a, roughness: 0.8 }),
@@ -333,12 +338,12 @@ function iniciar() {
         m.lavadora(5.0, 0.38, 0); m.tanque(5.85, 0.33, 0);
         m.banheiro(6.2, 0, 8.0, 2.5, "w1", false);
         m.banheiro(8.0, 0, 11, 2.5, "w1", true);
-        m.cama(6.55, 5.7, 1.4, -Math.PI / 2, mat.manta2);
+        m.cama(6.55, 6.0, 1.4, -Math.PI / 2, mat.manta2);
         m.armario(4.9, 4.55, 0.6, 1.7, Math.PI / 2);
         m.planta(4.95, 7.1, 0.8);
         m.cortina("w", 7.5, 4.6, 7.6);
         m.cama(9.95, 5.55, 1.6, -Math.PI / 2, mat.manta);
-        m.armario(7.9, 5.4, 0.6, 2.0, Math.PI / 2);
+        m.armario(7.9, 6.0, 0.6, 2.0, Math.PI / 2);
         m.tapete(9.3, 5.55, 2.2, 2.6, mat.tapete3);
         m.cortina("w", 7.5, 7.6, 11);
         m.churrasqueira(0.35, 8.5, Math.PI / 2);
@@ -370,16 +375,16 @@ function iniciar() {
         ["varanda", "Varanda gourmet", "varanda", 0, 15, 11, 17, FOTOS.varanda],
       ],
       abertos: [["entrada", "jantar"], ["jantar", "living"], ["entrada", "living"], ["galeria", "jantar"], ["galeria", "hall"], ["cozinha", "jantar"]],
-      portas: [["suite3", "hall", 2.9], ["suite2", "hall", 6.5], ["master", "hall", 8.4], ["banho3", "hall"], ["banho2", "hall"], ["lavabo", "hall"], ["banhoM", "hall"], ["servico", "jantar", 6.55], ["cozinha", "living", 13.4, 1.4]],
+      portas: [["suite3", "hall", 2.9], ["suite2", "hall", 6.5], ["master", "hall", 8.4], ["banho3", "hall"], ["banho2", "hall"], ["lavabo", "hall"], ["banhoM", "hall", 9.3], ["servico", "jantar", 6.55], ["cozinha", "living", 13.4, 1.4]],
       moveis(m) {
         m.cama(1.03, 2.0, 1.6, Math.PI / 2, mat.manta2); m.armario(3.5, 1.7, 0.6, 2.0, -Math.PI / 2); m.cortina("w", 0, 0, 3.8);
         m.cama(4.83, 2.0, 1.6, Math.PI / 2, mat.manta); m.armario(7.1, 1.7, 0.6, 2.0, -Math.PI / 2); m.cortina("w", 0, 3.8, 7.4);
-        m.cama(9.95, 2.0, 1.9, -Math.PI / 2, mat.lencol); m.armario(7.7, 1.9, 0.6, 2.2, Math.PI / 2); m.tapete(9.2, 2.0, 2.4, 2.8, mat.tapete3); m.poltrona(8.3, 3.7, Math.PI * 0.85, mat.couro); m.cortina("w", 0, 7.4, 11);
+        m.cama(9.95, 2.0, 1.9, -Math.PI / 2, mat.lencol); m.armario(7.7, 1.9, 0.6, 2.2, Math.PI / 2); m.tapete(9.2, 2.0, 2.4, 2.8, mat.tapete3); m.cortina("w", 0, 7.4, 11);
         m.banheiro(0, 5.4, 2, 7.8, "w0", false); m.banheiro(2, 5.4, 4, 7.8, "w0", false); m.banheiro(8.8, 5.4, 11, 7.8, "w0", true);
         m.lavabo(7.2, 5.4, 8.8, 7.8);
         m.lavadora(5.6, 5.72, 0); m.tanque(6.6, 5.67, 0);
         m.quadro(4.03, 6.6, Math.PI / 2, 2); m.quadro(5.17, 6.6, -Math.PI / 2, 0);
-        m.aparador(0.25, 8.7, Math.PI / 2); m.planta(1.6, 9.2, 0.7);
+        m.planta(1.6, 9.2, 0.7);
         m.mesa(4.5, 8.7, 2.1, 0.95, 0, 6);
         m.pendente(4.0, 8.7, 2); m.pendente(5.0, 8.7, 2);
         m.tapete(3.4, 12.3, 3.2, 2.6, mat.tapete2);
@@ -411,7 +416,7 @@ function iniciar() {
   POS.cob = POS.tres;
 
   const interior = new THREE.Group(); interior.visible = false; scene.add(interior);
-  let obst = [], pisos = [], unidades = [], tampas = [], tetos = [], luzesInt = [];
+  let obst = [], pisos = [], unidades = [], tampas = [], tetos = [], luzesInt = [], portasMundo = [], conflitos = [];
   const ESP = 0.12, ESPX = 0.2;
 
   function limpar(o) { for (const c of [...o.children]) o.remove(c); }
@@ -420,7 +425,9 @@ function iniciar() {
     const [px, pz, sx, sz] = pos;
     const g = new THREE.Group(); g.position.set(px, 0, pz); g.scale.set(sx, 1, sz); interior.add(g);
     const obstLocal = [];
-    const solido = (u0, w0, u1, w1) => obstLocal.push([Math.min(u0, u1), Math.min(w0, w1), Math.max(u0, u1), Math.max(w0, w1)]);
+    let emMoveis = false;
+    const solido = (u0, w0, u1, w1) => obstLocal.push([Math.min(u0, u1), Math.min(w0, w1), Math.max(u0, u1), Math.max(w0, w1), emMoveis]);
+    const vaosLocal = [];
     const sombra = (o) => { o.castShadow = true; o.receiveShadow = true; return o; };
     const cx = (u, y, w, wd, h, dp, m, r = 0) => sombra(caixa(wd, h, dp, m, u, y, w, g, r));
     const comodos = planta.comodos.map(([id, nome, tipo, u0, w0, u1, w1, foto]) => ({ id, nome, tipo, u0, w0, u1, w1, foto }));
@@ -437,7 +444,7 @@ function iniciar() {
       pisos.push(p); c.mesh = p;
     }
     const teto = new THREE.Mesh(new THREE.PlaneGeometry(planta.U, planta.W), mat.teto);
-    teto.rotation.x = Math.PI / 2; teto.position.set(planta.U / 2, PE, planta.W / 2); teto.visible = false; g.add(teto); tetos.push(teto);
+    teto.rotation.x = Math.PI / 2; teto.position.set(planta.U / 2, PE + 0.03, planta.W / 2); teto.visible = false; teto.castShadow = true; g.add(teto); tetos.push(teto);
 
     /* ----- paredes geradas a partir dos cômodos ----- */
     const linhas = new Map();
@@ -449,15 +456,24 @@ function iniciar() {
       const len = b - a; if (len < 0.02) return;
       const c = (a + b) / 2, h = y1 - y0;
       const o = eixo === "w" ? cx(c, y0 + h / 2, v, len, h, esp, m) : cx(v, y0 + h / 2, c, esp, h, len, m);
+      if (y0 === 0 && m === mat.parede) eixo === "w" ? caixa(len, 0.08, esp + 0.024, mat.rodape, c, 0.04, v, g) : caixa(esp + 0.024, 0.08, len, mat.rodape, v, 0.04, c, g);
       if (y1 >= PE - 0.01) tampas.push(eixo === "w" ? caixa(len, 0.02, esp + 0.004, mat.tampa, c, PE + 0.01, v, g) : caixa(esp + 0.004, 0.02, len, mat.tampa, v, PE + 0.01, c, g));
       return o;
     };
     const solidoLinha = (eixo, v, a, b, esp = ESP) => { if (b - a > 0.02) (eixo === "w" ? solido(a, v - esp / 2, b, v + esp / 2) : solido(v - esp / 2, a, v + esp / 2, b)); };
     function porta(eixo, v, a, b, lado, larg, m = mat.porta) {
+      // verga, batentes e folha fechada; a folha gira 90° para dentro do cômodo quando alguém se aproxima
       peca(eixo, v, a, b, 2.12, PE);
-      const fl = larg - 0.06, h = 2.1;
-      if (eixo === "w") { cx(a + 0.04, h / 2, v + lado * fl / 2, 0.04, h, fl, m); caixa(0.03, 0.03, 0.12, mat.inox, a + 0.1, 1.0, v + lado * (fl - 0.08), g); }
-      else { cx(v + lado * fl / 2, h / 2, a + 0.04, fl, h, 0.04, m); caixa(0.12, 0.03, 0.03, mat.inox, v + lado * (fl - 0.08), 1.0, a + 0.1, g); }
+      const fl = larg - 0.08, h = 2.1, espB = (m === mat.portaEnt ? ESPX : ESP) + 0.03;
+      if (eixo === "w") { caixa(0.05, 2.14, espB, mat.batente, a + 0.025, 1.07, v, g); caixa(0.05, 2.14, espB, mat.batente, b - 0.025, 1.07, v, g); caixa(b - a, 0.05, espB, mat.batente, (a + b) / 2, 2.135, v, g); }
+      else { caixa(espB, 2.14, 0.05, mat.batente, v, 1.07, a + 0.025, g); caixa(espB, 2.14, 0.05, mat.batente, v, 1.07, b - 0.025, g); caixa(espB, 0.05, b - a, mat.batente, v, 2.135, (a + b) / 2, g); }
+      const piv = new THREE.Group(); g.add(piv);
+      if (eixo === "w") { piv.position.set(a + 0.05, 0, v); sombra(caixa(fl, h, 0.04, m, fl / 2, h / 2, 0, piv)); caixa(0.12, 0.03, 0.03, mat.inox, fl - 0.1, 1.0, 0.04, piv); caixa(0.12, 0.03, 0.03, mat.inox, fl - 0.1, 1.0, -0.04, piv); }
+      else { piv.position.set(v, 0, a + 0.05); sombra(caixa(0.04, h, fl, m, 0, h / 2, fl / 2, piv)); caixa(0.03, 0.03, 0.12, mat.inox, 0.04, 1.0, fl - 0.1, piv); caixa(0.03, 0.03, 0.12, mat.inox, -0.04, 1.0, fl - 0.1, piv); }
+      const aberta = eixo === "w" ? -lado * Math.PI / 2 : lado * Math.PI / 2;
+      const cl = eixo === "w" ? [(a + b) / 2, v] : [v, (a + b) / 2];
+      portasMundo.push({ piv, aberta, ang: 0, x: px + sx * cl[0], z: pz + sz * cl[1] });
+      vaosLocal.push({ eixo, v, a, b, nome: m === mat.portaEnt ? "entrada" : "porta" });
     }
     function janela(eixo, v, a, b, y0, y1) {
       const len = b - a, c = (a + b) / 2, hh = y1 - y0;
@@ -516,7 +532,7 @@ function iniciar() {
             peca(eixo, v, t.a, g0, 0, PE); solidoLinha(eixo, v, t.a, g0);
             peca(eixo, v, g1, t.b, 0, PE); solidoLinha(eixo, v, g1, t.b);
             const alvoC = porId[p[0]], centro = eixo === "w" ? (alvoC.w0 + alvoC.w1) / 2 : (alvoC.u0 + alvoC.u1) / 2;
-            if (larg > 1.2) peca(eixo, v, g0, g1, 2.12, PE); else porta(eixo, v, g0, g1, Math.sign(centro - v), larg);
+            if (larg > 1.2) { peca(eixo, v, g0, g1, 2.12, PE); vaosLocal.push({ eixo, v, a: g0, b: g1, nome: "vão" }); } else porta(eixo, v, g0, g1, Math.sign(centro - v), larg);
           } else { peca(eixo, v, t.a, t.b, 0, PE); solidoLinha(eixo, v, t.a, t.b); }
         } else if (t.ids.length === 1) {
           const c = A;
@@ -654,8 +670,8 @@ function iniciar() {
         sc(g, 0.9, 0.3, 0.42, mat.nogueira, cu, 0.85, w1 - 0.23, 0.02);
         const cuba = new THREE.Mesh(new THREE.CylinderGeometry(0.18, 0.15, 0.14, 24), mat.loucas); cuba.position.set(cu, 1.07, w1 - 0.23); g.add(cuba);
         caixa(0.7, 0.9, 0.02, mat.espelho, cu, 1.65, w1 - 0.02, g);
-        sc(g, 0.38, 0.4, 0.55, mat.loucas, u0 + 0.3, 0.2, w1 - 1.2, 0.15);
-        solido(u0, w1 - 1.5, u0 + 0.6, w1 - 0.9); solido(cu - 0.45, w1 - 0.45, cu + 0.45, w1);
+        sc(g, 0.38, 0.4, 0.55, mat.loucas, u0 + 0.3, 0.2, w1 - 1.0, 0.15);
+        solido(u0, w1 - 1.3, u0 + 0.6, w1 - 0.7); solido(cu - 0.45, w1 - 0.45, cu + 0.45, w1);
       },
       cortina(eixo, v, a, b) {
         const dentro = v > 0 ? -1 : 1;
@@ -666,7 +682,11 @@ function iniciar() {
         }
       },
     };
-    planta.moveis(m);
+    emMoveis = true; planta.moveis(m); emMoveis = false;
+    for (const vo of vaosLocal) {
+      const [ua, ub, wa, wb] = vo.eixo === "w" ? [vo.a, vo.b, vo.v - 0.9, vo.v + 0.9] : [vo.v - 0.9, vo.v + 0.9, vo.a, vo.b];
+      for (const o of obstLocal) if (o[4] && o[0] < ub && o[2] > ua && o[1] < wb && o[3] > wa) conflitos.push({ unidade: idx, vao: vo.nome, linha: `${vo.eixo}=${vo.v}`, de: +vo.a.toFixed(2), ate: +vo.b.toFixed(2), movel: o.slice(0, 4).map((x) => +x.toFixed(2)) });
+    }
 
     for (const [u0, w0, u1, w1] of obstLocal) {
       const xa = px + sx * u0, xb = px + sx * u1, za = pz + sz * w0, zb = pz + sz * w1;
@@ -692,7 +712,7 @@ function iniciar() {
   }
 
   function montarAndar(a) {
-    limpar(interior); obst = []; pisos = []; unidades = []; tampas = []; tetos = []; luzesInt = [];
+    limpar(interior); obst = []; pisos = []; unidades = []; tampas = []; tetos = []; luzesInt = []; portasMundo = []; conflitos = [];
     const tipo = tipoAndar(a);
     POS[tipo].forEach((pos, i) => construirUnidade(PLANTAS[tipo], pos, i));
     construirNucleo();
@@ -845,12 +865,27 @@ function iniciar() {
     andares[a].userData.casca.visible = false;
     interior.visible = true;
     const y = baseY(a);
-    estudio.position.set(-16, y + 34, 22); estudio.target.position.set(0, y, 0); estudio.target.updateMatrixWorld();
+    luzMaquete();
     ui.titulo.textContent = a === 18 ? "18º andar · coberturas" : `${a}º andar · ${tipoAndar(a) === "dois" ? "4 apartamentos de 2 dormitórios" : "2 apartamentos de 3 suítes"}`;
     ativarUnidade(0);
     const [pos, tgt] = vistaAndar(a);
     controls.target.copy(tgt);
     voar(pos, tgt, 1.8, () => { controls.enabled = true; });
+  }
+  function luzMaquete() {
+    const y = baseY(andarAberto);
+    estudio.position.set(-16, y + 34, 22); estudio.target.position.set(0, y, 0); estudio.target.updateMatrixWorld();
+    estudio.color.setHex(0xfff4e6);
+    hemi.color.setHex(0xf2eeff); hemi.groundColor.setHex(0x5a5262);
+    scene.environment = envInterno; scene.environmentIntensity = 0.35;
+    renderer.toneMappingExposure = 1.0;
+    bloom.threshold = 0.9; bloom.strength = 0.35;
+  }
+  function luzNoite() {
+    hemi.color.setHex(0x9a8ad8); hemi.groundColor.setHex(0x1a1426);
+    scene.environment = envCeu; scene.environmentIntensity = 1;
+    renderer.toneMappingExposure = 1.05;
+    bloom.threshold = 0.82; bloom.strength = 0.6;
   }
   function fechar() {
     if (modo === "andar") sairVisita();
@@ -861,7 +896,7 @@ function iniciar() {
     coroa.userData.alvoDy = 0;
     voar(posPredio(), alvoPredio, 1.5, () => {
       andares[andarAberto].userData.casca.visible = true; aletas.visible = true;
-      interior.visible = false; limpar(interior);
+      interior.visible = false; limpar(interior); luzNoite();
       host.classList.remove("aberto"); document.body.classList.remove("x3d-travado");
       modo = "predio"; enquadrar(); hoverAndar(0);
     });
@@ -897,15 +932,24 @@ function iniciar() {
     ui.rotulos.style.display = "none";
     tampas.forEach((t) => (t.visible = false)); tetos.forEach((t) => (t.visible = true));
     host.classList.add("visita");
-    const un = unidades[unidadeAtiva], pl = un.planta, sz = un.pos[3];
+    const un = unidades[unidadeAtiva], pl = un.planta, sx = un.pos[2], sz = un.pos[3];
     const sp = un.centro(pl.spawn[0], pl.spawn[1]); posMundo.set(sp.x, 0, sp.z);
     yaw = sz > 0 ? Math.PI : 0; pitch = -0.04;
     for (const [u, w, i] of pl.luzes) {
       const c = un.centro(u, w);
-      const l = new THREE.PointLight(0xffd6a8, i, 9, 2); l.position.set(c.x, PE - 0.25, c.z); interior.add(l); luzesInt.push(l);
+      const l = new THREE.PointLight(0xffd6a8, i * 0.55, 9, 2); l.position.set(c.x, PE - 0.25, c.z); interior.add(l); luzesInt.push(l);
       const s = new THREE.Mesh(new THREE.CylinderGeometry(0.09, 0.09, 0.02, 16), mat.spot); s.position.set(c.x, PE - 0.012, c.z); interior.add(s); luzesInt.push(s);
     }
     camera.fov = 70; camera.near = 0.05; camera.updateProjectionMatrix();
+    // sol baixo vindo da fachada da unidade, entrando pelas janelas
+    const fc = un.centro(pl.U / 2, pl.W / 2);
+    estudio.position.set(fc.x - 9 * sx, interior.position.y + 7, fc.z + sz * 16); estudio.target.position.set(fc.x, interior.position.y, fc.z); estudio.target.updateMatrixWorld();
+    estudio.color.setHex(0xffc89c);
+    hemi.color.setHex(0xfff6ee); hemi.groundColor.setHex(0x7a6e64);
+    scene.environment = envInterno; scene.environmentIntensity = 0.3;
+    renderer.toneMappingExposure = 0.92;
+    bloom.threshold = 0.97; bloom.strength = 0.25;
+    if (!celular) canvas.requestPointerLock?.();
   }
   function sairVisita() {
     if (modo !== "andar") return;
@@ -915,14 +959,23 @@ function iniciar() {
     luzesInt.forEach((l) => interior.remove(l)); luzesInt = [];
     host.classList.remove("visita");
     camera.fov = 34; camera.near = 0.1; camera.updateProjectionMatrix();
+    luzMaquete();
     const [pos, tgt] = vistaAndar(andarAberto); camera.position.copy(pos); controls.target.copy(tgt); controls.enabled = true;
   }
   $(".x3d__sair").onclick = sairVisita;
   $(".x3d__olhar").onclick = () => { canvas.requestPointerLock?.(); };
   document.addEventListener("pointerlockchange", () => host.classList.toggle("travado", document.pointerLockElement === canvas));
-  document.addEventListener("mousemove", (e) => { if (modo === "andar" && document.pointerLockElement === canvas) { yaw -= e.movementX * 0.0022; pitch = THREE.MathUtils.clamp(pitch - e.movementY * 0.0022, -1.2, 1.2); } });
+  // mouse: olhar só movendo, sem arrastar; clique trava o cursor (como em jogos); Esc solta
+  document.addEventListener("mousemove", (e) => {
+    if (modo !== "andar") return;
+    const travado = document.pointerLockElement === canvas;
+    if (!travado && e.target !== canvas) return;
+    const k = travado ? 0.0022 : 0.0035;
+    yaw -= e.movementX * k; pitch = THREE.MathUtils.clamp(pitch - e.movementY * k, -1.2, 1.2);
+  });
+  canvas.addEventListener("click", () => { if (modo === "andar" && document.pointerLockElement !== canvas && !celular) canvas.requestPointerLock?.(); });
   let arrasto = null;
-  canvas.addEventListener("pointerdown", (e) => { if (modo === "andar" && document.pointerLockElement !== canvas) { arrasto = { id: e.pointerId, x: e.clientX, y: e.clientY }; canvas.setPointerCapture(e.pointerId); } });
+  canvas.addEventListener("pointerdown", (e) => { if (modo === "andar" && e.pointerType !== "mouse") { arrasto = { id: e.pointerId, x: e.clientX, y: e.clientY }; canvas.setPointerCapture(e.pointerId); } });
   canvas.addEventListener("pointermove", (e) => { if (arrasto && e.pointerId === arrasto.id) { yaw -= (e.clientX - arrasto.x) * 0.005; pitch = THREE.MathUtils.clamp(pitch - (e.clientY - arrasto.y) * 0.005, -1.2, 1.2); arrasto.x = e.clientX; arrasto.y = e.clientY; } });
   canvas.addEventListener("pointerup", (e) => { if (arrasto && e.pointerId === arrasto.id) arrasto = null; });
   addEventListener("keydown", (e) => { if (modo === "andar") { teclas[e.code] = true; if (/^(Arrow|Space)/.test(e.code)) e.preventDefault(); } });
@@ -991,8 +1044,12 @@ function iniciar() {
     else if (modo === "explorar") controls.update();
     else if (modo === "andar") andar(dt);
     // noite no prédio, estúdio na maquete, interior aconchegante na visita
-    const alvoLuz = modo === "explorar" ? [1.0, 0.25, 1.9, 0.35] : modo === "andar" ? [0.6, 0.18, 0.0, 0.35] : [0.75, 0.08, 0.0, 1.5];
+    const alvoLuz = modo === "explorar" ? [0.8, 0.18, 1.6, 0.3] : modo === "andar" ? [0.3, 0.06, 1.5, 0.0] : [0.75, 0.08, 0.0, 1.5];
     aproxima(hemi, "intensity", alvoLuz[0], dt); aproxima(amb, "intensity", alvoLuz[1], dt); aproxima(estudio, "intensity", alvoLuz[2], dt); aproxima(sol, "intensity", alvoLuz[3], dt);
+    for (const p of portasMundo) {
+      const perto = modo === "andar" && Math.hypot(posMundo.x - p.x, posMundo.z - p.z) < 1.7;
+      p.ang += ((perto ? p.aberta : 0) - p.ang) * Math.min(1, dt * 7); p.piv.rotation.y = p.ang;
+    }
     gtao.enabled = !celular && (modo === "explorar" || modo === "andar") && interior.visible;
     if (rotulos.length && modo === "explorar") {
       for (const r of rotulos) {
@@ -1008,5 +1065,5 @@ function iniciar() {
   camera.position.copy(posPredio()).add(new THREE.Vector3(30, 20, 40));
   requestAnimationFrame(quadro);
   host.classList.add("pronto");
-  window.__predio3d = { abrirAndar, fechar, entrarVisita, sairVisita, ativarUnidade, abrirFoto: (n) => abrirFoto(pisos.find((p) => p.userData.un === unidadeAtiva && p.userData.nome === n).userData), estado: () => ({ modo, andarAberto, unidadeAtiva, obst: obst.length, pisos: pisos.length }), hoverAndar };
+  window.__predio3d = { abrirAndar, fechar, entrarVisita, sairVisita, ativarUnidade, abrirFoto: (n) => abrirFoto(pisos.find((p) => p.userData.un === unidadeAtiva && p.userData.nome === n).userData), estado: () => ({ modo, andarAberto, unidadeAtiva, obst: obst.length, pisos: pisos.length, portas: portasMundo.length }), conflitos: () => conflitos, irPara: (x, z, y) => { posMundo.set(x, 0, z); if (y !== undefined) yaw = y; }, hoverAndar };
 }
