@@ -3,448 +3,773 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Navalha & Co. — Barbearia</title>
-<meta name="description" content="Navalha & Co. Barbearia: corte, barba e tratamento com barbeiros experientes. Agende seu horário online em segundos." />
-<meta name="theme-color" content="#121110" />
+<title>Navalha &amp; Co. — Barbearia na Vila Madalena</title>
+<meta name="description" content="Navalha & Co.: barbearia clássica na Vila Madalena. Corte, barba na navalha com toalha quente, clube de assinatura e consulta de horários direto pelo WhatsApp." />
+<meta name="theme-color" content="#0d0c0b" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Karla:wght@400;500;700&display=swap" rel="stylesheet" />
+<link rel="preconnect" href="https://images.unsplash.com" />
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Instrument+Serif:ital@0;1&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
 <style>
   :root {
-    --bg: #121110; --bg2: #191715; --card: #1f1c19; --line: #322d28; --cream: #efe6d6; --muted: #9b9184;
-    --brass: #c9a45c; --brass2: #e0c184; --red: #b3261e; --blue: #1f3d7a;
-    --serif: "DM Serif Display", Georgia, serif; --sans: "Karla", system-ui, sans-serif;
-    --ease: cubic-bezier(.2,.8,.2,1);
+    --bg: #0d0c0b; --bg2: #151311; --bg3: #1d1a17; --cream: #f1e8da; --muted: #a39888; --dim: #6f665b;
+    --brass: #c9a45c; --brass2: #e6c88a; --red: #b3261e; --blue: #1f3d6b;
+    --line: rgba(241,232,218,.12); --glass: rgba(29,26,23,.55);
+    --display: "Anton", Impact, sans-serif; --serif: "Instrument Serif", Georgia, serif; --sans: "Manrope", system-ui, sans-serif;
+    --ease: cubic-bezier(.2,.8,.2,1); --spring: cubic-bezier(.34,1.56,.64,1);
+    --wrap: min(1240px, 100% - 40px);
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  html { overflow-x: clip; scroll-behavior: smooth; scroll-padding-top: 90px; }
+  html { overflow-x: clip; scroll-padding-top: 90px; }
   body { background: var(--bg); color: var(--cream); font-family: var(--sans); line-height: 1.6; -webkit-font-smoothing: antialiased; overflow-x: clip; }
   img { display: block; max-width: 100%; }
   a { color: inherit; text-decoration: none; }
   button, input { font: inherit; color: inherit; }
   button { background: none; border: 0; cursor: pointer; }
-  .wrap { width: min(1240px, 100% - 40px); margin-inline: auto; }
-  h1, h2, h3 { font-family: var(--serif); font-weight: 400; line-height: 1; letter-spacing: -.01em; }
-  h1 em, h2 em { color: var(--brass); }
-  .h2 { font-size: clamp(42px, 5.6vw, 82px); }
-  .over { font-size: 12px; letter-spacing: .3em; text-transform: uppercase; color: var(--brass); font-weight: 700; display: inline-flex; align-items: center; gap: 12px; }
-  .over::before, .over::after { content: ""; width: 24px; height: 1px; background: currentColor; }
-  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 16px 30px; font-weight: 700; font-size: 14px; letter-spacing: .14em; text-transform: uppercase; border-radius: 2px; transition: all .3s var(--ease); }
+  svg { display: block; }
+  ::selection { background: var(--brass); color: var(--bg); }
+  .wrap { width: var(--wrap); margin-inline: auto; }
+  h1, h2, .disp { font-family: var(--display); font-weight: 400; text-transform: uppercase; letter-spacing: .01em; line-height: .92; }
+  em { font-family: var(--serif); font-style: italic; text-transform: none; letter-spacing: 0; color: var(--brass2); font-weight: 400; }
+  .h2 { font-size: clamp(46px, 7vw, 108px); }
+  .over { display: inline-flex; align-items: center; gap: 12px; font-weight: 700; font-size: 12.5px; letter-spacing: .26em; text-transform: uppercase; color: var(--brass); }
+  .over::before { content: ""; width: 34px; height: 1px; background: currentColor; }
+  .btn { position: relative; display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 17px 28px; border-radius: 999px; font-weight: 700; font-size: 15px; letter-spacing: .02em; transition: background .3s, color .3s, box-shadow .3s; will-change: transform; overflow: hidden; }
+  .btn svg { width: 18px; height: 18px; transition: transform .4s var(--spring); }
+  .btn:hover svg { transform: translateX(4px); }
   .btn--brass { background: var(--brass); color: var(--bg); }
-  .btn--brass:hover { background: var(--brass2); transform: translateY(-2px); }
-  .btn--line { box-shadow: inset 0 0 0 1px var(--cream); }
-  .btn--line:hover { background: var(--cream); color: var(--bg); }
-  [data-r] { opacity: 0; transform: translateY(36px); transition: opacity .9s var(--ease), transform .9s var(--ease); transition-delay: var(--d, 0s); }
+  .btn--brass:hover { background: var(--brass2); }
+  .btn--glass { background: rgba(241,232,218,.08); box-shadow: inset 0 0 0 1px rgba(241,232,218,.22); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); }
+  .btn--glass:hover { background: rgba(241,232,218,.16); }
+  .btn--wa { background: #25d366; color: #06210f; }
+  .btn--wa:hover { background: #3be27a; }
+  .vidro { background: var(--glass); backdrop-filter: blur(22px) saturate(1.3); -webkit-backdrop-filter: blur(22px) saturate(1.3); box-shadow: inset 0 0 0 1px rgba(241,232,218,.12), 0 30px 80px -40px rgba(0,0,0,.8); }
+  [data-r] { opacity: 0; transform: translateY(40px); transition: opacity .9s var(--ease), transform 1s var(--ease); transition-delay: var(--d, 0s); }
   [data-r].in { opacity: 1; transform: none; }
-  .grain { position: fixed; inset: 0; z-index: 100; pointer-events: none; opacity: .06; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+  .grao { position: fixed; inset: -50%; z-index: 300; pointer-events: none; opacity: .06; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); animation: grao 1s steps(4) infinite; }
+  @keyframes grao { 25% { transform: translate(-3%, 2%); } 50% { transform: translate(2%, -3%); } 75% { transform: translate(-2%, -1%); } }
+
+  /* CURSOR */
+  .cur { position: fixed; left: 0; top: 0; z-index: 400; width: 34px; height: 34px; margin: -17px 0 0 -17px; border-radius: 50%; border: 1px solid var(--brass); pointer-events: none; display: grid; place-items: center; opacity: 0; transition: width .35s var(--spring), height .35s var(--spring), margin .35s var(--spring), background .3s, opacity .3s; }
+  .cur span { font-weight: 800; font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--bg); opacity: 0; transition: opacity .2s; }
+  .cur.on { opacity: 1; }
+  .cur.hot { width: 60px; height: 60px; margin: -30px 0 0 -30px; background: rgba(201,164,92,.18); }
+  .cur.lbl { width: 86px; height: 86px; margin: -43px 0 0 -43px; background: var(--brass); }
+  .cur.lbl span { opacity: 1; }
+  .ponto { position: fixed; left: 0; top: 0; z-index: 401; width: 5px; height: 5px; margin: -2.5px 0 0 -2.5px; border-radius: 50%; background: var(--brass2); pointer-events: none; opacity: 0; }
+  .ponto.on { opacity: 1; }
+  @media (hover: none), (pointer: coarse) { .cur, .ponto { display: none; } }
+
+  /* POSTE (progresso) */
+  .poste { position: fixed; right: 18px; top: 50%; z-index: 70; width: 14px; height: 200px; margin-top: -100px; border-radius: 10px; padding: 3px; background: linear-gradient(90deg, #8f7442, #e6c88a 45%, #8f7442); box-shadow: 0 10px 30px -10px rgba(0,0,0,.8); }
+  .poste::before, .poste::after { content: ""; position: absolute; left: -3px; right: -3px; height: 9px; border-radius: 5px; background: linear-gradient(90deg, #8f7442, #f2dca8 45%, #8f7442); }
+  .poste::before { top: -6px; } .poste::after { bottom: -6px; }
+  .poste i { display: block; height: 100%; border-radius: 6px; background: repeating-linear-gradient(-55deg, var(--red) 0 8px, #f5efe6 8px 14px, var(--blue) 14px 22px, #f5efe6 22px 28px); background-size: 100% 200%; box-shadow: inset 3px 0 6px rgba(255,255,255,.45), inset -3px 0 6px rgba(0,0,0,.45); }
+  .poste b { position: absolute; left: 50%; bottom: -34px; transform: translateX(-50%); font-size: 11px; font-weight: 800; color: var(--muted); letter-spacing: .08em; font-variant-numeric: tabular-nums; }
+  @media (max-width: 900px) { .poste { display: none; } }
 
   /* NAV */
-  .nav { position: fixed; inset: 0 0 auto; z-index: 50; transition: background .4s, border-color .4s; border-bottom: 1px solid transparent; }
-  .nav.solid { background: rgba(18,17,16,.92); backdrop-filter: blur(10px); border-color: var(--line); }
-  .nav__in { height: 82px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
-  .logo { display: flex; align-items: center; gap: 12px; }
-  .logo svg { width: 38px; color: var(--brass); }
-  .logo b { font-family: var(--serif); font-weight: 400; font-size: 25px; display: block; line-height: 1; }
-  .logo small { font-size: 10px; letter-spacing: .4em; text-transform: uppercase; color: var(--muted); }
-  .nav__links { display: flex; gap: 32px; font-size: 14px; letter-spacing: .1em; text-transform: uppercase; }
-  .nav__links a { color: var(--muted); transition: color .2s; } .nav__links a:hover { color: var(--cream); }
-  .burger { display: none; width: 46px; height: 46px; border: 1px solid var(--line); place-items: center; }
-  .burger span { width: 18px; height: 1px; background: var(--cream); box-shadow: 0 6px 0 var(--cream), 0 -6px 0 var(--cream); }
+  .nav { position: fixed; top: 14px; left: 50%; z-index: 80; width: min(1240px, 100% - 24px); transform: translateX(-50%); transition: transform .5s var(--ease); }
+  .nav.esconde { transform: translate(-50%, -140%); }
+  .nav__in { display: flex; align-items: center; justify-content: space-between; gap: 18px; padding: 8px 8px 8px 22px; border-radius: 999px; background: rgba(21,19,17,.5); backdrop-filter: blur(18px) saturate(1.4); -webkit-backdrop-filter: blur(18px) saturate(1.4); box-shadow: inset 0 0 0 1px rgba(241,232,218,.1), 0 20px 50px -25px rgba(0,0,0,.9); }
+  .logo { display: flex; align-items: center; gap: 10px; font-family: var(--display); font-size: 22px; letter-spacing: .04em; text-transform: uppercase; }
+  .logo svg { width: 30px; height: 30px; color: var(--brass); transition: transform .6s var(--spring); }
+  .logo:hover svg { transform: rotate(-35deg); }
+  .logo em { font-size: 20px; margin: 0 -2px; }
+  .nav__links { display: flex; gap: 4px; font-weight: 600; font-size: 14.5px; color: #d6cbbb; }
+  .nav__links a { padding: 9px 14px; border-radius: 999px; transition: background .25s, color .25s; }
+  .nav__links a:hover { background: rgba(241,232,218,.08); color: var(--cream); }
+  .nav .btn { padding: 12px 20px; font-size: 14px; }
+  .burger { display: none; width: 46px; height: 46px; border-radius: 50%; background: var(--brass); place-items: center; }
+  .burger span { width: 18px; height: 2px; background: var(--bg); box-shadow: 0 6px 0 var(--bg), 0 -6px 0 var(--bg); }
 
   /* HERO */
-  .hero { position: relative; min-height: 100svh; display: grid; grid-template-columns: 1fr 1fr; overflow: hidden; }
-  .pole { position: absolute; left: 28px; top: 50%; width: 26px; height: 300px; margin-top: -150px; border-radius: 14px; overflow: hidden; z-index: 3; box-shadow: 0 0 0 4px var(--brass), 0 0 40px rgba(201,164,92,.25); }
-  .pole::before { content: ""; position: absolute; left: 0; right: 0; top: -100px; bottom: -100px; background: repeating-linear-gradient(-45deg, var(--cream) 0 14px, var(--red) 14px 28px, var(--cream) 28px 42px, var(--blue) 42px 56px); animation: pole 2.2s linear infinite; }
-  @keyframes pole { to { transform: translateY(79.2px); } }
-  .pole::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(0,0,0,.35), transparent 40%, rgba(255,255,255,.25) 55%, rgba(0,0,0,.3)); }
-  .hero__text { position: relative; z-index: 2; display: flex; flex-direction: column; justify-content: center; padding: 130px 40px 80px max(90px, calc(50vw - 620px + 70px)); }
-  .hero h1 { font-size: clamp(56px, 7.4vw, 120px); margin: 22px 0 26px; }
-  .hero h1 span { display: block; overflow: hidden; }
-  .hero h1 span > i { display: block; font-style: normal; transform: translateY(105%); animation: up 1.1s var(--ease) forwards; }
-  .hero h1 span:nth-child(2) > i { animation-delay: .14s; }
-  @keyframes up { to { transform: none; } }
-  .hero p { color: var(--muted); font-size: 18px; max-width: 420px; }
-  .hero__ctas { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 34px; }
-  .hero__img { position: relative; overflow: hidden; }
-  .hero__img img { width: 100%; height: 100%; object-fit: cover; filter: sepia(.25) contrast(1.05); transform: scale(1.12); animation: settle 2s var(--ease) forwards; }
-  @keyframes settle { to { transform: scale(1); } }
-  .hero__img::before { content: ""; position: absolute; inset: 0; z-index: 1; background: linear-gradient(90deg, var(--bg), transparent 35%); }
-  .slot { position: absolute; right: 30px; bottom: 30px; z-index: 2; background: rgba(18,17,16,.85); backdrop-filter: blur(10px); border: 1px solid var(--line); padding: 18px 22px; display: flex; gap: 14px; align-items: center; animation: fadeUp 1s .8s var(--ease) both; }
-  .slot i { width: 10px; height: 10px; border-radius: 50%; background: #3fbf7f; box-shadow: 0 0 10px #3fbf7f; animation: blink 1.4s infinite; }
-  .slot small { display: block; font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: var(--muted); }
-  .slot b { font-family: var(--serif); font-weight: 400; font-size: 24px; }
-  @keyframes blink { 50% { opacity: .3; } }
-  @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } }
+  .hero { position: relative; height: 210vh; }
+  .hero__stick { position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden; }
+  .hero__foto { position: absolute; inset: -4%; will-change: transform; }
+  .hero__foto img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 60% 30%; }
+  .hero__foto .pb { filter: grayscale(1) brightness(.42) contrast(1.15); }
+  .hero__foto .cor { filter: brightness(.85) contrast(1.05) saturate(1.1); -webkit-mask-image: radial-gradient(circle var(--raio, 260px) at var(--mx, 70%) var(--my, 40%), #000 0%, rgba(0,0,0,.85) 40%, transparent 100%); mask-image: radial-gradient(circle var(--raio, 260px) at var(--mx, 70%) var(--my, 40%), #000 0%, rgba(0,0,0,.85) 40%, transparent 100%); }
+  .hero__sombra { position: absolute; inset: 0; background: linear-gradient(90deg, rgba(13,12,11,.92) 0%, rgba(13,12,11,.55) 42%, rgba(13,12,11,0) 70%), linear-gradient(0deg, rgba(13,12,11,1) 0%, rgba(13,12,11,0) 38%); }
+  .hero__in { position: relative; z-index: 2; height: 100%; display: flex; flex-direction: column; justify-content: flex-start; padding-top: max(120px, 15vh); padding-bottom: 0; will-change: transform, opacity; }
+  .hero h1 { font-size: min(6.4vw, 11vh, 112px); max-width: 900px; }
+  .hero h1 .ln { display: block; overflow: hidden; padding-top: .1em; margin-top: -.1em; }
+  .hero h1 .ln > span { display: inline-block; transform: translateY(105%); animation: sobe 1.1s var(--ease) forwards; animation-delay: var(--d); }
+  .hero h1 em { font-size: .9em; }
+  @keyframes sobe { to { transform: none; } }
+  .hero p { margin-top: 22px; max-width: 470px; color: #cfc4b4; font-size: clamp(16px, 1.3vw, 19px); }
+  .hero__ctas { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
+  .hero__card { position: absolute; z-index: 3; right: max(56px, (100vw - 1240px) / 2); top: max(120px, 15vh); width: 270px; padding: 18px; border-radius: 22px; }
+  .hero__card small { display: block; font-weight: 700; font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: var(--brass); }
+  .hero__card b { display: block; font-family: var(--display); font-weight: 400; font-size: 30px; letter-spacing: .02em; margin-top: 6px; line-height: 1; }
+  .hero__card p { margin-top: 8px; font-size: 13.5px; color: var(--muted); }
+  .hero__card .linha { display: flex; gap: 6px; margin-top: 14px; }
+  .hero__card .linha span { flex: 1; padding: 7px 0; border-radius: 10px; text-align: center; font-size: 12px; font-weight: 700; background: rgba(241,232,218,.07); box-shadow: inset 0 0 0 1px var(--line); }
+  .hero__card .linha span.f { color: var(--dim); text-decoration: line-through; }
+  .corte { --fs: min(24vw, 31vh); position: absolute; z-index: 1; left: 0; right: 0; bottom: calc(var(--fs) * -.04); pointer-events: none; }
+  .corte__p.fantasma { visibility: hidden; }
+  .corte__p { font-family: var(--display); font-size: var(--fs); line-height: 1; letter-spacing: .01em; text-transform: uppercase; text-align: center; white-space: nowrap; color: transparent; -webkit-text-stroke: 1.5px rgba(241,232,218,.35); will-change: transform; }
+  .corte__p.b { position: absolute; inset: 0; color: rgba(241,232,218,.92); -webkit-text-stroke: 0; clip-path: polygon(0 52%, 100% 38%, 100% 100%, 0 100%); }
+  .corte__p.a { position: absolute; inset: 0; clip-path: polygon(0 0, 100% 0, 100% 38%, 0 52%); color: rgba(241,232,218,.92); -webkit-text-stroke: 0; }
+  .lamina { position: absolute; left: -5%; right: -5%; top: 45%; height: 2px; background: linear-gradient(90deg, transparent, var(--brass2) 20%, #fff 50%, var(--brass2) 80%, transparent); transform: rotate(-3.2deg); box-shadow: 0 0 18px rgba(230,200,138,.8); opacity: 0; }
+  .rolar { position: absolute; z-index: 3; left: max(20px, (100vw - 1240px) / 2); bottom: 26px; display: flex; align-items: center; gap: 12px; font-size: 11.5px; font-weight: 700; letter-spacing: .22em; text-transform: uppercase; color: var(--muted); }
+  .rolar i { width: 1px; height: 46px; background: linear-gradient(var(--brass), transparent); position: relative; overflow: hidden; }
+  .rolar i::after { content: ""; position: absolute; left: 0; top: -40%; width: 1px; height: 40%; background: #fff; animation: desce 1.8s var(--ease) infinite; }
+  @keyframes desce { to { top: 110%; } }
 
-  /* TICKER */
-  .ticker { border-block: 1px solid var(--line); padding: 22px 0; overflow: hidden; }
-  .ticker__track { display: flex; gap: 50px; width: max-content; animation: run 36s linear infinite; }
-  .ticker span { font-family: var(--serif); font-size: 34px; white-space: nowrap; display: flex; align-items: center; gap: 50px; color: var(--muted); }
-  .ticker span:nth-child(odd) { color: var(--cream); font-style: italic; }
-  .ticker span::after { content: "✂"; color: var(--brass); font-size: .6em; font-style: normal; }
-  @keyframes run { to { transform: translateX(-50%); } }
+  /* FAIXA */
+  .faixa { position: relative; z-index: 4; padding: 26px 0; border-block: 1px solid var(--line); overflow: hidden; background: var(--bg); }
+  .faixa__t { display: flex; width: max-content; will-change: transform; }
+  .faixa__t span { display: flex; align-items: center; gap: 34px; padding-right: 34px; font-family: var(--display); font-size: clamp(34px, 4.6vw, 70px); text-transform: uppercase; white-space: nowrap; }
+  .faixa__t span em { font-size: 1.05em; }
+  .faixa__t svg { width: 30px; height: 30px; color: var(--brass); }
 
-  /* SERVIÇOS */
-  .menu { padding: 130px 0; }
-  .menu__grid { display: grid; grid-template-columns: .8fr 1.2fr; gap: 80px; }
-  .menu__side { position: sticky; top: 120px; align-self: start; }
-  .menu__side p { color: var(--muted); margin: 22px 0 30px; max-width: 360px; }
-  .menu__side .ph { aspect-ratio: 4/5; overflow: hidden; border: 1px solid var(--line); padding: 10px; }
-  .menu__side .ph img { width: 100%; height: 100%; object-fit: cover; filter: sepia(.2); }
-  .svc { display: grid; grid-template-columns: 1fr auto; gap: 4px 20px; padding: 26px 0; border-bottom: 1px solid var(--line); position: relative; }
-  .svc::before { content: ""; position: absolute; left: 0; bottom: -1px; height: 1px; width: 0; background: var(--brass); transition: width .6s var(--ease); }
-  .svc:hover::before { width: 100%; }
-  .svc h3 { font-size: 30px; display: flex; align-items: baseline; gap: 14px; }
-  .svc h3 small { font-family: var(--sans); font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: var(--brass); border: 1px solid var(--brass); padding: 2px 8px; }
-  .svc b { font-family: var(--serif); font-weight: 400; font-size: 30px; color: var(--brass); }
-  .svc p { color: var(--muted); font-size: 15px; }
-  .svc span { text-align: right; color: var(--muted); font-size: 14px; }
+  /* SERVIÇOS (menu com imagem que segue o mouse) */
+  .menu { padding: 150px 0 130px; }
+  .menu__grid { display: grid; grid-template-columns: .8fr 1.2fr; gap: 70px; }
+  .menu__lado p { margin-top: 24px; color: var(--muted); font-size: 17px; max-width: 360px; }
+  .menu__lado .nota { margin-top: 30px; display: inline-flex; gap: 10px; align-items: center; padding: 12px 16px; border-radius: 16px; font-size: 14px; font-weight: 600; }
+  .menu__lado .nota svg { width: 20px; height: 20px; color: var(--brass); }
+  .lista { border-top: 1px solid var(--line); }
+  .item { position: relative; display: grid; grid-template-columns: 52px 1fr auto; gap: 18px; align-items: baseline; padding: 24px 6px; border-bottom: 1px solid var(--line); transition: padding .4s var(--ease), background .3s; }
+  .item:hover { padding-left: 18px; background: linear-gradient(90deg, rgba(201,164,92,.08), transparent); }
+  .item__n { font-size: 13px; font-weight: 700; color: var(--dim); letter-spacing: .1em; }
+  .item h3 { font-family: var(--display); font-weight: 400; text-transform: uppercase; font-size: clamp(28px, 2.8vw, 40px); letter-spacing: .02em; line-height: 1; }
+  .item h3 small { margin-left: 12px; padding: 4px 10px; border-radius: 999px; font-family: var(--sans); font-size: 11px; font-weight: 800; letter-spacing: .14em; vertical-align: middle; background: var(--brass); color: var(--bg); }
+  .item p { grid-column: 2; color: var(--muted); font-size: 15px; margin-top: 6px; }
+  .item__pr { text-align: right; }
+  .item__pr b { display: block; font-family: var(--serif); font-size: 34px; font-weight: 400; color: var(--brass2); line-height: 1; }
+  .item__pr span { font-size: 13px; color: var(--dim); font-weight: 600; }
+  .flutua { position: fixed; left: 0; top: 0; z-index: 60; width: 240px; height: 300px; margin: -150px 0 0 40px; border-radius: 18px; overflow: hidden; pointer-events: none; opacity: 0; transform: scale(.7) rotate(-6deg); transition: opacity .35s, transform .5s var(--spring); box-shadow: 0 40px 80px -30px rgba(0,0,0,.9); }
+  .flutua.on { opacity: 1; transform: scale(1) rotate(var(--rot, -3deg)); }
+  .flutua img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity .3s; }
+  .flutua img.on { opacity: 1; }
+
+  /* RITUAL */
+  .ritual { position: relative; padding: 160px 0; overflow: hidden; }
+  .ritual__bg { position: absolute; inset: -15% 0; background: url("https://images.unsplash.com/photo-1585747860715-2ba37e788b70?w=2200&q=75&auto=format&fit=crop") center / cover; filter: brightness(.38) saturate(.9); will-change: transform; }
+  .ritual::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, var(--bg) 0%, transparent 25%, transparent 75%, var(--bg) 100%); }
+  .ritual .wrap { position: relative; z-index: 2; }
+  .passos { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 60px; }
+  .passo { padding: 28px 24px 30px; border-radius: 26px; transition: transform .5s var(--spring), background .3s; }
+  .passo:hover { transform: translateY(-8px); background: rgba(29,26,23,.72); }
+  .passo b { font-family: var(--display); font-weight: 400; font-size: 64px; line-height: 1; color: transparent; -webkit-text-stroke: 1px var(--brass); }
+  .passo h3 { font-family: var(--display); font-weight: 400; text-transform: uppercase; font-size: 28px; letter-spacing: .02em; margin-top: 18px; line-height: 1; }
+  .passo p { margin-top: 10px; color: #cfc4b4; font-size: 15px; }
+  .ritual__fio { position: relative; height: 1px; margin-top: 40px; background: var(--line); }
+  .ritual__fio i { position: absolute; inset: 0; background: var(--brass); transform-origin: left; transform: scaleX(0); }
 
   /* BARBEIROS */
-  .crew { padding: 0 0 130px; }
-  .head { display: flex; justify-content: space-between; align-items: end; gap: 30px; flex-wrap: wrap; margin-bottom: 50px; }
-  .head p { color: var(--muted); max-width: 380px; }
-  .crew__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
-  .barber { position: relative; }
-  .barber__img { aspect-ratio: 3/4; overflow: hidden; position: relative; }
-  .barber__img img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(1) contrast(1.1); transition: filter .8s var(--ease), transform 1.2s var(--ease); }
-  .barber:hover .barber__img img { filter: grayscale(0) sepia(.2); transform: scale(1.04); }
-  .barber__img::after { content: ""; position: absolute; inset: 12px; border: 1px solid rgba(201,164,92,.5); pointer-events: none; transition: inset .6s var(--ease); }
-  .barber:hover .barber__img::after { inset: 20px; }
-  .barber h3 { font-size: 32px; margin-top: 18px; }
-  .barber p { color: var(--muted); font-size: 15px; }
-  .barber button { margin-top: 12px; font-size: 13px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--brass); border-bottom: 1px solid var(--brass); padding-bottom: 2px; }
+  .crew { padding: 150px 0 130px; }
+  .cab { display: flex; justify-content: space-between; align-items: end; gap: 30px; flex-wrap: wrap; margin-bottom: 56px; }
+  .cab p { color: var(--muted); max-width: 400px; font-size: 17px; }
+  .crew__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; perspective: 1200px; }
+  .barb { position: relative; border-radius: 28px; overflow: hidden; aspect-ratio: 3 / 4; background: var(--bg3); transform-style: preserve-3d; transition: transform .25s ease-out; }
+  .barb img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: grayscale(1) contrast(1.1) brightness(.8); transition: filter .7s var(--ease), transform 1.2s var(--ease); }
+  .barb:hover img { filter: grayscale(0) brightness(.95); transform: scale(1.05); }
+  .barb__info { position: absolute; left: 14px; right: 14px; bottom: 14px; padding: 18px 20px; border-radius: 20px; transform: translateZ(40px); }
+  .barb__info small { font-weight: 700; font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: var(--brass); }
+  .barb__info h3 { font-family: var(--display); font-weight: 400; text-transform: uppercase; font-size: 32px; letter-spacing: .02em; line-height: 1; margin-top: 6px; }
+  .barb__info p { color: #cfc4b4; font-size: 14px; margin-top: 6px; }
+  .barb__info button { margin-top: 14px; display: inline-flex; align-items: center; gap: 8px; font-weight: 700; font-size: 14px; color: var(--brass2); }
+  .barb__info button svg { width: 16px; height: 16px; transition: transform .4s var(--spring); }
+  .barb__info button:hover svg { transform: translateX(5px); }
 
-  /* AGENDA */
-  .book { padding: 130px 0; background: var(--bg2); border-block: 1px solid var(--line); }
-  .book__grid { display: grid; grid-template-columns: 1.4fr .8fr; gap: 40px; align-items: start; }
-  .bstep { margin-bottom: 40px; }
-  .bstep h4 { font-family: var(--serif); font-weight: 400; font-size: 28px; margin-bottom: 16px; display: flex; gap: 14px; align-items: baseline; }
-  .bstep h4 span { font-family: var(--sans); font-size: 12px; font-weight: 700; letter-spacing: .2em; color: var(--brass); }
-  .pick { display: flex; gap: 10px; flex-wrap: wrap; }
-  .pb { display: flex; align-items: center; gap: 12px; padding: 10px 16px 10px 10px; border: 1px solid var(--line); background: var(--card); transition: all .25s; }
-  .pb img { width: 44px; height: 44px; border-radius: 50%; object-fit: cover; filter: grayscale(1); }
-  .pb .any { width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; background: var(--line); font-size: 18px; }
-  .pb.on { border-color: var(--brass); background: rgba(201,164,92,.1); }
-  .pb.on img { filter: none; }
-  .chips { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 8px; }
-  .ch { text-align: left; padding: 14px 16px; border: 1px solid var(--line); background: var(--card); transition: all .25s; display: flex; justify-content: space-between; gap: 10px; align-items: center; }
-  .ch small { color: var(--muted); display: block; font-size: 12px; }
-  .ch b { font-family: var(--serif); font-weight: 400; font-size: 20px; color: var(--brass); }
-  .ch.on { border-color: var(--brass); background: rgba(201,164,92,.1); }
-  .ch.on::after { content: "✓"; color: var(--brass); font-weight: 700; }
-  .daysel { display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px; }
-  .dd { padding: 12px 6px; border: 1px solid var(--line); background: var(--card); text-align: center; transition: all .25s; }
-  .dd small { display: block; font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
-  .dd b { font-family: var(--serif); font-weight: 400; font-size: 28px; display: block; line-height: 1.1; }
-  .dd.on { background: var(--brass); color: var(--bg); border-color: var(--brass); }
-  .dd.on small { color: var(--bg); }
-  .dd:disabled { opacity: .3; cursor: not-allowed; }
-  .times { display: grid; grid-template-columns: repeat(auto-fill, minmax(78px, 1fr)); gap: 6px; }
-  .tm { padding: 11px 0; border: 1px solid var(--line); background: var(--card); font-weight: 700; font-size: 15px; transition: all .2s; animation: tin .4s var(--ease) both; }
-  @keyframes tin { from { opacity: 0; transform: scale(.9); } }
-  .tm:hover:not(:disabled) { border-color: var(--brass); }
-  .tm.on { background: var(--cream); color: var(--bg); border-color: var(--cream); }
-  .tm:disabled { opacity: .25; text-decoration: line-through; cursor: not-allowed; }
-  .ticket { position: sticky; top: 110px; background: var(--cream); color: var(--bg); padding: 34px 30px; }
-  .ticket::before, .ticket::after { content: ""; position: absolute; left: 0; right: 0; height: 12px; background: radial-gradient(circle at 8px 0, transparent 7px, var(--cream) 7.5px) 0 0 / 16px 12px repeat-x; }
-  .ticket::before { top: -12px; transform: rotate(180deg); }
-  .ticket::after { bottom: -12px; }
-  .ticket h3 { font-size: 34px; }
-  .tk { display: grid; gap: 14px; margin: 24px 0; padding: 20px 0; border-block: 1px dashed rgba(18,17,16,.3); }
-  .tk small { display: block; font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: #7a6f60; }
-  .tk span { font-weight: 700; font-size: 16px; }
-  .tk__total { display: flex; justify-content: space-between; align-items: baseline; }
-  .tk__total b { font-family: var(--serif); font-weight: 400; font-size: 46px; line-height: 1; }
-  .ticket .btn { width: 100%; background: var(--bg); color: var(--cream); margin-top: 20px; }
-  .ticket .btn:hover { background: var(--red); }
-  .ticket .btn:disabled { opacity: .35; cursor: not-allowed; }
-  .warn { font-size: 13px; color: #7a6f60; margin-top: 12px; text-align: center; }
+  /* CONSULTA DE HORÁRIOS */
+  .agenda { padding: 150px 0; position: relative; }
+  .agenda::before { content: ""; position: absolute; left: 50%; top: 10%; width: 900px; height: 900px; margin-left: -450px; border-radius: 50%; background: radial-gradient(closest-side, rgba(201,164,92,.13), transparent); pointer-events: none; }
+  .agenda__grid { position: relative; display: grid; grid-template-columns: 1.15fr .85fr; gap: 40px; align-items: start; }
+  .etapas { display: grid; gap: 14px; }
+  .etapa { padding: 26px 26px 28px; border-radius: 26px; }
+  .etapa h4 { display: flex; align-items: center; gap: 12px; font-size: 13px; font-weight: 800; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); margin-bottom: 18px; }
+  .etapa h4 b { width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center; font-size: 12px; letter-spacing: 0; background: rgba(201,164,92,.16); color: var(--brass2); }
+  .etapa h4 i { font-style: normal; font-weight: 600; letter-spacing: 0; text-transform: none; color: var(--dim); margin-left: auto; font-size: 13px; }
+  .chips { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 8px; }
+  .ch { text-align: left; padding: 13px 14px; border-radius: 16px; background: rgba(241,232,218,.04); box-shadow: inset 0 0 0 1px var(--line); transition: all .25s; }
+  .ch:hover { box-shadow: inset 0 0 0 1px rgba(201,164,92,.5); }
+  .ch span { display: block; font-weight: 700; font-size: 14.5px; }
+  .ch small { display: block; color: var(--muted); font-size: 12.5px; margin-top: 2px; }
+  .ch.on { background: var(--brass); color: var(--bg); box-shadow: none; }
+  .ch.on small { color: rgba(13,12,11,.7); }
+  .barbs { display: flex; flex-wrap: wrap; gap: 8px; }
+  .bb { display: flex; align-items: center; gap: 10px; padding: 6px 16px 6px 6px; border-radius: 999px; background: rgba(241,232,218,.04); box-shadow: inset 0 0 0 1px var(--line); font-weight: 700; font-size: 14px; transition: all .25s; }
+  .bb img, .bb .qq { width: 34px; height: 34px; border-radius: 50%; object-fit: cover; filter: grayscale(1); transition: filter .3s; }
+  .bb .qq { display: grid; place-items: center; background: rgba(201,164,92,.18); color: var(--brass2); }
+  .bb .qq svg { width: 16px; height: 16px; }
+  .bb.on { background: var(--cream); color: var(--bg); box-shadow: none; }
+  .bb.on img { filter: none; }
+  .cal__top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+  .cal__top b { font-family: var(--serif); font-weight: 400; font-size: 24px; }
+  .cal__top div { display: flex; gap: 6px; }
+  .cal__top button { width: 36px; height: 36px; border-radius: 50%; box-shadow: inset 0 0 0 1px var(--line); display: grid; place-items: center; transition: background .2s; }
+  .cal__top button:hover:not(:disabled) { background: rgba(241,232,218,.08); }
+  .cal__top button:disabled { opacity: .3; cursor: default; }
+  .cal__top button svg { width: 16px; height: 16px; }
+  .dias { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; }
+  .dia { display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 10px 0 9px; border-radius: 14px; background: rgba(241,232,218,.04); box-shadow: inset 0 0 0 1px var(--line); transition: all .25s; }
+  .dia small { font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+  .dia b { font-family: var(--display); font-weight: 400; font-size: 24px; line-height: 1.1; }
+  .dia i { font-style: normal; font-size: 9.5px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--dim); min-height: 12px; }
+  .dia:hover:not(:disabled) { box-shadow: inset 0 0 0 1px rgba(201,164,92,.6); }
+  .dia:disabled { opacity: .35; cursor: not-allowed; }
+  .dia.on { background: var(--brass); color: var(--bg); box-shadow: none; }
+  .dia.on small, .dia.on i { color: rgba(13,12,11,.7); }
+  .periodos { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+  .pe { padding: 12px 8px; border-radius: 16px; background: rgba(241,232,218,.04); box-shadow: inset 0 0 0 1px var(--line); font-weight: 700; font-size: 14px; transition: all .25s; }
+  .pe small { display: block; font-weight: 600; font-size: 12px; color: var(--muted); }
+  .pe.on { background: var(--cream); color: var(--bg); box-shadow: none; }
+  .pe.on small { color: rgba(13,12,11,.6); }
+  .pe:disabled { opacity: .3; cursor: not-allowed; }
+  .campo input { width: 100%; height: 56px; padding: 0 18px; border-radius: 16px; border: 0; background: rgba(241,232,218,.05); box-shadow: inset 0 0 0 1px var(--line); font-weight: 600; font-size: 16px; outline: none; transition: box-shadow .25s; }
+  .campo input::placeholder { color: var(--dim); }
+  .campo input:focus { box-shadow: inset 0 0 0 1.5px var(--brass); }
+  .campo.erro input { box-shadow: inset 0 0 0 1.5px #e0553f; }
+  .msg { display: block; color: #ef7a62; font-weight: 600; font-size: 13.5px; margin-top: 8px; min-height: 0; }
+  .comanda-area { position: sticky; top: 110px; }
+  .comanda { position: relative; border-radius: 28px; padding: 30px 28px 26px; overflow: hidden; }
+  .comanda::before { content: ""; position: absolute; inset: 0; background: radial-gradient(60% 40% at var(--gx, 80%) var(--gy, 0%), rgba(230,200,138,.18), transparent 70%); pointer-events: none; }
+  .comanda__topo { display: flex; justify-content: space-between; align-items: center; padding-bottom: 18px; border-bottom: 1px dashed rgba(241,232,218,.2); }
+  .comanda__topo .logo { font-size: 20px; }
+  .comanda__topo small { font-size: 11px; font-weight: 800; letter-spacing: .2em; text-transform: uppercase; color: var(--muted); }
+  .linhas { display: grid; gap: 14px; padding: 22px 0; }
+  .linhas div { display: flex; justify-content: space-between; gap: 18px; align-items: baseline; }
+  .linhas small { font-size: 11.5px; font-weight: 800; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); flex: none; }
+  .linhas span { text-align: right; font-weight: 700; }
+  .linhas span.vazio { color: var(--dim); font-weight: 600; }
+  .comanda__tot { display: flex; justify-content: space-between; align-items: baseline; padding-top: 18px; border-top: 1px dashed rgba(241,232,218,.2); }
+  .comanda__tot small { font-size: 12px; font-weight: 700; color: var(--muted); }
+  .comanda__tot b { font-family: var(--serif); font-weight: 400; font-size: 44px; color: var(--brass2); line-height: 1; }
+  .comanda .btn { width: 100%; margin-top: 22px; }
+  .comanda .btn svg { width: 22px; height: 22px; }
+  .comanda__nota { margin-top: 14px; display: flex; gap: 10px; align-items: flex-start; font-size: 13.5px; color: var(--muted); }
+  .comanda__nota svg { width: 18px; height: 18px; flex: none; color: var(--brass); margin-top: 2px; }
+  .comanda__ok { margin-top: 12px; font-size: 13.5px; font-weight: 700; color: #6ee7a0; min-height: 0; }
+  .tremer { animation: tremer .45s; }
+  @keyframes tremer { 20%, 60% { transform: translateX(-8px); } 40%, 80% { transform: translateX(8px); } }
 
-  /* GALERIA */
-  .gal { padding: 130px 0; }
-  .masonry { columns: 3; column-gap: 16px; }
-  .masonry figure { break-inside: avoid; margin-bottom: 16px; overflow: hidden; position: relative; }
-  .masonry img { width: 100%; filter: sepia(.15); transition: transform 1.2s var(--ease); }
-  .masonry figure:hover img { transform: scale(1.05); }
-  .masonry figcaption { position: absolute; left: 14px; bottom: 14px; font-size: 12px; letter-spacing: .16em; text-transform: uppercase; background: rgba(18,17,16,.8); padding: 6px 10px; opacity: 0; transform: translateY(8px); transition: all .4s var(--ease); }
-  .masonry figure:hover figcaption { opacity: 1; transform: none; }
+  /* GALERIA (colunas com velocidades diferentes) */
+  .gal { padding: 140px 0 120px; overflow: hidden; }
+  .colunas { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; height: 900px; overflow: hidden; -webkit-mask-image: linear-gradient(transparent, #000 12%, #000 88%, transparent); mask-image: linear-gradient(transparent, #000 12%, #000 88%, transparent); }
+  .col { display: grid; gap: 16px; align-content: start; will-change: transform; }
+  .col figure { position: relative; border-radius: 22px; overflow: hidden; }
+  .col img { width: 100%; aspect-ratio: var(--ar, 4/5); object-fit: cover; transition: transform 1.2s var(--ease), filter .6s; filter: saturate(.9); }
+  .col figure:hover img { transform: scale(1.06); filter: saturate(1.1); }
+  .col figcaption { position: absolute; left: 12px; bottom: 12px; padding: 7px 14px; border-radius: 999px; font-size: 12.5px; font-weight: 700; }
 
   /* CLUBE */
-  .club { padding: 0 0 130px; }
-  .club__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-  .plan { border: 1px solid var(--line); padding: 40px 32px; position: relative; transition: transform .4s var(--ease), border-color .3s; }
-  .plan:hover { transform: translateY(-6px); border-color: var(--brass); }
-  .plan.hot { background: var(--brass); color: var(--bg); border-color: var(--brass); }
-  .plan h3 { font-size: 34px; }
-  .plan .price { font-family: var(--serif); font-size: 64px; line-height: 1; margin: 18px 0 4px; }
-  .plan .price small { font-family: var(--sans); font-size: 16px; }
-  .plan ul { list-style: none; margin: 24px 0 30px; display: grid; gap: 10px; font-size: 15px; }
-  .plan li::before { content: "— "; color: var(--brass); }
-  .plan.hot li::before { color: var(--bg); }
-  .plan.hot .btn--line { box-shadow: inset 0 0 0 1px var(--bg); }
-  .plan.hot .btn--line:hover { background: var(--bg); color: var(--cream); }
-  .flag { position: absolute; top: -12px; right: 24px; background: var(--red); color: #fff; font-size: 11px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; padding: 5px 10px; }
+  .clube { padding: 40px 0 150px; }
+  .planos { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; perspective: 1200px; }
+  .plano { position: relative; display: flex; flex-direction: column; padding: 34px 30px 30px; border-radius: 30px; transition: transform .25s ease-out; transform-style: preserve-3d; }
+  .plano.hot { background: linear-gradient(160deg, rgba(201,164,92,.32), rgba(29,26,23,.6) 60%); box-shadow: inset 0 0 0 1px rgba(230,200,138,.45), 0 40px 90px -40px rgba(201,164,92,.5); }
+  .plano__selo { position: absolute; top: 22px; right: 22px; padding: 6px 12px; border-radius: 999px; background: var(--brass); color: var(--bg); font-size: 11px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; }
+  .plano h3 { font-family: var(--display); font-weight: 400; text-transform: uppercase; font-size: 34px; letter-spacing: .02em; line-height: 1; }
+  .plano .pr { margin-top: 20px; font-family: var(--serif); font-size: 64px; line-height: 1; color: var(--brass2); }
+  .plano .pr small { font-family: var(--sans); font-size: 15px; color: var(--muted); font-weight: 600; }
+  .plano ul { list-style: none; display: grid; gap: 12px; margin: 26px 0 30px; flex: 1; color: #d6cbbb; }
+  .plano li { display: flex; gap: 10px; align-items: center; }
+  .plano li svg { width: 16px; height: 16px; color: var(--brass); flex: none; }
+  .plano .btn { width: 100%; }
 
-  /* AMBIENTE */
-  .vibe { position: relative; min-height: 86vh; display: flex; align-items: flex-end; overflow: hidden; }
-  .vibe__bg { position: absolute; inset: -12% 0; background: url("https://images.unsplash.com/photo-1585747860715-2ba37e788b70?w=2200&q=75&auto=format&fit=crop") center / cover; filter: sepia(.2) brightness(.5); will-change: transform; }
-  .vibe__in { position: relative; padding: 0 0 80px; display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: end; }
-  .amen { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-  .amen div { background: rgba(18,17,16,.75); backdrop-filter: blur(8px); border: 1px solid var(--line); padding: 18px 20px; }
-  .amen b { font-family: var(--serif); font-weight: 400; font-size: 22px; display: block; }
-  .amen span { color: var(--muted); font-size: 14px; }
+  /* CONTATO + RODAPÉ */
+  .fim { position: relative; padding: 140px 0 40px; border-top: 1px solid var(--line); overflow: hidden; }
+  .fim__grid { display: grid; grid-template-columns: 1.1fr .9fr; gap: 50px; align-items: end; }
+  .fim__grid p { margin-top: 22px; color: var(--muted); font-size: 17px; max-width: 460px; }
+  .infos { display: grid; gap: 12px; }
+  .info { display: flex; gap: 16px; align-items: center; padding: 18px 20px; border-radius: 20px; }
+  .info svg { width: 22px; height: 22px; color: var(--brass); flex: none; }
+  .info small { display: block; font-size: 11px; font-weight: 800; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); }
+  .info span { font-weight: 600; }
+  .marca { margin-top: 110px; font-family: var(--display); font-size: clamp(54px, 15.5vw, 230px); line-height: .8; text-transform: uppercase; text-align: center; white-space: nowrap; color: transparent; -webkit-text-stroke: 1px rgba(241,232,218,.25); background: linear-gradient(90deg, var(--brass2), var(--brass2)) no-repeat; background-size: var(--enche, 0%) 100%; -webkit-background-clip: text; background-clip: text; transition: background-size .2s linear; }
+  .creditos { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; margin-top: 36px; font-size: 13px; color: var(--dim); }
 
-  /* CONTATO */
-  .contact { padding: 110px 0; text-align: center; }
-  .contact p { color: var(--muted); margin: 18px auto 30px; max-width: 520px; }
-  .info { display: flex; justify-content: center; gap: 50px; flex-wrap: wrap; margin-top: 40px; }
-  .info small { display: block; font-size: 11px; letter-spacing: .24em; text-transform: uppercase; color: var(--brass); margin-bottom: 6px; }
-  footer { border-top: 1px solid var(--line); padding: 30px 0; color: var(--muted); font-size: 13px; }
-  .foot { display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
-  .wa { position: fixed; right: 22px; bottom: 22px; z-index: 60; width: 58px; height: 58px; border-radius: 50%; background: #25d366; color: #fff; display: grid; place-items: center; box-shadow: 0 12px 30px -8px rgba(37,211,102,.6); transition: transform .3s var(--ease); }
-  .wa:hover { transform: scale(1.08); }
+  .wa { position: fixed; right: 46px; bottom: 22px; z-index: 90; width: 58px; height: 58px; border-radius: 50%; background: #25d366; color: #fff; display: grid; place-items: center; box-shadow: 0 14px 30px -8px rgba(37,211,102,.55); transition: transform .4s var(--spring); }
+  .wa:hover { transform: scale(1.1) rotate(-10deg); }
+  .wa svg { width: 28px; height: 28px; }
 
-  @media (max-width: 1000px) {
-    .nav__links { display: none; }
+  @media (max-width: 1080px) {
+    .nav__links, .nav .btn { display: none; }
     .burger { display: grid; }
-    .nav.open { background: var(--bg); }
-    .nav.open .nav__links { display: flex; flex-direction: column; position: absolute; top: 100%; left: 0; right: 0; background: var(--bg); padding: 24px 20px; gap: 18px; border-bottom: 1px solid var(--line); }
-    .nav__cta { display: none; }
-    .hero { grid-template-columns: 1fr; }
-    .hero__img { position: absolute; inset: 0; opacity: .35; }
-    .hero__img::before { background: linear-gradient(0deg, var(--bg), transparent); }
-    .hero__text { padding: 140px 20px 80px 70px; }
-    .slot { display: none; }
-    .pole { left: 18px; width: 20px; height: 220px; margin-top: -110px; }
-    .menu__grid, .book__grid, .vibe__in { grid-template-columns: 1fr; gap: 40px; }
-    .menu__side, .ticket { position: static; }
-    .menu__side .ph { display: none; }
-    .crew__grid, .club__grid { grid-template-columns: 1fr 1fr; }
-    .masonry { columns: 2; }
+    .nav.aberto .nav__links { display: flex; flex-direction: column; position: absolute; top: calc(100% + 8px); left: 0; right: 0; padding: 12px; border-radius: 26px; background: rgba(21,19,17,.92); backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); box-shadow: inset 0 0 0 1px var(--line); font-size: 18px; }
+    .nav.aberto .nav__links a { padding: 14px 16px; }
+    .passos { grid-template-columns: repeat(2, 1fr); }
   }
-  @media (max-width: 620px) {
-    .crew__grid, .club__grid { grid-template-columns: 1fr; }
-    .daysel { grid-template-columns: repeat(4, 1fr); }
-    .amen { grid-template-columns: 1fr; }
-    .masonry { columns: 1; }
-    .svc h3 { font-size: 24px; }
-    .logo small { display: none; }
+  @media (max-width: 900px) {
+    .wa { right: 18px; bottom: 18px; }
+    .hero { height: 190vh; }
+    .hero__in { justify-content: flex-start; padding-top: 110px; padding-bottom: 0; }
+    .hero__sombra { background: linear-gradient(180deg, rgba(13,12,11,.88) 0%, rgba(13,12,11,.55) 50%, rgba(13,12,11,.2) 70%, rgba(13,12,11,1) 100%); }
+    .hero__in { padding-top: 100px; }
+    .hero h1 { font-size: min(13vw, 8svh); }
+    .hero p { font-size: 15.5px; margin-top: 16px; }
+    .hero__ctas { margin-top: 22px; }
+    .hero__ctas .btn { padding: 14px 20px; font-size: 14px; }
+    .hero__card { display: none; }
+    .hero__card b { font-size: 24px; }
+    .hero__card p { display: none; }
+    .rolar { display: none; }
+    .menu { padding: 110px 0 90px; }
+    .menu__grid { grid-template-columns: 1fr; gap: 40px; }
+    .item { grid-template-columns: 1fr auto; gap: 4px 14px; padding: 20px 2px; }
+    .item__n { display: none; }
+    .item p { grid-column: 1 / -1; }
+    .item:hover { padding-left: 2px; }
+    .flutua { display: none; }
+    .ritual { padding: 110px 0; }
+    .passos { grid-template-columns: 1fr; gap: 12px; margin-top: 40px; }
+    .crew { padding: 110px 0 90px; }
+    .crew__grid { grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: 78%; overflow-x: auto; scroll-snap-type: x mandatory; margin: 0 -20px; padding: 0 20px 6px; scrollbar-width: none; }
+    .crew__grid::-webkit-scrollbar { display: none; }
+    .barb { scroll-snap-align: center; }
+    .barb img { filter: grayscale(.2) brightness(.9); }
+    .agenda { padding: 110px 0 100px; }
+    .agenda__grid { grid-template-columns: 1fr; gap: 16px; }
+    .comanda-area { position: static; }
+    .etapa { padding: 22px 18px 24px; border-radius: 22px; }
+    .gal { padding: 100px 0 80px; }
+    .colunas { grid-template-columns: 1fr 1fr; height: 620px; gap: 10px; }
+    .col { gap: 10px; }
+    .col:nth-child(3) { display: none; }
+    .col figcaption { display: none; }
+    .clube { padding-bottom: 110px; }
+    .planos { grid-template-columns: 1fr; gap: 14px; }
+    .fim { padding-top: 100px; }
+    .fim__grid { grid-template-columns: 1fr; gap: 36px; }
+    .marca { margin-top: 70px; }
   }
-  @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; animation-delay: 0s !important; transition-duration: .01ms !important; } [data-r] { opacity: 1; transform: none; } }
+  @media (max-width: 900px) and (max-height: 700px) { .hero p { display: none; } }
+  @media (max-width: 520px) {
+    .chips { grid-template-columns: 1fr 1fr; }
+    .periodos { grid-template-columns: 1fr 1fr; }
+    .dias { gap: 4px; }
+    .dia { padding: 8px 0 7px; border-radius: 12px; }
+    .dia b { font-size: 20px; }
+    .dia small { font-size: 10px; }
+    .dia i { font-size: 8.5px; }
+    .comanda { padding: 24px 20px 22px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+    [data-r] { opacity: 1; transform: none; }
+    .hero h1 .ln > span { transform: none; }
+  }
 </style>
 </head>
 <body>
-<div class="grain" aria-hidden="true"></div>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-navalha" viewBox="0 0 32 32"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 22 19 7a3 3 0 0 1 4.2 0l1.8 1.8L10 23.8Z" fill="currentColor" fill-opacity=".18"/><path d="m10 23.8 3.2 3.2a2 2 0 0 0 2.8 0l1-1"/><path d="M25 8.8 28 12"/><circle cx="21" cy="9" r="1" fill="currentColor"/></g></symbol>
+  <symbol id="i-tesoura" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M20 4 8.1 15.9M14.5 14.5 20 20M8.1 8.1 12 12"/></g></symbol>
+  <symbol id="i-seta" viewBox="0 0 24 24"><path d="M4 12h15m-6-6 6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-esq" viewBox="0 0 24 24"><path d="m15 5-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-dir" viewBox="0 0 24 24"><path d="m9 5 7 7-7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-info" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></g></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.5"/></g></symbol>
+  <symbol id="i-relogio" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></g></symbol>
+  <symbol id="i-insta" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></g></symbol>
+  <symbol id="i-wa" viewBox="0 0 24 24"><path fill="currentColor" d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21c5.46 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2Zm5.8 14.03c-.24.68-1.42 1.3-1.95 1.35-.5.05-.97.23-3.27-.68-2.77-1.09-4.52-3.92-4.66-4.1-.13-.18-1.1-1.47-1.1-2.8 0-1.34.7-2 .95-2.27.25-.27.54-.34.72-.34h.52c.17 0 .4-.06.62.47.24.56.8 1.94.87 2.08.07.14.12.3.02.48-.1.19-.14.3-.28.47-.14.16-.3.36-.42.49-.14.14-.29.29-.12.57.17.28.74 1.22 1.59 1.98 1.09.97 2.01 1.27 2.29 1.41.28.14.45.12.62-.07.17-.19.71-.83.9-1.11.19-.28.38-.24.64-.14.26.09 1.65.78 1.93.92.28.14.47.21.54.33.07.11.07.66-.17 1.34Z"/></symbol>
+</svg>
+
+<div class="grao" aria-hidden="true"></div>
+<div class="cur" aria-hidden="true"><span></span></div>
+<div class="ponto" aria-hidden="true"></div>
+<div class="poste" aria-hidden="true"><i id="posteI"></i><b id="posteN">0%</b></div>
+<div class="flutua" id="flutua" aria-hidden="true"></div>
 
 <header class="nav" id="nav">
-  <div class="wrap nav__in">
-    <a href="#" class="logo"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 30 30 6l4 4L10 34Z"/><path d="M10 34l-4 2 2-4"/><circle cx="31" cy="9" r="1.4" fill="currentColor"/></svg><span><b>Navalha &amp; Co.</b><small>Barbearia · 2012</small></span></a>
-    <nav class="nav__links"><a href="#servicos">Serviços</a><a href="#barbeiros">Barbeiros</a><a href="#agendar">Agendar</a><a href="#clube">Clube</a><a href="#contato">Contato</a></nav>
-    <a href="#agendar" class="btn btn--brass nav__cta" style="padding:12px 22px">Agendar</a>
-    <button class="burger" aria-label="Menu"><span></span></button>
+  <div class="nav__in">
+    <a href="#topo" class="logo" aria-label="Navalha & Co., início"><svg><use href="#i-navalha" /></svg>Navalha <em>&amp;</em> Co.</a>
+    <nav class="nav__links"><a href="#servicos">Serviços</a><a href="#ritual">O ritual</a><a href="#barbeiros">Barbeiros</a><a href="#clube">Clube</a><a href="#contato">Contato</a></nav>
+    <a href="#horarios" class="btn btn--brass mag">Consultar horários</a>
+    <button class="burger" aria-label="Abrir menu" aria-expanded="false"><span></span></button>
   </div>
 </header>
 
-<section class="hero">
-  <div class="pole" aria-hidden="true"></div>
-  <div class="hero__text">
-    <span class="over">Barbearia clássica · Vila Madalena</span>
-    <h1><span><i>Corte clássico.</i></span><span><i><em>Atitude</em> moderna.</i></span></h1>
-    <p>Navalha quente, toalha no rosto, café passado e barbeiros que entendem de estilo. O seu ritual de cuidado começa aqui.</p>
-    <div class="hero__ctas"><a href="#agendar" class="btn btn--brass">Agendar horário</a><a href="#servicos" class="btn btn--line">Serviços e preços</a></div>
-  </div>
-  <div class="hero__img">
-    <img src="https://images.unsplash.com/photo-1599351431202-1e0f0137899a?w=1400&q=80&auto=format&fit=crop" alt="Barbeiro usando navalha" />
-    <div class="slot"><i></i><div><small>Próximo horário livre</small><b id="nextSlot">hoje, 16:30</b></div></div>
+<main>
+<section class="hero" id="topo">
+  <div class="hero__stick" id="heroStick">
+    <div class="hero__foto" id="heroFoto">
+      <img class="pb" src="https://images.unsplash.com/photo-1599351431202-1e0f0137899a?w=2000&q=80&auto=format&fit=crop" alt="" fetchpriority="high" />
+      <img class="cor" src="https://images.unsplash.com/photo-1599351431202-1e0f0137899a?w=2000&q=80&auto=format&fit=crop" alt="Barbeiro acertando o pezinho na navalha" />
+    </div>
+    <div class="hero__sombra"></div>
+    <div class="corte" aria-hidden="true" id="corte">
+      <div class="corte__p fantasma">Navalha</div>
+      <div class="corte__p a" id="cTop">Navalha</div>
+      <div class="corte__p b" id="cBot">Navalha</div>
+      <div class="lamina" id="lamina"></div>
+    </div>
+    <div class="wrap hero__in" id="heroIn">
+      <span class="over">Barbearia clássica · Vila Madalena</span>
+      <h1 style="margin-top:22px"><span class="ln"><span style="--d:.05s">Corte clássico.</span></span><span class="ln"><span style="--d:.18s"><em>Atitude</em> moderna.</span></span></h1>
+      <p>Navalha quente, toalha no rosto, café passado e barbeiros que entendem de estilo. O seu ritual começa aqui.</p>
+      <div class="hero__ctas"><a href="#horarios" class="btn btn--brass mag">Consultar horários <svg><use href="#i-seta" /></svg></a><a href="#servicos" class="btn btn--glass mag">Serviços e preços</a></div>
+    </div>
+    <aside class="hero__card vidro" id="heroCard">
+      <small>Funcionamento</small>
+      <b id="abertoAgora">Aberto hoje</b>
+      <p>Ter a sex 9h às 20h · Sáb 9h às 18h</p>
+      <div class="linha" id="semana"></div>
+    </aside>
   </div>
 </section>
 
-<div class="ticker" aria-hidden="true"><div class="ticker__track" id="ticker"></div></div>
+<div class="faixa" aria-hidden="true"><div class="faixa__t" id="faixa"><span>Corte <svg><use href="#i-navalha" /></svg> <em>Barba na navalha</em> <svg><use href="#i-navalha" /></svg> Pigmentação <svg><use href="#i-navalha" /></svg> <em>Toalha quente</em> <svg><use href="#i-navalha" /></svg> Platinado <svg><use href="#i-navalha" /></svg></span></div></div>
 
 <section class="menu" id="servicos">
   <div class="wrap menu__grid">
-    <div class="menu__side" data-r>
-      <span class="over">Serviços</span>
-      <h2 class="h2" style="margin-top:18px">Tabela da <em>casa</em></h2>
-      <p>Todos os serviços incluem lavagem, finalização com produtos premium e uma dose de conversa boa.</p>
-      <div class="ph"><img src="https://images.unsplash.com/photo-1621605815971-fbc98d665033?w=900&q=75&auto=format&fit=crop" alt="Ferramentas de barbearia" loading="lazy" /></div>
+    <div class="menu__lado">
+      <span class="over" data-r>Serviços</span>
+      <h2 class="h2" style="margin-top:20px" data-r>Tabela da <em>casa</em></h2>
+      <p data-r>Todos os serviços incluem lavagem, finalização com produtos premium e uma dose de conversa boa.</p>
+      <span class="nota vidro" data-r><svg><use href="#i-tesoura" /></svg>Corte + barba sai R$ 10 mais barato</span>
     </div>
-    <div id="svcList"></div>
+    <div class="lista" id="lista"></div>
+  </div>
+</section>
+
+<section class="ritual" id="ritual">
+  <div class="ritual__bg" id="ritualBg"></div>
+  <div class="wrap">
+    <span class="over" data-r>O ritual</span>
+    <h2 class="h2" style="margin-top:20px" data-r>Mais que um corte.<br /><em>Um ponto de encontro.</em></h2>
+    <div class="passos" id="passos">
+      <article class="passo vidro" data-r><b>01</b><h3>Café ou cerveja</h3><p>Coado na hora ou gelada, cortesia no corte + barba.</p></article>
+      <article class="passo vidro" data-r style="--d:.08s"><b>02</b><h3>Toalha quente</h3><p>Abre os poros e prepara a pele para a navalha.</p></article>
+      <article class="passo vidro" data-r style="--d:.16s"><b>03</b><h3>Navalha e tesoura</h3><p>Desenho no detalhe, do degradê ao clássico social.</p></article>
+      <article class="passo vidro" data-r style="--d:.24s"><b>04</b><h3>Finalização</h3><p>Óleo, balm e pomada escolhidos para o seu tipo de fio.</p></article>
+    </div>
+    <div class="ritual__fio"><i id="fio"></i></div>
   </div>
 </section>
 
 <section class="crew" id="barbeiros">
   <div class="wrap">
-    <div class="head"><div data-r><span class="over">Barbeiros</span><h2 class="h2" style="margin-top:18px">Mãos de <em>mestre</em></h2></div><p data-r style="--d:.1s">Cada um com seu estilo. Escolha o seu ou deixe que a gente indique quem está livre.</p></div>
+    <div class="cab"><div><span class="over" data-r>Barbeiros</span><h2 class="h2" style="margin-top:20px" data-r>Mãos de <em>mestre</em></h2></div><p data-r>Cada um com seu estilo. Escolha o seu na consulta de horários ou deixe que a gente indique quem está livre.</p></div>
     <div class="crew__grid" id="crew"></div>
   </div>
 </section>
 
-<section class="book" id="agendar">
+<section class="agenda" id="horarios">
   <div class="wrap">
-    <div class="head"><div data-r><span class="over">Agendamento</span><h2 class="h2" style="margin-top:18px">Garanta sua <em>cadeira</em></h2></div><p data-r style="--d:.1s">Escolha barbeiro, serviços, dia e horário. A confirmação chega no seu WhatsApp.</p></div>
-    <div class="book__grid">
-      <div data-r>
-        <div class="bstep"><h4><span>01</span>Barbeiro</h4><div class="pick" id="pBarber"></div></div>
-        <div class="bstep"><h4><span>02</span>Serviços</h4><div class="chips" id="pSvc"></div></div>
-        <div class="bstep"><h4><span>03</span>Dia</h4><div class="daysel" id="pDay"></div></div>
-        <div class="bstep"><h4><span>04</span>Horário</h4><div class="times" id="pTime"></div></div>
+    <div class="cab"><div><span class="over" data-r>Horários</span><h2 class="h2" style="margin-top:20px" data-r>Escolha o dia. <em>A gente encaixa.</em></h2></div><p data-r>Monte seu pedido e mande pelo WhatsApp. A barbearia responde com os horários livres no dia que você escolheu.</p></div>
+    <div class="agenda__grid">
+      <form class="etapas" id="form" novalidate>
+        <div class="etapa vidro" data-r><h4><b>1</b>Serviço<i>pode escolher mais de um</i></h4><div class="chips" id="chips"></div></div>
+        <div class="etapa vidro" data-r><h4><b>2</b>Barbeiro</h4><div class="barbs" id="barbs"></div></div>
+        <div class="etapa vidro" data-r id="eDia"><h4><b>3</b>Dia</h4><div class="cal__top"><b id="mes">novembro</b><div><button type="button" id="ant" aria-label="Semana anterior"><svg><use href="#i-esq" /></svg></button><button type="button" id="prox" aria-label="Próxima semana"><svg><use href="#i-dir" /></svg></button></div></div><div class="dias" id="dias"></div><span class="msg" aria-live="polite"></span></div>
+        <div class="etapa vidro" data-r><h4><b>4</b>Período<i>opcional</i></h4><div class="periodos" id="periodos"></div></div>
+        <div class="etapa vidro campo" data-r id="cNome"><h4><b>5</b><label for="nome">Seu nome</label></h4><input type="text" id="nome" autocomplete="name" placeholder="Como te chamamos?" maxlength="60" /><span class="msg" aria-live="polite"></span></div>
+      </form>
+      <div class="comanda-area" data-r style="--d:.1s">
+        <div class="comanda vidro" id="comanda">
+          <div class="comanda__topo"><span class="logo"><svg><use href="#i-navalha" /></svg>Navalha <em>&amp;</em> Co.</span><small>Comanda</small></div>
+          <div class="linhas" id="linhas"></div>
+          <div class="comanda__tot"><small>Valor estimado</small><b id="total">R$ 0</b></div>
+          <button type="submit" form="form" class="btn btn--wa mag"><svg><use href="#i-wa" /></svg>Perguntar horários no WhatsApp</button>
+          <p class="comanda__nota"><svg><use href="#i-info" /></svg>Não é uma reserva: a barbearia confirma o horário com você pelo WhatsApp.</p>
+          <p class="comanda__ok" id="ok" aria-live="polite"></p>
+        </div>
       </div>
-      <aside class="ticket" data-r style="--d:.1s">
-        <h3>Seu horário</h3>
-        <div class="tk" id="tk"></div>
-        <div class="tk__total"><span>Total</span><b id="tkTotal">R$ 0</b></div>
-        <button class="btn" id="confirm" disabled>Confirmar pelo WhatsApp</button>
-        <p class="warn" id="warn">Escolha serviço, dia e horário.</p>
-      </aside>
     </div>
   </div>
 </section>
 
-<section class="gal">
+<section class="gal" id="galeria">
   <div class="wrap">
-    <div class="head"><div data-r><span class="over">Galeria</span><h2 class="h2" style="margin-top:18px">Da cadeira para a <em>rua</em></h2></div><p data-r style="--d:.1s">Alguns dos trabalhos da semana. Mais no nosso Instagram @navalhaeco.</p></div>
-    <div class="masonry" id="masonry"></div>
+    <div class="cab"><div><span class="over" data-r>Galeria</span><h2 class="h2" style="margin-top:20px" data-r>Da cadeira <em>para a rua</em></h2></div><p data-r>Alguns trabalhos da semana. Mais no nosso Instagram @navalhaeco.</p></div>
+    <div class="colunas" id="colunas"></div>
   </div>
 </section>
 
-<section class="club" id="clube">
+<section class="clube" id="clube">
   <div class="wrap">
-    <div class="head"><div data-r><span class="over">Clube Navalha</span><h2 class="h2" style="margin-top:18px">Sempre na <em>régua</em></h2></div><p data-r style="--d:.1s">Assinatura mensal com cortes ilimitados, prioridade na agenda e desconto em produtos.</p></div>
-    <div class="club__grid">
-      <div class="plan" data-r><h3>Barba</h3><p class="price"><small>R$</small> 99<small>/mês</small></p><ul><li>Barba ilimitada</li><li>Toalha quente e óleo</li><li>10% em produtos</li></ul><a href="#agendar" class="btn btn--line">Assinar</a></div>
-      <div class="plan hot" data-r style="--d:.1s"><span class="flag">Mais vendido</span><h3>Corte + Barba</h3><p class="price"><small>R$</small> 199<small>/mês</small></p><ul><li>Cortes e barbas ilimitados</li><li>Prioridade na agenda</li><li>1 hidratação por mês</li><li>20% em produtos</li></ul><a href="#agendar" class="btn btn--line">Assinar</a></div>
-      <div class="plan" data-r style="--d:.2s"><h3>Corte</h3><p class="price"><small>R$</small> 129<small>/mês</small></p><ul><li>Cortes ilimitados</li><li>Sobrancelha inclusa</li><li>10% em produtos</li></ul><a href="#agendar" class="btn btn--line">Assinar</a></div>
+    <div class="cab"><div><span class="over" data-r>Clube Navalha</span><h2 class="h2" style="margin-top:20px" data-r>Sempre <em>na régua</em></h2></div><p data-r>Assinatura mensal com cortes ilimitados, prioridade na agenda e desconto em produtos.</p></div>
+    <div class="planos">
+      <div class="plano vidro" data-r data-tilt><h3>Barba</h3><p class="pr">R$ 99<small> /mês</small></p><ul><li><svg><use href="#i-check" /></svg>Barba ilimitada</li><li><svg><use href="#i-check" /></svg>Toalha quente e óleo</li><li><svg><use href="#i-check" /></svg>10% em produtos</li></ul><button class="btn btn--glass mag" data-plano="Barba (R$ 99/mês)">Quero assinar</button></div>
+      <div class="plano vidro hot" data-r style="--d:.08s" data-tilt><span class="plano__selo">Mais vendido</span><h3>Corte + Barba</h3><p class="pr">R$ 199<small> /mês</small></p><ul><li><svg><use href="#i-check" /></svg>Cortes e barbas ilimitados</li><li><svg><use href="#i-check" /></svg>Prioridade na agenda</li><li><svg><use href="#i-check" /></svg>1 hidratação por mês</li><li><svg><use href="#i-check" /></svg>20% em produtos</li></ul><button class="btn btn--brass mag" data-plano="Corte + Barba (R$ 199/mês)">Quero assinar</button></div>
+      <div class="plano vidro" data-r style="--d:.16s" data-tilt><h3>Corte</h3><p class="pr">R$ 129<small> /mês</small></p><ul><li><svg><use href="#i-check" /></svg>Cortes ilimitados</li><li><svg><use href="#i-check" /></svg>Sobrancelha inclusa</li><li><svg><use href="#i-check" /></svg>10% em produtos</li></ul><button class="btn btn--glass mag" data-plano="Corte (R$ 129/mês)">Quero assinar</button></div>
     </div>
   </div>
 </section>
+</main>
 
-<section class="vibe">
-  <div class="vibe__bg" id="vibeBg"></div>
-  <div class="wrap vibe__in">
-    <div data-r><span class="over">O ambiente</span><h2 class="h2" style="margin-top:18px">Mais que um corte.<br /><em>Um ponto de encontro.</em></h2></div>
-    <div class="amen" data-r style="--d:.1s"><div><b>🍺 Cerveja gelada</b><span>cortesia no corte + barba</span></div><div><b>☕ Café coado</b><span>passado na hora</span></div><div><b>🎱 Sinuca</b><span>enquanto você espera</span></div><div><b>📺 Futebol</b><span>todos os jogos ao vivo</span></div></div>
+<footer class="fim" id="contato">
+  <div class="wrap">
+    <div class="fim__grid">
+      <div><span class="over" data-r>Visite</span><h2 class="h2" style="margin-top:20px" data-r>Puxa uma <em>cadeira.</em></h2><p data-r>Atendemos com hora combinada pelo WhatsApp e também por ordem de chegada, quando a agenda deixa.</p><a href="#horarios" class="btn btn--brass mag" style="margin-top:30px" data-r>Consultar horários <svg><use href="#i-seta" /></svg></a></div>
+      <div class="infos">
+        <div class="info vidro" data-r><svg><use href="#i-pin" /></svg><div><small>Endereço</small><span>Rua Harmonia, 412 · Vila Madalena, SP</span></div></div>
+        <div class="info vidro" data-r style="--d:.06s"><svg><use href="#i-relogio" /></svg><div><small>Horário</small><span>Ter a sex 9h às 20h · Sáb 9h às 18h</span></div></div>
+        <a class="info vidro" data-r style="--d:.12s" href="https://wa.me/5511999990000" target="_blank" rel="noopener"><svg><use href="#i-wa" /></svg><div><small>WhatsApp</small><span>(11) 99999-0000</span></div></a>
+        <div class="info vidro" data-r style="--d:.18s"><svg><use href="#i-insta" /></svg><div><small>Instagram</small><span>@navalhaeco</span></div></div>
+      </div>
+    </div>
+    <div class="marca" id="marca">Navalha &amp; Co.</div>
+    <div class="creditos"><span>© 2026 Navalha &amp; Co. Barbearia</span><span>Fechado aos domingos e segundas</span></div>
   </div>
-</section>
+</footer>
 
-<section class="contact" id="contato">
-  <div class="wrap" data-r>
-    <span class="over">Visite</span>
-    <h2 class="h2" style="margin-top:18px">Puxa uma <em>cadeira</em>.</h2>
-    <p>Atendemos com hora marcada e também por ordem de chegada, quando houver horário livre.</p>
-    <a href="#agendar" class="btn btn--brass">Agendar agora</a>
-    <div class="info"><div><small>Endereço</small>Rua Harmonia, 412 — Vila Madalena, SP</div><div><small>Horário</small>Ter a sex 9h–20h · Sáb 9h–18h</div><div><small>Contato</small>(11) 99999-0000 · @navalhaeco</div></div>
-  </div>
-</section>
-
-<footer><div class="wrap foot"><span>© 2026 Navalha &amp; Co. Barbearia</span><span>Fechado aos domingos e segundas</span></div></footer>
-
-<a class="wa" href="https://wa.me/5511999990000" target="_blank" rel="noopener" aria-label="WhatsApp"><svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21c5.46 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2Zm5.8 14.03c-.24.68-1.42 1.3-1.95 1.35-.5.05-.97.23-3.27-.68-2.77-1.09-4.52-3.92-4.66-4.1-.13-.18-1.1-1.47-1.1-2.8 0-1.34.7-2 .95-2.27.25-.27.54-.34.72-.34h.52c.17 0 .4-.06.62.47.24.56.8 1.94.87 2.08.07.14.12.3.02.48-.1.19-.14.3-.28.47-.14.16-.3.36-.42.49-.14.14-.29.29-.12.57.17.28.74 1.22 1.59 1.98 1.09.97 2.01 1.27 2.29 1.41.28.14.45.12.62-.07.17-.19.71-.83.9-1.11.19-.28.38-.24.64-.14.26.09 1.65.78 1.93.92.28.14.47.21.54.33.07.11.07.66-.17 1.34Z"/></svg></a>
+<a class="wa" href="https://wa.me/5511999990000" target="_blank" rel="noopener" aria-label="Falar no WhatsApp"><svg><use href="#i-wa" /></svg></a>
 
 <script>
 (() => {
-  const reduz = matchMedia("(prefers-reduced-motion: reduce)").matches;
   const $ = (s, el = document) => el.querySelector(s);
   const $$ = (s, el = document) => [...el.querySelectorAll(s)];
   const u = (id, w) => `https://images.unsplash.com/photo-${id}?w=${w}&q=78&auto=format&fit=crop`;
   const brl = (n) => n.toLocaleString("pt-BR", { style: "currency", currency: "BRL", maximumFractionDigits: 0 });
+  const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
+  const lerp = (a, b, t) => a + (b - a) * t;
   const WA = "5511999990000";
+  const abreWA = (t) => window.open(`https://wa.me/${WA}?text=${encodeURIComponent(t)}`, "_blank", "noopener");
+  const fino = matchMedia("(hover: hover) and (pointer: fine)").matches;
+  const calmo = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const largo = matchMedia("(min-width: 901px)");
+  let W = innerWidth, H = innerHeight;
 
-  const nav = $("#nav");
-  addEventListener("scroll", () => nav.classList.toggle("solid", scrollY > 30), { passive: true });
-  $(".burger").onclick = () => nav.classList.toggle("open");
-  $$(".nav__links a").forEach((a) => a.onclick = () => nav.classList.remove("open"));
-  const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }), { threshold: .12 });
-  $$("[data-r]").forEach((el) => io.observe(el));
+  const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }), { threshold: .12, rootMargin: "0px 0px -6% 0px" });
+  const observa = (root = document) => $$("[data-r]", root).forEach((el) => io.observe(el));
+  observa();
 
-  const T = ["Corte", "Barba", "Navalha", "Pigmentação", "Sobrancelha", "Hidratação", "Platinado"];
-  $("#ticker").innerHTML = [...T, ...T].map((t) => `<span>${t}</span>`).join("");
+  /* Menu */
+  const nav = $("#nav"), burger = $(".burger");
+  burger.onclick = () => { const a = nav.classList.toggle("aberto"); burger.setAttribute("aria-expanded", a); };
+  $$(".nav__links a").forEach((a) => a.addEventListener("click", () => { nav.classList.remove("aberto"); burger.setAttribute("aria-expanded", false); }));
 
-  /* Serviços */
+  /* Dados */
   const S = [
-    ["corte", "Corte", "Tesoura e máquina, do clássico ao degradê.", 60, 45, ""],
-    ["barba", "Barba", "Toalha quente, navalha e óleo hidratante.", 45, 30, ""],
-    ["combo", "Corte + Barba", "O ritual completo, com cerveja cortesia.", 95, 75, "Favorito"],
-    ["pig", "Pigmentação", "Corrige falhas e realça o desenho da barba.", 40, 20, ""],
-    ["sobr", "Sobrancelha", "Limpeza na navalha ou na pinça.", 20, 10, ""],
-    ["hidra", "Hidratação", "Tratamento para cabelo e couro cabeludo.", 50, 25, ""],
-    ["kids", "Corte infantil", "Até 12 anos, com toda a paciência do mundo.", 50, 40, ""],
-    ["plat", "Platinado", "Descoloração completa com matização.", 180, 120, "Agende antes"],
+    ["corte", "Corte", "Tesoura e máquina, do clássico ao degradê.", 60, 45, "", "1647140655214-e4a2d914971f"],
+    ["barba", "Barba", "Toalha quente, navalha e óleo hidratante.", 45, 30, "", "1503951914875-452162b0f3f1"],
+    ["combo", "Corte + Barba", "O ritual completo, com cerveja cortesia.", 95, 75, "Favorito", "1599351431202-1e0f0137899a"],
+    ["pig", "Pigmentação", "Corrige falhas e realça o desenho da barba.", 40, 20, "", "1677543167033-af3c688aa4df"],
+    ["sobr", "Sobrancelha", "Limpeza na navalha ou na pinça.", 20, 10, "", "1621605815971-fbc98d665033"],
+    ["hidra", "Hidratação", "Tratamento para cabelo e couro cabeludo.", 50, 25, "", "1605497788044-5a32c7078486"],
+    ["kids", "Corte infantil", "Até 12 anos, com toda a paciência do mundo.", 50, 40, "", "1759134198561-e2041049419c"],
+    ["plat", "Platinado", "Descoloração completa com matização.", 180, 120, "Avise antes", "1773904215697-e6c21fc27ac2"],
   ];
-  $("#svcList").innerHTML = S.map(([, n, d, p, m, tag], i) => `<div class="svc" data-r style="--d:${(i % 4) * .06}s"><h3>${n}${tag ? `<small>${tag}</small>` : ""}</h3><b>${brl(p)}</b><p>${d}</p><span>${m} min</span></div>`).join("");
-  $$(".svc").forEach((s) => io.observe(s));
+  const B = [
+    ["rafa", "Rafa Moreno", "Degradês e cortes modernos", "8 anos de tesoura", "1653071162544-e43aa4c3e17a"],
+    ["tiao", "Tião Bastos", "Barba e navalha clássica", "12 anos de navalha", "1677543167033-af3c688aa4df"],
+    ["nonato", "Seu Nonato", "Cortes sociais e o bigode perfeito", "30 anos de casa", "1648817976768-a2fdcba20f9a"],
+  ];
+  const DN = ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"];
+
+  /* Hero: funcionamento da semana */
+  (() => {
+    const h = new Date(), d = h.getDay(), hr = h.getHours() + h.getMinutes() / 60;
+    const fecha = d === 6 ? 18 : 20, abreDia = d >= 2 && d <= 6;
+    $("#abertoAgora").textContent = !abreDia ? "Hoje fechado" : hr < 9 ? "Abre hoje às 9h" : hr < fecha ? `Aberto até ${fecha}h` : "Fechado agora";
+    $("#semana").innerHTML = ["Ter", "Qua", "Qui", "Sex", "Sáb", "Dom", "Seg"].map((n, i) => `<span class="${i > 4 ? "f" : ""}">${n}</span>`).join("");
+  })();
+
+  /* Serviços: lista + imagem flutuante */
+  $("#lista").innerHTML = S.map(([k, n, d, p, m, tag], i) => `<div class="item" data-r style="--d:${(i % 4) * .05}s" data-i="${i}"><span class="item__n">${String(i + 1).padStart(2, "0")}</span><div><h3>${n}${tag ? `<small>${tag}</small>` : ""}</h3></div><div class="item__pr"><b>${brl(p)}</b><span>${m} min</span></div><p>${d}</p></div>`).join("");
+  observa($("#lista"));
+  const flut = $("#flutua");
+  flut.innerHTML = S.map(([, n, , , , , f]) => `<img src="${u(f, 520)}" alt="" loading="lazy" />`).join("");
+  const fImgs = $$("img", flut);
+  let fx = W / 2, fy = H / 2, ftx = fx, fty = fy, fVis = false;
+  if (fino) {
+    $("#lista").addEventListener("pointerover", (e) => { const it = e.target.closest(".item"); if (!it) return; fVis = true; flut.classList.add("on"); fImgs.forEach((im, k) => im.classList.toggle("on", k === +it.dataset.i)); flut.style.setProperty("--rot", (+it.dataset.i % 2 ? 4 : -4) + "deg"); });
+    $("#lista").addEventListener("pointerleave", () => { fVis = false; flut.classList.remove("on"); });
+  }
 
   /* Barbeiros */
-  const B = [["rafa", "Rafa Moreno", "Degradês e cortes modernos", "1653071162544-e43aa4c3e17a"], ["tiao", "Tião Bastos", "Barba e navalha clássica", "1677543167033-af3c688aa4df"], ["leo", "Léo Carvalho", "Texturas, crespos e cacheados", "1648817976768-a2fdcba20f9a"]];
-  $("#crew").innerHTML = B.map(([k, n, e, img], i) => `<article class="barber" data-r style="--d:${i * .1}s"><div class="barber__img"><img src="${u(img, 700)}" alt="${n}" loading="lazy" /></div><h3>${n}</h3><p>${e}</p><button data-k="${k}">Agendar com ${n.split(" ")[0]} →</button></article>`).join("");
-  $$(".barber").forEach((b) => io.observe(b));
-  $("#crew").onclick = (e) => { const b = e.target.closest("button[data-k]"); if (b) { st.barber = b.dataset.k; render(); $("#agendar").scrollIntoView({ behavior: "smooth" }); } };
+  $("#crew").innerHTML = B.map(([k, n, e, x, f], i) => `<article class="barb" data-r style="--d:${i * .08}s" data-tilt data-cur="${n.split(" ")[0]}"><img src="${u(f, 800)}" alt="${n}" loading="lazy" /><div class="barb__info vidro"><small>${x}</small><h3>${n}</h3><p>${e}</p><button type="button" data-k="${k}">Pedir horário com ${n.split(" ").pop() === "Nonato" ? "o Seu Nonato" : n.split(" ")[0]} <svg><use href="#i-seta"/></svg></button></div></article>`).join("");
+  observa($("#crew"));
 
-  /* Agenda */
-  const st = { barber: "any", svcs: ["corte"], day: null, time: null };
-  const DN = ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"];
-  const dias = [...Array(10)].map((_, i) => { const d = new Date(); d.setHours(0, 0, 0, 0); d.setDate(d.getDate() + i); return d; }).filter((d) => d.getDay() !== 0 && d.getDay() !== 1).slice(0, 7);
-  const fecha = (d) => d.getDay() === 6 ? 18 : 20;
-  // ocupação determinística (sempre igual para o mesmo barbeiro/dia)
-  const ocupado = (b, d, t) => { let h = 0; const s = `${b}${d.toDateString()}${t}`; for (const c of s) h = (h * 31 + c.charCodeAt(0)) % 997; return h % 10 < 4; };
-  const horarios = (d) => { const out = []; for (let m = 9 * 60; m < fecha(d) * 60; m += 30) out.push(`${String(Math.floor(m / 60)).padStart(2, "0")}:${m % 60 ? "30" : "00"}`); return out; };
-  const passou = (d, t) => { const [h, m] = t.split(":").map(Number); const x = new Date(d); x.setHours(h, m); return x < new Date(); };
-  const livre = (d, t) => !passou(d, t) && (st.barber === "any" ? B.some(([k]) => !ocupado(k, d, t)) : !ocupado(st.barber, d, t));
-
-  function render() {
-    $("#pBarber").innerHTML = `<button class="pb ${st.barber === "any" ? "on" : ""}" data-k="any"><span class="any">✂</span>Sem preferência</button>` + B.map(([k, n, , img]) => `<button class="pb ${st.barber === k ? "on" : ""}" data-k="${k}"><img src="${u(img, 120)}" alt="" />${n.split(" ")[0]}</button>`).join("");
-    $("#pSvc").innerHTML = S.map(([k, n, , p, m]) => `<button class="ch ${st.svcs.includes(k) ? "on" : ""}" data-k="${k}"><span>${n}<small>${m} min</small></span><b>${brl(p)}</b></button>`).join("");
-    if (!st.day) st.day = dias[0];
-    $("#pDay").innerHTML = dias.map((d, i) => `<button class="dd ${d.getTime() === st.day.getTime() ? "on" : ""}" data-i="${i}"><small>${i === 0 && d.toDateString() === new Date().toDateString() ? "Hoje" : DN[d.getDay()]}</small><b>${d.getDate()}</b></button>`).join("");
-    const hs = horarios(st.day);
-    if (st.time && !livre(st.day, st.time)) st.time = null;
-    $("#pTime").innerHTML = hs.map((t, i) => `<button class="tm ${st.time === t ? "on" : ""}" ${livre(st.day, t) ? "" : "disabled"} style="animation-delay:${i * 15}ms">${t}</button>`).join("");
-    /* ticket */
-    const sel = S.filter(([k]) => st.svcs.includes(k));
-    const total = sel.reduce((s, x) => s + x[3], 0), min = sel.reduce((s, x) => s + x[4], 0);
-    const nomeB = st.barber === "any" ? "Primeiro disponível" : B.find(([k]) => k === st.barber)[1];
-    const dataTxt = st.day.toLocaleDateString("pt-BR", { weekday: "long", day: "numeric", month: "long" });
-    $("#tk").innerHTML = `<div><small>Barbeiro</small><span>${nomeB}</span></div><div><small>Serviços</small><span>${sel.map((x) => x[1]).join(" + ") || "—"}</span></div><div><small>Quando</small><span>${dataTxt}${st.time ? ` às ${st.time}` : ""}</span></div><div><small>Duração</small><span>${min ? min + " min" : "—"}</span></div>`;
-    $("#tkTotal").textContent = brl(total);
-    const ok = sel.length && st.time;
-    $("#confirm").disabled = !ok;
-    $("#warn").textContent = ok ? "Você receberá a confirmação em instantes." : !sel.length ? "Escolha pelo menos um serviço." : "Escolha um horário disponível.";
+  /* Consulta de horários */
+  const st = { svcs: ["corte"], barb: "qq", dia: null, per: "qq", semana: 0 };
+  const hoje = new Date(); hoje.setHours(0, 0, 0, 0);
+  const fechado = (d) => d.getDay() === 0 || d.getDay() === 1;
+  const PER = [["qq", "Qualquer", "o que tiver"], ["manha", "Manhã", "9h às 12h"], ["tarde", "Tarde", "12h às 17h"], ["noite", "Fim do dia", "17h às 20h"]];
+  const dataLonga = (d) => d.toLocaleDateString("pt-BR", { weekday: "long", day: "numeric", month: "long" });
+  function chips() {
+    $("#chips").innerHTML = S.map(([k, n, , p, m]) => `<button type="button" class="ch ${st.svcs.includes(k) ? "on" : ""}" data-k="${k}" aria-pressed="${st.svcs.includes(k)}"><span>${n}</span><small>${brl(p)} · ${m} min</small></button>`).join("");
+    $("#barbs").innerHTML = `<button type="button" class="bb ${st.barb === "qq" ? "on" : ""}" data-k="qq"><span class="qq"><svg><use href="#i-tesoura"/></svg></span>Quem estiver livre</button>` + B.map(([k, n, , , f]) => `<button type="button" class="bb ${st.barb === k ? "on" : ""}" data-k="${k}"><img src="${u(f, 120)}" alt="" />${n.split(" ")[0] === "Seu" ? "Seu Nonato" : n.split(" ")[0]}</button>`).join("");
   }
-  $("#pBarber").onclick = (e) => { const b = e.target.closest(".pb"); if (b) { st.barber = b.dataset.k; render(); } };
-  $("#pSvc").onclick = (e) => {
+  function dias() {
+    const ini = new Date(hoje); ini.setDate(ini.getDate() + st.semana * 7);
+    const ds = [...Array(7)].map((_, i) => { const d = new Date(ini); d.setDate(d.getDate() + i); return d; });
+    const ml = ds[3].toLocaleDateString("pt-BR", { month: "long", year: "numeric" }); $("#mes").textContent = ml[0].toUpperCase() + ml.slice(1);
+    $("#dias").innerHTML = ds.map((d) => {
+      const f = fechado(d), on = st.dia && d.getTime() === st.dia.getTime();
+      const tag = f ? "fechado" : d.getTime() === hoje.getTime() ? "hoje" : d.getDay() === 6 ? "até 18h" : "";
+      return `<button type="button" class="dia ${on ? "on" : ""}" data-t="${d.getTime()}" ${f ? "disabled" : ""}><small>${DN[d.getDay()]}</small><b>${d.getDate()}</b><i>${tag}</i></button>`;
+    }).join("");
+    $("#ant").disabled = st.semana === 0; $("#prox").disabled = st.semana >= 5;
+  }
+  function periodos() {
+    const sab = st.dia && st.dia.getDay() === 6;
+    if (sab && st.per === "noite") st.per = "qq";
+    $("#periodos").innerHTML = PER.map(([k, n, h]) => `<button type="button" class="pe ${st.per === k ? "on" : ""}" data-k="${k}" ${sab && k === "noite" ? "disabled" : ""}>${n}<small>${sab && k === "tarde" ? "12h às 18h" : h}</small></button>`).join("");
+  }
+  const sel = () => S.filter(([k]) => st.svcs.includes(k));
+  function comanda() {
+    const s = sel(), tot = s.reduce((a, x) => a + x[3], 0), min = s.reduce((a, x) => a + x[4], 0);
+    const nb = st.barb === "qq" ? "Quem estiver livre" : B.find(([k]) => k === st.barb)[1];
+    const P = PER.find(([k]) => k === st.per);
+    const v = (t) => t ? `<span>${t}</span>` : `<span class="vazio">a escolher</span>`;
+    $("#linhas").innerHTML = `<div><small>Serviço</small>${v(s.map((x) => x[1]).join(" + "))}</div><div><small>Barbeiro</small>${v(nb)}</div><div><small>Dia</small>${v(st.dia ? dataLonga(st.dia) : "")}</div><div><small>Período</small>${v(st.per === "qq" ? "Qualquer horário" : `${P[1]} (${P[2]})`)}</div><div><small>Duração</small>${v(min ? `cerca de ${min} min` : "")}</div><div><small>Nome</small>${v($("#nome").value.trim())}</div>`;
+    $("#total").textContent = brl(tot);
+  }
+  const tudo = () => { chips(); dias(); periodos(); comanda(); };
+  $("#chips").onclick = (e) => {
     const b = e.target.closest(".ch"); if (!b) return;
     const k = b.dataset.k, i = st.svcs.indexOf(k);
-    i >= 0 ? st.svcs.splice(i, 1) : st.svcs.push(k);
+    if (i >= 0) st.svcs.splice(i, 1); else st.svcs.push(k);
     if (k === "combo" && i < 0) st.svcs = st.svcs.filter((x) => x !== "corte" && x !== "barba");
     if ((k === "corte" || k === "barba") && i < 0) st.svcs = st.svcs.filter((x) => x !== "combo");
-    let trocou = false;
-    // corte + barba separados custam mais: troca pelo combo
-    if (st.svcs.includes("corte") && st.svcs.includes("barba")) { st.svcs = st.svcs.filter((x) => x !== "corte" && x !== "barba"); st.svcs.push("combo"); trocou = true; }
-    render();
-    if (trocou) { const w = $("#warn"); w.textContent = "Trocamos por Corte + Barba: você economiza R$ 10 ✂"; w.style.color = "var(--red)"; setTimeout(() => w.style.color = "", 2500); }
+    if (st.svcs.includes("corte") && st.svcs.includes("barba")) { st.svcs = st.svcs.filter((x) => x !== "corte" && x !== "barba"); st.svcs.push("combo"); }
+    $("#ok").textContent = ""; tudo();
   };
-  $("#pDay").onclick = (e) => { const b = e.target.closest(".dd"); if (b) { st.day = dias[+b.dataset.i]; st.time = null; render(); } };
-  $("#pTime").onclick = (e) => { const b = e.target.closest(".tm"); if (b && !b.disabled) { st.time = b.textContent; render(); } };
-  $("#confirm").onclick = () => {
-    const sel = S.filter(([k]) => st.svcs.includes(k));
-    const nomeB = st.barber === "any" ? "sem preferência" : B.find(([k]) => k === st.barber)[1];
-    const msg = `Olá, Navalha & Co.! Quero agendar:\n\nServiços: ${sel.map((x) => x[1]).join(" + ")}\nBarbeiro: ${nomeB}\nDia: ${st.day.toLocaleDateString("pt-BR", { weekday: "long", day: "numeric", month: "long" })}\nHorário: ${st.time}\nTotal: ${$("#tkTotal").textContent}`;
-    window.open(`https://wa.me/${WA}?text=${encodeURIComponent(msg)}`, "_blank");
-  };
-  render();
+  $("#barbs").onclick = (e) => { const b = e.target.closest(".bb"); if (b) { st.barb = b.dataset.k; tudo(); } };
+  $("#dias").onclick = (e) => { const b = e.target.closest(".dia"); if (!b || b.disabled) return; st.dia = new Date(+b.dataset.t); const c = $("#eDia"); c.classList.remove("erro"); c.querySelector(".msg").textContent = ""; tudo(); };
+  $("#ant").onclick = () => { st.semana = Math.max(0, st.semana - 1); dias(); };
+  $("#prox").onclick = () => { st.semana = Math.min(5, st.semana + 1); dias(); };
+  $("#periodos").onclick = (e) => { const b = e.target.closest(".pe"); if (b && !b.disabled) { st.per = b.dataset.k; tudo(); } };
+  $("#nome").addEventListener("input", () => { $("#cNome").classList.remove("erro"); $("#cNome .msg").textContent = ""; comanda(); });
+  $("#crew").onclick = (e) => { const b = e.target.closest("button[data-k]"); if (!b) return; st.barb = b.dataset.k; tudo(); $("#horarios").scrollIntoView({ behavior: calmo ? "auto" : "smooth" }); };
+  $("#form").addEventListener("submit", (e) => {
+    e.preventDefault();
+    let ok = true;
+    const erro = (c, t) => { ok = false; c.classList.add("erro"); c.querySelector(".msg").textContent = t; };
+    if (!st.dia) erro($("#eDia"), "Escolha o dia que você quer vir.");
+    if ($("#nome").value.trim().length < 2) erro($("#cNome"), "Conta pra gente o seu nome.");
+    if (!sel().length) { ok = false; $("#ok").style.color = "#ef7a62"; $("#ok").textContent = "Escolha pelo menos um serviço."; }
+    if (!ok) { const c = $("#comanda"); c.classList.remove("tremer"); void c.offsetWidth; c.classList.add("tremer"); (st.dia ? $("#nome") : $("#eDia")).scrollIntoView({ behavior: calmo ? "auto" : "smooth", block: "center" }); return; }
+    const s = sel(), nb = st.barb === "qq" ? "quem estiver livre" : B.find(([k]) => k === st.barb)[1];
+    const P = PER.find(([k]) => k === st.per);
+    const per = st.per === "qq" ? "" : `, de preferência ${P[1] === "Fim do dia" ? "no fim do dia" : P[1] === "Manhã" ? "de manhã" : "à tarde"} (${P[2]})`;
+    abreWA(`Olá, Navalha & Co.! Aqui é ${$("#nome").value.trim()}.\nQuais horários vocês têm disponíveis na ${dataLonga(st.dia)}${per}?\n\n• Serviço: ${s.map((x) => x[1]).join(" + ")} (${brl(s.reduce((a, x) => a + x[3], 0))})\n• Barbeiro: ${nb}\n\nObrigado!`);
+    $("#ok").style.color = ""; $("#ok").textContent = "Mensagem aberta no WhatsApp. É só enviar e aguardar os horários.";
+  });
+  tudo();
+  const comandaEl = $("#comanda");
+  if (fino) {
+    comandaEl.addEventListener("pointermove", (e) => { const r = comandaEl.getBoundingClientRect(); comandaEl.style.setProperty("--gx", (e.clientX - r.left) / r.width * 100 + "%"); comandaEl.style.setProperty("--gy", (e.clientY - r.top) / r.height * 100 + "%"); });
+  }
 
-  /* Próximo horário livre (hero) */
-  (() => { for (const d of dias) for (const t of horarios(d)) if (livre(d, t)) { const hoje = d.toDateString() === new Date().toDateString(); $("#nextSlot").textContent = `${hoje ? "hoje" : DN[d.getDay()].toLowerCase()}, ${t}`; return; } })();
+  /* Planos */
+  $$("[data-plano]").forEach((b) => b.addEventListener("click", () => abreWA(`Olá, Navalha & Co.! Quero saber mais sobre o Clube Navalha, plano ${b.dataset.plano}.`)));
 
-  /* Galeria */
-  const G = [["1647140655214-e4a2d914971f", "Degradê com tesoura"], ["1605497788044-5a32c7078486", "Finalização"], ["1759134198561-e2041049419c", "Dia de casa cheia"], ["1503951914875-452162b0f3f1", "Corte clássico"], ["1781768526571-ef9c333279c7", "O salão"], ["1773904215697-e6c21fc27ac2", "Lavatórios"]];
-  $("#masonry").innerHTML = G.map(([g, c], i) => `<figure data-r style="--d:${(i % 3) * .08}s"><img src="${u(g, 800)}" alt="${c}" loading="lazy" /><figcaption>${c}</figcaption></figure>`).join("");
-  $$("#masonry figure").forEach((f) => io.observe(f));
+  /* Galeria em colunas */
+  const G = [
+    ["1647140655214-e4a2d914971f", "Degradê com tesoura", "4/5"], ["1585747860715-2ba37e788b70", "O salão", "4/3"], ["1503951914875-452162b0f3f1", "Barba na navalha", "4/5"],
+    ["1605497788044-5a32c7078486", "Finalização", "3/4"], ["1759134198561-e2041049419c", "Casa cheia", "4/5"], ["1621605815971-fbc98d665033", "Ferramentas", "1/1"],
+    ["1773904215697-e6c21fc27ac2", "Cadeiras de época", "3/4"], ["1599351431202-1e0f0137899a", "Pezinho na navalha", "4/5"], ["1781768526571-ef9c333279c7", "Lavatórios", "4/5"],
+  ];
+  const cols = [[], [], []]; G.forEach((g, i) => cols[i % 3].push(g));
+  $("#colunas").innerHTML = cols.map((c, k) => `<div class="col" data-v="${[-.12, .1, -.06][k]}">${[...c, ...c].map(([f, t, ar]) => `<figure data-cur="ver"><img src="${u(f, 700)}" alt="${t}" loading="lazy" style="--ar:${ar}" /><figcaption class="vidro">${t}</figcaption></figure>`).join("")}</div>`).join("");
+  const colEls = $$(".col"), colWrap = $("#colunas");
 
-  /* Parallax do ambiente */
-  const vb = $("#vibeBg");
-  addEventListener("scroll", () => { if (reduz) return; const r = vb.parentElement.getBoundingClientRect(); vb.style.transform = `translateY(${(r.top + r.height / 2 - innerHeight / 2) * -.14}px)`; }, { passive: true });
+  /* Mouse: cursor, magnéticos, tilt, holofote */
+  const mouse = { x: W * .7, y: H * .4 };
+  const cur = $(".cur"), curT = $(".cur span"), ponto = $(".ponto");
+  let cx = mouse.x, cy = mouse.y;
+  addEventListener("pointermove", (e) => {
+    if (e.pointerType !== "mouse") return;
+    mouse.x = e.clientX; mouse.y = e.clientY; cur.classList.add("on"); ponto.classList.add("on");
+    ponto.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
+    ftx = e.clientX; fty = e.clientY;
+  }, { passive: true });
+  document.addEventListener("mouseleave", () => { cur.classList.remove("on"); ponto.classList.remove("on"); });
+  if (fino) {
+    document.addEventListener("pointerover", (e) => {
+      const l = e.target.closest("[data-cur]"), h = e.target.closest("a, button, input, .item");
+      cur.classList.toggle("lbl", !!l && !h); cur.classList.toggle("hot", !!h);
+      if (l && !h) curT.textContent = l.dataset.cur;
+    });
+    $$(".mag").forEach((b) => {
+      b.addEventListener("pointermove", (e) => { const r = b.getBoundingClientRect(); b.style.transform = `translate(${(e.clientX - r.left - r.width / 2) * .2}px, ${(e.clientY - r.top - r.height / 2) * .28}px)`; });
+      b.addEventListener("pointerleave", () => { b.style.transform = ""; });
+    });
+    document.addEventListener("pointermove", (e) => {
+      const c = e.target.closest && e.target.closest("[data-tilt]"); if (!c) return;
+      const r = c.getBoundingClientRect(), x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5;
+      c.style.transform = `rotateY(${x * 9}deg) rotateX(${-y * 9}deg)`; c.dataset.tiltOn = 1;
+    });
+    document.addEventListener("pointerout", (e) => { const c = e.target.closest && e.target.closest("[data-tilt]"); if (c && !c.contains(e.relatedTarget)) c.style.transform = ""; });
+  }
+
+  /* Quadro a quadro */
+  const hero = $("#topo"), heroFoto = $("#heroFoto"), stick = $("#heroStick"), heroIn = $("#heroIn"), heroCard = $("#heroCard");
+  const cTop = $("#cTop"), cBot = $("#cBot"), lamina = $("#lamina");
+  let sx = W * .7, sy = H * .4, sr = 260;
+  function heroFrame(t) {
+    const r = hero.getBoundingClientRect();
+    if (r.bottom < 0) return;
+    const p = clamp(-r.top / (r.height - H));
+    // holofote: segue o mouse no desktop, passeia sozinho no celular
+    let tx, ty;
+    if (fino) { tx = mouse.x; ty = mouse.y; } else { tx = W * (.55 + Math.sin(t / 2600) * .3); ty = H * (.42 + Math.cos(t / 3300) * .18); }
+    sx = lerp(sx, tx, .1); sy = lerp(sy, ty, .1); sr = lerp(sr, (fino ? 240 : W * .55) + p * Math.max(W, H) * 1.4, .12);
+    const fr = heroFoto.getBoundingClientRect();
+    heroFoto.style.setProperty("--mx", `${sx - fr.left}px`); heroFoto.style.setProperty("--my", `${sy - fr.top}px`); heroFoto.style.setProperty("--raio", `${sr}px`);
+    heroFoto.style.transform = `scale(${1 + p * .12}) translate(${(sx / W - .5) * -12}px, ${(sy / H - .5) * -10}px)`;
+    // o nome é cortado pela navalha
+    const c = clamp((p - .08) / .55), ec = c < .5 ? 2 * c * c : 1 - Math.pow(-2 * c + 2, 2) / 2;
+    lamina.style.opacity = c > 0 && c < 1 ? Math.sin(c * Math.PI) : 0;
+    lamina.style.transform = `rotate(-3.2deg) scaleX(${clamp(c * 3)})`;
+    cTop.style.transform = `translate(${-ec * W * .14}px, ${-ec * H * .16}px) rotate(${-ec * 2.5}deg)`;
+    cBot.style.transform = `translate(${ec * W * .14}px, ${ec * H * .08}px) rotate(${ec * 2.5}deg)`;
+    heroIn.style.opacity = clamp(1 - Math.max(0, p - .04) * 2.4); heroIn.style.transform = `translateY(${-p * 110}px)`;
+    heroIn.style.pointerEvents = p > .3 ? "none" : "";
+    heroCard.style.opacity = clamp(1 - p * 3); heroCard.style.transform = `translateY(${-p * 160}px)`;
+  }
+  const faixa = $("#faixa"); faixa.innerHTML += faixa.innerHTML;
+  let fxp = 0, dir = 1, vel = 0, yAnt = scrollY;
+  function faixaFrame() {
+    const dy = scrollY - yAnt; yAnt = scrollY; if (dy) dir = dy > 0 ? 1 : -1;
+    vel = lerp(vel, Math.min(40, Math.abs(dy)), .1);
+    const meio = faixa.scrollWidth / 2;
+    fxp -= (calmo ? 0 : .6 + vel * .3) * dir;
+    if (fxp <= -meio) fxp += meio; if (fxp > 0) fxp -= meio;
+    faixa.style.transform = `translateX(${fxp}px)`;
+  }
+  const posteI = $("#posteI"), posteN = $("#posteN");
+  function posteFrame() {
+    const total = document.documentElement.scrollHeight - H, p = clamp(scrollY / total);
+    posteI.style.backgroundPosition = `0 ${-scrollY * .25}px`;
+    posteN.textContent = Math.round(p * 100) + "%";
+  }
+  const ritualBg = $("#ritualBg"), fio = $("#fio"), passos = $("#passos");
+  function ritualFrame() {
+    const r = ritualBg.parentElement.getBoundingClientRect();
+    if (r.top > H || r.bottom < 0) return;
+    ritualBg.style.transform = `translateY(${(r.top + r.height / 2 - H / 2) * -.15}px)`;
+    const pr = passos.getBoundingClientRect();
+    fio.style.transform = `scaleX(${clamp((H * .85 - pr.top) / (pr.height + H * .3))})`;
+  }
+  function galFrame() {
+    const r = colWrap.getBoundingClientRect();
+    if (r.top > H || r.bottom < 0) return;
+    const p = (H - r.top) / (H + r.height);
+    colEls.forEach((c) => { const v = +c.dataset.v, meio = c.scrollHeight / 2; c.style.transform = `translateY(${-meio * .25 + (p - .5) * v * 2200}px)`; });
+  }
+  const marca = $("#marca");
+  function marcaFrame() {
+    const r = marca.getBoundingClientRect();
+    if (r.top > H || r.bottom < 0) return;
+    marca.style.setProperty("--enche", clamp((H - r.top) / (H * .7)) * 100 + "%");
+  }
+  let navY = scrollY;
+  function navFrame() {
+    const y = scrollY, d = y - navY;
+    if (Math.abs(d) > 6) { nav.classList.toggle("esconde", d > 0 && y > 400 && !nav.classList.contains("aberto")); navY = y; }
+  }
+  function mouseFrame() {
+    cx = lerp(cx, mouse.x, .18); cy = lerp(cy, mouse.y, .18);
+    cur.style.transform = `translate(${cx}px, ${cy}px)`;
+    fx = lerp(fx, ftx, .12); fy = lerp(fy, fty, .12);
+    if (fVis) flut.style.translate = `${fx}px ${fy}px`;
+  }
+  function quadro(t) {
+    heroFrame(t); faixaFrame(); posteFrame(); ritualFrame(); galFrame(); marcaFrame(); navFrame(); if (fino) mouseFrame();
+    requestAnimationFrame(quadro);
+  }
+  addEventListener("resize", () => { W = innerWidth; H = innerHeight; });
+  requestAnimationFrame(quadro);
 })();
 </script>
 </body>
