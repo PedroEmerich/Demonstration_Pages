@@ -389,16 +389,19 @@
   }
   @media (max-width: 900px) {
     .hero { height: 220vh; }
-    .hero__grid { grid-template-columns: 1fr; grid-template-rows: auto 1fr; gap: 18px; align-items: start; padding-top: 92px; padding-bottom: 70px; }
-    .hero h1 { font-size: clamp(46px, 12.4vw, 76px); margin: 16px 0 14px; }
-    .hero p.lead { font-size: 16px; }
-    .hero__ctas { margin-top: 20px; flex-wrap: nowrap; gap: 8px; }
-    .hero__ctas .btn { padding: 15px 16px; font-size: 14.5px; flex: 1 1 auto; white-space: nowrap; }
+    .hero__grid { grid-template-columns: 1fr; grid-template-rows: auto minmax(0, 1fr); gap: 0; align-items: start; padding-top: 84px; padding-bottom: 18px; }
+    .hero__pill { font-size: 12.5px; padding: 6px 12px 6px 6px; }
+    .hero__pill i { font-size: 12px; padding: 3px 8px; }
+    .hero h1 { font-size: min(12.4vw, 7.6svh, 76px); margin: 12px 0 10px; }
+    .hero p.lead { font-size: 15px; line-height: 1.5; }
+    .hero__ctas { margin-top: 16px; flex-wrap: nowrap; gap: 8px; }
+    .hero__ctas .btn { padding: 13px 14px; font-size: 14px; flex: 1 1 auto; white-space: nowrap; }
     .hero__trust { display: none; }
-    .casa-slot { width: auto; height: calc(100% - 40px); max-height: 400px; min-height: 190px; aspect-ratio: 4 / 5; margin-top: 40px; }
+    .casa-slot { width: auto; height: calc(100% - 34px); max-height: 360px; min-height: 0; aspect-ratio: 4 / 5; margin-top: 34px; align-self: start; }
     .selo { width: 92px; height: 92px; right: -18%; top: 4%; }
     .selo i { inset: 24px; }
-    .ad1 { left: -32%; top: 50%; padding: 8px 12px 8px 8px; font-size: 13px; }
+    .ad1 { left: -14%; top: auto; bottom: 5%; padding: 7px 12px 7px 7px; font-size: 12px; border-radius: 14px; white-space: nowrap; }
+    .ad1 small { font-size: 11px; }
     .ad1 b { width: 32px; height: 32px; }
     .ad2 { display: none; }
     .rolar { display: none; }
@@ -451,13 +454,19 @@
     .rodape__grid > div:first-child { grid-column: 1 / -1; }
   }
   @media (min-width: 901px) { .svc__cards { display: contents; } }
+  @media (max-width: 900px) and (max-height: 760px) {
+    .hero__pill { display: none; }
+    .hero h1 { margin-top: 4px; }
+  }
+  @media (max-width: 900px) and (max-height: 640px) {
+    .hero p.lead { display: none; }
+  }
   @media (max-width: 560px) {
     .datas { gap: 10px; }
     .datas label { font-size: 13px; }
     .campo input[type=date] { padding: 0 12px; font-size: 15px; height: 56px; }
     .campo input[type=text] { height: 56px; font-size: 16px; }
     .selo { display: none; }
-    .ad1 { left: -14%; top: auto; bottom: 12%; }
     .portes { gap: 8px; }
     .porte { padding: 14px 6px 12px; border-radius: 18px; }
     .porte b { font-size: 17px; }
@@ -823,7 +832,7 @@
     telhado.setAttribute("viewBox", `0 0 ${st.width} ${st.height}`);
     linha.setAttribute("points", `${X - ov},${Y + Ht * .3 + ov * .62} ${X + Wd / 2 + mx * .8},${Y - 8} ${X + Wd + ov},${Y + Ht * .3 + ov * .62}`);
     telhado.style.opacity = clamp(1 - e * 4);
-    txt.style.opacity = clamp(1 - p * 2.6);
+    txt.style.opacity = clamp(1 - Math.max(0, p - .05) * 2.8);
     txt.style.transform = `translateY(${-p * 120}px)`;
     txt.style.pointerEvents = p > .3 ? "none" : "";
     profs.forEach((el) => { const f = +el.dataset.prof; el.style.transform = `translate(${hx * 18 * f}px, ${hy * 14 * f - p * 200 * f}px)`; el.style.opacity = clamp(1 - p * 3.2); });
