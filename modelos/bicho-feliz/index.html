@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Bicho Feliz — Hotel e Creche para Pets</title>
-<meta name="description" content="Bicho Feliz: hotelzinho, creche, banho e tosa em Cotia, com 1.200 m² de grama, piscina, câmeras ao vivo e veterinário de plantão. Consulte a disponibilidade pelo WhatsApp." />
+<meta name="description" content="Bicho Feliz: hotelzinho, creche, banho e tosa em Cotia, com 1.200 m² de grama, piscina, fotos do seu pet durante o dia e veterinário de plantão. Consulte a disponibilidade pelo WhatsApp." />
 <meta name="theme-color" content="#fbf3e7" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -166,29 +166,42 @@
   .svc__barra { width: var(--wrap); margin: 40px auto 0; height: 3px; border-radius: 3px; background: rgba(251,243,231,.14); overflow: hidden; }
   .svc__barra i { display: block; height: 100%; width: 100%; background: var(--yellow); transform-origin: left; transform: scaleX(0); }
 
-  /* PET CAM */
-  .cam { padding: 140px 0; background: var(--ink); color: var(--cream); border-radius: 0 0 56px 56px; }
-  .cam__grid { display: grid; grid-template-columns: .8fr 1.2fr; gap: 60px; align-items: center; }
+  /* FOTOS DO DIA (chat com a cuidadora) */
+  .cam { padding: 140px 0; background: var(--ink); color: var(--cream); border-radius: 0 0 56px 56px; overflow: hidden; }
+  .cam__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
   .cam__grid .h2 em { color: var(--yellow); }
-  .cam__grid > div > p { margin-top: 22px; color: #bfb3a3; font-size: 17px; max-width: 420px; }
-  .cam__tabs { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 30px; }
-  .cam__tabs button { padding: 11px 16px; border-radius: 999px; box-shadow: inset 0 0 0 1.5px rgba(251,243,231,.25); font-weight: 600; font-size: 14px; transition: all .3s; }
-  .cam__tabs button:hover { box-shadow: inset 0 0 0 1.5px var(--cream); }
-  .cam__tabs button.on { background: var(--yellow); color: var(--ink); box-shadow: none; }
-  .tv { position: relative; padding: 14px; border-radius: 34px; background: linear-gradient(145deg, #3a3128, #15110d); box-shadow: 0 50px 90px -40px rgba(0,0,0,.8), inset 0 1px 0 rgba(255,255,255,.08); transform: perspective(1400px) rotateY(-8deg) rotateX(3deg); transition: transform .6s var(--ease); }
-  .tv:hover { transform: perspective(1400px) rotateY(0) rotateX(0); }
-  .tv__tela { position: relative; aspect-ratio: 16 / 10; border-radius: 22px; overflow: hidden; background: #000; }
-  .tv__tela img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transform: scale(1.06); transition: opacity .9s, transform 6s linear; filter: saturate(.85) contrast(1.06); }
-  .tv__tela img.on { opacity: 1; transform: scale(1); }
-  .tv__tela::after { content: ""; position: absolute; inset: 0; background: repeating-linear-gradient(0deg, rgba(255,255,255,.05) 0 1px, transparent 1px 3px), radial-gradient(120% 90% at 50% 50%, transparent 60%, rgba(0,0,0,.55)); pointer-events: none; }
-  .tv__hud { position: absolute; inset: 16px; z-index: 2; display: flex; flex-direction: column; justify-content: space-between; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 13px; color: #fff; text-shadow: 0 1px 6px rgba(0,0,0,.7); pointer-events: none; }
-  .tv__hud div { display: flex; justify-content: space-between; gap: 10px; }
-  .rec { display: flex; align-items: center; gap: 7px; font-weight: 700; }
-  .rec i { width: 9px; height: 9px; border-radius: 50%; background: #ff3b30; box-shadow: 0 0 10px #ff3b30; animation: pisca 1s steps(1) infinite; }
-  @keyframes pisca { 50% { opacity: 0; } }
-  .tv__pe { display: flex; justify-content: space-between; align-items: center; padding: 14px 8px 2px; color: #bfb3a3; font-size: 13px; font-weight: 600; }
-  .tv__pe span { display: flex; align-items: center; gap: 8px; }
-  .tv__pe i { width: 8px; height: 8px; border-radius: 50%; background: #3ddc84; }
+  .cam__grid > div > p { margin-top: 22px; color: #bfb3a3; font-size: 17px; max-width: 440px; }
+  .envios { display: grid; gap: 12px; margin-top: 34px; max-width: 440px; }
+  .envios li { list-style: none; display: flex; align-items: center; gap: 14px; padding: 14px 16px; border-radius: 18px; background: rgba(251,243,231,.06); box-shadow: inset 0 0 0 1px rgba(251,243,231,.1); font-weight: 600; }
+  .envios li b { width: 38px; height: 38px; flex: none; border-radius: 12px; display: grid; place-items: center; background: var(--yellow); color: var(--ink); font-family: var(--display); font-size: 13px; }
+  .envios li small { display: block; color: #a99d8d; font-weight: 500; font-size: 13.5px; }
+  .fone-area { position: relative; justify-self: center; }
+  .fone-area::before { content: ""; position: absolute; inset: 10% -30% 0; background: radial-gradient(closest-side, rgba(226,106,44,.45), transparent); filter: blur(30px); z-index: 0; }
+  .fone { position: relative; z-index: 1; width: min(340px, 82vw); height: 640px; border-radius: 48px; padding: 12px; background: linear-gradient(150deg, #3d342a, #120f0c); box-shadow: 0 60px 100px -40px rgba(0,0,0,.85), inset 0 0 0 1.5px rgba(255,255,255,.08); transform: rotate(3deg); transition: transform .6s var(--ease); }
+  .fone:hover { transform: rotate(0); }
+  .fone__tela { position: relative; height: 100%; border-radius: 38px; overflow: hidden; background: #f3eadc; display: flex; flex-direction: column; color: var(--ink); }
+  .fone__topo { display: flex; align-items: center; gap: 10px; padding: 34px 16px 12px; background: var(--paper); box-shadow: 0 1px 0 var(--line); }
+  .fone__topo b { width: 38px; height: 38px; border-radius: 50%; background: var(--orange); color: #fff; display: grid; place-items: center; flex: none; }
+  .fone__topo b svg { width: 20px; height: 20px; }
+  .fone__topo strong { display: block; font-size: 15px; line-height: 1.2; }
+  .fone__topo small { color: #2f7d4f; font-weight: 600; font-size: 12px; }
+  .fone__ilha { position: absolute; top: 10px; left: 50%; width: 92px; height: 22px; margin-left: -46px; border-radius: 20px; background: #0d0b09; z-index: 2; }
+  .chat { flex: 1; overflow: hidden; display: flex; flex-direction: column; justify-content: flex-end; gap: 8px; padding: 14px 12px 16px; background-color: #f3eadc; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='90' height='90' viewBox='0 0 120 120'%3E%3Cg fill='%23e9dcc6' transform='rotate(-20 60 60)'%3E%3Cellipse cx='60' cy='72' rx='12' ry='10'/%3E%3Cellipse cx='44' cy='56' rx='5' ry='7'/%3E%3Cellipse cx='76' cy='56' rx='5' ry='7'/%3E%3Cellipse cx='53' cy='47' rx='5' ry='7'/%3E%3Cellipse cx='67' cy='47' rx='5' ry='7'/%3E%3C/g%3E%3C/svg%3E"); }
+  .msg-b { align-self: flex-start; max-width: 82%; padding: 6px 6px 4px; border-radius: 4px 16px 16px 16px; background: #fff; box-shadow: 0 1px 1px rgba(31,26,20,.08); font-size: 14px; line-height: 1.35; animation: chega .5s var(--spring) both; flex: none; }
+  .msg-b p { padding: 2px 6px 0; }
+  .msg-b img { width: 210px; height: 150px; object-fit: cover; border-radius: 11px; }
+  .msg-b time { display: block; text-align: right; font-size: 11px; color: #8d8174; padding: 0 6px 2px; }
+  .msg-b.digitando { padding: 12px 14px; display: flex; gap: 4px; }
+  .msg-b.digitando i { width: 7px; height: 7px; border-radius: 50%; background: #b9ad9c; animation: pula 1s infinite; }
+  .msg-b.digitando i:nth-child(2) { animation-delay: .15s; } .msg-b.digitando i:nth-child(3) { animation-delay: .3s; }
+  @keyframes pula { 0%, 60%, 100% { transform: none; } 30% { transform: translateY(-4px); } }
+  @keyframes chega { from { opacity: 0; transform: translateY(16px) scale(.96); } }
+  .msg-b.sai { animation: some .4s forwards; }
+  @keyframes some { to { opacity: 0; transform: translateY(-10px); } }
+  .fone__base { display: flex; align-items: center; gap: 8px; padding: 10px 12px 16px; background: var(--paper); }
+  .fone__base span { flex: 1; height: 38px; border-radius: 999px; background: #f3eadc; display: flex; align-items: center; padding: 0 14px; color: #a99d8d; font-size: 13.5px; }
+  .fone__base b { width: 38px; height: 38px; border-radius: 50%; background: #25d366; color: #fff; display: grid; place-items: center; }
+  .fone__base b svg { width: 18px; height: 18px; }
 
   /* ROTINA (cena fotográfica que muda com a hora) */
   .dia { position: relative; height: 520vh; }
@@ -210,8 +223,8 @@
   .dia__foto { display: inline-flex; align-items: center; gap: 10px; margin-top: 26px; align-self: flex-start; padding: 8px 16px 8px 8px; border-radius: 999px; background: rgba(255,255,255,.14); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); box-shadow: inset 0 0 0 1px rgba(255,255,255,.22); font-weight: 600; font-size: 14px; }
   .dia__foto b { width: 30px; height: 30px; border-radius: 50%; background: var(--yellow); color: var(--ink); display: grid; place-items: center; }
   .dia__foto b svg { width: 16px; height: 16px; }
-  .dia__rec { position: absolute; z-index: 3; right: max(20px, (100vw - 1240px) / 2); top: 104px; display: flex; align-items: center; gap: 8px; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 13px; color: rgba(255,255,255,.9); text-shadow: 0 1px 6px rgba(0,0,0,.6); }
-  .dia__rec i { width: 8px; height: 8px; border-radius: 50%; background: #ff3b30; box-shadow: 0 0 10px #ff3b30; animation: pisca 1s steps(1) infinite; }
+  .dia__rec { position: absolute; z-index: 3; right: max(20px, (100vw - 1240px) / 2); top: 104px; display: flex; align-items: center; gap: 8px; font-weight: 600; font-size: 13.5px; color: rgba(255,255,255,.92); text-shadow: 0 1px 6px rgba(0,0,0,.6); }
+  .dia__rec svg { width: 16px; height: 16px; color: var(--yellow); }
   .dia__linha { position: absolute; z-index: 3; left: 50%; bottom: 28px; transform: translateX(-50%); width: var(--wrap); display: flex; justify-content: space-between; gap: 6px; }
   .dia__linha button { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 8px; font-weight: 700; font-size: 13px; opacity: .6; transition: opacity .3s; color: #fff; }
   .dia__linha button i { width: 100%; height: 3px; border-radius: 3px; background: rgba(255,255,255,.28); position: relative; overflow: hidden; }
@@ -382,7 +395,7 @@
     .hero__ctas { margin-top: 20px; flex-wrap: nowrap; gap: 8px; }
     .hero__ctas .btn { padding: 15px 16px; font-size: 14.5px; flex: 1 1 auto; white-space: nowrap; }
     .hero__trust { display: none; }
-    .casa-slot { width: auto; height: 100%; max-height: 420px; min-height: 200px; aspect-ratio: 4 / 5; }
+    .casa-slot { width: auto; height: calc(100% - 40px); max-height: 400px; min-height: 190px; aspect-ratio: 4 / 5; margin-top: 40px; }
     .selo { width: 92px; height: 92px; right: -18%; top: 4%; }
     .selo i { inset: 24px; }
     .ad1 { left: -32%; top: 50%; padding: 8px 12px 8px 8px; font-size: 13px; }
@@ -404,8 +417,8 @@
     .sv { scroll-snap-align: center; height: 460px; }
     .svc__barra { display: none; }
     .cam { padding: 40px 0 100px; border-radius: 0 0 40px 40px; }
-    .cam__grid { grid-template-columns: 1fr; gap: 40px; }
-    .tv { transform: none; padding: 10px; border-radius: 26px; }
+    .cam__grid { grid-template-columns: 1fr; gap: 50px; }
+    .fone { transform: none; height: 560px; }
     .dia { height: 480vh; }
     .dia__conteudo { justify-content: flex-end; padding: 110px 0 96px; }
     .dia__rot { top: 86px; }
@@ -429,9 +442,11 @@
     .pola { position: relative; left: auto; top: auto; flex: none; width: 260px; scroll-snap-align: center; touch-action: auto; cursor: auto; }
     .mural__dica { display: none; }
     .fim { padding-top: 90px; border-radius: 40px 40px 0 0; }
-    .trio { margin-top: 50px; gap: 8px; padding: 0 12px; }
-    .trio .t1, .trio .t3 { --w: 27vw; } .trio .t2 { --w: 36vw; }
-    .trio figcaption { display: none; }
+    .trio { margin-top: 50px; gap: 6px; padding: 0 8px; }
+    .trio .t1, .trio .t3 { --w: 27vw; } .trio .t2 { --w: 34vw; }
+    .trio figure:hover { translate: none; }
+    .trio figcaption { bottom: 8px; padding: 4px 9px; font-size: 11px; }
+    .trio figcaption span { display: none; }
     .rodape__grid { grid-template-columns: 1fr 1fr; }
     .rodape__grid > div:first-child { grid-column: 1 / -1; }
   }
@@ -495,7 +510,7 @@
 <header class="nav" id="nav">
   <div class="nav__in">
     <a href="#topo" class="logo" aria-label="Bicho Feliz, início"><b><svg><use href="#i-pata" class="paw" /></svg></b>bicho feliz</a>
-    <nav class="nav__links"><a href="#servicos">Serviços</a><a href="#petcam">Pet cam</a><a href="#rotina">Rotina</a><a href="#creche">Creche</a><a href="#disponibilidade">Disponibilidade</a></nav>
+    <nav class="nav__links"><a href="#servicos">Serviços</a><a href="#fotos">Fotos do dia</a><a href="#rotina">Rotina</a><a href="#creche">Creche</a><a href="#disponibilidade">Disponibilidade</a></nav>
     <a href="#disponibilidade" class="btn btn--ink mag">Ver disponibilidade</a>
     <button class="burger" aria-label="Abrir menu" aria-expanded="false"><span></span></button>
   </div>
@@ -513,16 +528,16 @@
       <div class="hero__txt">
         <span class="hero__pill"><i>★ 4,9</i>mais de 3 mil pets hospedados</span>
         <h1><span class="ln"><span style="--d:.05s">Férias pro</span></span><span class="ln"><span style="--d:.15s">seu pet</span></span><span class="ln"><span style="--d:.25s"><em>também.</em></span></span></h1>
-        <p class="lead">Hotelzinho e creche em Cotia com 1.200 m² de grama, piscina, monitores 24h e câmera ao vivo pra você matar a saudade de onde estiver.</p>
-        <div class="hero__ctas"><a href="#disponibilidade" class="btn btn--ink mag">Ver disponibilidade <svg><use href="#i-seta" /></svg></a><a href="#petcam" class="btn btn--ghost mag">Espiar a pet cam</a></div>
-        <div class="hero__trust"><span><svg><use href="#i-cam" /></svg>Câmera 24h</span><span><svg><use href="#i-vet" /></svg>Veterinário de plantão</span><span><svg><use href="#i-van" /></svg>Táxi pet</span></div>
+        <p class="lead">Hotelzinho e creche em Cotia com 1.200 m² de grama, piscina, monitores 24h e fotos do seu pet durante o dia, direto no seu WhatsApp.</p>
+        <div class="hero__ctas"><a href="#disponibilidade" class="btn btn--ink mag">Ver disponibilidade <svg><use href="#i-seta" /></svg></a><a href="#servicos" class="btn btn--ghost mag">Ver serviços</a></div>
+        <div class="hero__trust"><span><svg><use href="#i-cam" /></svg>Fotos durante o dia</span><span><svg><use href="#i-vet" /></svg>Veterinário de plantão</span><span><svg><use href="#i-van" /></svg>Táxi pet</span></div>
       </div>
       <div class="casa-slot" data-cur="oi!">
         <div class="selo" data-prof="1.4" aria-hidden="true">
           <svg viewBox="0 0 140 140"><defs><path id="circ" d="M70 70m-54 0a54 54 0 1 1 108 0a54 54 0 1 1-108 0" /></defs><text><textPath href="#circ">fora da casinha · fora da casinha ·</textPath></text></svg>
           <i><svg><use href="#i-pata" class="paw" /></svg></i>
         </div>
-        <div class="adesivo ad1" data-prof="2"><b><svg><use href="#i-osso" /></svg></b><div>Thor acabou de lanchar<small>há 2 minutos · câmera 2</small></div></div>
+        <div class="adesivo ad1" data-prof="2"><b><svg><use href="#i-osso" /></svg></b><div>Thor acabou de lanchar<small>foto enviada pela Ju · agora</small></div></div>
         <div class="adesivo ad2" data-prof="1"><b><svg><use href="#i-vet" /></svg></b><div>Vet de plantão<small>24h, todos os dias</small></div></div>
       </div>
     </div>
@@ -537,11 +552,11 @@
 <section class="manifesto">
   <div class="wrap">
     <span class="tag" data-r>O Bicho Feliz</span>
-    <p class="manifesto__txt" style="margin-top:26px" id="manifesto">Seu pet passa o dia *correndo na grama,* *nadando na piscina* e brincando com a turma do mesmo porte. Você acompanha tudo pela câmera e recebe *fotos em cada etapa do dia.*</p>
+    <p class="manifesto__txt" style="margin-top:26px" id="manifesto">Seu pet passa o dia *correndo na grama,* *nadando na piscina* e brincando com a turma do mesmo porte. E os cuidadores mandam *fotos e vídeos dele ao longo do dia.*</p>
     <div class="nums">
       <div class="num" data-r><b><span data-conta="1200">0</span><sup>m²</sup></b><span>de área verde com piscina</span></div>
       <div class="num" data-r style="--d:.08s"><b><span data-conta="3000">0</span><sup>+</sup></b><span>pets hospedados desde 2016</span></div>
-      <div class="num" data-r style="--d:.16s"><b><span data-conta="24">0</span><sup>h</sup></b><span>de monitores e câmeras</span></div>
+      <div class="num" data-r style="--d:.16s"><b><span data-conta="24">0</span><sup>h</sup></b><span>com cuidadores no local</span></div>
       <div class="num" data-r style="--d:.24s"><b><span data-conta="4.9" data-dec="1">0</span><sup>★</sup></b><span>de nota no Google</span></div>
     </div>
   </div>
@@ -568,19 +583,27 @@
   </div>
 </section>
 
-<section class="cam" id="petcam">
+<section class="cam" id="fotos">
   <div class="wrap cam__grid">
     <div data-r>
-      <span class="tag">Pet cam ao vivo</span>
-      <h2 class="h2" style="margin-top:18px">Saudade? <em>É só espiar.</em></h2>
-      <p>São 8 câmeras nos quartinhos, no pátio e na piscina. Você assiste pelo celular durante toda a estadia, de onde estiver.</p>
-      <div class="cam__tabs" id="camTabs"></div>
+      <span class="tag">Fotos do dia</span>
+      <h2 class="h2" style="margin-top:18px">Saudade? <em>A gente manda notícia.</em></h2>
+      <p>Durante a estadia, os cuidadores mandam fotos e vídeos do seu pet direto no seu WhatsApp, ao longo de todo o dia.</p>
+      <ul class="envios">
+        <li><b>7h</b><span>Bom dia e café da manhã<small>foto assim que ele termina de comer</small></span></li>
+        <li><b>15h</b><span>Brincadeiras e piscina<small>vídeo da turma no gramado</small></span></li>
+        <li><b>20h</b><span>Boa-noite<small>foto na caminha antes de apagar a luz</small></span></li>
+      </ul>
     </div>
-    <div class="tv" data-r style="--d:.1s" data-cur="ao vivo">
-      <div class="tv__tela" id="tela">
-        <div class="tv__hud"><div><span class="rec"><i></i>AO VIVO</span><span id="camHora">--:--:--</span></div><div><span id="camNome">CAM 01 · Pátio</span><span>1080p</span></div></div>
+    <div class="fone-area" data-r style="--d:.1s">
+      <div class="fone" data-cur="oi, tutor!">
+        <div class="fone__tela">
+          <span class="fone__ilha"></span>
+          <div class="fone__topo"><b><svg><use href="#i-pata" class="paw" /></svg></b><div><strong>Ju · cuidadora Bicho Feliz</strong><small>online</small></div></div>
+          <div class="chat" id="chat"></div>
+          <div class="fone__base"><span>Mensagem</span><b><svg><use href="#i-seta" /></svg></b></div>
+        </div>
       </div>
-      <div class="tv__pe"><span><i></i>12 tutores assistindo agora</span><span>bichofeliz.cam</span></div>
     </div>
   </div>
 </section>
@@ -595,7 +618,7 @@
     <div class="veu"></div>
     <div class="grao"></div>
     <div class="dia__rot"><span class="tag">Um dia no Bicho Feliz</span></div>
-    <div class="dia__rec"><i></i><span id="diaCam">CAM 03 · Gramado</span></div>
+    <div class="dia__rec"><svg><use href="#i-pata" class="paw" /></svg><span id="diaCam">enviado pela Ju</span></div>
     <div class="wrap dia__conteudo" id="diaTxt">
       <div class="dia__hora" id="diaHora">07:00</div>
       <h3 class="dia__nome" id="diaNome">Café da manhã</h3>
@@ -662,7 +685,7 @@
     <div class="cab"><div><span class="tag" data-r>Creche</span><h2 class="h2" style="margin-top:18px" data-r>Pra quem <em>trabalha fora.</em></h2></div><p data-r>Gasto de energia, socialização e um pet calminho quando você chega em casa.</p></div>
     <div class="pgrid">
       <div class="pl" data-r data-tilt><h3>2x por semana</h3><p class="pr">R$ 449<small>/mês</small></p><ul><li><svg><use href="#i-pata" class="paw" /></svg>8 diárias no mês</li><li><svg><use href="#i-pata" class="paw" /></svg>Relatório diário</li><li><svg><use href="#i-pata" class="paw" /></svg>Lanche natural</li></ul><button class="btn btn--ghost mag" data-plano="2x por semana (R$ 449/mês)">Quero esse</button></div>
-      <div class="pl hot" data-r style="--d:.08s" data-tilt><span class="pl__selo">mais escolhido</span><h3>3x por semana</h3><p class="pr">R$ 629<small>/mês</small></p><ul><li><svg><use href="#i-pata" class="paw" /></svg>12 diárias no mês</li><li><svg><use href="#i-pata" class="paw" /></svg>1 banho mensal incluso</li><li><svg><use href="#i-pata" class="paw" /></svg>Câmera ao vivo</li><li><svg><use href="#i-pata" class="paw" /></svg>Relatório diário com fotos</li></ul><button class="btn btn--light mag" data-plano="3x por semana (R$ 629/mês)">Quero esse</button></div>
+      <div class="pl hot" data-r style="--d:.08s" data-tilt><span class="pl__selo">mais escolhido</span><h3>3x por semana</h3><p class="pr">R$ 629<small>/mês</small></p><ul><li><svg><use href="#i-pata" class="paw" /></svg>12 diárias no mês</li><li><svg><use href="#i-pata" class="paw" /></svg>1 banho mensal incluso</li><li><svg><use href="#i-pata" class="paw" /></svg>Fotos e vídeos diários</li><li><svg><use href="#i-pata" class="paw" /></svg>Relatório diário com fotos</li></ul><button class="btn btn--light mag" data-plano="3x por semana (R$ 629/mês)">Quero esse</button></div>
       <div class="pl" data-r style="--d:.16s" data-tilt><h3>Todo dia</h3><p class="pr">R$ 899<small>/mês</small></p><ul><li><svg><use href="#i-pata" class="paw" /></svg>Diárias ilimitadas (seg a sex)</li><li><svg><use href="#i-pata" class="paw" /></svg>2 banhos mensais</li><li><svg><use href="#i-pata" class="paw" /></svg>Táxi pet com desconto</li></ul><button class="btn btn--ghost mag" data-plano="Todo dia (R$ 899/mês)">Quero esse</button></div>
     </div>
   </div>
@@ -672,7 +695,7 @@
   <div class="wrap">
     <div class="cab" style="margin-bottom:10px"><div><span class="tag" data-r>Depoimentos</span><h2 class="h2" style="margin-top:18px" data-r>Quem vem, <em>volta.</em></h2></div><span class="mural__dica" data-r><svg><use href="#i-pata" class="paw" /></svg>Arraste as fotos pelo mural</span></div>
     <div class="mural__area" id="mural">
-      <figure class="pola" style="--x:2%;--y:40px;--r:-5deg" data-cur="arraste"><span class="fita"></span><img src="https://images.unsplash.com/photo-1534361960057-19889db9621e?w=500&q=75&auto=format&fit=crop" alt="Nina correndo na grama" loading="lazy" /><p>“Viajei tranquila vendo a Nina pela câmera. Ela voltou mais feliz que eu!”</p><footer><span><b>Camila &amp; Nina</b> · Maltês</span><span class="estr">★★★★★</span></footer></figure>
+      <figure class="pola" style="--x:2%;--y:40px;--r:-5deg" data-cur="arraste"><span class="fita"></span><img src="https://images.unsplash.com/photo-1534361960057-19889db9621e?w=500&q=75&auto=format&fit=crop" alt="Nina correndo na grama" loading="lazy" /><p>“Viajei tranquila com as fotos que a equipe mandava. A Nina voltou mais feliz que eu!”</p><footer><span><b>Camila &amp; Nina</b> · Maltês</span><span class="estr">★★★★★</span></footer></figure>
       <figure class="pola" style="--x:27%;--y:130px;--r:4deg" data-cur="arraste"><span class="fita"></span><img src="https://images.unsplash.com/photo-1561037404-61cd46aa615b?w=500&q=75&auto=format&fit=crop" alt="Bob, um jack russell" loading="lazy" /><p>“O Bob tem energia de sobra. Depois da creche ele dorme a noite toda.”</p><footer><span><b>Rafael &amp; Bob</b> · Jack Russell</span><span class="estr">★★★★★</span></footer></figure>
       <figure class="pola" style="--x:52%;--y:20px;--r:-3deg" data-cur="arraste"><span class="fita"></span><img src="https://images.unsplash.com/photo-1561130627-94d7dd29776d?w=500&q=75&auto=format&fit=crop" alt="Paçoca na caminha" loading="lazy" /><p>“Atendimento impecável, e o táxi pet salvou minha semana corrida.”</p><footer><span><b>Juliana &amp; Paçoca</b> · Pug</span><span class="estr">★★★★★</span></footer></figure>
       <figure class="pola" style="--x:76%;--y:110px;--r:6deg" data-cur="arraste"><span class="fita"></span><img src="https://images.unsplash.com/photo-1695451486995-7697b5c1be51?w=500&q=75&auto=format&fit=crop" alt="Mel e Luna dormindo juntas" loading="lazy" /><p>“Mandaram vídeo das duas na piscina todo dia. Já reservei o Natal.”</p><footer><span><b>Lucas, Mel &amp; Luna</b></span><span class="estr">★★★★★</span></footer></figure>
@@ -698,7 +721,7 @@
         <div><a href="#topo" class="logo"><b><svg><use href="#i-pata" class="paw" /></svg></b>bicho feliz</a><p style="margin-top:14px;max-width:300px">Hotel, creche, banho e tosa para cães e gatos em Cotia, a 30 minutos de São Paulo.</p></div>
         <div><h4>Visite</h4><p>Estrada do Embu, 2200<br />Cotia, SP</p></div>
         <div><h4>Horários</h4><ul><li>Check-in e check-out das 8h às 19h</li><li>Creche de seg a sex</li></ul></div>
-        <div><h4>Fale com a gente</h4><ul><li><a href="https://wa.me/5511999990000" target="_blank" rel="noopener">(11) 99999-0000</a></li><li><a href="#disponibilidade">Consultar vaga</a></li><li><a href="#petcam">Pet cam</a></li></ul></div>
+        <div><h4>Fale com a gente</h4><ul><li><a href="https://wa.me/5511999990000" target="_blank" rel="noopener">(11) 99999-0000</a></li><li><a href="#disponibilidade">Consultar vaga</a></li><li><a href="#fotos">Fotos do dia</a></li></ul></div>
       </div>
       <div class="marca">bicho <em>feliz</em></div>
       <div class="creditos"><span>© 2026 Bicho Feliz Hotel &amp; Creche</span><span>Feito com muito carinho (e petiscos)</span></div>
@@ -747,7 +770,7 @@
     cur.classList.add("on");
     if (!fino || calmo) return;
     const alvo = e.target;
-    if (alvo.closest && alvo.closest("input, label, button, a, .passe-area, .pola, .tv, .sv")) { ult = null; return; }
+    if (alvo.closest && alvo.closest("input, label, button, a, .passe-area, .pola, .fone, .sv")) { ult = null; return; }
     if (!ult) { ult = { x: e.clientX, y: e.clientY }; return; }
     const dx = e.clientX - ult.x, dy = e.clientY - ult.y, d = Math.hypot(dx, dy);
     if (d < 70) return;
@@ -863,27 +886,39 @@
     svB.style.transform = `scaleX(${p})`;
   }
 
-  /* Pet cam */
-  const CAMS = [["1787152467585-3b6a11777ebd", "CAM 01 · Pátio", "Pátio"], ["1492748046438-4b6d9ebe0c11", "CAM 02 · Quartinhos", "Quartinhos"], ["1760530327971-f8523426c60a", "CAM 03 · Gramado", "Gramado"], ["1695451486995-7697b5c1be51", "CAM 04 · Soneca", "Soneca"]];
-  const tela = $("#tela"), tabs = $("#camTabs");
-  tela.insertAdjacentHTML("afterbegin", CAMS.map(([i, n], k) => `<img src="${u(i, 1200)}" alt="Câmera ao vivo: ${n}" loading="lazy" class="${k ? "" : "on"}" />`).join(""));
-  tabs.innerHTML = CAMS.map(([, , t], k) => `<button type="button" class="${k ? "" : "on"}" data-k="${k}">${t}</button>`).join("");
-  let camK = 0, camPausa = 0;
-  const camVai = (k) => { camK = k; $$("img", tela).forEach((im, i) => im.classList.toggle("on", i === k)); $$("button", tabs).forEach((b, i) => b.classList.toggle("on", i === k)); $("#camNome").textContent = CAMS[k][1]; };
-  tabs.onclick = (e) => { const b = e.target.closest("button"); if (b) { camVai(+b.dataset.k); camPausa = Date.now() + 12000; } };
-  setInterval(() => { if (Date.now() > camPausa) camVai((camK + 1) % CAMS.length); }, 4200);
-  const relogio = () => { $("#camHora").textContent = new Date().toLocaleTimeString("pt-BR"); };
-  relogio(); setInterval(relogio, 1000);
+  /* Fotos do dia: conversa com a cuidadora */
+  const CHAT = [
+    ["07:42", "Bom dia! O Thor acordou animado e já tomou todo o café.", "1543466835-00a7907e9de1"],
+    ["09:18", "Fez amizade com o Bento na recreação.", "1760530327971-f8523426c60a"],
+    ["12:35", "Soneca depois do almoço, todo esparramado.", "1561130627-94d7dd29776d"],
+    ["15:10", "Hora da bolinha no gramado!", "1722257401181-a04cc4df36f8"],
+    ["20:04", "Boa noite! Dormiu agarradinho na caminha.", "1695451486995-7697b5c1be51"],
+  ];
+  const chat = $("#chat");
+  let chatK = 0, chatT = null, chatVis = false;
+  const bolha = (html, cls = "") => { const d = document.createElement("div"); d.className = "msg-b " + cls; d.innerHTML = html; chat.appendChild(d); while (chat.children.length > 4) chat.firstElementChild.remove(); return d; };
+  function chatPasso() {
+    if (!chatVis) { chatT = null; return; }
+    if (chatK >= CHAT.length) { [...chat.children].forEach((c) => c.classList.add("sai")); chatK = 0; chatT = setTimeout(() => { chat.innerHTML = ""; chatPasso(); }, 900); return; }
+    const dig = bolha("<i></i><i></i><i></i>", "digitando");
+    chatT = setTimeout(() => {
+      dig.remove();
+      const [h, t, f] = CHAT[chatK++];
+      bolha(`<img src="${u(f, 500)}" alt="" loading="lazy" /><p>${t}</p><time>${h}</time>`);
+      chatT = setTimeout(chatPasso, chatK >= CHAT.length ? 3600 : 2200);
+    }, calmo ? 200 : 1100);
+  }
+  new IntersectionObserver(([e]) => { chatVis = e.isIntersecting; if (chatVis && !chatT) chatPasso(); }, { threshold: .25 }).observe(chat);
 
   /* Rotina: cena fotográfica, a luz do dia muda com o scroll */
   // [hora, nome, descrição, foto, câmera, legenda, tom (soft-light), luz [cor, x, y, força]]
   const R = [
-    [7, "Café da manhã", "A ração que ele come em casa, no horário de casa.", "1543466835-00a7907e9de1", "CAM 01 · Refeitório", "Foto do café enviada ao tutor", "#ffb169", ["#ffc27a", .15, .1, .55]],
-    [9, "Recreação", "Grupos por porte e energia, com monitor o tempo todo.", "1760530327971-f8523426c60a", "CAM 03 · Gramado", "Vídeo da brincadeira enviado", "#fff0d2", ["#fff3d6", .35, -.05, .35]],
-    [12, "Soneca", "Quartinho climatizado e música calma depois do almoço.", "1561130627-94d7dd29776d", "CAM 02 · Quartinhos", "Soneca registrada às 12h30", "#f4f7ff", ["#ffffff", .55, -.1, .2]],
-    [15, "Piscina e gramado", "Nos dias de sol, com monitor, brinquedos e secagem caprichada.", "1722257401181-a04cc4df36f8", "CAM 04 · Piscina", "Fotos da tarde enviadas", "#ffdca0", ["#ffe2a8", .75, -.05, .35]],
-    [18, "Jantar", "E um petisco natural pra fechar o dia no pôr do sol.", "1548199973-03cce0bbc87b", "CAM 03 · Gramado", "Vídeo do fim de tarde enviado", "#ff8a3d", ["#ff9a4a", .9, .25, .7]],
-    [20, "Hora de dormir", "Luz baixa, caminha quentinha e foto de boa-noite pra você.", "1695451486995-7697b5c1be51", "CAM 02 · Quartinhos · IR", "Foto de boa-noite enviada", "#3a4a8a", ["#ffb36b", .78, .55, .22]],
+    [7, "Café da manhã", "A ração que ele come em casa, no horário de casa.", "1543466835-00a7907e9de1", "enviado pela Ju · refeitório", "Foto do café enviada ao tutor", "#ffb169", ["#ffc27a", .15, .1, .55]],
+    [9, "Recreação", "Grupos por porte e energia, com monitor o tempo todo.", "1760530327971-f8523426c60a", "enviado pelo Léo · gramado", "Vídeo da brincadeira enviado", "#fff0d2", ["#fff3d6", .35, -.05, .35]],
+    [12, "Soneca", "Quartinho climatizado e música calma depois do almoço.", "1561130627-94d7dd29776d", "enviado pela Ju · quartinhos", "Soneca registrada às 12h30", "#f4f7ff", ["#ffffff", .55, -.1, .2]],
+    [15, "Piscina e gramado", "Nos dias de sol, com monitor, brinquedos e secagem caprichada.", "1722257401181-a04cc4df36f8", "enviado pelo Léo · piscina", "Fotos da tarde enviadas", "#ffdca0", ["#ffe2a8", .75, -.05, .35]],
+    [18, "Jantar", "E um petisco natural pra fechar o dia no pôr do sol.", "1548199973-03cce0bbc87b", "enviado pela Ju · gramado", "Vídeo do fim de tarde enviado", "#ff8a3d", ["#ff9a4a", .9, .25, .7]],
+    [20, "Hora de dormir", "Luz baixa, caminha quentinha e foto de boa-noite pra você.", "1695451486995-7697b5c1be51", "enviado pela Ju · quartinhos", "Foto de boa-noite enviada", "#3a4a8a", ["#ffb36b", .78, .55, .22]],
   ];
   const dia = $("#rotina"), cena = $("#cena"), linhaD = $("#diaLinha"), diaTxt = $("#diaTxt"), tom = $("#tom"), noiteEl = $("#noite"), luz = $("#luz"), estrelas = $("#estrelas");
   cena.innerHTML = R.map(([, n, , f], i) => `<img src="${u(f, 1920)}" alt="" ${i > 1 ? 'loading="lazy"' : ""} />`).join("");

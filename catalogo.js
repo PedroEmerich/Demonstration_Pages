@@ -244,8 +244,8 @@ window.MODELOS = [
     titulo: "Bicho Feliz — Hotel e Creche Pet",
     revisado: true,
     segmento: "Veterinária",
-    descricao: "Hotel e creche pet com casinha que se abre no scroll, pet cam ao vivo, dia do pet com céu que muda ao rolar e consulta de vaga direto no WhatsApp.",
-    tags: ["Consulta de vaga", "Pet cam", "Interativo"],
+    descricao: "Hotel e creche pet com casinha que se abre no scroll, fotos do dia enviadas pelos cuidadores, rotina com a luz mudando ao rolar e consulta de vaga direto no WhatsApp.",
+    tags: ["Consulta de vaga", "Fotos do dia", "Interativo"],
     cor: "#e26a2c",
   },
   {
