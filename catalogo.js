@@ -225,6 +225,7 @@ window.MODELOS = [
   {
     pasta: "aurora-lancamento",
     titulo: "Aurora — Lançamento Imobiliário",
+    revisado: true,
     segmento: "Imobiliária",
     descricao: "Lançamento de studios e 1 dormitório com prédio 3D interativo: acenda os andares, abra a maquete de cada pavimento, veja as fotos dos ambientes e caminhe pelo decorado.",
     tags: ["Prédio 3D", "Tour virtual", "Plantas"],
