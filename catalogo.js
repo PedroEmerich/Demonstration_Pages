@@ -243,9 +243,9 @@ window.MODELOS = [
     pasta: "bicho-feliz",
     titulo: "Bicho Feliz — Hotel e Creche Pet",
     segmento: "Veterinária",
-    descricao: "Hotelzinho pet com pet cam, calculadora de hospedagem por porte e período, rotina do dia ao vivo e checklist de check-in.",
-    tags: ["Hospedagem", "Pet cam", "Creche"],
-    cor: "#ffb703",
+    descricao: "Hotel e creche pet com casinha que se abre no scroll, pet cam ao vivo, dia do pet com céu que muda ao rolar e consulta de vaga direto no WhatsApp.",
+    tags: ["Consulta de vaga", "Pet cam", "Interativo"],
+    cor: "#e26a2c",
   },
   {
     pasta: "prumo-reformas",

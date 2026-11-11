@@ -4,391 +4,1045 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Bicho Feliz — Hotel e Creche para Pets</title>
-<meta name="description" content="Bicho Feliz: hotelzinho, creche, banho e tosa para cães e gatos, com câmeras ao vivo e veterinário de plantão. Calcule sua hospedagem online." />
-<meta name="theme-color" content="#eaf6ff" />
+<meta name="description" content="Bicho Feliz: hotelzinho, creche, banho e tosa em Cotia, com 1.200 m² de grama, piscina, câmeras ao vivo e veterinário de plantão. Consulte a disponibilidade pelo WhatsApp." />
+<meta name="theme-color" content="#fbf3e7" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet" />
+<link rel="preconnect" href="https://images.unsplash.com" />
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700;12..96,800&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=Instrument+Serif:ital@1&display=swap" rel="stylesheet" />
 <style>
   :root {
-    --bg: #eaf6ff; --white: #fff; --ink: #18324a; --muted: #5b7186; --line: #d4e7f5;
-    --blue: #2196f3; --blue2: #0d6fc4; --sun: #ffb300; --orange: #ff7a2f; --green: #22c55e; --pink: #ff6fa8;
-    --display: "Fredoka", system-ui, sans-serif; --sans: "Nunito", system-ui, sans-serif;
+    --cream: #fbf3e7; --paper: #fffaf3; --ink: #1f1a14; --ink2: #3a3128; --muted: #6f6458; --line: #eadcc6;
+    --orange: #e26a2c; --orange2: #c4521b; --yellow: #ffcf3f; --sky: #bcd7ff; --green: #2f7d4f; --pink: #ffb4a2;
+    --display: "Bricolage Grotesque", system-ui, sans-serif; --sans: "DM Sans", system-ui, sans-serif; --serif: "Instrument Serif", Georgia, serif;
     --ease: cubic-bezier(.2,.8,.2,1); --spring: cubic-bezier(.34,1.56,.64,1);
+    --wrap: min(1240px, 100% - 40px);
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  html { overflow-x: clip; scroll-behavior: smooth; scroll-padding-top: 90px; }
-  body { background: var(--bg); color: var(--ink); font-family: var(--sans); line-height: 1.6; -webkit-font-smoothing: antialiased; overflow-x: clip; }
+  html { overflow-x: clip; scroll-padding-top: 90px; }
+  body { background: var(--cream); color: var(--ink); font-family: var(--sans); line-height: 1.55; -webkit-font-smoothing: antialiased; overflow-x: clip; }
   img { display: block; max-width: 100%; }
   a { color: inherit; text-decoration: none; }
   button, input, select { font: inherit; color: inherit; }
   button { background: none; border: 0; cursor: pointer; }
-  .wrap { width: min(1220px, 100% - 40px); margin-inline: auto; }
-  [class*="__grid"] > * { min-width: 0; }
-  h1, h2, h3 { font-family: var(--display); font-weight: 700; letter-spacing: -.01em; line-height: 1.05; }
-  .h2 { font-size: clamp(36px, 4.8vw, 62px); }
-  .h2 span, h1 span { color: var(--blue); }
-  .pill { display: inline-flex; gap: 8px; align-items: center; padding: 8px 16px; border-radius: 999px; background: var(--white); font-weight: 800; font-size: 14px; box-shadow: 0 3px 0 var(--line); }
-  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 16px 28px; border-radius: 999px; font-family: var(--display); font-weight: 600; font-size: 18px; transition: transform .35s var(--spring), box-shadow .3s; }
-  .btn:hover { transform: translateY(-3px) scale(1.03); }
-  .btn--b { background: var(--blue); color: #fff; box-shadow: 0 6px 0 var(--blue2); }
-  .btn--s { background: var(--sun); color: var(--ink); box-shadow: 0 6px 0 #d18f00; }
-  .btn--w { background: var(--white); box-shadow: 0 6px 0 var(--line); }
-  [data-r] { opacity: 0; transform: translateY(36px) scale(.97); transition: opacity .8s var(--ease), transform .9s var(--spring); transition-delay: var(--d, 0s); }
+  svg { display: block; }
+  .wrap { width: var(--wrap); margin-inline: auto; }
+  h1, h2, h3 { font-family: var(--display); font-weight: 700; letter-spacing: -.035em; line-height: .95; }
+  em { font-family: var(--serif); font-style: italic; font-weight: 400; letter-spacing: -.01em; }
+  .h2 { font-size: clamp(42px, 6vw, 92px); }
+  .h2 em { color: var(--orange); }
+  .tag { display: inline-flex; align-items: center; gap: 8px; font-weight: 700; font-size: 13px; letter-spacing: .14em; text-transform: uppercase; }
+  .tag::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--orange); }
+  .btn { position: relative; display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 17px 28px; border-radius: 999px; font-weight: 700; font-size: 16px; transition: background .3s, color .3s, box-shadow .3s; will-change: transform; }
+  .btn svg { width: 18px; height: 18px; transition: transform .4s var(--spring); }
+  .btn:hover svg { transform: translateX(4px) rotate(-8deg); }
+  .btn--ink { background: var(--ink); color: var(--cream); }
+  .btn--ink:hover { background: var(--orange); }
+  .btn--or { background: var(--orange); color: #fff; }
+  .btn--or:hover { background: var(--ink); }
+  .btn--ghost { box-shadow: inset 0 0 0 2px var(--ink); }
+  .btn--ghost:hover { background: var(--ink); color: var(--cream); }
+  .btn--light { background: var(--cream); color: var(--ink); }
+  .btn--light:hover { background: var(--yellow); }
+  [data-r] { opacity: 0; transform: translateY(40px); transition: opacity .9s var(--ease), transform 1s var(--ease); transition-delay: var(--d, 0s); }
   [data-r].in { opacity: 1; transform: none; }
-  .paws { position: absolute; inset: 0; pointer-events: none; opacity: .5; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Cg fill='%23d4e7f5' transform='rotate(-20 60 60)'%3E%3Cellipse cx='60' cy='72' rx='12' ry='10'/%3E%3Cellipse cx='44' cy='56' rx='5' ry='7'/%3E%3Cellipse cx='76' cy='56' rx='5' ry='7'/%3E%3Cellipse cx='53' cy='47' rx='5' ry='7'/%3E%3Cellipse cx='67' cy='47' rx='5' ry='7'/%3E%3C/g%3E%3C/svg%3E"); }
+  .paw { fill: currentColor; }
+
+  /* CURSOR + RASTRO */
+  .cur { position: fixed; left: 0; top: 0; z-index: 200; width: 38px; height: 38px; margin: -19px 0 0 -19px; border-radius: 50%; border: 1.5px solid #fff; mix-blend-mode: difference; pointer-events: none; display: grid; place-items: center; transition: width .35s var(--spring), height .35s var(--spring), margin .35s var(--spring), background .3s, border-color .3s; opacity: 0; }
+  .cur span { font-weight: 700; font-size: 13px; color: var(--ink); opacity: 0; transition: opacity .2s; white-space: nowrap; }
+  .cur.on { opacity: 1; }
+  .cur.hot { width: 64px; height: 64px; margin: -32px 0 0 -32px; background: #fff; }
+  .cur.lbl { width: 92px; height: 92px; margin: -46px 0 0 -46px; background: var(--yellow); border-color: var(--yellow); mix-blend-mode: normal; }
+  .cur.lbl span { opacity: 1; }
+  .pegada { position: fixed; left: 0; top: 0; z-index: 3; width: 22px; height: 22px; margin: -11px 0 0 -11px; color: var(--orange); pointer-events: none; opacity: 0; }
+  .pegada.vai { animation: pegada 1.3s var(--ease) forwards; }
+  @keyframes pegada { 0% { opacity: 0; scale: .4; } 12% { opacity: .55; scale: 1; } 100% { opacity: 0; scale: .9; } }
+  @media (hover: none), (pointer: coarse) { .cur, .pegada { display: none; } }
 
   /* NAV */
-  .nav { position: sticky; top: 0; z-index: 50; background: rgba(234,246,255,.92); backdrop-filter: blur(10px); }
-  .nav__in { height: 80px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
-  .logo { display: flex; align-items: center; gap: 10px; font-family: var(--display); font-weight: 700; font-size: 26px; color: var(--blue2); }
-  .logo i { width: 46px; height: 46px; border-radius: 16px; background: var(--sun); display: grid; place-items: center; font-style: normal; font-size: 24px; transform: rotate(-8deg); transition: transform .4s var(--spring); }
-  .logo:hover i { transform: rotate(8deg) scale(1.1); }
-  .nav__links { display: flex; gap: 26px; font-weight: 700; }
-  .nav__links a:hover { color: var(--blue); }
-  .burger { display: none; width: 48px; height: 48px; border-radius: 16px; background: var(--blue); place-items: center; }
-  .burger span { width: 18px; height: 2.5px; border-radius: 2px; background: #fff; box-shadow: 0 6px 0 #fff, 0 -6px 0 #fff; }
+  .nav { position: fixed; top: 14px; left: 50%; z-index: 80; width: min(1240px, 100% - 24px); transform: translateX(-50%); transition: transform .5s var(--ease); }
+  .nav.esconde { transform: translate(-50%, -130%); }
+  .nav__in { display: flex; align-items: center; justify-content: space-between; gap: 18px; padding: 8px 8px 8px 18px; border-radius: 999px; background: rgba(255,250,243,.82); backdrop-filter: blur(14px) saturate(1.4); -webkit-backdrop-filter: blur(14px) saturate(1.4); box-shadow: 0 10px 40px -18px rgba(31,26,20,.35), inset 0 0 0 1px rgba(31,26,20,.06); }
+  .logo { display: flex; align-items: center; gap: 10px; font-family: var(--display); font-weight: 800; font-size: 22px; letter-spacing: -.04em; }
+  .logo b { width: 38px; height: 38px; border-radius: 12px; background: var(--orange); color: #fff; display: grid; place-items: center; transform: rotate(-10deg); transition: transform .5s var(--spring); }
+  .logo b svg { width: 22px; height: 22px; }
+  .logo:hover b { transform: rotate(14deg) scale(1.08); }
+  .nav__links { display: flex; gap: 6px; font-weight: 600; font-size: 15px; }
+  .nav__links a { padding: 9px 14px; border-radius: 999px; transition: background .25s; }
+  .nav__links a:hover { background: rgba(31,26,20,.07); }
+  .nav .btn { padding: 12px 20px; font-size: 15px; }
+  .burger { display: none; width: 46px; height: 46px; border-radius: 50%; background: var(--ink); place-items: center; }
+  .burger span { width: 18px; height: 2px; background: var(--cream); box-shadow: 0 6px 0 var(--cream), 0 -6px 0 var(--cream); transition: all .3s; }
+  .nav.aberto .burger span { box-shadow: none; transform: rotate(45deg); }
+  .nav.aberto .burger span::after { content: ""; display: block; width: 18px; height: 2px; background: var(--cream); transform: rotate(-90deg); }
 
   /* HERO */
-  .hero { position: relative; padding: 50px 0 100px; overflow: hidden; }
-  .hero__grid { position: relative; display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center; }
-  .hero h1 { font-size: clamp(46px, 6vw, 88px); margin: 18px 0 20px; }
-  .hero h1 .bounce { display: inline-block; animation: bounce 2.4s var(--spring) infinite; transform-origin: bottom; }
-  @keyframes bounce { 0%, 60%, 100% { transform: none; } 30% { transform: translateY(-14px) rotate(-6deg); } }
-  .hero p { font-size: 19px; color: var(--muted); max-width: 460px; }
-  .hero__ctas { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 30px; }
-  .trust { display: flex; gap: 20px; flex-wrap: wrap; margin-top: 30px; font-weight: 700; font-size: 15px; }
-  .trust span { display: flex; gap: 8px; align-items: center; }
-  .hero__art { position: relative; height: 560px; }
-  .blob { position: absolute; inset: 4% 4% 10% 6%; border-radius: 48% 52% 44% 56% / 52% 46% 54% 48%; overflow: hidden; animation: morph 12s ease-in-out infinite; box-shadow: 0 40px 60px -40px rgba(24,50,74,.5); }
-  .blob img { width: 100%; height: 100%; object-fit: cover; }
-  @keyframes morph { 50% { border-radius: 56% 44% 52% 48% / 44% 56% 44% 56%; } }
-  .cam { position: absolute; right: 0; bottom: 0; width: 46%; background: var(--ink); border-radius: 22px; padding: 8px; box-shadow: 0 24px 40px -20px rgba(24,50,74,.6); transform: rotate(3deg); }
-  .cam__scr { position: relative; aspect-ratio: 4/3; border-radius: 16px; overflow: hidden; background: #000; }
-  .cam__scr img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 1s; filter: saturate(.8) contrast(1.05); }
-  .cam__scr img.on { opacity: 1; }
-  .cam__scr::after { content: ""; position: absolute; inset: 0; background: repeating-linear-gradient(0deg, rgba(255,255,255,.04) 0 2px, transparent 2px 4px); pointer-events: none; }
-  .rec { position: absolute; left: 10px; top: 10px; z-index: 1; display: flex; align-items: center; gap: 6px; font-family: var(--display); font-size: 13px; color: #fff; background: rgba(0,0,0,.45); padding: 3px 9px; border-radius: 999px; }
-  .rec i { width: 8px; height: 8px; border-radius: 50%; background: #ff3b3b; animation: blink 1s steps(1) infinite; }
-  @keyframes blink { 50% { opacity: 0; } }
-  .cam__meta { display: flex; justify-content: space-between; color: #9fb7cc; font-size: 12px; padding: 8px 6px 2px; font-weight: 700; }
-  .badge { position: absolute; left: -4%; top: 8%; background: var(--white); border-radius: 22px; padding: 12px 16px; display: flex; gap: 10px; align-items: center; font-weight: 800; box-shadow: 0 16px 30px -16px rgba(24,50,74,.5); animation: float 5s ease-in-out infinite; }
-  .badge small { display: block; font-weight: 600; color: var(--muted); font-size: 13px; }
-  @keyframes float { 50% { transform: translateY(-12px) rotate(-2deg); } }
+  .hero { position: relative; height: 250vh; }
+  .hero__stick { position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden; }
+  .hero__grid { position: relative; z-index: 2; height: 100%; display: grid; grid-template-columns: 1.08fr .92fr; gap: 40px; align-items: center; padding-top: 70px; }
+  .hero__txt { will-change: transform, opacity; }
+  .hero__pill { display: inline-flex; align-items: center; gap: 10px; padding: 8px 16px 8px 8px; border-radius: 999px; background: var(--paper); box-shadow: inset 0 0 0 1px var(--line); font-weight: 600; font-size: 14px; }
+  .hero__pill i { font-style: normal; padding: 4px 10px; border-radius: 999px; background: var(--ink); color: var(--yellow); font-weight: 700; font-size: 13px; }
+  .hero h1 { font-size: clamp(54px, 8.4vw, 132px); margin: 22px 0 22px; }
+  .hero h1 .ln { display: block; overflow: hidden; padding-bottom: .04em; }
+  .hero h1 .ln > span { display: inline-block; transform: translateY(105%); animation: sobe 1.1s var(--ease) forwards; animation-delay: var(--d); }
+  .hero h1 em { color: var(--orange); font-size: 1.08em; }
+  @keyframes sobe { to { transform: none; } }
+  .hero p.lead { font-size: clamp(17px, 1.4vw, 20px); color: var(--muted); max-width: 470px; }
+  .hero__ctas { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 30px; }
+  .hero__trust { display: flex; gap: 22px; flex-wrap: wrap; margin-top: 30px; font-weight: 600; font-size: 14px; color: var(--ink2); }
+  .hero__trust span { display: flex; gap: 8px; align-items: center; }
+  .hero__trust svg { width: 18px; height: 18px; color: var(--orange); }
+  .casa-slot { position: relative; justify-self: center; width: min(100%, 440px); aspect-ratio: 4 / 5; }
+  .casa { position: absolute; inset: 0; z-index: 1; overflow: hidden; clip-path: polygon(50% 0, 100% 30%, 100% 100%, 0 100%, 0 30%); background: var(--orange); }
+  .casa img { position: absolute; left: 0; top: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 40%; }
+  .casa__msg { position: absolute; inset: 0; z-index: 2; display: grid; place-content: center; text-align: center; color: #fff; padding: 20px; opacity: 0; pointer-events: none; }
+  .casa__msg h2 { font-size: clamp(48px, 9vw, 150px); text-shadow: 0 10px 50px rgba(120,40,0,.35); }
+  .casa__msg h2 em { color: var(--yellow); }
+  .casa__msg p { margin: 18px auto 0; max-width: 520px; font-size: clamp(16px, 1.5vw, 20px); font-weight: 600; text-shadow: 0 2px 20px rgba(120,40,0,.4); }
+  .telhado { position: absolute; inset: 0; z-index: 3; pointer-events: none; width: 100%; height: 100%; overflow: visible; }
+  .telhado polyline { fill: none; stroke: var(--ink); stroke-width: 16; stroke-linecap: round; stroke-linejoin: round; }
+  .adesivo { position: absolute; z-index: 4; display: flex; align-items: center; gap: 10px; padding: 10px 16px 10px 10px; border-radius: 18px; background: var(--paper); box-shadow: 0 18px 40px -18px rgba(31,26,20,.45); font-weight: 700; font-size: 14px; line-height: 1.2; will-change: transform; }
+  .adesivo small { display: block; font-weight: 500; color: var(--muted); font-size: 12.5px; }
+  .adesivo b { width: 38px; height: 38px; border-radius: 12px; display: grid; place-items: center; background: var(--yellow); flex: none; }
+  .adesivo b svg { width: 20px; height: 20px; }
+  .ad1 { left: -16%; top: 44%; }
+  .ad2 { right: -10%; bottom: 8%; }
+  .ad2 b { background: var(--sky); }
+  .selo { position: absolute; z-index: 4; right: -12%; top: 4%; width: 128px; height: 128px; will-change: transform; }
+  .selo svg { width: 100%; height: 100%; animation: gira 18s linear infinite; }
+  .selo text { font-family: var(--display); font-weight: 700; font-size: 12.5px; letter-spacing: .14em; text-transform: uppercase; fill: var(--ink); }
+  .selo i { position: absolute; inset: 34px; border-radius: 50%; background: var(--ink); color: var(--yellow); display: grid; place-items: center; }
+  .selo i svg { width: 30px; height: 30px; animation: none; }
+  @keyframes gira { to { rotate: 360deg; } }
+  .rolar { position: absolute; z-index: 3; left: 50%; bottom: 22px; transform: translateX(-50%); display: flex; align-items: center; gap: 10px; font-weight: 600; font-size: 13px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+  .rolar i { width: 22px; height: 34px; border-radius: 12px; box-shadow: inset 0 0 0 2px currentColor; position: relative; }
+  .rolar i::after { content: ""; position: absolute; left: 50%; top: 7px; width: 4px; height: 7px; margin-left: -2px; border-radius: 2px; background: currentColor; animation: rola 1.6s var(--ease) infinite; }
+  @keyframes rola { 0% { transform: none; opacity: 1; } 80%, 100% { transform: translateY(12px); opacity: 0; } }
 
-  /* SERVIÇOS */
-  .svc { padding: 100px 0; }
-  .head { display: flex; justify-content: space-between; align-items: end; gap: 30px; flex-wrap: wrap; margin-bottom: 44px; }
-  .head p { color: var(--muted); max-width: 420px; font-size: 17px; }
-  .sgrid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; }
-  .s { background: var(--white); border-radius: 28px; padding: 26px 20px; text-align: center; box-shadow: 0 5px 0 var(--line); transition: transform .4s var(--spring); }
-  .s:hover { transform: translateY(-8px) rotate(-2deg); }
-  .s b { display: block; font-size: 46px; margin-bottom: 12px; }
-  .s h3 { font-size: 21px; }
-  .s p { color: var(--muted); font-size: 14px; margin-top: 6px; }
-  .s em { display: inline-block; margin-top: 12px; font-style: normal; font-weight: 800; color: var(--blue); }
+  /* FAIXA */
+  .faixa { position: relative; z-index: 5; background: var(--ink); color: var(--cream); padding: 22px 0; transform: rotate(-2deg); margin: -30px -20px 0; overflow: hidden; }
+  .faixa__trilho { display: flex; width: max-content; will-change: transform; }
+  .faixa__trilho span { display: flex; align-items: center; gap: 36px; padding-right: 36px; font-family: var(--display); font-weight: 700; font-size: clamp(30px, 4vw, 56px); letter-spacing: -.03em; white-space: nowrap; }
+  .faixa__trilho em { color: var(--yellow); }
+  .faixa__trilho svg { width: 34px; height: 34px; color: var(--orange); }
 
-  /* CALCULADORA */
-  .calc { padding: 100px 0; background: var(--blue); color: #fff; border-radius: 50px; margin: 0 14px; position: relative; overflow: hidden; }
-  .calc .paws { opacity: .12; filter: brightness(3); }
-  .calc__grid { position: relative; display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start; }
-  .calc .h2 span { color: var(--sun); }
-  .form { background: var(--white); color: var(--ink); border-radius: 32px; padding: 32px; display: grid; gap: 20px; }
-  .form h4 { font-family: var(--display); font-size: 18px; margin-bottom: 10px; }
-  .two { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-  .form input[type=date] { width: 100%; padding: 14px; border-radius: 16px; border: 3px solid var(--line); background: var(--bg); font-weight: 700; outline: none; }
-  .form input[type=date]:focus { border-color: var(--blue); }
-  .sizes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
-  .sz { padding: 14px 8px; border-radius: 18px; border: 3px solid var(--line); text-align: center; font-weight: 800; transition: all .3s var(--spring); }
-  .sz span { display: block; font-size: 26px; line-height: 1; margin-bottom: 4px; }
-  .sz small { display: block; font-weight: 600; font-size: 12px; color: var(--muted); }
-  .sz.on { border-color: var(--blue); background: #e3f2ff; transform: translateY(-3px); }
-  .stp { display: flex; align-items: center; gap: 16px; }
-  .stp button { width: 44px; height: 44px; border-radius: 14px; background: var(--bg); font-size: 22px; font-weight: 800; }
-  .stp output { font-family: var(--display); font-size: 30px; min-width: 30px; text-align: center; }
-  .adds { display: grid; gap: 8px; }
-  .add { display: flex; gap: 12px; align-items: center; padding: 12px 14px; border-radius: 16px; background: var(--bg); cursor: pointer; font-weight: 700; }
-  .add input { width: 22px; height: 22px; accent-color: var(--blue); }
-  .add small { margin-left: auto; color: var(--muted); font-weight: 700; }
-  .bill { background: var(--ink); border-radius: 32px; padding: 32px; position: sticky; top: 100px; }
-  .bill h4 { font-family: var(--display); font-size: 22px; }
-  .lines { margin: 20px 0; display: grid; gap: 10px; }
-  .ln { display: flex; justify-content: space-between; gap: 14px; font-size: 15px; color: #c7d9ea; padding-bottom: 10px; border-bottom: 1px dashed #2f4e6b; }
-  .ln b { color: #fff; }
-  .tot { display: flex; justify-content: space-between; align-items: baseline; }
-  .tot b { font-family: var(--display); font-size: 48px; color: var(--sun); }
-  .nights { display: inline-block; margin-top: 6px; padding: 6px 14px; border-radius: 999px; background: #2f4e6b; font-weight: 800; font-size: 14px; }
-  .bill .btn { width: 100%; margin-top: 18px; }
-  .warn { color: #ffd6d6; font-size: 14px; font-weight: 700; margin-top: 10px; min-height: 20px; }
+  /* MANIFESTO */
+  .manifesto { padding: 150px 0 120px; }
+  .manifesto__txt { font-family: var(--display); font-weight: 600; font-size: clamp(30px, 4.1vw, 62px); line-height: 1.06; letter-spacing: -.035em; max-width: 1120px; }
+  .manifesto__txt .w { color: rgba(31,26,20,.14); transition: color .35s; }
+  .manifesto__txt .w.on { color: var(--ink); }
+  .manifesto__txt .w.or.on { color: var(--orange); }
+  .nums { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 80px; }
+  .num { padding: 26px 24px; border-radius: 28px; background: var(--paper); box-shadow: inset 0 0 0 1px var(--line); }
+  .num b { display: block; font-family: var(--display); font-weight: 700; font-size: clamp(40px, 4.4vw, 64px); letter-spacing: -.05em; line-height: 1; }
+  .num b sup { font-size: .45em; vertical-align: top; margin-left: 2px; color: var(--orange); }
+  .num span { display: block; margin-top: 10px; color: var(--muted); font-weight: 500; }
 
-  /* ROTINA */
-  .day { padding: 100px 0; }
-  .tl { display: grid; grid-template-columns: repeat(6, 1fr); gap: 14px; position: relative; }
-  .tl::before { content: ""; position: absolute; left: 4%; right: 4%; top: 46px; height: 6px; border-radius: 6px; background: repeating-linear-gradient(90deg, var(--line) 0 12px, transparent 12px 20px); }
-  .tm { position: relative; text-align: center; }
-  .tm i { width: 92px; height: 92px; margin: 0 auto 14px; border-radius: 50%; background: var(--white); display: grid; place-items: center; font-style: normal; font-size: 40px; box-shadow: 0 5px 0 var(--line); transition: all .4s var(--spring); position: relative; }
-  .tm.now i { background: var(--sun); transform: scale(1.12); box-shadow: 0 0 0 8px rgba(255,179,0,.25); }
-  .tm.now i::after { content: "agora"; position: absolute; top: -12px; right: -8px; background: var(--orange); color: #fff; font-family: var(--display); font-size: 12px; padding: 2px 8px; border-radius: 999px; }
-  .tm b { font-family: var(--display); font-size: 22px; display: block; }
-  .tm span { font-weight: 700; display: block; }
-  .tm small { color: var(--muted); font-size: 13px; }
+  /* SERVIÇOS (scroll horizontal) */
+  .svc { position: relative; background: var(--ink); color: var(--cream); }
+  .svc__stick { position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden; display: flex; flex-direction: column; justify-content: center; }
+  .svc__trilho { display: flex; gap: 22px; padding: 0 max(20px, (100vw - 1240px) / 2); width: max-content; will-change: transform; }
+  .svc__intro { width: min(430px, 80vw); flex: none; display: flex; flex-direction: column; justify-content: center; padding-right: 30px; }
+  .svc__intro .h2 em { color: var(--yellow); }
+  .svc__intro p { margin-top: 22px; color: #bfb3a3; font-size: 17px; max-width: 340px; }
+  .svc__intro .seta { margin-top: 30px; display: flex; align-items: center; gap: 12px; font-weight: 700; color: var(--yellow); }
+  .svc__intro .seta svg { width: 40px; height: 40px; animation: empurra 1.6s var(--ease) infinite; }
+  @keyframes empurra { 50% { transform: translateX(10px); } }
+  .sv { position: relative; flex: none; width: min(380px, 78vw); height: min(560px, 72svh); border-radius: 32px; overflow: hidden; background: #2c251d; isolation: isolate; }
+  .sv img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s var(--ease); z-index: -2; }
+  .sv::after { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, rgba(20,15,10,0) 35%, rgba(20,15,10,.88)); }
+  .sv:hover img { transform: scale(1.08); }
+  .sv__n { position: absolute; top: 20px; left: 22px; font-family: var(--display); font-weight: 700; font-size: 15px; padding: 6px 12px; border-radius: 999px; background: rgba(255,250,243,.9); color: var(--ink); }
+  .sv__c { position: absolute; left: 0; right: 0; bottom: 0; padding: 26px; }
+  .sv h3 { font-size: clamp(34px, 3vw, 44px); }
+  .sv p { margin-top: 10px; color: #e7dccd; font-size: 15.5px; }
+  .sv__pr { margin-top: 18px; display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+  .sv__pr span { font-weight: 700; color: var(--yellow); }
+  .sv__pr a { width: 46px; height: 46px; border-radius: 50%; background: var(--cream); color: var(--ink); display: grid; place-items: center; transition: transform .4s var(--spring), background .3s; }
+  .sv__pr a svg { width: 18px; height: 18px; }
+  .sv:hover .sv__pr a { transform: rotate(-45deg); background: var(--yellow); }
+  .svc__barra { width: var(--wrap); margin: 40px auto 0; height: 3px; border-radius: 3px; background: rgba(251,243,231,.14); overflow: hidden; }
+  .svc__barra i { display: block; height: 100%; width: 100%; background: var(--yellow); transform-origin: left; transform: scaleX(0); }
+
+  /* PET CAM */
+  .cam { padding: 140px 0; background: var(--ink); color: var(--cream); border-radius: 0 0 56px 56px; }
+  .cam__grid { display: grid; grid-template-columns: .8fr 1.2fr; gap: 60px; align-items: center; }
+  .cam__grid .h2 em { color: var(--yellow); }
+  .cam__grid > div > p { margin-top: 22px; color: #bfb3a3; font-size: 17px; max-width: 420px; }
+  .cam__tabs { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 30px; }
+  .cam__tabs button { padding: 11px 16px; border-radius: 999px; box-shadow: inset 0 0 0 1.5px rgba(251,243,231,.25); font-weight: 600; font-size: 14px; transition: all .3s; }
+  .cam__tabs button:hover { box-shadow: inset 0 0 0 1.5px var(--cream); }
+  .cam__tabs button.on { background: var(--yellow); color: var(--ink); box-shadow: none; }
+  .tv { position: relative; padding: 14px; border-radius: 34px; background: linear-gradient(145deg, #3a3128, #15110d); box-shadow: 0 50px 90px -40px rgba(0,0,0,.8), inset 0 1px 0 rgba(255,255,255,.08); transform: perspective(1400px) rotateY(-8deg) rotateX(3deg); transition: transform .6s var(--ease); }
+  .tv:hover { transform: perspective(1400px) rotateY(0) rotateX(0); }
+  .tv__tela { position: relative; aspect-ratio: 16 / 10; border-radius: 22px; overflow: hidden; background: #000; }
+  .tv__tela img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transform: scale(1.06); transition: opacity .9s, transform 6s linear; filter: saturate(.85) contrast(1.06); }
+  .tv__tela img.on { opacity: 1; transform: scale(1); }
+  .tv__tela::after { content: ""; position: absolute; inset: 0; background: repeating-linear-gradient(0deg, rgba(255,255,255,.05) 0 1px, transparent 1px 3px), radial-gradient(120% 90% at 50% 50%, transparent 60%, rgba(0,0,0,.55)); pointer-events: none; }
+  .tv__hud { position: absolute; inset: 16px; z-index: 2; display: flex; flex-direction: column; justify-content: space-between; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 13px; color: #fff; text-shadow: 0 1px 6px rgba(0,0,0,.7); pointer-events: none; }
+  .tv__hud div { display: flex; justify-content: space-between; gap: 10px; }
+  .rec { display: flex; align-items: center; gap: 7px; font-weight: 700; }
+  .rec i { width: 9px; height: 9px; border-radius: 50%; background: #ff3b30; box-shadow: 0 0 10px #ff3b30; animation: pisca 1s steps(1) infinite; }
+  @keyframes pisca { 50% { opacity: 0; } }
+  .tv__pe { display: flex; justify-content: space-between; align-items: center; padding: 14px 8px 2px; color: #bfb3a3; font-size: 13px; font-weight: 600; }
+  .tv__pe span { display: flex; align-items: center; gap: 8px; }
+  .tv__pe i { width: 8px; height: 8px; border-radius: 50%; background: #3ddc84; }
+
+  /* ROTINA (céu) */
+  .dia { position: relative; height: 520vh; }
+  .dia__stick { position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden; background: linear-gradient(180deg, var(--c1, #ffd9a8), var(--c2, #fff1d6)); color: var(--tx, var(--ink)); transition: color .6s; }
+  .estrelas { position: absolute; inset: 0; opacity: var(--noite, 0); background-image: radial-gradient(1.5px 1.5px at 12% 18%, #fff 50%, transparent 51%), radial-gradient(1px 1px at 28% 32%, #fff 50%, transparent 51%), radial-gradient(1.5px 1.5px at 44% 12%, #fff 50%, transparent 51%), radial-gradient(1px 1px at 63% 26%, #fff 50%, transparent 51%), radial-gradient(2px 2px at 78% 14%, #fff 50%, transparent 51%), radial-gradient(1px 1px at 88% 36%, #fff 50%, transparent 51%), radial-gradient(1.5px 1.5px at 6% 42%, #fff 50%, transparent 51%), radial-gradient(1px 1px at 52% 40%, #fff 50%, transparent 51%), radial-gradient(1px 1px at 35% 6%, #fff 50%, transparent 51%), radial-gradient(1.5px 1.5px at 94% 8%, #fff 50%, transparent 51%); }
+  .astro { position: absolute; left: 0; top: 0; width: 130px; height: 130px; margin: -65px 0 0 -65px; border-radius: 50%; will-change: transform; }
+  .sol { background: radial-gradient(circle, #fff7d1 0 34%, #ffd34d 35% 58%, rgba(255,211,77,.35) 59% 70%, rgba(255,211,77,0) 71%); }
+  .lua { width: 96px; height: 96px; margin: -48px 0 0 -48px; background: radial-gradient(circle at 36% 36%, #fffdf2 0 40%, #e9e3c9 41% 70%); box-shadow: 0 0 60px 10px rgba(255,250,220,.25); }
+  .lua::after { content: ""; position: absolute; width: 18px; height: 18px; border-radius: 50%; background: rgba(0,0,0,.08); left: 52px; top: 50px; box-shadow: -26px -18px 0 -4px rgba(0,0,0,.07); }
+  .morro { position: absolute; left: 0; right: 0; bottom: 0; width: 100%; height: 30vh; }
+  .morro path { transition: fill .6s; }
+  .dia__conteudo { position: relative; z-index: 2; height: 100%; display: grid; grid-template-columns: 1.1fr .9fr; gap: 40px; align-items: center; padding: 90px 0 120px; }
+  .dia__hora { font-family: var(--display); font-weight: 800; font-size: clamp(84px, 13vw, 210px); letter-spacing: -.06em; line-height: .85; font-variant-numeric: tabular-nums; }
+  .dia__nome { font-family: var(--display); font-weight: 700; font-size: clamp(32px, 3.6vw, 54px); letter-spacing: -.035em; margin-top: 18px; line-height: 1; }
+  .dia__desc { margin-top: 12px; font-size: 18px; opacity: .78; max-width: 420px; }
+  .dia__nome, .dia__desc { transition: opacity .35s, transform .45s var(--ease); }
+  .troca .dia__nome, .troca .dia__desc { opacity: 0; transform: translateY(14px); }
+  .polas { position: relative; justify-self: center; width: min(360px, 70vw); aspect-ratio: 4 / 4.8; }
+  .polas figure { position: absolute; inset: 0; padding: 12px 12px 54px; background: #fff; border-radius: 6px; box-shadow: 0 30px 60px -30px rgba(0,0,0,.5); opacity: 0; transform: rotate(var(--r)) translateY(30px) scale(.94); transition: opacity .6s, transform .8s var(--spring); }
+  .polas figure.on { opacity: 1; transform: rotate(var(--r)); }
+  .polas img { width: 100%; height: 100%; object-fit: cover; border-radius: 2px; }
+  .polas figcaption { position: absolute; left: 0; right: 0; bottom: 14px; text-align: center; font-family: var(--serif); font-style: italic; font-size: 22px; color: var(--ink); }
+  .dia__linha { position: absolute; z-index: 3; left: 50%; bottom: 28px; transform: translateX(-50%); width: var(--wrap); display: flex; justify-content: space-between; gap: 6px; }
+  .dia__linha button { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 8px; font-weight: 700; font-size: 13px; opacity: .55; transition: opacity .3s; color: inherit; }
+  .dia__linha button i { width: 100%; height: 4px; border-radius: 4px; background: currentColor; opacity: .25; position: relative; overflow: hidden; }
+  .dia__linha button i b { position: absolute; inset: 0; background: currentColor; transform-origin: left; transform: scaleX(var(--p, 0)); opacity: 1; }
+  .dia__linha button.on { opacity: 1; }
+  .dia__rot { position: absolute; z-index: 3; top: 100px; left: 50%; transform: translateX(-50%); width: var(--wrap); }
+
+  /* DISPONIBILIDADE */
+  .vaga { padding: 150px 0 130px; position: relative; }
+  .vaga__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start; }
+  .vaga__cab p { margin-top: 20px; font-size: 18px; color: var(--muted); max-width: 470px; }
+  .form { margin-top: 36px; display: grid; gap: 22px; }
+  .campo label, .campo > span { display: block; font-weight: 700; font-size: 14px; margin-bottom: 10px; }
+  .campo input[type=text], .campo input[type=date] { width: 100%; height: 60px; padding: 0 20px; border-radius: 18px; border: 0; background: var(--paper); box-shadow: inset 0 0 0 1.5px var(--line); font-weight: 600; font-size: 17px; outline: none; transition: box-shadow .25s; }
+  .campo input:focus { box-shadow: inset 0 0 0 2px var(--ink); }
+  .campo.erro input { box-shadow: inset 0 0 0 2px #d93a2b; }
+  .campo .msg { display: block; min-height: 0; color: #c2321f; font-weight: 600; font-size: 13.5px; margin-top: 6px; }
+  .datas { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .portes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .porte { position: relative; display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 18px 10px 16px; border-radius: 22px; background: var(--paper); box-shadow: inset 0 0 0 1.5px var(--line); transition: box-shadow .25s, background .25s, transform .4s var(--spring); }
+  .porte:hover { transform: translateY(-3px); }
+  .porte .cao { height: 54px; display: flex; align-items: flex-end; color: var(--ink2); }
+  .porte .cao svg { width: calc(var(--s) * 74px); height: auto; transition: transform .5s var(--spring); }
+  .porte b { font-family: var(--display); font-size: 19px; letter-spacing: -.02em; }
+  .porte small { color: var(--muted); font-weight: 600; font-size: 13px; }
+  .porte.on { background: var(--ink); color: var(--cream); box-shadow: none; }
+  .porte.on .cao { color: var(--yellow); }
+  .porte.on .cao svg { transform: translateY(-4px) rotate(-4deg); }
+  .porte.on small { color: #bfb3a3; }
+  .form .btn { justify-self: start; margin-top: 6px; }
+  .form .btn svg.wa-i { width: 22px; height: 22px; }
+  .form .dica { font-size: 13.5px; color: var(--muted); font-weight: 500; }
+  .tremer { animation: tremer .45s; }
+  @keyframes tremer { 20%, 60% { transform: translateX(-8px); } 40%, 80% { transform: translateX(8px); } }
+
+  .passe-area { position: sticky; top: 120px; perspective: 1400px; }
+  .passe { position: relative; border-radius: 30px; background: var(--orange); color: #fff; box-shadow: 0 50px 80px -40px rgba(196,82,27,.65); transform-style: preserve-3d; transition: transform .25s ease-out; overflow: hidden; }
+  .passe::before { content: ""; position: absolute; inset: 0; background: radial-gradient(60% 50% at var(--gx, 30%) var(--gy, 20%), rgba(255,255,255,.28), transparent 70%); pointer-events: none; }
+  .passe__topo { display: flex; justify-content: space-between; align-items: center; padding: 24px 28px; border-bottom: 2px dashed rgba(255,255,255,.35); }
+  .passe__topo .logo { font-size: 20px; color: #fff; }
+  .passe__topo .logo b { background: var(--ink); width: 34px; height: 34px; }
+  .passe__topo small { font-weight: 700; font-size: 12px; letter-spacing: .16em; text-transform: uppercase; opacity: .85; }
+  .passe__corpo { padding: 26px 28px 8px; display: grid; gap: 22px; }
+  .passe__rota { display: flex; align-items: center; gap: 14px; }
+  .passe__rota div b { display: block; font-family: var(--display); font-weight: 800; font-size: clamp(34px, 3.4vw, 46px); letter-spacing: -.04em; line-height: 1; }
+  .passe__rota div small { font-weight: 600; font-size: 13px; opacity: .85; }
+  .passe__rota .voo { flex: 1; display: flex; align-items: center; gap: 8px; }
+  .passe__rota .voo i { flex: 1; height: 0; border-top: 2px dashed rgba(255,255,255,.6); }
+  .passe__rota .voo svg { width: 26px; height: 26px; transform: rotate(90deg); }
+  .passe__rota div:last-child { text-align: right; }
+  .passe__dados { display: grid; grid-template-columns: 1fr 1fr; gap: 16px 20px; }
+  .passe__dados small { display: block; font-weight: 700; font-size: 11.5px; letter-spacing: .14em; text-transform: uppercase; opacity: .75; }
+  .passe__dados b { display: block; font-family: var(--display); font-weight: 700; font-size: 22px; letter-spacing: -.02em; line-height: 1.15; margin-top: 2px; overflow-wrap: anywhere; }
+  .passe__dados .tutor { grid-column: 1 / -1; }
+  .passe__pe { position: relative; display: flex; align-items: center; justify-content: space-between; gap: 18px; margin-top: 16px; padding: 22px 28px 26px; background: var(--ink); }
+  .passe__pe::before, .passe__pe::after { content: ""; position: absolute; top: -14px; width: 28px; height: 28px; border-radius: 50%; background: var(--cream); }
+  .passe__pe::before { left: -14px; } .passe__pe::after { right: -14px; }
+  .barras { flex: 1; height: 52px; background: repeating-linear-gradient(90deg, var(--cream) 0 2px, transparent 2px 5px, var(--cream) 5px 6px, transparent 6px 9px, var(--cream) 9px 12px, transparent 12px 14px); opacity: .9; border-radius: 2px; }
+  .passe__cao { width: 92px; height: 60px; display: flex; align-items: flex-end; justify-content: center; color: var(--yellow); }
+  .passe__cao svg { width: calc(var(--s, 1) * 92px); transition: width .5s var(--spring); }
+  .passe__status { display: flex; align-items: center; gap: 8px; margin: 18px 4px 0; font-weight: 600; font-size: 14px; color: var(--muted); }
+  .passe__status i { width: 9px; height: 9px; border-radius: 50%; background: var(--yellow); box-shadow: 0 0 0 4px rgba(255,207,63,.3); }
+  .passe__status.ok i { background: #25d366; box-shadow: 0 0 0 4px rgba(37,211,102,.25); }
 
   /* CHECKLIST */
-  .check { padding: 0 0 100px; }
-  .ck__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; }
-  .ck { display: grid; gap: 10px; }
-  .ci { display: flex; gap: 14px; align-items: center; padding: 16px 18px; border-radius: 20px; background: var(--white); box-shadow: 0 4px 0 var(--line); cursor: pointer; font-weight: 700; transition: all .3s var(--spring); }
-  .ci input { display: none; }
-  .ci i { width: 30px; height: 30px; border-radius: 10px; border: 3px solid var(--line); display: grid; place-items: center; font-style: normal; color: #fff; transition: all .3s var(--spring); flex: none; }
-  .ci.on { background: #e8fbef; box-shadow: 0 4px 0 #bfeccf; }
-  .ci.on i { background: var(--green); border-color: var(--green); transform: rotate(-8deg); }
-  .ci small { display: block; color: var(--muted); font-weight: 600; }
-  .ready { margin-top: 18px; padding: 18px 20px; border-radius: 20px; font-weight: 800; font-size: 17px; background: var(--white); text-align: center; transition: all .4s var(--spring); }
-  .ready.ok { background: var(--green); color: #fff; transform: scale(1.03); }
-  .pgal { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-  .pgal figure { border-radius: 26px; overflow: hidden; aspect-ratio: 1; }
-  .pgal figure:nth-child(2) { margin-top: 40px; } .pgal figure:nth-child(3) { margin-top: -40px; }
-  .pgal img { width: 100%; height: 100%; object-fit: cover; transition: transform 1s var(--ease); }
-  .pgal figure:hover img { transform: scale(1.08) rotate(-2deg); }
+  .check { padding: 0 0 140px; }
+  .check__box { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; padding: 60px; border-radius: 48px; background: var(--paper); box-shadow: inset 0 0 0 1px var(--line); }
+  .ck { display: grid; gap: 10px; margin-top: 30px; }
+  .ci { display: flex; gap: 14px; align-items: center; padding: 16px 18px; border-radius: 20px; background: var(--cream); cursor: pointer; font-weight: 700; transition: background .3s, transform .4s var(--spring); }
+  .ci:hover { transform: translateX(6px); }
+  .ci input { position: absolute; opacity: 0; pointer-events: none; }
+  .ci i { width: 30px; height: 30px; border-radius: 10px; box-shadow: inset 0 0 0 2px var(--line); display: grid; place-items: center; flex: none; color: transparent; transition: all .35s var(--spring); }
+  .ci i svg { width: 16px; height: 16px; }
+  .ci small { display: block; color: var(--muted); font-weight: 500; font-size: 13.5px; }
+  .ci.on { background: #fff0d4; }
+  .ci.on i { background: var(--orange); box-shadow: none; color: #fff; transform: rotate(-8deg) scale(1.08); }
+  .ci:has(input:focus-visible) { outline: 2px solid var(--ink); outline-offset: 2px; }
+  .anel { position: relative; justify-self: center; width: min(360px, 74vw); aspect-ratio: 1; }
+  .anel svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+  .anel circle { fill: none; stroke-width: 16; }
+  .anel .fundo { stroke: var(--line); }
+  .anel .frente { stroke: var(--orange); stroke-linecap: round; transition: stroke-dashoffset .8s var(--spring), stroke .4s; }
+  .anel.ok .frente { stroke: var(--green); }
+  .anel__c { position: absolute; inset: 0; display: grid; place-content: center; text-align: center; padding: 50px; }
+  .anel__c b { font-family: var(--display); font-weight: 800; font-size: clamp(56px, 7vw, 92px); letter-spacing: -.05em; line-height: 1; }
+  .anel__c span { font-weight: 600; color: var(--muted); margin-top: 6px; }
+  .anel__foto { position: absolute; inset: 14%; border-radius: 50%; overflow: hidden; opacity: 0; transform: scale(.6); transition: all .7s var(--spring); }
+  .anel__foto img { width: 100%; height: 100%; object-fit: cover; }
+  .anel.ok .anel__foto { opacity: 1; transform: none; }
+  .anel.ok .anel__c { opacity: 0; }
+  .confete { position: fixed; z-index: 150; width: 24px; height: 24px; margin: -12px 0 0 -12px; pointer-events: none; }
 
-  /* PLANOS CRECHE */
-  .plans { padding: 0 0 100px; }
-  .pgrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
-  .pl { background: var(--white); border-radius: 32px; padding: 32px; box-shadow: 0 6px 0 var(--line); display: flex; flex-direction: column; transition: transform .4s var(--spring); }
-  .pl:hover { transform: translateY(-8px); }
-  .pl.hot { background: var(--sun); box-shadow: 0 6px 0 #d18f00; }
-  .pl h3 { font-size: 26px; }
-  .pl .pr { font-family: var(--display); font-size: 50px; margin: 12px 0 0; }
-  .pl .pr small { font-size: 16px; }
-  .pl ul { list-style: none; margin: 18px 0 26px; display: grid; gap: 8px; flex: 1; font-weight: 600; }
-  .pl li::before { content: "🐾 "; }
-  .tst { padding: 0 0 100px; }
-  .tgrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
-  .tt { background: var(--white); border-radius: 28px; padding: 26px; box-shadow: 0 5px 0 var(--line); }
-  .tt p { font-weight: 600; font-size: 17px; margin: 10px 0 16px; }
-  .tt footer { display: flex; gap: 12px; align-items: center; font-size: 14px; color: var(--muted); }
-  .tt footer img { width: 48px; height: 48px; border-radius: 50%; object-fit: cover; }
-  .tt footer b { color: var(--ink); display: block; }
-  .stars { color: var(--sun); letter-spacing: 2px; }
-  footer.f { background: var(--ink); color: #9fb7cc; padding: 50px 0; border-radius: 50px 50px 0 0; }
-  .foot { display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; align-items: center; }
-  footer.f .logo { color: #fff; }
-  .wa { position: fixed; right: 22px; bottom: 22px; z-index: 60; width: 58px; height: 58px; border-radius: 50%; background: #25d366; color: #fff; display: grid; place-items: center; box-shadow: 0 12px 30px -8px rgba(37,211,102,.6); transition: transform .3s var(--spring); }
-  .wa:hover { transform: scale(1.1) rotate(-8deg); }
+  /* PLANOS */
+  .planos { padding: 0 0 140px; }
+  .cab { display: flex; justify-content: space-between; align-items: end; gap: 30px; flex-wrap: wrap; margin-bottom: 50px; }
+  .cab p { color: var(--muted); max-width: 420px; font-size: 17px; }
+  .pgrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; perspective: 1200px; }
+  .pl { position: relative; display: flex; flex-direction: column; padding: 34px; border-radius: 36px; background: var(--paper); box-shadow: inset 0 0 0 1px var(--line); transition: transform .25s ease-out, box-shadow .3s; transform-style: preserve-3d; }
+  .pl.hot { background: var(--orange); color: #fff; box-shadow: 0 40px 70px -40px rgba(196,82,27,.7); }
+  .pl__selo { position: absolute; top: -14px; right: 26px; padding: 7px 14px; border-radius: 999px; background: var(--yellow); color: var(--ink); font-weight: 700; font-size: 13px; transform: rotate(4deg); }
+  .pl h3 { font-size: 28px; }
+  .pl .pr { font-family: var(--display); font-weight: 800; font-size: 60px; letter-spacing: -.05em; margin-top: 18px; line-height: 1; }
+  .pl .pr small { font-size: 17px; font-weight: 600; letter-spacing: 0; opacity: .7; }
+  .pl ul { list-style: none; margin: 26px 0 30px; display: grid; gap: 12px; flex: 1; font-weight: 500; }
+  .pl li { display: flex; gap: 10px; align-items: center; }
+  .pl li svg { width: 16px; height: 16px; flex: none; color: var(--orange); }
+  .pl.hot li svg { color: var(--yellow); }
+  .pl .btn { width: 100%; }
 
-  @media (max-width: 1040px) {
-    .nav__links, .nav__cta { display: none; }
+  /* DEPOIMENTOS */
+  .mural { padding: 0 0 160px; overflow: hidden; }
+  .mural__area { position: relative; height: 540px; margin-top: 20px; }
+  .pola { position: absolute; left: var(--x); top: var(--y); width: 280px; padding: 12px 12px 18px; background: #fff; border-radius: 6px; box-shadow: 0 24px 50px -24px rgba(31,26,20,.45); transform: rotate(var(--r)); cursor: grab; touch-action: none; user-select: none; transition: box-shadow .3s, scale .3s var(--spring); }
+  .pola:active { cursor: grabbing; }
+  .pola.arrasta { box-shadow: 0 50px 80px -30px rgba(31,26,20,.5); scale: 1.04; transition: box-shadow .3s, scale .3s var(--spring); }
+  .pola img { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 2px; pointer-events: none; }
+  .pola p { font-family: var(--serif); font-style: italic; font-size: 21px; line-height: 1.2; margin: 14px 4px 10px; color: var(--ink); }
+  .pola footer { display: flex; justify-content: space-between; gap: 8px; align-items: center; padding: 0 4px; font-size: 13.5px; color: var(--muted); }
+  .pola footer b { color: var(--ink); }
+  .pola .estr { color: var(--orange); letter-spacing: 1px; }
+  .pola .fita { position: absolute; top: -12px; left: 50%; width: 90px; height: 26px; margin-left: -45px; background: rgba(255,207,63,.75); transform: rotate(-4deg); }
+  .mural__dica { display: flex; align-items: center; gap: 8px; font-weight: 600; color: var(--muted); }
+  .mural__dica svg { width: 20px; height: 20px; }
+
+  /* FINAL */
+  .fim { position: relative; background: var(--orange); color: #fff; border-radius: 56px 56px 0 0; padding: 120px 0 0; overflow: hidden; }
+  .fim__cta { text-align: center; position: relative; z-index: 2; }
+  .fim__cta h2 { font-size: clamp(48px, 8vw, 128px); }
+  .fim__cta h2 em { color: var(--ink); }
+  .fim__cta p { margin: 20px auto 34px; font-size: 19px; max-width: 520px; color: #ffeede; }
+  .cachorro { width: min(300px, 62vw); margin: 60px auto -6px; position: relative; z-index: 1; }
+  .cachorro svg { width: 100%; height: auto; overflow: visible; }
+  .lingua { transform-origin: 100px 150px; animation: lingua 1.4s ease-in-out infinite; }
+  @keyframes lingua { 50% { transform: scaleY(1.18); } }
+  .olho-p { transition: transform .15s ease-out; }
+  .palpebra { transform-origin: center; transform-box: fill-box; transform: scaleY(0); animation: piscar 5s infinite; }
+  @keyframes piscar { 0%, 94%, 100% { transform: scaleY(0); } 96% { transform: scaleY(1); } }
+  .rodape { position: relative; z-index: 2; background: var(--ink); color: #bfb3a3; padding: 60px 0 30px; }
+  .rodape__grid { display: grid; grid-template-columns: 1.2fr 1fr 1fr 1fr; gap: 30px; }
+  .rodape h4 { color: var(--cream); font-family: var(--display); font-size: 17px; margin-bottom: 12px; }
+  .rodape a:hover { color: var(--yellow); }
+  .rodape .logo { color: var(--cream); }
+  .rodape p, .rodape li { font-size: 15px; }
+  .rodape ul { list-style: none; display: grid; gap: 6px; }
+  .marca { font-family: var(--display); font-weight: 800; font-size: clamp(64px, 17vw, 270px); letter-spacing: -.07em; line-height: .8; color: var(--cream); text-align: center; margin-top: 60px; white-space: nowrap; }
+  .marca em { color: var(--orange); }
+  .creditos { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; margin-top: 30px; font-size: 13px; }
+
+  .wa { position: fixed; right: 20px; bottom: 20px; z-index: 90; width: 60px; height: 60px; border-radius: 50%; background: #25d366; color: #fff; display: grid; place-items: center; box-shadow: 0 14px 30px -8px rgba(37,211,102,.6); transition: transform .4s var(--spring); }
+  .wa:hover { transform: scale(1.1) rotate(-10deg); }
+  .wa svg { width: 30px; height: 30px; }
+
+  @media (max-width: 1080px) {
+    .nav__links, .nav .btn { display: none; }
     .burger { display: grid; }
-    .nav.open .nav__links { display: flex; flex-direction: column; position: absolute; top: 80px; left: 0; right: 0; background: var(--bg); padding: 24px 20px; gap: 18px; }
-    .hero__grid, .calc__grid, .ck__grid { grid-template-columns: 1fr; }
-    .hero__art { height: 460px; }
-    .sgrid { grid-template-columns: repeat(3, 1fr); }
-    .bill { position: static; }
-    .tl { grid-template-columns: repeat(3, 1fr); row-gap: 30px; }
-    .tl::before { display: none; }
-    .pgrid, .tgrid { grid-template-columns: 1fr; }
+    .nav.aberto .nav__links { display: flex; flex-direction: column; position: absolute; top: calc(100% + 8px); left: 0; right: 0; padding: 14px; border-radius: 28px; background: var(--paper); box-shadow: 0 30px 60px -30px rgba(31,26,20,.5); font-size: 18px; }
+    .nav.aberto .nav__links a { padding: 14px 16px; }
   }
-  @media (max-width: 600px) {
-    .sgrid { grid-template-columns: 1fr 1fr; }
-    .two { grid-template-columns: 1fr; }
-    .form, .bill { padding: 24px 20px; }
-    .tl { grid-template-columns: 1fr 1fr; }
-    .tm i { width: 76px; height: 76px; font-size: 32px; }
-    .calc { margin: 0 8px; border-radius: 34px; }
-    .hero__art { height: 380px; }
-    .cam { width: 56%; }
+  @media (max-width: 900px) {
+    .hero { height: 220vh; }
+    .hero__grid { grid-template-columns: 1fr; grid-template-rows: auto 1fr; gap: 18px; align-items: start; padding-top: 92px; padding-bottom: 70px; }
+    .hero h1 { font-size: clamp(46px, 12.4vw, 76px); margin: 16px 0 14px; }
+    .hero p.lead { font-size: 16px; }
+    .hero__ctas { margin-top: 20px; flex-wrap: nowrap; gap: 8px; }
+    .hero__ctas .btn { padding: 15px 16px; font-size: 14.5px; flex: 1 1 auto; white-space: nowrap; }
+    .hero__trust { display: none; }
+    .casa-slot { width: auto; height: 100%; max-height: 420px; min-height: 200px; aspect-ratio: 4 / 5; }
+    .selo { width: 92px; height: 92px; right: -18%; top: 4%; }
+    .selo i { inset: 24px; }
+    .ad1 { left: -32%; top: 50%; padding: 8px 12px 8px 8px; font-size: 13px; }
+    .ad1 b { width: 32px; height: 32px; }
+    .ad2 { display: none; }
+    .rolar { display: none; }
+    .faixa { margin-top: -20px; padding: 16px 0; }
+    .manifesto { padding: 110px 0 90px; }
+    .nums { grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 50px; }
+    .num { padding: 20px 18px; border-radius: 22px; }
+    .svc { padding: 100px 0 90px; }
+    .svc__stick { position: static; height: auto; display: block; }
+    .svc__trilho { width: auto; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 10px; scrollbar-width: none; transform: none !important; flex-wrap: nowrap; }
+    .svc__trilho::-webkit-scrollbar { display: none; }
+    .svc__intro { width: 100%; flex: none; padding: 0 0 26px; }
+    .svc__trilho { flex-direction: column; }
+    .svc__cards { display: flex; gap: 14px; overflow-x: auto; scroll-snap-type: x mandatory; margin: 0 -20px; padding: 0 20px 6px; scrollbar-width: none; }
+    .svc__cards::-webkit-scrollbar { display: none; }
+    .sv { scroll-snap-align: center; height: 460px; }
+    .svc__barra { display: none; }
+    .cam { padding: 40px 0 100px; border-radius: 0 0 40px 40px; }
+    .cam__grid { grid-template-columns: 1fr; gap: 40px; }
+    .tv { transform: none; padding: 10px; border-radius: 26px; }
+    .dia { height: 480vh; }
+    .dia__conteudo { grid-template-columns: 1fr; gap: 26px; align-content: center; padding: 110px 0 120px; text-align: left; }
+    .dia__rot { top: 86px; }
+    .polas { width: min(240px, 56vw); justify-self: start; margin-left: 8px; }
+    .dia__desc { font-size: 16px; }
+    .dia__linha button span { display: none; }
+    .vaga { padding: 110px 0 90px; }
+    .vaga__grid { grid-template-columns: 1fr; gap: 40px; }
+    .passe-area { position: static; order: -1; }
+    .vaga__cab { order: -2; }
+    .check__box { grid-template-columns: 1fr; padding: 34px 22px; border-radius: 36px; gap: 40px; }
+    .check { padding-bottom: 100px; }
+    .planos { padding-bottom: 100px; }
+    .pgrid { grid-template-columns: 1fr; gap: 26px; }
+    .mural { padding-bottom: 110px; }
+    .mural__area { height: auto; display: flex; gap: 16px; overflow-x: auto; scroll-snap-type: x mandatory; margin: 0 -20px; padding: 26px 20px 30px; scrollbar-width: none; }
+    .mural__area::-webkit-scrollbar { display: none; }
+    .pola { position: relative; left: auto; top: auto; flex: none; width: 260px; scroll-snap-align: center; touch-action: auto; cursor: auto; }
+    .mural__dica { display: none; }
+    .fim { padding-top: 90px; border-radius: 40px 40px 0 0; }
+    .rodape__grid { grid-template-columns: 1fr 1fr; }
+    .rodape__grid > div:first-child { grid-column: 1 / -1; }
   }
-  @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; animation-delay: 0s !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; } [data-r] { opacity: 1; transform: none; } }
+  @media (min-width: 901px) { .svc__cards { display: contents; } }
+  @media (max-width: 560px) {
+    .datas { grid-template-columns: 1fr; }
+    .selo { display: none; }
+    .ad1 { left: -14%; top: auto; bottom: 12%; }
+    .portes { gap: 8px; }
+    .porte { padding: 14px 6px 12px; border-radius: 18px; }
+    .porte b { font-size: 17px; }
+    .porte small { font-size: 11.5px; }
+    .passe__topo, .passe__corpo { padding-left: 20px; padding-right: 20px; }
+    .passe__pe { padding: 18px 20px 22px; }
+    .passe__dados b { font-size: 19px; }
+    .form .btn { width: 100%; justify-self: stretch; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+    [data-r] { opacity: 1; transform: none; }
+    .hero h1 .ln > span { transform: none; }
+  }
 </style>
 </head>
 <body>
 
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-pata" viewBox="0 0 24 24"><ellipse cx="12" cy="15.6" rx="5.1" ry="4.4"/><ellipse cx="5.5" cy="10" rx="2.1" ry="2.7" transform="rotate(-18 5.5 10)"/><ellipse cx="9.4" cy="6" rx="2.1" ry="2.8" transform="rotate(-6 9.4 6)"/><ellipse cx="14.6" cy="6" rx="2.1" ry="2.8" transform="rotate(6 14.6 6)"/><ellipse cx="18.5" cy="10" rx="2.1" ry="2.7" transform="rotate(18 18.5 10)"/></symbol>
+  <symbol id="i-seta" viewBox="0 0 24 24"><path d="M4 12h15m-6-6 6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-cam" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="6" width="13" height="12" rx="3"/><path d="m15.5 10.5 6-3.5v10l-6-3.5"/></g></symbol>
+  <symbol id="i-vet" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-8-4.6-8-11a4.5 4.5 0 0 1 8-2.8A4.5 4.5 0 0 1 20 10c0 6.4-8 11-8 11Z"/><path d="M12 10v5m-2.5-2.5h5"/></g></symbol>
+  <symbol id="i-van" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 16V8a2 2 0 0 1 2-2h10l5 5v5h-17Z"/><path d="M14.5 6v5h5"/><circle cx="7" cy="17" r="2" fill="currentColor"/><circle cx="16.5" cy="17" r="2" fill="currentColor"/></g></symbol>
+  <symbol id="i-osso" viewBox="0 0 24 24"><path d="M7.4 4.2a2.6 2.6 0 0 0-3.5 3.5 2.6 2.6 0 0 0 .4 4.6c1 .4 2 .1 2.7-.6l5.3 5.3c-.7.7-1 1.7-.6 2.7a2.6 2.6 0 0 0 4.6.4 2.6 2.6 0 0 0 3.5-3.5 2.6 2.6 0 0 0-.4-4.6c-1-.4-2-.1-2.7.6L11.4 7.3c.7-.7 1-1.7.6-2.7a2.6 2.6 0 0 0-4.6-.4Z" fill="currentColor"/></symbol>
+  <symbol id="i-wa" viewBox="0 0 24 24"><path fill="currentColor" d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21c5.46 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2Zm5.8 14.03c-.24.68-1.42 1.3-1.95 1.35-.5.05-.97.23-3.27-.68-2.77-1.09-4.52-3.92-4.66-4.1-.13-.18-1.1-1.47-1.1-2.8 0-1.34.7-2 .95-2.27.25-.27.54-.34.72-.34h.52c.17 0 .4-.06.62.47.24.56.8 1.94.87 2.08.07.14.12.3.02.48-.1.19-.14.3-.28.47-.14.16-.3.36-.42.49-.14.14-.29.29-.12.57.17.28.74 1.22 1.59 1.98 1.09.97 2.01 1.27 2.29 1.41.28.14.45.12.62-.07.17-.19.71-.83.9-1.11.19-.28.38-.24.64-.14.26.09 1.65.78 1.93.92.28.14.47.21.54.33.07.11.07.66-.17 1.34Z"/></symbol>
+  <symbol id="i-cao" viewBox="0 0 80 56"><g fill="currentColor"><path d="M62 4.5 66 13l-8 1.5z" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/><rect x="14" y="20" width="40" height="17" rx="8.5"/><rect x="46" y="10" width="13" height="20" rx="6.5" transform="rotate(18 52 20)"/><circle cx="60" cy="16" r="8.5"/><rect x="60" y="15" width="13" height="8" rx="4"/><rect x="17" y="30" width="6" height="22" rx="3"/><rect x="26" y="31" width="6" height="20" rx="3"/><rect x="41" y="31" width="6" height="20" rx="3"/><rect x="48" y="30" width="6" height="22" rx="3"/></g><path d="M16 26c-6-1-9-6-8-13" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round"/><circle cx="72.5" cy="16.5" r="2.6" fill="currentColor"/></symbol>
+  <symbol id="i-aviao" viewBox="0 0 24 24"><path fill="currentColor" d="M21 15.5v-2l-8-5V3.5a1.5 1.5 0 0 0-3 0V8.5l-8 5v2l8-2.5V18l-2 1.5V21l3.5-1 3.5 1v-1.5L13 18v-5z"/></symbol>
+</svg>
+
+<div class="cur" aria-hidden="true"><span></span></div>
+
 <header class="nav" id="nav">
-  <div class="wrap nav__in">
-    <a href="#" class="logo"><i>🐶</i>Bicho Feliz</a>
-    <nav class="nav__links"><a href="#servicos">Serviços</a><a href="#hospedagem">Hospedagem</a><a href="#rotina">Rotina</a><a href="#creche">Creche</a></nav>
-    <a href="#hospedagem" class="btn btn--b nav__cta" style="padding:11px 20px;font-size:16px">Reservar estadia</a>
-    <button class="burger" aria-label="Menu"><span></span></button>
+  <div class="nav__in">
+    <a href="#topo" class="logo" aria-label="Bicho Feliz, início"><b><svg><use href="#i-pata" class="paw" /></svg></b>bicho feliz</a>
+    <nav class="nav__links"><a href="#servicos">Serviços</a><a href="#petcam">Pet cam</a><a href="#rotina">Rotina</a><a href="#creche">Creche</a><a href="#disponibilidade">Disponibilidade</a></nav>
+    <a href="#disponibilidade" class="btn btn--ink mag">Ver disponibilidade</a>
+    <button class="burger" aria-label="Abrir menu" aria-expanded="false"><span></span></button>
   </div>
 </header>
 
-<section class="hero">
-  <div class="paws"></div>
-  <div class="wrap hero__grid">
-    <div>
-      <span class="pill">⭐ 4,9 · mais de 3 mil pets hospedados</span>
-      <h1>Férias pro <span>seu pet</span> <span style="white-space:nowrap;color:inherit">também <span class="bounce">🐾</span></span></h1>
-      <p>Hotelzinho e creche com 1.200 m² de área verde, piscina, monitores 24h e câmeras ao vivo para você matar a saudade de onde estiver.</p>
-      <div class="hero__ctas"><a href="#hospedagem" class="btn btn--b">Calcular hospedagem</a><a href="#creche" class="btn btn--w">Conhecer a creche</a></div>
-      <div class="trust"><span>📹 Câmera 24h</span><span>🩺 Veterinário de plantão</span><span>🚐 Táxi pet</span></div>
+<main>
+<section class="hero" id="topo">
+  <div class="hero__stick">
+    <div class="casa" aria-hidden="true">
+      <img src="https://images.unsplash.com/photo-1537151608828-ea2b11777ee8?w=1800&q=80&auto=format&fit=crop" alt="" fetchpriority="high" />
+      <div class="casa__msg"><h2>Aqui ninguém fica <em>na casinha.</em></h2><p>Gramado, piscina, recreação por porte e muito carinho, das 7h às 20h.</p></div>
     </div>
-    <div class="hero__art">
-      <div class="blob"><img src="https://images.unsplash.com/photo-1787152467585-3b6a11777ebd?w=1100&q=80&auto=format&fit=crop" alt="Cães brincando no pátio" /></div>
-      <div class="badge">🦴<div>Thor acabou de lanchar!<small>há 2 minutos</small></div></div>
-      <div class="cam"><div class="cam__scr" id="cam"><span class="rec"><i></i>AO VIVO</span></div><div class="cam__meta"><span id="camName">Câmera 2 · Quartinhos</span><span id="camTime"></span></div></div>
+    <svg class="telhado" aria-hidden="true"><polyline points="0,0" /></svg>
+    <div class="wrap hero__grid">
+      <div class="hero__txt">
+        <span class="hero__pill"><i>★ 4,9</i>mais de 3 mil pets hospedados</span>
+        <h1><span class="ln"><span style="--d:.05s">Férias pro</span></span><span class="ln"><span style="--d:.15s">seu pet</span></span><span class="ln"><span style="--d:.25s"><em>também.</em></span></span></h1>
+        <p class="lead">Hotelzinho e creche em Cotia com 1.200 m² de grama, piscina, monitores 24h e câmera ao vivo pra você matar a saudade de onde estiver.</p>
+        <div class="hero__ctas"><a href="#disponibilidade" class="btn btn--ink mag">Ver disponibilidade <svg><use href="#i-seta" /></svg></a><a href="#petcam" class="btn btn--ghost mag">Espiar a pet cam</a></div>
+        <div class="hero__trust"><span><svg><use href="#i-cam" /></svg>Câmera 24h</span><span><svg><use href="#i-vet" /></svg>Veterinário de plantão</span><span><svg><use href="#i-van" /></svg>Táxi pet</span></div>
+      </div>
+      <div class="casa-slot" data-cur="oi!">
+        <div class="selo" data-prof="1.4" aria-hidden="true">
+          <svg viewBox="0 0 140 140"><defs><path id="circ" d="M70 70m-54 0a54 54 0 1 1 108 0a54 54 0 1 1-108 0" /></defs><text><textPath href="#circ">fora da casinha · fora da casinha ·</textPath></text></svg>
+          <i><svg><use href="#i-pata" class="paw" /></svg></i>
+        </div>
+        <div class="adesivo ad1" data-prof="2"><b><svg><use href="#i-osso" /></svg></b><div>Thor acabou de lanchar<small>há 2 minutos · câmera 2</small></div></div>
+        <div class="adesivo ad2" data-prof="1"><b><svg><use href="#i-vet" /></svg></b><div>Vet de plantão<small>24h, todos os dias</small></div></div>
+      </div>
+    </div>
+    <div class="rolar"><i></i>role para soltar o pet</div>
+  </div>
+</section>
+
+<div class="faixa" aria-hidden="true">
+  <div class="faixa__trilho"><span>Hotelzinho <svg><use href="#i-pata" class="paw" /></svg> Creche <svg><use href="#i-pata" class="paw" /></svg> <em>Banho &amp; tosa</em> <svg><use href="#i-pata" class="paw" /></svg> Adestramento <svg><use href="#i-pata" class="paw" /></svg> <em>Táxi pet</em> <svg><use href="#i-pata" class="paw" /></svg></span></div>
+</div>
+
+<section class="manifesto">
+  <div class="wrap">
+    <span class="tag" data-r>O Bicho Feliz</span>
+    <p class="manifesto__txt" style="margin-top:26px" id="manifesto">Seu pet passa o dia *correndo na grama,* *nadando na piscina* e brincando com a turma do mesmo porte. Você acompanha tudo pela câmera e recebe *fotos em cada etapa do dia.*</p>
+    <div class="nums">
+      <div class="num" data-r><b><span data-conta="1200">0</span><sup>m²</sup></b><span>de área verde com piscina</span></div>
+      <div class="num" data-r style="--d:.08s"><b><span data-conta="3000">0</span><sup>+</sup></b><span>pets hospedados desde 2016</span></div>
+      <div class="num" data-r style="--d:.16s"><b><span data-conta="24">0</span><sup>h</sup></b><span>de monitores e câmeras</span></div>
+      <div class="num" data-r style="--d:.24s"><b><span data-conta="4.9" data-dec="1">0</span><sup>★</sup></b><span>de nota no Google</span></div>
     </div>
   </div>
 </section>
 
 <section class="svc" id="servicos">
-  <div class="wrap">
-    <div class="head"><div data-r><span class="pill">Serviços</span><h2 class="h2" style="margin-top:14px">Tudo num <span>só lugar</span></h2></div><p data-r style="--d:.1s">Para cães e gatos de todos os portes, com monitores treinados e muito carinho.</p></div>
-    <div class="sgrid">
-      <div class="s" data-r><b>🏨</b><h3>Hotelzinho</h3><p>Quartinhos climatizados e passeios diários.</p><em>a partir de R$ 85/dia</em></div>
-      <div class="s" data-r style="--d:.06s"><b>🎾</b><h3>Creche</h3><p>Recreação monitorada e socialização.</p><em>a partir de R$ 69/dia</em></div>
-      <div class="s" data-r style="--d:.12s"><b>🛁</b><h3>Banho & tosa</h3><p>Produtos hipoalergênicos e secagem sem ruído.</p><em>a partir de R$ 59</em></div>
-      <div class="s" data-r style="--d:.18s"><b>🎓</b><h3>Adestramento</h3><p>Reforço positivo, em grupo ou individual.</p><em>a partir de R$ 120</em></div>
-      <div class="s" data-r style="--d:.24s"><b>🚐</b><h3>Táxi pet</h3><p>Buscamos e levamos com segurança.</p><em>a partir de R$ 25</em></div>
-    </div>
-  </div>
-</section>
-
-<section class="calc" id="hospedagem">
-  <div class="paws"></div>
-  <div class="wrap calc__grid">
-    <div data-r>
-      <span class="pill" style="color:var(--ink)">🧮 Simulador de estadia</span>
-      <h2 class="h2" style="margin:14px 0 26px">Quanto fica a <span>hospedagem?</span></h2>
-      <div class="form">
-        <div class="two"><div><h4>Check-in</h4><input type="date" id="ci" /></div><div><h4>Check-out</h4><input type="date" id="co" /></div></div>
-        <div><h4>Porte</h4><div class="sizes" id="sizes"></div></div>
-        <div><h4>Quantos pets?</h4><div class="stp"><button type="button" id="mn">−</button><output id="np">1</output><button type="button" id="ms">+</button><small style="color:var(--muted);font-weight:700">2º pet com 20% off</small></div></div>
-        <div><h4>Extras</h4><div class="adds" id="adds"></div></div>
+  <div class="svc__stick">
+    <div class="svc__trilho">
+      <div class="svc__intro">
+        <span class="tag">Serviços</span>
+        <h2 class="h2" style="margin-top:18px">Tudo num <em>só lugar.</em></h2>
+        <p>Para cães e gatos de todos os portes, com monitores treinados e muito carinho do check-in ao check-out.</p>
+        <span class="seta">continue rolando <svg><use href="#i-seta" /></svg></span>
+      </div>
+      <div class="svc__cards">
+        <article class="sv" data-cur="consultar"><img src="https://images.unsplash.com/photo-1492748046438-4b6d9ebe0c11?w=900&q=75&auto=format&fit=crop" alt="Cão descansando em caminha" loading="lazy" /><span class="sv__n">01</span><div class="sv__c"><h3>Hotelzinho</h3><p>Quartinhos climatizados, passeios diários e caminha de verdade.</p><div class="sv__pr"><span>a partir de R$ 85/diária</span><a href="#disponibilidade" aria-label="Consultar hotelzinho"><svg><use href="#i-seta" /></svg></a></div></div></article>
+        <article class="sv" data-cur="consultar"><img src="https://images.unsplash.com/photo-1787152467585-3b6a11777ebd?w=900&q=75&auto=format&fit=crop" alt="Turma de cães no pátio" loading="lazy" /><span class="sv__n">02</span><div class="sv__c"><h3>Creche</h3><p>Recreação monitorada e socialização por porte e energia.</p><div class="sv__pr"><span>a partir de R$ 69/dia</span><a href="#creche" aria-label="Ver planos da creche"><svg><use href="#i-seta" /></svg></a></div></div></article>
+        <article class="sv" data-cur="consultar"><img src="https://images.unsplash.com/photo-1772437883387-8076cf660c65?w=900&q=75&auto=format&fit=crop" alt="Cão branco depois do banho" loading="lazy" /><span class="sv__n">03</span><div class="sv__c"><h3>Banho &amp; tosa</h3><p>Produtos hipoalergênicos e secagem sem barulho.</p><div class="sv__pr"><span>a partir de R$ 59</span><a href="#disponibilidade" aria-label="Consultar banho e tosa"><svg><use href="#i-seta" /></svg></a></div></div></article>
+        <article class="sv" data-cur="consultar"><img src="https://images.unsplash.com/photo-1552053831-71594a27632d?w=900&q=75&auto=format&fit=crop" alt="Golden sentado obedecendo" loading="lazy" /><span class="sv__n">04</span><div class="sv__c"><h3>Adestramento</h3><p>Reforço positivo, em grupo ou individual.</p><div class="sv__pr"><span>a partir de R$ 120</span><a href="#disponibilidade" aria-label="Consultar adestramento"><svg><use href="#i-seta" /></svg></a></div></div></article>
+        <article class="sv" data-cur="consultar"><img src="https://images.unsplash.com/photo-1772606270537-6eb199b55aed?w=900&q=75&auto=format&fit=crop" alt="Corgi com peitoral pronto para passear" loading="lazy" /><span class="sv__n">05</span><div class="sv__c"><h3>Táxi pet</h3><p>Buscamos e levamos com cinto e caixa de transporte.</p><div class="sv__pr"><span>a partir de R$ 25</span><a href="#disponibilidade" aria-label="Consultar táxi pet"><svg><use href="#i-seta" /></svg></a></div></div></article>
       </div>
     </div>
-    <aside class="bill" data-r style="--d:.1s">
-      <h4>Resumo da estadia</h4><span class="nights" id="nights">0 noites</span>
-      <div class="lines" id="lines"></div>
-      <div class="tot"><span>Total</span><b id="tot">R$ 0</b></div>
-      <p class="warn" id="warn"></p>
-      <button class="btn btn--s" id="reserve">Reservar pelo WhatsApp</button>
-    </aside>
+    <div class="svc__barra"><i></i></div>
   </div>
 </section>
 
-<section class="day" id="rotina">
-  <div class="wrap">
-    <div class="head"><div data-r><span class="pill">Um dia no Bicho Feliz</span><h2 class="h2" style="margin-top:14px">Rotina de <span>pet feliz</span></h2></div><p data-r style="--d:.1s">Horários fixos deixam os pets tranquilos. Você recebe fotos e vídeos em cada etapa.</p></div>
-    <div class="tl" id="tl"></div>
+<section class="cam" id="petcam">
+  <div class="wrap cam__grid">
+    <div data-r>
+      <span class="tag">Pet cam ao vivo</span>
+      <h2 class="h2" style="margin-top:18px">Saudade? <em>É só espiar.</em></h2>
+      <p>São 8 câmeras nos quartinhos, no pátio e na piscina. Você assiste pelo celular durante toda a estadia, de onde estiver.</p>
+      <div class="cam__tabs" id="camTabs"></div>
+    </div>
+    <div class="tv" data-r style="--d:.1s" data-cur="ao vivo">
+      <div class="tv__tela" id="tela">
+        <div class="tv__hud"><div><span class="rec"><i></i>AO VIVO</span><span id="camHora">--:--:--</span></div><div><span id="camNome">CAM 01 · Pátio</span><span>1080p</span></div></div>
+      </div>
+      <div class="tv__pe"><span><i></i>12 tutores assistindo agora</span><span>bichofeliz.cam</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="dia" id="rotina">
+  <div class="dia__stick" id="ceu">
+    <div class="estrelas"></div>
+    <div class="astro sol" id="sol"></div>
+    <div class="astro lua" id="lua"></div>
+    <svg class="morro" viewBox="0 0 1440 300" preserveAspectRatio="none" aria-hidden="true"><path id="morro2" d="M0 170C220 90 420 120 640 150s420 10 560-40 240-30 240-30v220H0Z" fill="#9fcf7a"/><path id="morro1" d="M0 230c180-50 380-70 620-30s520 40 820-40v140H0Z" fill="#7dbb5c"/></svg>
+    <div class="dia__rot"><span class="tag">Um dia no Bicho Feliz</span></div>
+    <div class="wrap dia__conteudo" id="diaTxt">
+      <div>
+        <div class="dia__hora" id="diaHora">07:00</div>
+        <h3 class="dia__nome" id="diaNome">Café da manhã</h3>
+        <p class="dia__desc" id="diaDesc">A ração que ele come em casa, no horário de casa.</p>
+      </div>
+      <div class="polas" id="polas"></div>
+    </div>
+    <div class="dia__linha" id="diaLinha"></div>
+  </div>
+</section>
+
+<section class="vaga" id="disponibilidade">
+  <div class="wrap vaga__grid">
+    <div class="vaga__cab">
+      <span class="tag" data-r>Disponibilidade</span>
+      <h2 class="h2" style="margin-top:18px" data-r>Tem vaga pro seu <em>cachorro?</em></h2>
+      <p data-r>Preencha em 20 segundos e mande direto pro nosso WhatsApp. A gente responde rapidinho com as vagas e os valores.</p>
+      <form class="form" id="form" novalidate data-r>
+        <div class="campo" id="cNome"><label for="nome">Seu nome</label><input type="text" id="nome" name="nome" autocomplete="name" placeholder="Como podemos te chamar?" maxlength="60" /><span class="msg" aria-live="polite"></span></div>
+        <div class="campo"><span id="lPorte">Porte do cachorro</span><div class="portes" id="portes" role="radiogroup" aria-labelledby="lPorte"></div></div>
+        <div class="campo" id="cDatas"><div class="datas"><div><label for="ent">Data de entrada</label><input type="date" id="ent" required /></div><div><label for="sai">Data de saída</label><input type="date" id="sai" required /></div></div><span class="msg" aria-live="polite"></span></div>
+        <button type="submit" class="btn btn--or mag"><svg class="wa-i"><use href="#i-wa" /></svg>Consultar no WhatsApp</button>
+        <span class="dica">A mensagem já vai pronta. É só enviar.</span>
+      </form>
+    </div>
+    <div class="passe-area" data-r style="--d:.12s">
+      <div class="passe" id="passe" aria-live="polite">
+        <div class="passe__topo"><span class="logo"><b><svg><use href="#i-pata" class="paw" /></svg></b>bicho feliz</span><small>Passaporte de férias</small></div>
+        <div class="passe__corpo">
+          <div class="passe__rota"><div><b>CASA</b><small>sua casa</small></div><span class="voo"><i></i><svg><use href="#i-aviao" /></svg><i></i></span><div><b>BFZ</b><small>Cotia · SP</small></div></div>
+          <div class="passe__dados">
+            <div class="tutor"><small>Tutor(a)</small><b id="pNome">Seu nome aqui</b></div>
+            <div><small>Entrada</small><b id="pEnt">--/--</b></div>
+            <div><small>Saída</small><b id="pSai">--/--</b></div>
+            <div><small>Porte</small><b id="pPorte">Médio</b></div>
+            <div><small>Diárias</small><b id="pDias">0</b></div>
+          </div>
+        </div>
+        <div class="passe__pe"><div class="barras"></div><div class="passe__cao" id="pCao"><svg viewBox="0 0 80 56"><use href="#i-cao" /></svg></div></div>
+      </div>
+      <p class="passe__status" id="status"><i></i>Aguardando seus dados</p>
+    </div>
   </div>
 </section>
 
 <section class="check">
-  <div class="wrap ck__grid">
-    <div data-r>
-      <span class="pill">✅ Antes do check-in</span>
-      <h2 class="h2" style="margin:14px 0 26px">Seu pet está <span>pronto?</span></h2>
-      <div class="ck" id="ck"></div>
-      <div class="ready" id="ready">Marque os itens acima 👆</div>
-    </div>
-    <div class="pgal" data-r style="--d:.1s">
-      <figure><img src="https://images.unsplash.com/photo-1760530327971-f8523426c60a?w=600&q=75&auto=format&fit=crop" alt="Cães brincando" loading="lazy" /></figure>
-      <figure><img src="https://images.unsplash.com/photo-1772437883387-8076cf660c65?w=600&q=75&auto=format&fit=crop" alt="Cão após o banho" loading="lazy" /></figure>
-      <figure><img src="https://images.unsplash.com/photo-1695451486995-7697b5c1be51?w=600&q=75&auto=format&fit=crop" alt="Cão e gato dormindo" loading="lazy" /></figure>
-      <figure><img src="https://images.unsplash.com/photo-1722257401181-a04cc4df36f8?w=600&q=75&auto=format&fit=crop" alt="Cães com bola" loading="lazy" /></figure>
-    </div>
-  </div>
-</section>
-
-<section class="plans" id="creche">
   <div class="wrap">
-    <div class="head"><div data-r><span class="pill">Creche</span><h2 class="h2" style="margin-top:14px">Planos para quem <span>trabalha fora</span></h2></div><p data-r style="--d:.1s">Gasto de energia, socialização e um pet calminho quando você chega em casa.</p></div>
-    <div class="pgrid">
-      <div class="pl" data-r><h3>2x por semana</h3><p class="pr">R$ 449<small>/mês</small></p><ul><li>8 diárias no mês</li><li>Relatório diário</li><li>Lanche natural</li></ul><a href="#hospedagem" class="btn btn--w">Quero esse</a></div>
-      <div class="pl hot" data-r style="--d:.08s"><h3>3x por semana</h3><p class="pr">R$ 629<small>/mês</small></p><ul><li>12 diárias no mês</li><li>1 banho mensal incluso</li><li>Câmera ao vivo</li><li>Relatório diário com fotos</li></ul><a href="#hospedagem" class="btn btn--b">Quero esse</a></div>
-      <div class="pl" data-r style="--d:.16s"><h3>Todo dia</h3><p class="pr">R$ 899<small>/mês</small></p><ul><li>Diárias ilimitadas (seg–sex)</li><li>2 banhos mensais</li><li>Táxi pet com desconto</li></ul><a href="#hospedagem" class="btn btn--w">Quero esse</a></div>
+    <div class="check__box">
+      <div>
+        <span class="tag" data-r>Antes do check-in</span>
+        <h2 class="h2" style="margin-top:18px;font-size:clamp(40px,5vw,72px)" data-r>Seu pet está <em>pronto?</em></h2>
+        <div class="ck" id="ck"></div>
+      </div>
+      <div class="anel" id="anel" data-r>
+        <svg viewBox="0 0 200 200"><circle class="fundo" cx="100" cy="100" r="88" /><circle class="frente" id="anelF" cx="100" cy="100" r="88" /></svg>
+        <div class="anel__foto"><img src="https://images.unsplash.com/photo-1543466835-00a7907e9de1?w=600&q=75&auto=format&fit=crop" alt="Beagle feliz pronto para a estadia" loading="lazy" /></div>
+        <div class="anel__c"><b id="anelN">0/5</b><span id="anelT">itens prontos</span></div>
+      </div>
     </div>
   </div>
 </section>
 
-<section class="tst">
-  <div class="wrap tgrid">
-    <div class="tt" data-r><span class="stars">★★★★★</span><p>“Viajei tranquila vendo a Nina pela câmera. Ela voltou mais feliz que eu!”</p><footer><img src="https://images.unsplash.com/photo-1534361960057-19889db9621e?w=150&q=70&auto=format&fit=crop" alt="" /><span><b>Camila & Nina</b>Shih tzu, 3 anos</span></footer></div>
-    <div class="tt" data-r style="--d:.08s"><span class="stars">★★★★★</span><p>“O Bob tem energia de sobra. Depois da creche ele dorme a noite toda.”</p><footer><img src="https://images.unsplash.com/photo-1561037404-61cd46aa615b?w=150&q=70&auto=format&fit=crop" alt="" /><span><b>Rafael & Bob</b>Border collie, 2 anos</span></footer></div>
-    <div class="tt" data-r style="--d:.16s"><span class="stars">★★★★★</span><p>“Atendimento impecável e o táxi pet salvou minha vida na semana corrida.”</p><footer><img src="https://images.unsplash.com/photo-1561130627-94d7dd29776d?w=150&q=70&auto=format&fit=crop" alt="" /><span><b>Juliana & Paçoca</b>SRD, 6 anos</span></footer></div>
+<section class="planos" id="creche">
+  <div class="wrap">
+    <div class="cab"><div><span class="tag" data-r>Creche</span><h2 class="h2" style="margin-top:18px" data-r>Pra quem <em>trabalha fora.</em></h2></div><p data-r>Gasto de energia, socialização e um pet calminho quando você chega em casa.</p></div>
+    <div class="pgrid">
+      <div class="pl" data-r data-tilt><h3>2x por semana</h3><p class="pr">R$ 449<small>/mês</small></p><ul><li><svg><use href="#i-pata" class="paw" /></svg>8 diárias no mês</li><li><svg><use href="#i-pata" class="paw" /></svg>Relatório diário</li><li><svg><use href="#i-pata" class="paw" /></svg>Lanche natural</li></ul><button class="btn btn--ghost mag" data-plano="2x por semana (R$ 449/mês)">Quero esse</button></div>
+      <div class="pl hot" data-r style="--d:.08s" data-tilt><span class="pl__selo">mais escolhido</span><h3>3x por semana</h3><p class="pr">R$ 629<small>/mês</small></p><ul><li><svg><use href="#i-pata" class="paw" /></svg>12 diárias no mês</li><li><svg><use href="#i-pata" class="paw" /></svg>1 banho mensal incluso</li><li><svg><use href="#i-pata" class="paw" /></svg>Câmera ao vivo</li><li><svg><use href="#i-pata" class="paw" /></svg>Relatório diário com fotos</li></ul><button class="btn btn--light mag" data-plano="3x por semana (R$ 629/mês)">Quero esse</button></div>
+      <div class="pl" data-r style="--d:.16s" data-tilt><h3>Todo dia</h3><p class="pr">R$ 899<small>/mês</small></p><ul><li><svg><use href="#i-pata" class="paw" /></svg>Diárias ilimitadas (seg a sex)</li><li><svg><use href="#i-pata" class="paw" /></svg>2 banhos mensais</li><li><svg><use href="#i-pata" class="paw" /></svg>Táxi pet com desconto</li></ul><button class="btn btn--ghost mag" data-plano="Todo dia (R$ 899/mês)">Quero esse</button></div>
+    </div>
   </div>
 </section>
 
-<footer class="f"><div class="wrap foot"><a href="#" class="logo"><i>🐶</i>Bicho Feliz</a><span>Estrada do Embu, 2200 — Cotia, SP · (11) 99999-0000</span><span>© 2026 Bicho Feliz Hotel & Creche</span></div></footer>
+<section class="mural">
+  <div class="wrap">
+    <div class="cab" style="margin-bottom:10px"><div><span class="tag" data-r>Depoimentos</span><h2 class="h2" style="margin-top:18px" data-r>Quem vem, <em>volta.</em></h2></div><span class="mural__dica" data-r><svg><use href="#i-pata" class="paw" /></svg>Arraste as fotos pelo mural</span></div>
+    <div class="mural__area" id="mural">
+      <figure class="pola" style="--x:2%;--y:40px;--r:-5deg" data-cur="arraste"><span class="fita"></span><img src="https://images.unsplash.com/photo-1534361960057-19889db9621e?w=500&q=75&auto=format&fit=crop" alt="Nina correndo na grama" loading="lazy" /><p>“Viajei tranquila vendo a Nina pela câmera. Ela voltou mais feliz que eu!”</p><footer><span><b>Camila &amp; Nina</b> · Maltês</span><span class="estr">★★★★★</span></footer></figure>
+      <figure class="pola" style="--x:27%;--y:130px;--r:4deg" data-cur="arraste"><span class="fita"></span><img src="https://images.unsplash.com/photo-1561037404-61cd46aa615b?w=500&q=75&auto=format&fit=crop" alt="Bob, um jack russell" loading="lazy" /><p>“O Bob tem energia de sobra. Depois da creche ele dorme a noite toda.”</p><footer><span><b>Rafael &amp; Bob</b> · Jack Russell</span><span class="estr">★★★★★</span></footer></figure>
+      <figure class="pola" style="--x:52%;--y:20px;--r:-3deg" data-cur="arraste"><span class="fita"></span><img src="https://images.unsplash.com/photo-1561130627-94d7dd29776d?w=500&q=75&auto=format&fit=crop" alt="Paçoca na caminha" loading="lazy" /><p>“Atendimento impecável, e o táxi pet salvou minha semana corrida.”</p><footer><span><b>Juliana &amp; Paçoca</b> · Pug</span><span class="estr">★★★★★</span></footer></figure>
+      <figure class="pola" style="--x:76%;--y:110px;--r:6deg" data-cur="arraste"><span class="fita"></span><img src="https://images.unsplash.com/photo-1695451486995-7697b5c1be51?w=500&q=75&auto=format&fit=crop" alt="Mel e Luna dormindo juntas" loading="lazy" /><p>“Mandaram vídeo das duas na piscina todo dia. Já reservei o Natal.”</p><footer><span><b>Lucas, Mel &amp; Luna</b></span><span class="estr">★★★★★</span></footer></figure>
+    </div>
+  </div>
+</section>
+</main>
 
-<a class="wa" href="https://wa.me/5511999990000" target="_blank" rel="noopener" aria-label="WhatsApp"><svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21c5.46 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2Zm5.8 14.03c-.24.68-1.42 1.3-1.95 1.35-.5.05-.97.23-3.27-.68-2.77-1.09-4.52-3.92-4.66-4.1-.13-.18-1.1-1.47-1.1-2.8 0-1.34.7-2 .95-2.27.25-.27.54-.34.72-.34h.52c.17 0 .4-.06.62.47.24.56.8 1.94.87 2.08.07.14.12.3.02.48-.1.19-.14.3-.28.47-.14.16-.3.36-.42.49-.14.14-.29.29-.12.57.17.28.74 1.22 1.59 1.98 1.09.97 2.01 1.27 2.29 1.41.28.14.45.12.62-.07.17-.19.71-.83.9-1.11.19-.28.38-.24.64-.14.26.09 1.65.78 1.93.92.28.14.47.21.54.33.07.11.07.66-.17 1.34Z"/></svg></a>
+<footer class="fim">
+  <div class="wrap fim__cta">
+    <h2 data-r>Bora tirar seu pet <em>da casinha?</em></h2>
+    <p data-r>Consulte as datas pelo WhatsApp e venha conhecer o espaço antes da primeira estadia.</p>
+    <a href="#disponibilidade" class="btn btn--light mag" data-r>Ver disponibilidade <svg><use href="#i-seta" /></svg></a>
+  </div>
+  <div class="cachorro" aria-hidden="true">
+    <svg viewBox="0 0 200 170">
+      <path d="M52 78 34 14c-2-7 5-12 11-8l42 30Z" fill="#c4521b" stroke="#c4521b" stroke-width="8" stroke-linejoin="round"/>
+      <path d="M148 78 166 14c2-7-5-12-11-8l-42 30Z" fill="#c4521b" stroke="#c4521b" stroke-width="8" stroke-linejoin="round"/>
+      <path d="M52 64 43 26l26 19Z" fill="#ffb4a2"/><path d="M148 64l9-38-26 19Z" fill="#ffb4a2"/>
+      <ellipse cx="100" cy="104" rx="74" ry="64" fill="#f08a4b"/>
+      <path d="M100 46c-10 22-34 44-34 76 0 30 68 30 68 0 0-32-24-54-34-76Z" fill="#fff4e6"/>
+      <ellipse cx="62" cy="128" rx="11" ry="7" fill="#ff8f7a" opacity=".55"/><ellipse cx="138" cy="128" rx="11" ry="7" fill="#ff8f7a" opacity=".55"/>
+      <g id="olhoE"><circle cx="70" cy="96" r="14" fill="#fff"/><g class="olho-p"><circle cx="70" cy="96" r="8" fill="#1f1a14"/><circle cx="72.5" cy="93" r="2.6" fill="#fff"/></g><ellipse class="palpebra" cx="70" cy="96" rx="15" ry="15" fill="#f08a4b"/></g>
+      <g id="olhoD"><circle cx="130" cy="96" r="14" fill="#fff"/><g class="olho-p"><circle cx="130" cy="96" r="8" fill="#1f1a14"/><circle cx="132.5" cy="93" r="2.6" fill="#fff"/></g><ellipse class="palpebra" cx="130" cy="96" rx="15" ry="15" fill="#f08a4b"/></g>
+      <path class="lingua" d="M92 146h16v10a8 8 0 0 1-16 0Z" fill="#ff6f86"/>
+      <ellipse cx="100" cy="128" rx="13" ry="9" fill="#1f1a14"/>
+      <path d="M100 137v7m0 0c-4 6-12 6-16 1m16-1c4 6 12 6 16 1" fill="none" stroke="#1f1a14" stroke-width="3" stroke-linecap="round"/>
+    </svg>
+  </div>
+  <div class="rodape">
+    <div class="wrap">
+      <div class="rodape__grid">
+        <div><a href="#topo" class="logo"><b><svg><use href="#i-pata" class="paw" /></svg></b>bicho feliz</a><p style="margin-top:14px;max-width:300px">Hotel, creche, banho e tosa para cães e gatos em Cotia, a 30 minutos de São Paulo.</p></div>
+        <div><h4>Visite</h4><p>Estrada do Embu, 2200<br />Cotia, SP</p></div>
+        <div><h4>Horários</h4><ul><li>Check-in e check-out das 8h às 19h</li><li>Creche de seg a sex</li></ul></div>
+        <div><h4>Fale com a gente</h4><ul><li><a href="https://wa.me/5511999990000" target="_blank" rel="noopener">(11) 99999-0000</a></li><li><a href="#disponibilidade">Consultar vaga</a></li><li><a href="#petcam">Pet cam</a></li></ul></div>
+      </div>
+      <div class="marca">bicho <em>feliz</em></div>
+      <div class="creditos"><span>© 2026 Bicho Feliz Hotel &amp; Creche</span><span>Feito com muito carinho (e petiscos)</span></div>
+    </div>
+  </div>
+</footer>
+
+<a class="wa" href="https://wa.me/5511999990000" target="_blank" rel="noopener" aria-label="Falar no WhatsApp"><svg><use href="#i-wa" /></svg></a>
 
 <script>
 (() => {
   const $ = (s, el = document) => el.querySelector(s);
   const $$ = (s, el = document) => [...el.querySelectorAll(s)];
   const u = (id, w) => `https://images.unsplash.com/photo-${id}?w=${w}&q=75&auto=format&fit=crop`;
-  const brl = (n) => n.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
+  const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
+  const lerp = (a, b, t) => a + (b - a) * t;
+  const ease = (t) => (t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
   const WA = "5511999990000";
+  const abreWA = (txt) => window.open(`https://wa.me/${WA}?text=${encodeURIComponent(txt)}`, "_blank", "noopener");
+  const fino = matchMedia("(hover: hover) and (pointer: fine)").matches;
+  const calmo = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const largo = matchMedia("(min-width: 901px)");
+  let W = innerWidth, H = innerHeight;
 
-  const nav = $("#nav");
-  $(".burger").onclick = () => nav.classList.toggle("open");
-  $$(".nav__links a").forEach((a) => a.onclick = () => nav.classList.remove("open"));
-  const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }), { threshold: .12 });
+  /* Revelar ao rolar */
+  const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }), { threshold: .12, rootMargin: "0px 0px -6% 0px" });
   $$("[data-r]").forEach((el) => io.observe(el));
 
+  /* Menu */
+  const nav = $("#nav"), burger = $(".burger");
+  burger.onclick = () => { const a = nav.classList.toggle("aberto"); burger.setAttribute("aria-expanded", a); };
+  $$(".nav__links a").forEach((a) => a.addEventListener("click", () => { nav.classList.remove("aberto"); burger.setAttribute("aria-expanded", false); }));
+
+  /* Mouse: cursor, rastro de patinhas, botões magnéticos */
+  const mouse = { x: W / 2, y: H / 2, nx: 0, ny: 0 };
+  const cur = $(".cur"), curTxt = $(".cur span");
+  let cx = mouse.x, cy = mouse.y;
+  const pegadas = [];
+  if (fino) {
+    for (let i = 0; i < 18; i++) { const p = document.createElement("div"); p.className = "pegada"; p.innerHTML = '<svg viewBox="0 0 24 24"><use href="#i-pata" class="paw"/></svg>'; document.body.appendChild(p); pegadas.push(p); }
+  }
+  let ult = null, lado = 1, kp = 0;
+  addEventListener("pointermove", (e) => {
+    if (e.pointerType !== "mouse") return;
+    mouse.x = e.clientX; mouse.y = e.clientY; mouse.nx = e.clientX / W * 2 - 1; mouse.ny = e.clientY / H * 2 - 1;
+    cur.classList.add("on");
+    if (!fino || calmo) return;
+    const alvo = e.target;
+    if (alvo.closest && alvo.closest("input, label, button, a, .passe-area, .pola, .tv, .sv")) { ult = null; return; }
+    if (!ult) { ult = { x: e.clientX, y: e.clientY }; return; }
+    const dx = e.clientX - ult.x, dy = e.clientY - ult.y, d = Math.hypot(dx, dy);
+    if (d < 70) return;
+    const ang = Math.atan2(dy, dx), px = -Math.sin(ang) * 11 * lado, py = Math.cos(ang) * 11 * lado;
+    const p = pegadas[kp++ % pegadas.length];
+    p.classList.remove("vai"); void p.offsetWidth;
+    p.style.transform = `translate(${e.clientX + px}px, ${e.clientY + py}px) rotate(${ang + Math.PI / 2}rad)`;
+    p.classList.add("vai");
+    lado *= -1; ult = { x: e.clientX, y: e.clientY };
+  }, { passive: true });
+  document.addEventListener("mouseleave", () => cur.classList.remove("on"));
+  if (fino) {
+    document.addEventListener("pointerover", (e) => {
+      const l = e.target.closest("[data-cur]"), h = e.target.closest("a, button, label, input, .porte");
+      cur.classList.toggle("lbl", !!l && !h); cur.classList.toggle("hot", !!h);
+      if (l && !h) curTxt.textContent = l.dataset.cur;
+    });
+    $$(".mag").forEach((b) => {
+      b.addEventListener("pointermove", (e) => { const r = b.getBoundingClientRect(); b.style.transform = `translate(${(e.clientX - r.left - r.width / 2) * .22}px, ${(e.clientY - r.top - r.height / 2) * .3}px)`; });
+      b.addEventListener("pointerleave", () => { b.style.transform = ""; });
+    });
+    $$("[data-tilt]").forEach((c) => {
+      c.addEventListener("pointermove", (e) => { const r = c.getBoundingClientRect(); const x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5; c.style.transform = `rotateY(${x * 10}deg) rotateX(${-y * 10}deg) translateY(-6px)`; });
+      c.addEventListener("pointerleave", () => { c.style.transform = ""; });
+    });
+  }
+
+  /* HERO: a casinha abre com o scroll */
+  const hero = $("#topo"), stick = $(".hero__stick"), slot = $(".casa-slot"), casa = $(".casa"), foto = $(".casa img"), msg = $(".casa__msg"), txt = $(".hero__txt"), telhado = $(".telhado"), linha = $(".telhado polyline"), rolar = $(".rolar");
+  const profs = $$("[data-prof]");
+  let hx = 0, hy = 0;
+  function heroFrame() {
+    const r = hero.getBoundingClientRect();
+    if (r.bottom < 0) return;
+    const p = clamp(-r.top / (r.height - H));
+    const e = ease(clamp(p / .72));
+    const sr = slot.getBoundingClientRect(), st = stick.getBoundingClientRect();
+    const x = sr.left - st.left, y = sr.top - st.top, w = sr.width, h = sr.height;
+    const k = 1 - e;
+    hx = lerp(hx, mouse.nx, .08); hy = lerp(hy, mouse.ny, .08);
+    const mx = fino ? hx * 14 * k : 0, my = fino ? hy * 10 * k : 0;
+    const X = lerp(x, 0, e) + mx, Y = lerp(y, 0, e) + my, Wd = lerp(w, st.width, e), Ht = lerp(h, st.height, e);
+    const beiral = lerp(.3, 0, e), topo = lerp(0, 0, e);
+    const pts = [[X + Wd / 2 + mx * .8, Y + Ht * topo], [X + Wd, Y + Ht * beiral], [X + Wd, Y + Ht], [X, Y + Ht], [X, Y + Ht * beiral]];
+    casa.style.clipPath = `polygon(${pts.map(([a, b]) => `${a.toFixed(1)}px ${b.toFixed(1)}px`).join(",")})`;
+    const zoom = lerp(1.06, 1, e);
+    foto.style.width = Wd * zoom + "px"; foto.style.height = Ht * zoom + "px";
+    foto.style.transform = `translate(${X - Wd * (zoom - 1) / 2 - mx * .6}px, ${Y - Ht * (zoom - 1) / 2 - my * .6}px)`;
+    const ov = Wd * .1;
+    telhado.setAttribute("viewBox", `0 0 ${st.width} ${st.height}`);
+    linha.setAttribute("points", `${X - ov},${Y + Ht * .3 + ov * .62} ${X + Wd / 2 + mx * .8},${Y - 8} ${X + Wd + ov},${Y + Ht * .3 + ov * .62}`);
+    telhado.style.opacity = clamp(1 - e * 4);
+    txt.style.opacity = clamp(1 - p * 2.6);
+    txt.style.transform = `translateY(${-p * 120}px)`;
+    txt.style.pointerEvents = p > .3 ? "none" : "";
+    profs.forEach((el) => { const f = +el.dataset.prof; el.style.transform = `translate(${hx * 18 * f}px, ${hy * 14 * f - p * 200 * f}px)`; el.style.opacity = clamp(1 - p * 3.2); });
+    const m = clamp((p - .62) / .2);
+    msg.style.opacity = m; msg.style.transform = `translateY(${(1 - m) * 40}px)`;
+    rolar.style.opacity = clamp(1 - p * 6);
+  }
+
+  /* Faixa que corre com a velocidade do scroll */
+  const trilho = $(".faixa__trilho");
+  trilho.innerHTML += trilho.innerHTML;
+  let fx = 0, dir = 1, vel = 0, yAnt = scrollY;
+  function faixaFrame() {
+    const dy = scrollY - yAnt; yAnt = scrollY;
+    if (dy) dir = dy > 0 ? 1 : -1;
+    vel = lerp(vel, Math.min(40, Math.abs(dy)), .1);
+    const meio = trilho.scrollWidth / 2;
+    fx -= (calmo ? 0 : (.7 + vel * .35)) * dir;
+    if (fx <= -meio) fx += meio; if (fx > 0) fx -= meio;
+    trilho.style.transform = `translateX(${fx}px) skewX(${clamp(-vel * .5 * dir, -12, 12)}deg)`;
+  }
+
+  /* Manifesto: as palavras acendem com o scroll */
+  const man = $("#manifesto");
+  let destaque = false;
+  man.innerHTML = man.textContent.trim().split(/\s+/).map((w) => {
+    let cls = "w";
+    if (w.startsWith("*")) { destaque = true; w = w.slice(1); }
+    if (destaque) cls += " or";
+    if (w.endsWith("*")) { destaque = false; w = w.slice(0, -1); }
+    return `<span class="${cls}">${w}</span>`;
+  }).join(" ");
+  const palavras = $$(".w", man);
+  function manFrame() {
+    const r = man.getBoundingClientRect();
+    if (r.top > H || r.bottom < 0) return;
+    const p = clamp((H * .82 - r.top) / (r.height + H * .3));
+    const n = Math.round(p * palavras.length);
+    palavras.forEach((w, i) => w.classList.toggle("on", i < n));
+  }
+
+  /* Contadores */
+  const ioN = new IntersectionObserver((es) => es.forEach((e) => {
+    if (!e.isIntersecting) return; ioN.unobserve(e.target);
+    const el = e.target, alvo = +el.dataset.conta, dec = +(el.dataset.dec || 0), t0 = performance.now();
+    const passo = (t) => { const k = clamp((t - t0) / 1600), v = alvo * (1 - Math.pow(1 - k, 4)); el.textContent = v.toLocaleString("pt-BR", { minimumFractionDigits: dec, maximumFractionDigits: dec }); if (k < 1) requestAnimationFrame(passo); };
+    requestAnimationFrame(passo);
+  }), { threshold: .6 });
+  $$("[data-conta]").forEach((el) => ioN.observe(el));
+
+  /* Serviços: trilho horizontal preso */
+  const svc = $("#servicos"), svT = $(".svc__trilho"), svB = $(".svc__barra i");
+  function svcMedir() { svc.style.height = largo.matches ? `${svT.scrollWidth - W + H}px` : ""; }
+  function svcFrame() {
+    if (!largo.matches) return;
+    const r = svc.getBoundingClientRect();
+    if (r.top > H || r.bottom < 0) return;
+    const p = clamp(-r.top / (r.height - H));
+    svT.style.transform = `translateX(${-p * (svT.scrollWidth - W)}px)`;
+    svB.style.transform = `scaleX(${p})`;
+  }
+
   /* Pet cam */
-  const CAMS = [["1492748046438-4b6d9ebe0c11", "Câmera 2 · Quartinhos"], ["1760530327971-f8523426c60a", "Câmera 1 · Pátio"], ["1561130627-94d7dd29776d", "Câmera 3 · Soneca"], ["1722257401181-a04cc4df36f8", "Câmera 1 · Pátio"]];
-  const cam = $("#cam");
-  cam.insertAdjacentHTML("beforeend", CAMS.map(([i], k) => `<img src="${u(i, 500)}" alt="" class="${k ? "" : "on"}" />`).join(""));
-  let ck = 0;
-  setInterval(() => { const imgs = $$("img", cam); imgs[ck].classList.remove("on"); ck = (ck + 1) % imgs.length; imgs[ck].classList.add("on"); $("#camName").textContent = CAMS[ck][1]; }, 3500);
-  const relogio = () => $("#camTime").textContent = new Date().toLocaleTimeString("pt-BR");
+  const CAMS = [["1787152467585-3b6a11777ebd", "CAM 01 · Pátio", "Pátio"], ["1492748046438-4b6d9ebe0c11", "CAM 02 · Quartinhos", "Quartinhos"], ["1760530327971-f8523426c60a", "CAM 03 · Gramado", "Gramado"], ["1695451486995-7697b5c1be51", "CAM 04 · Soneca", "Soneca"]];
+  const tela = $("#tela"), tabs = $("#camTabs");
+  tela.insertAdjacentHTML("afterbegin", CAMS.map(([i, n], k) => `<img src="${u(i, 1200)}" alt="Câmera ao vivo: ${n}" loading="lazy" class="${k ? "" : "on"}" />`).join(""));
+  tabs.innerHTML = CAMS.map(([, , t], k) => `<button type="button" class="${k ? "" : "on"}" data-k="${k}">${t}</button>`).join("");
+  let camK = 0, camPausa = 0;
+  const camVai = (k) => { camK = k; $$("img", tela).forEach((im, i) => im.classList.toggle("on", i === k)); $$("button", tabs).forEach((b, i) => b.classList.toggle("on", i === k)); $("#camNome").textContent = CAMS[k][1]; };
+  tabs.onclick = (e) => { const b = e.target.closest("button"); if (b) { camVai(+b.dataset.k); camPausa = Date.now() + 12000; } };
+  setInterval(() => { if (Date.now() > camPausa) camVai((camK + 1) % CAMS.length); }, 4200);
+  const relogio = () => { $("#camHora").textContent = new Date().toLocaleTimeString("pt-BR"); };
   relogio(); setInterval(relogio, 1000);
 
-  /* Calculadora de hospedagem */
-  const PORTE = [["P", "🐩", "até 10 kg", 85], ["M", "🐕", "10 a 25 kg", 105], ["G", "🐕‍🦺", "acima de 25 kg", 129]];
-  const ADD = [["banho", "Banho na saída", 59, "por pet"], ["passeio", "Passeio extra diário", 20, "por dia/pet"], ["med", "Administração de medicação", 12, "por dia/pet"], ["taxi", "Táxi pet ida e volta", 50, "por estadia"]];
-  let porte = "M", pets = 1;
-  const extras = new Set(["banho"]);
-  $("#sizes").innerHTML = PORTE.map(([k, e, d, p]) => `<button type="button" class="sz" data-k="${k}"><span>${e}</span>${k === "P" ? "Pequeno" : k === "M" ? "Médio" : "Grande"}<small>${d}</small><small>${brl(p)}/noite</small></button>`).join("");
-  $("#adds").innerHTML = ADD.map(([k, n, p, d]) => `<label class="add"><input type="checkbox" data-k="${k}" ${extras.has(k) ? "checked" : ""} />${n}<small>${brl(p)} ${d}</small></label>`).join("");
-  const iso = (d) => { const x = new Date(d); x.setMinutes(x.getMinutes() - x.getTimezoneOffset()); return x.toISOString().slice(0, 10); };
-  const hoje = new Date(); const ini = new Date(); ini.setDate(ini.getDate() + 7); const fim = new Date(ini); fim.setDate(fim.getDate() + 5);
-  $("#ci").min = $("#co").min = iso(hoje); $("#ci").value = iso(ini); $("#co").value = iso(fim);
-  function calc() {
-    $$(".sz").forEach((b) => b.classList.toggle("on", b.dataset.k === porte));
-    $("#np").textContent = pets;
-    const a = new Date($("#ci").value), b = new Date($("#co").value);
-    const n = Math.round((b - a) / 864e5);
-    $("#warn").textContent = isNaN(n) || n < 1 ? "A saída precisa ser depois da entrada 😉" : "";
-    const noites = Math.max(0, n || 0), diaria = PORTE.find((p) => p[0] === porte)[3];
-    $("#nights").textContent = `${noites} ${noites === 1 ? "noite" : "noites"} · ${pets} ${pets === 1 ? "pet" : "pets"}`;
-    const L = [];
-    L.push([`Diárias (${noites}× ${brl(diaria)})`, noites * diaria]);
-    if (pets > 1) L.push([`+${pets - 1} pet${pets > 2 ? "s" : ""} com 20% off`, noites * diaria * .8 * (pets - 1)]);
-    if (noites >= 7) L.push(["Desconto estadia longa (10%)", -(noites * diaria * (1 + .8 * (pets - 1))) * .1]);
-    ADD.forEach(([k, nome, p, d]) => { if (!extras.has(k)) return; const v = k === "taxi" ? p : k === "banho" ? p * pets : p * noites * pets; L.push([nome, v]); });
-    $("#lines").innerHTML = L.map(([n, v]) => `<div class="ln"><span>${n}</span><b>${v < 0 ? "− " + brl(-v) : brl(v)}</b></div>`).join("");
-    const tot = L.reduce((s, x) => s + x[1], 0);
-    $("#tot").textContent = brl(Math.max(0, tot));
-    $("#reserve").dataset.msg = `Olá! Quero reservar no Bicho Feliz:\nEntrada: ${a.toLocaleDateString("pt-BR", { timeZone: "UTC" })}\nSaída: ${b.toLocaleDateString("pt-BR", { timeZone: "UTC" })}\nPorte: ${porte} · ${pets} pet(s)\nExtras: ${[...extras].map((k) => ADD.find((x) => x[0] === k)[1]).join(", ") || "nenhum"}\nTotal estimado: ${$("#tot").textContent}`;
+  /* Rotina: o céu muda com o scroll */
+  const R = [
+    [7, "Café da manhã", "A ração que ele come em casa, no horário de casa.", "1543466835-00a7907e9de1", "bom dia!", ["#ffd6a5", "#fff3dc"]],
+    [9, "Recreação", "Grupos por porte e energia, com monitor o tempo todo.", "1760530327971-f8523426c60a", "pega-pega", ["#a8d8ff", "#eef8ff"]],
+    [12, "Soneca", "Quartinho climatizado e música calma depois do almoço.", "1561130627-94d7dd29776d", "zzz", ["#7cc4ff", "#dff2ff"]],
+    [15, "Piscina", "Nos dias de sol, com boia, monitor e secagem caprichada.", "1722257401181-a04cc4df36f8", "splash", ["#86c9ff", "#fff1c9"]],
+    [18, "Jantar", "E um petisco natural pra fechar o dia.", "1534361960057-19889db9621e", "fim de tarde", ["#ff9b5e", "#ffd9a6"]],
+    [20, "Hora de dormir", "Luz baixa, caminha quentinha e foto de boa-noite pra você.", "1695451486995-7697b5c1be51", "boa noite", ["#1d2347", "#3b3466"]],
+  ];
+  const dia = $("#rotina"), ceu = $("#ceu"), sol = $("#sol"), lua = $("#lua"), polas = $("#polas"), linhaD = $("#diaLinha"), diaTxt = $("#diaTxt");
+  polas.innerHTML = R.map(([, n, , f, leg], i) => `<figure style="--r:${[-4, 3, -2, 4, -3, 2][i]}deg" class="${i ? "" : "on"}"><img src="${u(f, 700)}" alt="${n}" loading="lazy" /><figcaption>${leg}</figcaption></figure>`).join("");
+  linhaD.innerHTML = R.map(([h, n], i) => `<button type="button" data-i="${i}" class="${i ? "" : "on"}"><i><b></b></i><span>${String(h).padStart(2, "0")}h · ${n}</span></button>`).join("");
+  const hex = (c) => [1, 3, 5].map((i) => parseInt(c.slice(i, i + 2), 16));
+  const mix = (a, b, t) => { const A = hex(a), B = hex(b); return `rgb(${A.map((v, i) => Math.round(lerp(v, B[i], t))).join(",")})`; };
+  let diaI = -1;
+  function diaFrame() {
+    const r = dia.getBoundingClientRect();
+    if (r.top > H || r.bottom < 0) return;
+    const p = clamp(-r.top / (r.height - H));
+    const f = p * (R.length - 1), i0 = Math.floor(f), i1 = Math.min(R.length - 1, i0 + 1), t = f - i0;
+    const tc = t * t * (3 - 2 * t), tk = tc * tc * (3 - 2 * tc);
+    ceu.style.setProperty("--c1", mix(R[i0][5][0], R[i1][5][0], tk));
+    ceu.style.setProperty("--c2", mix(R[i0][5][1], R[i1][5][1], tk));
+    const noite = clamp((f - 4.1) / .8);
+    ceu.style.setProperty("--noite", noite);
+    ceu.style.setProperty("--tx", noite > .5 ? "#fbf3e7" : "#1f1a14");
+    $("#morro1").setAttribute("fill", mix("#7dbb5c", "#1e3a3a", noite));
+    $("#morro2").setAttribute("fill", mix("#9fcf7a", "#26404a", noite));
+    const hs = lerp(R[i0][0], R[i1][0], t), hh = Math.floor(hs), mm = Math.floor((hs - hh) * 60 / 5) * 5;
+    $("#diaHora").textContent = `${String(hh).padStart(2, "0")}:${String(mm).padStart(2, "0")}`;
+    const a = Math.PI * clamp((hs - 6) / 13), raio = Math.min(W * .36, 520), base = H * (W > 900 ? .86 : .9);
+    sol.style.transform = `translate(${W * (W > 900 ? .62 : .5) - Math.cos(a) * raio}px, ${base - Math.sin(a) * raio * .75 + noite * 200}px)`;
+    sol.style.opacity = 1 - noite;
+    lua.style.transform = `translate(${W * (W > 900 ? .58 : .78)}px, ${H * .2 + (1 - noite) * 160}px)`;
+    lua.style.opacity = noite;
+    const iAtual = Math.min(R.length - 1, Math.floor(p * R.length * .999));
+    $$("button", linhaD).forEach((b, k) => b.querySelector("b").style.setProperty("--p", clamp(p * R.length - k)));
+    if (iAtual !== diaI) {
+      const pri = diaI < 0; diaI = iAtual;
+      $$("figure", polas).forEach((fg, k) => fg.classList.toggle("on", k === iAtual));
+      $$("button", linhaD).forEach((b, k) => b.classList.toggle("on", k === iAtual));
+      const muda = () => { $("#diaNome").textContent = R[iAtual][1]; $("#diaDesc").textContent = R[iAtual][2]; diaTxt.classList.remove("troca"); };
+      if (pri) muda(); else { diaTxt.classList.add("troca"); setTimeout(muda, 220); }
+    }
   }
-  $("#sizes").onclick = (e) => { const b = e.target.closest(".sz"); if (b) { porte = b.dataset.k; calc(); } };
-  $("#mn").onclick = () => { pets = Math.max(1, pets - 1); calc(); };
-  $("#ms").onclick = () => { pets = Math.min(4, pets + 1); calc(); };
-  $("#adds").onchange = (e) => { const k = e.target.dataset.k; e.target.checked ? extras.add(k) : extras.delete(k); calc(); };
-  ["#ci", "#co"].forEach((s) => $(s).addEventListener("change", calc));
-  $("#reserve").onclick = () => { if ($("#warn").textContent) return; window.open(`https://wa.me/${WA}?text=${encodeURIComponent($("#reserve").dataset.msg)}`, "_blank"); };
-  calc();
+  linhaD.onclick = (e) => { const b = e.target.closest("button"); if (!b) return; const i = +b.dataset.i; const top = dia.offsetTop + (dia.offsetHeight - H) * ((i + .5) / R.length); scrollTo({ top, behavior: calmo ? "auto" : "smooth" }); };
 
-  /* Rotina */
-  const R = [[7, "🥣", "Café da manhã", "ração do tutor, no horário de casa"], [9, "🎾", "Recreação", "grupos por porte e energia"], [12, "😴", "Soneca", "quartinho climatizado"], [15, "🏊", "Piscina", "nos dias de sol, com monitor"], [18, "🍗", "Jantar", "e petisco natural"], [20, "🌙", "Hora de dormir", "música calma e luz baixa"]];
-  const h = new Date().getHours();
-  let atual = R.reduce((acc, r, i) => (h >= r[0] ? i : acc), 0);
-  if (h < 7 || h >= 22) atual = 5;
-  $("#tl").innerHTML = R.map(([hr, ic, n, d], i) => `<div class="tm ${i === atual ? "now" : ""}" data-r style="--d:${i * .07}s"><i>${ic}</i><b>${hr}h</b><span>${n}</span><small>${d}</small></div>`).join("");
-  $$(".tm").forEach((t) => io.observe(t));
+  /* Disponibilidade */
+  const PORTES = [["P", "Pequeno", "até 10 kg", .62], ["M", "Médio", "10 a 25 kg", .82], ["G", "Grande", "acima de 25 kg", 1]];
+  let porte = "M";
+  $("#portes").innerHTML = PORTES.map(([k, n, d, s]) => `<button type="button" class="porte${k === porte ? " on" : ""}" role="radio" aria-checked="${k === porte}" data-k="${k}" style="--s:${s}"><span class="cao"><svg viewBox="0 0 80 56"><use href="#i-cao"/></svg></span><b>${n}</b><small>${d}</small></button>`).join("");
+  const iso = (d) => { const x = new Date(d); x.setMinutes(x.getMinutes() - x.getTimezoneOffset()); return x.toISOString().slice(0, 10); };
+  const br = (v, curto) => { if (!v) return "--/--"; const [a, m, d] = v.split("-"); return curto ? `${d}/${m}` : `${d}/${m}/${a}`; };
+  const hoje = new Date(), e0 = new Date(), s0 = new Date();
+  e0.setDate(hoje.getDate() + 7); s0.setDate(hoje.getDate() + 11);
+  const ent = $("#ent"), sai = $("#sai"), nome = $("#nome");
+  ent.min = iso(hoje); sai.min = iso(new Date(hoje.getTime() + 864e5));
+  ent.value = iso(e0); sai.value = iso(s0);
+  const noites = () => { if (!ent.value || !sai.value) return NaN; return Math.round((new Date(sai.value) - new Date(ent.value)) / 864e5); };
+  function passe() {
+    const P = PORTES.find((x) => x[0] === porte);
+    $("#pNome").textContent = nome.value.trim() || "Seu nome aqui";
+    $("#pEnt").textContent = br(ent.value, true); $("#pSai").textContent = br(sai.value, true);
+    $("#pPorte").textContent = P[1];
+    const n = noites(); $("#pDias").textContent = n > 0 ? n : "0";
+    $("#pCao").style.setProperty("--s", P[3]);
+    if (ent.value) { const m = new Date(ent.value); m.setDate(m.getDate() + 1); sai.min = iso(m); }
+    const st = $("#status");
+    if (!st.classList.contains("ok")) st.lastChild.textContent = nome.value.trim() ? "Tudo pronto para consultar" : "Aguardando seus dados";
+  }
+  $("#portes").onclick = (e) => { const b = e.target.closest(".porte"); if (!b) return; porte = b.dataset.k; $$(".porte").forEach((x) => { x.classList.toggle("on", x === b); x.setAttribute("aria-checked", x === b); }); passe(); };
+  [nome, ent, sai].forEach((el) => el.addEventListener("input", () => { el.closest(".campo").classList.remove("erro"); el.closest(".campo").querySelector(".msg").textContent = ""; $("#status").classList.remove("ok"); passe(); }));
+  passe();
+  $("#form").addEventListener("submit", (e) => {
+    e.preventDefault();
+    let ok = true;
+    const erro = (c, t) => { ok = false; c.classList.add("erro"); c.querySelector(".msg").textContent = t; };
+    if (nome.value.trim().length < 2) erro($("#cNome"), "Conta pra gente o seu nome.");
+    const n = noites();
+    if (!ent.value || !sai.value) erro($("#cDatas"), "Escolha as datas de entrada e saída.");
+    else if (ent.value < iso(hoje)) erro($("#cDatas"), "A entrada precisa ser a partir de hoje.");
+    else if (!(n > 0)) erro($("#cDatas"), "A saída precisa ser depois da entrada.");
+    if (!ok) { const f = $("#form"); f.classList.remove("tremer"); void f.offsetWidth; f.classList.add("tremer"); (nome.value.trim().length < 2 ? nome : ent).focus(); return; }
+    const P = PORTES.find((x) => x[0] === porte);
+    abreWA(`Olá, Bicho Feliz! Meu nome é ${nome.value.trim()} e gostaria de saber se há disponibilidade de hospedagem.\n\n• Porte do cachorro: ${P[1]} (${P[2]})\n• Entrada: ${br(ent.value)}\n• Saída: ${br(sai.value)}\n• ${n} ${n === 1 ? "diária" : "diárias"}\n\nObrigado(a)!`);
+    const st = $("#status"); st.classList.add("ok"); st.lastChild.textContent = "Mensagem aberta no WhatsApp. É só enviar!";
+  });
+  const passeEl = $("#passe"), passeA = $(".passe-area");
+  if (fino) {
+    passeA.addEventListener("pointermove", (e) => { const r = passeEl.getBoundingClientRect(); const x = (e.clientX - r.left) / r.width, y = (e.clientY - r.top) / r.height; passeEl.style.transform = `rotateY(${(x - .5) * 14}deg) rotateX(${(.5 - y) * 12}deg)`; passeEl.style.setProperty("--gx", x * 100 + "%"); passeEl.style.setProperty("--gy", y * 100 + "%"); });
+    passeA.addEventListener("pointerleave", () => { passeEl.style.transform = ""; });
+  }
 
   /* Checklist */
-  const C = [["Vacina V8/V10 em dia", "carteirinha com carimbo do vet"], ["Vacina antirrábica", "aplicada há menos de 1 ano"], ["Vermífugo recente", "nos últimos 3 meses"], ["Antipulgas e carrapatos", "aplicado na última semana"], ["Ração para a estadia", "evita troca brusca de alimentação"]];
-  $("#ck").innerHTML = C.map(([n, d], i) => `<label class="ci"><input type="checkbox" data-i="${i}" /><i>✓</i><span>${n}<small>${d}</small></span></label>`).join("");
+  const C = [["Vacina V8/V10 em dia", "carteirinha com carimbo do veterinário"], ["Vacina antirrábica", "aplicada há menos de 1 ano"], ["Vermífugo recente", "nos últimos 3 meses"], ["Antipulgas e carrapatos", "aplicado na última semana"], ["Ração para a estadia", "evita troca brusca de alimentação"]];
+  $("#ck").innerHTML = C.map(([n, d], i) => `<label class="ci" data-r style="--d:${i * .06}s"><input type="checkbox" data-i="${i}" /><i><svg><use href="#i-check"/></svg></i><span>${n}<small>${d}</small></span></label>`).join("");
+  $$("#ck [data-r]").forEach((el) => io.observe(el));
+  const anel = $("#anel"), anelF = $("#anelF"), circ = 2 * Math.PI * 88;
+  anelF.style.strokeDasharray = circ; anelF.style.strokeDashoffset = circ;
   $("#ck").onchange = (e) => {
     e.target.closest(".ci").classList.toggle("on", e.target.checked);
-    const n = $$("#ck input:checked").length, r = $("#ready");
-    r.classList.toggle("ok", n === C.length);
-    r.textContent = n === C.length ? "🎉 Tudo certo! Seu pet está pronto para as férias." : `${n} de ${C.length} itens prontos`;
+    const n = $$("#ck input:checked").length;
+    anelF.style.strokeDashoffset = circ * (1 - n / C.length);
+    $("#anelN").textContent = `${n}/${C.length}`;
+    const pronto = n === C.length, era = anel.classList.contains("ok");
+    anel.classList.toggle("ok", pronto);
+    $("#anelT").textContent = "itens prontos";
+    if (pronto && !era && !calmo) confete(anel);
   };
+  function confete(el) {
+    const r = el.getBoundingClientRect(), ox = r.left + r.width / 2, oy = r.top + r.height / 2;
+    const cores = ["#e26a2c", "#ffcf3f", "#2f7d4f", "#bcd7ff", "#ffb4a2"];
+    for (let i = 0; i < 22; i++) {
+      const c = document.createElement("div"); c.className = "confete";
+      c.innerHTML = `<svg viewBox="0 0 24 24" style="color:${cores[i % cores.length]}"><use href="#i-pata" class="paw"/></svg>`;
+      document.body.appendChild(c);
+      const a = Math.random() * Math.PI * 2, d = 120 + Math.random() * 180, rot = (Math.random() - .5) * 720;
+      c.animate([{ transform: `translate(${ox}px, ${oy}px) scale(.3) rotate(0deg)`, opacity: 1 }, { transform: `translate(${ox + Math.cos(a) * d}px, ${oy + Math.sin(a) * d - 60}px) scale(1) rotate(${rot}deg)`, opacity: 1, offset: .6 }, { transform: `translate(${ox + Math.cos(a) * d * 1.1}px, ${oy + Math.sin(a) * d + 120}px) scale(.8) rotate(${rot * 1.3}deg)`, opacity: 0 }], { duration: 1500 + Math.random() * 500, easing: "cubic-bezier(.2,.8,.2,1)" }).onfinish = () => c.remove();
+    }
+  }
+
+  /* Planos */
+  $$("[data-plano]").forEach((b) => b.addEventListener("click", () => abreWA(`Olá, Bicho Feliz! Quero saber mais sobre o plano de creche ${b.dataset.plano}.`)));
+
+  /* Mural: arrastar as fotos */
+  let zTop = 10;
+  $$(".pola").forEach((pc) => {
+    let ini = null;
+    pc.addEventListener("pointerdown", (e) => {
+      if (!largo.matches) return;
+      e.preventDefault(); pc.setPointerCapture(e.pointerId);
+      const tx = parseFloat(pc.dataset.tx || 0), ty = parseFloat(pc.dataset.ty || 0);
+      ini = { x: e.clientX, y: e.clientY, tx, ty };
+      pc.style.zIndex = ++zTop; pc.classList.add("arrasta");
+    });
+    pc.addEventListener("pointermove", (e) => {
+      if (!ini) return;
+      const area = $("#mural").getBoundingClientRect(), base = pc.getBoundingClientRect();
+      let tx = ini.tx + e.clientX - ini.x, ty = ini.ty + e.clientY - ini.y;
+      const vx = e.movementX || 0;
+      pc.style.translate = `${tx}px ${ty}px`;
+      pc.style.rotate = `${clamp(vx * .6, -10, 10)}deg`;
+      pc.dataset.tx = tx; pc.dataset.ty = ty;
+      void area; void base;
+    });
+    const solta = () => { if (!ini) return; ini = null; pc.classList.remove("arrasta"); pc.style.rotate = "0deg"; };
+    pc.addEventListener("pointerup", solta); pc.addEventListener("pointercancel", solta);
+  });
+
+  /* Cachorro do rodapé: os olhos seguem o mouse */
+  const olhos = $$(".cachorro .olho-p");
+  const svgDog = $(".cachorro svg");
+  let ox = 0, oy = 0, tAnt = 0;
+  function olhosFrame(t) {
+    const r = svgDog.getBoundingClientRect();
+    if (r.top > H || r.bottom < 0) return;
+    let ax, ay;
+    if (fino) { ax = mouse.x; ay = mouse.y; }
+    else { ax = r.left + r.width / 2 + Math.sin(t / 900) * 200; ay = r.top + Math.cos(t / 1300) * 120; }
+    olhos.forEach((o, i) => {
+      const cxo = r.left + r.width * (i ? 130 : 70) / 200, cyo = r.top + r.height * 96 / 170;
+      const a = Math.atan2(ay - cyo, ax - cxo), d = Math.min(1, Math.hypot(ax - cxo, ay - cyo) / 200);
+      o.style.transform = `translate(${Math.cos(a) * 5 * d}px, ${Math.sin(a) * 5 * d}px)`;
+    });
+    void ox; void oy; void tAnt;
+  }
+
+  /* Nav some ao descer e volta ao subir */
+  let navY = scrollY;
+  function navFrame() {
+    const y = scrollY, d = y - navY;
+    if (Math.abs(d) > 6) { nav.classList.toggle("esconde", d > 0 && y > 300 && !nav.classList.contains("aberto")); navY = y; }
+  }
+
+  /* Cursor suave */
+  function curFrame() {
+    cx = lerp(cx, mouse.x, .2); cy = lerp(cy, mouse.y, .2);
+    cur.style.transform = `translate(${cx}px, ${cy}px)`;
+  }
+
+  function quadro(t) {
+    heroFrame(); faixaFrame(); manFrame(); svcFrame(); diaFrame(); olhosFrame(t); navFrame(); if (fino) curFrame();
+    requestAnimationFrame(quadro);
+  }
+  function medir() { W = innerWidth; H = innerHeight; svcMedir(); }
+  addEventListener("resize", medir);
+  largo.addEventListener("change", () => { svT.style.transform = ""; medir(); });
+  addEventListener("load", medir);
+  medir();
+  requestAnimationFrame(quadro);
 })();
 </script>
 </body>
