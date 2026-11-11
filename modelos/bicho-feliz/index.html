@@ -341,13 +341,17 @@
   .fim__cta h2 { font-size: clamp(48px, 8vw, 128px); }
   .fim__cta h2 em { color: var(--ink); }
   .fim__cta p { margin: 20px auto 34px; font-size: 19px; max-width: 520px; color: #ffeede; }
-  .cachorro { width: min(300px, 62vw); margin: 60px auto -6px; position: relative; z-index: 1; }
-  .cachorro svg { width: 100%; height: auto; overflow: visible; }
-  .lingua { transform-origin: 100px 150px; animation: lingua 1.4s ease-in-out infinite; }
-  @keyframes lingua { 50% { transform: scaleY(1.18); } }
-  .olho-p { transition: transform .15s ease-out; }
-  .palpebra { transform-origin: center; transform-box: fill-box; transform: scaleY(0); animation: piscar 5s infinite; }
-  @keyframes piscar { 0%, 94%, 100% { transform: scaleY(0); } 96% { transform: scaleY(1); } }
+  .trio { position: relative; z-index: 1; display: flex; justify-content: center; align-items: flex-end; gap: clamp(12px, 2vw, 28px); margin-top: 70px; padding: 0 20px; }
+  .trio figure { position: relative; flex: none; width: var(--w); will-change: transform; transition: translate .6s var(--spring); }
+  .trio figure:hover { translate: 0 -14px; }
+  .trio .moldura { aspect-ratio: 4 / 5; clip-path: polygon(50% 0, 100% 27%, 100% 100%, 0 100%, 0 27%); overflow: hidden; background: var(--orange2); }
+  .trio img { width: 100%; height: 100%; object-fit: cover; transform: scale(1.08); transition: transform 1.2s var(--ease); }
+  .trio figure:hover img { transform: scale(1.14); }
+  .trio figcaption { position: absolute; left: 50%; bottom: 18px; transform: translateX(-50%); padding: 7px 14px; border-radius: 999px; background: rgba(255,250,243,.94); color: var(--ink); font-weight: 700; font-size: 13.5px; white-space: nowrap; box-shadow: 0 10px 24px -12px rgba(31,26,20,.5); }
+  .trio figcaption span { color: var(--orange); font-family: var(--serif); font-style: italic; font-weight: 400; font-size: 16px; }
+  .trio .t1 { --w: clamp(150px, 19vw, 260px); }
+  .trio .t2 { --w: clamp(190px, 25vw, 340px); }
+  .trio .t3 { --w: clamp(150px, 19vw, 260px); }
   .rodape { position: relative; z-index: 2; background: var(--ink); color: #bfb3a3; padding: 60px 0 30px; }
   .rodape__grid { display: grid; grid-template-columns: 1.2fr 1fr 1fr 1fr; gap: 30px; }
   .rodape h4 { color: var(--cream); font-family: var(--display); font-size: 17px; margin-bottom: 12px; }
@@ -421,6 +425,9 @@
     .pola { position: relative; left: auto; top: auto; flex: none; width: 260px; scroll-snap-align: center; touch-action: auto; cursor: auto; }
     .mural__dica { display: none; }
     .fim { padding-top: 90px; border-radius: 40px 40px 0 0; }
+    .trio { margin-top: 50px; gap: 8px; padding: 0 12px; }
+    .trio .t1, .trio .t3 { --w: 27vw; } .trio .t2 { --w: 36vw; }
+    .trio figcaption { display: none; }
     .rodape__grid { grid-template-columns: 1fr 1fr; }
     .rodape__grid > div:first-child { grid-column: 1 / -1; }
   }
@@ -649,26 +656,16 @@
 </section>
 </main>
 
-<footer class="fim">
+<footer class="fim" id="contato">
   <div class="wrap fim__cta">
     <h2 data-r>Bora tirar seu pet <em>da casinha?</em></h2>
     <p data-r>Consulte as datas pelo WhatsApp e venha conhecer o espaço antes da primeira estadia.</p>
     <a href="#disponibilidade" class="btn btn--light mag" data-r>Ver disponibilidade <svg><use href="#i-seta" /></svg></a>
   </div>
-  <div class="cachorro" aria-hidden="true">
-    <svg viewBox="0 0 200 170">
-      <path d="M52 78 34 14c-2-7 5-12 11-8l42 30Z" fill="#c4521b" stroke="#c4521b" stroke-width="8" stroke-linejoin="round"/>
-      <path d="M148 78 166 14c2-7-5-12-11-8l-42 30Z" fill="#c4521b" stroke="#c4521b" stroke-width="8" stroke-linejoin="round"/>
-      <path d="M52 64 43 26l26 19Z" fill="#ffb4a2"/><path d="M148 64l9-38-26 19Z" fill="#ffb4a2"/>
-      <ellipse cx="100" cy="104" rx="74" ry="64" fill="#f08a4b"/>
-      <path d="M100 46c-10 22-34 44-34 76 0 30 68 30 68 0 0-32-24-54-34-76Z" fill="#fff4e6"/>
-      <ellipse cx="62" cy="128" rx="11" ry="7" fill="#ff8f7a" opacity=".55"/><ellipse cx="138" cy="128" rx="11" ry="7" fill="#ff8f7a" opacity=".55"/>
-      <g id="olhoE"><circle cx="70" cy="96" r="14" fill="#fff"/><g class="olho-p"><circle cx="70" cy="96" r="8" fill="#1f1a14"/><circle cx="72.5" cy="93" r="2.6" fill="#fff"/></g><ellipse class="palpebra" cx="70" cy="96" rx="15" ry="15" fill="#f08a4b"/></g>
-      <g id="olhoD"><circle cx="130" cy="96" r="14" fill="#fff"/><g class="olho-p"><circle cx="130" cy="96" r="8" fill="#1f1a14"/><circle cx="132.5" cy="93" r="2.6" fill="#fff"/></g><ellipse class="palpebra" cx="130" cy="96" rx="15" ry="15" fill="#f08a4b"/></g>
-      <path class="lingua" d="M92 146h16v10a8 8 0 0 1-16 0Z" fill="#ff6f86"/>
-      <ellipse cx="100" cy="128" rx="13" ry="9" fill="#1f1a14"/>
-      <path d="M100 137v7m0 0c-4 6-12 6-16 1m16-1c4 6 12 6 16 1" fill="none" stroke="#1f1a14" stroke-width="3" stroke-linecap="round"/>
-    </svg>
+  <div class="trio">
+    <figure class="t1" data-par="1.4"><div class="moldura"><img src="https://images.unsplash.com/photo-1543466835-00a7907e9de1?w=700&q=78&auto=format&fit=crop" alt="Beagle sorrindo" loading="lazy" /></div><figcaption>Mel <span>· creche</span></figcaption></figure>
+    <figure class="t2" data-par=".7"><div class="moldura"><img src="https://images.unsplash.com/photo-1772606270537-6eb199b55aed?w=700&q=78&auto=format&fit=crop" alt="Corgi feliz de peitoral" loading="lazy" /></div><figcaption>Thor <span>· hotelzinho</span></figcaption></figure>
+    <figure class="t3" data-par="1.8"><div class="moldura"><img src="https://images.unsplash.com/photo-1534361960057-19889db9621e?w=700&q=78&auto=format&fit=crop" alt="Cachorrinho branco correndo na grama" loading="lazy" /></div><figcaption>Nina <span>· banho &amp; tosa</span></figcaption></figure>
   </div>
   <div class="rodape">
     <div class="wrap">
@@ -1002,22 +999,15 @@
     pc.addEventListener("pointerup", solta); pc.addEventListener("pointercancel", solta);
   });
 
-  /* Cachorro do rodapé: os olhos seguem o mouse */
-  const olhos = $$(".cachorro .olho-p");
-  const svgDog = $(".cachorro svg");
-  let ox = 0, oy = 0, tAnt = 0;
-  function olhosFrame(t) {
-    const r = svgDog.getBoundingClientRect();
+  /* Trio de casinhas no rodapé: parallax com mouse e scroll */
+  const trio = $(".trio"), casinhas = $$(".trio figure");
+  let tx = 0;
+  function olhosFrame() {
+    const r = trio.getBoundingClientRect();
     if (r.top > H || r.bottom < 0) return;
-    let ax, ay;
-    if (fino) { ax = mouse.x; ay = mouse.y; }
-    else { ax = r.left + r.width / 2 + Math.sin(t / 900) * 200; ay = r.top + Math.cos(t / 1300) * 120; }
-    olhos.forEach((o, i) => {
-      const cxo = r.left + r.width * (i ? 130 : 70) / 200, cyo = r.top + r.height * 96 / 170;
-      const a = Math.atan2(ay - cyo, ax - cxo), d = Math.min(1, Math.hypot(ax - cxo, ay - cyo) / 200);
-      o.style.transform = `translate(${Math.cos(a) * 5 * d}px, ${Math.sin(a) * 5 * d}px)`;
-    });
-    void ox; void oy; void tAnt;
+    tx = lerp(tx, fino ? mouse.nx : 0, .06);
+    const sp = ease(clamp((H - r.top) / r.height));
+    casinhas.forEach((f) => { const k = +f.dataset.par; f.style.transform = `translate(${tx * 14 * k}px, ${(1 - sp) * 110 * k}px)`; });
   }
 
   /* Nav some ao descer e volta ao subir */
