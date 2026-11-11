@@ -214,12 +214,6 @@
   .dia:disabled { opacity: .35; cursor: not-allowed; }
   .dia.on { background: var(--brass); color: var(--bg); box-shadow: none; }
   .dia.on small, .dia.on i { color: rgba(13,12,11,.7); }
-  .periodos { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
-  .pe { padding: 12px 8px; border-radius: 16px; background: rgba(241,232,218,.04); box-shadow: inset 0 0 0 1px var(--line); font-weight: 700; font-size: 14px; transition: all .25s; }
-  .pe small { display: block; font-weight: 600; font-size: 12px; color: var(--muted); }
-  .pe.on { background: var(--cream); color: var(--bg); box-shadow: none; }
-  .pe.on small { color: rgba(13,12,11,.6); }
-  .pe:disabled { opacity: .3; cursor: not-allowed; }
   .campo input { width: 100%; height: 56px; padding: 0 18px; border-radius: 16px; border: 0; background: rgba(241,232,218,.05); box-shadow: inset 0 0 0 1px var(--line); font-weight: 600; font-size: 16px; outline: none; transition: box-shadow .25s; }
   .campo input::placeholder { color: var(--dim); }
   .campo input:focus { box-shadow: inset 0 0 0 1.5px var(--brass); }
@@ -279,7 +273,7 @@
   .info svg { width: 22px; height: 22px; color: var(--brass); flex: none; }
   .info small { display: block; font-size: 11px; font-weight: 800; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); }
   .info span { font-weight: 600; }
-  .marca { margin-top: 110px; font-family: var(--display); font-size: clamp(54px, 15.5vw, 230px); line-height: .8; text-transform: uppercase; text-align: center; white-space: nowrap; color: transparent; -webkit-text-stroke: 1px rgba(241,232,218,.25); background: linear-gradient(90deg, var(--brass2), var(--brass2)) no-repeat; background-size: var(--enche, 0%) 100%; -webkit-background-clip: text; background-clip: text; transition: background-size .2s linear; }
+  .marca { margin-top: 90px; font-family: var(--display); font-size: clamp(54px, 15.5vw, 230px); line-height: 1.12; text-transform: uppercase; text-align: center; white-space: nowrap; color: transparent; -webkit-text-stroke: 1px rgba(241,232,218,.25); background: linear-gradient(90deg, var(--brass2), var(--brass2)) no-repeat; background-size: var(--enche, 0%) 100%; -webkit-background-clip: text; background-clip: text;  }
   .creditos { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; margin-top: 36px; font-size: 13px; color: var(--dim); }
 
   .wa { position: fixed; right: 46px; bottom: 22px; z-index: 90; width: 58px; height: 58px; border-radius: 50%; background: #25d366; color: #fff; display: grid; place-items: center; box-shadow: 0 14px 30px -8px rgba(37,211,102,.55); transition: transform .4s var(--spring); }
@@ -339,7 +333,6 @@
   @media (max-width: 900px) and (max-height: 700px) { .hero p { display: none; } }
   @media (max-width: 520px) {
     .chips { grid-template-columns: 1fr 1fr; }
-    .periodos { grid-template-columns: 1fr 1fr; }
     .dias { gap: 4px; }
     .dia { padding: 8px 0 7px; border-radius: 12px; }
     .dia b { font-size: 20px; }
@@ -458,8 +451,7 @@
         <div class="etapa vidro" data-r><h4><b>1</b>Serviço<i>pode escolher mais de um</i></h4><div class="chips" id="chips"></div></div>
         <div class="etapa vidro" data-r><h4><b>2</b>Barbeiro</h4><div class="barbs" id="barbs"></div></div>
         <div class="etapa vidro" data-r id="eDia"><h4><b>3</b>Dia</h4><div class="cal__top"><b id="mes">novembro</b><div><button type="button" id="ant" aria-label="Semana anterior"><svg><use href="#i-esq" /></svg></button><button type="button" id="prox" aria-label="Próxima semana"><svg><use href="#i-dir" /></svg></button></div></div><div class="dias" id="dias"></div><span class="msg" aria-live="polite"></span></div>
-        <div class="etapa vidro" data-r><h4><b>4</b>Período<i>opcional</i></h4><div class="periodos" id="periodos"></div></div>
-        <div class="etapa vidro campo" data-r id="cNome"><h4><b>5</b><label for="nome">Seu nome</label></h4><input type="text" id="nome" autocomplete="name" placeholder="Como te chamamos?" maxlength="60" /><span class="msg" aria-live="polite"></span></div>
+        <div class="etapa vidro campo" data-r id="cNome"><h4><b>4</b><label for="nome">Seu nome</label></h4><input type="text" id="nome" autocomplete="name" placeholder="Como te chamamos?" maxlength="60" /><span class="msg" aria-live="polite"></span></div>
       </form>
       <div class="comanda-area" data-r style="--d:.1s">
         <div class="comanda vidro" id="comanda">
@@ -579,10 +571,9 @@
   observa($("#crew"));
 
   /* Consulta de horários */
-  const st = { svcs: ["corte"], barb: "qq", dia: null, per: "qq", semana: 0 };
+  const st = { svcs: ["corte"], barb: "qq", dia: null, semana: 0 };
   const hoje = new Date(); hoje.setHours(0, 0, 0, 0);
   const fechado = (d) => d.getDay() === 0 || d.getDay() === 1;
-  const PER = [["qq", "Qualquer", "o que tiver"], ["manha", "Manhã", "9h às 12h"], ["tarde", "Tarde", "12h às 17h"], ["noite", "Fim do dia", "17h às 20h"]];
   const dataLonga = (d) => d.toLocaleDateString("pt-BR", { weekday: "long", day: "numeric", month: "long" });
   function chips() {
     $("#chips").innerHTML = S.map(([k, n, , p, m]) => `<button type="button" class="ch ${st.svcs.includes(k) ? "on" : ""}" data-k="${k}" aria-pressed="${st.svcs.includes(k)}"><span>${n}</span><small>${brl(p)} · ${m} min</small></button>`).join("");
@@ -599,21 +590,15 @@
     }).join("");
     $("#ant").disabled = st.semana === 0; $("#prox").disabled = st.semana >= 5;
   }
-  function periodos() {
-    const sab = st.dia && st.dia.getDay() === 6;
-    if (sab && st.per === "noite") st.per = "qq";
-    $("#periodos").innerHTML = PER.map(([k, n, h]) => `<button type="button" class="pe ${st.per === k ? "on" : ""}" data-k="${k}" ${sab && k === "noite" ? "disabled" : ""}>${n}<small>${sab && k === "tarde" ? "12h às 18h" : h}</small></button>`).join("");
-  }
   const sel = () => S.filter(([k]) => st.svcs.includes(k));
   function comanda() {
     const s = sel(), tot = s.reduce((a, x) => a + x[3], 0), min = s.reduce((a, x) => a + x[4], 0);
     const nb = st.barb === "qq" ? "Quem estiver livre" : B.find(([k]) => k === st.barb)[1];
-    const P = PER.find(([k]) => k === st.per);
     const v = (t) => t ? `<span>${t}</span>` : `<span class="vazio">a escolher</span>`;
-    $("#linhas").innerHTML = `<div><small>Serviço</small>${v(s.map((x) => x[1]).join(" + "))}</div><div><small>Barbeiro</small>${v(nb)}</div><div><small>Dia</small>${v(st.dia ? dataLonga(st.dia) : "")}</div><div><small>Período</small>${v(st.per === "qq" ? "Qualquer horário" : `${P[1]} (${P[2]})`)}</div><div><small>Duração</small>${v(min ? `cerca de ${min} min` : "")}</div><div><small>Nome</small>${v($("#nome").value.trim())}</div>`;
+    $("#linhas").innerHTML = `<div><small>Serviço</small>${v(s.map((x) => x[1]).join(" + "))}</div><div><small>Barbeiro</small>${v(nb)}</div><div><small>Dia</small>${v(st.dia ? dataLonga(st.dia) : "")}</div><div><small>Duração</small>${v(min ? `cerca de ${min} min` : "")}</div><div><small>Nome</small>${v($("#nome").value.trim())}</div>`;
     $("#total").textContent = brl(tot);
   }
-  const tudo = () => { chips(); dias(); periodos(); comanda(); };
+  const tudo = () => { chips(); dias(); comanda(); };
   $("#chips").onclick = (e) => {
     const b = e.target.closest(".ch"); if (!b) return;
     const k = b.dataset.k, i = st.svcs.indexOf(k);
@@ -627,7 +612,6 @@
   $("#dias").onclick = (e) => { const b = e.target.closest(".dia"); if (!b || b.disabled) return; st.dia = new Date(+b.dataset.t); const c = $("#eDia"); c.classList.remove("erro"); c.querySelector(".msg").textContent = ""; tudo(); };
   $("#ant").onclick = () => { st.semana = Math.max(0, st.semana - 1); dias(); };
   $("#prox").onclick = () => { st.semana = Math.min(5, st.semana + 1); dias(); };
-  $("#periodos").onclick = (e) => { const b = e.target.closest(".pe"); if (b && !b.disabled) { st.per = b.dataset.k; tudo(); } };
   $("#nome").addEventListener("input", () => { $("#cNome").classList.remove("erro"); $("#cNome .msg").textContent = ""; comanda(); });
   $("#crew").onclick = (e) => { const b = e.target.closest("button[data-k]"); if (!b) return; st.barb = b.dataset.k; tudo(); $("#horarios").scrollIntoView({ behavior: calmo ? "auto" : "smooth" }); };
   $("#form").addEventListener("submit", (e) => {
@@ -639,9 +623,7 @@
     if (!sel().length) { ok = false; $("#ok").style.color = "#ef7a62"; $("#ok").textContent = "Escolha pelo menos um serviço."; }
     if (!ok) { const c = $("#comanda"); c.classList.remove("tremer"); void c.offsetWidth; c.classList.add("tremer"); (st.dia ? $("#nome") : $("#eDia")).scrollIntoView({ behavior: calmo ? "auto" : "smooth", block: "center" }); return; }
     const s = sel(), nb = st.barb === "qq" ? "quem estiver livre" : B.find(([k]) => k === st.barb)[1];
-    const P = PER.find(([k]) => k === st.per);
-    const per = st.per === "qq" ? "" : `, de preferência ${P[1] === "Fim do dia" ? "no fim do dia" : P[1] === "Manhã" ? "de manhã" : "à tarde"} (${P[2]})`;
-    abreWA(`Olá, Navalha & Co.! Aqui é ${$("#nome").value.trim()}.\nQuais horários vocês têm disponíveis na ${dataLonga(st.dia)}${per}?\n\n• Serviço: ${s.map((x) => x[1]).join(" + ")} (${brl(s.reduce((a, x) => a + x[3], 0))})\n• Barbeiro: ${nb}\n\nObrigado!`);
+    abreWA(`Olá, Navalha & Co.! Aqui é ${$("#nome").value.trim()}.\nQuais horários vocês têm disponíveis na ${dataLonga(st.dia)}?\n\n• Serviço: ${s.map((x) => x[1]).join(" + ")} (${brl(s.reduce((a, x) => a + x[3], 0))})\n• Barbeiro: ${nb}\n\nObrigado!`);
     $("#ok").style.color = ""; $("#ok").textContent = "Mensagem aberta no WhatsApp. É só enviar e aguardar os horários.";
   });
   tudo();
@@ -751,7 +733,8 @@
   function marcaFrame() {
     const r = marca.getBoundingClientRect();
     if (r.top > H || r.bottom < 0) return;
-    marca.style.setProperty("--enche", clamp((H - r.top) / (H * .7)) * 100 + "%");
+    const ini = scrollY + r.top - H, fim = document.documentElement.scrollHeight - H;
+    marca.style.setProperty("--enche", clamp((scrollY - ini) / Math.max(1, (fim - ini) * .92)) * 100 + "%");
   }
   let navY = scrollY;
   function navFrame() {
