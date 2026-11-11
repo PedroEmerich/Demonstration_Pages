@@ -150,6 +150,7 @@ window.MODELOS = [
   {
     pasta: "navalha-barbearia",
     titulo: "Navalha & Co. — Barbearia",
+    revisado: true,
     segmento: "Barbearia",
     descricao: "Barbearia escura e translúcida com holofote que segue o mouse, nome cortado pela navalha no scroll, tabela com fotos flutuantes e consulta de horários pelo WhatsApp.",
     tags: ["Consulta de horários", "Interativo", "Clube"],
