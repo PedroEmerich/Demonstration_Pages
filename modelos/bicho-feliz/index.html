@@ -190,33 +190,34 @@
   .tv__pe span { display: flex; align-items: center; gap: 8px; }
   .tv__pe i { width: 8px; height: 8px; border-radius: 50%; background: #3ddc84; }
 
-  /* ROTINA (céu) */
+  /* ROTINA (cena fotográfica que muda com a hora) */
   .dia { position: relative; height: 520vh; }
-  .dia__stick { position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden; background: linear-gradient(180deg, var(--c1, #ffd9a8), var(--c2, #fff1d6)); color: var(--tx, var(--ink)); transition: color .6s; }
-  .estrelas { position: absolute; inset: 0; opacity: var(--noite, 0); background-image: radial-gradient(1.5px 1.5px at 12% 18%, #fff 50%, transparent 51%), radial-gradient(1px 1px at 28% 32%, #fff 50%, transparent 51%), radial-gradient(1.5px 1.5px at 44% 12%, #fff 50%, transparent 51%), radial-gradient(1px 1px at 63% 26%, #fff 50%, transparent 51%), radial-gradient(2px 2px at 78% 14%, #fff 50%, transparent 51%), radial-gradient(1px 1px at 88% 36%, #fff 50%, transparent 51%), radial-gradient(1.5px 1.5px at 6% 42%, #fff 50%, transparent 51%), radial-gradient(1px 1px at 52% 40%, #fff 50%, transparent 51%), radial-gradient(1px 1px at 35% 6%, #fff 50%, transparent 51%), radial-gradient(1.5px 1.5px at 94% 8%, #fff 50%, transparent 51%); }
-  .astro { position: absolute; left: 0; top: 0; width: 130px; height: 130px; margin: -65px 0 0 -65px; border-radius: 50%; will-change: transform; }
-  .sol { background: radial-gradient(circle, #fff7d1 0 34%, #ffd34d 35% 58%, rgba(255,211,77,.35) 59% 70%, rgba(255,211,77,0) 71%); }
-  .lua { width: 96px; height: 96px; margin: -48px 0 0 -48px; background: radial-gradient(circle at 36% 36%, #fffdf2 0 40%, #e9e3c9 41% 70%); box-shadow: 0 0 60px 10px rgba(255,250,220,.25); }
-  .lua::after { content: ""; position: absolute; width: 18px; height: 18px; border-radius: 50%; background: rgba(0,0,0,.08); left: 52px; top: 50px; box-shadow: -26px -18px 0 -4px rgba(0,0,0,.07); }
-  .morro { position: absolute; left: 0; right: 0; bottom: 0; width: 100%; height: 30vh; }
-  .morro path { transition: fill .6s; }
-  .dia__conteudo { position: relative; z-index: 2; height: 100%; display: grid; grid-template-columns: 1.1fr .9fr; gap: 40px; align-items: center; padding: 90px 0 120px; }
-  .dia__hora { font-family: var(--display); font-weight: 800; font-size: clamp(84px, 13vw, 210px); letter-spacing: -.06em; line-height: .85; font-variant-numeric: tabular-nums; }
+  .dia__stick { position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden; background: #0f0d0b; color: #fff; }
+  .cena { position: absolute; inset: 0; }
+  .cena img { position: absolute; inset: -2%; width: 104%; height: 104%; object-fit: cover; opacity: 0; will-change: opacity, transform; }
+  .tom { position: absolute; inset: 0; mix-blend-mode: soft-light; pointer-events: none; }
+  .noite { position: absolute; inset: 0; background: linear-gradient(180deg, #0b1230, #1a1f45 60%, #0d0f22); mix-blend-mode: multiply; opacity: 0; pointer-events: none; }
+  .luz { position: absolute; left: 0; top: 0; width: 120vmax; height: 120vmax; margin: -60vmax 0 0 -60vmax; border-radius: 50%; mix-blend-mode: screen; pointer-events: none; will-change: transform, opacity; }
+  .estrelas { position: absolute; inset: 0 0 45% 0; opacity: 0; pointer-events: none; -webkit-mask-image: linear-gradient(#000, transparent); mask-image: linear-gradient(#000, transparent); background-image: radial-gradient(1.4px 1.4px at 12% 18%, #fff 50%, transparent 51%), radial-gradient(1px 1px at 28% 32%, #fff 50%, transparent 51%), radial-gradient(1.4px 1.4px at 44% 12%, #fff 50%, transparent 51%), radial-gradient(1px 1px at 63% 26%, #fff 50%, transparent 51%), radial-gradient(1.8px 1.8px at 78% 14%, #fff 50%, transparent 51%), radial-gradient(1px 1px at 88% 36%, #fff 50%, transparent 51%), radial-gradient(1.2px 1.2px at 6% 42%, #fff 50%, transparent 51%), radial-gradient(1px 1px at 52% 40%, #fff 50%, transparent 51%), radial-gradient(1px 1px at 35% 6%, #fff 50%, transparent 51%), radial-gradient(1.4px 1.4px at 94% 8%, #fff 50%, transparent 51%), radial-gradient(1px 1px at 70% 6%, #fff 50%, transparent 51%), radial-gradient(1px 1px at 20% 8%, #fff 50%, transparent 51%); }
+  .grao { position: absolute; inset: 0; opacity: .08; pointer-events: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+  .veu { position: absolute; inset: 0; pointer-events: none; background: linear-gradient(90deg, rgba(10,8,6,.72) 0%, rgba(10,8,6,.45) 38%, rgba(10,8,6,0) 68%), linear-gradient(0deg, rgba(10,8,6,.7) 0%, rgba(10,8,6,0) 30%), linear-gradient(180deg, rgba(10,8,6,.45) 0%, rgba(10,8,6,0) 22%); }
+  .dia__conteudo { position: relative; z-index: 2; height: 100%; display: flex; flex-direction: column; justify-content: center; padding: 100px 0 130px; }
+  .dia__hora { font-family: var(--display); font-weight: 800; font-size: clamp(84px, 13vw, 210px); letter-spacing: -.06em; line-height: .85; font-variant-numeric: tabular-nums; text-shadow: 0 10px 50px rgba(0,0,0,.35); }
   .dia__nome { font-family: var(--display); font-weight: 700; font-size: clamp(32px, 3.6vw, 54px); letter-spacing: -.035em; margin-top: 18px; line-height: 1; }
-  .dia__desc { margin-top: 12px; font-size: 18px; opacity: .78; max-width: 420px; }
-  .dia__nome, .dia__desc { transition: opacity .35s, transform .45s var(--ease); }
-  .troca .dia__nome, .troca .dia__desc { opacity: 0; transform: translateY(14px); }
-  .polas { position: relative; justify-self: center; width: min(360px, 70vw); aspect-ratio: 4 / 4.8; }
-  .polas figure { position: absolute; inset: 0; padding: 12px 12px 54px; background: #fff; border-radius: 6px; box-shadow: 0 30px 60px -30px rgba(0,0,0,.5); opacity: 0; transform: rotate(var(--r)) translateY(30px) scale(.94); transition: opacity .6s, transform .8s var(--spring); }
-  .polas figure.on { opacity: 1; transform: rotate(var(--r)); }
-  .polas img { width: 100%; height: 100%; object-fit: cover; border-radius: 2px; }
-  .polas figcaption { position: absolute; left: 0; right: 0; bottom: 14px; text-align: center; font-family: var(--serif); font-style: italic; font-size: 22px; color: var(--ink); }
+  .dia__desc { margin-top: 12px; font-size: 18px; color: rgba(255,255,255,.82); max-width: 430px; }
+  .dia__nome, .dia__desc, .dia__foto { transition: opacity .35s, transform .45s var(--ease); }
+  .troca .dia__nome, .troca .dia__desc, .troca .dia__foto { opacity: 0; transform: translateY(14px); }
+  .dia__foto { display: inline-flex; align-items: center; gap: 10px; margin-top: 26px; align-self: flex-start; padding: 8px 16px 8px 8px; border-radius: 999px; background: rgba(255,255,255,.14); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); box-shadow: inset 0 0 0 1px rgba(255,255,255,.22); font-weight: 600; font-size: 14px; }
+  .dia__foto b { width: 30px; height: 30px; border-radius: 50%; background: var(--yellow); color: var(--ink); display: grid; place-items: center; }
+  .dia__foto b svg { width: 16px; height: 16px; }
+  .dia__rec { position: absolute; z-index: 3; right: max(20px, (100vw - 1240px) / 2); top: 104px; display: flex; align-items: center; gap: 8px; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 13px; color: rgba(255,255,255,.9); text-shadow: 0 1px 6px rgba(0,0,0,.6); }
+  .dia__rec i { width: 8px; height: 8px; border-radius: 50%; background: #ff3b30; box-shadow: 0 0 10px #ff3b30; animation: pisca 1s steps(1) infinite; }
   .dia__linha { position: absolute; z-index: 3; left: 50%; bottom: 28px; transform: translateX(-50%); width: var(--wrap); display: flex; justify-content: space-between; gap: 6px; }
-  .dia__linha button { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 8px; font-weight: 700; font-size: 13px; opacity: .55; transition: opacity .3s; color: inherit; }
-  .dia__linha button i { width: 100%; height: 4px; border-radius: 4px; background: currentColor; opacity: .25; position: relative; overflow: hidden; }
-  .dia__linha button i b { position: absolute; inset: 0; background: currentColor; transform-origin: left; transform: scaleX(var(--p, 0)); opacity: 1; }
+  .dia__linha button { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 8px; font-weight: 700; font-size: 13px; opacity: .6; transition: opacity .3s; color: #fff; }
+  .dia__linha button i { width: 100%; height: 3px; border-radius: 3px; background: rgba(255,255,255,.28); position: relative; overflow: hidden; }
+  .dia__linha button i b { position: absolute; inset: 0; background: #fff; transform-origin: left; transform: scaleX(var(--p, 0)); }
   .dia__linha button.on { opacity: 1; }
-  .dia__rot { position: absolute; z-index: 3; top: 100px; left: 50%; transform: translateX(-50%); width: var(--wrap); }
+  .dia__rot { position: absolute; z-index: 3; top: 100px; left: 50%; transform: translateX(-50%); width: var(--wrap); color: #fff; }
 
   /* DISPONIBILIDADE */
   .vaga { padding: 150px 0 130px; position: relative; }
@@ -406,14 +407,17 @@
     .cam__grid { grid-template-columns: 1fr; gap: 40px; }
     .tv { transform: none; padding: 10px; border-radius: 26px; }
     .dia { height: 480vh; }
-    .dia__conteudo { grid-template-columns: 1fr; gap: 26px; align-content: center; padding: 110px 0 120px; text-align: left; }
+    .dia__conteudo { justify-content: flex-end; padding: 110px 0 96px; }
     .dia__rot { top: 86px; }
-    .polas { width: min(240px, 56vw); justify-self: start; margin-left: 8px; }
+    .dia__rec { top: 88px; right: 20px; font-size: 11.5px; }
     .dia__desc { font-size: 16px; }
+    .dia__foto { margin-top: 18px; font-size: 13px; }
+    .veu { background: linear-gradient(0deg, rgba(10,8,6,.85) 0%, rgba(10,8,6,.55) 45%, rgba(10,8,6,0) 75%), linear-gradient(180deg, rgba(10,8,6,.5) 0%, rgba(10,8,6,0) 25%); }
     .dia__linha button span { display: none; }
     .vaga { padding: 110px 0 90px; }
     .vaga__grid { grid-template-columns: 1fr; gap: 40px; }
-    .passe-area { position: static; order: -1; }
+    .passe-area { position: static; margin: 4px 0 2px; }
+    .passe-area.no-form { opacity: 1; transform: none; }
     .vaga__cab { order: -2; }
     .check__box { grid-template-columns: 1fr; padding: 34px 22px; border-radius: 36px; gap: 40px; }
     .check { padding-bottom: 100px; }
@@ -433,16 +437,35 @@
   }
   @media (min-width: 901px) { .svc__cards { display: contents; } }
   @media (max-width: 560px) {
-    .datas { grid-template-columns: 1fr; }
+    .datas { gap: 10px; }
+    .datas label { font-size: 13px; }
+    .campo input[type=date] { padding: 0 12px; font-size: 15px; height: 56px; }
+    .campo input[type=text] { height: 56px; font-size: 16px; }
     .selo { display: none; }
     .ad1 { left: -14%; top: auto; bottom: 12%; }
     .portes { gap: 8px; }
     .porte { padding: 14px 6px 12px; border-radius: 18px; }
     .porte b { font-size: 17px; }
     .porte small { font-size: 11.5px; }
-    .passe__topo, .passe__corpo { padding-left: 20px; padding-right: 20px; }
-    .passe__pe { padding: 18px 20px 22px; }
-    .passe__dados b { font-size: 19px; }
+    .passe { border-radius: 24px; box-shadow: 0 30px 50px -30px rgba(196,82,27,.6); }
+    .passe__topo { padding: 16px 18px; }
+    .passe__topo .logo { font-size: 17px; white-space: nowrap; }
+    .passe__topo .logo b { width: 28px; height: 28px; border-radius: 9px; }
+    .passe__topo .logo b svg { width: 17px; height: 17px; }
+    .passe__topo small { font-size: 10px; letter-spacing: .12em; text-align: right; }
+    .passe__corpo { padding: 16px 18px 4px; gap: 14px; }
+    .passe__rota div b { font-size: 26px; }
+    .passe__rota div small { font-size: 11.5px; }
+    .passe__dados { grid-template-columns: repeat(4, auto); gap: 12px 14px; }
+    .passe__dados small { font-size: 9.5px; letter-spacing: .1em; }
+    .passe__dados b { font-size: 16.5px; }
+    .passe__pe { margin-top: 12px; padding: 12px 18px 14px; }
+    .passe__pe::before, .passe__pe::after { width: 22px; height: 22px; top: -11px; }
+    .passe__pe::before { left: -11px; } .passe__pe::after { right: -11px; }
+    .barras { height: 34px; }
+    .passe__cao { width: 64px; height: 40px; }
+    .passe__cao svg { width: calc(var(--s, 1) * 64px); }
+    .passe__status { margin-top: 12px; font-size: 13px; }
     .form .btn { width: 100%; justify-self: stretch; }
   }
   @media (prefers-reduced-motion: reduce) {
@@ -564,18 +587,20 @@
 
 <section class="dia" id="rotina">
   <div class="dia__stick" id="ceu">
-    <div class="estrelas"></div>
-    <div class="astro sol" id="sol"></div>
-    <div class="astro lua" id="lua"></div>
-    <svg class="morro" viewBox="0 0 1440 300" preserveAspectRatio="none" aria-hidden="true"><path id="morro2" d="M0 170C220 90 420 120 640 150s420 10 560-40 240-30 240-30v220H0Z" fill="#9fcf7a"/><path id="morro1" d="M0 230c180-50 380-70 620-30s520 40 820-40v140H0Z" fill="#7dbb5c"/></svg>
+    <div class="cena" id="cena" aria-hidden="true"></div>
+    <div class="tom" id="tom"></div>
+    <div class="noite" id="noite"></div>
+    <div class="estrelas" id="estrelas"></div>
+    <div class="luz" id="luz"></div>
+    <div class="veu"></div>
+    <div class="grao"></div>
     <div class="dia__rot"><span class="tag">Um dia no Bicho Feliz</span></div>
+    <div class="dia__rec"><i></i><span id="diaCam">CAM 03 · Gramado</span></div>
     <div class="wrap dia__conteudo" id="diaTxt">
-      <div>
-        <div class="dia__hora" id="diaHora">07:00</div>
-        <h3 class="dia__nome" id="diaNome">Café da manhã</h3>
-        <p class="dia__desc" id="diaDesc">A ração que ele come em casa, no horário de casa.</p>
-      </div>
-      <div class="polas" id="polas"></div>
+      <div class="dia__hora" id="diaHora">07:00</div>
+      <h3 class="dia__nome" id="diaNome">Café da manhã</h3>
+      <p class="dia__desc" id="diaDesc">A ração que ele come em casa, no horário de casa.</p>
+      <span class="dia__foto"><b><svg><use href="#i-cam" /></svg></b><span id="diaLeg">Foto enviada ao tutor</span></span>
     </div>
     <div class="dia__linha" id="diaLinha"></div>
   </div>
@@ -850,48 +875,53 @@
   const relogio = () => { $("#camHora").textContent = new Date().toLocaleTimeString("pt-BR"); };
   relogio(); setInterval(relogio, 1000);
 
-  /* Rotina: o céu muda com o scroll */
+  /* Rotina: cena fotográfica, a luz do dia muda com o scroll */
+  // [hora, nome, descrição, foto, câmera, legenda, tom (soft-light), luz [cor, x, y, força]]
   const R = [
-    [7, "Café da manhã", "A ração que ele come em casa, no horário de casa.", "1543466835-00a7907e9de1", "bom dia!", ["#ffd6a5", "#fff3dc"]],
-    [9, "Recreação", "Grupos por porte e energia, com monitor o tempo todo.", "1760530327971-f8523426c60a", "pega-pega", ["#a8d8ff", "#eef8ff"]],
-    [12, "Soneca", "Quartinho climatizado e música calma depois do almoço.", "1561130627-94d7dd29776d", "zzz", ["#7cc4ff", "#dff2ff"]],
-    [15, "Piscina", "Nos dias de sol, com boia, monitor e secagem caprichada.", "1722257401181-a04cc4df36f8", "splash", ["#86c9ff", "#fff1c9"]],
-    [18, "Jantar", "E um petisco natural pra fechar o dia.", "1534361960057-19889db9621e", "fim de tarde", ["#ff9b5e", "#ffd9a6"]],
-    [20, "Hora de dormir", "Luz baixa, caminha quentinha e foto de boa-noite pra você.", "1695451486995-7697b5c1be51", "boa noite", ["#1d2347", "#3b3466"]],
+    [7, "Café da manhã", "A ração que ele come em casa, no horário de casa.", "1543466835-00a7907e9de1", "CAM 01 · Refeitório", "Foto do café enviada ao tutor", "#ffb169", ["#ffc27a", .15, .1, .55]],
+    [9, "Recreação", "Grupos por porte e energia, com monitor o tempo todo.", "1760530327971-f8523426c60a", "CAM 03 · Gramado", "Vídeo da brincadeira enviado", "#fff0d2", ["#fff3d6", .35, -.05, .35]],
+    [12, "Soneca", "Quartinho climatizado e música calma depois do almoço.", "1561130627-94d7dd29776d", "CAM 02 · Quartinhos", "Soneca registrada às 12h30", "#f4f7ff", ["#ffffff", .55, -.1, .2]],
+    [15, "Piscina e gramado", "Nos dias de sol, com monitor, brinquedos e secagem caprichada.", "1722257401181-a04cc4df36f8", "CAM 04 · Piscina", "Fotos da tarde enviadas", "#ffdca0", ["#ffe2a8", .75, -.05, .35]],
+    [18, "Jantar", "E um petisco natural pra fechar o dia no pôr do sol.", "1548199973-03cce0bbc87b", "CAM 03 · Gramado", "Vídeo do fim de tarde enviado", "#ff8a3d", ["#ff9a4a", .9, .25, .7]],
+    [20, "Hora de dormir", "Luz baixa, caminha quentinha e foto de boa-noite pra você.", "1695451486995-7697b5c1be51", "CAM 02 · Quartinhos · IR", "Foto de boa-noite enviada", "#3a4a8a", ["#ffb36b", .78, .55, .22]],
   ];
-  const dia = $("#rotina"), ceu = $("#ceu"), sol = $("#sol"), lua = $("#lua"), polas = $("#polas"), linhaD = $("#diaLinha"), diaTxt = $("#diaTxt");
-  polas.innerHTML = R.map(([, n, , f, leg], i) => `<figure style="--r:${[-4, 3, -2, 4, -3, 2][i]}deg" class="${i ? "" : "on"}"><img src="${u(f, 700)}" alt="${n}" loading="lazy" /><figcaption>${leg}</figcaption></figure>`).join("");
+  const dia = $("#rotina"), cena = $("#cena"), linhaD = $("#diaLinha"), diaTxt = $("#diaTxt"), tom = $("#tom"), noiteEl = $("#noite"), luz = $("#luz"), estrelas = $("#estrelas");
+  cena.innerHTML = R.map(([, n, , f], i) => `<img src="${u(f, 1920)}" alt="" ${i > 1 ? 'loading="lazy"' : ""} />`).join("");
+  const fotosDia = $$("img", cena);
   linhaD.innerHTML = R.map(([h, n], i) => `<button type="button" data-i="${i}" class="${i ? "" : "on"}"><i><b></b></i><span>${String(h).padStart(2, "0")}h · ${n}</span></button>`).join("");
   const hex = (c) => [1, 3, 5].map((i) => parseInt(c.slice(i, i + 2), 16));
   const mix = (a, b, t) => { const A = hex(a), B = hex(b); return `rgb(${A.map((v, i) => Math.round(lerp(v, B[i], t))).join(",")})`; };
+  const suave = (t) => { const a = clamp((t - .25) / .5); return a * a * (3 - 2 * a); };
   let diaI = -1;
   function diaFrame() {
     const r = dia.getBoundingClientRect();
     if (r.top > H || r.bottom < 0) return;
     const p = clamp(-r.top / (r.height - H));
-    const f = p * (R.length - 1), i0 = Math.floor(f), i1 = Math.min(R.length - 1, i0 + 1), t = f - i0;
-    const tc = t * t * (3 - 2 * t), tk = tc * tc * (3 - 2 * tc);
-    ceu.style.setProperty("--c1", mix(R[i0][5][0], R[i1][5][0], tk));
-    ceu.style.setProperty("--c2", mix(R[i0][5][1], R[i1][5][1], tk));
-    const noite = clamp((f - 4.1) / .8);
-    ceu.style.setProperty("--noite", noite);
-    ceu.style.setProperty("--tx", noite > .5 ? "#fbf3e7" : "#1f1a14");
-    $("#morro1").setAttribute("fill", mix("#7dbb5c", "#1e3a3a", noite));
-    $("#morro2").setAttribute("fill", mix("#9fcf7a", "#26404a", noite));
-    const hs = lerp(R[i0][0], R[i1][0], t), hh = Math.floor(hs), mm = Math.floor((hs - hh) * 60 / 5) * 5;
+    const n = R.length, sPos = clamp(p * n - .5, 0, n - 1);
+    const i0 = Math.floor(sPos), i1 = Math.min(n - 1, i0 + 1), t = sPos - i0, tk = suave(t);
+    fotosDia.forEach((im, k) => {
+      const o = k === i0 ? 1 - tk : k === i1 ? tk : 0;
+      im.style.opacity = o;
+      if (o > 0) { const loc = clamp(p * n - k); im.style.transform = `scale(${1.1 - loc * .08}) translateY(${(loc - .5) * -2}%)`; }
+    });
+    tom.style.background = mix(R[i0][6], R[i1][6], tk);
+    tom.style.opacity = .55;
+    const L0 = R[i0][7], L1 = R[i1][7];
+    luz.style.background = `radial-gradient(circle, ${mix(L0[0], L1[0], tk)} 0%, rgba(0,0,0,0) 55%)`;
+    luz.style.transform = `translate(${lerp(L0[1], L1[1], tk) * W}px, ${lerp(L0[2], L1[2], tk) * H}px)`;
+    const noite = clamp((sPos - 4.15) / .7);
+    luz.style.opacity = lerp(L0[3], L1[3], tk) * (1 - noite * .6);
+    noiteEl.style.opacity = noite * .55;
+    estrelas.style.opacity = noite * .8;
+    const hs = lerp(R[i0][0], R[i1][0], tk), hh = Math.floor(hs), mm = Math.floor((hs - hh) * 60 / 5) * 5;
     $("#diaHora").textContent = `${String(hh).padStart(2, "0")}:${String(mm).padStart(2, "0")}`;
-    const a = Math.PI * clamp((hs - 6) / 13), raio = Math.min(W * .36, 520), base = H * (W > 900 ? .86 : .9);
-    sol.style.transform = `translate(${W * (W > 900 ? .62 : .5) - Math.cos(a) * raio}px, ${base - Math.sin(a) * raio * .75 + noite * 200}px)`;
-    sol.style.opacity = 1 - noite;
-    lua.style.transform = `translate(${W * (W > 900 ? .58 : .78)}px, ${H * .2 + (1 - noite) * 160}px)`;
-    lua.style.opacity = noite;
-    const iAtual = Math.min(R.length - 1, Math.floor(p * R.length * .999));
-    $$("button", linhaD).forEach((b, k) => b.querySelector("b").style.setProperty("--p", clamp(p * R.length - k)));
+    const iAtual = Math.min(n - 1, Math.floor(p * n * .999));
+    $$("button", linhaD).forEach((b, k) => b.querySelector("b").style.setProperty("--p", clamp(p * n - k)));
     if (iAtual !== diaI) {
       const pri = diaI < 0; diaI = iAtual;
-      $$("figure", polas).forEach((fg, k) => fg.classList.toggle("on", k === iAtual));
       $$("button", linhaD).forEach((b, k) => b.classList.toggle("on", k === iAtual));
-      const muda = () => { $("#diaNome").textContent = R[iAtual][1]; $("#diaDesc").textContent = R[iAtual][2]; diaTxt.classList.remove("troca"); };
+      $("#diaCam").textContent = R[iAtual][4];
+      const muda = () => { $("#diaNome").textContent = R[iAtual][1]; $("#diaDesc").textContent = R[iAtual][2]; $("#diaLeg").textContent = R[iAtual][5]; diaTxt.classList.remove("troca"); };
       if (pri) muda(); else { diaTxt.classList.add("troca"); setTimeout(muda, 220); }
     }
   }
@@ -937,7 +967,12 @@
     abreWA(`Olá, Bicho Feliz! Meu nome é ${nome.value.trim()} e gostaria de saber se há disponibilidade de hospedagem.\n\n• Porte do cachorro: ${P[1]} (${P[2]})\n• Entrada: ${br(ent.value)}\n• Saída: ${br(sai.value)}\n• ${n} ${n === 1 ? "diária" : "diárias"}\n\nObrigado(a)!`);
     const st = $("#status"); st.classList.add("ok"); st.lastChild.textContent = "Mensagem aberta no WhatsApp. É só enviar!";
   });
-  const passeEl = $("#passe"), passeA = $(".passe-area");
+  const passeEl = $("#passe"), passeA = $(".passe-area"), passeCasa = passeA.parentNode, botaoEnviar = $("#form button[type=submit]");
+  const posPasse = () => {
+    if (largo.matches) { if (passeA.parentNode !== passeCasa) { passeCasa.appendChild(passeA); passeA.classList.remove("no-form"); } }
+    else if (passeA.parentNode !== $("#form")) { $("#form").insertBefore(passeA, botaoEnviar); passeA.classList.add("no-form", "in"); }
+  };
+  posPasse(); largo.addEventListener("change", posPasse);
   if (fino) {
     passeA.addEventListener("pointermove", (e) => { const r = passeEl.getBoundingClientRect(); const x = (e.clientX - r.left) / r.width, y = (e.clientY - r.top) / r.height; passeEl.style.transform = `rotateY(${(x - .5) * 14}deg) rotateX(${(.5 - y) * 12}deg)`; passeEl.style.setProperty("--gx", x * 100 + "%"); passeEl.style.setProperty("--gy", y * 100 + "%"); });
     passeA.addEventListener("pointerleave", () => { passeEl.style.transform = ""; });
