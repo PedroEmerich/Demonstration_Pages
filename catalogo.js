@@ -112,8 +112,8 @@ window.MODELOS = [
     pasta: "lumiere-estetica",
     titulo: "Lumière — Estética Avançada",
     segmento: "Estética",
-    descricao: "Clínica de estética delicada, com tratamentos por categoria, ritual contado no scroll e quiz de protocolo.",
-    tags: ["Quiz", "Pacotes", "Agendamento"],
+    descricao: "Clínica de estética com luz que revela o glow da pele no cursor, mapa do rosto interativo, ritual em que a página entra na imagem e quiz de protocolo.",
+    tags: ["Mapa do rosto", "Interativo", "Quiz"],
     cor: "#c48b7c",
   },
   {
