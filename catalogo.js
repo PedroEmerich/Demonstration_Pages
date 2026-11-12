@@ -128,6 +128,7 @@ window.MODELOS = [
   {
     pasta: "forte-materiais",
     titulo: "Forte — Materiais de Construção",
+    revisado: true,
     segmento: "Construção",
     descricao: "Depósito de materiais com uma casa que se constrói etapa por etapa no scroll, lente de planta no cursor, calculadora com desenho ao vivo, orçamento em nota e entrega com rota animada.",
     tags: ["Obra no scroll", "Calculadora", "Orçamento"],
