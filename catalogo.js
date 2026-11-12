@@ -141,6 +141,7 @@ window.MODELOS = [
     descricao: "Streetwear com muro para pichar com o cursor, arara de cabides que balançam no scroll, lookbook de lambe-lambes arrancados, sacola com pedido pelo WhatsApp e guia de tamanhos.",
     tags: ["Spray", "Arara", "Lambe-lambe"],
     cor: "#5b72ff",
+    revisado: true,
   },
   {
     pasta: "quintal-da-vo",
