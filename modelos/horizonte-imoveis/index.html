@@ -3,336 +3,493 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Horizonte Imóveis — Casas e apartamentos de alto padrão</title>
-<meta name="description" content="Horizonte Imóveis: compra, venda e locação de imóveis de alto padrão em São Paulo. Busque, simule o financiamento e agende sua visita." />
-<meta name="theme-color" content="#f6f4ef" />
+<title>Horizonte Imóveis — Encontre o seu jeito de viver</title>
+<meta name="description" content="Horizonte Imóveis: imobiliária boutique em São Paulo. Descubra imóveis pelo seu estilo de vida, veja a luz natural de cada casa, o tempo até o trabalho e simule o financiamento." />
+<meta name="theme-color" content="#f4f1ea" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Gloock&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<link rel="preconnect" href="https://images.unsplash.com" />
+<link href="https://fonts.googleapis.com/css2?family=Gloock&family=Instrument+Serif:ital@1&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
 <style>
   :root {
-    --bg: #f6f4ef; --white: #fff; --ink: #14171a; --muted: #6f747a; --line: #e4e0d6;
-    --green: #1f4d43; --green2: #2d6b5d; --sand: #d9c9a8; --sand2: #efe6d3;
-    --serif: "Gloock", Georgia, serif; --sans: "Outfit", system-ui, sans-serif;
-    --ease: cubic-bezier(.2,.8,.2,1); --r: 18px;
+    --bg: #f4f1ea; --paper: #fbfaf6; --ink: #121513; --ink2: #2a2f2c; --muted: #6c716d; --line: #e2ddd1;
+    --green: #1f4d43; --green2: #2d6b5d; --mint: #cfe3d9; --sand: #d9c9a8; --sand2: #efe6d3; --sun: #f2b544; --night: #1c2340;
+    --serif: "Gloock", Georgia, serif; --it: "Instrument Serif", Georgia, serif; --sans: "Outfit", system-ui, sans-serif;
+    --ease: cubic-bezier(.2,.8,.2,1); --spring: cubic-bezier(.34,1.56,.64,1);
+    --wrap: min(1280px, 100% - 40px);
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  html { overflow-x: clip; scroll-behavior: smooth; scroll-padding-top: 90px; }
-  body { background: var(--bg); color: var(--ink); font-family: var(--sans); font-weight: 400; line-height: 1.6; -webkit-font-smoothing: antialiased; overflow-x: clip; }
+  html { overflow-x: clip; scroll-padding-top: 90px; }
+  body { background: var(--bg); color: var(--ink); font-family: var(--sans); line-height: 1.55; -webkit-font-smoothing: antialiased; overflow-x: clip; }
+  body.travado { overflow: hidden; }
   img { display: block; max-width: 100%; }
   a { color: inherit; text-decoration: none; }
-  button, select, input { font: inherit; color: inherit; }
+  button, input, select { font: inherit; color: inherit; }
   button { background: none; border: 0; cursor: pointer; }
-  .wrap { width: min(1280px, 100% - 40px); margin-inline: auto; }
-  h1, h2, h3 { font-family: var(--serif); font-weight: 400; letter-spacing: -.01em; line-height: 1.05; }
-  .h2 { font-size: clamp(38px, 4.6vw, 64px); }
-  .h2 em { font-style: normal; color: var(--green2); }
-  .over { font-size: 13px; font-weight: 500; letter-spacing: .16em; text-transform: uppercase; color: var(--green2); }
-  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 16px 28px; border-radius: 999px; font-weight: 500; font-size: 15px; transition: all .3s var(--ease); }
+  svg { display: block; }
+  .wrap { width: var(--wrap); margin-inline: auto; }
+  h1, h2, h3 { font-family: var(--serif); font-weight: 400; letter-spacing: -.015em; line-height: 1.02; }
+  em { font-family: var(--it); font-style: italic; font-weight: 400; color: var(--green2); letter-spacing: 0; }
+  .h2 { font-size: clamp(40px, 5.4vw, 80px); }
+  .over { display: inline-flex; align-items: center; gap: 10px; font-size: 12.5px; font-weight: 600; letter-spacing: .18em; text-transform: uppercase; color: var(--green2); }
+  .over::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 16px 26px; border-radius: 999px; font-weight: 600; font-size: 15px; transition: background .3s, color .3s, transform .3s var(--ease); will-change: transform; }
+  .btn svg { width: 18px; height: 18px; transition: transform .4s var(--spring); }
+  .btn:hover svg { transform: translateX(4px); }
+  .btn--ink { background: var(--ink); color: #fff; }
+  .btn--ink:hover { background: var(--green); }
   .btn--green { background: var(--green); color: #fff; }
-  .btn--green:hover { background: var(--ink); transform: translateY(-2px); }
-  .btn--line { border: 1px solid var(--ink); }
+  .btn--green:hover { background: var(--ink); }
+  .btn--glass { background: rgba(255,255,255,.14); color: #fff; box-shadow: inset 0 0 0 1px rgba(255,255,255,.35); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); }
+  .btn--glass:hover { background: rgba(255,255,255,.26); }
+  .btn--line { box-shadow: inset 0 0 0 1.5px var(--ink); }
   .btn--line:hover { background: var(--ink); color: #fff; }
-  [data-r] { opacity: 0; transform: translateY(34px); transition: opacity .9s var(--ease), transform .9s var(--ease); transition-delay: var(--d, 0s); }
+  .btn--wa { background: #25d366; color: #052e14; }
+  .btn--wa:hover { background: #3be27a; }
+  .vidro { background: rgba(251,250,246,.72); backdrop-filter: blur(20px) saturate(1.5); -webkit-backdrop-filter: blur(20px) saturate(1.5); box-shadow: inset 0 0 0 1px rgba(255,255,255,.6), 0 24px 60px -30px rgba(18,21,19,.35); }
+  [data-r] { opacity: 0; transform: translateY(36px); transition: opacity .9s var(--ease), transform 1s var(--ease); transition-delay: var(--d, 0s); }
   [data-r].in { opacity: 1; transform: none; }
 
   /* NAV */
-  .nav { position: fixed; inset: 0 0 auto; z-index: 50; color: #fff; transition: background .4s, color .4s, box-shadow .4s; }
-  .nav.solid { background: rgba(246,244,239,.94); color: var(--ink); backdrop-filter: blur(12px); box-shadow: 0 1px 0 var(--line); }
-  .nav__in { height: 84px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
-  .logo { display: flex; align-items: center; gap: 10px; font-family: var(--serif); font-size: 26px; }
-  .logo svg { width: 34px; }
-  .nav__links { display: flex; gap: 32px; font-size: 15px; }
-  .nav__links a { opacity: .85; } .nav__links a:hover { opacity: 1; }
-  .nav__right { display: flex; align-items: center; gap: 12px; }
-  .fav-count { display: inline-flex; align-items: center; gap: 8px; padding: 10px 16px; border-radius: 999px; border: 1px solid currentColor; font-size: 14px; opacity: .9; }
-  .fav-count b { min-width: 18px; height: 18px; border-radius: 9px; background: #e2554a; color: #fff; font-size: 11px; display: grid; place-items: center; padding: 0 5px; }
-  .fav-count.pop { animation: pop .4s var(--ease); }
-  @keyframes pop { 50% { transform: scale(1.12); } }
-  .burger { display: none; width: 44px; height: 44px; border-radius: 50%; border: 1px solid currentColor; place-items: center; }
-  .burger span { width: 16px; height: 1.5px; background: currentColor; box-shadow: 0 5px 0 currentColor, 0 -5px 0 currentColor; }
+  .nav { position: fixed; top: 14px; left: 50%; z-index: 80; width: min(1280px, 100% - 24px); transform: translateX(-50%); transition: transform .5s var(--ease); }
+  .nav.esconde { transform: translate(-50%, -140%); }
+  .nav__in { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 8px 8px 8px 20px; border-radius: 999px; }
+  .logo { display: flex; align-items: center; gap: 10px; font-family: var(--serif); font-size: 24px; }
+  .logo svg { width: 34px; height: 24px; color: var(--green); }
+  .nav__links { display: flex; gap: 2px; font-weight: 500; font-size: 15px; }
+  .nav__links a { padding: 9px 14px; border-radius: 999px; transition: background .25s; }
+  .nav__links a:hover { background: rgba(18,21,19,.06); }
+  .nav__dir { display: flex; gap: 8px; align-items: center; }
+  .favb { display: flex; align-items: center; gap: 8px; padding: 10px 16px; border-radius: 999px; background: var(--ink); color: #fff; font-weight: 600; font-size: 14px; }
+  .favb svg { width: 16px; height: 16px; fill: #ff6b6b; }
+  .favb b { min-width: 22px; height: 22px; border-radius: 999px; display: grid; place-items: center; background: #fff; color: var(--ink); font-size: 12px; }
+  .favb.pop b { animation: pop .5s var(--spring); }
+  @keyframes pop { 50% { transform: scale(1.5); } }
+  .burger { display: none; width: 44px; height: 44px; border-radius: 50%; box-shadow: inset 0 0 0 1px var(--line); place-items: center; }
+  .burger span { width: 18px; height: 2px; background: var(--ink); box-shadow: 0 6px 0 var(--ink), 0 -6px 0 var(--ink); }
 
-  /* HERO */
-  .hero { position: relative; height: 100svh; min-height: 720px; color: #fff; overflow: hidden; }
-  .slide { position: absolute; inset: 0; opacity: 0; transition: opacity 1.6s ease; }
-  .slide.on { opacity: 1; }
-  .slide img { width: 100%; height: 100%; object-fit: cover; transform: scale(1.14); }
-  .slide.on img { animation: kb 9s linear forwards; }
-  @keyframes kb { from { transform: scale(1.14); } to { transform: scale(1); } }
-  .hero::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(10,14,16,.45), transparent 60%), linear-gradient(180deg, rgba(10,14,16,.55), rgba(10,14,16,.1) 38%, rgba(10,14,16,.65)); pointer-events: none; }
-  .hero__in { position: relative; z-index: 2; height: 100%; display: flex; flex-direction: column; justify-content: flex-end; padding-bottom: 50px; }
-  .hero h1 { font-size: clamp(48px, 7.4vw, 118px); max-width: 12ch; text-shadow: 0 4px 40px rgba(0,0,0,.35); }
-  .hero h1 span { display: inline-block; opacity: 0; transform: translateY(40px); animation: rise 1.1s var(--ease) forwards; }
-  @keyframes rise { to { opacity: 1; transform: none; } }
-  .hero__cap { position: absolute; right: 0; bottom: 210px; text-align: right; font-size: 14px; }
-  .hero__cap b { display: block; font-family: var(--serif); font-weight: 400; font-size: 26px; }
-  .dots { display: flex; gap: 8px; justify-content: flex-end; margin-top: 12px; }
-  .dots button { width: 34px; height: 3px; background: rgba(255,255,255,.35); border-radius: 2px; overflow: hidden; position: relative; }
-  .dots button.on::after { content: ""; position: absolute; inset: 0; background: #fff; transform-origin: left; animation: prog 7s linear forwards; }
-  @keyframes prog { from { transform: scaleX(0); } }
+  /* HERO: arraste o sol */
+  .hero { position: relative; height: 100vh; height: 100svh; min-height: 620px; overflow: hidden; color: #fff; background: #0e1018; }
+  .hero__foto { position: absolute; inset: -3%; will-change: transform; }
+  .hero__foto img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 60%; }
+  .hero__luzes { mix-blend-mode: lighten; filter: brightness(1) contrast(2.6) saturate(1.15); opacity: 0; }
+  .hero__ceu { position: absolute; inset: 0; pointer-events: none; mix-blend-mode: screen; }
+  .hero__azul { position: absolute; inset: 0; background: linear-gradient(180deg, #0c1638, #1c2a55 55%, #0c1020); mix-blend-mode: multiply; opacity: 0; pointer-events: none; }
+  .hero__quente { position: absolute; inset: 0; background: radial-gradient(90% 70% at 85% 30%, #ffb35c, transparent 70%); mix-blend-mode: soft-light; opacity: 0; pointer-events: none; }
+  .hero__veu { position: absolute; inset: 0; background: linear-gradient(90deg, rgba(8,10,12,.62), rgba(8,10,12,.15) 55%, rgba(8,10,12,0)), linear-gradient(0deg, rgba(8,10,12,.75), rgba(8,10,12,0) 40%); pointer-events: none; }
+  .hero__in { position: relative; z-index: 2; height: 100%; display: flex; flex-direction: column; justify-content: center; padding: 120px 0 170px; }
+  .hero__in .over { color: #fff; }
+  .hero h1 { font-size: min(6vw, 10.5vh, 100px); max-width: 980px; margin-top: 22px; text-shadow: 0 6px 40px rgba(0,0,0,.25); }
+  .hero h1 em { color: #f3e3bd; }
+  .hero h1 .ln { display: block; overflow: hidden; padding-bottom: .06em; }
+  .hero h1 .ln > span { display: inline-block; transform: translateY(105%); animation: sobe 1.1s var(--ease) forwards; animation-delay: var(--d); }
+  @keyframes sobe { to { transform: none; } }
+  .hero p.lead { margin-top: 22px; max-width: 500px; font-size: clamp(16px, 1.3vw, 19px); color: rgba(255,255,255,.86); }
+  .hero__ctas { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 30px; }
+  .sol { position: absolute; z-index: 3; left: 50%; bottom: 24px; transform: translateX(-50%); width: var(--wrap); padding: 18px 22px 16px; border-radius: 24px; background: rgba(12,14,18,.38); backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); box-shadow: inset 0 0 0 1px rgba(255,255,255,.16); }
+  .sol__top { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; flex-wrap: wrap; }
+  .sol__top b { font-family: var(--serif); font-weight: 400; font-size: 22px; }
+  .sol__top b span { font-variant-numeric: tabular-nums; }
+  .sol__top small { color: rgba(255,255,255,.75); font-size: 13.5px; }
+  .sol__trilho { position: relative; height: 46px; margin-top: 8px; }
+  .sol__trilho::before { content: ""; position: absolute; left: 0; right: 0; top: 50%; height: 2px; background: linear-gradient(90deg, #9ec5ff, #ffe1a1 45%, #ff9b52 68%, #2b3870); border-radius: 2px; }
+  .sol__marcas { position: absolute; left: 0; right: 0; bottom: -4px; display: flex; justify-content: space-between; font-size: 11.5px; color: rgba(255,255,255,.6); font-weight: 500; pointer-events: none; }
+  .sol input { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; cursor: grab; z-index: 2; margin: 0; }
+  .sol__knob { position: absolute; top: 50%; left: 0; width: 34px; height: 34px; margin: -17px 0 0 -17px; border-radius: 50%; background: radial-gradient(circle, #fff7d6 0 35%, var(--sun) 36%); box-shadow: 0 0 0 6px rgba(242,181,68,.25), 0 0 30px 6px rgba(242,181,68,.55); pointer-events: none; transition: background .4s, box-shadow .4s; }
+  .sol__knob.lua { background: radial-gradient(circle at 38% 38%, #fffdf2 0 45%, #d9d4bd 46%); box-shadow: 0 0 0 6px rgba(255,255,255,.15), 0 0 26px 4px rgba(220,225,255,.45); }
+  .sol__dica { position: absolute; top: -32px; left: 0; transform: translateX(-50%); padding: 4px 10px; border-radius: 999px; background: #fff; color: var(--ink); font-size: 12px; font-weight: 600; white-space: nowrap; pointer-events: none; animation: dica 2s ease-in-out infinite; }
+  @keyframes dica { 50% { transform: translate(-50%, -4px); } }
 
-  .search { margin-top: 40px; background: rgba(255,255,255,.96); color: var(--ink); border-radius: 24px; padding: 10px; box-shadow: 0 40px 80px -30px rgba(0,0,0,.5); opacity: 0; animation: rise 1s .6s var(--ease) forwards; }
-  .search__tabs { display: flex; gap: 4px; padding: 6px 6px 12px; }
-  .stab { padding: 8px 18px; border-radius: 999px; font-size: 14px; font-weight: 500; color: var(--muted); }
-  .stab.on { background: var(--ink); color: #fff; }
-  .search__row { display: grid; grid-template-columns: repeat(4, 1fr) auto; gap: 4px; }
-  .sf { background: var(--bg); border-radius: 16px; padding: 12px 18px; display: flex; flex-direction: column; }
-  .sf label { font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
-  .sf select { border: 0; background: transparent; outline: none; font-size: 16px; font-weight: 500; padding: 2px 0; cursor: pointer; appearance: none; }
-  .search .btn { border-radius: 16px; padding: 0 34px; }
+  /* MATCH */
+  .match { padding: 130px 0 120px; }
+  .match__cab { display: flex; justify-content: space-between; align-items: end; gap: 30px; flex-wrap: wrap; margin-bottom: 46px; }
+  .match__cab p { max-width: 420px; color: var(--muted); font-size: 17px; }
+  .match__grid { display: grid; grid-template-columns: 380px 1fr; gap: 28px; align-items: start; }
+  .painel { position: sticky; top: 96px; padding: 26px; border-radius: 30px; background: var(--paper); box-shadow: inset 0 0 0 1px var(--line); display: grid; gap: 24px; }
+  .painel h4 { font-size: 13px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin-bottom: 12px; display: flex; justify-content: space-between; }
+  .painel h4 output { letter-spacing: 0; text-transform: none; color: var(--ink); font-weight: 600; font-size: 14px; }
+  .modo { display: grid; grid-template-columns: 1fr 1fr; padding: 4px; border-radius: 999px; background: var(--bg); box-shadow: inset 0 0 0 1px var(--line); position: relative; }
+  .modo i { position: absolute; top: 4px; bottom: 4px; left: 4px; width: calc(50% - 4px); border-radius: 999px; background: var(--ink); transition: transform .45s var(--spring); }
+  .modo.alugar i { transform: translateX(100%); }
+  .modo button { position: relative; z-index: 1; padding: 11px; border-radius: 999px; font-weight: 600; font-size: 14.5px; transition: color .3s; }
+  .modo button.on { color: #fff; }
+  .vidas { display: flex; flex-wrap: wrap; gap: 8px; }
+  .vida { display: inline-flex; align-items: center; gap: 8px; padding: 9px 13px 9px 10px; border-radius: 999px; background: var(--bg); box-shadow: inset 0 0 0 1px var(--line); font-weight: 500; font-size: 14px; transition: all .3s var(--spring); }
+  .vida svg { width: 18px; height: 18px; color: var(--green2); transition: color .3s; }
+  .vida:hover { transform: translateY(-2px); }
+  .vida.on { background: var(--green); color: #fff; box-shadow: none; }
+  .vida.on svg { color: var(--mint); }
+  .faixa-r { -webkit-appearance: none; appearance: none; width: 100%; height: 6px; border-radius: 6px; background: linear-gradient(90deg, var(--green) var(--p, 50%), var(--line) var(--p, 50%)); outline: none; }
+  .faixa-r::-webkit-slider-thumb { -webkit-appearance: none; width: 24px; height: 24px; border-radius: 50%; background: #fff; box-shadow: 0 0 0 5px var(--green), 0 6px 14px rgba(0,0,0,.2); cursor: grab; }
+  .faixa-r::-moz-range-thumb { width: 22px; height: 22px; border-radius: 50%; background: #fff; border: 5px solid var(--green); cursor: grab; }
+  .pessoas { display: flex; align-items: center; gap: 14px; }
+  .pessoas button { width: 42px; height: 42px; border-radius: 50%; box-shadow: inset 0 0 0 1px var(--line); font-size: 20px; font-weight: 600; background: var(--bg); }
+  .pessoas output { font-family: var(--serif); font-size: 30px; min-width: 24px; text-align: center; }
+  .pessoas small { color: var(--muted); font-size: 13.5px; }
+  .painel__rodape { display: flex; justify-content: space-between; align-items: center; gap: 10px; padding-top: 18px; border-top: 1px solid var(--line); font-size: 14px; color: var(--muted); }
+  .painel__rodape b { color: var(--ink); }
+  .painel__rodape button { font-weight: 600; color: var(--green2); }
 
-  /* LISTAGEM */
-  .list { padding: 130px 0 120px; }
-  .list__head { display: flex; justify-content: space-between; align-items: end; gap: 30px; flex-wrap: wrap; margin-bottom: 44px; }
-  .list__tools { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
-  .count { color: var(--muted); font-size: 15px; }
-  .count b { color: var(--ink); font-weight: 600; }
-  .sort { border: 1px solid var(--line); background: var(--white); border-radius: 999px; padding: 10px 18px; outline: none; cursor: pointer; }
-  .chips { display: flex; gap: 8px; flex-wrap: wrap; }
-  .chip { padding: 8px 14px; border-radius: 999px; background: var(--white); border: 1px solid var(--line); font-size: 13px; display: inline-flex; gap: 8px; align-items: center; }
-  .chip button { font-size: 15px; line-height: 1; color: var(--muted); }
-  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
-  .prop { background: var(--white); border-radius: var(--r); overflow: hidden; box-shadow: 0 1px 0 var(--line); transition: transform .5s var(--ease), box-shadow .5s; animation: cardIn .7s var(--ease) both; }
-  .prop:hover { transform: translateY(-6px); box-shadow: 0 30px 60px -30px rgba(20,23,26,.35); }
-  @keyframes cardIn { from { opacity: 0; transform: translateY(24px); } }
-  .prop__img { position: relative; aspect-ratio: 4/3; overflow: hidden; background: var(--sand2); }
-  .prop__img img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: opacity .7s, transform 1.4s var(--ease); }
-  .prop__img img + img { opacity: 0; }
-  .prop:hover .prop__img img + img { opacity: 1; }
-  .prop:hover .prop__img img { transform: scale(1.05); }
-  .prop__tag { position: absolute; left: 14px; top: 14px; z-index: 1; padding: 6px 12px; border-radius: 999px; background: rgba(255,255,255,.92); font-size: 12px; font-weight: 600; }
-  .prop__tag.dark { background: var(--green); color: #fff; }
-  .heart { position: absolute; right: 14px; top: 14px; z-index: 1; width: 42px; height: 42px; border-radius: 50%; background: rgba(255,255,255,.92); display: grid; place-items: center; transition: transform .3s var(--ease); }
-  .heart:hover { transform: scale(1.1); }
-  .heart svg { width: 20px; fill: none; stroke: var(--ink); stroke-width: 1.8; transition: fill .3s, stroke .3s; }
-  .heart.on svg { fill: #e2554a; stroke: #e2554a; animation: pop .4s var(--ease); }
-  .prop__body { padding: 22px 24px 24px; }
-  .prop__price { font-family: var(--serif); font-size: 30px; }
-  .prop__price small { font-family: var(--sans); font-size: 14px; color: var(--muted); }
-  .prop__addr { color: var(--muted); font-size: 15px; margin: 2px 0 16px; }
-  .specs { display: flex; gap: 18px; padding-top: 16px; border-top: 1px solid var(--line); font-size: 14px; color: #3d4247; flex-wrap: wrap; }
-  .specs span { display: inline-flex; align-items: center; gap: 6px; }
-  .specs svg { width: 18px; stroke: var(--green2); fill: none; stroke-width: 1.6; }
-  .empty { grid-column: 1 / -1; text-align: center; padding: 60px; background: var(--white); border-radius: var(--r); color: var(--muted); }
-  .empty b { display: block; font-family: var(--serif); font-weight: 400; font-size: 28px; color: var(--ink); margin-bottom: 6px; }
+  .cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; perspective: 1400px; }
+  .card { position: relative; border-radius: 26px; background: var(--paper); box-shadow: inset 0 0 0 1px var(--line); overflow: hidden; cursor: pointer; transition: box-shadow .3s, opacity .4s; transform-style: preserve-3d; will-change: transform; }
+  .card:hover { box-shadow: inset 0 0 0 1px var(--line), 0 40px 70px -40px rgba(18,21,19,.45); }
+  .card.fora { display: none; }
+  .card__img { position: relative; aspect-ratio: 4 / 3; overflow: hidden; background: var(--sand2); }
+  .card__img img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: opacity .35s, transform 1.2s var(--ease); }
+  .card__img img + img { opacity: 0; }
+  .card__img.b img:first-child { opacity: 0; } .card__img.b img + img { opacity: 1; }
+  .card:hover .card__img img { transform: scale(1.04); }
+  .card__barras { position: absolute; left: 14px; right: 14px; bottom: 12px; display: flex; gap: 5px; z-index: 2; opacity: 0; transition: opacity .3s; }
+  .card:hover .card__barras { opacity: 1; }
+  .card__barras i { flex: 1; height: 3px; border-radius: 3px; background: rgba(255,255,255,.5); }
+  .card__barras i.on { background: #fff; }
+  .anel { position: absolute; z-index: 2; top: 12px; left: 12px; display: flex; align-items: center; gap: 8px; padding: 5px 12px 5px 5px; border-radius: 999px; font-size: 12.5px; font-weight: 600; }
+  .anel svg { width: 38px; height: 38px; transform: rotate(-90deg); }
+  .anel circle { fill: none; stroke-width: 4; }
+  .anel .f { stroke: rgba(18,21,19,.12); }
+  .anel .v { stroke: var(--green); stroke-linecap: round; transition: stroke-dasharray .8s var(--ease), stroke .4s; }
+  .anel b { position: absolute; left: 5px; top: 5px; width: 38px; height: 38px; display: grid; place-items: center; font-size: 11.5px; font-weight: 700; }
+  .anel.baixo .v { stroke: #c9894a; }
+  .coracao { position: absolute; z-index: 2; top: 12px; right: 12px; width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; transition: transform .4s var(--spring); }
+  .coracao svg { width: 20px; height: 20px; fill: none; stroke: var(--ink); stroke-width: 2; transition: fill .3s, stroke .3s; }
+  .coracao.on svg { fill: #ff5b5b; stroke: #ff5b5b; }
+  .coracao:active { transform: scale(.85); }
+  .card__tag { position: absolute; z-index: 2; left: 12px; bottom: 12px; padding: 5px 11px; border-radius: 999px; background: var(--ink); color: #fff; font-size: 12px; font-weight: 600; transition: opacity .3s; }
+  .card:hover .card__tag { opacity: 0; }
+  .card__corpo { padding: 18px 20px 20px; }
+  .card__preco { font-family: var(--serif); font-size: 28px; line-height: 1.1; }
+  .card__preco small { font-family: var(--sans); font-size: 14px; color: var(--muted); }
+  .card__end { color: var(--muted); font-size: 14.5px; margin-top: 2px; }
+  .specs { display: flex; flex-wrap: wrap; gap: 6px 16px; margin-top: 12px; font-size: 14px; color: var(--ink2); }
+  .specs span { display: flex; align-items: center; gap: 6px; }
+  .specs svg { width: 17px; height: 17px; fill: none; stroke: var(--muted); stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+  .porque { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 14px; min-height: 0; }
+  .porque span { padding: 4px 10px; border-radius: 999px; background: var(--mint); color: var(--green); font-size: 12.5px; font-weight: 600; }
+  .porque span.x { background: #f6e3cf; color: #8a5426; }
+  .vazio { grid-column: 1 / -1; padding: 60px 30px; text-align: center; border-radius: 26px; box-shadow: inset 0 0 0 1px var(--line); color: var(--muted); }
+  .vazio b { display: block; font-family: var(--serif); font-weight: 400; font-size: 26px; color: var(--ink); margin-bottom: 6px; }
 
-  /* DESTAQUE */
-  .feat { padding: 120px 0; background: var(--white); }
-  .feat__grid { display: grid; grid-template-columns: 1.35fr 1fr; gap: 60px; align-items: start; }
-  .gal__main { position: relative; aspect-ratio: 4/3; border-radius: var(--r); overflow: hidden; }
-  .gal__main img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: opacity .6s, transform .9s var(--ease); }
-  .gal__main img.out { opacity: 0; transform: scale(1.04); }
-  .gal__n { position: absolute; right: 16px; bottom: 16px; background: rgba(20,23,26,.7); color: #fff; padding: 6px 12px; border-radius: 999px; font-size: 13px; }
-  .thumbs { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin-top: 10px; }
-  .thumbs button { aspect-ratio: 4/3; border-radius: 10px; overflow: hidden; opacity: .55; transition: opacity .3s, outline-color .3s; outline: 2px solid transparent; outline-offset: 2px; }
-  .thumbs button.on { opacity: 1; outline-color: var(--green); }
-  .thumbs img { width: 100%; height: 100%; object-fit: cover; }
-  .feat__info .over { display: block; margin-bottom: 14px; }
-  .feat__price { font-family: var(--serif); font-size: 46px; margin: 18px 0 6px; }
-  .feat__info p { color: var(--muted); }
-  .table { margin: 30px 0; display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid var(--line); }
-  .table div { padding: 16px 0; border-bottom: 1px solid var(--line); }
-  .table div:nth-child(odd) { padding-right: 16px; }
-  .table small { display: block; font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
-  .table b { font-weight: 500; font-size: 18px; }
-  .agent { display: flex; align-items: center; gap: 16px; padding: 18px; background: var(--bg); border-radius: var(--r); margin-bottom: 20px; }
-  .agent img { width: 58px; height: 58px; border-radius: 50%; object-fit: cover; }
-  .agent b { display: block; font-weight: 500; }
-  .agent small { color: var(--muted); }
+  /* MAPA VIVO */
+  .mapa { padding: 120px 0; background: var(--ink); color: #fff; border-radius: 48px; margin: 0 14px; position: relative; overflow: hidden; }
+  .mapa .over { color: var(--mint); }
+  .mapa em { color: var(--sand); }
+  .mapa__grid { display: grid; grid-template-columns: .75fr 1.25fr; gap: 50px; align-items: center; }
+  .mapa__txt p { margin-top: 20px; color: #b9c0bb; font-size: 17px; max-width: 380px; }
+  .legenda { display: flex; align-items: center; gap: 10px; margin-top: 30px; font-size: 13px; color: #b9c0bb; }
+  .legenda i { width: 140px; height: 8px; border-radius: 8px; background: linear-gradient(90deg, #2e5a4e, #d9c9a8, #f2b544); }
+  .mapa__info { margin-top: 26px; padding: 20px 22px; border-radius: 22px; background: rgba(255,255,255,.06); box-shadow: inset 0 0 0 1px rgba(255,255,255,.1); min-height: 132px; transition: background .3s; }
+  .mapa__info small { font-size: 12px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--mint); }
+  .mapa__info b { display: block; font-family: var(--serif); font-weight: 400; font-size: 30px; margin-top: 4px; }
+  .mapa__info p { margin-top: 4px !important; font-size: 15px !important; }
+  .mapa svg.sp { width: 100%; height: auto; overflow: visible; }
+  .bairro path { stroke: rgba(255,255,255,.18); stroke-width: 1.5; transition: transform .5s var(--spring), stroke .3s, filter .3s; transform-box: fill-box; transform-origin: center; cursor: pointer; }
+  .bairro:hover path, .bairro.on path { stroke: #fff; stroke-width: 2; transform: scale(1.04); filter: drop-shadow(0 12px 24px rgba(0,0,0,.45)); }
+  .bairro text { font-family: var(--sans); font-size: 13px; font-weight: 600; fill: #fff; pointer-events: none; text-anchor: middle; }
+  .bairro text.m2 { font-size: 11px; font-weight: 500; fill: rgba(255,255,255,.75); }
+  .rio { fill: none; stroke: #4b7fa8; stroke-width: 10; stroke-linecap: round; opacity: .55; }
+  .rio-t { font-family: var(--it); font-style: italic; font-size: 17px; fill: #9cc3e0; }
+  .pino { cursor: pointer; }
+  .pino circle.p { fill: #fff; stroke: var(--ink); stroke-width: 2.5; transition: r .3s var(--spring); }
+  .pino circle.o { fill: none; stroke: #fff; stroke-width: 1.5; opacity: .7; animation: pulsa 2.2s ease-out infinite; transform-box: fill-box; transform-origin: center; }
+  .pino.top circle.p { fill: var(--sun); }
+  .pino:hover circle.p { r: 10; }
+  .pino text { font-family: var(--sans); font-size: 11px; font-weight: 700; fill: var(--ink); text-anchor: middle; pointer-events: none; }
+  @keyframes pulsa { from { transform: scale(.6); opacity: .9; } to { transform: scale(2.6); opacity: 0; } }
 
   /* SIMULADOR */
-  .sim { padding: 130px 0; }
-  .sim__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: stretch; margin-top: 50px; }
-  .panel { background: var(--white); border-radius: 24px; padding: 40px; display: grid; gap: 28px; }
-  .rg label { display: flex; justify-content: space-between; align-items: baseline; font-size: 14px; color: var(--muted); margin-bottom: 10px; }
-  .rg label output { font-family: var(--serif); font-size: 26px; color: var(--ink); }
-  input[type=range] { width: 100%; -webkit-appearance: none; appearance: none; height: 6px; border-radius: 6px; background: linear-gradient(90deg, var(--green) var(--p, 50%), var(--line) var(--p, 50%)); outline: none; }
-  input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 24px; height: 24px; border-radius: 50%; background: #fff; border: 2px solid var(--green); box-shadow: 0 4px 12px rgba(0,0,0,.15); cursor: grab; }
-  input[type=range]::-moz-range-thumb { width: 20px; height: 20px; border-radius: 50%; background: #fff; border: 2px solid var(--green); cursor: grab; }
-  .modes { display: flex; background: var(--bg); padding: 4px; border-radius: 999px; }
-  .modes button { flex: 1; padding: 10px; border-radius: 999px; font-size: 14px; font-weight: 500; color: var(--muted); }
-  .modes button.on { background: var(--white); color: var(--ink); box-shadow: 0 2px 8px rgba(0,0,0,.08); }
-  .result { background: var(--green); color: #fff; border-radius: 24px; padding: 40px; display: grid; grid-template-columns: 1fr 220px; gap: 30px; align-items: center; }
-  .result__big small { font-size: 14px; opacity: .75; }
-  .result__big strong { display: block; font-family: var(--serif); font-weight: 400; font-size: clamp(44px, 4.8vw, 64px); line-height: 1.05; margin: 6px 0 4px; }
-  .result__big p { font-size: 14px; opacity: .75; }
-  .rows { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; border-top: 1px solid rgba(255,255,255,.15); padding-top: 26px; }
-  .rows small { display: block; font-size: 12px; opacity: .7; }
-  .rows b { font-weight: 500; font-size: 18px; }
-  .donut circle { fill: none; stroke-width: 18; transition: stroke-dasharray .8s var(--ease), stroke-dashoffset .8s var(--ease); }
-  .legend { display: grid; gap: 6px; font-size: 13px; margin-top: 14px; }
-  .legend span { display: flex; align-items: center; gap: 8px; }
-  .legend i { width: 10px; height: 10px; border-radius: 3px; }
-  .sim__note { grid-column: 1 / -1; font-size: 13px; opacity: .7; }
+  .sim { padding: 130px 0 120px; }
+  .sim__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 46px; }
+  .sim__painel { padding: 30px; border-radius: 30px; background: var(--paper); box-shadow: inset 0 0 0 1px var(--line); display: grid; gap: 26px; }
+  .sim__painel label { display: flex; justify-content: space-between; font-weight: 500; margin-bottom: 12px; }
+  .sim__painel output { font-weight: 600; }
+  .tabs { display: inline-grid; grid-template-columns: 1fr 1fr; padding: 4px; border-radius: 999px; background: var(--bg); box-shadow: inset 0 0 0 1px var(--line); justify-self: start; }
+  .tabs button { padding: 9px 18px; border-radius: 999px; font-weight: 600; font-size: 14px; }
+  .tabs button.on { background: var(--ink); color: #fff; }
+  .sim__res { padding: 30px; border-radius: 30px; background: var(--green); color: #fff; display: grid; gap: 22px; align-content: start; position: relative; overflow: hidden; }
+  .sim__res::after { content: ""; position: absolute; right: -120px; top: -120px; width: 320px; height: 320px; border-radius: 50%; background: radial-gradient(closest-side, rgba(255,255,255,.12), transparent); }
+  .sim__res small { color: var(--mint); font-size: 13px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; }
+  .sim__res strong { display: block; font-family: var(--serif); font-weight: 400; font-size: clamp(46px, 5vw, 72px); line-height: 1; margin-top: 6px; }
+  .sim__res p { color: #cfe3d9; }
+  .barra-s { display: flex; height: 14px; border-radius: 8px; overflow: hidden; background: rgba(255,255,255,.1); }
+  .barra-s i { transition: flex-grow .6s var(--ease); }
+  .leg { display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: 13px; color: #cfe3d9; }
+  .leg span { display: flex; align-items: center; gap: 6px; }
+  .leg i { width: 10px; height: 10px; border-radius: 3px; }
+  .linhas-s { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+  .linhas-s div { padding: 14px; border-radius: 16px; background: rgba(255,255,255,.08); }
+  .linhas-s small { font-size: 11px; letter-spacing: .1em; }
+  .linhas-s b { display: block; font-weight: 600; margin-top: 4px; font-size: 15.5px; }
+  .nota { font-size: 12.5px; color: #9fc0b4 !important; }
 
-  /* BAIRROS */
-  .hoods { padding: 0 0 130px; }
-  .hoods__grid { display: grid; grid-template-columns: .8fr 1.2fr; gap: 60px; align-items: center; }
-  .bars { display: grid; gap: 18px; }
-  .bar { display: grid; grid-template-columns: 170px 1fr 110px; align-items: center; gap: 16px; font-size: 15px; }
-  .bar__track { height: 12px; background: var(--sand2); border-radius: 6px; overflow: hidden; }
-  .bar__fill { height: 100%; width: 0; background: linear-gradient(90deg, var(--green2), var(--green)); border-radius: 6px; transition: width 1.4s var(--ease); }
-  .bar b { font-weight: 500; text-align: right; }
+  /* ANUNCIAR */
+  .anunciar { padding: 0 0 130px; }
+  .anunciar__box { position: relative; border-radius: 40px; overflow: hidden; padding: 70px 60px; color: #fff; display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center; }
+  .anunciar__box > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: -2; }
+  .anunciar__box::before { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(90deg, rgba(10,14,12,.85), rgba(10,14,12,.45)); }
+  .anunciar__box .over { color: var(--sand); }
+  .anunciar__box em { color: var(--sand); }
+  .anunciar__box p { margin-top: 18px; color: rgba(255,255,255,.82); font-size: 17px; max-width: 440px; }
+  .aform { display: grid; gap: 10px; padding: 24px; border-radius: 26px; background: rgba(255,255,255,.1); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); box-shadow: inset 0 0 0 1px rgba(255,255,255,.2); }
+  .aform input, .aform select { width: 100%; height: 54px; padding: 0 18px; border-radius: 14px; border: 0; background: rgba(255,255,255,.92); color: var(--ink); font-weight: 500; outline: none; }
+  .aform input:focus { box-shadow: 0 0 0 2px var(--sun); }
+  .aform .btn { margin-top: 6px; }
+  .aform .msg { min-height: 0; font-size: 13.5px; font-weight: 600; color: #ffd38a; }
 
-  /* VENDER */
-  .sell { margin: 0 20px 20px; border-radius: 32px; overflow: hidden; position: relative; color: #fff; }
-  .sell__bg { position: absolute; inset: 0; background: url("https://images.unsplash.com/photo-1758565811176-ccd94357a844?w=2000&q=70&auto=format&fit=crop") center / cover; }
-  .sell__bg::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(20,30,28,.92) 30%, rgba(20,30,28,.35)); }
-  .sell__in { position: relative; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; padding: 110px 0; align-items: center; }
-  .sell p { opacity: .8; margin-top: 18px; max-width: 420px; font-size: 17px; }
-  .sform { background: rgba(255,255,255,.1); backdrop-filter: blur(16px); border: 1px solid rgba(255,255,255,.18); border-radius: 24px; padding: 34px; display: grid; gap: 14px; }
-  .sform input, .sform select { width: 100%; background: rgba(255,255,255,.92); border: 0; border-radius: 12px; padding: 15px 16px; color: var(--ink); outline: none; }
-  .sform .btn { background: var(--sand); color: var(--ink); }
-  .sform .btn:hover { background: #fff; }
-  .ok { display: none; text-align: center; padding: 10px; }
-  .ok.on { display: block; }
+  footer.fim { padding: 60px 0 40px; border-top: 1px solid var(--line); }
+  .fim__in { display: flex; justify-content: space-between; align-items: center; gap: 20px; flex-wrap: wrap; color: var(--muted); font-size: 14px; }
 
-  footer { padding: 60px 0 40px; font-size: 14px; color: var(--muted); }
-  .foot { display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; align-items: center; }
-  .foot .logo { color: var(--ink); }
-  .wa { position: fixed; right: 22px; bottom: 22px; z-index: 60; width: 58px; height: 58px; border-radius: 50%; background: #25d366; color: #fff; display: grid; place-items: center; box-shadow: 0 12px 30px -8px rgba(37,211,102,.6); transition: transform .3s var(--ease); }
-  .wa:hover { transform: scale(1.08); }
+  /* FICHA (gaveta) */
+  .veu-g { position: fixed; inset: 0; z-index: 120; background: rgba(10,12,11,.45); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); opacity: 0; pointer-events: none; transition: opacity .4s; }
+  .veu-g.on { opacity: 1; pointer-events: auto; }
+  .ficha { position: fixed; z-index: 121; top: 12px; right: 12px; bottom: 12px; width: min(620px, 100% - 24px); border-radius: 30px; background: var(--paper); overflow-y: auto; overscroll-behavior: contain; transform: translateX(calc(100% + 30px)); transition: transform .6s var(--ease); box-shadow: 0 40px 100px -30px rgba(0,0,0,.5); }
+  .ficha.on { transform: none; }
+  .ficha__fechar { position: sticky; top: 14px; float: right; margin: 14px 14px -58px 0; z-index: 3; width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; font-size: 22px; }
+  .ficha__gal { position: relative; aspect-ratio: 16 / 11; overflow: hidden; border-radius: 30px 30px 0 0; }
+  .ficha__gal img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity .5s; }
+  .ficha__gal img.on { opacity: 1; }
+  .ficha__nav { position: absolute; left: 16px; bottom: 16px; display: flex; gap: 6px; }
+  .ficha__nav button { width: 54px; height: 40px; border-radius: 10px; overflow: hidden; box-shadow: 0 0 0 2px rgba(255,255,255,.5); opacity: .7; transition: all .25s; }
+  .ficha__nav button.on { opacity: 1; box-shadow: 0 0 0 2px #fff; }
+  .ficha__nav img { width: 100%; height: 100%; object-fit: cover; }
+  .ficha__c { padding: 26px 28px 30px; display: grid; gap: 26px; }
+  .ficha__topo { display: flex; justify-content: space-between; gap: 16px; align-items: start; }
+  .ficha__topo h3 { font-size: 34px; }
+  .ficha__topo p { color: var(--muted); margin-top: 4px; }
+  .ficha__preco { font-family: var(--serif); font-size: 30px; white-space: nowrap; text-align: right; }
+  .ficha__preco small { display: block; font-family: var(--sans); font-size: 13px; color: var(--muted); }
+  .bloco { padding: 20px; border-radius: 22px; background: var(--bg); box-shadow: inset 0 0 0 1px var(--line); }
+  .bloco h4 { font-size: 12.5px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin-bottom: 14px; display: flex; justify-content: space-between; gap: 10px; }
+  .grade { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+  .grade div small { display: block; font-size: 12px; color: var(--muted); }
+  .grade div b { font-family: var(--serif); font-weight: 400; font-size: 24px; }
+  .luz { display: grid; grid-template-columns: 150px 1fr; gap: 18px; align-items: center; }
+  .luz svg { width: 150px; height: 150px; }
+  .luz p { font-size: 15px; color: var(--ink2); }
+  .luz p b { display: block; font-family: var(--serif); font-weight: 400; font-size: 22px; margin-bottom: 4px; color: var(--ink); }
+  .destinos { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 14px; }
+  .destinos button { padding: 8px 13px; border-radius: 999px; box-shadow: inset 0 0 0 1px var(--line); font-size: 13.5px; font-weight: 500; background: var(--paper); }
+  .destinos button.on { background: var(--ink); color: #fff; box-shadow: none; }
+  .tempos { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .tempos div { padding: 14px 16px; border-radius: 16px; background: var(--paper); box-shadow: inset 0 0 0 1px var(--line); }
+  .tempos small { display: block; color: var(--muted); font-size: 12.5px; }
+  .tempos b { font-family: var(--serif); font-weight: 400; font-size: 28px; }
+  .tempos b span { font-family: var(--sans); font-size: 14px; color: var(--muted); }
+  .parc { display: flex; justify-content: space-between; align-items: end; gap: 14px; flex-wrap: wrap; }
+  .parc b { font-family: var(--serif); font-weight: 400; font-size: 34px; }
+  .parc a { font-weight: 600; color: var(--green2); font-size: 14px; }
+  .corretor { display: flex; gap: 14px; align-items: center; }
+  .corretor img { width: 54px; height: 54px; border-radius: 50%; object-fit: cover; }
+  .corretor small { display: block; color: var(--muted); font-size: 13px; }
+  .ficha__acoes { display: grid; grid-template-columns: auto 1fr; gap: 10px; position: sticky; bottom: 0; padding: 16px 28px 20px; margin: 0 -28px -30px; background: linear-gradient(transparent, var(--paper) 30%); }
+  .ficha__acoes .coracao { position: static; width: 54px; height: 54px; box-shadow: inset 0 0 0 1px var(--line); background: var(--paper); }
 
-  @media (max-width: 1040px) {
+  /* DOCK DE FAVORITOS + COMPARADOR */
+  .dock { position: fixed; z-index: 90; left: 50%; bottom: 18px; transform: translate(-50%, 140%); display: flex; align-items: center; gap: 12px; padding: 8px 8px 8px 14px; border-radius: 999px; transition: transform .6s var(--spring); }
+  .dock.on { transform: translate(-50%, 0); }
+  .dock__fotos { display: flex; }
+  .dock__fotos img { width: 38px; height: 38px; border-radius: 50%; object-fit: cover; box-shadow: 0 0 0 3px var(--paper); margin-left: -10px; }
+  .dock__fotos img:first-child { margin-left: 0; }
+  .dock span { font-weight: 600; font-size: 14px; white-space: nowrap; }
+  .dock .btn { padding: 11px 18px; font-size: 14px; }
+  .comp { position: fixed; z-index: 121; left: 50%; top: 50%; width: min(1000px, 100% - 24px); max-height: calc(100% - 24px); overflow: auto; transform: translate(-50%, -46%) scale(.96); opacity: 0; pointer-events: none; border-radius: 30px; background: var(--paper); padding: 30px; transition: all .5s var(--ease); box-shadow: 0 40px 100px -30px rgba(0,0,0,.5); }
+  .comp.on { transform: translate(-50%, -50%); opacity: 1; pointer-events: auto; }
+  .comp__topo { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+  .comp__topo h3 { font-size: 34px; }
+  .comp table { width: 100%; border-collapse: collapse; }
+  .comp th, .comp td { padding: 12px 10px; text-align: left; border-bottom: 1px solid var(--line); font-size: 14.5px; vertical-align: top; }
+  .comp th { color: var(--muted); font-weight: 500; width: 150px; }
+  .comp td img { width: 100%; aspect-ratio: 4/3; object-fit: cover; border-radius: 14px; margin-bottom: 8px; }
+  .comp td b { font-family: var(--serif); font-weight: 400; font-size: 20px; }
+  .comp td.melhor { color: var(--green); font-weight: 700; }
+
+  .wa { position: fixed; right: 20px; bottom: 20px; z-index: 89; width: 58px; height: 58px; border-radius: 50%; background: #25d366; color: #fff; display: grid; place-items: center; box-shadow: 0 14px 30px -8px rgba(37,211,102,.55); transition: transform .4s var(--spring); }
+  .wa:hover { transform: scale(1.08) rotate(-8deg); }
+  .wa svg { width: 28px; height: 28px; }
+
+  @media (max-width: 1080px) {
     .nav__links { display: none; }
     .burger { display: grid; }
-    .nav.open { background: var(--bg); color: var(--ink); }
-    .nav.open .nav__links { display: flex; flex-direction: column; position: absolute; top: 84px; left: 0; right: 0; background: var(--bg); padding: 24px 20px; gap: 18px; border-bottom: 1px solid var(--line); }
-    .search__row { grid-template-columns: 1fr 1fr; }
-    .search .btn { grid-column: 1 / -1; padding: 16px; }
-    .hero__cap { display: none; }
-    .grid { grid-template-columns: 1fr 1fr; }
-    .feat__grid, .sim__grid, .hoods__grid, .sell__in { grid-template-columns: 1fr; }
+    .nav.aberto .nav__links { display: flex; flex-direction: column; position: absolute; top: calc(100% + 8px); left: 0; right: 0; padding: 12px; border-radius: 26px; background: var(--paper); box-shadow: 0 30px 60px -30px rgba(0,0,0,.4); font-size: 18px; }
+    .nav.aberto .nav__links a { padding: 14px 16px; }
+    .match__grid { grid-template-columns: 320px 1fr; }
+    .cards { grid-template-columns: 1fr; }
   }
-  @media (max-width: 640px) {
-    .hero { min-height: 760px; }
-    .grid { grid-template-columns: 1fr; }
-    .result { grid-template-columns: 1fr; }
-    .rows { grid-template-columns: 1fr; }
-    .panel, .result { padding: 28px 22px; }
-    .bar { grid-template-columns: 110px 1fr 84px; font-size: 13px; }
-    .fav-count span { display: none; }
-    .sell { margin: 0 10px 10px; }
+  @media (max-width: 900px) {
+    .favb span { display: none; }
+    .hero__in { justify-content: flex-start; padding-top: 108px; padding-bottom: 0; }
+    .hero h1 { font-size: min(12.6vw, 7.6svh); }
+    .hero p.lead { font-size: 15.5px; margin-top: 16px; }
+    .hero__ctas { margin-top: 22px; }
+    .hero__ctas .btn { padding: 14px 20px; font-size: 14.5px; }
+    .sol { padding: 12px 14px 10px; bottom: 14px; left: 12px; right: 84px; width: auto; transform: none; border-radius: 20px; }
+    .sol__top small { display: none; }
+    .sol__marcas span:nth-child(even) { visibility: hidden; }
+    .bairro text { font-size: 17px; }
+    .bairro text.m2 { display: none; }
+    .sol__top b { font-size: 18px; }
+    .sol__top small { font-size: 12.5px; }
+    .match { padding: 100px 0 90px; }
+    .match__grid { grid-template-columns: 1fr; }
+    .painel { position: static; padding: 20px; border-radius: 24px; gap: 20px; }
+    .cards { grid-template-columns: 1fr; }
+    .mapa { padding: 90px 0; margin: 0 8px; border-radius: 34px; }
+    .mapa__grid { grid-template-columns: 1fr; gap: 30px; }
+    .sim { padding: 100px 0 90px; }
+    .sim__grid { grid-template-columns: 1fr; }
+    .linhas-s { grid-template-columns: 1fr; }
+    .anunciar__box { grid-template-columns: 1fr; padding: 44px 22px; border-radius: 30px; gap: 30px; }
+    .ficha { top: auto; left: 0; right: 0; bottom: 0; width: 100%; max-height: 92svh; border-radius: 28px 28px 0 0; transform: translateY(105%); }
+    .ficha__gal { border-radius: 28px 28px 0 0; }
+    .ficha__c { padding: 22px 18px 26px; }
+    .ficha__acoes { margin: 0 -18px -26px; padding: 14px 18px 18px; }
+    .ficha__topo { flex-direction: column; }
+    .ficha__preco { text-align: left; }
+    .grade { grid-template-columns: 1fr 1fr; }
+    .luz { grid-template-columns: 1fr; justify-items: center; text-align: center; }
+    .dock { left: 14px; right: 88px; transform: translateY(140%); justify-content: space-between; }
+    .dock.on { transform: none; }
+    .comp { padding: 20px; }
+    .comp th { width: 96px; }
   }
-  @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; animation-delay: 0s !important; transition-duration: .01ms !important; } [data-r] { opacity: 1; transform: none; } }
+  @media (max-width: 900px) and (max-height: 760px) { .hero p.lead { display: none; } }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+    [data-r] { opacity: 1; transform: none; }
+    .hero h1 .ln > span { transform: none; }
+  }
 </style>
 </head>
 <body>
 
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-seta" viewBox="0 0 24 24"><path d="M4 12h15m-6-6 6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-cor" viewBox="0 0 24 24"><path d="M12 20s-7-4.4-9-9a5 5 0 0 1 9-3 5 5 0 0 1 9 3c-2 4.6-9 9-9 9Z"/></symbol>
+  <symbol id="i-wa" viewBox="0 0 24 24"><path fill="currentColor" d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21c5.46 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2Zm5.8 14.03c-.24.68-1.42 1.3-1.95 1.35-.5.05-.97.23-3.27-.68-2.77-1.09-4.52-3.92-4.66-4.1-.13-.18-1.1-1.47-1.1-2.8 0-1.34.7-2 .95-2.27.25-.27.54-.34.72-.34h.52c.17 0 .4-.06.62.47.24.56.8 1.94.87 2.08.07.14.12.3.02.48-.1.19-.14.3-.28.47-.14.16-.3.36-.42.49-.14.14-.29.29-.12.57.17.28.74 1.22 1.59 1.98 1.09.97 2.01 1.27 2.29 1.41.28.14.45.12.62-.07.17-.19.71-.83.9-1.11.19-.28.38-.24.64-.14.26.09 1.65.78 1.93.92.28.14.47.21.54.33.07.11.07.66-.17 1.34Z"/></symbol>
+  <symbol id="v-home" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></g></symbol>
+  <symbol id="v-pet" viewBox="0 0 24 24"><g fill="currentColor"><ellipse cx="12" cy="16" rx="4.5" ry="3.8"/><ellipse cx="6" cy="11" rx="1.8" ry="2.3"/><ellipse cx="9.5" cy="7.2" rx="1.8" ry="2.4"/><ellipse cx="14.5" cy="7.2" rx="1.8" ry="2.4"/><ellipse cx="18" cy="11" rx="1.8" ry="2.3"/></g></symbol>
+  <symbol id="v-kids" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="6" r="2.5"/><path d="M12 9v6M8 12h8M9 21l3-6 3 6"/></g></symbol>
+  <symbol id="v-festa" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h12l-2 7a4 4 0 0 1-8 0Z"/><path d="M12 14v6M8 21h8"/></g></symbol>
+  <symbol id="v-silencio" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M20 15.5A8 8 0 1 1 8.5 4a6.5 6.5 0 0 0 11.5 11.5Z"/></g></symbol>
+  <symbol id="v-vista" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 19 9 9l4 6 3-4 5 8Z"/><circle cx="17" cy="6" r="2"/></g></symbol>
+  <symbol id="v-metro" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="14" rx="4"/><path d="M5 11h14M8 21l2-4M16 21l-2-4"/><circle cx="9" cy="14" r=".6" fill="currentColor"/><circle cx="15" cy="14" r=".6" fill="currentColor"/></g></symbol>
+  <symbol id="v-piscina" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17c2 0 2-1.5 4.5-1.5S10 17 12 17s2-1.5 4.5-1.5S19 17 21 17M3 21c2 0 2-1.5 4.5-1.5S10 21 12 21s2-1.5 4.5-1.5S19 21 21 21M8 14V5a2 2 0 0 1 4 0M16 14V5"/></g></symbol>
+  <symbol id="v-sol" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></g></symbol>
+</svg>
+
 <header class="nav" id="nav">
-  <div class="wrap nav__in">
-    <a href="#" class="logo"><svg viewBox="0 0 40 28" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 26h36"/><path d="M8 26V14l12-9 12 9v12"/><circle cx="20" cy="17" r="4"/></svg>Horizonte</a>
-    <nav class="nav__links"><a href="#imoveis">Imóveis</a><a href="#destaque">Destaque</a><a href="#simulador">Simulador</a><a href="#bairros">Bairros</a><a href="#vender">Anunciar</a></nav>
-    <div class="nav__right">
-      <a href="#imoveis" class="fav-count" id="favBtn"><span>Favoritos</span><b id="favN">0</b></a>
-      <button class="burger" aria-label="Menu"><span></span></button>
+  <div class="nav__in vidro">
+    <a href="#topo" class="logo" aria-label="Horizonte Imóveis, início"><svg viewBox="0 0 40 28" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 26h36"/><path d="M8 26V14l12-9 12 9v12"/><circle cx="20" cy="17" r="4"/></svg>Horizonte</a>
+    <nav class="nav__links"><a href="#match">Para você</a><a href="#mapa">Mapa vivo</a><a href="#simulador">Simulador</a><a href="#anunciar">Anunciar</a></nav>
+    <div class="nav__dir">
+      <button class="favb" id="favb" type="button"><svg><use href="#i-cor" /></svg><span>Favoritos</span><b id="favN">0</b></button>
+      <button class="burger" aria-label="Abrir menu" aria-expanded="false"><span></span></button>
     </div>
   </div>
 </header>
 
-<section class="hero" id="hero">
-  <div class="slide on"><img src="https://images.unsplash.com/photo-1613977257363-707ba9348227?w=2200&q=80&auto=format&fit=crop" alt="Casa moderna com piscina" /></div>
-  <div class="slide"><img src="https://images.unsplash.com/photo-1748063578185-3d68121b11ff?w=2200&q=80&auto=format&fit=crop" alt="Casa iluminada ao entardecer" /></div>
-  <div class="slide"><img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=2200&q=80&auto=format&fit=crop" alt="Residência contemporânea" /></div>
+<main>
+<section class="hero" id="topo">
+  <div class="hero__foto" id="heroFoto">
+    <img class="hero__base" id="heroBase" src="https://images.unsplash.com/photo-1748063578185-3d68121b11ff?w=2200&q=80&auto=format&fit=crop" alt="Residência contemporânea em Vila Nova Conceição" fetchpriority="high" />
+    <img class="hero__luzes" id="heroLuzes" src="https://images.unsplash.com/photo-1748063578185-3d68121b11ff?w=2200&q=80&auto=format&fit=crop" alt="" />
+  </div>
+  <div class="hero__ceu" id="heroCeu"></div>
+  <div class="hero__quente" id="heroQuente"></div>
+  <div class="hero__azul" id="heroAzul"></div>
+  <div class="hero__veu"></div>
   <div class="wrap hero__in">
-    <div class="hero__cap" id="cap"><b>Casa Jardim Europa</b>5 suítes · 820 m² · R$ 8,9 mi<div class="dots" id="dots"><button class="on" aria-label="Foto 1"></button><button aria-label="Foto 2"></button><button aria-label="Foto 3"></button></div></div>
-    <p class="over" style="color:#fff;margin-bottom:18px;text-shadow:0 1px 12px rgba(0,0,0,.6)">Imobiliária boutique · CRECI 34.512-J</p>
-    <h1><span>Encontre</span> <span style="animation-delay:.08s">o</span> <span style="animation-delay:.16s">lugar</span> <span style="animation-delay:.24s">onde</span> <span style="animation-delay:.32s">a</span> <span style="animation-delay:.4s">vida</span> <span style="animation-delay:.48s">acontece.</span></h1>
-    <form class="search" id="search">
-      <div class="search__tabs"><button type="button" class="stab on" data-t="venda">Comprar</button><button type="button" class="stab" data-t="aluguel">Alugar</button></div>
-      <div class="search__row">
-        <div class="sf"><label for="sTipo">Tipo</label><select id="sTipo"><option value="">Todos</option><option>Casa</option><option>Apartamento</option><option>Cobertura</option></select></div>
-        <div class="sf"><label for="sBairro">Bairro</label><select id="sBairro"><option value="">Todos</option></select></div>
-        <div class="sf"><label for="sQ">Quartos</label><select id="sQ"><option value="0">Qualquer</option><option value="2">2+</option><option value="3">3+</option><option value="4">4+</option></select></div>
-        <div class="sf"><label for="sMax">Até</label><select id="sMax"></select></div>
-        <button class="btn btn--green" type="submit">Buscar</button>
-      </div>
-    </form>
+    <span class="over">Imobiliária boutique · São Paulo</span>
+    <h1><span class="ln"><span style="--d:.05s">Não procure um imóvel.</span></span><span class="ln"><span style="--d:.18s"><em>Encontre o seu jeito de viver.</em></span></span></h1>
+    <p class="lead">Conte como é a sua rotina e a gente mostra as casas que combinam com você, com a luz de cada hora do dia, o tempo até o trabalho e a parcela que cabe no bolso.</p>
+    <div class="hero__ctas"><a href="#match" class="btn btn--ink" style="background:#fff;color:var(--ink)">Fazer meu match <svg><use href="#i-seta" /></svg></a><a href="#mapa" class="btn btn--glass">Explorar o mapa</a></div>
+  </div>
+  <div class="sol" id="sol">
+    <div class="sol__top"><b><span id="solHora">17:40</span> · <span id="solNome">luz dourada</span></b><small id="solTxt">Arraste o sol e veja a Residência Vila Nova Conceição em qualquer hora do dia</small></div>
+    <div class="sol__trilho">
+      <input type="range" id="solR" min="6" max="22" step=".05" value="17.6" aria-label="Hora do dia" />
+      <span class="sol__knob" id="solK"></span>
+      <span class="sol__dica" id="solDica">arraste</span>
+      <div class="sol__marcas"><span>6h</span><span>9h</span><span>12h</span><span>15h</span><span>18h</span><span>22h</span></div>
+    </div>
   </div>
 </section>
 
-<section class="list" id="imoveis">
+<section class="match" id="match">
   <div class="wrap">
-    <div class="list__head">
-      <div data-r><p class="over">Imóveis selecionados</p><h2 class="h2" style="margin-top:12px">Escolhidos a <em>dedo</em>.</h2></div>
-      <div class="list__tools" data-r style="--d:.1s"><span class="count" id="count"></span><select class="sort" id="sort" aria-label="Ordenar"><option value="rel">Relevância</option><option value="pm">Menor preço</option><option value="pM">Maior preço</option><option value="a">Maior área</option></select></div>
+    <div class="match__cab"><div><span class="over" data-r>Match de estilo de vida</span><h2 class="h2" style="margin-top:16px" data-r>Diga como você vive.<br /><em>A casa certa sobe para o topo.</em></h2></div><p data-r>Nada de filtro de quartos e vagas. Marque o que importa no seu dia a dia e cada imóvel ganha uma nota de compatibilidade com você.</p></div>
+    <div class="match__grid">
+      <aside class="painel" data-r>
+        <div class="modo" id="modo"><i></i><button type="button" class="on" data-n="venda">Comprar</button><button type="button" data-n="aluguel">Alugar</button></div>
+        <div><h4>O que não pode faltar</h4><div class="vidas" id="vidas"></div></div>
+        <div><h4>Até quanto <output id="orcO"></output></h4><input type="range" class="faixa-r" id="orc" /></div>
+        <div><h4>Quem vai morar</h4><div class="pessoas"><button type="button" id="pMenos" aria-label="Menos pessoas">−</button><output id="pN">2</output><button type="button" id="pMais" aria-label="Mais pessoas">+</button><small id="pTxt">pessoas · 1+ quarto</small></div></div>
+        <div class="painel__rodape"><span id="resumo"></span><button type="button" id="limpar">Limpar</button></div>
+      </aside>
+      <div class="cards" id="cards"></div>
     </div>
-    <div class="chips" id="chips" style="margin-bottom:24px"></div>
-    <div class="grid" id="grid"></div>
   </div>
 </section>
 
-<section class="feat" id="destaque">
-  <div class="wrap feat__grid">
-    <div data-r>
-      <div class="gal__main" id="galMain"><img src="https://images.unsplash.com/photo-1706808849780-7a04fbac83ef?w=1600&q=80&auto=format&fit=crop" alt="Imóvel em destaque" /><span class="gal__n" id="galN">1 / 5</span></div>
-      <div class="thumbs" id="thumbs"></div>
+<section class="mapa" id="mapa">
+  <div class="wrap mapa__grid">
+    <div class="mapa__txt">
+      <span class="over" data-r>Mapa vivo</span>
+      <h2 class="h2" style="margin-top:16px" data-r>São Paulo, <em>bairro a bairro.</em></h2>
+      <p data-r>A cor mostra o preço médio do m². Os pinos são os imóveis do seu match, e o dourado é o que mais combina com você. Passe o mouse ou toque em um bairro.</p>
+      <div class="legenda" data-r><span>m² mais acessível</span><i></i><span>mais valorizado</span></div>
+      <div class="mapa__info" id="mapaInfo" data-r><small>Bairro</small><b>Escolha um bairro</b><p>Preço médio do m² e quantos imóveis do seu match estão lá.</p></div>
     </div>
-    <div class="feat__info" data-r style="--d:.12s">
-      <span class="over">Imóvel da semana · Exclusivo</span>
-      <h2 class="h2">Casa Alto de Pinheiros</h2>
-      <p class="feat__price">R$ 6.450.000</p>
-      <p>Projeto assinado com integração total entre área social, jardim e piscina. Pé-direito duplo, iluminação natural o dia inteiro e acabamentos importados.</p>
-      <div class="table">
-        <div><small>Área útil</small><b>540 m²</b></div><div><small>Terreno</small><b>900 m²</b></div>
-        <div><small>Suítes</small><b>4</b></div><div><small>Vagas</small><b>6</b></div>
-        <div><small>Condomínio</small><b>Não possui</b></div><div><small>IPTU</small><b>R$ 2.980/mês</b></div>
-      </div>
-      <div class="agent"><img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=200&q=75&auto=format&fit=crop" alt="Corretora" /><div><b>Camila Duarte</b><small>Corretora responsável · CRECI 152.883-F</small></div></div>
-      <a class="btn btn--green" style="width:100%" target="_blank" rel="noopener" href="https://wa.me/5511999990000?text=Ol%C3%A1!%20Quero%20agendar%20uma%20visita%20na%20Casa%20Alto%20de%20Pinheiros.">Agendar visita →</a>
-    </div>
+    <div data-r style="--d:.1s"><svg class="sp" id="sp" viewBox="0 0 700 560" role="img" aria-label="Mapa dos bairros com imóveis"></svg></div>
   </div>
 </section>
 
 <section class="sim" id="simulador">
   <div class="wrap">
-    <div data-r><p class="over">Simulador de financiamento</p><h2 class="h2" style="margin-top:12px">Descubra quanto cabe no seu <em>bolso</em>.</h2></div>
+    <span class="over" data-r>Simulador de financiamento</span>
+    <h2 class="h2" style="margin-top:16px" data-r>Quanto cabe <em>no seu bolso.</em></h2>
     <div class="sim__grid">
-      <div class="panel" data-r>
-        <div class="modes" id="modes"><button class="on" data-m="sac">Tabela SAC</button><button data-m="price">Tabela Price</button></div>
-        <div class="rg"><label>Valor do imóvel <output id="oV"></output></label><input type="range" id="v" min="300000" max="10000000" step="50000" value="1500000" /></div>
-        <div class="rg"><label>Entrada <output id="oE"></output></label><input type="range" id="e" min="20" max="80" step="5" value="30" /></div>
-        <div class="rg"><label>Prazo <output id="oP"></output></label><input type="range" id="p" min="5" max="35" step="1" value="30" /></div>
-        <div class="rg"><label>Juros ao ano <output id="oJ"></output></label><input type="range" id="j" min="8" max="14" step=".1" value="10.5" /></div>
+      <div class="sim__painel" data-r>
+        <div class="tabs" id="tabs"><button type="button" class="on" data-m="sac">Tabela SAC</button><button type="button" data-m="price">Tabela Price</button></div>
+        <div><label for="sV">Valor do imóvel <output id="oV"></output></label><input type="range" class="faixa-r" id="sV" min="300000" max="10000000" step="50000" value="2350000" /></div>
+        <div><label for="sE">Entrada <output id="oE"></output></label><input type="range" class="faixa-r" id="sE" min="20" max="80" step="5" value="30" /></div>
+        <div><label for="sP">Prazo <output id="oP"></output></label><input type="range" class="faixa-r" id="sP" min="5" max="35" step="1" value="30" /></div>
+        <div><label for="sJ">Juros ao ano <output id="oJ"></output></label><input type="range" class="faixa-r" id="sJ" min="8" max="14" step=".1" value="10.5" /></div>
       </div>
-      <div class="result" data-r style="--d:.12s">
-        <div class="result__big"><small id="rLbl">Primeira parcela (SAC)</small><strong id="rParc">R$ 0</strong><p id="rUlt"></p></div>
-        <div>
-          <svg class="donut" viewBox="0 0 120 120" width="100%"><circle cx="60" cy="60" r="46" stroke="rgba(255,255,255,.12)"/><circle id="dE" cx="60" cy="60" r="46" stroke="#d9c9a8" transform="rotate(-90 60 60)"/><circle id="dF" cx="60" cy="60" r="46" stroke="#fff" transform="rotate(-90 60 60)"/><circle id="dJ" cx="60" cy="60" r="46" stroke="#7fb3a5" transform="rotate(-90 60 60)"/></svg>
-          <div class="legend"><span><i style="background:#d9c9a8"></i>Entrada</span><span><i style="background:#fff"></i>Financiado</span><span><i style="background:#7fb3a5"></i>Juros</span></div>
-        </div>
-        <div class="rows"><div><small>Valor financiado</small><b id="rFin"></b></div><div><small>Total de juros</small><b id="rJur"></b></div><div><small>Renda mínima sugerida</small><b id="rRenda"></b></div></div>
-        <p class="sim__note">Simulação ilustrativa, sem considerar seguros e taxas administrativas. Condições sujeitas à análise de crédito.</p>
+      <div class="sim__res" data-r style="--d:.1s">
+        <div><small id="rLbl">Primeira parcela (SAC)</small><strong id="rParc">R$ 0</strong><p id="rUlt"></p></div>
+        <div><div class="barra-s"><i id="bE" style="background:#d9c9a8"></i><i id="bF" style="background:#fff"></i><i id="bJ" style="background:#7fb3a5"></i></div><div class="leg" style="margin-top:10px"><span><i style="background:#d9c9a8"></i>Entrada</span><span><i style="background:#fff"></i>Financiado</span><span><i style="background:#7fb3a5"></i>Juros</span></div></div>
+        <div class="linhas-s"><div><small>Financiado</small><b id="rFin"></b></div><div><small>Total de juros</small><b id="rJur"></b></div><div><small>Renda sugerida</small><b id="rRenda"></b></div></div>
+        <p class="nota">Simulação ilustrativa, sem seguros e taxas. Condições sujeitas à análise de crédito.</p>
       </div>
     </div>
   </div>
 </section>
 
-<section class="hoods" id="bairros">
-  <div class="wrap hoods__grid">
-    <div data-r><p class="over">Mercado</p><h2 class="h2" style="margin-top:12px">Preço médio do m² por <em>bairro</em>.</h2><p style="color:var(--muted);margin-top:18px;max-width:380px">Dados atualizados mensalmente a partir das nossas negociações e de índices do mercado. Use para comparar antes de decidir.</p></div>
-    <div class="bars" id="bars" data-r style="--d:.12s"></div>
+<section class="anunciar" id="anunciar">
+  <div class="wrap">
+    <div class="anunciar__box" data-r>
+      <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1800&q=75&auto=format&fit=crop" alt="" loading="lazy" />
+      <div><span class="over">Quer vender ou alugar?</span><h2 class="h2" style="margin-top:16px;font-size:clamp(38px,4.6vw,64px)">Seu imóvel no <em>match certo.</em></h2><p>Avaliação em até 48 horas, fotografia profissional e o seu imóvel aparecendo para quem tem o estilo de vida que ele oferece.</p></div>
+      <form class="aform" id="aform" novalidate>
+        <input id="aNome" placeholder="Seu nome" autocomplete="name" />
+        <select id="aTipo"><option>Quero vender</option><option>Quero alugar</option></select>
+        <input id="aBairro" placeholder="Bairro do imóvel" />
+        <button class="btn btn--wa" type="submit"><svg style="width:22px;height:22px"><use href="#i-wa" /></svg>Pedir avaliação no WhatsApp</button>
+        <span class="msg" id="aMsg" aria-live="polite"></span>
+      </form>
+    </div>
   </div>
 </section>
+</main>
 
-<section class="sell" id="vender">
-  <div class="sell__bg"></div>
-  <div class="wrap sell__in">
-    <div data-r><p class="over" style="color:var(--sand)">Quer vender ou alugar?</p><h2 class="h2" style="margin-top:12px">Avaliamos seu imóvel em até 48 horas.</h2><p>Fotografia profissional, tour virtual e divulgação para uma carteira de mais de 3.000 compradores qualificados.</p></div>
-    <form class="sform" id="sform" data-r style="--d:.12s">
-      <input placeholder="Seu nome" required />
-      <input placeholder="WhatsApp" inputmode="tel" required />
-      <select><option>Quero vender</option><option>Quero alugar</option></select>
-      <input placeholder="Bairro do imóvel" />
-      <button class="btn" type="submit">Solicitar avaliação gratuita</button>
-      <p class="ok" id="sok">Recebido! Um corretor vai falar com você em breve.</p>
-    </form>
-  </div>
-</section>
+<footer class="fim"><div class="wrap fim__in"><a href="#topo" class="logo"><svg viewBox="0 0 40 28" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 26h36"/><path d="M8 26V14l12-9 12 9v12"/><circle cx="20" cy="17" r="4"/></svg>Horizonte</a><span>Rua Oscar Freire, 1200 · São Paulo · (11) 99999-0000</span><span>© 2026 Horizonte Imóveis · CRECI 34.512-J</span></div></footer>
 
-<footer><div class="wrap foot"><a href="#" class="logo"><svg viewBox="0 0 40 28" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 26h36"/><path d="M8 26V14l12-9 12 9v12"/><circle cx="20" cy="17" r="4"/></svg>Horizonte</a><span>Rua Oscar Freire, 1200 — São Paulo · (11) 99999-0000</span><span>© 2026 Horizonte Imóveis · CRECI 34.512-J</span></div></footer>
+<div class="veu-g" id="veu"></div>
+<aside class="ficha" id="ficha" role="dialog" aria-modal="true" aria-label="Ficha do imóvel"></aside>
+<div class="comp" id="comp" role="dialog" aria-modal="true" aria-label="Comparar favoritos"></div>
+<div class="dock vidro" id="dock"><div class="dock__fotos" id="dockF"></div><span id="dockT">0 favoritos</span><button class="btn btn--ink" id="dockB" type="button">Comparar</button></div>
 
-<a class="wa" href="https://wa.me/5511999990000" target="_blank" rel="noopener" aria-label="WhatsApp"><svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21c5.46 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2Zm5.8 14.03c-.24.68-1.42 1.3-1.95 1.35-.5.05-.97.23-3.27-.68-2.77-1.09-4.52-3.92-4.66-4.1-.13-.18-1.1-1.47-1.1-2.8 0-1.34.7-2 .95-2.27.25-.27.54-.34.72-.34h.52c.17 0 .4-.06.62.47.24.56.8 1.94.87 2.08.07.14.12.3.02.48-.1.19-.14.3-.28.47-.14.16-.3.36-.42.49-.14.14-.29.29-.12.57.17.28.74 1.22 1.59 1.98 1.09.97 2.01 1.27 2.29 1.41.28.14.45.12.62-.07.17-.19.71-.83.9-1.11.19-.28.38-.24.64-.14.26.09 1.65.78 1.93.92.28.14.47.21.54.33.07.11.07.66-.17 1.34Z"/></svg></a>
+<a class="wa" href="https://wa.me/5511999990000" target="_blank" rel="noopener" aria-label="Falar no WhatsApp"><svg><use href="#i-wa" /></svg></a>
 
 <script>
 (() => {
@@ -340,141 +497,295 @@
   const $$ = (s, el = document) => [...el.querySelectorAll(s)];
   const u = (id, w) => `https://images.unsplash.com/photo-${id}?w=${w}&q=75&auto=format&fit=crop`;
   const brl = (n) => n.toLocaleString("pt-BR", { style: "currency", currency: "BRL", maximumFractionDigits: 0 });
-  const curto = (n) => n >= 1e6 ? `R$ ${(n / 1e6).toLocaleString("pt-BR", { maximumFractionDigits: 2 })} mi` : `R$ ${Math.round(n / 1e3)} mil`;
+  const curto = (n) => n >= 1e6 ? `R$ ${(n / 1e6).toLocaleString("pt-BR", { maximumFractionDigits: 2 })} mi` : n >= 1e3 && n < 1e5 ? brl(n) : `R$ ${Math.round(n / 1e3)} mil`;
+  const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
+  const lerp = (a, b, t) => a + (b - a) * t;
+  const WA = "5511999990000";
+  const abreWA = (t) => window.open(`https://wa.me/${WA}?text=${encodeURIComponent(t)}`, "_blank", "noopener");
+  const fino = matchMedia("(hover: hover) and (pointer: fine)").matches;
+  const calmo = matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  const nav = $("#nav");
-  const navCheck = () => nav.classList.toggle("solid", scrollY > innerHeight * .75);
-  addEventListener("scroll", navCheck, { passive: true }); navCheck();
-  $(".burger").onclick = () => nav.classList.toggle("open");
-  $$(".nav__links a").forEach((a) => a.onclick = () => nav.classList.remove("open"));
-
-  const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("in"); e.target.dispatchEvent(new Event("visto")); io.unobserve(e.target); } }), { threshold: .15 });
+  const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }), { threshold: .12, rootMargin: "0px 0px -6% 0px" });
   $$("[data-r]").forEach((el) => io.observe(el));
+  const nav = $("#nav"), burger = $(".burger");
+  burger.onclick = () => { const a = nav.classList.toggle("aberto"); burger.setAttribute("aria-expanded", a); };
+  $$(".nav__links a").forEach((a) => a.addEventListener("click", () => nav.classList.remove("aberto")));
+  let navY = scrollY;
+  addEventListener("scroll", () => { const y = scrollY, d = y - navY; if (Math.abs(d) > 6) { nav.classList.toggle("esconde", d > 0 && y > 500 && !nav.classList.contains("aberto")); navY = y; } }, { passive: true });
 
-  /* Hero: troca de fotos */
-  const slides = $$(".slide"), dots = $$("#dots button");
-  const CAPS = [["Casa Jardim Europa", "5 suítes · 820 m² · R$ 8,9 mi"], ["Residência Vila Nova Conceição", "4 suítes · 610 m² · R$ 7,2 mi"], ["Casa Alto da Boa Vista", "4 suítes · 480 m² · R$ 5,4 mi"]];
-  let sl = 0, t;
-  const vai = (n) => {
-    sl = n % slides.length;
-    slides.forEach((s, i) => s.classList.toggle("on", i === sl));
-    dots.forEach((d, i) => { d.classList.remove("on"); if (i === sl) { void d.offsetWidth; d.classList.add("on"); } });
-    $("#cap").firstChild.textContent = CAPS[sl][0]; $("#cap").childNodes[1].textContent = CAPS[sl][1];
-    clearTimeout(t); t = setTimeout(() => vai(sl + 1), 7000);
-  };
-  dots.forEach((d, i) => d.onclick = () => vai(i));
-  vai(0);
-
-  /* Imóveis */
-  const IMOVEIS = [
-    { id: 1, t: "Casa", n: "venda", b: "Jardim Europa", p: 8900000, q: 5, ba: 7, v: 6, a: 820, img: ["1613977257363-707ba9348227", "1757524503555-b62633f47670"], tag: "Exclusivo" },
-    { id: 2, t: "Apartamento", n: "venda", b: "Itaim Bibi", p: 2350000, q: 3, ba: 3, v: 2, a: 168, img: ["1522708323590-d24dbb6b0267", "1484154218962-a197022b5858"], tag: "Novo" },
-    { id: 3, t: "Cobertura", n: "venda", b: "Vila Nova Conceição", p: 7200000, q: 4, ba: 5, v: 4, a: 610, img: ["1774311237295-a65a4c1ff38a", "1512918728675-ed5a9ecdebfd"], tag: "Vista livre" },
-    { id: 4, t: "Casa", n: "venda", b: "Alto de Pinheiros", p: 6450000, q: 4, ba: 6, v: 6, a: 540, img: ["1706808849780-7a04fbac83ef", "1758565811176-ccd94357a844"], tag: "Exclusivo" },
-    { id: 5, t: "Apartamento", n: "aluguel", b: "Pinheiros", p: 9800, q: 2, ba: 2, v: 1, a: 92, img: ["1560448204-e02f11c3d0e2", "1502672260266-1c1ef2d93688"], tag: "Mobiliado" },
-    { id: 6, t: "Casa", n: "venda", b: "Brooklin", p: 3150000, q: 4, ba: 4, v: 4, a: 360, img: ["1580587771525-78b9dba3b914", "1583847268964-b28dc8f51f92"] },
-    { id: 7, t: "Apartamento", n: "aluguel", b: "Itaim Bibi", p: 18500, q: 3, ba: 4, v: 3, a: 210, img: ["1757524503555-b62633f47670", "1484154218962-a197022b5858"], tag: "Alto padrão" },
-    { id: 8, t: "Casa", n: "aluguel", b: "Jardim Europa", p: 42000, q: 5, ba: 6, v: 5, a: 700, img: ["1613490493576-7fde63acd811", "1758565811176-ccd94357a844"] },
-    { id: 9, t: "Cobertura", n: "aluguel", b: "Moema", p: 22000, q: 4, ba: 4, v: 4, a: 320, img: ["1783125127199-860da9744dcc", "1774311237295-a65a4c1ff38a"], tag: "Piscina privativa" },
-    { id: 10, t: "Apartamento", n: "venda", b: "Moema", p: 1680000, q: 3, ba: 2, v: 2, a: 124, img: ["1583847268964-b28dc8f51f92", "1560448204-e02f11c3d0e2"] },
-    { id: 11, t: "Casa", n: "venda", b: "Vila Nova Conceição", p: 5400000, q: 4, ba: 5, v: 4, a: 480, img: ["1758448756207-54505680d130", "1757524503555-b62633f47670"], tag: "Novo" },
-    { id: 12, t: "Apartamento", n: "venda", b: "Pinheiros", p: 1290000, q: 2, ba: 2, v: 1, a: 86, img: ["1502672260266-1c1ef2d93688", "1512918728675-ed5a9ecdebfd"] },
+  /* ===== HERO: arraste o sol ===== */
+  const solR = $("#solR"), solK = $("#solK"), base = $("#heroBase"), luzes = $("#heroLuzes"), ceu = $("#heroCeu"), quente = $("#heroQuente"), azul = $("#heroAzul");
+  const FASES = [[6, "nascer do sol", "Luz suave entrando pela fachada leste"], [8.5, "manhã clara", "Sol da manhã nas suítes, voltadas para o leste"], [12, "meio-dia", "Varanda sombreada pelo beiral de 2 metros"], [15, "tarde", "Piscina pega sol até as 16h30"], [17, "luz dourada", "Pôr do sol de frente para a sala, fachada oeste"], [18.6, "anoitecer", "Iluminação de jardim acende sozinha às 18h30"], [20, "noite", "Casa iluminada e jardim em silêncio"]];
+  const KEYS = [ // hora, brilho, saturação, contraste, quente, azul, luzes, céu [r,g,b,a]
+    [6, 1.12, .85, .96, .55, .12, .05, [255, 165, 120, .6]], [9, 1.5, .9, .9, 0, 0, 0, [140, 190, 255, .85]], [12, 1.62, .95, .9, 0, 0, 0, [160, 205, 255, .9]],
+    [15, 1.42, 1, .94, .25, 0, 0, [255, 210, 150, .6]], [17.6, 1.05, 1.12, 1.02, .75, 0, .12, [255, 135, 60, .5]], [19, .66, .95, 1.06, .25, .55, .85, [40, 55, 140, .35]], [22, .4, .85, 1.12, 0, .88, 1, [5, 10, 40, .2]],
   ];
+  function aplicaSol(h) {
+    let i = 0; while (i < KEYS.length - 2 && h > KEYS[i + 1][0]) i++;
+    const A = KEYS[i], B = KEYS[i + 1], t = clamp((h - A[0]) / (B[0] - A[0])), m = (k) => lerp(A[k], B[k], t);
+    base.style.filter = `brightness(${m(1)}) saturate(${m(2)}) contrast(${m(3)})`;
+    quente.style.opacity = m(4); azul.style.opacity = m(5); luzes.style.opacity = m(6);
+    const c = A[7].map((v, k) => k < 3 ? Math.round(lerp(v, B[7][k], t)) : lerp(v, B[7][k], t).toFixed(2));
+    ceu.style.background = `linear-gradient(180deg, rgba(${c.join(",")}) 0%, rgba(${c.slice(0, 3).join(",")},0) 62%)`;
+    const pct = (h - 6) / 16;
+    solK.style.left = pct * 100 + "%"; $("#solDica").style.left = pct * 100 + "%";
+    solK.classList.toggle("lua", h > 19.2);
+    const hh = Math.floor(h), mm = Math.floor((h - hh) * 60 / 5) * 5;
+    $("#solHora").textContent = `${String(hh).padStart(2, "0")}:${String(mm).padStart(2, "0")}`;
+    const f = [...FASES].reverse().find((x) => h >= x[0]) || FASES[0];
+    $("#solNome").textContent = f[1]; $("#solTxt").textContent = f[2];
+  }
+  let solMexeu = false;
+  solR.addEventListener("input", () => { solMexeu = true; $("#solDica").style.display = "none"; aplicaSol(+solR.value); });
+  aplicaSol(+solR.value);
+  if (!calmo) { // demonstração: o dia passa sozinho na primeira vez
+    const t0 = performance.now(), de = 9, ate = 17.6, dur = 3200;
+    setTimeout(() => { const anima = (t) => { if (solMexeu) return; const k = clamp((t - t0 - 900) / dur), e = 1 - Math.pow(1 - k, 3), h = lerp(de, ate, e); solR.value = h; aplicaSol(h); if (k < 1) requestAnimationFrame(anima); }; requestAnimationFrame(anima); }, 0);
+  }
+  const heroFoto = $("#heroFoto");
+  if (fino && !calmo) addEventListener("pointermove", (e) => { if (scrollY > innerHeight) return; heroFoto.style.transform = `translate(${(e.clientX / innerWidth - .5) * -16}px, ${(e.clientY / innerHeight - .5) * -10}px) scale(1.02)`; }, { passive: true });
+
+  /* ===== DADOS ===== */
+  const VIDAS = [["home", "Trabalho de casa"], ["pet", "Tenho pet"], ["kids", "Filhos pequenos"], ["festa", "Recebo amigos"], ["silencio", "Silêncio"], ["vista", "Vista"], ["metro", "Perto do metrô"], ["piscina", "Piscina"], ["sol", "Sol da manhã"]];
+  const VTXT = { home: "home office com luz", pet: "espaço para pet", kids: "escolas e área kids", festa: "área gourmet", silencio: "rua tranquila", vista: "vista livre", metro: "metrô a pé", piscina: "piscina", sol: "sol da manhã" };
+  const IMOVEIS = [
+    { id: 1, t: "Casa", n: "venda", b: "Jardim Europa", p: 8900000, q: 5, ba: 7, v: 6, a: 820, ori: "N", img: ["1613977257363-707ba9348227", "1757524503555-b62633f47670", "1484154218962-a197022b5858"], tag: "Exclusivo", tags: ["home", "pet", "kids", "festa", "silencio", "piscina", "sol"], nome: "Casa Jardim Europa", d: "Casa térrea com jardim de 400 m², piscina aquecida e escritório com vista para o verde." },
+    { id: 2, t: "Apartamento", n: "venda", b: "Itaim Bibi", p: 2350000, q: 3, ba: 3, v: 2, a: 168, ori: "L", img: ["1522708323590-d24dbb6b0267", "1484154218962-a197022b5858", "1512918728675-ed5a9ecdebfd"], tag: "Novo", tags: ["home", "metro", "festa", "sol"], nome: "Apartamento Itaim", d: "Andar alto, varanda gourmet e 6 minutos a pé do metrô." },
+    { id: 3, t: "Cobertura", n: "venda", b: "Vila Nova Conceição", p: 7200000, q: 4, ba: 5, v: 4, a: 610, ori: "O", img: ["1774311237295-a65a4c1ff38a", "1512918728675-ed5a9ecdebfd", "1757524503555-b62633f47670"], tag: "Vista livre", tags: ["vista", "festa", "piscina", "silencio", "home"], nome: "Cobertura Vila Nova", d: "Cobertura duplex de frente para o Ibirapuera, piscina na laje e pôr do sol na sala." },
+    { id: 4, t: "Casa", n: "venda", b: "Alto de Pinheiros", p: 6450000, q: 4, ba: 6, v: 6, a: 540, ori: "N", img: ["1706808849780-7a04fbac83ef", "1758565811176-ccd94357a844", "1757524503555-b62633f47670"], tag: "Exclusivo", tags: ["pet", "kids", "silencio", "piscina", "festa", "sol"], nome: "Casa Alto de Pinheiros", d: "Pé-direito duplo, integração total com o jardim e rua sem saída." },
+    { id: 5, t: "Apartamento", n: "aluguel", b: "Pinheiros", p: 9800, q: 2, ba: 2, v: 1, a: 92, ori: "L", img: ["1560448204-e02f11c3d0e2", "1502672260266-1c1ef2d93688", "1484154218962-a197022b5858"], tag: "Mobiliado", tags: ["metro", "home", "pet", "sol"], nome: "Apartamento Pinheiros", d: "Mobiliado, aceita pet e fica a 3 quadras do metrô Fradique Coutinho." },
+    { id: 6, t: "Casa", n: "venda", b: "Brooklin", p: 3150000, q: 4, ba: 4, v: 4, a: 360, ori: "S", img: ["1580587771525-78b9dba3b914", "1583847268964-b28dc8f51f92", "1512918728675-ed5a9ecdebfd"], tags: ["pet", "kids", "piscina", "festa"], nome: "Casa Brooklin", d: "Casa de vila com piscina, churrasqueira e escolas bilíngues a 5 minutos." },
+    { id: 7, t: "Apartamento", n: "aluguel", b: "Itaim Bibi", p: 18500, q: 3, ba: 4, v: 3, a: 210, ori: "N", img: ["1757524503555-b62633f47670", "1484154218962-a197022b5858", "1512918728675-ed5a9ecdebfd"], tag: "Alto padrão", tags: ["metro", "vista", "festa", "home"], nome: "Apartamento Faria Lima", d: "Vista para a Faria Lima, varanda integrada e lazer completo no prédio." },
+    { id: 8, t: "Casa", n: "aluguel", b: "Jardim Europa", p: 42000, q: 5, ba: 6, v: 5, a: 700, ori: "N", img: ["1613490493576-7fde63acd811", "1758565811176-ccd94357a844", "1757524503555-b62633f47670"], tags: ["pet", "kids", "piscina", "silencio", "festa", "sol"], nome: "Casa Jardins", d: "Casa ampla com jardim, piscina e segurança 24h na rua." },
+    { id: 9, t: "Cobertura", n: "aluguel", b: "Moema", p: 22000, q: 4, ba: 4, v: 4, a: 320, ori: "O", img: ["1783125127199-860da9744dcc", "1774311237295-a65a4c1ff38a", "1512918728675-ed5a9ecdebfd"], tag: "Piscina privativa", tags: ["piscina", "vista", "festa", "metro"], nome: "Cobertura Moema", d: "Piscina privativa, terraço com churrasqueira e metrô Moema a pé." },
+    { id: 10, t: "Apartamento", n: "venda", b: "Moema", p: 1680000, q: 3, ba: 2, v: 2, a: 124, ori: "L", img: ["1583847268964-b28dc8f51f92", "1560448204-e02f11c3d0e2", "1484154218962-a197022b5858"], tags: ["kids", "metro", "pet", "sol"], nome: "Apartamento Moema", d: "Perto do Ibirapuera, de escolas e do metrô, com sol da manhã em todos os quartos." },
+    { id: 11, t: "Casa", n: "venda", b: "Vila Nova Conceição", p: 5400000, q: 4, ba: 5, v: 4, a: 480, ori: "O", img: ["1758448756207-54505680d130", "1757524503555-b62633f47670", "1758565811176-ccd94357a844"], tag: "Novo", tags: ["festa", "silencio", "home", "pet"], nome: "Residência Vila Nova Conceição", d: "Arquitetura contemporânea, home theater e pôr do sol de frente para a sala." },
+    { id: 12, t: "Apartamento", n: "venda", b: "Pinheiros", p: 1290000, q: 2, ba: 2, v: 1, a: 86, ori: "N", img: ["1502672260266-1c1ef2d93688", "1512918728675-ed5a9ecdebfd", "1560448204-e02f11c3d0e2"], tags: ["metro", "home", "pet"], nome: "Studio Pinheiros", d: "Planta inteligente, home office na varanda e vida de bairro a pé." },
+  ];
+  const M2 = { "Jardim Europa": 21400, "Vila Nova Conceição": 19800, "Itaim Bibi": 17600, "Alto de Pinheiros": 15200, "Pinheiros": 14900, "Moema": 14100, "Brooklin": 12300 };
+  const DEST = [["Faria Lima", "faria"], ["Av. Paulista", "paulista"], ["Berrini", "berrini"], ["Centro", "centro"]];
+  const TEMPO = { // [carro, transporte] em minutos
+    "Jardim Europa": { faria: [8, 15], paulista: [15, 20], berrini: [18, 28], centro: [25, 30] },
+    "Vila Nova Conceição": { faria: [12, 22], paulista: [20, 28], berrini: [12, 25], centro: [28, 35] },
+    "Itaim Bibi": { faria: [5, 8], paulista: [18, 22], berrini: [12, 18], centro: [28, 30] },
+    "Alto de Pinheiros": { faria: [14, 25], paulista: [22, 32], berrini: [24, 38], centro: [30, 40] },
+    "Pinheiros": { faria: [8, 10], paulista: [15, 14], berrini: [20, 25], centro: [22, 25] },
+    "Moema": { faria: [18, 25], paulista: [22, 25], berrini: [12, 20], centro: [28, 30] },
+    "Brooklin": { faria: [18, 28], paulista: [28, 35], berrini: [6, 10], centro: [35, 40] },
+  };
+  const ORI = { N: ["Fachada norte", "Sol o dia inteiro na área social, o mais procurado em São Paulo.", 0], L: ["Fachada leste", "Sol da manhã nos quartos e casa fresca à tarde.", 90], O: ["Fachada oeste", "Pôr do sol na sala e tardes douradas na varanda.", 270], S: ["Fachada sul", "Luz indireta e constante, ideal para quem trabalha em casa.", 180] };
   const ICON = {
     q: '<svg viewBox="0 0 24 24"><path d="M3 18V8M3 14h18v4M21 18v-6a3 3 0 0 0-3-3h-7v5"/><circle cx="7" cy="11" r="2"/></svg>',
-    ba: '<svg viewBox="0 0 24 24"><path d="M4 12h16v3a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5v-3ZM6 12V5a2 2 0 0 1 4 0"/></svg>',
-    v: '<svg viewBox="0 0 24 24"><path d="M5 16h14M6 16l1.5-5h9L18 16M7 16v2M17 16v2"/><circle cx="8" cy="14" r=".5"/></svg>',
+    v: '<svg viewBox="0 0 24 24"><path d="M5 16h14M6 16l1.5-5h9L18 16M7 16v2M17 16v2"/></svg>',
     a: '<svg viewBox="0 0 24 24"><path d="M4 4h16v16H4zM4 9h5M15 4v5"/></svg>',
   };
-  let favs = new Set(JSON.parse((() => { try { return localStorage.getItem("hz-favs") || "[]"; } catch { return "[]"; } })()));
-  const filtros = { n: "venda", t: "", b: "", q: 0, max: 0 };
-  const bairros = [...new Set(IMOVEIS.map((i) => i.b))].sort();
-  $("#sBairro").innerHTML += bairros.map((b) => `<option>${b}</option>`).join("");
-  const MAX = { venda: [0, 1500000, 3000000, 6000000], aluguel: [0, 10000, 20000, 40000] };
-  const preencheMax = () => $("#sMax").innerHTML = MAX[filtros.n].map((v) => `<option value="${v}">${v ? (filtros.n === "venda" ? curto(v) : brl(v)) : "Sem limite"}</option>`).join("");
-  preencheMax();
+  const preco = (i) => i.n === "venda" ? brl(i.p) : `${brl(i.p)}<small> /mês</small>`;
 
-  function render() {
-    let l = IMOVEIS.filter((i) => i.n === filtros.n && (!filtros.t || i.t === filtros.t) && (!filtros.b || i.b === filtros.b) && i.q >= filtros.q && (!filtros.max || i.p <= filtros.max));
-    const s = $("#sort").value;
-    if (s === "pm") l.sort((a, b) => a.p - b.p); else if (s === "pM") l.sort((a, b) => b.p - a.p); else if (s === "a") l.sort((a, b) => b.a - a.a);
-    $("#count").innerHTML = `<b>${l.length}</b> ${l.length === 1 ? "imóvel" : "imóveis"} para ${filtros.n === "venda" ? "comprar" : "alugar"}`;
-    $("#grid").innerHTML = l.length ? l.map((i, k) => `
-      <article class="prop" style="animation-delay:${k * 70}ms">
-        <div class="prop__img">${i.tag ? `<span class="prop__tag ${i.tag === "Exclusivo" ? "dark" : ""}">${i.tag}</span>` : ""}
-          <button class="heart ${favs.has(i.id) ? "on" : ""}" data-id="${i.id}" aria-label="Favoritar"><svg viewBox="0 0 24 24"><path d="M12 20s-7-4.4-9-9a5 5 0 0 1 9-3 5 5 0 0 1 9 3c-2 4.6-9 9-9 9Z"/></svg></button>
-          <img src="${u(i.img[0], 800)}" alt="${i.t} em ${i.b}" loading="lazy" /><img src="${u(i.img[1], 800)}" alt="" loading="lazy" /></div>
-        <div class="prop__body"><div class="prop__price">${i.n === "venda" ? brl(i.p) : `${brl(i.p)} <small>/mês</small>`}</div><p class="prop__addr">${i.t} · ${i.b}, São Paulo</p>
-          <div class="specs"><span>${ICON.q}${i.q} quartos</span><span>${ICON.ba}${i.ba} banh.</span><span>${ICON.v}${i.v} vagas</span><span>${ICON.a}${i.a} m²</span></div></div>
-      </article>`).join("") : `<div class="empty"><b>Nenhum imóvel encontrado</b>Tente ampliar a faixa de preço ou remover algum filtro.</div>`;
-    const ch = [];
-    if (filtros.t) ch.push(["t", filtros.t]); if (filtros.b) ch.push(["b", filtros.b]); if (filtros.q) ch.push(["q", `${filtros.q}+ quartos`]); if (filtros.max) ch.push(["max", `até ${curto(filtros.max)}`]);
-    $("#chips").innerHTML = ch.map(([k, v]) => `<span class="chip">${v}<button data-k="${k}" aria-label="Remover filtro">×</button></span>`).join("");
-    $("#favN").textContent = favs.size;
+  /* ===== MATCH ===== */
+  const st = { n: "venda", vidas: new Set(), orc: { venda: 10000000, aluguel: 45000 }, pessoas: 2 };
+  let favs = new Set(); try { favs = new Set(JSON.parse(localStorage.getItem("hz-favs") || "[]")); } catch {}
+  $("#vidas").innerHTML = VIDAS.map(([k, n]) => `<button type="button" class="vida" data-k="${k}" aria-pressed="false"><svg><use href="#v-${k}"/></svg>${n}</button>`).join("");
+  const orc = $("#orc");
+  function cfgOrc() {
+    if (st.n === "venda") { orc.min = 1000000; orc.max = 10000000; orc.step = 250000; } else { orc.min = 8000; orc.max = 45000; orc.step = 1000; }
+    orc.value = st.orc[st.n]; pintaR(orc);
   }
-  $$(".stab").forEach((b) => b.onclick = () => { $$(".stab").forEach((x) => x.classList.toggle("on", x === b)); filtros.n = b.dataset.t; filtros.max = 0; preencheMax(); });
-  $("#search").onsubmit = (e) => {
-    e.preventDefault();
-    Object.assign(filtros, { t: $("#sTipo").value, b: $("#sBairro").value, q: +$("#sQ").value, max: +$("#sMax").value });
-    render();
-    $("#imoveis").scrollIntoView({ behavior: "smooth" });
-  };
-  $("#sort").onchange = render;
-  $("#chips").onclick = (e) => { const b = e.target.closest("button"); if (!b) return; const k = b.dataset.k; filtros[k] = k === "q" || k === "max" ? 0 : ""; render(); };
-  $("#grid").onclick = (e) => {
-    const h = e.target.closest(".heart"); if (!h) return;
-    const id = +h.dataset.id; favs.has(id) ? favs.delete(id) : favs.add(id);
-    h.classList.toggle("on");
+  const pintaR = (el) => el.style.setProperty("--p", `${((el.value - el.min) / (el.max - el.min)) * 100}%`);
+  const quartosMin = () => Math.max(1, Math.ceil(st.pessoas / 2));
+  function nota(i) {
+    let s, porque = [], contra = [];
+    const sel = [...st.vidas];
+    if (sel.length) { const ok = sel.filter((k) => i.tags.includes(k)); s = 52 + 47 * ok.length / sel.length; porque = ok.map((k) => VTXT[k]); }
+    else { s = 74 + (i.tags.length * 3) % 20; porque = i.tags.slice(0, 2).map((k) => VTXT[k]); }
+    if (i.p > st.orc[st.n]) { s -= 34; contra.push("acima do orçamento"); }
+    if (i.q < quartosMin()) { s -= 22; contra.push(`só ${i.q} quarto${i.q > 1 ? "s" : ""}`); }
+    return { s: Math.round(clamp(s, 8, 99)), porque: porque.slice(0, 3), contra };
+  }
+  const cards = $("#cards");
+  cards.innerHTML = IMOVEIS.map((i) => `<article class="card" data-id="${i.id}" tabindex="0" aria-label="${i.nome}">
+      <div class="card__img">${i.img.slice(0, 2).map((f, k) => `<img src="${u(f, 900)}" alt="${k ? "" : i.nome}" loading="lazy" />`).join("")}
+        <div class="anel vidro"><svg viewBox="0 0 40 40"><circle class="f" cx="20" cy="20" r="16"/><circle class="v" cx="20" cy="20" r="16" stroke-dasharray="0 101"/></svg><b>0%</b><span>compatível</span></div>
+        <button class="coracao vidro ${favs.has(i.id) ? "on" : ""}" data-fav="${i.id}" aria-label="Favoritar ${i.nome}" type="button"><svg><use href="#i-cor"/></svg></button>
+        ${i.tag ? `<span class="card__tag">${i.tag}</span>` : ""}<div class="card__barras"><i class="on"></i><i></i></div></div>
+      <div class="card__corpo"><div class="card__preco">${preco(i)}</div><p class="card__end">${i.nome} · ${i.b}</p>
+        <div class="specs"><span>${ICON.q}${i.q} quarto${i.q > 1 ? "s" : ""}</span><span>${ICON.v}${i.v} vaga${i.v > 1 ? "s" : ""}</span><span>${ICON.a}${i.a} m²</span></div><div class="porque"></div></div></article>`).join("") + `<div class="vazio" id="vazio" hidden><b>Nada para alugar nessa faixa</b>Aumente o orçamento para ver mais imóveis.</div>`;
+  const cardEls = new Map($$(".card", cards).map((c) => [+c.dataset.id, c]));
+  let ultimo = [];
+  function match(anima = true) {
+    const antes = new Map(); if (anima) cardEls.forEach((c, id) => { if (!c.classList.contains("fora")) antes.set(id, c.getBoundingClientRect()); });
+    const lista = IMOVEIS.filter((i) => i.n === st.n).map((i) => ({ i, r: nota(i) })).sort((a, b) => b.r.s - a.r.s);
+    cardEls.forEach((c) => c.classList.add("fora"));
+    lista.forEach(({ i, r }, k) => {
+      const c = cardEls.get(i.id); c.classList.remove("fora"); cards.appendChild(c);
+      const anel = $(".anel", c); anel.classList.toggle("baixo", r.s < 60);
+      $(".v", anel).setAttribute("stroke-dasharray", `${r.s * 1.005} 101`); $("b", anel).textContent = r.s + "%";
+      $(".porque", c).innerHTML = r.porque.map((p) => `<span>${p}</span>`).join("") + r.contra.map((p) => `<span class="x">${p}</span>`).join("");
+      c.dataset.top = k === 0 ? 1 : 0;
+    });
+    cards.appendChild($("#vazio"));
+    ultimo = lista;
+    if (anima && !calmo) cardEls.forEach((c, id) => {
+      if (c.classList.contains("fora")) return;
+      const a = antes.get(id), d = c.getBoundingClientRect();
+      if (!a) { c.animate([{ opacity: 0, transform: "scale(.94)" }, { opacity: 1, transform: "none" }], { duration: 500, easing: "cubic-bezier(.2,.8,.2,1)" }); return; }
+      const dx = a.left - d.left, dy = a.top - d.top;
+      if (dx || dy) c.animate([{ transform: `translate(${dx}px, ${dy}px)` }, { transform: "none" }], { duration: 650, easing: "cubic-bezier(.2,.8,.2,1)" });
+    });
+    const n = lista.filter((x) => x.r.s >= 60).length;
+    $("#resumo").innerHTML = `<b>${n}</b> de ${lista.length} combinam com você`;
+    $("#orcO").textContent = st.n === "venda" ? curto(st.orc.venda) : `${brl(st.orc.aluguel)}/mês`;
+    $("#pN").textContent = st.pessoas; $("#pTxt").textContent = `${st.pessoas === 1 ? "pessoa" : "pessoas"} · ${quartosMin()}+ quarto${quartosMin() > 1 ? "s" : ""}`;
+    desenhaMapa();
+  }
+  $("#vidas").onclick = (e) => { const b = e.target.closest(".vida"); if (!b) return; const k = b.dataset.k; st.vidas.has(k) ? st.vidas.delete(k) : st.vidas.add(k); b.classList.toggle("on"); b.setAttribute("aria-pressed", st.vidas.has(k)); match(); };
+  $("#modo").onclick = (e) => { const b = e.target.closest("button"); if (!b) return; st.n = b.dataset.n; $$("#modo button").forEach((x) => x.classList.toggle("on", x === b)); $("#modo").classList.toggle("alugar", st.n === "aluguel"); cfgOrc(); match(); };
+  let orcT; orc.addEventListener("input", () => { st.orc[st.n] = +orc.value; pintaR(orc); $("#orcO").textContent = st.n === "venda" ? curto(+orc.value) : `${brl(+orc.value)}/mês`; clearTimeout(orcT); orcT = setTimeout(() => match(), 160); });
+  $("#pMenos").onclick = () => { st.pessoas = Math.max(1, st.pessoas - 1); match(); };
+  $("#pMais").onclick = () => { st.pessoas = Math.min(10, st.pessoas + 1); match(); };
+  $("#limpar").onclick = () => { st.vidas.clear(); $$(".vida").forEach((b) => { b.classList.remove("on"); b.setAttribute("aria-pressed", false); }); st.orc = { venda: 10000000, aluguel: 45000 }; st.pessoas = 2; cfgOrc(); match(); };
+  // passar o mouse troca a foto; inclinação 3D
+  cards.addEventListener("pointermove", (e) => {
+    const c = e.target.closest(".card"); if (!c || e.pointerType !== "mouse") return;
+    const r = c.getBoundingClientRect(), x = (e.clientX - r.left) / r.width, y = (e.clientY - r.top) / r.height;
+    const im = $(".card__img", c), seg = x > .5 ? 1 : 0; im.classList.toggle("b", !!seg); $$(".card__barras i", c).forEach((b, k) => b.classList.toggle("on", k === seg));
+    c.style.transform = `rotateY(${(x - .5) * 6}deg) rotateX(${(.5 - y) * 6}deg) translateY(-4px)`;
+  });
+  cards.addEventListener("pointerout", (e) => { const c = e.target.closest(".card"); if (c && !c.contains(e.relatedTarget)) { c.style.transform = ""; $(".card__img", c).classList.remove("b"); } });
+  cards.addEventListener("click", (e) => {
+    const f = e.target.closest("[data-fav]"); if (f) { e.stopPropagation(); alternaFav(+f.dataset.fav); return; }
+    const c = e.target.closest(".card"); if (c) abreFicha(+c.dataset.id);
+  });
+  cards.addEventListener("keydown", (e) => { const c = e.target.closest(".card"); if (c && (e.key === "Enter" || e.key === " ") && e.target === c) { e.preventDefault(); abreFicha(+c.dataset.id); } });
+
+  /* ===== FAVORITOS + COMPARADOR ===== */
+  function alternaFav(id) {
+    favs.has(id) ? favs.delete(id) : favs.add(id);
     try { localStorage.setItem("hz-favs", JSON.stringify([...favs])); } catch {}
-    $("#favN").textContent = favs.size;
-    const fb = $("#favBtn"); fb.classList.remove("pop"); void fb.offsetWidth; fb.classList.add("pop");
-  };
-  render();
+    $$(`[data-fav="${id}"]`).forEach((b) => b.classList.toggle("on", favs.has(id)));
+    const fb = $("#favb"); fb.classList.remove("pop"); void fb.offsetWidth; fb.classList.add("pop");
+    dock();
+  }
+  function dock() {
+    const fs = IMOVEIS.filter((i) => favs.has(i.id));
+    $("#favN").textContent = fs.length;
+    $("#dock").classList.toggle("on", fs.length > 0);
+    $("#dockF").innerHTML = fs.slice(0, 4).map((i) => `<img src="${u(i.img[0], 120)}" alt="" />`).join("");
+    $("#dockT").textContent = `${fs.length} ${fs.length === 1 ? "favorito" : "favoritos"}`;
+    $("#dockB").textContent = fs.length > 1 ? "Comparar" : "Ver favorito";
+  }
+  const veu = $("#veu"), comp = $("#comp"), ficha = $("#ficha");
+  function abreComp() {
+    const fs = IMOVEIS.filter((i) => favs.has(i.id)).slice(0, 4);
+    if (!fs.length) { document.getElementById("match").scrollIntoView({ behavior: "smooth" }); return; }
+    if (fs.length === 1) { abreFicha(fs[0].id); return; }
+    const melhor = (f, menor) => { const vs = fs.map(f); const alvo = menor ? Math.min(...vs) : Math.max(...vs); return (i) => f(i) === alvo ? "melhor" : ""; };
+    const linhas = [
+      ["Preço", (i) => preco(i), melhor((i) => i.p, true)], ["Compatível", (i) => nota(i).s + "%", melhor((i) => nota(i).s)], ["Área", (i) => i.a + " m²", melhor((i) => i.a)],
+      ["Quartos", (i) => i.q, melhor((i) => i.q)], ["Vagas", (i) => i.v, melhor((i) => i.v)], ["m² por", (i) => i.n === "venda" ? brl(Math.round(i.p / i.a)) : "—", i => ""],
+      ["Luz", (i) => ORI[i.ori][0], () => ""], ["Destaques", (i) => i.tags.slice(0, 4).map((k) => VTXT[k]).join(", "), () => ""],
+    ];
+    comp.innerHTML = `<div class="comp__topo"><h3>Comparar favoritos</h3><button class="coracao" type="button" id="compX" aria-label="Fechar" style="position:static;box-shadow:inset 0 0 0 1px var(--line)">✕</button></div><div style="overflow-x:auto"><table><tr><th></th>${fs.map((i) => `<td><img src="${u(i.img[0], 500)}" alt="" /><b>${i.nome}</b></td>`).join("")}</tr>${linhas.map(([n, f, m]) => `<tr><th>${n}</th>${fs.map((i) => `<td class="${m(i)}">${f(i)}</td>`).join("")}</tr>`).join("")}</table></div>`;
+    comp.classList.add("on"); veu.classList.add("on"); document.body.classList.add("travado");
+    $("#compX").onclick = fecha;
+  }
+  $("#dockB").onclick = abreComp; $("#favb").onclick = abreComp;
 
-  /* Galeria do destaque */
-  const GAL = ["1706808849780-7a04fbac83ef", "1758565811176-ccd94357a844", "1757524503555-b62633f47670", "1484154218962-a197022b5858", "1512918728675-ed5a9ecdebfd"];
-  const thumbs = $("#thumbs"), main = $("#galMain img");
-  thumbs.innerHTML = GAL.map((g, i) => `<button class="${i ? "" : "on"}" data-i="${i}" aria-label="Foto ${i + 1}"><img src="${u(g, 300)}" alt="" loading="lazy" /></button>`).join("");
-  thumbs.onclick = (e) => {
-    const b = e.target.closest("button"); if (!b) return;
-    const i = +b.dataset.i;
-    $$("button", thumbs).forEach((x) => x.classList.toggle("on", x === b));
-    main.classList.add("out");
-    setTimeout(() => { main.src = u(GAL[i], 1600); main.onload = () => main.classList.remove("out"); }, 300);
-    $("#galN").textContent = `${i + 1} / ${GAL.length}`;
-  };
+  /* ===== FICHA DO IMÓVEL ===== */
+  let fichaId = null, dest = "faria";
+  function abreFicha(id) {
+    const i = IMOVEIS.find((x) => x.id === id); if (!i) return;
+    fichaId = id; const r = nota(i), O = ORI[i.ori];
+    const V = i.n === "venda" ? i.p : null;
+    const parc = V ? (() => { const F = V * .7, j = Math.pow(1.105, 1 / 12) - 1, n = 360; return F / n + F * j; })() : null;
+    ficha.innerHTML = `<button class="ficha__fechar vidro" type="button" aria-label="Fechar">✕</button>
+      <div class="ficha__gal">${i.img.map((f, k) => `<img src="${u(f, 1400)}" alt="${i.nome}" class="${k ? "" : "on"}" />`).join("")}<div class="ficha__nav">${i.img.map((f, k) => `<button type="button" data-g="${k}" class="${k ? "" : "on"}" aria-label="Foto ${k + 1}"><img src="${u(f, 160)}" alt="" /></button>`).join("")}</div></div>
+      <div class="ficha__c">
+        <div class="ficha__topo"><div><span class="over">${i.t} · ${i.b}</span><h3 style="margin-top:8px">${i.nome}</h3><p>${i.d}</p></div><div class="ficha__preco">${preco(i)}<small>${r.s}% compatível com você</small></div></div>
+        <div class="bloco"><div class="grade"><div><small>Área</small><b>${i.a} m²</b></div><div><small>Quartos</small><b>${i.q}</b></div><div><small>Banheiros</small><b>${i.ba}</b></div><div><small>Vagas</small><b>${i.v}</b></div></div></div>
+        <div class="bloco"><h4>Luz natural</h4><div class="luz">${bussola(O[2])}<p><b>${O[0]}</b>${O[1]}</p></div></div>
+        <div class="bloco"><h4>Tempo até o trabalho <span style="letter-spacing:0;text-transform:none">horário de pico</span></h4><div class="destinos">${DEST.map(([n, k]) => `<button type="button" data-d="${k}" class="${k === dest ? "on" : ""}">${n}</button>`).join("")}</div><div class="tempos" id="tempos"></div></div>
+        ${V ? `<div class="bloco"><h4>Parcela estimada</h4><div class="parc"><div><b>${brl(parc)}</b><small style="display:block;color:var(--muted)">1ª parcela SAC · 30% de entrada · 30 anos</small></div><a href="#simulador" data-sim="${V}">Simular do meu jeito →</a></div></div>` : `<div class="bloco"><h4>Custo mensal</h4><div class="parc"><div><b>${brl(i.p)}</b><small style="display:block;color:var(--muted)">aluguel · condomínio e IPTU à parte</small></div></div></div>`}
+        <div class="corretor"><img src="${u("1580489944761-15a19d654956", 160)}" alt="Camila Duarte" /><div><b>Camila Duarte</b><small>Corretora responsável · CRECI 152.883-F</small></div></div>
+        <div class="ficha__acoes"><button class="coracao ${favs.has(i.id) ? "on" : ""}" data-fav="${i.id}" type="button" aria-label="Favoritar"><svg><use href="#i-cor"/></svg></button><button class="btn btn--wa" type="button" id="visita"><svg style="width:20px;height:20px"><use href="#i-wa"/></svg>Agendar visita</button></div>
+      </div>`;
+    tempos(i);
+    ficha.classList.add("on"); veu.classList.add("on"); document.body.classList.add("travado"); ficha.scrollTop = 0;
+    setTimeout(() => $(".ficha__fechar", ficha).focus(), 100);
+  }
+  function tempos(i) { const T = TEMPO[i.b][dest]; $("#tempos").innerHTML = `<div><small>De carro</small><b>${T[0]}<span> min</span></b></div><div><small>Metrô ou ônibus</small><b>${T[1]}<span> min</span></b></div>`; }
+  function bussola(ang) {
+    const rad = (ang - 90) * Math.PI / 180, x = 75 + Math.cos(rad) * 46, y = 75 + Math.sin(rad) * 46;
+    return `<svg viewBox="0 0 150 150"><circle cx="75" cy="75" r="62" fill="#fff" stroke="#e2ddd1"/><path d="M20 98 A62 62 0 0 1 130 98" fill="none" stroke="#f2b544" stroke-width="3" stroke-dasharray="4 5"/><circle cx="34" cy="80" r="7" fill="#f2b544"/><text x="75" y="22" text-anchor="middle" font-size="11" font-weight="700" fill="#6c716d">N</text><text x="134" y="79" text-anchor="middle" font-size="11" font-weight="700" fill="#6c716d">L</text><text x="75" y="140" text-anchor="middle" font-size="11" font-weight="700" fill="#6c716d">S</text><text x="16" y="79" text-anchor="middle" font-size="11" font-weight="700" fill="#6c716d">O</text><rect x="56" y="56" width="38" height="38" rx="4" fill="#1f4d43"/><line x1="75" y1="75" x2="${x}" y2="${y}" stroke="#1f4d43" stroke-width="3" stroke-linecap="round"/><circle cx="${x}" cy="${y}" r="6" fill="#1f4d43"/></svg>`;
+  }
+  ficha.addEventListener("click", (e) => {
+    if (e.target.closest(".ficha__fechar")) return fecha();
+    const g = e.target.closest("[data-g]"); if (g) { const k = +g.dataset.g; $$(".ficha__gal > img", ficha).forEach((im, j) => im.classList.toggle("on", j === k)); $$("[data-g]", ficha).forEach((b, j) => b.classList.toggle("on", j === k)); return; }
+    const d = e.target.closest("[data-d]"); if (d) { dest = d.dataset.d; $$("[data-d]", ficha).forEach((b) => b.classList.toggle("on", b === d)); tempos(IMOVEIS.find((x) => x.id === fichaId)); return; }
+    const f = e.target.closest("[data-fav]"); if (f) return alternaFav(+f.dataset.fav);
+    const s = e.target.closest("[data-sim]"); if (s) { e.preventDefault(); fecha(); $("#sV").value = s.dataset.sim; sim(); setTimeout(() => $("#simulador").scrollIntoView({ behavior: calmo ? "auto" : "smooth" }), 250); return; }
+    if (e.target.closest("#visita")) { const i = IMOVEIS.find((x) => x.id === fichaId); abreWA(`Olá, Horizonte! Quero agendar uma visita ao imóvel "${i.nome}" (${i.t} em ${i.b}, ${i.n === "venda" ? brl(i.p) : brl(i.p) + "/mês"}). Quais dias e horários vocês têm disponíveis?`); }
+  });
+  function fecha() { ficha.classList.remove("on"); comp.classList.remove("on"); veu.classList.remove("on"); document.body.classList.remove("travado"); }
+  veu.onclick = fecha;
+  addEventListener("keydown", (e) => { if (e.key === "Escape") fecha(); });
 
-  /* Simulador */
-  let modo = "sac";
-  const ids = ["v", "e", "p", "j"];
-  const C = 2 * Math.PI * 46;
-  const arco = (el, frac, ini) => { el.style.strokeDasharray = `${frac * C} ${C}`; el.style.strokeDashoffset = `${-ini * C}`; };
+  /* ===== MAPA VIVO ===== */
+  const BAIRROS = [ // nome, caminho, centro do rótulo
+    ["Alto de Pinheiros", "M60 70 C120 40 220 50 250 90 C270 130 240 190 190 200 C130 210 70 180 50 140 C40 110 45 85 60 70Z", [150, 128]],
+    ["Pinheiros", "M262 92 C320 70 390 80 410 120 C425 160 400 205 350 215 C300 222 255 200 248 160 C244 130 248 105 262 92Z", [330, 150]],
+    ["Jardim Europa", "M352 228 C400 215 450 225 470 260 C485 295 460 330 420 335 C380 340 345 320 338 290 C332 262 335 240 352 228Z", [408, 278]],
+    ["Itaim Bibi", "M480 250 C530 235 590 250 610 290 C625 325 600 360 560 365 C520 370 485 345 478 315 C472 290 470 262 480 250Z", [545, 305]],
+    ["Vila Nova Conceição", "M430 350 C480 345 540 375 545 415 C548 450 515 470 475 468 C435 466 405 440 405 410 C405 380 410 360 430 350Z", [476, 408]],
+    ["Moema", "M560 380 C610 375 660 400 665 440 C668 475 640 500 600 500 C560 500 535 475 535 445 C535 415 540 390 560 380Z", [600, 440]],
+    ["Brooklin", "M350 455 C395 470 420 500 410 530 C400 555 350 560 310 545 C270 530 255 500 270 475 C285 452 320 447 350 455Z", [340, 503]],
+  ];
+  const sp = $("#sp");
+  const cor = (v) => { const t = (v - 12300) / (21400 - 12300); const A = [46, 90, 78], Bc = [217, 201, 168], Cc = [242, 181, 68]; const [x, y, k] = t < .5 ? [A, Bc, t * 2] : [Bc, Cc, (t - .5) * 2]; return `rgb(${x.map((c, i) => Math.round(lerp(c, y[i], k))).join(",")})`; };
+  let bairroSel = null;
+  function desenhaMapa() {
+    const vis = ultimo.filter((x) => x.r.s >= 40);
+    const topId = ultimo[0] && ultimo[0].i.id;
+    sp.innerHTML = `<path class="rio" d="M20 230 C120 240 200 250 250 320 C290 380 250 450 230 540"/><text class="rio-t" x="128" y="270">rio Pinheiros</text>` +
+      BAIRROS.map(([n, d, [cx, cy]]) => `<g class="bairro ${bairroSel === n ? "on" : ""}" data-b="${n}" tabindex="0"><path d="${d}" fill="${cor(M2[n])}" fill-opacity=".82"/><text x="${cx}" y="${cy - 4}">${n}</text><text class="m2" x="${cx}" y="${cy + 12}">${brl(M2[n])}/m²</text></g>`).join("") +
+      vis.map(({ i, r }, k) => { const B = BAIRROS.find((x) => x[0] === i.b), off = IMOVEIS.filter((x) => x.b === i.b).indexOf(i); const px = B[2][0] - 34 + off * 34, py = B[2][1] + 34; return `<g class="pino ${i.id === topId ? "top" : ""}" data-id="${i.id}" transform="translate(${px} ${py})"><circle class="o" r="10"/><circle class="p" r="8"/><title>${i.nome} · ${r.s}% compatível</title></g>`; }).join("");
+  }
+  function infoBairro(n) {
+    const qtd = ultimo.filter((x) => x.i.b === n && x.r.s >= 40).length;
+    $("#mapaInfo").innerHTML = `<small>${n}</small><b>${brl(M2[n])}/m²</b><p>${qtd ? `${qtd} ${qtd === 1 ? "imóvel" : "imóveis"} do seu match ${st.n === "venda" ? "à venda" : "para alugar"} aqui. Toque no pino para abrir.` : `Nenhum imóvel do seu match ${st.n === "venda" ? "à venda" : "para alugar"} neste bairro agora.`}</p>`;
+  }
+  sp.addEventListener("pointerover", (e) => { const g = e.target.closest(".bairro"); if (g) { bairroSel = g.dataset.b; $$(".bairro", sp).forEach((x) => x.classList.toggle("on", x === g)); infoBairro(bairroSel); } });
+  sp.addEventListener("click", (e) => { const p = e.target.closest(".pino"); if (p) return abreFicha(+p.dataset.id); const g = e.target.closest(".bairro"); if (g) { bairroSel = g.dataset.b; $$(".bairro", sp).forEach((x) => x.classList.toggle("on", x === g)); infoBairro(bairroSel); } });
+
+  /* ===== SIMULADOR ===== */
+  let modoS = "sac";
   function sim() {
-    ids.forEach((k) => { const el = $("#" + k); el.style.setProperty("--p", `${((el.value - el.min) / (el.max - el.min)) * 100}%`); });
-    const V = +$("#v").value, E = +$("#e").value / 100, anos = +$("#p").value, ja = +$("#j").value / 100;
+    ["sV", "sE", "sP", "sJ"].forEach((k) => pintaR($("#" + k)));
+    const V = +$("#sV").value, E = +$("#sE").value / 100, anos = +$("#sP").value, ja = +$("#sJ").value / 100;
     const n = anos * 12, i = Math.pow(1 + ja, 1 / 12) - 1, F = V * (1 - E);
     let p1, pN, juros;
-    if (modo === "sac") { const amort = F / n; p1 = amort + F * i; pN = amort + amort * i; juros = i * amort * n * (n + 1) / 2; }
+    if (modoS === "sac") { const am = F / n; p1 = am + F * i; pN = am + am * i; juros = i * am * n * (n + 1) / 2; }
     else { p1 = pN = F * i / (1 - Math.pow(1 + i, -n)); juros = p1 * n - F; }
     $("#oV").textContent = curto(V); $("#oE").textContent = `${Math.round(E * 100)}% · ${curto(V * E)}`; $("#oP").textContent = `${anos} anos`; $("#oJ").textContent = `${(ja * 100).toFixed(1).replace(".", ",")}%`;
-    $("#rLbl").textContent = modo === "sac" ? "Primeira parcela (SAC)" : "Parcela fixa (Price)";
+    $("#rLbl").textContent = modoS === "sac" ? "Primeira parcela (SAC)" : "Parcela fixa (Price)";
     $("#rParc").textContent = brl(p1);
-    $("#rUlt").textContent = modo === "sac" ? `Parcelas decrescentes até ${brl(pN)} na última` : `${n} parcelas iguais`;
+    $("#rUlt").textContent = modoS === "sac" ? `Parcelas decrescentes até ${brl(pN)} na última` : `${n} parcelas iguais`;
     $("#rFin").textContent = brl(F); $("#rJur").textContent = brl(juros); $("#rRenda").textContent = brl(p1 / .3);
-    const tot = V * E + F + juros;
-    arco($("#dE"), V * E / tot, 0); arco($("#dF"), F / tot, V * E / tot); arco($("#dJ"), juros / tot, (V * E + F) / tot);
+    $("#bE").style.flexGrow = V * E; $("#bF").style.flexGrow = F; $("#bJ").style.flexGrow = juros;
   }
-  ids.forEach((k) => $("#" + k).addEventListener("input", sim));
-  $("#modes").onclick = (e) => { const b = e.target.closest("button"); if (!b) return; modo = b.dataset.m; $$("#modes button").forEach((x) => x.classList.toggle("on", x === b)); sim(); };
+  ["sV", "sE", "sP", "sJ"].forEach((k) => $("#" + k).addEventListener("input", sim));
+  $("#tabs").onclick = (e) => { const b = e.target.closest("button"); if (!b) return; modoS = b.dataset.m; $$("#tabs button").forEach((x) => x.classList.toggle("on", x === b)); sim(); };
   sim();
 
-  /* Bairros */
-  const M2 = [["Jardim Europa", 21400], ["Vila Nova Conceição", 19800], ["Itaim Bibi", 17600], ["Alto de Pinheiros", 15200], ["Pinheiros", 14900], ["Moema", 14100], ["Brooklin", 12300]];
-  const bars = $("#bars");
-  bars.innerHTML = M2.map(([b, v]) => `<div class="bar"><span>${b}</span><div class="bar__track"><div class="bar__fill" data-w="${(v / M2[0][1]) * 100}"></div></div><b>${brl(v)}</b></div>`).join("");
-  bars.addEventListener("visto", () => $$(".bar__fill", bars).forEach((f, i) => setTimeout(() => f.style.width = f.dataset.w + "%", i * 90)));
+  /* ===== ANUNCIAR ===== */
+  $("#aform").addEventListener("submit", (e) => {
+    e.preventDefault();
+    const n = $("#aNome").value.trim(), b = $("#aBairro").value.trim();
+    if (n.length < 2) { $("#aMsg").textContent = "Conta pra gente o seu nome."; $("#aNome").focus(); return; }
+    abreWA(`Olá, Horizonte! Meu nome é ${n}. ${$("#aTipo").value.replace("Quero", "Quero")} meu imóvel${b ? ` em ${b}` : ""} e gostaria de uma avaliação.`);
+    $("#aMsg").textContent = "Mensagem aberta no WhatsApp. É só enviar.";
+  });
 
-  $("#sform").onsubmit = (e) => { e.preventDefault(); $("#sok").classList.add("on"); e.target.reset(); };
+  cfgOrc(); match(false); dock();
 })();
 </script>
 </body>
