@@ -3,296 +3,423 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Forte Materiais de Construção — Do alicerce ao acabamento</title>
-<meta name="description" content="Forte Materiais de Construção: cimento, blocos, tintas, ferramentas e acabamentos com entrega rápida. Calcule seu material e monte seu orçamento online." />
+<title>Forte — Materiais de Construção</title>
+<meta name="description" content="Forte Materiais de Construção: do alicerce ao acabamento, com calculadora de material, orçamento pelo WhatsApp, ofertas da semana e entrega em até 24h na Zona Oeste de SP." />
 <meta name="theme-color" content="#161616" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="preconnect" href="https://images.unsplash.com" />
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Barlow:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet" />
 <style>
   :root {
-    --bg: #ecebe6; --paper: #f7f6f2; --white: #fff; --ink: #161616; --muted: #5d5d58; --line: #d6d4cc;
-    --yellow: #ffcc00; --yellow2: #ffd83d; --orange: #ff7a1a; --dark: #1d1d1b;
-    --display: "Barlow Condensed", Impact, sans-serif; --sans: "Barlow", system-ui, sans-serif;
-    --ease: cubic-bezier(.2,.8,.2,1);
+    --bg: #ecebe6; --paper: #f7f6f2; --white: #fff; --ink: #161616; --ink2: #2a2a27; --muted: #5d5d58; --line: #d6d4cc;
+    --yellow: #ffcc00; --yellow2: #ffd83d; --orange: #ff7a1a; --blue: #2f6fd6; --blueprint: #0f3b6e;
+    --display: "Barlow Condensed", Impact, sans-serif; --sans: "Barlow", system-ui, sans-serif; --mono: "JetBrains Mono", ui-monospace, monospace;
+    --ease: cubic-bezier(.2,.8,.2,1); --spring: cubic-bezier(.34,1.56,.64,1);
+    --wrap: min(1260px, 100% - 40px);
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  html { overflow-x: clip; scroll-behavior: smooth; scroll-padding-top: 90px; }
+  html { overflow-x: clip; scroll-padding-top: 90px; }
   body { background: var(--bg); color: var(--ink); font-family: var(--sans); line-height: 1.55; -webkit-font-smoothing: antialiased; overflow-x: clip; }
   img { display: block; max-width: 100%; }
-  [class*="__grid"] > *, [class*="__box"] > * { min-width: 0; }
   a { color: inherit; text-decoration: none; }
-  button, input, select { font: inherit; color: inherit; }
+  button, input { font: inherit; color: inherit; }
   button { background: none; border: 0; cursor: pointer; }
-  .wrap { width: min(1280px, 100% - 40px); margin-inline: auto; }
+  svg { display: block; }
+  .wrap { width: var(--wrap); margin-inline: auto; }
   .d { font-family: var(--display); font-weight: 800; text-transform: uppercase; line-height: .9; letter-spacing: -.005em; }
-  .h2 { font-size: clamp(46px, 6.4vw, 96px); }
+  .h2 { font-size: clamp(50px, 6.6vw, 104px); }
   .hl { background: var(--yellow); padding: 0 .12em; box-decoration-break: clone; -webkit-box-decoration-break: clone; }
-  .label { display: inline-flex; align-items: center; gap: 10px; font-family: var(--display); font-weight: 700; font-size: 16px; letter-spacing: .12em; text-transform: uppercase; }
+  .label { display: inline-flex; align-items: center; gap: 10px; font-family: var(--display); font-weight: 700; font-size: 16px; letter-spacing: .14em; text-transform: uppercase; }
   .label::before { content: ""; width: 14px; height: 14px; background: var(--yellow); border: 2px solid var(--ink); }
-  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 16px 26px; font-family: var(--display); font-weight: 700; font-size: 19px; letter-spacing: .06em; text-transform: uppercase; border: 2px solid var(--ink); transition: transform .2s var(--ease), box-shadow .2s var(--ease), background .2s; }
+  .btn { position: relative; display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 16px 26px; font-family: var(--display); font-weight: 700; font-size: 19px; letter-spacing: .06em; text-transform: uppercase; border: 2px solid var(--ink); transition: transform .2s var(--ease), box-shadow .2s var(--ease), background .2s, color .2s; will-change: transform; }
+  .btn svg { width: 20px; height: 20px; }
   .btn--y { background: var(--yellow); box-shadow: 5px 5px 0 var(--ink); }
-  .btn--y:hover { transform: translate(-2px, -2px); box-shadow: 7px 7px 0 var(--ink); }
-  .btn--y:active { transform: translate(3px, 3px); box-shadow: 2px 2px 0 var(--ink); }
+  .btn--y:hover { box-shadow: 8px 8px 0 var(--ink); }
+  .btn--y:active { box-shadow: 2px 2px 0 var(--ink); }
   .btn--k { background: var(--ink); color: #fff; }
   .btn--k:hover { background: var(--yellow); color: var(--ink); }
-  [data-r] { opacity: 0; transform: translateY(40px); transition: opacity .7s var(--ease), transform .7s var(--ease); transition-delay: var(--d, 0s); }
+  .btn--wa { background: #25d366; color: #052e14; border-color: #052e14; box-shadow: 5px 5px 0 var(--ink); }
+  .vidro { background: rgba(247,246,242,.62); backdrop-filter: blur(20px) saturate(1.4); -webkit-backdrop-filter: blur(20px) saturate(1.4); box-shadow: inset 0 0 0 1px rgba(255,255,255,.7), 0 30px 60px -36px rgba(0,0,0,.45); }
+  .vidro-esc { background: rgba(22,22,22,.55); backdrop-filter: blur(18px) saturate(1.3); -webkit-backdrop-filter: blur(18px) saturate(1.3); box-shadow: inset 0 0 0 1px rgba(255,255,255,.14); color: #fff; }
+  [data-r] { opacity: 0; transform: translateY(36px); transition: opacity .8s var(--ease), transform .9s var(--ease); transition-delay: var(--d, 0s); }
   [data-r].in { opacity: 1; transform: none; }
+  .grade-bg { background-image: linear-gradient(rgba(22,22,22,.06) 1px, transparent 1px), linear-gradient(90deg, rgba(22,22,22,.06) 1px, transparent 1px); background-size: 40px 40px; }
 
-  /* Faixa de aviso (topo) */
-  .top { background: var(--ink); color: #fff; font-size: 14px; }
-  .top__in { display: flex; justify-content: space-between; gap: 20px; padding: 9px 0; flex-wrap: wrap; }
-  .top b { color: var(--yellow); }
+  /* CURSOR mira */
+  .mira { position: fixed; left: 0; top: 0; z-index: 300; pointer-events: none; opacity: 0; transition: opacity .3s; }
+  .mira.on { opacity: 1; }
+  .mira i { position: absolute; background: var(--ink); }
+  .mira i:nth-child(1) { left: -14px; top: -.75px; width: 10px; height: 1.5px; } .mira i:nth-child(2) { left: 4px; top: -.75px; width: 10px; height: 1.5px; }
+  .mira i:nth-child(3) { top: -14px; left: -.75px; width: 1.5px; height: 10px; } .mira i:nth-child(4) { top: 4px; left: -.75px; width: 1.5px; height: 10px; }
+  .mira b { position: absolute; left: 14px; top: 12px; font-family: var(--mono); font-size: 10.5px; font-weight: 500; padding: 2px 6px; background: var(--yellow); white-space: nowrap; }
+  .mira.hot i { background: var(--orange); }
+  .mira.esc i { background: #fff; }
+  @media (hover: none), (pointer: coarse) { .mira { display: none; } }
 
-  /* NAV */
-  .nav { position: sticky; top: 0; z-index: 50; background: var(--paper); border-bottom: 2px solid var(--ink); }
-  .nav__in { height: 76px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
-  .logo { display: flex; align-items: center; gap: 10px; }
-  .logo__mark { width: 44px; height: 44px; background: var(--yellow); border: 2px solid var(--ink); display: grid; place-items: center; font-family: var(--display); font-weight: 800; font-size: 28px; transform: rotate(-4deg); transition: transform .3s var(--ease); }
-  .logo:hover .logo__mark { transform: rotate(4deg); }
-  .logo b { font-family: var(--display); font-weight: 800; font-size: 30px; line-height: .9; text-transform: uppercase; display: block; }
-  .logo small { font-size: 11px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
-  .nav__links { display: flex; gap: 28px; font-family: var(--display); font-weight: 700; font-size: 18px; letter-spacing: .04em; text-transform: uppercase; }
-  .nav__links a { position: relative; }
-  .nav__links a::after { content: ""; position: absolute; left: 0; right: 0; bottom: -2px; height: 4px; background: var(--yellow); transform: scaleX(0); transform-origin: left; transition: transform .3s var(--ease); z-index: -1; }
-  .nav__links a:hover::after { transform: scaleX(1); }
-  .cartbtn { position: relative; display: inline-flex; align-items: center; gap: 8px; padding: 10px 16px; border: 2px solid var(--ink); font-family: var(--display); font-weight: 700; font-size: 17px; text-transform: uppercase; background: var(--white); }
-  .cartbtn b { min-width: 24px; height: 24px; padding: 0 6px; background: var(--ink); color: var(--yellow); display: grid; place-items: center; font-size: 14px; }
-  .cartbtn.bump { animation: bump .45s var(--ease); }
-  @keyframes bump { 40% { transform: scale(1.12) rotate(-3deg); } }
-  .burger { display: none; width: 48px; height: 48px; border: 2px solid var(--ink); background: var(--yellow); place-items: center; }
-  .burger span { width: 20px; height: 3px; background: var(--ink); box-shadow: 0 7px 0 var(--ink), 0 -7px 0 var(--ink); }
+  /* BARRA + NAV */
+  .barra { background: var(--ink); color: #fff; font-size: 14px; }
+  .barra .wrap { display: flex; justify-content: space-between; gap: 16px; padding: 9px 0; }
+  .barra b { color: var(--yellow); }
+  .nav { position: sticky; top: 0; z-index: 80; padding: 10px 0; transition: transform .45s var(--ease); }
+  .nav.esconde { transform: translateY(-110%); }
+  .nav__in { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 8px 8px 8px 14px; border: 2px solid var(--ink); }
+  .logo { display: flex; align-items: center; gap: 12px; }
+  .logo__mark { width: 44px; height: 44px; display: grid; place-items: center; background: var(--yellow); border: 2px solid var(--ink); font-family: var(--display); font-weight: 800; font-size: 26px; transform: rotate(-6deg); transition: transform .5s var(--spring); }
+  .logo:hover .logo__mark { transform: rotate(6deg) scale(1.06); }
+  .logo b { display: block; font-family: var(--display); font-weight: 800; font-size: 28px; line-height: .9; text-transform: uppercase; }
+  .logo small { font-family: var(--display); font-weight: 600; font-size: 11.5px; letter-spacing: .2em; text-transform: uppercase; color: var(--muted); }
+  .nav__links { display: flex; gap: 4px; font-family: var(--display); font-weight: 700; font-size: 18px; letter-spacing: .04em; text-transform: uppercase; }
+  .nav__links a { padding: 8px 12px; transition: background .2s; }
+  .nav__links a:hover { background: var(--yellow); }
+  .carrinho { display: flex; align-items: center; gap: 10px; padding: 10px 16px; background: var(--ink); color: #fff; font-family: var(--display); font-weight: 700; font-size: 18px; text-transform: uppercase; }
+  .carrinho b { min-width: 26px; height: 26px; display: grid; place-items: center; background: var(--yellow); color: var(--ink); font-size: 16px; }
+  .carrinho.bump b { animation: bump .5s var(--spring); }
+  @keyframes bump { 50% { transform: scale(1.5) rotate(-10deg); } }
+  .burger { display: none; width: 46px; height: 46px; border: 2px solid var(--ink); place-items: center; background: var(--yellow); }
+  .burger span { width: 18px; height: 2px; background: var(--ink); box-shadow: 0 6px 0 var(--ink), 0 -6px 0 var(--ink); }
 
   /* HERO */
-  .hero { position: relative; border-bottom: 2px solid var(--ink); overflow: hidden; }
-  .hero__grid { display: grid; grid-template-columns: 1.1fr .9fr; min-height: calc(100svh - 115px); }
-  .hero__text { padding: 70px 50px 60px 0; display: flex; flex-direction: column; justify-content: center; }
-  .hero h1 { font-size: clamp(60px, 8.6vw, 148px); margin: 22px 0 26px; }
-  .hero h1 .ln { display: block; overflow: hidden; }
-  .hero h1 .ln > span { display: inline-block; transform: translateY(105%); animation: up .8s var(--ease) forwards; }
-  .hero h1 .ln:nth-child(2) > span { animation-delay: .1s; } .hero h1 .ln:nth-child(3) > span { animation-delay: .2s; }
-  @keyframes up { to { transform: none; } }
-  .hero p { font-size: 19px; color: var(--muted); max-width: 500px; }
-  .hero__ctas { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 34px; }
-  .perks { display: grid; grid-template-columns: repeat(3, auto); gap: 26px; margin-top: 44px; justify-content: start; }
-  .perk { display: flex; gap: 10px; align-items: center; font-weight: 600; font-size: 15px; line-height: 1.25; }
-  .perk i { width: 40px; height: 40px; border: 2px solid var(--ink); background: var(--white); display: grid; place-items: center; font-style: normal; font-size: 18px; flex: none; }
-  .hero__img { position: relative; border-left: 2px solid var(--ink); overflow: hidden; background: var(--dark); margin-right: calc((100vw - min(1280px, 100vw - 40px)) / -2); }
-  .hero__img img { width: 100%; height: 100%; object-fit: cover; transform: scale(1.15); animation: settle 1.6s var(--ease) forwards; }
-  @keyframes settle { to { transform: scale(1); } }
-  .stamp { position: absolute; left: 26px; top: 26px; width: 150px; height: 150px; border-radius: 50%; background: var(--yellow); border: 2px solid var(--ink); display: grid; place-items: center; text-align: center; transform: rotate(-12deg); animation: stamp .6s .9s var(--ease) both; }
-  .stamp b { display: block; font-family: var(--display); font-weight: 800; font-size: 44px; line-height: .85; }
-  .stamp span { font-family: var(--display); font-weight: 700; font-size: 15px; text-transform: uppercase; letter-spacing: .04em; }
-  @keyframes stamp { from { opacity: 0; transform: rotate(-40deg) scale(1.6); } }
+  .hero { position: relative; padding: 50px 0 80px; }
+  .hero__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center; }
+  .hero h1 { font-size: clamp(66px, 8.4vw, 136px); margin: 20px 0 22px; }
+  .hero h1 .ln { display: block; overflow: hidden; padding-top: .06em; }
+  .hero h1 .ln > span { display: inline-block; transform: translateY(105%); animation: sobe .9s var(--ease) forwards; animation-delay: var(--d); }
+  @keyframes sobe { to { transform: none; } }
+  .hero p.lead { font-size: 19px; color: var(--ink2); max-width: 500px; }
+  .hero__ctas { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 30px; }
+  .perks { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 34px; }
+  .perk { display: flex; align-items: center; gap: 10px; padding: 10px 14px 10px 10px; border: 2px solid var(--ink); background: var(--paper); font-weight: 600; font-size: 14.5px; line-height: 1.2; }
+  .perk i { width: 34px; height: 34px; display: grid; place-items: center; background: var(--yellow); font-style: normal; }
+  .perk i svg { width: 20px; height: 20px; }
+  .lente { position: relative; aspect-ratio: 4 / 4.6; border: 2px solid var(--ink); box-shadow: 12px 12px 0 var(--ink); overflow: hidden; background: var(--blueprint); cursor: none; }
+  .lente img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .lente .planta { filter: grayscale(1) invert(1) contrast(1.6) brightness(.9); mix-blend-mode: normal; }
+  .lente__bp { position: absolute; inset: 0; -webkit-mask-image: radial-gradient(circle var(--r, 130px) at var(--x, 60%) var(--y, 40%), #000 98%, transparent 100%); mask-image: radial-gradient(circle var(--r, 130px) at var(--x, 60%) var(--y, 40%), #000 98%, transparent 100%); }
+  .lente__bp::before { content: ""; position: absolute; inset: 0; z-index: 1; background: rgba(15,59,110,.78); mix-blend-mode: multiply; }
+  .lente__bp::after { content: ""; position: absolute; inset: 0; z-index: 2; background-image: linear-gradient(rgba(170,210,255,.35) 1px, transparent 1px), linear-gradient(90deg, rgba(170,210,255,.35) 1px, transparent 1px); background-size: 24px 24px; }
+  .lente__anel { position: absolute; z-index: 3; left: var(--x, 60%); top: var(--y, 40%); width: calc(var(--r, 130px) * 2); height: calc(var(--r, 130px) * 2); transform: translate(-50%, -50%); border-radius: 50%; border: 2px solid #fff; box-shadow: 0 0 0 1px rgba(15,59,110,.5); pointer-events: none; }
+  .lente__anel::before, .lente__anel::after { content: ""; position: absolute; background: rgba(255,255,255,.8); }
+  .lente__anel::before { left: 50%; top: 10%; bottom: 10%; width: 1px; }
+  .lente__anel::after { top: 50%; left: 10%; right: 10%; height: 1px; }
+  .lente__coord { position: absolute; z-index: 4; left: var(--x, 60%); top: var(--y, 40%); transform: translate(calc(var(--r, 130px) * .72), calc(var(--r, 130px) * .72)); padding: 4px 8px; background: #fff; color: var(--blueprint); font-family: var(--mono); font-size: 11px; font-weight: 700; white-space: nowrap; pointer-events: none; }
+  .lente__dica { position: absolute; z-index: 4; left: 16px; bottom: 16px; padding: 8px 12px; font-family: var(--display); font-weight: 700; font-size: 15px; letter-spacing: .08em; text-transform: uppercase; transition: opacity .4s; }
+  .selo { position: absolute; z-index: 5; right: -22px; top: -26px; width: 150px; height: 150px; border-radius: 50%; background: var(--yellow); border: 2px solid var(--ink); display: grid; place-items: center; text-align: center; transform: rotate(-12deg); }
+  .selo b { display: block; font-family: var(--display); font-weight: 800; font-size: 44px; line-height: .9; }
+  .selo span { font-family: var(--display); font-weight: 700; font-size: 14px; letter-spacing: .08em; text-transform: uppercase; }
+  .selo svg { position: absolute; inset: 6px; width: calc(100% - 12px); height: calc(100% - 12px); animation: gira 20s linear infinite; }
+  .selo text { font-family: var(--display); font-weight: 700; font-size: 11px; letter-spacing: .3em; fill: var(--ink); }
+  @keyframes gira { to { transform: rotate(360deg); } }
 
-  /* Fita zebrada */
-  .tape { background: repeating-linear-gradient(-45deg, var(--yellow) 0 22px, var(--ink) 22px 44px); padding: 8px 0; border-bottom: 2px solid var(--ink); overflow: hidden; }
-  .tape__track { display: flex; width: max-content; animation: run 28s linear infinite; }
-  .tape span { background: var(--ink); color: var(--yellow); font-family: var(--display); font-weight: 800; font-size: 22px; letter-spacing: .06em; text-transform: uppercase; padding: 4px 22px; margin-right: 40px; white-space: nowrap; }
-  @keyframes run { to { transform: translateX(-50%); } }
+  /* FITA */
+  .fita { position: relative; z-index: 5; background: var(--yellow); border-block: 3px solid var(--ink); padding: 14px 0; overflow: hidden; transform: rotate(-1.5deg); margin: 0 -20px; }
+  .fita::before, .fita::after { content: ""; position: absolute; left: 0; right: 0; height: 8px; background: repeating-linear-gradient(-45deg, var(--ink) 0 10px, var(--yellow) 10px 20px); }
+  .fita::before { top: 0; } .fita::after { bottom: 0; }
+  .fita__t { display: flex; width: max-content; will-change: transform; padding: 8px 0; }
+  .fita__t span { display: flex; align-items: center; gap: 30px; padding-right: 30px; font-family: var(--display); font-weight: 800; font-size: clamp(30px, 3.6vw, 48px); text-transform: uppercase; white-space: nowrap; }
+  .fita__t span i { width: 14px; height: 14px; background: var(--ink); transform: rotate(45deg); }
+
+  /* OBRA (construção no scroll) */
+  .obra { position: relative; height: 620vh; background: var(--blueprint); color: #fff; }
+  .obra__stick { position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden; }
+  .obra__stick::before { content: ""; position: absolute; inset: 0; background-image: linear-gradient(rgba(170,210,255,.12) 1px, transparent 1px), linear-gradient(90deg, rgba(170,210,255,.12) 1px, transparent 1px), linear-gradient(rgba(170,210,255,.06) 1px, transparent 1px), linear-gradient(90deg, rgba(170,210,255,.06) 1px, transparent 1px); background-size: 120px 120px, 120px 120px, 24px 24px, 24px 24px; }
+  .obra__in { position: relative; height: 100%; display: grid; grid-template-columns: .9fr 1.1fr; gap: 30px; align-items: center; padding: 70px 0 40px; }
+  .obra__cab { position: absolute; top: 34px; left: 0; right: 0; display: flex; justify-content: space-between; align-items: center; gap: 20px; }
+  .obra__cab .label { color: #fff; }
+  .obra__cab .label::before { border-color: #fff; }
+  .obra__prog { display: flex; gap: 6px; }
+  .obra__prog button { display: flex; align-items: center; gap: 6px; padding: 6px 10px; font-family: var(--display); font-weight: 700; font-size: 14px; letter-spacing: .08em; text-transform: uppercase; color: rgba(255,255,255,.55); border: 1.5px solid rgba(255,255,255,.25); transition: all .3s; }
+  .obra__prog button.on { background: var(--yellow); color: var(--ink); border-color: var(--yellow); }
+  .obra__prog button.ok { color: #fff; border-color: rgba(255,255,255,.6); }
+  .etapa { position: relative; }
+  .etapa__n { font-family: var(--mono); font-size: 13px; font-weight: 700; color: var(--yellow); letter-spacing: .1em; }
+  .etapa h2 { font-size: clamp(54px, 6vw, 96px); margin-top: 10px; }
+  .etapa p { color: #c8d8ec; font-size: 17px; margin-top: 14px; max-width: 460px; }
+  .etapa__itens { margin-top: 22px; padding: 18px 20px; max-width: 480px; }
+  .etapa__itens div { display: flex; justify-content: space-between; gap: 14px; padding: 7px 0; border-bottom: 1px dashed rgba(255,255,255,.2); font-size: 15px; }
+  .etapa__itens div:last-of-type { border-bottom: 0; }
+  .etapa__itens b { font-family: var(--mono); font-size: 13.5px; color: var(--yellow); white-space: nowrap; }
+  .etapa__itens .btn { margin-top: 14px; width: 100%; font-size: 17px; padding: 12px; box-shadow: 4px 4px 0 #000; }
+  .etapa__txt { transition: opacity .35s, transform .45s var(--ease); }
+  .etapa.troca .etapa__txt { opacity: 0; transform: translateY(18px); }
+  .casa { width: 100%; height: auto; overflow: visible; }
+  .casa text { font-family: var(--mono); font-size: 11px; font-weight: 700; }
+  .obra__dica { position: absolute; bottom: 22px; left: 50%; transform: translateX(-50%); font-family: var(--mono); font-size: 11.5px; color: rgba(255,255,255,.6); letter-spacing: .12em; text-transform: uppercase; }
 
   /* DEPARTAMENTOS */
-  .depts { padding: 110px 0; }
-  .head { display: flex; justify-content: space-between; align-items: end; gap: 30px; flex-wrap: wrap; margin-bottom: 46px; }
-  .head p { max-width: 420px; color: var(--muted); font-size: 17px; }
-  .dgrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; border: 2px solid var(--ink); background: var(--ink); gap: 2px; }
-  .dept { position: relative; aspect-ratio: 4/3; overflow: hidden; background: var(--dark); color: #fff; }
-  .dept img { width: 100%; height: 100%; object-fit: cover; transition: transform 1s var(--ease), filter .5s; filter: grayscale(.4) brightness(.65); }
-  .dept:hover img { transform: scale(1.08); filter: grayscale(0) brightness(.55); }
-  .dept__body { position: absolute; inset: auto 0 0 0; padding: 24px; display: flex; justify-content: space-between; align-items: end; gap: 10px; }
-  .dept h3 { font-family: var(--display); font-weight: 800; font-size: 40px; text-transform: uppercase; line-height: .9; }
-  .dept small { display: block; font-size: 14px; opacity: .8; margin-top: 6px; }
-  .dept__go { width: 48px; height: 48px; background: var(--yellow); color: var(--ink); display: grid; place-items: center; font-size: 22px; font-weight: 700; transform: translateY(10px); opacity: 0; transition: all .35s var(--ease); flex: none; }
-  .dept:hover .dept__go { transform: none; opacity: 1; }
-  .dept__n { position: absolute; top: 18px; left: 20px; font-family: var(--display); font-weight: 800; font-size: 20px; color: var(--yellow); }
+  .depts { padding: 130px 0 110px; }
+  .cab { display: flex; justify-content: space-between; align-items: end; gap: 30px; flex-wrap: wrap; margin-bottom: 44px; }
+  .cab p { max-width: 420px; color: var(--muted); font-size: 17px; }
+  .dgrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; perspective: 1200px; }
+  .dept { position: relative; display: block; aspect-ratio: 4 / 3.2; border: 2px solid var(--ink); overflow: hidden; background: var(--ink); transition: transform .25s ease-out, box-shadow .3s; transform-style: preserve-3d; }
+  .dept:hover { box-shadow: 10px 10px 0 var(--yellow); }
+  .dept img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: .82; transition: transform 1s var(--ease), opacity .4s; }
+  .dept:hover img { transform: scale(1.08); opacity: .6; }
+  .dept__n { position: absolute; top: 14px; left: 14px; font-family: var(--mono); font-size: 12px; font-weight: 700; padding: 4px 8px; background: var(--yellow); }
+  .dept__c { position: absolute; left: 12px; right: 12px; bottom: 12px; padding: 16px 18px; display: flex; justify-content: space-between; align-items: end; gap: 12px; transform: translateZ(30px); }
+  .dept__c h3 { font-family: var(--display); font-weight: 800; font-size: 32px; line-height: .95; text-transform: uppercase; }
+  .dept__c small { display: block; color: rgba(255,255,255,.8); font-size: 14px; margin-top: 4px; }
+  .dept__go { width: 44px; height: 44px; flex: none; display: grid; place-items: center; background: var(--yellow); color: var(--ink); font-size: 22px; font-weight: 700; transition: transform .4s var(--spring); }
+  .dept:hover .dept__go { transform: rotate(-45deg); }
 
-  /* CALCULADORA */
-  .calc { padding: 110px 0; background: var(--ink); color: #fff; position: relative; overflow: hidden; }
-  .calc::before { content: ""; position: absolute; right: -120px; top: -120px; width: 420px; height: 420px; background: repeating-linear-gradient(-45deg, rgba(255,204,0,.12) 0 18px, transparent 18px 36px); border-radius: 50%; }
-  .calc .label::before { border-color: var(--yellow); }
-  .calc .head p { color: #b9b8b1; }
-  .calc__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; background: #333; border: 2px solid #333; position: relative; }
-  .calc__in, .calc__out { background: #1f1f1d; padding: 40px; }
-  .tabs { display: flex; gap: 6px; margin-bottom: 30px; flex-wrap: wrap; }
-  .tab { padding: 12px 18px; border: 2px solid #444; font-family: var(--display); font-weight: 700; font-size: 18px; text-transform: uppercase; letter-spacing: .04em; transition: all .2s; }
-  .tab:hover { border-color: var(--yellow); }
+  /* CALCULADORA com planta ao vivo */
+  .calc { padding: 120px 0; background: var(--ink); color: #fff; }
+  .calc .cab p { color: #b9b9b2; }
+  .calc .label::before { border-color: #fff; }
+  .calc__grid { display: grid; grid-template-columns: 1fr 1.05fr; gap: 24px; }
+  .calc__in { padding: 28px; border: 2px solid #3a3a36; background: #1f1f1d; }
+  .tabs { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 26px; }
+  .tab { padding: 10px 16px; border: 2px solid #3a3a36; font-family: var(--display); font-weight: 700; font-size: 17px; letter-spacing: .04em; text-transform: uppercase; color: #cfcfc8; transition: all .2s; }
   .tab.on { background: var(--yellow); color: var(--ink); border-color: var(--yellow); }
-  .fields { display: grid; gap: 22px; }
+  .fld { margin-bottom: 22px; }
   .fld label { display: flex; justify-content: space-between; font-weight: 600; margin-bottom: 10px; }
-  .fld label output { font-family: var(--display); font-weight: 800; font-size: 26px; color: var(--yellow); line-height: 1; }
-  input[type=range] { width: 100%; -webkit-appearance: none; appearance: none; height: 8px; background: linear-gradient(90deg, var(--yellow) var(--p, 30%), #3a3a37 var(--p, 30%)); outline: none; }
-  input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 26px; height: 26px; background: var(--yellow); border: 3px solid var(--ink); box-shadow: 0 0 0 2px var(--yellow); cursor: grab; }
-  input[type=range]::-moz-range-thumb { width: 20px; height: 20px; background: var(--yellow); border: 3px solid var(--ink); cursor: grab; border-radius: 0; }
-  .seg { display: flex; gap: 6px; }
-  .seg button { flex: 1; padding: 12px; border: 2px solid #444; font-weight: 700; transition: all .2s; }
-  .seg button.on { border-color: var(--yellow); color: var(--yellow); }
-  .calc__out h3 { font-family: var(--display); font-weight: 800; font-size: 30px; text-transform: uppercase; color: var(--yellow); margin-bottom: 20px; }
-  .need { display: grid; gap: 2px; margin-bottom: 26px; }
-  .need div { display: grid; grid-template-columns: 1fr auto; gap: 16px; align-items: center; padding: 16px 18px; background: #2a2a27; animation: needIn .4s var(--ease) both; }
-  @keyframes needIn { from { opacity: 0; transform: translateX(16px); } }
-  .need span small { display: block; color: #9c9b94; font-size: 13px; }
-  .need b { font-family: var(--display); font-weight: 800; font-size: 34px; line-height: 1; text-align: right; }
-  .need b em { font-style: normal; font-size: 16px; color: #b9b8b1; margin-left: 4px; }
-  .calc__note { font-size: 13px; color: #9c9b94; margin-top: 16px; }
+  .fld output { font-family: var(--mono); font-weight: 700; color: var(--yellow); }
+  .fld input { -webkit-appearance: none; appearance: none; width: 100%; height: 8px; background: linear-gradient(90deg, var(--yellow) var(--p, 50%), #3a3a36 var(--p, 50%)); outline: none; }
+  .fld input::-webkit-slider-thumb { -webkit-appearance: none; width: 26px; height: 26px; background: #fff; border: 3px solid var(--ink); box-shadow: 0 0 0 3px var(--yellow); cursor: grab; }
+  .fld input::-moz-range-thumb { width: 22px; height: 22px; background: #fff; border: 3px solid var(--yellow); cursor: grab; }
+  .desenho { margin-top: 6px; padding: 14px; background: var(--blueprint); border: 2px solid #3a3a36; }
+  .desenho svg { width: 100%; height: 200px; }
+  .desenho text { font-family: var(--mono); font-size: 11px; font-weight: 700; fill: #cfe3ff; }
+  .calc__out { padding: 28px; border: 2px solid var(--yellow); background: #1f1f1d; display: flex; flex-direction: column; }
+  .calc__out h3 { font-family: var(--display); font-weight: 800; font-size: 34px; text-transform: uppercase; }
+  .need { display: grid; gap: 10px; margin: 20px 0; flex: 1; align-content: start; }
+  .need div { display: flex; justify-content: space-between; align-items: center; gap: 14px; padding: 14px 16px; background: #262623; border-left: 4px solid var(--yellow); animation: entra .45s var(--ease) both; }
+  .need span { font-weight: 600; }
+  .need small { display: block; color: #a7a7a0; font-weight: 400; font-size: 13.5px; }
+  .need b { font-family: var(--display); font-weight: 800; font-size: 40px; line-height: 1; color: var(--yellow); }
+  .need b em { font-style: normal; font-size: 18px; margin-left: 4px; }
+  @keyframes entra { from { opacity: 0; transform: translateX(-12px); } }
+  .calc__note { font-size: 13px; color: #a7a7a0; margin-top: 14px; }
 
   /* ORÇAMENTO */
-  .quote { padding: 110px 0; }
-  .q__grid { display: grid; grid-template-columns: 1.4fr .9fr; gap: 30px; align-items: start; }
-  .plist { border: 2px solid var(--ink); background: var(--white); }
-  .pitem { display: grid; grid-template-columns: 70px 1fr auto auto; gap: 18px; align-items: center; padding: 16px 20px; border-bottom: 2px solid var(--bg); transition: background .2s; }
-  .pitem:last-child { border-bottom: 0; }
-  .pitem.has { background: #fffbe6; }
-  .pitem__ic { width: 70px; height: 56px; overflow: hidden; border: 2px solid var(--ink); }
+  .quote { padding: 130px 0; }
+  .q__grid { display: grid; grid-template-columns: 1.3fr .9fr; gap: 24px; align-items: start; }
+  .plist { display: grid; gap: 8px; }
+  .pitem { display: grid; grid-template-columns: 56px 1fr auto auto; gap: 16px; align-items: center; padding: 10px 12px; border: 2px solid var(--ink); background: var(--paper); transition: background .25s, transform .3s var(--spring), box-shadow .3s; }
+  .pitem:hover { transform: translateX(4px); }
+  .pitem.has { background: #fff7cc; box-shadow: 4px 4px 0 var(--ink); }
+  .pitem__ic { width: 56px; height: 56px; overflow: hidden; border: 1.5px solid var(--ink); }
   .pitem__ic img { width: 100%; height: 100%; object-fit: cover; }
-  .pitem h4 { font-weight: 700; font-size: 17px; line-height: 1.2; }
-  .pitem small { color: var(--muted); font-size: 13px; }
-  .pitem .pr { font-family: var(--display); font-weight: 800; font-size: 24px; white-space: nowrap; }
-  .qty { display: flex; align-items: center; border: 2px solid var(--ink); }
-  .qty button { width: 38px; height: 38px; font-weight: 800; font-size: 20px; transition: background .2s; }
+  .pitem h4 { font-weight: 700; font-size: 16px; line-height: 1.2; }
+  .pitem small { color: var(--muted); font-size: 13.5px; }
+  .pr { font-family: var(--mono); font-weight: 700; font-size: 14px; }
+  .qty { display: flex; border: 2px solid var(--ink); }
+  .qty button { width: 36px; height: 36px; font-size: 20px; font-weight: 700; transition: background .2s; }
   .qty button:hover { background: var(--yellow); }
-  .qty input { width: 54px; height: 38px; text-align: center; border: 0; border-inline: 2px solid var(--ink); font-weight: 700; outline: none; -moz-appearance: textfield; background: var(--white); }
-  .qty input::-webkit-outer-spin-button, .qty input::-webkit-inner-spin-button { -webkit-appearance: none; }
-  .summary { position: sticky; top: 100px; border: 2px solid var(--ink); background: var(--yellow); box-shadow: 8px 8px 0 var(--ink); padding: 30px; }
-  .summary h3 { font-family: var(--display); font-weight: 800; font-size: 36px; text-transform: uppercase; }
-  .sum__list { margin: 18px 0; display: grid; gap: 8px; max-height: 240px; overflow: auto; font-size: 15px; }
-  .sum__list div { display: flex; justify-content: space-between; gap: 12px; border-bottom: 1px dashed rgba(0,0,0,.25); padding-bottom: 6px; }
-  .sum__empty { color: rgba(0,0,0,.6); font-size: 15px; margin: 18px 0; }
-  .total { display: flex; justify-content: space-between; align-items: baseline; border-top: 2px solid var(--ink); padding-top: 14px; margin-bottom: 6px; }
-  .total b { font-family: var(--display); font-weight: 800; font-size: 46px; line-height: 1; }
-  .sum__pix { font-size: 14px; margin-bottom: 20px; }
-  .summary .btn { width: 100%; }
-  .summary .btn--k:hover { background: var(--white); }
-  .clear { margin-top: 12px; font-size: 14px; font-weight: 600; text-decoration: underline; }
+  .qty input { width: 54px; text-align: center; border: 0; border-inline: 2px solid var(--ink); font-family: var(--mono); font-weight: 700; background: #fff; outline: none; }
+  .nota { position: sticky; top: 100px; background: #fff; border: 2px solid var(--ink); padding: 26px 24px 30px; filter: drop-shadow(8px 8px 0 var(--ink)); }
+  .nota::after { content: ""; position: absolute; left: -2px; right: -2px; bottom: -14px; height: 14px; background: linear-gradient(-45deg, transparent 7px, #fff 7px) 0 0 / 14px 14px repeat-x, linear-gradient(45deg, transparent 7px, #fff 7px) 7px 0 / 14px 14px repeat-x; }
+  .nota h3 { font-family: var(--display); font-weight: 800; font-size: 32px; text-transform: uppercase; display: flex; justify-content: space-between; align-items: baseline; }
+  .nota h3 small { font-family: var(--mono); font-size: 11px; font-weight: 500; color: var(--muted); letter-spacing: .06em; }
+  .nota__l { margin: 16px 0; padding: 14px 0; border-block: 2px dashed var(--line); font-family: var(--mono); font-size: 13px; display: grid; gap: 8px; max-height: 300px; overflow: auto; }
+  .nota__l div { display: flex; justify-content: space-between; gap: 12px; animation: entra .35s var(--ease) both; }
+  .nota__vazio { font-family: var(--sans) !important; color: var(--muted); font-size: 14.5px !important; }
+  .total { display: flex; justify-content: space-between; align-items: baseline; }
+  .total span { font-family: var(--display); font-weight: 700; font-size: 22px; text-transform: uppercase; }
+  .total b { font-family: var(--display); font-weight: 800; font-size: 46px; }
+  .pix { font-family: var(--mono); font-size: 13px; color: #1f7a3a; font-weight: 700; margin-top: 2px; }
+  .nota .btn { width: 100%; margin-top: 18px; }
+  .limpar { margin-top: 12px; font-size: 13.5px; color: var(--muted); text-decoration: underline; }
 
   /* OFERTAS */
-  .deals { padding: 0 0 110px; }
-  .deals__box { border: 2px solid var(--ink); background: var(--white); display: grid; grid-template-columns: .8fr 1.2fr; }
-  .deals__side { position: relative; background: var(--ink); color: #fff; padding: 40px; overflow: hidden; }
-  .deals__side img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: .35; }
-  .deals__side > * { position: relative; }
-  .timer { display: flex; gap: 8px; margin: 26px 0; }
-  .timer div { background: var(--yellow); color: var(--ink); padding: 12px 10px; min-width: 70px; text-align: center; border: 2px solid var(--ink); }
-  .timer b { display: block; font-family: var(--display); font-weight: 800; font-size: 40px; line-height: 1; font-variant-numeric: tabular-nums; }
-  .timer small { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; }
-  .dcards { display: grid; grid-template-columns: repeat(3, 1fr); }
-  .dcard { padding: 30px 26px; border-left: 2px solid var(--ink); display: flex; flex-direction: column; gap: 6px; }
-  .dcard .off { align-self: flex-start; background: var(--orange); color: #fff; font-family: var(--display); font-weight: 800; font-size: 20px; padding: 2px 10px; transform: rotate(-3deg); }
-  .dcard h4 { font-size: 19px; margin-top: 10px; line-height: 1.25; }
-  .dcard s { color: var(--muted); }
-  .dcard b { font-family: var(--display); font-weight: 800; font-size: 44px; line-height: 1; }
-  .dcard button { margin-top: auto; padding-top: 16px; text-align: left; font-weight: 700; text-decoration: underline; text-underline-offset: 4px; }
+  .ofertas { padding: 0 0 130px; }
+  .of__box { display: grid; grid-template-columns: .85fr 1.15fr; border: 2px solid var(--ink); box-shadow: 12px 12px 0 var(--ink); }
+  .of__lado { position: relative; padding: 40px; color: #fff; overflow: hidden; background: var(--ink); }
+  .of__lado img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: .38; }
+  .of__lado > * { position: relative; }
+  .of__lado .label::before { border-color: #fff; }
+  .relogio { display: flex; gap: 8px; margin: 24px 0 18px; }
+  .relogio div { min-width: 74px; padding: 12px 8px; text-align: center; }
+  .relogio b { display: block; font-family: var(--display); font-weight: 800; font-size: 46px; line-height: 1; font-variant-numeric: tabular-nums; }
+  .relogio small { font-size: 11.5px; letter-spacing: .14em; text-transform: uppercase; opacity: .8; }
+  .ofcards { display: grid; grid-template-columns: repeat(3, 1fr); background: var(--paper); }
+  .ofc { position: relative; padding: 28px 22px; border-left: 2px solid var(--ink); display: flex; flex-direction: column; transition: background .3s; }
+  .ofc:hover { background: #fff7cc; }
+  .ofc .off { align-self: flex-start; padding: 6px 10px; background: var(--orange); color: #fff; font-family: var(--display); font-weight: 800; font-size: 26px; transform: rotate(-4deg); }
+  .ofc h4 { font-weight: 700; font-size: 17px; margin: 18px 0 14px; flex: 1; line-height: 1.3; }
+  .ofc s { color: var(--muted); font-family: var(--mono); font-size: 13px; }
+  .ofc b { display: block; font-family: var(--display); font-weight: 800; font-size: 44px; line-height: 1; margin-top: 4px; }
+  .ofc button { margin-top: 18px; padding: 12px; border: 2px solid var(--ink); font-family: var(--display); font-weight: 700; font-size: 16px; text-transform: uppercase; background: var(--yellow); transition: all .2s; }
+  .ofc button:hover { background: var(--ink); color: #fff; }
 
   /* ENTREGA */
-  .ship { padding: 0 0 110px; }
-  .ship__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border: 2px solid var(--ink); }
-  .ship__img { position: relative; min-height: 420px; border-right: 2px solid var(--ink); overflow: hidden; }
-  .ship__img img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-  .ship__body { background: var(--paper); padding: 50px; }
-  .cep { display: flex; margin: 28px 0 20px; border: 2px solid var(--ink); background: var(--white); }
-  .cep input { flex: 1; width: 100%; border: 0; padding: 18px; font-size: 20px; font-weight: 700; outline: none; min-width: 0; letter-spacing: .06em; }
-  .cep button { padding: 0 24px; background: var(--ink); color: var(--yellow); font-family: var(--display); font-weight: 800; font-size: 20px; text-transform: uppercase; }
-  .cep__res { min-height: 110px; }
-  .cep__card { border: 2px solid var(--ink); background: var(--white); padding: 18px 20px; display: grid; grid-template-columns: auto 1fr; gap: 6px 16px; align-items: center; animation: needIn .4s var(--ease); }
-  .cep__card i { grid-row: span 2; width: 52px; height: 52px; background: var(--yellow); border: 2px solid var(--ink); display: grid; place-items: center; font-style: normal; font-size: 24px; }
-  .cep__card b { font-family: var(--display); font-weight: 800; font-size: 26px; text-transform: uppercase; line-height: 1; }
-  .ship ul { list-style: none; display: grid; gap: 10px; margin-top: 26px; }
-  .ship li { display: flex; gap: 10px; font-weight: 600; }
-  .ship li::before { content: "■"; color: var(--yellow); -webkit-text-stroke: 1px var(--ink); }
+  .entrega { padding: 0 0 130px; }
+  .en__box { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border: 2px solid var(--ink); background: var(--paper); }
+  .en__mapa { position: relative; background: var(--blueprint); min-height: 420px; overflow: hidden; }
+  .en__mapa svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .en__mapa .rota { fill: none; stroke: var(--yellow); stroke-width: 4; stroke-linecap: round; stroke-dasharray: 8 10; }
+  .en__mapa .ruas path { fill: none; stroke: rgba(170,210,255,.25); stroke-width: 10; stroke-linecap: round; }
+  .en__mapa text { font-family: var(--mono); font-size: 12px; font-weight: 700; fill: #fff; }
+  .en__corpo { padding: 44px 40px; }
+  .cep { display: flex; margin-top: 26px; border: 2px solid var(--ink); }
+  .cep input { flex: 1; height: 60px; padding: 0 18px; border: 0; font-family: var(--mono); font-size: 20px; font-weight: 700; outline: none; background: #fff; min-width: 0; }
+  .cep button { padding: 0 24px; background: var(--ink); color: #fff; font-family: var(--display); font-weight: 700; font-size: 19px; text-transform: uppercase; }
+  .cep button:hover { background: var(--yellow); color: var(--ink); }
+  .cep__res { margin-top: 16px; min-height: 0; }
+  .cep__card { display: flex; gap: 14px; align-items: center; padding: 16px; border: 2px solid var(--ink); background: #fff7cc; animation: entra .45s var(--ease) both; }
+  .cep__card i { width: 44px; height: 44px; flex: none; display: grid; place-items: center; background: var(--ink); color: var(--yellow); font-style: normal; }
+  .cep__card i svg { width: 22px; height: 22px; }
+  .cep__card b { display: block; font-family: var(--display); font-weight: 800; font-size: 24px; text-transform: uppercase; line-height: 1; }
+  .cep__card span { font-size: 14.5px; color: var(--ink2); }
+  .en__corpo ul { list-style: none; margin-top: 24px; display: grid; gap: 10px; font-weight: 600; }
+  .en__corpo li { display: flex; gap: 10px; align-items: center; }
+  .en__corpo li::before { content: ""; width: 12px; height: 12px; background: var(--yellow); border: 2px solid var(--ink); flex: none; }
 
-  footer { background: var(--ink); color: #b9b8b1; padding: 60px 0 40px; }
-  .foot { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 40px; }
+  footer { background: var(--ink); color: #b9b9b2; padding: 70px 0 30px; overflow: hidden; }
+  .foot { display: grid; grid-template-columns: 1.3fr 1fr 1fr; gap: 30px; }
   footer .logo b { color: #fff; }
-  footer h5 { font-family: var(--display); font-weight: 800; font-size: 20px; text-transform: uppercase; color: var(--yellow); margin-bottom: 12px; }
-  footer p { font-size: 15px; }
-  .foot__bot { margin-top: 40px; padding-top: 24px; border-top: 1px solid #333; font-size: 13px; }
-  .wa { position: fixed; right: 22px; bottom: 22px; z-index: 60; width: 58px; height: 58px; border-radius: 50%; background: #25d366; color: #fff; display: grid; place-items: center; box-shadow: 0 12px 30px -8px rgba(37,211,102,.6); transition: transform .3s var(--ease); }
-  .wa:hover { transform: scale(1.08); }
+  footer h5 { font-family: var(--display); font-weight: 700; font-size: 20px; text-transform: uppercase; color: #fff; margin-bottom: 10px; }
+  .gigante { font-family: var(--display); font-weight: 800; font-size: clamp(110px, 27vw, 420px); line-height: .78; text-transform: uppercase; color: transparent; -webkit-text-stroke: 2px #3a3a36; margin-top: 50px; white-space: nowrap; position: relative; }
+  .gigante span { position: absolute; left: 0; top: 0; color: var(--yellow); -webkit-text-stroke: 0; clip-path: inset(0 calc(100% - var(--enche, 0%)) 0 0); }
+  .foot__bot { margin-top: 26px; padding-top: 20px; border-top: 1px solid #333; font-size: 13px; }
 
-  @media (max-width: 1040px) {
+  .wa { position: fixed; right: 20px; bottom: 20px; z-index: 90; width: 60px; height: 60px; border-radius: 50%; background: #25d366; color: #fff; display: grid; place-items: center; border: 2px solid var(--ink); box-shadow: 4px 4px 0 var(--ink); transition: transform .3s var(--spring); }
+  .wa:hover { transform: translate(-2px, -2px) rotate(-8deg); }
+  .wa svg { width: 28px; height: 28px; }
+
+  @media (max-width: 1080px) {
     .nav__links { display: none; }
     .burger { display: grid; }
-    .nav.open .nav__links { display: flex; flex-direction: column; position: absolute; top: 100%; left: 0; right: 0; background: var(--paper); padding: 24px 20px; gap: 18px; border-bottom: 2px solid var(--ink); }
-    .hero__grid { grid-template-columns: 1fr; min-height: 0; }
-    .hero__text { padding: 60px 0 50px; }
-    .hero__img { border-left: 0; border-top: 2px solid var(--ink); height: 420px; margin: 0 -20px; }
-    .dgrid { grid-template-columns: 1fr 1fr; }
-    .calc__grid, .q__grid, .deals__box, .ship__grid { grid-template-columns: 1fr; }
-    .summary { position: static; }
-    .ship__img { border-right: 0; border-bottom: 2px solid var(--ink); min-height: 280px; }
+    .nav.aberto .nav__links { display: flex; flex-direction: column; position: absolute; top: calc(100% - 2px); left: 0; right: 0; padding: 14px; background: var(--paper); border: 2px solid var(--ink); }
+  }
+  @media (max-width: 900px) {
+    .barra .wrap span:last-child { display: none; }
+    .carrinho span { display: none; }
+    .logo small { display: none; }
+    .hero { padding: 30px 0 60px; }
+    .hero__grid { grid-template-columns: 1fr; gap: 40px; }
+    .hero h1 { font-size: clamp(58px, 16.5vw, 96px); }
+    .hero p.lead { font-size: 17px; }
+    .lente { box-shadow: 8px 8px 0 var(--ink); margin-right: 8px; }
+    .selo { width: 116px; height: 116px; right: -6px; top: -20px; }
+    .selo b { font-size: 34px; }
+    .obra { height: 560vh; }
+    .obra__in { grid-template-columns: 1fr; grid-template-rows: auto 1fr; gap: 0; padding: 92px 0 20px; align-content: start; }
+    .obra__cab { top: 18px; flex-direction: column; align-items: flex-start; gap: 10px; }
+    .obra__prog button span { display: none; }
+    .etapa h2 { font-size: clamp(40px, 11vw, 60px); }
+    .etapa p { font-size: 15px; margin-top: 8px; }
+    .etapa__itens { margin-top: 12px; padding: 12px 14px; }
+    .etapa__itens div { font-size: 13.5px; padding: 5px 0; }
+    .etapa__itens div:nth-child(n+3):not(:last-child) { display: none; }
+    .casa { max-height: 38svh; }
+    .obra__dica { display: none; }
+    .depts, .quote { padding: 100px 0 80px; }
+    .dgrid { grid-template-columns: 1fr 1fr; gap: 10px; }
+    .dept { aspect-ratio: 3 / 4; }
+    .dept__c { padding: 12px; left: 8px; right: 8px; bottom: 8px; }
+    .dept__c h3 { font-size: 22px; }
+    .dept__c small { display: none; }
+    .dept__go { width: 34px; height: 34px; }
+    .calc { padding: 90px 0; }
+    .calc__grid, .q__grid { grid-template-columns: 1fr; }
+    .calc__in, .calc__out { padding: 20px; }
+    .pitem { grid-template-columns: 46px 1fr auto; gap: 10px; }
+    .pitem__ic { width: 46px; height: 46px; }
+    .pitem .pr { grid-column: 2; grid-row: 2; }
+    .qty { grid-column: 3; grid-row: 1 / span 2; }
+    .qty button { width: 32px; }
+    .qty input { width: 42px; }
+    .nota { position: static; }
+    .ofertas, .entrega { padding-bottom: 90px; }
+    .of__box { grid-template-columns: 1fr; box-shadow: 8px 8px 0 var(--ink); }
+    .of__lado { padding: 30px 22px; }
+    .relogio div { min-width: 0; flex: 1; }
+    .ofcards { grid-template-columns: 1fr; }
+    .ofc { border-left: 0; border-top: 2px solid var(--ink); }
+    .en__box { grid-template-columns: 1fr; }
+    .en__mapa { min-height: 260px; }
+    .en__corpo { padding: 28px 20px; }
     .foot { grid-template-columns: 1fr; }
   }
-  @media (max-width: 640px) {
-    .top__in span:last-child { display: none; }
-    .logo small { display: none; }
-    .cartbtn span { display: none; }
-    .perks { grid-template-columns: 1fr; gap: 14px; }
-    .dgrid { grid-template-columns: 1fr; }
-    .calc__in, .calc__out, .ship__body, .deals__side { padding: 26px 20px; }
-    .pitem { grid-template-columns: 56px 1fr; gap: 10px 14px; }
-    .pitem__ic { width: 56px; height: 46px; }
-    .pitem .pr { grid-column: 2; }
-    .pitem .qty { grid-column: 2; justify-self: start; }
-    .dcards { grid-template-columns: 1fr; }
-    .dcard { border-left: 0; border-top: 2px solid var(--ink); }
-    .stamp { width: 120px; height: 120px; } .stamp b { font-size: 36px; }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+    [data-r] { opacity: 1; transform: none; }
+    .hero h1 .ln > span { transform: none; }
   }
-  @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; animation-delay: 0s !important; transition-duration: .01ms !important; } [data-r] { opacity: 1; transform: none; } }
 </style>
 </head>
 <body>
 
-<div class="top"><div class="wrap top__in"><span>🚚 <b>Entrega grátis</b> em compras acima de R$ 500 na capital</span><span>Seg a sex 7h–18h · Sáb 7h–13h · (11) 3000-0000</span></div></div>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-caminhao" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6h11v10H2zM13 10h4l4 4v2h-8"/><circle cx="6" cy="17.5" r="2" fill="currentColor"/><circle cx="17" cy="17.5" r="2" fill="currentColor"/></g></symbol>
+  <symbol id="i-cartao" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="2.5" y="5" width="19" height="14" rx="2"/><path d="M2.5 10h19M6 15h4"/></g></symbol>
+  <symbol id="i-pix" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M12 2.5 21.5 12 12 21.5 2.5 12Z M8 12l4-4 4 4-4 4Z"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.5"/></g></symbol>
+  <symbol id="i-alerta" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 2 20h20Z"/><path d="M12 10v4M12 17v.5"/></g></symbol>
+  <symbol id="i-fone" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M5 3h4l2 5-2.5 1.5a11 11 0 0 0 6 6L16 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 5a2 2 0 0 1 2-2Z"/></symbol>
+  <symbol id="i-wa" viewBox="0 0 24 24"><path fill="currentColor" d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21c5.46 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2Zm5.8 14.03c-.24.68-1.42 1.3-1.95 1.35-.5.05-.97.23-3.27-.68-2.77-1.09-4.52-3.92-4.66-4.1-.13-.18-1.1-1.47-1.1-2.8 0-1.34.7-2 .95-2.27.25-.27.54-.34.72-.34h.52c.17 0 .4-.06.62.47.24.56.8 1.94.87 2.08.07.14.12.3.02.48-.1.19-.14.3-.28.47-.14.16-.3.36-.42.49-.14.14-.29.29-.12.57.17.28.74 1.22 1.59 1.98 1.09.97 2.01 1.27 2.29 1.41.28.14.45.12.62-.07.17-.19.71-.83.9-1.11.19-.28.38-.24.64-.14.26.09 1.65.78 1.93.92.28.14.47.21.54.33.07.11.07.66-.17 1.34Z"/></symbol>
+</svg>
 
+<div class="mira" aria-hidden="true"><i></i><i></i><i></i><i></i><b>x 0,00 · y 0,00</b></div>
+
+<div class="barra"><div class="wrap"><span><b>Entrega grátis</b> em compras acima de R$ 500 na capital</span><span>Seg a sex 7h às 18h · Sáb 7h às 13h · (11) 3000-0000</span></div></div>
 <header class="nav" id="nav">
-  <div class="wrap nav__in">
-    <a href="#" class="logo"><span class="logo__mark">F</span><span><b>Forte</b><small>Materiais de construção</small></span></a>
-    <nav class="nav__links"><a href="#departamentos">Departamentos</a><a href="#calculadora">Calculadora</a><a href="#orcamento">Orçamento</a><a href="#ofertas">Ofertas</a><a href="#entrega">Entrega</a></nav>
-    <a href="#orcamento" class="cartbtn" id="cartBtn"><span>Orçamento</span><b id="cartN">0</b></a>
-    <button class="burger" aria-label="Menu"><span></span></button>
+  <div class="wrap">
+    <div class="nav__in vidro">
+      <a href="#topo" class="logo"><span class="logo__mark">F</span><span><b>Forte</b><small>Materiais de construção</small></span></a>
+      <nav class="nav__links"><a href="#obra">A obra</a><a href="#departamentos">Departamentos</a><a href="#calculadora">Calculadora</a><a href="#ofertas">Ofertas</a><a href="#entrega">Entrega</a></nav>
+      <div style="display:flex;gap:8px"><a href="#orcamento" class="carrinho" id="carrinho"><span>Orçamento</span><b id="cartN">0</b></a><button class="burger" aria-label="Abrir menu" aria-expanded="false"><span></span></button></div>
+    </div>
   </div>
 </header>
 
-<section class="hero">
+<main>
+<section class="hero grade-bg" id="topo">
   <div class="wrap hero__grid">
-    <div class="hero__text">
+    <div>
       <span class="label">Desde 1994 · Zona Oeste de SP</span>
-      <h1 class="d"><span class="ln"><span>Tudo para</span></span><span class="ln"><span><span class="hl">sua obra.</span></span></span><span class="ln"><span>Sem enrolação.</span></span></h1>
-      <p>Do alicerce ao acabamento: materiais básicos, hidráulica, elétrica, tintas e ferramentas com preço de depósito e entrega no dia seguinte.</p>
-      <div class="hero__ctas"><a href="#calculadora" class="btn btn--y">Calcular material</a><a href="#orcamento" class="btn btn--k">Montar orçamento</a></div>
-      <div class="perks">
-        <div class="perk"><i>🚚</i>Entrega em<br />até 24h</div>
-        <div class="perk"><i>💳</i>Até 10x<br />sem juros</div>
-        <div class="perk"><i>🏷️</i>5% off<br />no PIX</div>
-      </div>
+      <h1 class="d"><span class="ln"><span style="--d:.05s">Tudo para</span></span><span class="ln"><span style="--d:.15s"><span class="hl">sua obra.</span></span></span><span class="ln"><span style="--d:.25s">Sem enrolação.</span></span></h1>
+      <p class="lead">Do alicerce ao acabamento: materiais básicos, hidráulica, elétrica, tintas e ferramentas com preço de depósito e entrega no dia seguinte.</p>
+      <div class="hero__ctas"><a href="#obra" class="btn btn--y mag">Montar minha obra</a><a href="#calculadora" class="btn btn--k mag">Calcular material</a></div>
+      <div class="perks"><div class="perk"><i><svg><use href="#i-caminhao"/></svg></i>Entrega em<br />até 24h</div><div class="perk"><i><svg><use href="#i-cartao"/></svg></i>Até 10x<br />sem juros</div><div class="perk"><i><svg><use href="#i-pix"/></svg></i>5% off<br />no PIX</div></div>
     </div>
-    <div class="hero__img">
-      <img src="https://images.unsplash.com/photo-1765744893064-dce3184289ef?w=1400&q=80&auto=format&fit=crop" alt="Loja de materiais de construção" />
-      <div class="stamp"><div><b>+12 mil</b><span>itens em estoque</span></div></div>
+    <div style="position:relative">
+      <div class="lente" id="lente" data-esc>
+        <img src="https://images.unsplash.com/photo-1765744893064-dce3184289ef?w=1400&q=80&auto=format&fit=crop" alt="Loja de materiais de construção com prateleiras cheias" fetchpriority="high" />
+        <div class="lente__bp"><img class="planta" src="https://images.unsplash.com/photo-1765744893064-dce3184289ef?w=1400&q=80&auto=format&fit=crop" alt="" /></div>
+        <div class="lente__anel"></div>
+        <div class="lente__coord" id="coord">12,40 m · 3,20 m</div>
+        <span class="lente__dica vidro-esc" id="lDica">Passe o mouse: visão de planta</span>
+      </div>
+      <div class="selo"><svg viewBox="0 0 140 140"><defs><path id="cs" d="M70 70m-58 0a58 58 0 1 1 116 0a58 58 0 1 1-116 0"/></defs><text><textPath href="#cs">Estoque próprio · Preço de depósito · </textPath></text></svg><div><b>+12 mil</b><span>itens</span></div></div>
     </div>
   </div>
 </section>
 
-<div class="tape" aria-hidden="true"><div class="tape__track" id="tape"></div></div>
+<div class="fita" aria-hidden="true"><div class="fita__t" id="fita"></div></div>
+
+<section class="obra" id="obra">
+  <div class="obra__stick" id="obraStick">
+    <div class="wrap obra__in">
+      <div class="obra__cab"><span class="label">Sua obra, etapa por etapa</span><div class="obra__prog" id="obraProg"></div></div>
+      <div class="etapa" id="etapa"><div class="etapa__txt"><span class="etapa__n" id="eN">ETAPA 01/05</span><h2 class="d" id="eT">Fundação</h2><p id="eD"></p><div class="etapa__itens vidro-esc" id="eI"></div></div></div>
+      <svg class="casa" id="casa" viewBox="0 0 640 520" aria-label="Casa sendo construída etapa por etapa"></svg>
+    </div>
+    <span class="obra__dica">role para construir</span>
+  </div>
+</section>
 
 <section class="depts" id="departamentos">
   <div class="wrap">
-    <div class="head"><div data-r><span class="label">Departamentos</span><h2 class="d h2" style="margin-top:14px">Da fundação<br />ao <span class="hl">acabamento</span></h2></div><p data-r style="--d:.1s">Seis departamentos com estoque próprio. Não achou o que precisa? Encomendamos para você em até 72 horas.</p></div>
+    <div class="cab"><div><span class="label" data-r>Departamentos</span><h2 class="d h2" style="margin-top:14px" data-r>Da fundação<br />ao <span class="hl">acabamento</span></h2></div><p data-r>Seis departamentos com estoque próprio. Não achou o que precisa? Encomendamos para você em até 72 horas.</p></div>
     <div class="dgrid" id="dgrid"></div>
   </div>
 </section>
 
 <section class="calc" id="calculadora">
   <div class="wrap">
-    <div class="head"><div data-r><span class="label" style="color:var(--yellow)">Calculadora de material</span><h2 class="d h2" style="margin-top:14px">Quanto você <span class="hl" style="color:var(--ink)">precisa?</span></h2></div><p data-r style="--d:.1s">Informe as medidas e a gente calcula a quantidade, já com margem de perda. Depois é só mandar para o orçamento.</p></div>
+    <div class="cab"><div><span class="label" data-r style="color:var(--yellow)">Calculadora de material</span><h2 class="d h2" style="margin-top:14px" data-r>Quanto você <span class="hl" style="color:var(--ink)">precisa?</span></h2></div><p data-r>Mexa nas medidas e veja a planta se desenhar ao vivo. A quantidade já vem com margem de perda e vai direto para o orçamento.</p></div>
     <div class="calc__grid" data-r>
       <div class="calc__in">
-        <div class="tabs" id="ctabs"><button class="tab on" data-c="parede">Parede de blocos</button><button class="tab" data-c="piso">Contrapiso</button><button class="tab" data-c="pintura">Pintura</button></div>
-        <div class="fields" id="cfields"></div>
+        <div class="tabs" id="ctabs"><button class="tab on" data-c="parede" type="button">Parede de blocos</button><button class="tab" data-c="piso" type="button">Contrapiso</button><button class="tab" data-c="pintura" type="button">Pintura</button></div>
+        <div id="cfields"></div>
+        <div class="desenho"><svg id="planta" viewBox="0 0 420 200" aria-label="Desenho da medida"></svg></div>
       </div>
       <div class="calc__out">
         <h3>Você vai precisar de</h3>
         <div class="need" id="need"></div>
-        <button class="btn btn--y" id="addCalc" style="width:100%">Adicionar ao orçamento →</button>
+        <button class="btn btn--y" id="addCalc" type="button" style="width:100%">Adicionar ao orçamento →</button>
         <p class="calc__note">Estimativa com 5% a 10% de perda. Confirme as quantidades com nosso vendedor antes de comprar.</p>
       </div>
     </div>
@@ -301,63 +428,65 @@
 
 <section class="quote" id="orcamento">
   <div class="wrap">
-    <div class="head"><div data-r><span class="label">Orçamento rápido</span><h2 class="d h2" style="margin-top:14px">Monte sua lista,<br /><span class="hl">receba o preço</span></h2></div><p data-r style="--d:.1s">Escolha as quantidades e envie pelo WhatsApp. Respondemos com disponibilidade e prazo de entrega em minutos.</p></div>
+    <div class="cab"><div><span class="label" data-r>Orçamento rápido</span><h2 class="d h2" style="margin-top:14px" data-r>Monte sua lista,<br /><span class="hl">receba o preço</span></h2></div><p data-r>Escolha as quantidades e envie pelo WhatsApp. Respondemos com disponibilidade e prazo de entrega em minutos.</p></div>
     <div class="q__grid">
-      <div class="plist" id="plist" data-r></div>
-      <aside class="summary" data-r style="--d:.1s">
-        <h3>Seu orçamento</h3>
-        <div id="sumList"></div>
+      <div class="plist" id="plist"></div>
+      <aside class="nota" id="nota">
+        <h3>Seu orçamento <small id="notaN">Nº 0001</small></h3>
+        <div class="nota__l" id="sumList"></div>
         <div class="total"><span>Total</span><b id="total">R$ 0,00</b></div>
-        <p class="sum__pix" id="pix">No PIX: R$ 0,00</p>
-        <button class="btn btn--k" id="send">Enviar pelo WhatsApp</button>
-        <button class="clear" id="clear">Limpar lista</button>
+        <p class="pix" id="pix">No PIX: R$ 0,00</p>
+        <button class="btn btn--wa" id="send" type="button"><svg><use href="#i-wa"/></svg>Enviar pelo WhatsApp</button>
+        <button class="limpar" id="clear" type="button">Limpar lista</button>
       </aside>
     </div>
   </div>
 </section>
 
-<section class="deals" id="ofertas">
+<section class="ofertas" id="ofertas">
   <div class="wrap">
-    <div class="deals__box" data-r>
-      <div class="deals__side">
-        <img src="https://images.unsplash.com/photo-1585201731775-0597e1be4bfb?w=1000&q=70&auto=format&fit=crop" alt="" />
+    <div class="of__box" data-r>
+      <div class="of__lado">
+        <img src="https://images.unsplash.com/photo-1585201731775-0597e1be4bfb?w=1000&q=70&auto=format&fit=crop" alt="" loading="lazy" />
         <span class="label" style="color:var(--yellow)">Ofertas da semana</span>
-        <h2 class="d" style="font-size:clamp(46px,5vw,72px);margin-top:14px">Acabam<br />domingo.</h2>
-        <div class="timer" id="timer"><div><b>0</b><small>dias</small></div><div><b>00</b><small>horas</small></div><div><b>00</b><small>min</small></div><div><b>00</b><small>seg</small></div></div>
+        <h2 class="d" style="font-size:clamp(52px,5.4vw,84px);margin-top:14px">Acabam<br />domingo.</h2>
+        <div class="relogio" id="timer"><div class="vidro-esc"><b>0</b><small>dias</small></div><div class="vidro-esc"><b>00</b><small>horas</small></div><div class="vidro-esc"><b>00</b><small>min</small></div><div class="vidro-esc"><b>00</b><small>seg</small></div></div>
         <p style="opacity:.85">Preços válidos enquanto durarem os estoques.</p>
       </div>
-      <div class="dcards" id="dcards"></div>
+      <div class="ofcards" id="ofcards"></div>
     </div>
   </div>
 </section>
 
-<section class="ship" id="entrega">
+<section class="entrega" id="entrega">
   <div class="wrap">
-    <div class="ship__grid" data-r>
-      <div class="ship__img"><img src="https://images.unsplash.com/photo-1620388640785-892616248ec8?w=1200&q=75&auto=format&fit=crop" alt="Empilhadeira carregando materiais" loading="lazy" /></div>
-      <div class="ship__body">
+    <div class="en__box" data-r>
+      <div class="en__mapa"><svg id="mapa" viewBox="0 0 500 420" preserveAspectRatio="xMidYMid slice" aria-label="Rota de entrega"></svg></div>
+      <div class="en__corpo">
         <span class="label">Entrega</span>
-        <h2 class="d" style="font-size:clamp(44px,4.6vw,68px);margin-top:14px">Consulte o prazo<br />para o seu CEP</h2>
-        <form class="cep" id="cepForm"><input id="cep" inputmode="numeric" maxlength="9" placeholder="00000-000" aria-label="CEP" /><button>Consultar</button></form>
-        <div class="cep__res" id="cepRes"></div>
+        <h2 class="d" style="font-size:clamp(46px,4.8vw,72px);margin-top:14px">Consulte o prazo<br />para o seu CEP</h2>
+        <form class="cep" id="cepForm"><input id="cep" inputmode="numeric" maxlength="9" placeholder="00000-000" aria-label="CEP" /><button type="submit">Consultar</button></form>
+        <div class="cep__res" id="cepRes" aria-live="polite"></div>
         <ul><li>Frota própria com caminhão munck</li><li>Descarga no local da obra</li><li>Agendamento por período (manhã ou tarde)</li></ul>
       </div>
     </div>
   </div>
 </section>
+</main>
 
 <footer>
   <div class="wrap">
     <div class="foot">
-      <div><a href="#" class="logo"><span class="logo__mark">F</span><span><b>Forte</b></span></a><p style="margin-top:16px;max-width:340px">Materiais de construção com preço de depósito, atendimento de quem entende de obra e entrega rápida.</p></div>
-      <div><h5>Loja</h5><p>Av. Corifeu de Azevedo Marques, 3200<br />Butantã, São Paulo — SP<br />(11) 3000-0000</p></div>
+      <div><a href="#topo" class="logo"><span class="logo__mark">F</span><span><b>Forte</b></span></a><p style="margin-top:16px;max-width:340px">Materiais de construção com preço de depósito, atendimento de quem entende de obra e entrega rápida.</p></div>
+      <div><h5>Loja</h5><p>Av. Corifeu de Azevedo Marques, 3200<br />Butantã, São Paulo · SP<br />(11) 3000-0000</p></div>
       <div><h5>Horários</h5><p>Segunda a sexta: 7h às 18h<br />Sábado: 7h às 13h<br />Domingo: fechado</p></div>
     </div>
+    <div class="gigante" id="gigante" aria-hidden="true">Forte<span>Forte</span></div>
     <div class="foot__bot">© 2026 Forte Materiais de Construção Ltda. · CNPJ 00.000.000/0001-00 · Preços sujeitos a alteração.</div>
   </div>
 </footer>
 
-<a class="wa" href="https://wa.me/5511999990000" target="_blank" rel="noopener" aria-label="WhatsApp"><svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21c5.46 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2Zm5.8 14.03c-.24.68-1.42 1.3-1.95 1.35-.5.05-.97.23-3.27-.68-2.77-1.09-4.52-3.92-4.66-4.1-.13-.18-1.1-1.47-1.1-2.8 0-1.34.7-2 .95-2.27.25-.27.54-.34.72-.34h.52c.17 0 .4-.06.62.47.24.56.8 1.940.87 2.08.07.14.12.3.02.48-.1.19-.14.3-.28.47-.14.16-.3.36-.42.49-.14.14-.29.29-.12.57.17.28.74 1.22 1.59 1.98 1.09.97 2.01 1.27 2.29 1.41.28.14.45.12.62-.07.17-.19.71-.83.9-1.11.19-.28.38-.24.64-.14.26.09 1.65.78 1.93.92.28.14.47.21.54.33.07.11.07.66-.17 1.34Z"/></svg></a>
+<a class="wa" href="https://wa.me/5511999990000" target="_blank" rel="noopener" aria-label="Falar no WhatsApp"><svg><use href="#i-wa"/></svg></a>
 
 <script>
 (() => {
@@ -366,110 +495,334 @@
   const u = (id, w) => `https://images.unsplash.com/photo-${id}?w=${w}&q=75&auto=format&fit=crop`;
   const brl = (n) => n.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
   const num = (n, d = 1) => n.toLocaleString("pt-BR", { maximumFractionDigits: d });
+  const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
+  const lerp = (a, b, t) => a + (b - a) * t;
+  const ease = (t) => (t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
   const WA = "5511999990000";
+  const abreWA = (t) => window.open(`https://wa.me/${WA}?text=${encodeURIComponent(t)}`, "_blank", "noopener");
+  const fino = matchMedia("(hover: hover) and (pointer: fine)").matches;
+  const calmo = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  let W = innerWidth, H = innerHeight;
 
-  const nav = $("#nav");
-  $(".burger").onclick = () => nav.classList.toggle("open");
-  $$(".nav__links a").forEach((a) => a.onclick = () => nav.classList.remove("open"));
   const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }), { threshold: .12 });
-  $$("[data-r]").forEach((el) => io.observe(el));
+  const observa = (r = document) => $$("[data-r]", r).forEach((el) => io.observe(el));
+  observa();
+  const nav = $("#nav"), burger = $(".burger");
+  burger.onclick = () => { const a = nav.classList.toggle("aberto"); burger.setAttribute("aria-expanded", a); };
+  $$(".nav__links a").forEach((a) => a.addEventListener("click", () => nav.classList.remove("aberto")));
+
+  /* Cursor: mira com coordenadas */
+  const mouse = { x: W / 2, y: H / 2 };
+  const mira = $(".mira"), miraT = $(".mira b");
+  addEventListener("pointermove", (e) => {
+    if (e.pointerType !== "mouse") return;
+    mouse.x = e.clientX; mouse.y = e.clientY; mira.classList.add("on");
+    mira.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
+    miraT.textContent = `x ${num(e.clientX / 40, 2)} · y ${num((e.clientY + scrollY) / 40, 2)} m`;
+  }, { passive: true });
+  document.addEventListener("mouseleave", () => mira.classList.remove("on"));
+  if (fino) {
+    document.addEventListener("pointerover", (e) => {
+      mira.classList.toggle("hot", !!e.target.closest("a, button, input"));
+      mira.classList.toggle("esc", !!e.target.closest(".obra, .calc, footer, .of__lado, .en__mapa, [data-esc]"));
+    });
+    $$(".mag").forEach((b) => {
+      b.addEventListener("pointermove", (e) => { const r = b.getBoundingClientRect(); b.style.transform = `translate(${(e.clientX - r.left - r.width / 2) * .15}px, ${(e.clientY - r.top - r.height / 2) * .25}px)`; });
+      b.addEventListener("pointerleave", () => { b.style.transform = ""; });
+    });
+  }
+
+  /* HERO: lente de planta */
+  const lente = $("#lente");
+  if (!fino) $("#lDica").textContent = "Visão de planta";
+  let lx = .6, ly = .42, lr = 130, dentro = false;
+  if (fino) { lente.addEventListener("pointerenter", () => { dentro = true; $("#lDica").style.opacity = 0; mira.style.opacity = 0; }); lente.addEventListener("pointerleave", () => { dentro = false; mira.style.opacity = ""; }); }
+  function lenteFrame(t) {
+    const r = lente.getBoundingClientRect(); if (r.bottom < 0 || r.top > H) return;
+    let tx, ty;
+    if (dentro) { tx = (mouse.x - r.left) / r.width; ty = (mouse.y - r.top) / r.height; } else { tx = .55 + Math.sin(t / 1900) * .25; ty = .45 + Math.cos(t / 2500) * .2; }
+    lx = lerp(lx, tx, .14); ly = lerp(ly, ty, .14); lr = lerp(lr, dentro ? 120 : r.width * .3, .08);
+    lente.style.setProperty("--x", lx * 100 + "%"); lente.style.setProperty("--y", ly * 100 + "%"); lente.style.setProperty("--r", lr + "px");
+    $("#coord").textContent = `${num(lx * 18, 2)} m · ${num(ly * 6, 2)} m`;
+  }
 
   /* Fita */
-  const T = ["Cimento", "Blocos", "Areia e brita", "Ferragens", "Tintas", "Pisos", "Hidráulica", "Elétrica", "Ferramentas"];
-  $("#tape").innerHTML = [...T, ...T].map((t) => `<span>${t}</span>`).join("");
+  const FT = ["Cimento", "Blocos", "Areia e brita", "Ferragens", "Tintas", "Pisos", "Hidráulica", "Elétrica", "Ferramentas"];
+  const fita = $("#fita");
+  fita.innerHTML = `<span>${FT.map((x) => `${x}<i></i>`).join("")}</span>`.repeat(2);
+  let fx = 0, vel = 0, yAnt = scrollY, dir = 1;
+  function fitaFrame() {
+    const dy = scrollY - yAnt; yAnt = scrollY; if (dy) dir = dy > 0 ? 1 : -1;
+    vel = lerp(vel, Math.min(50, Math.abs(dy)), .1);
+    const meio = fita.scrollWidth / 2;
+    fx -= (calmo ? 0 : .8 + vel * .35) * dir;
+    if (fx <= -meio) fx += meio; if (fx > 0) fx -= meio;
+    fita.style.transform = `translateX(${fx}px)`;
+  }
 
-  /* Departamentos */
-  const D = [["Básicos", "Cimento, areia, blocos e ferragens", "1775049525334-6a797b803823"], ["Ferramentas", "Manuais e elétricas das melhores marcas", "1759200165738-6366977a73c6"], ["Tintas", "Mais de 2.000 cores na hora", "1773525912493-cdb088d19d64"], ["Pisos e revestimentos", "Cerâmicas, porcelanatos e pavers", "1763665814482-bdf1016e4d29"], ["Máquinas", "Furadeiras, serras e lixadeiras", "1546827209-a218e99fdbe9"], ["Madeiras e telhados", "Vigas, caibros, telhas e forros", "1504307651254-35680f356dfd"]];
-  $("#dgrid").innerHTML = D.map(([t, s, img], i) => `<a href="#orcamento" class="dept" data-r style="--d:${(i % 3) * .08}s"><img src="${u(img, 800)}" alt="${t}" loading="lazy" /><span class="dept__n">0${i + 1}</span><div class="dept__body"><div><h3>${t}</h3><small>${s}</small></div><span class="dept__go">→</span></div></a>`).join("");
-  $$(".dept").forEach((d) => io.observe(d));
-
-  /* Produtos do orçamento */
+  /* Produtos */
   const P = [
     { id: "cim", n: "Cimento CP-II 50 kg", s: "Saco", p: 38.9, img: "1775049525334-6a797b803823" },
     { id: "are", n: "Areia média lavada", s: "Metro cúbico", p: 165, img: "1763665814482-bdf1016e4d29" },
     { id: "bri", n: "Brita nº 1", s: "Metro cúbico", p: 175, img: "1763665814482-bdf1016e4d29" },
+    { id: "ver", n: "Vergalhão CA-50 3/8\" 12 m", s: "Barra", p: 52.5, img: "1504307651254-35680f356dfd" },
     { id: "blo", n: "Bloco cerâmico 14x19x29", s: "Unidade", p: 1.85, img: "1637241612956-b7309005288b" },
     { id: "arg", n: "Argamassa AC-II 20 kg", s: "Saco", p: 24.9, img: "1775049525334-6a797b803823" },
-    { id: "ver", n: "Vergalhão CA-50 3/8\" 12 m", s: "Barra", p: 52.5, img: "1759200165738-6366977a73c6" },
+    { id: "tub", n: "Tubo PVC soldável 25 mm 6 m", s: "Barra", p: 22.9, img: "1759200165738-6366977a73c6" },
+    { id: "fio", n: "Fio flexível 2,5 mm 100 m", s: "Rolo", p: 219, img: "1759200165738-6366977a73c6" },
+    { id: "tel", n: "Telha cerâmica portuguesa", s: "Unidade", p: 2.8, img: "1637241612956-b7309005288b" },
+    { id: "cai", n: "Caibro 5x6 cm 3 m", s: "Peça", p: 18.5, img: "1620388640785-892616248ec8" },
+    { id: "por", n: "Porcelanato 60x60 acetinado", s: "Metro quadrado", p: 69.9, img: "1775049525334-6a797b803823" },
     { id: "tin", n: "Tinta acrílica premium 18 L", s: "Lata", p: 389, img: "1773525912493-cdb088d19d64" },
     { id: "gal", n: "Tinta acrílica premium 3,6 L", s: "Galão", p: 98, img: "1773525912493-cdb088d19d64" },
   ];
+  const PN = Object.fromEntries(P.map((p) => [p.id, p]));
   const qtd = Object.fromEntries(P.map((p) => [p.id, 0]));
   const plist = $("#plist");
-  plist.innerHTML = P.map((p) => `<div class="pitem" data-id="${p.id}"><div class="pitem__ic"><img src="${u(p.img, 200)}" alt="" loading="lazy" /></div><div><h4>${p.n}</h4><small>${p.s}</small></div><span class="pr">${brl(p.p)}</span><div class="qty"><button data-s="-1" aria-label="Menos">−</button><input type="text" inputmode="decimal" value="0" aria-label="Quantidade" /><button data-s="1" aria-label="Mais">+</button></div></div>`).join("");
+  plist.innerHTML = P.map((p, i) => `<div class="pitem" data-id="${p.id}" data-r style="--d:${(i % 6) * .04}s"><div class="pitem__ic"><img src="${u(p.img, 160)}" alt="" loading="lazy" /></div><div><h4>${p.n}</h4><small>${p.s}</small></div><span class="pr">${brl(p.p)}</span><div class="qty"><button type="button" data-s="-1" aria-label="Menos">−</button><input type="text" inputmode="decimal" value="0" aria-label="Quantidade de ${p.n}" /><button type="button" data-s="1" aria-label="Mais">+</button></div></div>`).join("");
+  observa(plist);
+  let totalMostrado = 0, totalAlvo = 0;
   function atualiza(bump) {
     $$(".pitem", plist).forEach((el) => { const q = qtd[el.dataset.id]; el.querySelector("input").value = num(q); el.classList.toggle("has", q > 0); });
     const itens = P.filter((p) => qtd[p.id] > 0);
-    const total = itens.reduce((s, p) => s + p.p * qtd[p.id], 0);
-    $("#sumList").innerHTML = itens.length ? `<div class="sum__list">${itens.map((p) => `<div><span>${num(qtd[p.id])}× ${p.n}</span><b>${brl(p.p * qtd[p.id])}</b></div>`).join("")}</div>` : `<p class="sum__empty">Adicione itens ou use a calculadora para preencher sua lista.</p>`;
-    $("#total").textContent = brl(total);
-    $("#pix").textContent = `No PIX (5% off): ${brl(total * .95)}`;
-    const n = itens.length;
-    $("#cartN").textContent = n > 999 ? "999+" : n;
-    if (bump) { const c = $("#cartBtn"); c.classList.remove("bump"); void c.offsetWidth; c.classList.add("bump"); }
+    totalAlvo = itens.reduce((s, p) => s + p.p * qtd[p.id], 0);
+    $("#sumList").innerHTML = itens.length ? itens.map((p) => `<div><span>${num(qtd[p.id])}× ${p.n}</span><b>${brl(p.p * qtd[p.id])}</b></div>`).join("") : `<p class="nota__vazio">Adicione itens, use a calculadora ou construa sua obra etapa por etapa.</p>`;
+    $("#cartN").textContent = itens.length;
+    if (bump) { const c = $("#carrinho"); c.classList.remove("bump"); void c.offsetWidth; c.classList.add("bump"); }
   }
+  function totalFrame() {
+    if (Math.abs(totalMostrado - totalAlvo) < .01) return;
+    totalMostrado = lerp(totalMostrado, totalAlvo, .15); if (Math.abs(totalMostrado - totalAlvo) < .5) totalMostrado = totalAlvo;
+    $("#total").textContent = brl(totalMostrado); $("#pix").textContent = `No PIX (5% off): ${brl(totalMostrado * .95)}`;
+  }
+  const soma = (lista) => { lista.forEach(([id, q]) => { qtd[id] = Math.round((qtd[id] + q) * 2) / 2; }); atualiza(true); };
   plist.addEventListener("click", (e) => { const b = e.target.closest("button[data-s]"); if (!b) return; const id = b.closest(".pitem").dataset.id; qtd[id] = Math.max(0, qtd[id] + +b.dataset.s); atualiza(true); });
   plist.addEventListener("change", (e) => { if (e.target.matches("input")) { const id = e.target.closest(".pitem").dataset.id; qtd[id] = Math.max(0, Math.round((+e.target.value.replace(",", ".") || 0) * 2) / 2); atualiza(true); } });
   $("#clear").onclick = () => { Object.keys(qtd).forEach((k) => qtd[k] = 0); atualiza(); };
   $("#send").onclick = () => {
     const itens = P.filter((p) => qtd[p.id] > 0);
-    if (!itens.length) { $("#sumList").animate([{ transform: "translateX(-6px)" }, { transform: "translateX(6px)" }, { transform: "none" }], 300); return; }
-    const msg = `Olá! Gostaria de um orçamento:\n\n${itens.map((p) => `• ${num(qtd[p.id])}× ${p.n}`).join("\n")}\n\nTotal estimado: ${$("#total").textContent}`;
-    window.open(`https://wa.me/${WA}?text=${encodeURIComponent(msg)}`, "_blank");
+    if (!itens.length) { $("#nota").animate([{ transform: "translateX(-8px)" }, { transform: "translateX(8px)" }, { transform: "none" }], 320); return; }
+    abreWA(`Olá, Forte! Gostaria de um orçamento:\n\n${itens.map((p) => `• ${num(qtd[p.id])}× ${p.n}`).join("\n")}\n\nTotal estimado: ${brl(totalAlvo)}\nPode me confirmar disponibilidade e prazo de entrega?`);
   };
+  $("#notaN").textContent = "Nº " + String(new Date().getDate() * 37 + 1000).padStart(4, "0");
   atualiza();
 
-  /* Calculadora */
+  /* A OBRA: casa construída no scroll (isométrico) */
+  const ETAPAS = [
+    ["Fundação", "Sapatas, vigas baldrame e contrapiso: a base que segura tudo.", [["cim", 20], ["are", 3], ["bri", 2], ["ver", 30]]],
+    ["Alvenaria", "Paredes subindo bloco a bloco, com argamassa na medida certa.", [["blo", 1000], ["arg", 10], ["cim", 10]]],
+    ["Instalações", "Água e energia passando antes de fechar as paredes.", [["tub", 15], ["fio", 2]]],
+    ["Telhado", "Estrutura de madeira e telhas para proteger o investimento.", [["cai", 40], ["tel", 900]]],
+    ["Acabamento", "Piso, tinta e os detalhes que transformam obra em casa.", [["por", 60], ["tin", 3], ["gal", 2]]],
+  ];
+  $("#obraProg").innerHTML = ETAPAS.map(([n], i) => `<button type="button" data-i="${i}">${String(i + 1).padStart(2, "0")}<span> ${n}</span></button>`).join("");
+  const casa = $("#casa"), S = 30, CX = 300, CY = 250, C30 = Math.cos(Math.PI / 6), S30 = .5;
+  const P3 = (x, y, z) => [CX + (x - y) * C30 * S, CY + (x + y) * S30 * S - z * S];
+  const pts = (...a) => a.map((v) => P3(...v).map((n) => n.toFixed(1)).join(",")).join(" ");
+  const poly = (cor, op, ...a) => `<polygon points="${pts(...a)}" fill="${cor}" fill-opacity="${op}" stroke="#0b2c52" stroke-width="1" stroke-opacity="${Math.min(1, op * 1.4)}"/>`;
+  const L = 8, Wd = 6, HW = 3;
+  function desenhaCasa(st) {
+    const [f, a, i, t, ac] = st;
+    let s = `<defs><pattern id="tij1" width="16" height="8" patternUnits="userSpaceOnUse" patternTransform="skewY(30)"><rect width="16" height="8" fill="#c2643c"/><path d="M0 0H16M0 4H16M4 0V4M12 4V8" stroke="#8f4325" stroke-width="1"/></pattern><pattern id="tij2" width="16" height="8" patternUnits="userSpaceOnUse" patternTransform="skewY(-30)"><rect width="16" height="8" fill="#a8532f"/><path d="M0 0H16M0 4H16M4 0V4M12 4V8" stroke="#7a3820" stroke-width="1"/></pattern><pattern id="telha" width="10" height="10" patternUnits="userSpaceOnUse" patternTransform="skewY(30)"><rect width="10" height="10" fill="#b5532a"/><path d="M0 9.5H10M5 0V10" stroke="#7d3115" stroke-width="1.2"/></pattern></defs>`;
+    // terreno com grade
+    s += poly("#123f72", .9, [-3, -3, -.5], [11, -3, -.5], [11, 9, -.5], [-3, 9, -.5]);
+    for (let g = -3; g <= 11; g += 2) s += `<line x1="${P3(g, -3, -.5)[0]}" y1="${P3(g, -3, -.5)[1]}" x2="${P3(g, 9, -.5)[0]}" y2="${P3(g, 9, -.5)[1]}" stroke="#4d86c4" stroke-opacity=".35"/>`;
+    for (let g = -3; g <= 9; g += 2) s += `<line x1="${P3(-3, g, -.5)[0]}" y1="${P3(-3, g, -.5)[1]}" x2="${P3(11, g, -.5)[0]}" y2="${P3(11, g, -.5)[1]}" stroke="#4d86c4" stroke-opacity=".35"/>`;
+    // contorno da planta (tracejado) antes de tudo
+    s += `<polygon points="${pts([-.4, -.4, -.5], [L + .4, -.4, -.5], [L + .4, Wd + .4, -.5], [-.4, Wd + .4, -.5])}" fill="none" stroke="#ffcc00" stroke-width="1.5" stroke-dasharray="6 5" opacity="${1 - f * .7}"/>`;
+    // 1 fundação: laje sobe
+    if (f > 0) {
+      const z = -.5 + .5 * ease(f), ef = ease(f);
+      s += poly("#9aa3ad", ef, [-.4, Wd + .4, -.5], [L + .4, Wd + .4, -.5], [L + .4, Wd + .4, z], [-.4, Wd + .4, z]);
+      s += poly("#7c858f", ef, [L + .4, -.4, -.5], [L + .4, Wd + .4, -.5], [L + .4, Wd + .4, z], [L + .4, -.4, z]);
+      s += poly("#c3cad1", ef, [-.4, -.4, z], [L + .4, -.4, z], [L + .4, Wd + .4, z], [-.4, Wd + .4, z]);
+      if (a < .2) for (let g = 0; g <= L; g += 1) s += `<line x1="${P3(g, 0, z + .02)[0]}" y1="${P3(g, 0, z + .02)[1]}" x2="${P3(g, Wd, z + .02)[0]}" y2="${P3(g, Wd, z + .02)[1]}" stroke="#ff7a1a" stroke-opacity="${(1 - a * 5) * ef * .7}"/>`;
+      // cotas
+      const c1 = P3(0, Wd + 1.6, 0), c2 = P3(L, Wd + 1.6, 0);
+      s += `<g opacity="${ef}"><line x1="${c1[0]}" y1="${c1[1]}" x2="${c2[0]}" y2="${c2[1]}" stroke="#ffcc00" stroke-width="1.2"/><text x="${(c1[0] + c2[0]) / 2 - 40}" y="${(c1[1] + c2[1]) / 2 + 22}" fill="#ffcc00">8,00 m</text>`;
+      const c3 = P3(L + 1.6, 0, 0), c4 = P3(L + 1.6, Wd, 0);
+      s += `<line x1="${c3[0]}" y1="${c3[1]}" x2="${c4[0]}" y2="${c4[1]}" stroke="#ffcc00" stroke-width="1.2"/><text x="${(c3[0] + c4[0]) / 2 + 12}" y="${(c3[1] + c4[1]) / 2 + 18}" fill="#ffcc00">6,00 m</text></g>`;
+    }
+    // 2 alvenaria: paredes sobem
+    const h = HW * ease(a);
+    if (a > 0) {
+      s += poly("url(#tij2)", 1, [0, 0, 0], [0, Wd, 0], [0, Wd, h], [0, 0, h]);
+      s += poly("url(#tij1)", 1, [0, 0, 0], [L, 0, 0], [L, 0, h], [0, 0, h]);
+      s += poly("url(#tij1)", 1, [0, Wd, 0], [L, Wd, 0], [L, Wd, h], [0, Wd, h]);
+      s += poly("url(#tij2)", 1, [L, 0, 0], [L, Wd, 0], [L, Wd, h], [L, 0, h]);
+      s += `<polygon points="${pts([0, 0, h], [L, 0, h], [L, Wd, h], [0, Wd, h])}" fill="none" stroke="#e0a07c" stroke-width="2"/>`;
+      // pintura (acabamento) por cima dos tijolos
+      if (ac > 0) {
+        const ea = ease(ac);
+        s += poly("#f1e6c8", ea, [0, Wd, 0], [L, Wd, 0], [L, Wd, h], [0, Wd, h]);
+        s += poly("#d9cba5", ea, [L, 0, 0], [L, Wd, 0], [L, Wd, h], [L, 0, h]);
+      }
+    }
+    // 3 instalações: tubos e eletrodutos
+    if (i > 0 && ac < 1) {
+      const op = 1 - ease(ac);
+      const tubo = [P3(L, 5.4, 0), P3(L, 5.4, 2.4), P3(L, 1.2, 2.4), P3(L, 1.2, 1.1)];
+      const ele = [P3(.6, Wd, 2.6), P3(7.4, Wd, 2.6)];
+      const seg = (arr) => arr.map((q) => q.join(",")).join(" ");
+      const len = (arr) => arr.slice(1).reduce((acc, q, k) => acc + Math.hypot(q[0] - arr[k][0], q[1] - arr[k][1]), 0);
+      const Lt = len(tubo), Le = len(ele);
+      s += `<polyline points="${seg(tubo)}" fill="none" stroke="#3fa9ff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="${Lt}" stroke-dashoffset="${Lt * (1 - ease(i))}" opacity="${op}"/>`;
+      s += `<polyline points="${seg(ele)}" fill="none" stroke="#ffcc00" stroke-width="4" stroke-linecap="round" stroke-dasharray="${Le}" stroke-dashoffset="${Le * (1 - ease(i))}" opacity="${op}"/>`;
+      [1.5, 4, 6.5].forEach((x, k) => { const q1 = P3(x, Wd, 2.6), q2 = P3(x, Wd, 1.2); const e2 = clamp(ease(i) * 3 - k * .6); s += `<line x1="${q1[0]}" y1="${q1[1]}" x2="${q1[0]}" y2="${lerp(q1[1], q2[1], e2)}" stroke="#ffcc00" stroke-width="3" opacity="${op}"/><rect x="${q2[0] - 4}" y="${q2[1] - 4}" width="8" height="8" fill="#fff" opacity="${op * e2}"/>`; });
+    }
+    // aberturas (acabamento)
+    if (ac > 0) {
+      const ea = ease(ac);
+      s += poly("#2b3946", ea, [5.2, Wd, 0], [6.3, Wd, 0], [6.3, Wd, 2.1], [5.2, Wd, 2.1]);
+      s += poly("#6fb0e6", ea * .9, [1.1, Wd, 1], [3.4, Wd, 1], [3.4, Wd, 2.2], [1.1, Wd, 2.2]);
+      s += poly("#5a9bd1", ea * .9, [L, 1.4, 1], [L, 3.6, 1], [L, 3.6, 2.2], [L, 1.4, 2.2]);
+      [[1.1, 3.4], [5.2, 6.3]].forEach(() => {});
+      // jardim
+      s += `<g opacity="${ea}">` + [[-1.6, 7.6], [9.6, 3], [9.4, 7.2], [-1.8, 2]].map(([x, y]) => { const q = P3(x, y, -.5); return `<ellipse cx="${q[0]}" cy="${q[1] - 10}" rx="${16}" ry="${14}" fill="#3e9b5b"/><ellipse cx="${q[0] - 4}" cy="${q[1] - 14}" rx="8" ry="6" fill="#5fc27b"/>`; }).join("") + `</g>`;
+    }
+    // 4 telhado: desce do céu
+    if (t > 0) {
+      const et = ease(t), dz = (1 - et) * 5;
+      const R = HW + 2.3, E = HW - .1;
+      // oitão (empena) na fachada x = L
+      s += `<g opacity="${et}">`;
+      s += poly(ac > .3 ? "#d9cba5" : "url(#tij2)", 1, [L, 0, HW + dz], [L, Wd, HW + dz], [L, Wd / 2, R + dz]);
+      s += poly("#8a3c1d", 1, [L + .4, -.4, E + dz], [L + .4, Wd / 2, R + dz], [-.4, Wd / 2, R + dz], [-.4, -.4, E + dz]);
+      s += poly("url(#telha)", 1, [-.4, Wd + .4, E + dz], [L + .4, Wd + .4, E + dz], [L + .4, Wd / 2, R + dz], [-.4, Wd / 2, R + dz]);
+      s += `<polyline points="${pts([-.4, Wd / 2, R + dz], [L + .4, Wd / 2, R + dz])}" stroke="#5e2410" stroke-width="4"/>`;
+      s += `</g>`;
+    }
+    casa.innerHTML = s;
+  }
+  const obra = $("#obra"), etapaEl = $("#etapa");
+  let etAtual = -1;
+  function obraFrame() {
+    const r = obra.getBoundingClientRect(); if (r.top > H || r.bottom < 0) return;
+    const p = clamp(-r.top / (r.height - H));
+    const n = ETAPAS.length, f = p * n * 1.02;
+    const st = ETAPAS.map((_, k) => clamp((f - k) / .8));
+    desenhaCasa(st);
+    const k = Math.min(n - 1, Math.floor(clamp(p * n, 0, n - .001)));
+    $$("#obraProg button").forEach((b, j) => { b.classList.toggle("on", j === k); b.classList.toggle("ok", j < k); });
+    if (k !== etAtual) {
+      const pri = etAtual < 0; etAtual = k;
+      const troca = () => {
+        const [nome, desc, itens] = ETAPAS[k];
+        $("#eN").textContent = `ETAPA ${String(k + 1).padStart(2, "0")}/0${n}`; $("#eT").textContent = nome; $("#eD").textContent = desc;
+        const tot = itens.reduce((a, [id, q]) => a + PN[id].p * q, 0);
+        $("#eI").innerHTML = itens.map(([id, q]) => `<div><span>${num(q)}× ${PN[id].n}</span><b>${brl(PN[id].p * q)}</b></div>`).join("") + `<div><span><b style="color:#fff;font-family:var(--sans);font-size:15px">Total da etapa</b></span><b>${brl(tot)}</b></div><button type="button" class="btn btn--y" data-etapa="${k}">Adicionar etapa ao orçamento</button>`;
+        etapaEl.classList.remove("troca");
+      };
+      if (pri) troca(); else { etapaEl.classList.add("troca"); setTimeout(troca, 220); }
+    }
+  }
+  $("#eI").addEventListener("click", (e) => { const b = e.target.closest("[data-etapa]"); if (!b) return; soma(ETAPAS[+b.dataset.etapa][2]); b.textContent = "Adicionado ✓"; });
+  $("#obraProg").addEventListener("click", (e) => { const b = e.target.closest("button"); if (!b) return; const i = +b.dataset.i; scrollTo({ top: obra.offsetTop + (obra.offsetHeight - H) * ((i + .75) / ETAPAS.length), behavior: calmo ? "auto" : "smooth" }); });
+
+  /* Departamentos */
+  const D = [["Básicos", "Cimento, areia, blocos e ferragens", "1775049525334-6a797b803823"], ["Ferramentas", "Manuais e elétricas das melhores marcas", "1759200165738-6366977a73c6"], ["Tintas", "Mais de 2.000 cores na hora", "1773525912493-cdb088d19d64"], ["Pisos e revestimentos", "Cerâmicas, porcelanatos e pavers", "1763665814482-bdf1016e4d29"], ["Máquinas", "Furadeiras, serras e lixadeiras", "1546827209-a218e99fdbe9"], ["Madeiras e telhados", "Vigas, caibros, telhas e forros", "1504307651254-35680f356dfd"]];
+  $("#dgrid").innerHTML = D.map(([t, s, img], i) => `<a href="#orcamento" class="dept" data-r style="--d:${(i % 3) * .08}s" data-tilt><img src="${u(img, 800)}" alt="${t}" loading="lazy" /><span class="dept__n">0${i + 1}</span><div class="dept__c vidro-esc"><div><h3>${t}</h3><small>${s}</small></div><span class="dept__go">→</span></div></a>`).join("");
+  observa($("#dgrid"));
+  if (fino) $$("[data-tilt]").forEach((c) => {
+    c.addEventListener("pointermove", (e) => { const r = c.getBoundingClientRect(), x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5; c.style.transform = `rotateY(${x * 10}deg) rotateX(${-y * 10}deg)`; });
+    c.addEventListener("pointerleave", () => { c.style.transform = ""; });
+  });
+
+  /* Calculadora com desenho */
   const CALC = {
     parede: { f: [["comp", "Comprimento da parede", 1, 30, 6, "m"], ["alt", "Altura", 2, 4, 2.8, "m"], ["vaos", "Portas e janelas (área)", 0, 10, 2, "m²"]],
-      r: (v) => { const a = Math.max(0, v.comp * v.alt - v.vaos); const bl = Math.ceil(a * 17 * 1.05); const ci = Math.ceil(a * .09); const ar = Math.max(.5, Math.ceil(a * .025 * 2) / 2); return { area: a, itens: [["blo", bl, "blocos cerâmicos", "14x19x29 · 17 por m²"], ["cim", ci, "sacos de cimento", "argamassa de assentamento"], ["are", ar, "m³ de areia", "areia média"]] }; } },
+      r: (v) => { const a = Math.max(0, v.comp * v.alt - v.vaos); return { area: a, itens: [["blo", Math.ceil(a * 17 * 1.05), "blocos cerâmicos", "14x19x29 · 17 por m²"], ["cim", Math.ceil(a * .09), "sacos de cimento", "argamassa de assentamento"], ["are", Math.max(.5, Math.ceil(a * .025 * 2) / 2), "m³ de areia", "areia média"]] }; } },
     piso: { f: [["larg", "Largura do cômodo", 1, 15, 4, "m"], ["comp", "Comprimento", 1, 20, 5, "m"], ["esp", "Espessura", 3, 8, 5, "cm"]],
       r: (v) => { const a = v.larg * v.comp, vol = a * v.esp / 100 * 1.08; return { area: a, itens: [["cim", Math.ceil(vol * 8.6), "sacos de cimento", `traço 1:3 · ${num(vol, 2)} m³ de massa`], ["are", Math.ceil(vol * 2) / 2, "m³ de areia", "areia média lavada"]] }; } },
     pintura: { f: [["area", "Área de parede", 5, 300, 60, "m²"], ["dem", "Demãos", 1, 3, 2, "x"]],
-      r: (v) => { const litros = v.area * v.dem / 10 * 1.05; const latas = Math.floor(litros / 18); const resto = litros - latas * 18; const gal = resto > 0 ? Math.ceil(resto / 3.6) : 0; const it = []; if (latas) it.push(["tin", latas, latas > 1 ? "latas de 18 L" : "lata de 18 L", `${num(litros)} litros no total`]); if (gal) it.push(["gal", gal, gal > 1 ? "galões de 3,6 L" : "galão de 3,6 L", "complemento"]); return { area: v.area, itens: it }; } },
+      r: (v) => { const litros = v.area * v.dem / 10 * 1.05, latas = Math.floor(litros / 18), resto = litros - latas * 18, gal = resto > 0 ? Math.ceil(resto / 3.6) : 0, it = []; if (latas) it.push(["tin", latas, latas > 1 ? "latas de 18 L" : "lata de 18 L", `${num(litros)} litros no total`]); if (gal) it.push(["gal", gal, gal > 1 ? "galões de 3,6 L" : "galão de 3,6 L", "complemento"]); return { area: v.area, itens: it }; } },
   };
-  let modo = "parede", ultimo = null;
-  const PN = Object.fromEntries(P.map((p) => [p.id, p]));
+  let modo = "parede", ultimo = null, vals = {};
   function renderCampos() {
-    $("#cfields").innerHTML = CALC[modo].f.map(([k, l, mn, mx, val, un]) => `<div class="fld"><label>${l}<output data-k="${k}">${num(val)} ${un}</output></label><input type="range" data-k="${k}" min="${mn}" max="${mx}" step="${un === "m" ? .1 : 1}" value="${val}" /></div>`).join("");
+    $("#cfields").innerHTML = CALC[modo].f.map(([k, l, mn, mx, val, un]) => `<div class="fld"><label for="f-${k}">${l}<output data-k="${k}">${num(val)} ${un}</output></label><input id="f-${k}" type="range" data-k="${k}" min="${mn}" max="${mx}" step="${un === "m" ? .1 : 1}" value="${val}" /></div>`).join("");
     calc();
   }
+  function planta() {
+    const sv = $("#planta"); let s = "";
+    const cot = (x1, y1, x2, y2, t, dx = 0, dy = 0) => `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="#ffcc00" stroke-width="1.2"/><line x1="${x1}" y1="${y1 - 5}" x2="${x1}" y2="${y1 + 5}" stroke="#ffcc00"/><line x1="${x2}" y1="${y2 - 5}" x2="${x2}" y2="${y2 + 5}" stroke="#ffcc00"/><text x="${(x1 + x2) / 2 + dx}" y="${(y1 + y2) / 2 + dy}" text-anchor="middle" fill="#ffcc00">${t}</text>`;
+    if (modo === "parede") {
+      const sc = Math.min(340 / vals.comp, 140 / vals.alt), w = vals.comp * sc, hgt = vals.alt * sc, x0 = 210 - w / 2, y0 = 175 - hgt;
+      s += `<defs><pattern id="bl" width="18" height="10" patternUnits="userSpaceOnUse"><rect width="18" height="10" fill="#c2643c"/><path d="M0 0H18M0 5H18M6 0V5M15 5V10" stroke="#8f4325"/></pattern></defs><rect x="${x0}" y="${y0}" width="${w}" height="${hgt}" fill="url(#bl)" stroke="#fff" stroke-width="1.5"/>`;
+      const vao = Math.min(vals.vaos / Math.max(1, vals.comp * vals.alt), .8), vw = Math.sqrt(vao) * w * .6, vh = Math.min(hgt * .75, Math.sqrt(vao) * hgt * .9);
+      if (vals.vaos > 0) s += `<rect x="${x0 + w * .55}" y="${175 - vh}" width="${vw}" height="${vh}" fill="#0f3b6e" stroke="#fff" stroke-dasharray="4 3"/>`;
+      s += cot(x0, 190, x0 + w, 190, `${num(vals.comp)} m`, 0, -4) + `<text x="${x0 - 8}" y="${y0 + hgt / 2}" text-anchor="end" fill="#ffcc00">${num(vals.alt)} m</text>`;
+    } else if (modo === "piso") {
+      const sc = Math.min(320 / vals.comp, 130 / vals.larg), w = vals.comp * sc, hgt = vals.larg * sc, x0 = 210 - w / 2, y0 = 95 - hgt / 2;
+      s += `<defs><pattern id="hc" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="8" height="8" fill="#5f6d7b"/><line x1="0" y1="0" x2="0" y2="8" stroke="#8d9aa7" stroke-width="2"/></pattern></defs><rect x="${x0}" y="${y0}" width="${w}" height="${hgt}" fill="url(#hc)" stroke="#fff" stroke-width="1.5"/>`;
+      s += cot(x0, y0 + hgt + 14, x0 + w, y0 + hgt + 14, `${num(vals.comp)} m`, 0, 14) + `<text x="${x0 + w + 8}" y="${y0 + hgt / 2}" fill="#ffcc00">${num(vals.larg)} m</text><text x="${x0 + 6}" y="${y0 + 16}" fill="#fff">e = ${vals.esp} cm</text>`;
+    } else {
+      const sc = Math.min(1, vals.area / 300), w = 120 + sc * 240, hgt = 120, x0 = 210 - w / 2, y0 = 25;
+      s += `<rect x="${x0}" y="${y0}" width="${w}" height="${hgt}" fill="#d9d4c7" stroke="#fff" stroke-width="1.5"/>`;
+      for (let d = 0; d < vals.dem; d++) s += `<rect x="${x0}" y="${y0}" width="${w * (1 - d * .18)}" height="${hgt}" fill="#ffcc00" fill-opacity="${.25 + d * .2}"/>`;
+      s += `<text x="210" y="${y0 + hgt + 30}" text-anchor="middle" fill="#ffcc00">${num(vals.area)} m² · ${vals.dem} ${vals.dem > 1 ? "demãos" : "demão"}</text>`;
+    }
+    sv.innerHTML = s;
+  }
   function calc() {
-    const v = {};
-    $$("#cfields input").forEach((i) => { v[i.dataset.k] = +i.value; i.style.setProperty("--p", `${((i.value - i.min) / (i.max - i.min)) * 100}%`); const f = CALC[modo].f.find((x) => x[0] === i.dataset.k); $(`#cfields output[data-k="${i.dataset.k}"]`).textContent = `${num(+i.value)} ${f[5]}`; });
-    ultimo = CALC[modo].r(v);
-    $("#need").innerHTML = `<div><span>Área calculada<small>já descontados os vãos</small></span><b>${num(ultimo.area)}<em>m²</em></b></div>` + ultimo.itens.map(([id, q, t, s], i) => `<div style="animation-delay:${i * 60}ms"><span>${t}<small>${s} · ${brl(PN[id].p * q)}</small></span><b>${num(q)}</b></div>`).join("");
+    vals = {};
+    $$("#cfields input").forEach((i) => { vals[i.dataset.k] = +i.value; i.style.setProperty("--p", `${((i.value - i.min) / (i.max - i.min)) * 100}%`); const f = CALC[modo].f.find((x) => x[0] === i.dataset.k); $(`#cfields output[data-k="${i.dataset.k}"]`).textContent = `${num(+i.value)} ${f[5]}`; });
+    ultimo = CALC[modo].r(vals);
+    $("#need").innerHTML = `<div><span>Área calculada<small>${modo === "parede" ? "já descontados os vãos" : "medida informada"}</small></span><b>${num(ultimo.area)}<em>m²</em></b></div>` + ultimo.itens.map(([id, q, t, s], i) => `<div style="animation-delay:${i * 60}ms"><span>${t}<small>${s} · ${brl(PN[id].p * q)}</small></span><b>${num(q)}</b></div>`).join("");
+    planta();
   }
   $("#cfields").addEventListener("input", calc);
   $("#ctabs").onclick = (e) => { const b = e.target.closest(".tab"); if (!b) return; modo = b.dataset.c; $$("#ctabs .tab").forEach((x) => x.classList.toggle("on", x === b)); renderCampos(); };
-  $("#addCalc").onclick = () => {
-    ultimo.itens.forEach(([id, q]) => { qtd[id] = Math.round((qtd[id] + q) * 2) / 2; });
-    atualiza(true);
-    $("#orcamento").scrollIntoView({ behavior: "smooth" });
-  };
+  $("#addCalc").onclick = () => { soma(ultimo.itens.map(([id, q]) => [id, q])); $("#orcamento").scrollIntoView({ behavior: calmo ? "auto" : "smooth" }); };
   renderCampos();
 
-  /* Ofertas + contagem regressiva até domingo 23:59 */
-  const O = [["-18%", "Cimento CP-II 50 kg — kit 10 sacos", 474, 389, "cim", 10], ["-25%", "Tinta acrílica premium 18 L branco neve", 519, 389, "tin", 1], ["-30%", "Bloco cerâmico 14x19x29 — milheiro", 2640, 1850, "blo", 1000]];
-  $("#dcards").innerHTML = O.map(([off, n, de, por, id, q]) => `<div class="dcard"><span class="off">${off}</span><h4>${n}</h4><s>${brl(de)}</s><b>${brl(por)}</b><button data-id="${id}" data-q="${q}">Adicionar ao orçamento →</button></div>`).join("");
-  $("#dcards").onclick = (e) => { const b = e.target.closest("button"); if (!b) return; qtd[b.dataset.id] += +b.dataset.q; atualiza(true); b.textContent = "Adicionado ✓"; };
+  /* Ofertas */
+  const O = [["-18%", "Cimento CP-II 50 kg · kit 10 sacos", 474, 389, "cim", 10], ["-25%", "Tinta acrílica premium 18 L branco neve", 519, 389, "tin", 1], ["-30%", "Bloco cerâmico 14x19x29 · milheiro", 2640, 1850, "blo", 1000]];
+  $("#ofcards").innerHTML = O.map(([off, n, de, por, id, q]) => `<div class="ofc"><span class="off">${off}</span><h4>${n}</h4><s>${brl(de)}</s><b>${brl(por)}</b><button type="button" data-id="${id}" data-q="${q}">Adicionar ao orçamento →</button></div>`).join("");
+  $("#ofcards").onclick = (e) => { const b = e.target.closest("button"); if (!b) return; soma([[b.dataset.id, +b.dataset.q]]); b.textContent = "Adicionado ✓"; };
   const fim = new Date(); fim.setDate(fim.getDate() + ((7 - fim.getDay()) % 7)); fim.setHours(23, 59, 59, 0);
-  const tick = () => { let s = Math.max(0, Math.floor((fim - new Date()) / 1000)); const v = [Math.floor(s / 86400), Math.floor(s % 86400 / 3600), Math.floor(s % 3600 / 60), s % 60]; $$("#timer b").forEach((b, i) => b.textContent = i ? String(v[i]).padStart(2, "0") : v[i]); };
+  const tick = () => { const s = Math.max(0, Math.floor((fim - new Date()) / 1000)); const v = [Math.floor(s / 86400), Math.floor(s % 86400 / 3600), Math.floor(s % 3600 / 60), s % 60]; $$("#timer b").forEach((b, i) => b.textContent = i ? String(v[i]).padStart(2, "0") : v[i]); };
   tick(); setInterval(tick, 1000);
 
-  /* CEP */
+  /* Entrega: mapa com rota do caminhão */
+  const mapa = $("#mapa");
+  const ROTA = "M70 340 C130 300 150 250 210 240 S300 200 330 150 S400 90 440 80";
+  mapa.innerHTML = `<g class="ruas"><path d="M0 330 H500"/><path d="M60 0 V420"/><path d="M0 240 C150 230 300 260 500 200"/><path d="M330 0 V420"/><path d="M0 90 H500"/><path d="M200 420 C220 300 260 200 300 0"/></g><path class="rota" id="rota" d="${ROTA}" opacity=".25"/><path id="rotaV" d="${ROTA}" fill="none" stroke="#ffcc00" stroke-width="5" stroke-linecap="round"/><g id="loja"><rect x="52" y="322" width="36" height="36" fill="#ffcc00" stroke="#161616" stroke-width="2"/><text x="61" y="346" fill="#161616" style="font-family:'Barlow Condensed';font-weight:800;font-size:22px">F</text><text x="40" y="380">LOJA FORTE</text></g><g id="destino" opacity=".35"><circle cx="440" cy="80" r="10" fill="#fff"/><circle cx="440" cy="80" r="20" fill="none" stroke="#fff" stroke-width="2"/><text x="372" y="60" id="destT">SUA OBRA</text></g><g id="caminhao"><rect x="-18" y="-11" width="22" height="16" fill="#ffcc00" stroke="#161616" stroke-width="2"/><rect x="4" y="-6" width="12" height="11" fill="#fff" stroke="#161616" stroke-width="2"/><circle cx="-10" cy="7" r="3.5" fill="#161616"/><circle cx="9" cy="7" r="3.5" fill="#161616"/></g>`;
+  const rotaV = $("#rotaV"), rLen = rotaV.getTotalLength(), cam = $("#caminhao");
+  rotaV.style.strokeDasharray = rLen; rotaV.style.strokeDashoffset = rLen;
+  let camT = 0, camAlvo = 0;
+  const posCam = (k) => { const a = rotaV.getPointAtLength(k * rLen), b = rotaV.getPointAtLength(Math.min(rLen, k * rLen + 2)); const ang = Math.atan2(b.y - a.y, b.x - a.x) * 180 / Math.PI; cam.setAttribute("transform", `translate(${a.x} ${a.y}) rotate(${ang})`); rotaV.style.strokeDashoffset = rLen * (1 - k); };
+  posCam(0);
+  function camFrame() { if (Math.abs(camT - camAlvo) < .001) return; camT = lerp(camT, camAlvo, .035); if (Math.abs(camT - camAlvo) < .002) camT = camAlvo; posCam(camT); }
   const cep = $("#cep");
   cep.addEventListener("input", () => { let v = cep.value.replace(/\D/g, "").slice(0, 8); cep.value = v.length > 5 ? `${v.slice(0, 5)}-${v.slice(5)}` : v; });
+  const card = (ic, t, d) => `<div class="cep__card"><i><svg><use href="#i-${ic}"/></svg></i><div><b>${t}</b><span>${d}</span></div></div>`;
   $("#cepForm").onsubmit = (e) => {
     e.preventDefault();
     const v = cep.value.replace(/\D/g, "");
-    let html;
-    if (v.length !== 8) html = `<div class="cep__card"><i>⚠️</i><b>CEP inválido</b><span>Digite os 8 números do seu CEP.</span></div>`;
-    else if (/^0[1-5]/.test(v)) html = `<div class="cep__card"><i>🚚</i><b>Entrega amanhã</b><span>Capital de SP · frete grátis acima de R$ 500 (abaixo disso, R$ 39).</span></div>`;
-    else if (/^0[6-9]/.test(v)) html = `<div class="cep__card"><i>📦</i><b>Entrega em 2 dias úteis</b><span>Grande São Paulo · frete a partir de R$ 59.</span></div>`;
-    else html = `<div class="cep__card"><i>📞</i><b>Consulte</b><span>Fora da nossa área padrão. Fale com a gente para combinar a entrega.</span></div>`;
+    let html, alvo = 0;
+    if (v.length !== 8) html = card("alerta", "CEP inválido", "Digite os 8 números do seu CEP.");
+    else if (/^0[1-5]/.test(v)) { html = card("caminhao", "Entrega amanhã", "Capital de SP · frete grátis acima de R$ 500 (abaixo disso, R$ 39)."); alvo = 1; }
+    else if (/^0[6-9]/.test(v)) { html = card("pin", "Entrega em 2 dias úteis", "Grande São Paulo · frete a partir de R$ 59."); alvo = 1; }
+    else { html = card("fone", "Consulte", "Fora da nossa área padrão. Fale com a gente para combinar a entrega."); alvo = .45; }
     $("#cepRes").innerHTML = html;
+    camT = 0; camAlvo = calmo ? alvo : alvo; if (calmo) { camT = alvo; posCam(alvo); }
+    $("#destino").setAttribute("opacity", alvo === 1 ? 1 : .35);
+    $("#destT").textContent = v.length === 8 ? `CEP ${cep.value}` : "SUA OBRA";
   };
+
+  /* Rodapé: FORTE se enche de amarelo */
+  const gig = $("#gigante");
+  function gigFrame() {
+    const r = gig.getBoundingClientRect(); if (r.top > H) return;
+    const ini = scrollY + r.top - H, fim2 = document.documentElement.scrollHeight - H;
+    gig.style.setProperty("--enche", clamp((scrollY - ini) / Math.max(1, (fim2 - ini) * .92)) * 100 + "%");
+  }
+
+  let navY = scrollY;
+  function navFrame() { const y = scrollY, d = y - navY; if (Math.abs(d) > 6) { nav.classList.toggle("esconde", d > 0 && y > 500 && !nav.classList.contains("aberto")); navY = y; } }
+  function quadro(t) { lenteFrame(t); fitaFrame(); obraFrame(); totalFrame(); camFrame(); gigFrame(); navFrame(); requestAnimationFrame(quadro); }
+  addEventListener("resize", () => { W = innerWidth; H = innerHeight; });
+  requestAnimationFrame(quadro);
 })();
 </script>
 </body>
