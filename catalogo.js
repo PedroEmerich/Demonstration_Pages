@@ -138,8 +138,8 @@ window.MODELOS = [
     pasta: "rua77-streetwear",
     titulo: "RUA 77 — Streetwear",
     segmento: "Moda",
-    descricao: "Loja de roupas de rua com contagem para o próximo drop, sacola lateral, escolha de tamanho, lookbook arrastável e guia de medidas.",
-    tags: ["Loja", "Drop", "Sacola"],
+    descricao: "Streetwear com muro para pichar com o cursor, arara de cabides que balançam no scroll, lookbook de lambe-lambes arrancados, sacola com pedido pelo WhatsApp e guia de tamanhos.",
+    tags: ["Spray", "Arara", "Lambe-lambe"],
     cor: "#5b72ff",
   },
   {
