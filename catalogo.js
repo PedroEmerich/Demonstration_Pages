@@ -129,8 +129,8 @@ window.MODELOS = [
     pasta: "forte-materiais",
     titulo: "Forte — Materiais de Construção",
     segmento: "Construção",
-    descricao: "Depósito de materiais com calculadora de blocos, cimento e tinta, orçamento com total ao vivo, ofertas e consulta de entrega por CEP.",
-    tags: ["Calculadora", "Orçamento", "Entrega"],
+    descricao: "Depósito de materiais com uma casa que se constrói etapa por etapa no scroll, lente de planta no cursor, calculadora com desenho ao vivo, orçamento em nota e entrega com rota animada.",
+    tags: ["Obra no scroll", "Calculadora", "Orçamento"],
     cor: "#ffcc00",
   },
   {
