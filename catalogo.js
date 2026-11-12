@@ -102,8 +102,9 @@ window.MODELOS = [
   {
     pasta: "horizonte-imoveis",
     titulo: "Horizonte Imóveis",
+    revisado: true,
     segmento: "Imobiliária",
-    descricao: "Imobiliária com match de estilo de vida que reordena os imóveis, sol arrastável para ver a casa em qualquer hora do dia, mapa vivo dos bairros, ficha com luz natural e tempo até o trabalho e comparador de favoritos.",
+    descricao: "Imobiliária com match de estilo de vida que reordena os imóveis, mapa vivo dos bairros, ficha com luz natural e tempo até o trabalho e comparador de favoritos.",
     tags: ["Match de estilo de vida", "Mapa vivo", "Comparador"],
     cor: "#2d6b5d",
   },

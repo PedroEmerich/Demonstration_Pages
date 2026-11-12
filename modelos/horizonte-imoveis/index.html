@@ -68,16 +68,13 @@
   .burger { display: none; width: 44px; height: 44px; border-radius: 50%; box-shadow: inset 0 0 0 1px var(--line); place-items: center; }
   .burger span { width: 18px; height: 2px; background: var(--ink); box-shadow: 0 6px 0 var(--ink), 0 -6px 0 var(--ink); }
 
-  /* HERO: arraste o sol */
+  /* HERO */
   .hero { position: relative; height: 100vh; height: 100svh; min-height: 620px; overflow: hidden; color: #fff; background: #0e1018; }
   .hero__foto { position: absolute; inset: -3%; will-change: transform; }
-  .hero__foto img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 60%; }
-  .hero__luzes { mix-blend-mode: lighten; filter: brightness(1) contrast(2.6) saturate(1.15); opacity: 0; }
-  .hero__ceu { position: absolute; inset: 0; pointer-events: none; mix-blend-mode: screen; }
-  .hero__azul { position: absolute; inset: 0; background: linear-gradient(180deg, #0c1638, #1c2a55 55%, #0c1020); mix-blend-mode: multiply; opacity: 0; pointer-events: none; }
-  .hero__quente { position: absolute; inset: 0; background: radial-gradient(90% 70% at 85% 30%, #ffb35c, transparent 70%); mix-blend-mode: soft-light; opacity: 0; pointer-events: none; }
+  .hero__foto img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 60%; animation: kb 18s ease-out forwards; }
+  @keyframes kb { from { transform: scale(1.12); } to { transform: none; } }
   .hero__veu { position: absolute; inset: 0; background: linear-gradient(90deg, rgba(8,10,12,.62), rgba(8,10,12,.15) 55%, rgba(8,10,12,0)), linear-gradient(0deg, rgba(8,10,12,.75), rgba(8,10,12,0) 40%); pointer-events: none; }
-  .hero__in { position: relative; z-index: 2; height: 100%; display: flex; flex-direction: column; justify-content: center; padding: 120px 0 170px; }
+  .hero__in { position: relative; z-index: 2; height: 100%; display: flex; flex-direction: column; justify-content: center; padding: 120px 0 90px; }
   .hero__in .over { color: #fff; }
   .hero h1 { font-size: min(6vw, 10.5vh, 100px); max-width: 980px; margin-top: 22px; text-shadow: 0 6px 40px rgba(0,0,0,.25); }
   .hero h1 em { color: #f3e3bd; }
@@ -86,19 +83,6 @@
   @keyframes sobe { to { transform: none; } }
   .hero p.lead { margin-top: 22px; max-width: 500px; font-size: clamp(16px, 1.3vw, 19px); color: rgba(255,255,255,.86); }
   .hero__ctas { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 30px; }
-  .sol { position: absolute; z-index: 3; left: 50%; bottom: 24px; transform: translateX(-50%); width: var(--wrap); padding: 18px 22px 16px; border-radius: 24px; background: rgba(12,14,18,.38); backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); box-shadow: inset 0 0 0 1px rgba(255,255,255,.16); }
-  .sol__top { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; flex-wrap: wrap; }
-  .sol__top b { font-family: var(--serif); font-weight: 400; font-size: 22px; }
-  .sol__top b span { font-variant-numeric: tabular-nums; }
-  .sol__top small { color: rgba(255,255,255,.75); font-size: 13.5px; }
-  .sol__trilho { position: relative; height: 46px; margin-top: 8px; }
-  .sol__trilho::before { content: ""; position: absolute; left: 0; right: 0; top: 50%; height: 2px; background: linear-gradient(90deg, #9ec5ff, #ffe1a1 45%, #ff9b52 68%, #2b3870); border-radius: 2px; }
-  .sol__marcas { position: absolute; left: 0; right: 0; bottom: -4px; display: flex; justify-content: space-between; font-size: 11.5px; color: rgba(255,255,255,.6); font-weight: 500; pointer-events: none; }
-  .sol input { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; cursor: grab; z-index: 2; margin: 0; }
-  .sol__knob { position: absolute; top: 50%; left: 0; width: 34px; height: 34px; margin: -17px 0 0 -17px; border-radius: 50%; background: radial-gradient(circle, #fff7d6 0 35%, var(--sun) 36%); box-shadow: 0 0 0 6px rgba(242,181,68,.25), 0 0 30px 6px rgba(242,181,68,.55); pointer-events: none; transition: background .4s, box-shadow .4s; }
-  .sol__knob.lua { background: radial-gradient(circle at 38% 38%, #fffdf2 0 45%, #d9d4bd 46%); box-shadow: 0 0 0 6px rgba(255,255,255,.15), 0 0 26px 4px rgba(220,225,255,.45); }
-  .sol__dica { position: absolute; top: -32px; left: 0; transform: translateX(-50%); padding: 4px 10px; border-radius: 999px; background: #fff; color: var(--ink); font-size: 12px; font-weight: 600; white-space: nowrap; pointer-events: none; animation: dica 2s ease-in-out infinite; }
-  @keyframes dica { 50% { transform: translate(-50%, -4px); } }
 
   /* MATCH */
   .match { padding: 130px 0 120px; }
@@ -321,14 +305,9 @@
     .hero p.lead { font-size: 15.5px; margin-top: 16px; }
     .hero__ctas { margin-top: 22px; }
     .hero__ctas .btn { padding: 14px 20px; font-size: 14.5px; }
-    .sol { padding: 12px 14px 10px; bottom: 14px; left: 12px; right: 84px; width: auto; transform: none; border-radius: 20px; }
-    .sol__top small { display: none; }
-    .sol__marcas span:nth-child(even) { visibility: hidden; }
-    .bairro text { font-size: 17px; }
+          .bairro text { font-size: 17px; }
     .bairro text.m2 { display: none; }
-    .sol__top b { font-size: 18px; }
-    .sol__top small { font-size: 12.5px; }
-    .match { padding: 100px 0 90px; }
+        .match { padding: 100px 0 90px; }
     .match__grid { grid-template-columns: 1fr; }
     .painel { position: static; padding: 20px; border-radius: 24px; gap: 20px; }
     .cards { grid-template-columns: 1fr; }
@@ -391,26 +370,13 @@
 <section class="hero" id="topo">
   <div class="hero__foto" id="heroFoto">
     <img class="hero__base" id="heroBase" src="https://images.unsplash.com/photo-1748063578185-3d68121b11ff?w=2200&q=80&auto=format&fit=crop" alt="Residência contemporânea em Vila Nova Conceição" fetchpriority="high" />
-    <img class="hero__luzes" id="heroLuzes" src="https://images.unsplash.com/photo-1748063578185-3d68121b11ff?w=2200&q=80&auto=format&fit=crop" alt="" />
   </div>
-  <div class="hero__ceu" id="heroCeu"></div>
-  <div class="hero__quente" id="heroQuente"></div>
-  <div class="hero__azul" id="heroAzul"></div>
   <div class="hero__veu"></div>
   <div class="wrap hero__in">
     <span class="over">Imobiliária boutique · São Paulo</span>
     <h1><span class="ln"><span style="--d:.05s">Não procure um imóvel.</span></span><span class="ln"><span style="--d:.18s"><em>Encontre o seu jeito de viver.</em></span></span></h1>
-    <p class="lead">Conte como é a sua rotina e a gente mostra as casas que combinam com você, com a luz de cada hora do dia, o tempo até o trabalho e a parcela que cabe no bolso.</p>
+    <p class="lead">Conte como é a sua rotina e a gente mostra as casas que combinam com você, com a luz natural de cada casa, o tempo até o trabalho e a parcela que cabe no bolso.</p>
     <div class="hero__ctas"><a href="#match" class="btn btn--ink" style="background:#fff;color:var(--ink)">Fazer meu match <svg><use href="#i-seta" /></svg></a><a href="#mapa" class="btn btn--glass">Explorar o mapa</a></div>
-  </div>
-  <div class="sol" id="sol">
-    <div class="sol__top"><b><span id="solHora">17:40</span> · <span id="solNome">luz dourada</span></b><small id="solTxt">Arraste o sol e veja a Residência Vila Nova Conceição em qualquer hora do dia</small></div>
-    <div class="sol__trilho">
-      <input type="range" id="solR" min="6" max="22" step=".05" value="17.6" aria-label="Hora do dia" />
-      <span class="sol__knob" id="solK"></span>
-      <span class="sol__dica" id="solDica">arraste</span>
-      <div class="sol__marcas"><span>6h</span><span>9h</span><span>12h</span><span>15h</span><span>18h</span><span>22h</span></div>
-    </div>
   </div>
 </section>
 
@@ -513,35 +479,6 @@
   let navY = scrollY;
   addEventListener("scroll", () => { const y = scrollY, d = y - navY; if (Math.abs(d) > 6) { nav.classList.toggle("esconde", d > 0 && y > 500 && !nav.classList.contains("aberto")); navY = y; } }, { passive: true });
 
-  /* ===== HERO: arraste o sol ===== */
-  const solR = $("#solR"), solK = $("#solK"), base = $("#heroBase"), luzes = $("#heroLuzes"), ceu = $("#heroCeu"), quente = $("#heroQuente"), azul = $("#heroAzul");
-  const FASES = [[6, "nascer do sol", "Luz suave entrando pela fachada leste"], [8.5, "manhã clara", "Sol da manhã nas suítes, voltadas para o leste"], [12, "meio-dia", "Varanda sombreada pelo beiral de 2 metros"], [15, "tarde", "Piscina pega sol até as 16h30"], [17, "luz dourada", "Pôr do sol de frente para a sala, fachada oeste"], [18.6, "anoitecer", "Iluminação de jardim acende sozinha às 18h30"], [20, "noite", "Casa iluminada e jardim em silêncio"]];
-  const KEYS = [ // hora, brilho, saturação, contraste, quente, azul, luzes, céu [r,g,b,a]
-    [6, 1.12, .85, .96, .55, .12, .05, [255, 165, 120, .6]], [9, 1.5, .9, .9, 0, 0, 0, [140, 190, 255, .85]], [12, 1.62, .95, .9, 0, 0, 0, [160, 205, 255, .9]],
-    [15, 1.42, 1, .94, .25, 0, 0, [255, 210, 150, .6]], [17.6, 1.05, 1.12, 1.02, .75, 0, .12, [255, 135, 60, .5]], [19, .66, .95, 1.06, .25, .55, .85, [40, 55, 140, .35]], [22, .4, .85, 1.12, 0, .88, 1, [5, 10, 40, .2]],
-  ];
-  function aplicaSol(h) {
-    let i = 0; while (i < KEYS.length - 2 && h > KEYS[i + 1][0]) i++;
-    const A = KEYS[i], B = KEYS[i + 1], t = clamp((h - A[0]) / (B[0] - A[0])), m = (k) => lerp(A[k], B[k], t);
-    base.style.filter = `brightness(${m(1)}) saturate(${m(2)}) contrast(${m(3)})`;
-    quente.style.opacity = m(4); azul.style.opacity = m(5); luzes.style.opacity = m(6);
-    const c = A[7].map((v, k) => k < 3 ? Math.round(lerp(v, B[7][k], t)) : lerp(v, B[7][k], t).toFixed(2));
-    ceu.style.background = `linear-gradient(180deg, rgba(${c.join(",")}) 0%, rgba(${c.slice(0, 3).join(",")},0) 62%)`;
-    const pct = (h - 6) / 16;
-    solK.style.left = pct * 100 + "%"; $("#solDica").style.left = pct * 100 + "%";
-    solK.classList.toggle("lua", h > 19.2);
-    const hh = Math.floor(h), mm = Math.floor((h - hh) * 60 / 5) * 5;
-    $("#solHora").textContent = `${String(hh).padStart(2, "0")}:${String(mm).padStart(2, "0")}`;
-    const f = [...FASES].reverse().find((x) => h >= x[0]) || FASES[0];
-    $("#solNome").textContent = f[1]; $("#solTxt").textContent = f[2];
-  }
-  let solMexeu = false;
-  solR.addEventListener("input", () => { solMexeu = true; $("#solDica").style.display = "none"; aplicaSol(+solR.value); });
-  aplicaSol(+solR.value);
-  if (!calmo) { // demonstração: o dia passa sozinho na primeira vez
-    const t0 = performance.now(), de = 9, ate = 17.6, dur = 3200;
-    setTimeout(() => { const anima = (t) => { if (solMexeu) return; const k = clamp((t - t0 - 900) / dur), e = 1 - Math.pow(1 - k, 3), h = lerp(de, ate, e); solR.value = h; aplicaSol(h); if (k < 1) requestAnimationFrame(anima); }; requestAnimationFrame(anima); }, 0);
-  }
   const heroFoto = $("#heroFoto");
   if (fino && !calmo) addEventListener("pointermove", (e) => { if (scrollY > innerHeight) return; heroFoto.style.transform = `translate(${(e.clientX / innerWidth - .5) * -16}px, ${(e.clientY / innerHeight - .5) * -10}px) scale(1.02)`; }, { passive: true });
 
