@@ -343,4 +343,12 @@ window.MODELOS = [
     tags: ["3D", "Simulador de cor", "Calculadora"],
     cor: "#b5643c",
   },
+  {
+    pasta: "underground-barbershop",
+    titulo: "Underground Barbershop — Agendamento",
+    segmento: "Barbearia",
+    descricao: "Barbearia com agendamento online em menos de um minuto: serviços, equipe, planos de assinatura, próximo horário livre, área do cliente e painel do barbeiro.",
+    tags: ["SaaS", "Agendamento", "Cliente real"],
+    cor: "#d4b26a",
+  },
 ];
