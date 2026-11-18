@@ -172,8 +172,8 @@ window.MODELOS = [
     pasta: "flora-viva",
     titulo: "Flora Viva — Orquidário e Floricultura",
     segmento: "Floricultura",
-    descricao: "Orquidário e floricultura com pétalas caindo, montador de buquê com desenho ao vivo, guia de cuidados de orquídeas e entrega no dia.",
-    tags: ["Monte seu buquê", "Loja", "Guia"],
+    descricao: "Orquidário e floricultura com pétalas que seguem o mouse, viveiro que se abre na rolagem e montador de buquê realista: as hastes entram e saem voando, o papel se abre para trocar a flor.",
+    tags: ["Buquê ao vivo", "Rolagem", "Loja"],
     cor: "#8e4b8f",
   },
   {
