@@ -9,18 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link rel="preconnect" href="https://images.unsplash.com" />
-<link rel="preload" as="fetch" href="bouquet/bouquet-manifest.json" crossorigin="anonymous" />
-<link rel="preload" as="image" href="bouquet/flowers/rosas/vermelho/01.webp" fetchpriority="low" />
-<link rel="preload" as="image" href="bouquet/flowers/rosas/vermelho/02.webp" fetchpriority="low" />
-<link rel="preload" as="image" href="bouquet/flowers/rosas/vermelho/03.webp" fetchpriority="low" />
-<link rel="preload" as="image" href="bouquet/flowers/rosas/vermelho/04.webp" fetchpriority="low" />
-<link rel="preload" as="image" href="bouquet/flowers/rosas/vermelho/05.webp" fetchpriority="low" />
-<link rel="preload" as="image" href="bouquet/flowers/rosas/vermelho/06.webp" fetchpriority="low" />
-<link rel="preload" as="image" href="bouquet/flowers/rosas/vermelho/07.webp" fetchpriority="low" />
-<link rel="preload" as="image" href="bouquet/flowers/rosas/vermelho/08.webp" fetchpriority="low" />
-<link rel="preload" as="image" href="bouquet/wrap/kraft/back.webp" fetchpriority="low" />
-<link rel="preload" as="image" href="bouquet/wrap/kraft/front.webp" fetchpriority="low" />
-<link rel="preload" as="image" href="bouquet/ribbon/barbante.webp" fetchpriority="low" />
+<link rel="preload" as="fetch" href="bouquet/bouquet-photos.json" crossorigin="anonymous" />
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=Figtree:wght@400;500;600;700&family=Caveat:wght@500&display=swap" rel="stylesheet" />
 <style>
   :root {
@@ -184,38 +173,41 @@
   .passo textarea:focus { box-shadow: inset 0 0 0 1.5px var(--orchid); }
   .count { text-align: right; font-size: 12px; color: var(--muted); margin-top: 6px; }
   .palco { position: sticky; top: 96px; }
-  .stage { position: relative; height: min(640px, calc(100vh - 230px)); min-height: 470px; border-radius: 34px; overflow: hidden; background: radial-gradient(70% 60% at 50% 40%, rgba(255,255,255,.75), rgba(255,255,255,.25)); box-shadow: inset 0 0 0 1px rgba(255,255,255,.8), 0 40px 80px -40px rgba(31,58,44,.4); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
+  .stage { position: relative; height: min(640px, calc(100vh - 230px)); min-height: 470px; border-radius: 34px; overflow: hidden; background: radial-gradient(75% 65% at 50% 38%, #fdfbf8, #f4eee6 70%, #efe7dc); box-shadow: inset 0 0 0 1px rgba(255,255,255,.8), 0 40px 80px -40px rgba(31,58,44,.4); isolation: isolate; }
   .stage__info { position: absolute; left: 18px; top: 16px; font-size: 12.5px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--green2); display: flex; align-items: center; gap: 8px; }
   .stage__info i { width: 8px; height: 8px; border-radius: 50%; background: var(--orchid); animation: pisca 1.6s infinite; }
   @keyframes pisca { 50% { opacity: .25; } }
   .stage__dica { position: absolute; right: 18px; top: 14px; font-family: var(--hand); font-size: 22px; color: var(--orchid); }
-  .cartao { position: absolute; right: 16px; bottom: 16px; z-index: 2; width: 190px; padding: 14px 16px; border-radius: 4px 18px 18px 18px; background: rgba(255,253,249,.82); backdrop-filter: blur(8px); box-shadow: 0 14px 30px -16px rgba(31,58,44,.5); transform: rotate(3deg); transition: transform .5s var(--spring); }
+  .cartao { position: absolute; left: 14px; bottom: 14px; z-index: 3; width: 150px; padding: 11px 13px; border-radius: 18px 18px 18px 4px; background: rgba(255,253,249,.82); backdrop-filter: blur(8px); box-shadow: 0 14px 30px -16px rgba(31,58,44,.5); transform: rotate(-3deg); transition: transform .5s var(--spring); }
   .cartao:hover { transform: rotate(0) scale(1.04); }
   .cartao small { font-size: 10.5px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--orchid); }
-  .cartao p { font-family: var(--hand); font-size: 22px; line-height: 1.1; color: var(--ink); margin-top: 4px; word-break: break-word; }
+  .cartao p { font-family: var(--hand); font-size: 19px; line-height: 1.1; color: var(--ink); margin-top: 4px; word-break: break-word; }
   .resumo { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin-top: 16px; padding: 16px 16px 16px 22px; border-radius: 26px; }
   .resumo span { color: var(--muted); font-size: 14px; line-height: 1.4; }
   .resumo b { display: block; font-family: var(--serif); font-size: 34px; font-weight: 400; line-height: 1; color: var(--green); }
-  .bq { position: absolute; left: 50%; top: 50%; width: 600px; height: 700px; margin: -350px 0 0 -300px; transform: scale(var(--k, .8)); }
-  .bq__in { position: absolute; inset: 0; transform-origin: 300px 500px; transform: rotate(var(--sw, 0deg)); }
-  .bq__camada { position: absolute; inset: 0; pointer-events: none; }
-  .bq__camada[data-c="wrap-back"] { z-index: 1; } .bq__camada[data-c="filler-back"] { z-index: 2; } .bq__camada[data-c="flowers"] { z-index: 3; } .bq__camada[data-c="filler-front"] { z-index: 4; }
-  .bq__camada[data-c="wrap-front"] { z-index: 5; transform-origin: 50% 70%; transition: transform .45s var(--ease); } .bq__camada[data-c="stems"] { z-index: 6; } .bq__camada[data-c="ribbon"] { z-index: 7; }
-  .bq.abre .bq__camada[data-c="wrap-front"] { transform: translateY(30px) scale(1.04, .96); }
-  .bq.abre .bq__camada[data-c="wrap-back"] { transform: translateY(18px); }
-  .bq__camada[data-c="wrap-back"] { transition: transform .45s var(--ease); }
-  .bq__img { position: absolute; max-width: none; user-select: none; }
-  .bq__camada[data-c="wrap-front"] .bq__img, .bq__camada[data-c="ribbon"] .bq__img { filter: drop-shadow(0 -6px 10px rgba(50,30,10,.28)); }
-  .bq__camada[data-c="wrap-back"] .bq__img { filter: drop-shadow(0 10px 18px rgba(50,30,10,.25)); }
-  .bq__verde { opacity: 0; transition: opacity .5s var(--ease); filter: drop-shadow(0 4px 6px rgba(20,40,10,.3)); } .bq__verde.on { opacity: 1; }
-  .bq__flor { position: absolute; left: 0; top: 0; transform: translate(var(--x), var(--y)) scale(var(--s, 1)); transition: transform .75s cubic-bezier(.2,.85,.25,1), opacity .5s var(--ease); pointer-events: auto; }
-  .bq__flor.fora { opacity: 0; }
-  .bq__cab { position: absolute; max-width: none; transform: rotate(var(--r)); filter: drop-shadow(0 7px 9px rgba(45,22,10,.38)) drop-shadow(0 1px 2px rgba(45,22,10,.35)); transition: transform .4s var(--spring), filter .4s, opacity .4s var(--ease); user-select: none; }
-  .bq__cab.troca { opacity: 0; transform: rotate(var(--r)) scale(.92); }
-  .bq__flor:hover .bq__cab { transform: rotate(var(--r)) translateY(-6px) scale(1.07); filter: drop-shadow(0 14px 14px rgba(45,22,10,.4)) drop-shadow(0 1px 2px rgba(45,22,10,.35)) brightness(1.05); }
-  .bq__haste { position: absolute; left: -8px; top: 0; width: 16px; max-width: none; object-fit: cover; object-position: center top; transform-origin: 50% 0; z-index: -1; filter: drop-shadow(0 3px 3px rgba(20,40,10,.3)); }
-  .bq__sombra { position: absolute; left: 150px; top: 640px; width: 300px; height: 46px; border-radius: 50%; background: radial-gradient(closest-side, rgba(45,30,15,.32), rgba(45,30,15,.12) 60%, transparent); }
-  .bq__erro { position: absolute; inset: auto 20px 50% 20px; text-align: center; color: var(--muted); }
+  .bq__vis { position: absolute; inset: 0; }
+  .bq__quad { position: absolute; top: 3.5%; left: 50%; height: 85%; aspect-ratio: 1; transform: translateX(-50%); }
+  .bq__foto { position: absolute; left: 0; top: 3.5%; width: 100%; height: 85%; object-fit: contain; mix-blend-mode: multiply; transform-origin: 50% var(--fy, 40%); transition: opacity .35s var(--ease), transform .35s var(--ease), filter .35s var(--ease); user-select: none; -webkit-user-drag: none; }
+  .bq__foto.entra { opacity: 0; transform: scale(.98); }
+  .bq__foto.entra.cresce { transform: translateY(5%) scale(.9); transform-origin: 50% 100%; }
+  .bq__foto.entra.diminui { transform: scale(1.04); }
+  .bq__foto.entra.primeira { filter: blur(8px); transform: none; }
+  .bq__foto.primeira { transition-duration: .9s; }
+  .bq__foto.sai { opacity: 0; }
+  .bq__sombra { position: absolute; left: 50%; top: 86.5%; width: 30%; height: 4.5%; transform: translateX(-50%); border-radius: 50%; background: radial-gradient(closest-side, rgba(45,30,15,.3), rgba(45,30,15,.1) 65%, transparent); filter: blur(2px); }
+  .bq__hot { position: absolute; inset: 0; z-index: 2; }
+  .bq__hs { position: absolute; border-radius: 50%; background: radial-gradient(closest-side, rgba(255,250,240,.38), rgba(255,250,240,.12) 55%, transparent 72%); opacity: 0; transition: opacity .3s var(--ease); mix-blend-mode: soft-light; cursor: none; }
+  .bq__hs:hover { opacity: 1; }
+  .bq__tip { position: absolute; left: 0; top: 0; z-index: 4; padding: 6px 12px; border-radius: 999px; background: rgba(31,58,44,.88); color: var(--bg); font-size: 13px; font-weight: 600; white-space: nowrap; pointer-events: none; opacity: 0; transition: opacity .2s; backdrop-filter: blur(6px); }
+  .bq__tip.on { opacity: 1; }
+  .bq__skel { position: absolute; inset: 0; display: grid; place-items: center; opacity: 0; pointer-events: none; transition: opacity .35s var(--ease); }
+  .bq__skel.on { opacity: 1; }
+  .bq__skel i { position: absolute; display: block; background: linear-gradient(100deg, rgba(31,58,44,.06) 30%, rgba(255,255,255,.55) 50%, rgba(31,58,44,.06) 70%) 0 0 / 300% 100%; animation: brilho 1.6s linear infinite; }
+  .bq__skel .cupula { left: 22%; top: 8%; width: 56%; height: 38%; border-radius: 50% 50% 46% 46%; }
+  .bq__skel .cone { left: 30%; top: 40%; width: 40%; height: 34%; clip-path: polygon(0 0, 100% 0, 58% 100%, 42% 100%); }
+  .bq__skel .hastes { left: 45%; top: 74%; width: 10%; height: 14%; border-radius: 6px; }
+  .bq__skel span { position: absolute; left: 0; right: 0; bottom: 18%; text-align: center; font-family: var(--hand); font-size: 24px; color: var(--orchid); }
+  @keyframes brilho { from { background-position: 100% 0; } to { background-position: -200% 0; } }
   .sw:disabled { opacity: .3; cursor: not-allowed; background-image: linear-gradient(135deg, transparent 46%, rgba(0,0,0,.45) 47%, rgba(0,0,0,.45) 53%, transparent 54%) !important; }
   .sw__nome { align-self: center; margin-left: 6px; font-weight: 600; font-size: 14px; color: var(--muted); }
   .ch:disabled { opacity: .45; cursor: not-allowed; transform: none; }
@@ -406,7 +398,8 @@
         <div class="stage" id="stage" data-cur="mexa">
           <span class="stage__info"><i></i>Montando ao vivo</span>
           <span class="stage__dica">passe o mouse nas flores</span>
-          <div class="bq" id="bq" aria-label="Prévia do buquê"><div class="bq__in"><i class="bq__sombra"></i><div class="bq__camada" data-c="wrap-back"></div><div class="bq__camada" data-c="filler-back"></div><div class="bq__camada" data-c="flowers"></div><div class="bq__camada" data-c="filler-front"></div><div class="bq__camada" data-c="wrap-front"></div><div class="bq__camada" data-c="stems"></div><div class="bq__camada" data-c="ribbon"></div></div></div>
+          <div class="bq__vis" id="bqVis"><div class="bq__quad"><i class="bq__sombra"></i><div class="bq__skel" id="bqSkel" aria-hidden="true"><i class="cupula"></i><i class="cone"></i><i class="hastes"></i><span>foto em produção</span></div></div><div class="bq__quad" id="bqQuadHot" style="z-index:2"><div class="bq__hot" id="bqHot"></div></div></div>
+          <span class="bq__tip" id="bqTip" role="tooltip"></span>
           <div class="cartao"><small>Cartão</small><p id="cardTxt">Escreva sua mensagem ✿</p></div>
         </div>
         <div class="resumo vidro"><span class="bqSum"></span><div style="display:flex;align-items:center;gap:16px"><b class="bqPrice">R$ 0</b><button class="btn btn--g bqAdd mag">Encomendar pelo WhatsApp</button></div></div>
@@ -580,161 +573,97 @@
   addEventListener("load", movePill);
 
   /* =====================================================================
-     MONTE SEU BUQUÊ — compositor de camadas fotográficas
-     Tudo vem de bouquet/bouquet-manifest.json (fotos reais recortadas).
+     MONTE SEU BUQUÊ — uma fotografia completa por combinação
+     Tudo vem de bouquet/bouquet-photos.json.
      ===================================================================== */
   const BASE = "bouquet/";
-  const stage = $("#stage"), bqEl = $("#bq");
-  const L = Object.fromEntries($$(".bq__camada", bqEl).map((c) => [c.dataset.c, c]));
-  const TAMS = ["6", "12", "24"];
-  const cfg = { flor: "rosas", cor: "vermelho", tam: "12", emb: "kraft" };
-  let MF = null, vivas = [], ocupado = false, pendente = false;
+  const stage = $("#stage"), vis = $("#bqVis"), hot = $("#bqHot"), skel = $("#bqSkel"), tip = $("#bqTip");
+  const cfg = { flor: "rosas", cor: "vermelho", qtd: "12", emb: "kraft" };
+  let BJ = null, atual = null, chaveAtual = "", pedido = 0;
+  const chave = (c = cfg) => `${c.flor}-${c.cor}-${c.qtd}-${c.emb}`;
+  const existe = (c) => !!BJ.fotos[chave(c)];
+  const entrada = (c = cfg) => BJ.fotos[chave(c)];
   const PRE = new Map();
-  const carrega = (src) => { if (!PRE.has(src)) PRE.set(src, new Promise((ok) => { const i = new Image(); i.decoding = "async"; i.onload = i.onerror = () => ok(i); i.src = BASE + src; })); return PRE.get(src); };
-  const n = () => +cfg.tam;
-  const fotos = () => MF.flores[cfg.flor].cores[cfg.cor].fotos;
-  const corDisp = (f, c) => (MF.flores[f].cores[c]?.fotos.length || 0) > 0;
-  const primeiraCor = (f) => Object.keys(MF.flores[f].cores).find((c) => corDisp(f, c));
+  const carrega = (arq) => {
+    if (!PRE.has(arq)) PRE.set(arq, new Promise((ok, erro) => { const i = new Image(); i.decoding = "async"; i.onload = () => (i.decode ? i.decode().catch(() => {}) : Promise.resolve()).then(() => ok(i)); i.onerror = erro; i.src = BASE + arq; }));
+    return PRE.get(arq);
+  };
 
-  function escala() {
-    const r = stage.getBoundingClientRect(), P = MF.palco;
-    const k = Math.min(r.width / P.largura, r.height / P.altura) * (VW < 900 ? 1.08 : 1);
-    bqEl.style.setProperty("--k", k);
-  }
-  function imgEm(camada, d, { x, y, largura, rot = 0, z, cls = "" }) {
-    const im = document.createElement("img");
-    im.src = BASE + d.src; im.alt = ""; im.decoding = "async"; im.draggable = false;
-    im.className = "bq__img " + cls;
-    const h = largura * d.h / d.w, [ax, ay] = d.ancora || [.5, .5];
-    Object.assign(im.style, { width: largura + "px", height: h + "px", left: x - ax * largura + "px", top: y - ay * h + "px", transformOrigin: `${ax * 100}% ${ay * 100}%`, transform: `rotate(${rot}deg)` });
-    if (z != null) im.style.zIndex = z;
-    camada.appendChild(im); return im;
-  }
-
-  // embalagem, folhagem e hastes
-  function montaFixos() {
-    ["wrap-back", "wrap-front", "ribbon", "filler-back", "stems"].forEach((c) => { L[c].innerHTML = ""; });
-    const e = MF.embalagens[cfg.emb].camadas;
-    if (e) Object.entries(e).forEach(([c, d]) => imgEm(L[c], d, d));
-    const verdes = MF.slots_filler[cfg.tam];
-    verdes.forEach((s, i) => { const d = MF.filler.back[s.foto % MF.filler.back.length]; const im = imgEm(L["filler-back"], d, { x: s.x, y: s.y, largura: d.w * s.escala, rot: s.rot, cls: "bq__verde" }); im.style.transitionDelay = i * 30 + "ms"; requestAnimationFrame(() => im.classList.add("on")); });
-    MF.slots_hastes.forEach((s) => { const d = MF.hastes[0]; const im = imgEm(L.stems, d, { x: s.x, y: s.y, largura: s.largura, rot: s.rot }); im.style.height = s.altura + "px"; im.style.objectFit = "fill"; });
-  }
-  function atualizaVerdes() {
-    const novos = MF.slots_filler[cfg.tam], velhos = $$(".bq__verde", L["filler-back"]);
-    velhos.forEach((v) => { v.classList.remove("on"); setTimeout(() => v.remove(), 500); });
-    novos.forEach((s, i) => { const d = MF.filler.back[s.foto % MF.filler.back.length]; const im = imgEm(L["filler-back"], d, { x: s.x, y: s.y, largura: d.w * s.escala, rot: s.rot, cls: "bq__verde" }); im.style.transitionDelay = 120 + i * 30 + "ms"; requestAnimationFrame(() => requestAnimationFrame(() => im.classList.add("on"))); });
-  }
-
-  // flores
-  const CENTRO = { x: 300, y: 232 };
-  function posFlor(el, s, extra = {}) {
-    const fl = MF.flores[el.dataset.f];
-    el.style.zIndex = s.z;
-    el.style.setProperty("--x", s.x + (extra.dx || 0) + "px");
-    el.style.setProperty("--y", s.y - (fl.elevar || 0) * (1 - Math.hypot(s.x - CENTRO.x, s.y - CENTRO.y) / 260) + (extra.dy || 0) + "px");
-    el.style.setProperty("--r", (fl.vista === "lado" ? s.rot * .35 + (s.x - CENTRO.x) * .07 : s.rot) + "deg");
-    el.style.setProperty("--s", extra.s ?? 1);
-    const haste = $(".bq__haste", el);
-    if (haste) { const yy = s.y - (fl.elevar || 0) * (1 - Math.hypot(s.x - CENTRO.x, s.y - CENTRO.y) / 260), dx = 300 - s.x, dy = 470 - yy; haste.style.height = Math.hypot(dx, dy) + "px"; haste.style.transform = `rotate(${Math.atan2(-dx, dy) * 180 / Math.PI}deg)`; }
-  }
-  function criaFlor(i, s) {
-    const fl = MF.flores[cfg.flor], lista = fotos(), d = lista[(s.foto + i * 3) % lista.length];
-    const el = document.createElement("div");
-    el.className = "bq__flor"; el.dataset.f = cfg.flor;
-    const largura = 100 * s.escala * fl.largura, h = largura * d.h / d.w, [ax, ay] = d.ancora;
-    if (fl.haste) { const hs = document.createElement("img"); hs.className = "bq__haste"; hs.src = BASE + MF.hastes[0].src; hs.alt = ""; el.appendChild(hs); }
-    const im = document.createElement("img");
-    im.className = "bq__cab"; im.src = BASE + d.src; im.alt = ""; im.draggable = false;
-    Object.assign(im.style, { width: largura + "px", height: h + "px", left: -ax * largura + "px", top: -ay * h + "px", transformOrigin: `${ax * 100}% ${ay * 100}%` });
-    el.appendChild(im);
-    return el;
-  }
-  const fora = (s, f = 1) => { const dx = s.x - CENTRO.x, dy = s.y - CENTRO.y, d = Math.hypot(dx, dy) || 1; return { dx: dx / d * 420 * f, dy: dy / d * 260 * f - 60 }; };
-  function entra(lista, atrasoBase = 0) {
-    lista.forEach(({ el, s }, i) => {
-      el.classList.add("fora"); posFlor(el, s, { ...fora(s), s: .82 });
-      L.flowers.appendChild(el);
-      el.style.transitionDelay = atrasoBase + i * (n() > 12 ? 28 : 45) + "ms";
-      requestAnimationFrame(() => requestAnimationFrame(() => { el.classList.remove("fora"); posFlor(el, s); }));
+  function hotspots(e) {
+    hot.innerHTML = "";
+    if (!e || !e.available) return;
+    const f = BJ.flores[cfg.flor], nome = `${f.singular} ${f.cores[cfg.cor].adjetivo}`.trim();
+    e.hotspots.forEach((h) => {
+      const d = document.createElement("i");
+      d.className = "bq__hs"; d.dataset.nome = nome;
+      Object.assign(d.style, { left: (h.x - h.r) * 100 + "%", top: (h.y - h.r) * 100 + "%", width: h.r * 200 + "%", height: h.r * 200 + "%" });
+      hot.appendChild(d);
     });
   }
-  function sai(lista, atrasoBase = 0) {
-    lista.forEach(({ el, s }, i) => {
-      el.style.transitionDelay = atrasoBase + i * 18 + "ms";
-      el.classList.add("fora"); posFlor(el, s, { ...fora(s, .8), s: .86 });
-      setTimeout(() => el.remove(), 900 + atrasoBase + i * 18);
-    });
-  }
-  function montaFlores(primeira) {
-    const slots = MF.slots[cfg.tam];
-    vivas = slots.map((s, i) => ({ el: criaFlor(i, s), s }));
-    entra(vivas, primeira ? 200 : 0);
-  }
+  hot.addEventListener("pointerover", (e) => { const h = e.target.closest(".bq__hs"); if (h) { tip.textContent = h.dataset.nome; tip.classList.add("on"); } });
+  hot.addEventListener("pointermove", (e) => { const r = stage.getBoundingClientRect(); tip.style.transform = `translate(${e.clientX - r.left + 14}px, ${e.clientY - r.top - 34}px)`; });
+  hot.addEventListener("pointerout", (e) => { if (!e.relatedTarget || !e.relatedTarget.closest?.(".bq__hs")) tip.classList.remove("on"); });
 
-  async function aplica(antes) {
-    if (ocupado) { pendente = true; return; }
-    ocupado = true;
-    const slots = MF.slots[cfg.tam];
-    await Promise.all(fotos().map((d) => carrega(d.src)));
-    if (antes.emb !== cfg.emb) montaFixos();
-    if (antes.flor !== cfg.flor) {
-      // abre o papel, solta as flores antigas e remonta
-      bqEl.classList.add("abre");
-      sai(vivas);
-      setTimeout(() => { if (antes.tam !== cfg.tam) atualizaVerdes(); montaFlores(); }, 260);
-      setTimeout(() => bqEl.classList.remove("abre"), 640);
-    } else {
-      if (antes.tam !== cfg.tam) {
-        const N = slots.length;
-        if (N > vivas.length) {
-          vivas.forEach((v, i) => { v.s = slots[i]; v.el.style.transitionDelay = "0ms"; posFlor(v.el, v.s); });
-          const novas = slots.slice(vivas.length).map((s, j) => ({ el: criaFlor(vivas.length + j, s), s }));
-          entra(novas, 80); vivas = vivas.concat(novas);
-        } else {
-          const saem = vivas.slice(N); vivas = vivas.slice(0, N);
-          sai(saem.reverse());
-          vivas.forEach((v, i) => { v.s = slots[i]; v.el.style.transitionDelay = 120 + "ms"; posFlor(v.el, v.s); });
-        }
-        atualizaVerdes();
-      }
-      if (antes.cor !== cfg.cor) {
-        const lista = fotos();
-        vivas.forEach((v, i) => {
-          const velho = $(".bq__cab", v.el), d = lista[(v.s.foto + i * 3) % lista.length];
-          const novo = velho.cloneNode(); novo.src = BASE + d.src; novo.classList.add("troca");
-          const fl = MF.flores[cfg.flor], largura = 100 * v.s.escala * fl.largura, h = largura * d.h / d.w;
-          Object.assign(novo.style, { height: h + "px", top: -d.ancora[1] * h + "px", transitionDelay: i * 22 + "ms" });
-          v.el.appendChild(novo);
-          requestAnimationFrame(() => requestAnimationFrame(() => novo.classList.remove("troca")));
-          setTimeout(() => velho.remove(), 450 + i * 22);
-        });
-      }
+  // troca de foto: pré-carrega o destino e só então faz o crossfade
+  async function mostra(tipo) {
+    const meu = ++pedido, e = entrada(), k = chave();
+    if (k === chaveAtual) return;
+    let img = null;
+    if (e && e.available) { try { img = await carrega(e.arquivo); } catch { img = null; } }
+    if (meu !== pedido) return; // outra troca começou nesse meio-tempo
+    chaveAtual = k;
+    if (!img) {
+      skel.classList.add("on");
+      if (atual) { const velho = atual; velho.classList.add("sai"); setTimeout(() => velho.remove(), 380); atual = null; }
+      hotspots(null); return;
     }
-    setTimeout(() => { ocupado = false; if (pendente) { pendente = false; reconstroi(); } }, 420);
+    skel.classList.remove("on");
+    const novo = document.createElement("img");
+    novo.className = "bq__foto entra " + (tipo || "");
+    novo.src = img.src; novo.alt = `Buquê de ${BJ.flores[cfg.flor].nome.toLowerCase()} ${BJ.flores[cfg.flor].cores[cfg.cor].nome.toLowerCase()}, ${cfg.qtd} hastes, ${BJ.embalagens[cfg.emb].nome.toLowerCase()}`;
+    novo.style.setProperty("--fy", (e.focal?.y ?? .4) * 100 + "%");
+    vis.insertBefore(novo, $("#bqQuadHot"));
+    if (atual) { const velho = atual; velho.classList.add("sai"); setTimeout(() => velho.remove(), 380); }
+    atual = novo;
+    requestAnimationFrame(() => requestAnimationFrame(() => novo.classList.remove("entra")));
+    hotspots(e);
   }
-  function reconstroi() { L.flowers.innerHTML = ""; vivas = []; montaFixos(); montaFlores(); }
+  // pré-carrega as fotos a um clique de distância
+  function vizinhas() {
+    const lista = [];
+    const tenta = (mud) => { const c = { ...cfg, ...mud }; const e = entrada(c); if (e && e.available) lista.push(e.arquivo); };
+    Object.keys(BJ.flores).forEach((f) => tenta({ flor: f, cor: BJ.flores[f].cores[cfg.cor] ? cfg.cor : Object.keys(BJ.flores[f].cores)[0] }));
+    Object.keys(BJ.flores[cfg.flor].cores).forEach((c) => tenta({ cor: c }));
+    BJ.quantidades.forEach((q) => tenta({ qtd: String(q) }));
+    Object.keys(BJ.embalagens).forEach((m) => tenta({ emb: m }));
+    lista.forEach((a) => carrega(a).catch(() => {}));
+  }
 
   // interface
+  const opt = (desab, titulo) => desab ? `disabled title="${titulo}"` : "";
   function renderOpcoes() {
-    const F = MF.flores;
-    $("#cFlor").innerHTML = Object.entries(F).map(([k, f]) => { const c = primeiraCor(k), d = f.cores[c].fotos[0]; return `<button class="ch ${cfg.flor === k ? "on" : ""}" data-k="${k}"><img src="${BASE + d.src}" alt="" loading="lazy" /><span><b>${f.nome}</b><small>${brl(f.preco)} a haste</small></span></button>`; }).join("");
-    $("#cCor").innerHTML = Object.entries(F[cfg.flor].cores).map(([k, c]) => { const ok = c.fotos.length > 0; return `<button class="sw ${cfg.cor === k ? "on" : ""}" data-c="${k}" ${ok ? "" : "disabled"} title="${c.nome}${ok ? "" : " (em breve)"}" aria-label="${c.nome}${ok ? "" : ", em breve"}" style="background:${c.amostra}"></button>`; }).join("") + `<span class="sw__nome">${F[cfg.flor].cores[cfg.cor].nome}</span>`;
-    $("#cTam").innerHTML = TAMS.map((k) => `<button class="ch sem-img ${cfg.tam === k ? "on" : ""}" data-k="${k}"><span><b>${k} hastes</b><small>${k === "6" ? "delicado" : k === "12" ? "clássico" : "exuberante"}</small></span></button>`).join("");
-    $("#cEmb").innerHTML = Object.entries(MF.embalagens).map(([k, e]) => { const ok = !!e.camadas; return `<button class="ch sem-img ${cfg.emb === k ? "on" : ""}" data-k="${k}" ${ok ? "" : "disabled"}><span><b>${e.nome}</b><small>${ok ? (e.preco ? "+" + brl(e.preco) : "incluso") : "em breve"}</small></span></button>`; }).join("");
-    const f = F[cfg.flor], e = MF.embalagens[cfg.emb];
-    $$(".bqPrice").forEach((el) => el.textContent = brl(f.preco * n() + e.preco));
-    $$(".bqSum").forEach((el) => el.innerHTML = `${f.nome} · ${f.cores[cfg.cor].nome.toLowerCase()}<br />${n()} hastes · ${e.nome.toLowerCase()}`);
+    const F = BJ.flores, f = F[cfg.flor];
+    $("#cFlor").innerHTML = Object.entries(F).map(([k, x]) => `<button class="ch sem-img ${cfg.flor === k ? "on" : ""}" data-k="${k}"><span><b>${x.nome}</b><small>${brl(x.preco)} a haste</small></span></button>`).join("");
+    $("#cCor").innerHTML = Object.entries(f.cores).map(([k, c]) => { const d = !existe({ ...cfg, cor: k }); return `<button class="sw ${cfg.cor === k ? "on" : ""}" data-c="${k}" ${opt(d, `${c.nome}: não disponível com esta combinação`)} title="${c.nome}" aria-label="${c.nome}" style="background:${c.amostra}"></button>`; }).join("") + `<span class="sw__nome">${f.cores[cfg.cor].nome}</span>`;
+    $("#cTam").innerHTML = BJ.quantidades.map((q) => { const k = String(q), d = !existe({ ...cfg, qtd: k }); return `<button class="ch sem-img ${cfg.qtd === k ? "on" : ""}" data-k="${k}" ${opt(d, "Não disponível com esta combinação")}><span><b>${k} hastes</b><small>${k === "6" ? "delicado" : k === "12" ? "clássico" : "exuberante"}</small></span></button>`; }).join("");
+    $("#cEmb").innerHTML = Object.entries(BJ.embalagens).map(([k, e]) => { const d = !existe({ ...cfg, emb: k }); return `<button class="ch sem-img ${cfg.emb === k ? "on" : ""}" data-k="${k}" ${opt(d, "Não disponível com esta combinação")}><span><b>${e.nome}</b><small>${e.preco ? "+" + brl(e.preco) : "incluso"}</small></span></button>`; }).join("");
+    const e = BJ.embalagens[cfg.emb], q = +cfg.qtd;
+    $$(".bqPrice").forEach((el) => el.textContent = brl(f.preco * q + e.preco));
+    $$(".bqSum").forEach((el) => el.innerHTML = `${f.nome} · ${f.cores[cfg.cor].nome.toLowerCase()}<br />${q} hastes · ${e.nome.toLowerCase()}`);
   }
   const escolhe = (campo, valor) => {
     if (cfg[campo] === valor) return;
-    const antes = { ...cfg }; cfg[campo] = valor;
-    if (campo === "flor" && !corDisp(valor, cfg.cor)) cfg.cor = primeiraCor(valor);
-    renderOpcoes(); aplica(antes);
+    const antes = cfg.qtd;
+    cfg[campo] = valor;
+    if (campo === "flor" && !BJ.flores[valor].cores[cfg.cor]) cfg.cor = Object.keys(BJ.flores[valor].cores)[0];
+    if (!existe(cfg)) { const ok = Object.keys(BJ.fotos).find((k) => k.startsWith(`${cfg.flor}-${cfg.cor}-`)); if (ok) { const [, , q, m] = ok.split("-"); cfg.qtd = q; cfg.emb = m; } }
+    renderOpcoes();
+    mostra(campo === "qtd" ? (+valor > +antes ? "cresce" : "diminui") : "");
+    vizinhas();
   };
   $("#cFlor").onclick = (e) => { const x = e.target.closest(".ch"); if (x) escolhe("flor", x.dataset.k); };
   $("#cCor").onclick = (e) => { const x = e.target.closest(".sw:not([disabled])"); if (x) escolhe("cor", x.dataset.c); };
-  $("#cTam").onclick = (e) => { const x = e.target.closest(".ch"); if (x) escolhe("tam", x.dataset.k); };
+  $("#cTam").onclick = (e) => { const x = e.target.closest(".ch:not([disabled])"); if (x) escolhe("qtd", x.dataset.k); };
   $("#cEmb").onclick = (e) => { const x = e.target.closest(".ch:not([disabled])"); if (x) escolhe("emb", x.dataset.k); };
   $("#msg").addEventListener("input", (e) => { $("#cardTxt").textContent = e.target.value || "Escreva sua mensagem ✿"; $("#msgN").textContent = e.target.value.length; });
   $$(".bqAdd").forEach((b) => b.onclick = () => {
@@ -743,22 +672,11 @@
     window.open(`https://wa.me/${WA}?text=${encodeURIComponent(msg)}`, "_blank", "noopener");
   });
 
-  // balanço com o mouse
-  let swAlvo = 0, sw = 0;
-  stage.addEventListener("pointermove", (e) => { const r = stage.getBoundingClientRect(); swAlvo = ((e.clientX - r.left) / r.width - .5) * 3.2; });
-  stage.addEventListener("pointerleave", () => { swAlvo = 0; });
-  function balanca(t) { if (!MF) return; sw = lerp(sw, swAlvo, .06); bqEl.style.setProperty("--sw", (reduz ? 0 : sw + Math.sin(t * .0009) * .35) + "deg"); }
-
-  fetch(BASE + "bouquet-manifest.json").then((r) => r.json()).then(async (m) => {
-    MF = m; escala(); renderOpcoes();
-    await Promise.all([...fotos().map((d) => carrega(d.src)), ...Object.values(MF.embalagens[cfg.emb].camadas).map((d) => carrega(d.src))]);
-    montaFixos();
-    new IntersectionObserver(([e], o) => { if (e.isIntersecting) { o.disconnect(); montaFlores(true); stage.classList.add("pronto"); } }, { threshold: .2 }).observe(stage);
-    // pré-carrega o resto sem atrapalhar
-    const resto = () => Object.values(MF.flores).forEach((f) => Object.values(f.cores).forEach((c) => c.fotos.forEach((d) => carrega(d.src))));
-    "requestIdleCallback" in window ? requestIdleCallback(resto, { timeout: 3000 }) : setTimeout(resto, 1500);
-  }).catch(() => { stage.insertAdjacentHTML("beforeend", '<p class="bq__erro">Não foi possível carregar as fotos do buquê.</p>'); });
-  addEventListener("resize", () => { if (MF) escala(); });
+  fetch(BASE + "bouquet-photos.json").then((r) => r.json()).then((j) => {
+    BJ = j; renderOpcoes();
+    const e = entrada(); if (e && e.available) carrega(e.arquivo).catch(() => {});
+    new IntersectionObserver(([x], o) => { if (x.isIntersecting) { o.disconnect(); stage.classList.add("revela"); mostra("primeira"); vizinhas(); } }, { threshold: .2 }).observe(stage);
+  }).catch(() => { skel.classList.add("on"); });
 
   /* Guia de cuidados */
   const SP = {
@@ -835,7 +753,6 @@
     }
     const fr = marca.getBoundingClientRect();
     if (fr.top < VH) { const ini = y + fr.top - VH, fim = document.documentElement.scrollHeight - VH; marca.style.setProperty("--fill", clamp((y - ini) / Math.max(1, fim - ini)) * 100 + "%"); }
-    balanca(t);
     requestAnimationFrame(quadro);
   }
   addEventListener("resize", () => { VW = innerWidth; VH = innerHeight; pres(); movePill(); });
