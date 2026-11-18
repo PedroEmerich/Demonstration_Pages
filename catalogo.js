@@ -281,8 +281,8 @@ window.MODELOS = [
     pasta: "brilho-detail",
     titulo: "Brilho Detail — Estética Automotiva",
     segmento: "Automotivo",
-    descricao: "Estética automotiva com hero para lavar raspando a sujeira, montador de pacote por porte do carro e comparativo de vitrificação.",
-    tags: ["Monte seu pacote", "Vitrificação", "Interativo"],
+    descricao: "Estética automotiva com luz de inspeção no cursor, antes e depois do polimento na rolagem, gotas de água que escorrem na vitrificação e montador de pacote.",
+    tags: ["Luz de inspeção", "Antes e depois", "Monte seu pacote"],
     cor: "#3ad1ff",
   },
   {
