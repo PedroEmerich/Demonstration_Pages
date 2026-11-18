@@ -17,11 +17,21 @@ Enquanto a foto de uma combinação não existe, aparece um esqueleto com "foto 
 - **Luz:** a mesma em todas as fotos: softbox grande à esquerda, rebatedor à direita, sem estourar o branco das flores claras.
 - **Cor:** sem filtros; cada cor é fotografada de verdade.
 
-Depois de colocar o arquivo, abra `bouquet-photos.json` e, na entrada correspondente:
-1. mude `"available": false` para `true`;
-2. ajuste `focal` (centro das flores, de 0 a 1) e `hotspots` (círculos sobre as flores: x, y e raio r, de 0 a 1) para o brilho do mouse cair nas flores.
+## Fluxo com o kit de produção
 
-Combinação que não existe de verdade (por exemplo, girassol rosa)? Basta apagar a entrada do JSON: a opção some ou fica desabilitada sozinha.
+Os arquivos ficam em `modelos/flora-viva/`:
+
+1. Coloque as fotos originais (JPG, PNG, TIFF ou WebP) em `modelos/flora-viva/raw_photos/`, com o nome exato da combinação (ex.: `rosas-vermelho-12-kraft.jpg`). Essa pasta não vai para o GitHub.
+2. Rode o script dentro de `modelos/flora-viva/` (precisa de `pip install pillow`):
+   ```bash
+   cd modelos/flora-viva && python processar_fotos_buque.py
+   ```
+   Ele recorta a foto em quadrado, salva `bouquet/photos/{nome}.webp` em 1600×1600, marca `"available": true` em `bouquet-photos.json` e avisa se o fundo não estiver branco puro ou se o arquivo passar de 250 KB.
+3. Abra `calibrador_enquadramento.html` no navegador, carregue a foto, clique para posicionar `focal` e os 3 hotspots e cole o trecho gerado na entrada da foto em `bouquet-photos.json`.
+4. Faça commit de `bouquet/photos/` e de `bouquet-photos.json`. A página lê o JSON sem cache, então a foto aparece assim que o GitHub Pages publicar.
+
+Nomes, cores e preços das opções ficam em `bouquet/opcoes.json`.
+Para tirar uma combinação que não existe de verdade, apague a entrada dela em `bouquet-photos.json`: a opção fica desabilitada sozinha.
 
 ## Prioridade
 

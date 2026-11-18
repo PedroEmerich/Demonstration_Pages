@@ -9,7 +9,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link rel="preconnect" href="https://images.unsplash.com" />
-<link rel="preload" as="fetch" href="bouquet/bouquet-photos.json" crossorigin="anonymous" />
+<link rel="preload" as="fetch" href="bouquet-photos.json" crossorigin="anonymous" />
+<link rel="preload" as="fetch" href="bouquet/opcoes.json" crossorigin="anonymous" />
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=Figtree:wght@400;500;600;700&family=Caveat:wght@500&display=swap" rel="stylesheet" />
 <style>
   :root {
@@ -574,7 +575,8 @@
 
   /* =====================================================================
      MONTE SEU BUQUÊ — uma fotografia completa por combinação
-     Tudo vem de bouquet/bouquet-photos.json.
+     Opções em bouquet/opcoes.json; fotos em bouquet-photos.json (kit de produção:
+     processar_fotos_buque.py + calibrador_enquadramento.html).
      ===================================================================== */
   const BASE = "bouquet/";
   const stage = $("#stage"), vis = $("#bqVis"), hot = $("#bqHot"), skel = $("#bqSkel"), tip = $("#bqTip");
@@ -609,7 +611,7 @@
     const meu = ++pedido, e = entrada(), k = chave();
     if (k === chaveAtual) return;
     let img = null;
-    if (e && e.available) { try { img = await carrega(e.arquivo); } catch { img = null; } }
+    if (e && e.available) { try { img = await carrega(e.file); } catch { img = null; } }
     if (meu !== pedido) return; // outra troca começou nesse meio-tempo
     chaveAtual = k;
     if (!img) {
@@ -631,7 +633,7 @@
   // pré-carrega as fotos a um clique de distância
   function vizinhas() {
     const lista = [];
-    const tenta = (mud) => { const c = { ...cfg, ...mud }; const e = entrada(c); if (e && e.available) lista.push(e.arquivo); };
+    const tenta = (mud) => { const c = { ...cfg, ...mud }; const e = entrada(c); if (e && e.available) lista.push(e.file); };
     Object.keys(BJ.flores).forEach((f) => tenta({ flor: f, cor: BJ.flores[f].cores[cfg.cor] ? cfg.cor : Object.keys(BJ.flores[f].cores)[0] }));
     Object.keys(BJ.flores[cfg.flor].cores).forEach((c) => tenta({ cor: c }));
     BJ.quantidades.forEach((q) => tenta({ qtd: String(q) }));
@@ -672,9 +674,10 @@
     window.open(`https://wa.me/${WA}?text=${encodeURIComponent(msg)}`, "_blank", "noopener");
   });
 
-  fetch(BASE + "bouquet-photos.json").then((r) => r.json()).then((j) => {
-    BJ = j; renderOpcoes();
-    const e = entrada(); if (e && e.available) carrega(e.arquivo).catch(() => {});
+  Promise.all([fetch(BASE + "opcoes.json").then((r) => r.json()), fetch("bouquet-photos.json", { cache: "no-cache" }).then((r) => r.json())]).then(([op, fotos]) => {
+    BJ = { ...op, fotos: Object.fromEntries((Array.isArray(fotos) ? fotos : Object.values(fotos)).map((f) => [f.id, f])) };
+    renderOpcoes();
+    const e = entrada(); if (e && e.available) carrega(e.file).catch(() => {});
     new IntersectionObserver(([x], o) => { if (x.isIntersecting) { o.disconnect(); stage.classList.add("revela"); mostra("primeira"); vizinhas(); } }, { threshold: .2 }).observe(stage);
   }).catch(() => { skel.classList.add("on"); });
 

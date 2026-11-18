@@ -1,0 +1,112 @@
+{
+ "versao": 2,
+ "tamanho": [
+  1600,
+  1600
+ ],
+ "quantidades": [
+  6,
+  12,
+  24
+ ],
+ "flores": {
+  "rosas": {
+   "nome": "Rosas",
+   "singular": "Rosa",
+   "preco": 14,
+   "cores": {
+    "vermelho": {
+     "nome": "Vermelho",
+     "adjetivo": "vermelha",
+     "amostra": "#a3162c"
+    },
+    "rosa": {
+     "nome": "Rosa",
+     "adjetivo": "cor-de-rosa",
+     "amostra": "#e9a3ad"
+    },
+    "branco": {
+     "nome": "Branco",
+     "adjetivo": "branca",
+     "amostra": "#f6f1e7"
+    },
+    "amarelo": {
+     "nome": "Amarelo",
+     "adjetivo": "amarela",
+     "amostra": "#f2c230"
+    }
+   }
+  },
+  "girassois": {
+   "nome": "Girassóis",
+   "singular": "Girassol",
+   "preco": 12,
+   "cores": {
+    "amarelo": {
+     "nome": "Amarelo",
+     "adjetivo": "",
+     "amostra": "#f2a516"
+    }
+   }
+  },
+  "tulipas": {
+   "nome": "Tulipas",
+   "singular": "Tulipa",
+   "preco": 18,
+   "cores": {
+    "rosa": {
+     "nome": "Rosa",
+     "adjetivo": "rosa",
+     "amostra": "#e5577e"
+    },
+    "branco": {
+     "nome": "Branco",
+     "adjetivo": "branca",
+     "amostra": "#f6f1e7"
+    },
+    "amarelo": {
+     "nome": "Amarelo",
+     "adjetivo": "amarela",
+     "amostra": "#f6d21c"
+    },
+    "lilas": {
+     "nome": "Lilás",
+     "adjetivo": "lilás",
+     "amostra": "#a9659f"
+    }
+   }
+  },
+  "campo": {
+   "nome": "Flores do campo",
+   "singular": "Flor do campo",
+   "preco": 10,
+   "cores": {
+    "colorido": {
+     "nome": "Colorido",
+     "adjetivo": "colorida",
+     "amostra": "conic-gradient(#e8573f,#f4c542,#c98bc4,#7aa6d6,#e8573f)"
+    },
+    "branco": {
+     "nome": "Branco",
+     "adjetivo": "branca",
+     "amostra": "#f6f1e7"
+    }
+   }
+  }
+ },
+ "embalagens": {
+  "kraft": {
+   "nome": "Papel kraft",
+   "preco": 0
+  },
+  "seda": {
+   "nome": "Papel de seda",
+   "preco": 10
+  },
+  "caixa": {
+   "nome": "Caixa luxo",
+   "preco": 35
+  }
+ },
+ "observacao": "Nomes, cores e preços das opções do 'Monte seu buquê'. As fotos ficam em ../bouquet-photos.json (formato do kit de produção)."
+}

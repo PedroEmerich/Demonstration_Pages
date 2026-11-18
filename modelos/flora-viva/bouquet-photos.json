@@ -1,0 +1,2972 @@
+[
+  {
+    "id": "rosas-vermelho-6-kraft",
+    "flor": "rosas",
+    "cor": "vermelho",
+    "qtd": 6,
+    "embalagem": "kraft",
+    "file": "photos/rosas-vermelho-6-kraft.webp",
+    "available": false,
+    "focal": {
+      "x": 0.5,
+      "y": 0.28
+    },
+    "hotspots": [
+      {
+        "x": 0.5,
+        "y": 0.26,
+        "r": 0.18
+      },
+      {
+        "x": 0.38,
+        "y": 0.34,
+        "r": 0.13
+      },
+      {
+        "x": 0.62,
+        "y": 0.34,
+        "r": 0.13
+      }
+    ]
+  },
+  {
+    "id": "rosas-vermelho-6-seda",
+    "flor": "rosas",
+    "cor": "vermelho",
+    "qtd": 6,
+    "embalagem": "seda",
+    "file": "photos/rosas-vermelho-6-seda.webp",
+    "available": false,
+    "focal": {
+      "x": 0.5,
+      "y": 0.28
+    },
+    "hotspots": [
+      {
+        "x": 0.5,
+        "y": 0.26,
+        "r": 0.18
+      },
+      {
+        "x": 0.38,
+        "y": 0.34,
+        "r": 0.13
+      },
+      {
+        "x": 0.62,
+        "y": 0.34,
+        "r": 0.13
+      }
+    ]
+  },
+  {
+    "id": "rosas-vermelho-6-caixa",
+    "flor": "rosas",
+    "cor": "vermelho",
+    "qtd": 6,
+    "embalagem": "caixa",
+    "file": "photos/rosas-vermelho-6-caixa.webp",
+    "available": false,
+    "focal": {
+      "x": 0.5,
+      "y": 0.36
+    },
+    "hotspots": [
+      {
+        "x": 0.5,
+        "y": 0.34,
+        "r": 0.22
+      },
+      {
+        "x": 0.36,
+        "y": 0.42,
+        "r": 0.15
+      },
+      {
+        "x": 0.64,
+        "y": 0.42,
+        "r": 0.15
+      }
+    ]
+  },
+  {
+    "id": "rosas-vermelho-12-kraft",
+    "flor": "rosas",
+    "cor": "vermelho",
+    "qtd": 12,
+    "embalagem": "kraft",
+    "file": "photos/rosas-vermelho-12-kraft.webp",
+    "available": false,
+    "focal": {
+      "x": 0.5,
+      "y": 0.28
+    },
+    "hotspots": [
+      {
+        "x": 0.5,
+        "y": 0.26,
+        "r": 0.22
+      },
+      {
+        "x": 0.38,
+        "y": 0.34,
+        "r": 0.15
+      },
+      {
+        "x": 0.62,
+        "y": 0.34,
+        "r": 0.15
+      }
+    ]
+  },
+  {
+    "id": "rosas-vermelho-12-seda",
+    "flor": "rosas",
+    "cor": "vermelho",
+    "qtd": 12,
+    "embalagem": "seda",
+    "file": "photos/rosas-vermelho-12-seda.webp",
+    "available": false,
+    "focal": {
+      "x": 0.5,
+      "y": 0.28
+    },
+    "hotspots": [
+      {
+        "x": 0.5,
+        "y": 0.26,
+        "r": 0.22
+      },
+      {
+        "x": 0.38,
+        "y": 0.34,
+        "r": 0.15
+      },
+      {
+        "x": 0.62,
+        "y": 0.34,
+        "r": 0.15
+      }
+    ]
+  },
+  {
+    "id": "rosas-vermelho-12-caixa",
+    "flor": "rosas",
+    "cor": "vermelho",
+    "qtd": 12,
+    "embalagem": "caixa",
+    "file": "photos/rosas-vermelho-12-caixa.webp",
+    "available": false,
+    "focal": {
+      "x": 0.5,
+      "y": 0.36
+    },
+    "hotspots": [
+      {
+        "x": 0.5,
+        "y": 0.34,
+        "r": 0.26
+      },
+      {
+        "x": 0.36,
+        "y": 0.42,
+        "r": 0.18
+      },
+      {
+        "x": 0.64,
+        "y": 0.42,
+        "r": 0.18
+      }
+    ]
+  },
+  {
+    "id": "rosas-vermelho-24-kraft",
+    "flor": "rosas",
+    "cor": "vermelho",
+    "qtd": 24,
+    "embalagem": "kraft",
+    "file": "photos/rosas-vermelho-24-kraft.webp",
+    "available": false,
+    "focal": {
+      "x": 0.5,
+      "y": 0.28
+    },
+    "hotspots": [
+      {
+        "x": 0.5,
+        "y": 0.26,
+        "r": 0.26
+      },
+      {
+        "x": 0.38,
+        "y": 0.34,
+        "r": 0.18
+      },
+      {
+        "x": 0.62,
+        "y": 0.34,
+        "r": 0.18
+      }
+    ]
+  },
+  {
+    "id": "rosas-vermelho-24-seda",
+    "flor": "rosas",
+    "cor": "vermelho",
+    "qtd": 24,
+    "embalagem": "seda",
+    "file": "photos/rosas-vermelho-24-seda.webp",
+    "available": false,
+    "focal": {
+      "x": 0.5,
+      "y": 0.28
+    },
+    "hotspots": [
+      {
+        "x": 0.5,
+        "y": 0.26,
+        "r": 0.26
+      },
+      {
+        "x": 0.38,
+        "y": 0.34,
+        "r": 0.18
+      },
+      {
+        "x": 0.62,
+        "y": 0.34,
+        "r": 0.18
+      }
+    ]
+  },
+  {
+    "id": "rosas-vermelho-24-caixa",
+    "flor": "rosas",
+    "cor": "vermelho",
+    "qtd": 24,
+    "embalagem": "caixa",
+    "file": "photos/rosas-vermelho-24-caixa.webp",
+    "available": false,
+    "focal": {
+      "x": 0.5,
+      "y": 0.36
+    },
+    "hotspots": [
+      {
+        "x": 0.5,
+        "y": 0.34,
+        "r": 0.3
+      },
+      {
+        "x": 0.36,
+        "y": 0.42,
+        "r": 0.21
+      },
+      {
+        "x": 0.64,
+        "y": 0.42,
+        "r": 0.21
+      }
+    ]
+  },
+  {
+    "id": "rosas-rosa-6-kraft",
+    "flor": "rosas",
+    "cor": "rosa",
+    "qtd": 6,
+    "embalagem": "kraft",
+    "file": "photos/rosas-rosa-6-kraft.webp",
+    "available": false,
+    "focal": {
+      "x": 0.5,
+      "y": 0.28
+    },
+    "hotspots": [
+      {
+        "x": 0.5,
+        "y": 0.26,
+        "r": 0.18
+      },
+      {
+        "x": 0.38,
+        "y": 0.34,
+        "r": 0.13
+      },
+      {
+        "x": 0.62,
+        "y": 0.34,
+        "r": 0.13
+      }
+    ]
+  },
+  {
+    "id": "rosas-rosa-6-seda",
+    "flor": "rosas",
+    "cor": "rosa",
+    "qtd": 6,
+    "embalagem": "seda",
+    "file": "photos/rosas-rosa-6-seda.webp",
+    "available": false,
+    "focal": {
+      "x": 0.5,
+      "y": 0.28
+    },
+    "hotspots": [
+      {
+        "x": 0.5,
+        "y": 0.26,
+        "r": 0.18
+      },
+      {
+        "x": 0.38,
+        "y": 0.34,
+        "r": 0.13
+      },
+      {
+        "x": 0.62,
+        "y": 0.34,
+        "r": 0.13
+      }
+    ]
+  },
+  {
+    "id": "rosas-rosa-6-caixa",
+    "flor": "rosas",
+    "cor": "rosa",
+    "qtd": 6,
+    "embalagem": "caixa",
+    "file": "photos/rosas-rosa-6-caixa.webp",
+    "available": false,
+    "focal": {
+      "x": 0.5,
+      "y": 0.36
+    },
+    "hotspots": [
+      {
+        "x": 0.5,
+        "y": 0.34,
+        "r": 0.22
+      },
+      {
+        "x": 0.36,
+        "y": 0.42,
+        "r": 0.15
+      },
+      {
+        "x": 0.64,
+        "y": 0.42,
+        "r": 0.15
+      }
+    ]
+  },
+  {
+    "id": "rosas-rosa-12-kraft",
+    "flor": "rosas",
+    "cor": "rosa",
+    "qtd": 12,
+    "embalagem": "kraft",
+    "file": "photos/rosas-rosa-12-kraft.webp",
+    "available": false,
+    "focal": {
+      "x": 0.5,
+      "y": 0.28
+    },
+    "hotspots": [
+      {
+        "x": 0.5,
+        "y": 0.26,
+        "r": 0.22
+      },
+      {
+        "x": 0.38,
+        "y": 0.34,
+        "r": 0.15
+      },
+      {
+        "x": 0.62,
+        "y": 0.34,
+        "r": 0.15
+      }
+    ]
+  },
+  {
+    "id": "rosas-rosa-12-seda",
+    "flor": "rosas",
+    "cor": "rosa",
+    "qtd": 12,
+    "embalagem": "seda",
+    "file": "photos/rosas-rosa-12-seda.webp",
+    "available": false,
+    "focal": {
+      "x": 0.5,
+      "y": 0.28
+    },
+    "hotspots": [
+      {
+        "x": 0.5,
+        "y": 0.26,
+        "r": 0.22
+      },
+      {
+        "x": 0.38,
+        "y": 0.34,
+        "r": 0.15
+      },
+      {
+        "x": 0.62,
+        "y": 0.34,
+        "r": 0.15
+      }
+    ]
+  },
+  {
+    "id": "rosas-rosa-12-caixa",
+    "flor": "rosas",
+    "cor": "rosa",
+    "qtd": 12,
+    "embalagem": "caixa",
+    "file": "photos/rosas-rosa-12-caixa.webp",
+    "available": false,
+    "focal": {
+      "x": 0.5,
+      "y": 0.36
+    },
+    "hotspots": [
+      {
+        "x": 0.5,
+        "y": 0.34,
+        "r": 0.26
+      },
+      {
+        "x": 0.36,
+        "y": 0.42,
+        "r": 0.18
+      },
+      {
+        "x": 0.64,
+        "y": 0.42,
+        "r": 0.18
+      }
+    ]
+  },
+  {
+    "id": "rosas-rosa-24-kraft",
+    "flor": "rosas",
+    "cor": "rosa",
+    "qtd": 24,
+    "embalagem": "kraft",
+    "file": "photos/rosas-rosa-24-kraft.webp",
+    "available": false,
+    "focal": {
+      "x": 0.5,
+      "y": 0.28
+    },
+    "hotspots": [
+      {
+        "x": 0.5,
+        "y": 0.26,
+        "r": 0.26
+      },
+      {
+        "x": 0.38,
+        "y": 0.34,
+        "r": 0.18
+      },
+      {
+        "x": 0.62,
+        "y": 0.34,
+        "r": 0.18
+      }
+    ]
+  },
+  {
+    "id": "rosas-rosa-24-seda",
+    "flor": "rosas",
+    "cor": "rosa",
+    "qtd": 24,
+    "embalagem": "seda",
+    "file": "photos/rosas-rosa-24-seda.webp",
+    "available": false,
+    "focal": {
+      "x": 0.5,
+      "y": 0.28
+    },
+    "hotspots": [
+      {
+        "x": 0.5,
+        "y": 0.26,
+        "r": 0.26
+      },
+      {
+        "x": 0.38,
+        "y": 0.34,
+        "r": 0.18
+      },
+      {
+        "x": 0.62,
+        "y": 0.34,
+        "r": 0.18
+      }
+    ]
+  },
+  {
+    "id": "rosas-rosa-24-caixa",
+    "flor": "rosas",
+    "cor": "rosa",
+    "qtd": 24,
+    "embalagem": "caixa",
+    "file": "photos/rosas-rosa-24-caixa.webp",
+    "available": false,
+    "focal": {
+      "x": 0.5,
+      "y": 0.36
+    },
+    "hotspots": [
+      {
+        "x": 0.5,
+        "y": 0.34,
+        "r": 0.3
+      },
+      {
+        "x": 0.36,
+        "y": 0.42,
+        "r": 0.21
+      },
+      {
+        "x": 0.64,
+        "y": 0.42,
+        "r": 0.21
+      }
+    ]
+  },
+  {
+    "id": "rosas-branco-6-kraft",
+    "flor": "rosas",
+    "cor": "branco",
+    "qtd": 6,
+    "embalagem": "kraft",
+    "file": "photos/rosas-branco-6-kraft.webp",
+    "available": false,
+    "focal": {
+      "x": 0.5,
+      "y": 0.28
+    },
+    "hotspots": [
+      {
+        "x": 0.5,
+        "y": 0.26,
+        "r": 0.18
+      },
+      {
+        "x": 0.38,
+        "y": 0.34,
+        "r": 0.13
+      },
+      {
+        "x": 0.62,
+        "y": 0.34,
+        "r": 0.13
+      }
+    ]
+  },
+  {
+    "id": "rosas-branco-6-seda",
+    "flor": "rosas",
+    "cor": "branco",
+    "qtd": 6,
+    "embalagem": "seda",
+    "file": "photos/rosas-branco-6-seda.webp",
+    "available": false,
+    "focal": {
+      "x": 0.5,
+      "y": 0.28
+    },
+    "hotspots": [
+      {
+        "x": 0.5,
+        "y": 0.26,
+        "r": 0.18
+      },
+      {
+        "x": 0.38,
+        "y": 0.34,
+        "r": 0.13
+      },
+      {
+        "x": 0.62,
+        "y": 0.34,
+        "r": 0.13
+      }
+    ]
+  },
+  {
+    "id": "rosas-branco-6-caixa",
+    "flor": "rosas",
+    "cor": "branco",
+    "qtd": 6,
+    "embalagem": "caixa",
+    "file": "photos/rosas-branco-6-caixa.webp",
+    "available": false,
+    "focal": {
+      "x": 0.5,
+      "y": 0.36
+    },
+    "hotspots": [
+      {
+        "x": 0.5,
+        "y": 0.34,
+        "r": 0.22
+      },
+      {
+        "x": 0.36,
+        "y": 0.42,
+        "r": 0.15
+      },
+      {
+        "x": 0.64,
+        "y": 0.42,
+        "r": 0.15
+      }
+    ]
+  },
+  {
+    "id": "rosas-branco-12-kraft",
+    "flor": "rosas",
+    "cor": "branco",
+    "qtd": 12,
+    "embalagem": "kraft",
+    "file": "photos/rosas-branco-12-kraft.webp",
+    "available": false,
+    "focal": {
+      "x": 0.5,
+      "y": 0.28
+    },
+    "hotspots": [
+      {
+        "x": 0.5,
+        "y": 0.26,
+        "r": 0.22
+      },
+      {
+        "x": 0.38,
+        "y": 0.34,
+        "r": 0.15
+      },
+      {
+        "x": 0.62,
+        "y": 0.34,
+        "r": 0.15
+      }
+    ]
+  },
+  {
+    "id": "rosas-branco-12-seda",
+    "flor": "rosas",
+    "cor": "branco",
+    "qtd": 12,
+    "embalagem": "seda",
+    "file": "photos/rosas-branco-12-seda.webp",
+    "available": false,
+    "focal": {
+      "x": 0.5,
+      "y": 0.28
+    },
+    "hotspots": [
+      {
+        "x": 0.5,
+        "y": 0.26,
+        "r": 0.22
+      },
+      {
+        "x": 0.38,
+        "y": 0.34,
+        "r": 0.15
+      },
+      {
+        "x": 0.62,
+        "y": 0.34,
+        "r": 0.15
+      }
+    ]
+  },
+  {
+    "id": "rosas-branco-12-caixa",
+    "flor": "rosas",
+    "cor": "branco",
+    "qtd": 12,
+    "embalagem": "caixa",
+    "file": "photos/rosas-branco-12-caixa.webp",
+    "available": false,
+    "focal": {
+      "x": 0.5,
+      "y": 0.36
+    },
+    "hotspots": [
+      {
+        "x": 0.5,
+        "y": 0.34,
+        "r": 0.26
+      },
+      {
+        "x": 0.36,
+        "y": 0.42,
+        "r": 0.18
+      },
+      {
+        "x": 0.64,
+        "y": 0.42,
+        "r": 0.18
+      }
+    ]
+  },
+  {
+    "id": "rosas-branco-24-kraft",
+    "flor": "rosas",
+    "cor": "branco",
+    "qtd": 24,
+    "embalagem": "kraft",
+    "file": "photos/rosas-branco-24-kraft.webp",
+    "available": false,
+    "focal": {
+      "x": 0.5,
+      "y": 0.28
+    },
+    "hotspots": [
+      {
+        "x": 0.5,
+        "y": 0.26,
+        "r": 0.26
+      },
+      {
+        "x": 0.38,
+        "y": 0.34,
+        "r": 0.18
+      },
+      {
+        "x": 0.62,
+        "y": 0.34,
+        "r": 0.18
+      }
+    ]
+  },
+  {
+    "id": "rosas-branco-24-seda",
+    "flor": "rosas",
+    "cor": "branco",
+    "qtd": 24,
+    "embalagem": "seda",
+    "file": "photos/rosas-branco-24-seda.webp",
+    "available": false,
+    "focal": {
+      "x": 0.5,
+      "y": 0.28
+    },
+    "hotspots": [
+      {
+        "x": 0.5,
+        "y": 0.26,
+        "r": 0.26
+      },
+      {
+        "x": 0.38,
+        "y": 0.34,
+        "r": 0.18
+      },
+      {
+        "x": 0.62,
+        "y": 0.34,
+        "r": 0.18
+      }
+    ]
+  },
+  {
+    "id": "rosas-branco-24-caixa",
+    "flor": "rosas",
+    "cor": "branco",
+    "qtd": 24,
+    "embalagem": "caixa",
+    "file": "photos/rosas-branco-24-caixa.webp",
+    "available": false,
+    "focal": {
+      "x": 0.5,
+      "y": 0.36
+    },
+    "hotspots": [
+      {
+        "x": 0.5,
+        "y": 0.34,
+        "r": 0.3
+      },
+      {
+        "x": 0.36,
+        "y": 0.42,
+        "r": 0.21
+      },
+      {
+        "x": 0.64,
+        "y": 0.42,
+        "r": 0.21
+      }
+    ]
+  },
+  {
+    "id": "rosas-amarelo-6-kraft",
+    "flor": "rosas",
+    "cor": "amarelo",
+    "qtd": 6,
+    "embalagem": "kraft",
+    "file": "photos/rosas-amarelo-6-kraft.webp",
+    "available": false,
+    "focal": {
+      "x": 0.5,
+      "y": 0.28
+    },
+    "hotspots": [
+      {
+        "x": 0.5,
+        "y": 0.26,
+        "r": 0.18
+      },
+      {
+        "x": 0.38,
+        "y": 0.34,
+        "r": 0.13
+      },
+      {
+        "x": 0.62,
+        "y": 0.34,
+        "r": 0.13
+      }
+    ]
+  },
+  {
+    "id": "rosas-amarelo-6-seda",
+    "flor": "rosas",
+    "cor": "amarelo",
+    "qtd": 6,
+    "embalagem": "seda",
+    "file": "photos/rosas-amarelo-6-seda.webp",
+    "available": false,
+    "focal": {
+      "x": 0.5,
+      "y": 0.28
+    },
+    "hotspots": [
+      {
+        "x": 0.5,
+        "y": 0.26,
+        "r": 0.18
+      },
+      {
+        "x": 0.38,
+        "y": 0.34,
+        "r": 0.13
+      },
+      {
+        "x": 0.62,
+        "y": 0.34,
+        "r": 0.13
+      }
+    ]
+  },
+  {
+    "id": "rosas-amarelo-6-caixa",
+    "flor": "rosas",
+    "cor": "amarelo",
+    "qtd": 6,
+    "embalagem": "caixa",
+    "file": "photos/rosas-amarelo-6-caixa.webp",
+    "available": false,
+    "focal": {
+      "x": 0.5,
+      "y": 0.36
+    },
+    "hotspots": [
+      {
+        "x": 0.5,
+        "y": 0.34,
+        "r": 0.22
+      },
+      {
+        "x": 0.36,
+        "y": 0.42,
+        "r": 0.15
+      },
+      {
+        "x": 0.64,
+        "y": 0.42,
+        "r": 0.15
+      }
+    ]
+  },
+  {
+    "id": "rosas-amarelo-12-kraft",
+    "flor": "rosas",
+    "cor": "amarelo",
+    "qtd": 12,
+    "embalagem": "kraft",
+    "file": "photos/rosas-amarelo-12-kraft.webp",
+    "available": false,
+    "focal": {
+      "x": 0.5,
+      "y": 0.28
+    },
+    "hotspots": [
+      {
+        "x": 0.5,
+        "y": 0.26,
+        "r": 0.22
+      },
+      {
+        "x": 0.38,
+        "y": 0.34,
+        "r": 0.15
+      },
+      {
+        "x": 0.62,
+        "y": 0.34,
+        "r": 0.15
+      }
+    ]
+  },
+  {
+    "id": "rosas-amarelo-12-seda",
+    "flor": "rosas",
+    "cor": "amarelo",
+    "qtd": 12,
+    "embalagem": "seda",
+    "file": "photos/rosas-amarelo-12-seda.webp",
+    "available": false,
+    "focal": {
+      "x": 0.5,
+      "y": 0.28
+    },
+    "hotspots": [
+      {
+        "x": 0.5,
+        "y": 0.26,
+        "r": 0.22
+      },
+      {
+        "x": 0.38,
+        "y": 0.34,
+        "r": 0.15
+      },
+      {
+        "x": 0.62,
+        "y": 0.34,
+        "r": 0.15
+      }
+    ]
+  },
+  {
+    "id": "rosas-amarelo-12-caixa",
+    "flor": "rosas",
+    "cor": "amarelo",
+    "qtd": 12,
+    "embalagem": "caixa",
+    "file": "photos/rosas-amarelo-12-caixa.webp",
+    "available": false,
+    "focal": {
+      "x": 0.5,
+      "y": 0.36
+    },
+    "hotspots": [
+      {
+        "x": 0.5,
+        "y": 0.34,
+        "r": 0.26
+      },
+      {
+        "x": 0.36,
+        "y": 0.42,
+        "r": 0.18
+      },
+      {
+        "x": 0.64,
+        "y": 0.42,
+        "r": 0.18
+      }
+    ]
+  },
+  {
+    "id": "rosas-amarelo-24-kraft",
+    "flor": "rosas",
+    "cor": "amarelo",
+    "qtd": 24,
+    "embalagem": "kraft",
+    "file": "photos/rosas-amarelo-24-kraft.webp",
+    "available": false,
+    "focal": {
+      "x": 0.5,
+      "y": 0.28
+    },
+    "hotspots": [
+      {
+        "x": 0.5,
+        "y": 0.26,
+        "r": 0.26
+      },
+      {
+        "x": 0.38,
+        "y": 0.34,
+        "r": 0.18
+      },
+      {
+        "x": 0.62,
+        "y": 0.34,
+        "r": 0.18
+      }
+    ]
+  },
+  {
+    "id": "rosas-amarelo-24-seda",
+    "flor": "rosas",
+    "cor": "amarelo",
+    "qtd": 24,
+    "embalagem": "seda",
+    "file": "photos/rosas-amarelo-24-seda.webp",
+    "available": false,
+    "focal": {
+      "x": 0.5,
+      "y": 0.28
+    },
+    "hotspots": [
+      {
+        "x": 0.5,
+        "y": 0.26,
+        "r": 0.26
+      },
+      {
+        "x": 0.38,
+        "y": 0.34,
+        "r": 0.18
+      },
+      {
+        "x": 0.62,
+        "y": 0.34,
+        "r": 0.18
+      }
+    ]
+  },
+  {
+    "id": "rosas-amarelo-24-caixa",
+    "flor": "rosas",
+    "cor": "amarelo",
+    "qtd": 24,
+    "embalagem": "caixa",
+    "file": "photos/rosas-amarelo-24-caixa.webp",
+    "available": false,
+    "focal": {
+      "x": 0.5,
+      "y": 0.36
+    },
+    "hotspots": [
+      {
+        "x": 0.5,
+        "y": 0.34,
+        "r": 0.3
+      },
+      {
+        "x": 0.36,
+        "y": 0.42,
+        "r": 0.21
+      },
+      {
+        "x": 0.64,
+        "y": 0.42,
+        "r": 0.21
+      }
+    ]
+  },
+  {
+    "id": "girassois-amarelo-6-kraft",
+    "flor": "girassois",
+    "cor": "amarelo",
+    "qtd": 6,
+    "embalagem": "kraft",
+    "file": "photos/girassois-amarelo-6-kraft.webp",
+    "available": false,
+    "focal": {
+      "x": 0.5,
+      "y": 0.28
+    },
+    "hotspots": [
+      {
+        "x": 0.5,
+        "y": 0.26,
+        "r": 0.18
+      },
+      {
+        "x": 0.38,
+        "y": 0.34,
+        "r": 0.13
+      },
+      {
+        "x": 0.62,
+        "y": 0.34,
+        "r": 0.13
+      }
+    ]
+  },
+  {
+    "id": "girassois-amarelo-6-seda",
+    "flor": "girassois",
+    "cor": "amarelo",
+    "qtd": 6,
+    "embalagem": "seda",
+    "file": "photos/girassois-amarelo-6-seda.webp",
+    "available": false,
+    "focal": {
+      "x": 0.5,
+      "y": 0.28
+    },
+    "hotspots": [
+      {
+        "x": 0.5,
+        "y": 0.26,
+        "r": 0.18
+      },
+      {
+        "x": 0.38,
+        "y": 0.34,
+        "r": 0.13
+      },
+      {
+        "x": 0.62,
+        "y": 0.34,
+        "r": 0.13
+      }
+    ]
+  },
+  {
+    "id": "girassois-amarelo-6-caixa",
+    "flor": "girassois",
+    "cor": "amarelo",
+    "qtd": 6,
+    "embalagem": "caixa",
+    "file": "photos/girassois-amarelo-6-caixa.webp",
+    "available": false,
+    "focal": {
+      "x": 0.5,
+      "y": 0.36
+    },
+    "hotspots": [
+      {
+        "x": 0.5,
+        "y": 0.34,
+        "r": 0.22
+      },
+      {
+        "x": 0.36,
+        "y": 0.42,
+        "r": 0.15
+      },
+      {
+        "x": 0.64,
+        "y": 0.42,
+        "r": 0.15
+      }
+    ]
+  },
+  {
+    "id": "girassois-amarelo-12-kraft",
+    "flor": "girassois",
+    "cor": "amarelo",
+    "qtd": 12,
+    "embalagem": "kraft",
+    "file": "photos/girassois-amarelo-12-kraft.webp",
+    "available": false,
+    "focal": {
+      "x": 0.5,
+      "y": 0.28
+    },
+    "hotspots": [
+      {
+        "x": 0.5,
+        "y": 0.26,
+        "r": 0.22
+      },
+      {
+        "x": 0.38,
+        "y": 0.34,
+        "r": 0.15
+      },
+      {
+        "x": 0.62,
+        "y": 0.34,
+        "r": 0.15
+      }
+    ]
+  },
+  {
+    "id": "girassois-amarelo-12-seda",
+    "flor": "girassois",
+    "cor": "amarelo",
+    "qtd": 12,
+    "embalagem": "seda",
+    "file": "photos/girassois-amarelo-12-seda.webp",
+    "available": false,
+    "focal": {
+      "x": 0.5,
+      "y": 0.28
+    },
+    "hotspots": [
+      {
+        "x": 0.5,
+        "y": 0.26,
+        "r": 0.22
+      },
+      {
+        "x": 0.38,
+        "y": 0.34,
+        "r": 0.15
+      },
+      {
+        "x": 0.62,
+        "y": 0.34,
+        "r": 0.15
+      }
+    ]
+  },
+  {
+    "id": "girassois-amarelo-12-caixa",
+    "flor": "girassois",
+    "cor": "amarelo",
+    "qtd": 12,
+    "embalagem": "caixa",
+    "file": "photos/girassois-amarelo-12-caixa.webp",
+    "available": false,
+    "focal": {
+      "x": 0.5,
+      "y": 0.36
+    },
+    "hotspots": [
+      {
+        "x": 0.5,
+        "y": 0.34,
+        "r": 0.26
+      },
+      {
+        "x": 0.36,
+        "y": 0.42,
+        "r": 0.18
+      },
+      {
+        "x": 0.64,
+        "y": 0.42,
+        "r": 0.18
+      }
+    ]
+  },
+  {
+    "id": "girassois-amarelo-24-kraft",
+    "flor": "girassois",
+    "cor": "amarelo",
+    "qtd": 24,
+    "embalagem": "kraft",
+    "file": "photos/girassois-amarelo-24-kraft.webp",
+    "available": false,
+    "focal": {
+      "x": 0.5,
+      "y": 0.28
+    },
+    "hotspots": [
+      {
+        "x": 0.5,
+        "y": 0.26,
+        "r": 0.26
+      },
+      {
+        "x": 0.38,
+        "y": 0.34,
+        "r": 0.18
+      },
+      {
+        "x": 0.62,
+        "y": 0.34,
+        "r": 0.18
+      }
+    ]
+  },
+  {
+    "id": "girassois-amarelo-24-seda",
+    "flor": "girassois",
+    "cor": "amarelo",
+    "qtd": 24,
+    "embalagem": "seda",
+    "file": "photos/girassois-amarelo-24-seda.webp",
+    "available": false,
+    "focal": {
+      "x": 0.5,
+      "y": 0.28
+    },
+    "hotspots": [
+      {
+        "x": 0.5,
+        "y": 0.26,
+        "r": 0.26
+      },
+      {
+        "x": 0.38,
+        "y": 0.34,
+        "r": 0.18
+      },
+      {
+        "x": 0.62,
+        "y": 0.34,
+        "r": 0.18
+      }
+    ]
+  },
+  {
+    "id": "girassois-amarelo-24-caixa",
+    "flor": "girassois",
+    "cor": "amarelo",
+    "qtd": 24,
+    "embalagem": "caixa",
+    "file": "photos/girassois-amarelo-24-caixa.webp",
+    "available": false,
+    "focal": {
+      "x": 0.5,
+      "y": 0.36
+    },
+    "hotspots": [
+      {
+        "x": 0.5,
+        "y": 0.34,
+        "r": 0.3
+      },
+      {
+        "x": 0.36,
+        "y": 0.42,
+        "r": 0.21
+      },
+      {
+        "x": 0.64,
+        "y": 0.42,
+        "r": 0.21
+      }
+    ]
+  },
+  {
+    "id": "tulipas-rosa-6-kraft",
+    "flor": "tulipas",
+    "cor": "rosa",
+    "qtd": 6,
+    "embalagem": "kraft",
+    "file": "photos/tulipas-rosa-6-kraft.webp",
+    "available": false,
+    "focal": {
+      "x": 0.5,
+      "y": 0.28
+    },
+    "hotspots": [
+      {
+        "x": 0.5,
+        "y": 0.26,
+        "r": 0.18
+      },
+      {
+        "x": 0.38,
+        "y": 0.34,
+        "r": 0.13
+      },
+      {
+        "x": 0.62,
+        "y": 0.34,
+        "r": 0.13
+      }
+    ]
+  },
+  {
+    "id": "tulipas-rosa-6-seda",
+    "flor": "tulipas",
+    "cor": "rosa",
+    "qtd": 6,
+    "embalagem": "seda",
+    "file": "photos/tulipas-rosa-6-seda.webp",
+    "available": false,
+    "focal": {
+      "x": 0.5,
+      "y": 0.28
+    },
+    "hotspots": [
+      {
+        "x": 0.5,
+        "y": 0.26,
+        "r": 0.18
+      },
+      {
+        "x": 0.38,
+        "y": 0.34,
+        "r": 0.13
+      },
+      {
+        "x": 0.62,
+        "y": 0.34,
+        "r": 0.13
+      }
+    ]
+  },
+  {
+    "id": "tulipas-rosa-6-caixa",
+    "flor": "tulipas",
+    "cor": "rosa",
+    "qtd": 6,
+    "embalagem": "caixa",
+    "file": "photos/tulipas-rosa-6-caixa.webp",
+    "available": false,
+    "focal": {
+      "x": 0.5,
+      "y": 0.36
+    },
+    "hotspots": [
+      {
+        "x": 0.5,
+        "y": 0.34,
+        "r": 0.22
+      },
+      {
+        "x": 0.36,
+        "y": 0.42,
+        "r": 0.15
+      },
+      {
+        "x": 0.64,
+        "y": 0.42,
+        "r": 0.15
+      }
+    ]
+  },
+  {
+    "id": "tulipas-rosa-12-kraft",
+    "flor": "tulipas",
+    "cor": "rosa",
+    "qtd": 12,
+    "embalagem": "kraft",
+    "file": "photos/tulipas-rosa-12-kraft.webp",
+    "available": false,
+    "focal": {
+      "x": 0.5,
+      "y": 0.28
+    },
+    "hotspots": [
+      {
+        "x": 0.5,
+        "y": 0.26,
+        "r": 0.22
+      },
+      {
+        "x": 0.38,
+        "y": 0.34,
+        "r": 0.15
+      },
+      {
+        "x": 0.62,
+        "y": 0.34,
+        "r": 0.15
+      }
+    ]
+  },
+  {
+    "id": "tulipas-rosa-12-seda",
+    "flor": "tulipas",
+    "cor": "rosa",
+    "qtd": 12,
+    "embalagem": "seda",
+    "file": "photos/tulipas-rosa-12-seda.webp",
+    "available": false,
+    "focal": {
+      "x": 0.5,
+      "y": 0.28
+    },
+    "hotspots": [
+      {
+        "x": 0.5,
+        "y": 0.26,
+        "r": 0.22
+      },
+      {
+        "x": 0.38,
+        "y": 0.34,
+        "r": 0.15
+      },
+      {
+        "x": 0.62,
+        "y": 0.34,
+        "r": 0.15
+      }
+    ]
+  },
+  {
+    "id": "tulipas-rosa-12-caixa",
+    "flor": "tulipas",
+    "cor": "rosa",
+    "qtd": 12,
+    "embalagem": "caixa",
+    "file": "photos/tulipas-rosa-12-caixa.webp",
+    "available": false,
+    "focal": {
+      "x": 0.5,
+      "y": 0.36
+    },
+    "hotspots": [
+      {
+        "x": 0.5,
+        "y": 0.34,
+        "r": 0.26
+      },
+      {
+        "x": 0.36,
+        "y": 0.42,
+        "r": 0.18
+      },
+      {
+        "x": 0.64,
+        "y": 0.42,
+        "r": 0.18
+      }
+    ]
+  },
+  {
+    "id": "tulipas-rosa-24-kraft",
+    "flor": "tulipas",
+    "cor": "rosa",
+    "qtd": 24,
+    "embalagem": "kraft",
+    "file": "photos/tulipas-rosa-24-kraft.webp",
+    "available": false,
+    "focal": {
+      "x": 0.5,
+      "y": 0.28
+    },
+    "hotspots": [
+      {
+        "x": 0.5,
+        "y": 0.26,
+        "r": 0.26
+      },
+      {
+        "x": 0.38,
+        "y": 0.34,
+        "r": 0.18
+      },
+      {
+        "x": 0.62,
+        "y": 0.34,
+        "r": 0.18
+      }
+    ]
+  },
+  {
+    "id": "tulipas-rosa-24-seda",
+    "flor": "tulipas",
+    "cor": "rosa",
+    "qtd": 24,
+    "embalagem": "seda",
+    "file": "photos/tulipas-rosa-24-seda.webp",
+    "available": false,
+    "focal": {
+      "x": 0.5,
+      "y": 0.28
+    },
+    "hotspots": [
+      {
+        "x": 0.5,
+        "y": 0.26,
+        "r": 0.26
+      },
+      {
+        "x": 0.38,
+        "y": 0.34,
+        "r": 0.18
+      },
+      {
+        "x": 0.62,
+        "y": 0.34,
+        "r": 0.18
+      }
+    ]
+  },
+  {
+    "id": "tulipas-rosa-24-caixa",
+    "flor": "tulipas",
+    "cor": "rosa",
+    "qtd": 24,
+    "embalagem": "caixa",
+    "file": "photos/tulipas-rosa-24-caixa.webp",
+    "available": false,
+    "focal": {
+      "x": 0.5,
+      "y": 0.36
+    },
+    "hotspots": [
+      {
+        "x": 0.5,
+        "y": 0.34,
+        "r": 0.3
+      },
+      {
+        "x": 0.36,
+        "y": 0.42,
+        "r": 0.21
+      },
+      {
+        "x": 0.64,
+        "y": 0.42,
+        "r": 0.21
+      }
+    ]
+  },
+  {
+    "id": "tulipas-branco-6-kraft",
+    "flor": "tulipas",
+    "cor": "branco",
+    "qtd": 6,
+    "embalagem": "kraft",
+    "file": "photos/tulipas-branco-6-kraft.webp",
+    "available": false,
+    "focal": {
+      "x": 0.5,
+      "y": 0.28
+    },
+    "hotspots": [
+      {
+        "x": 0.5,
+        "y": 0.26,
+        "r": 0.18
+      },
+      {
+        "x": 0.38,
+        "y": 0.34,
+        "r": 0.13
+      },
+      {
+        "x": 0.62,
+        "y": 0.34,
+        "r": 0.13
+      }
+    ]
+  },
+  {
+    "id": "tulipas-branco-6-seda",
+    "flor": "tulipas",
+    "cor": "branco",
+    "qtd": 6,
+    "embalagem": "seda",
+    "file": "photos/tulipas-branco-6-seda.webp",
+    "available": false,
+    "focal": {
+      "x": 0.5,
+      "y": 0.28
+    },
+    "hotspots": [
+      {
+        "x": 0.5,
+        "y": 0.26,
+        "r": 0.18
+      },
+      {
+        "x": 0.38,
+        "y": 0.34,
+        "r": 0.13
+      },
+      {
+        "x": 0.62,
+        "y": 0.34,
+        "r": 0.13
+      }
+    ]
+  },
+  {
+    "id": "tulipas-branco-6-caixa",
+    "flor": "tulipas",
+    "cor": "branco",
+    "qtd": 6,
+    "embalagem": "caixa",
+    "file": "photos/tulipas-branco-6-caixa.webp",
+    "available": false,
+    "focal": {
+      "x": 0.5,
+      "y": 0.36
+    },
+    "hotspots": [
+      {
+        "x": 0.5,
+        "y": 0.34,
+        "r": 0.22
+      },
+      {
+        "x": 0.36,
+        "y": 0.42,
+        "r": 0.15
+      },
+      {
+        "x": 0.64,
+        "y": 0.42,
+        "r": 0.15
+      }
+    ]
+  },
+  {
+    "id": "tulipas-branco-12-kraft",
+    "flor": "tulipas",
+    "cor": "branco",
+    "qtd": 12,
+    "embalagem": "kraft",
+    "file": "photos/tulipas-branco-12-kraft.webp",
+    "available": false,
+    "focal": {
+      "x": 0.5,
+      "y": 0.28
+    },
+    "hotspots": [
+      {
+        "x": 0.5,
+        "y": 0.26,
+        "r": 0.22
+      },
+      {
+        "x": 0.38,
+        "y": 0.34,
+        "r": 0.15
+      },
+      {
+        "x": 0.62,
+        "y": 0.34,
+        "r": 0.15
+      }
+    ]
+  },
+  {
+    "id": "tulipas-branco-12-seda",
+    "flor": "tulipas",
+    "cor": "branco",
+    "qtd": 12,
+    "embalagem": "seda",
+    "file": "photos/tulipas-branco-12-seda.webp",
+    "available": false,
+    "focal": {
+      "x": 0.5,
+      "y": 0.28
+    },
+    "hotspots": [
+      {
+        "x": 0.5,
+        "y": 0.26,
+        "r": 0.22
+      },
+      {
+        "x": 0.38,
+        "y": 0.34,
+        "r": 0.15
+      },
+      {
+        "x": 0.62,
+        "y": 0.34,
+        "r": 0.15
+      }
+    ]
+  },
+  {
+    "id": "tulipas-branco-12-caixa",
+    "flor": "tulipas",
+    "cor": "branco",
+    "qtd": 12,
+    "embalagem": "caixa",
+    "file": "photos/tulipas-branco-12-caixa.webp",
+    "available": false,
+    "focal": {
+      "x": 0.5,
+      "y": 0.36
+    },
+    "hotspots": [
+      {
+        "x": 0.5,
+        "y": 0.34,
+        "r": 0.26
+      },
+      {
+        "x": 0.36,
+        "y": 0.42,
+        "r": 0.18
+      },
+      {
+        "x": 0.64,
+        "y": 0.42,
+        "r": 0.18
+      }
+    ]
+  },
+  {
+    "id": "tulipas-branco-24-kraft",
+    "flor": "tulipas",
+    "cor": "branco",
+    "qtd": 24,
+    "embalagem": "kraft",
+    "file": "photos/tulipas-branco-24-kraft.webp",
+    "available": false,
+    "focal": {
+      "x": 0.5,
+      "y": 0.28
+    },
+    "hotspots": [
+      {
+        "x": 0.5,
+        "y": 0.26,
+        "r": 0.26
+      },
+      {
+        "x": 0.38,
+        "y": 0.34,
+        "r": 0.18
+      },
+      {
+        "x": 0.62,
+        "y": 0.34,
+        "r": 0.18
+      }
+    ]
+  },
+  {
+    "id": "tulipas-branco-24-seda",
+    "flor": "tulipas",
+    "cor": "branco",
+    "qtd": 24,
+    "embalagem": "seda",
+    "file": "photos/tulipas-branco-24-seda.webp",
+    "available": false,
+    "focal": {
+      "x": 0.5,
+      "y": 0.28
+    },
+    "hotspots": [
+      {
+        "x": 0.5,
+        "y": 0.26,
+        "r": 0.26
+      },
+      {
+        "x": 0.38,
+        "y": 0.34,
+        "r": 0.18
+      },
+      {
+        "x": 0.62,
+        "y": 0.34,
+        "r": 0.18
+      }
+    ]
+  },
+  {
+    "id": "tulipas-branco-24-caixa",
+    "flor": "tulipas",
+    "cor": "branco",
+    "qtd": 24,
+    "embalagem": "caixa",
+    "file": "photos/tulipas-branco-24-caixa.webp",
+    "available": false,
+    "focal": {
+      "x": 0.5,
+      "y": 0.36
+    },
+    "hotspots": [
+      {
+        "x": 0.5,
+        "y": 0.34,
+        "r": 0.3
+      },
+      {
+        "x": 0.36,
+        "y": 0.42,
+        "r": 0.21
+      },
+      {
+        "x": 0.64,
+        "y": 0.42,
+        "r": 0.21
+      }
+    ]
+  },
+  {
+    "id": "tulipas-amarelo-6-kraft",
+    "flor": "tulipas",
+    "cor": "amarelo",
+    "qtd": 6,
+    "embalagem": "kraft",
+    "file": "photos/tulipas-amarelo-6-kraft.webp",
+    "available": false,
+    "focal": {
+      "x": 0.5,
+      "y": 0.28
+    },
+    "hotspots": [
+      {
+        "x": 0.5,
+        "y": 0.26,
+        "r": 0.18
+      },
+      {
+        "x": 0.38,
+        "y": 0.34,
+        "r": 0.13
+      },
+      {
+        "x": 0.62,
+        "y": 0.34,
+        "r": 0.13
+      }
+    ]
+  },
+  {
+    "id": "tulipas-amarelo-6-seda",
+    "flor": "tulipas",
+    "cor": "amarelo",
+    "qtd": 6,
+    "embalagem": "seda",
+    "file": "photos/tulipas-amarelo-6-seda.webp",
+    "available": false,
+    "focal": {
+      "x": 0.5,
+      "y": 0.28
+    },
+    "hotspots": [
+      {
+        "x": 0.5,
+        "y": 0.26,
+        "r": 0.18
+      },
+      {
+        "x": 0.38,
+        "y": 0.34,
+        "r": 0.13
+      },
+      {
+        "x": 0.62,
+        "y": 0.34,
+        "r": 0.13
+      }
+    ]
+  },
+  {
+    "id": "tulipas-amarelo-6-caixa",
+    "flor": "tulipas",
+    "cor": "amarelo",
+    "qtd": 6,
+    "embalagem": "caixa",
+    "file": "photos/tulipas-amarelo-6-caixa.webp",
+    "available": false,
+    "focal": {
+      "x": 0.5,
+      "y": 0.36
+    },
+    "hotspots": [
+      {
+        "x": 0.5,
+        "y": 0.34,
+        "r": 0.22
+      },
+      {
+        "x": 0.36,
+        "y": 0.42,
+        "r": 0.15
+      },
+      {
+        "x": 0.64,
+        "y": 0.42,
+        "r": 0.15
+      }
+    ]
+  },
+  {
+    "id": "tulipas-amarelo-12-kraft",
+    "flor": "tulipas",
+    "cor": "amarelo",
+    "qtd": 12,
+    "embalagem": "kraft",
+    "file": "photos/tulipas-amarelo-12-kraft.webp",
+    "available": false,
+    "focal": {
+      "x": 0.5,
+      "y": 0.28
+    },
+    "hotspots": [
+      {
+        "x": 0.5,
+        "y": 0.26,
+        "r": 0.22
+      },
+      {
+        "x": 0.38,
+        "y": 0.34,
+        "r": 0.15
+      },
+      {
+        "x": 0.62,
+        "y": 0.34,
+        "r": 0.15
+      }
+    ]
+  },
+  {
+    "id": "tulipas-amarelo-12-seda",
+    "flor": "tulipas",
+    "cor": "amarelo",
+    "qtd": 12,
+    "embalagem": "seda",
+    "file": "photos/tulipas-amarelo-12-seda.webp",
+    "available": false,
+    "focal": {
+      "x": 0.5,
+      "y": 0.28
+    },
+    "hotspots": [
+      {
+        "x": 0.5,
+        "y": 0.26,
+        "r": 0.22
+      },
+      {
+        "x": 0.38,
+        "y": 0.34,
+        "r": 0.15
+      },
+      {
+        "x": 0.62,
+        "y": 0.34,
+        "r": 0.15
+      }
+    ]
+  },
+  {
+    "id": "tulipas-amarelo-12-caixa",
+    "flor": "tulipas",
+    "cor": "amarelo",
+    "qtd": 12,
+    "embalagem": "caixa",
+    "file": "photos/tulipas-amarelo-12-caixa.webp",
+    "available": false,
+    "focal": {
+      "x": 0.5,
+      "y": 0.36
+    },
+    "hotspots": [
+      {
+        "x": 0.5,
+        "y": 0.34,
+        "r": 0.26
+      },
+      {
+        "x": 0.36,
+        "y": 0.42,
+        "r": 0.18
+      },
+      {
+        "x": 0.64,
+        "y": 0.42,
+        "r": 0.18
+      }
+    ]
+  },
+  {
+    "id": "tulipas-amarelo-24-kraft",
+    "flor": "tulipas",
+    "cor": "amarelo",
+    "qtd": 24,
+    "embalagem": "kraft",
+    "file": "photos/tulipas-amarelo-24-kraft.webp",
+    "available": false,
+    "focal": {
+      "x": 0.5,
+      "y": 0.28
+    },
+    "hotspots": [
+      {
+        "x": 0.5,
+        "y": 0.26,
+        "r": 0.26
+      },
+      {
+        "x": 0.38,
+        "y": 0.34,
+        "r": 0.18
+      },
+      {
+        "x": 0.62,
+        "y": 0.34,
+        "r": 0.18
+      }
+    ]
+  },
+  {
+    "id": "tulipas-amarelo-24-seda",
+    "flor": "tulipas",
+    "cor": "amarelo",
+    "qtd": 24,
+    "embalagem": "seda",
+    "file": "photos/tulipas-amarelo-24-seda.webp",
+    "available": false,
+    "focal": {
+      "x": 0.5,
+      "y": 0.28
+    },
+    "hotspots": [
+      {
+        "x": 0.5,
+        "y": 0.26,
+        "r": 0.26
+      },
+      {
+        "x": 0.38,
+        "y": 0.34,
+        "r": 0.18
+      },
+      {
+        "x": 0.62,
+        "y": 0.34,
+        "r": 0.18
+      }
+    ]
+  },
+  {
+    "id": "tulipas-amarelo-24-caixa",
+    "flor": "tulipas",
+    "cor": "amarelo",
+    "qtd": 24,
+    "embalagem": "caixa",
+    "file": "photos/tulipas-amarelo-24-caixa.webp",
+    "available": false,
+    "focal": {
+      "x": 0.5,
+      "y": 0.36
+    },
+    "hotspots": [
+      {
+        "x": 0.5,
+        "y": 0.34,
+        "r": 0.3
+      },
+      {
+        "x": 0.36,
+        "y": 0.42,
+        "r": 0.21
+      },
+      {
+        "x": 0.64,
+        "y": 0.42,
+        "r": 0.21
+      }
+    ]
+  },
+  {
+    "id": "tulipas-lilas-6-kraft",
+    "flor": "tulipas",
+    "cor": "lilas",
+    "qtd": 6,
+    "embalagem": "kraft",
+    "file": "photos/tulipas-lilas-6-kraft.webp",
+    "available": false,
+    "focal": {
+      "x": 0.5,
+      "y": 0.28
+    },
+    "hotspots": [
+      {
+        "x": 0.5,
+        "y": 0.26,
+        "r": 0.18
+      },
+      {
+        "x": 0.38,
+        "y": 0.34,
+        "r": 0.13
+      },
+      {
+        "x": 0.62,
+        "y": 0.34,
+        "r": 0.13
+      }
+    ]
+  },
+  {
+    "id": "tulipas-lilas-6-seda",
+    "flor": "tulipas",
+    "cor": "lilas",
+    "qtd": 6,
+    "embalagem": "seda",
+    "file": "photos/tulipas-lilas-6-seda.webp",
+    "available": false,
+    "focal": {
+      "x": 0.5,
+      "y": 0.28
+    },
+    "hotspots": [
+      {
+        "x": 0.5,
+        "y": 0.26,
+        "r": 0.18
+      },
+      {
+        "x": 0.38,
+        "y": 0.34,
+        "r": 0.13
+      },
+      {
+        "x": 0.62,
+        "y": 0.34,
+        "r": 0.13
+      }
+    ]
+  },
+  {
+    "id": "tulipas-lilas-6-caixa",
+    "flor": "tulipas",
+    "cor": "lilas",
+    "qtd": 6,
+    "embalagem": "caixa",
+    "file": "photos/tulipas-lilas-6-caixa.webp",
+    "available": false,
+    "focal": {
+      "x": 0.5,
+      "y": 0.36
+    },
+    "hotspots": [
+      {
+        "x": 0.5,
+        "y": 0.34,
+        "r": 0.22
+      },
+      {
+        "x": 0.36,
+        "y": 0.42,
+        "r": 0.15
+      },
+      {
+        "x": 0.64,
+        "y": 0.42,
+        "r": 0.15
+      }
+    ]
+  },
+  {
+    "id": "tulipas-lilas-12-kraft",
+    "flor": "tulipas",
+    "cor": "lilas",
+    "qtd": 12,
+    "embalagem": "kraft",
+    "file": "photos/tulipas-lilas-12-kraft.webp",
+    "available": false,
+    "focal": {
+      "x": 0.5,
+      "y": 0.28
+    },
+    "hotspots": [
+      {
+        "x": 0.5,
+        "y": 0.26,
+        "r": 0.22
+      },
+      {
+        "x": 0.38,
+        "y": 0.34,
+        "r": 0.15
+      },
+      {
+        "x": 0.62,
+        "y": 0.34,
+        "r": 0.15
+      }
+    ]
+  },
+  {
+    "id": "tulipas-lilas-12-seda",
+    "flor": "tulipas",
+    "cor": "lilas",
+    "qtd": 12,
+    "embalagem": "seda",
+    "file": "photos/tulipas-lilas-12-seda.webp",
+    "available": false,
+    "focal": {
+      "x": 0.5,
+      "y": 0.28
+    },
+    "hotspots": [
+      {
+        "x": 0.5,
+        "y": 0.26,
+        "r": 0.22
+      },
+      {
+        "x": 0.38,
+        "y": 0.34,
+        "r": 0.15
+      },
+      {
+        "x": 0.62,
+        "y": 0.34,
+        "r": 0.15
+      }
+    ]
+  },
+  {
+    "id": "tulipas-lilas-12-caixa",
+    "flor": "tulipas",
+    "cor": "lilas",
+    "qtd": 12,
+    "embalagem": "caixa",
+    "file": "photos/tulipas-lilas-12-caixa.webp",
+    "available": false,
+    "focal": {
+      "x": 0.5,
+      "y": 0.36
+    },
+    "hotspots": [
+      {
+        "x": 0.5,
+        "y": 0.34,
+        "r": 0.26
+      },
+      {
+        "x": 0.36,
+        "y": 0.42,
+        "r": 0.18
+      },
+      {
+        "x": 0.64,
+        "y": 0.42,
+        "r": 0.18
+      }
+    ]
+  },
+  {
+    "id": "tulipas-lilas-24-kraft",
+    "flor": "tulipas",
+    "cor": "lilas",
+    "qtd": 24,
+    "embalagem": "kraft",
+    "file": "photos/tulipas-lilas-24-kraft.webp",
+    "available": false,
+    "focal": {
+      "x": 0.5,
+      "y": 0.28
+    },
+    "hotspots": [
+      {
+        "x": 0.5,
+        "y": 0.26,
+        "r": 0.26
+      },
+      {
+        "x": 0.38,
+        "y": 0.34,
+        "r": 0.18
+      },
+      {
+        "x": 0.62,
+        "y": 0.34,
+        "r": 0.18
+      }
+    ]
+  },
+  {
+    "id": "tulipas-lilas-24-seda",
+    "flor": "tulipas",
+    "cor": "lilas",
+    "qtd": 24,
+    "embalagem": "seda",
+    "file": "photos/tulipas-lilas-24-seda.webp",
+    "available": false,
+    "focal": {
+      "x": 0.5,
+      "y": 0.28
+    },
+    "hotspots": [
+      {
+        "x": 0.5,
+        "y": 0.26,
+        "r": 0.26
+      },
+      {
+        "x": 0.38,
+        "y": 0.34,
+        "r": 0.18
+      },
+      {
+        "x": 0.62,
+        "y": 0.34,
+        "r": 0.18
+      }
+    ]
+  },
+  {
+    "id": "tulipas-lilas-24-caixa",
+    "flor": "tulipas",
+    "cor": "lilas",
+    "qtd": 24,
+    "embalagem": "caixa",
+    "file": "photos/tulipas-lilas-24-caixa.webp",
+    "available": false,
+    "focal": {
+      "x": 0.5,
+      "y": 0.36
+    },
+    "hotspots": [
+      {
+        "x": 0.5,
+        "y": 0.34,
+        "r": 0.3
+      },
+      {
+        "x": 0.36,
+        "y": 0.42,
+        "r": 0.21
+      },
+      {
+        "x": 0.64,
+        "y": 0.42,
+        "r": 0.21
+      }
+    ]
+  },
+  {
+    "id": "campo-colorido-6-kraft",
+    "flor": "campo",
+    "cor": "colorido",
+    "qtd": 6,
+    "embalagem": "kraft",
+    "file": "photos/campo-colorido-6-kraft.webp",
+    "available": false,
+    "focal": {
+      "x": 0.5,
+      "y": 0.28
+    },
+    "hotspots": [
+      {
+        "x": 0.5,
+        "y": 0.26,
+        "r": 0.18
+      },
+      {
+        "x": 0.38,
+        "y": 0.34,
+        "r": 0.13
+      },
+      {
+        "x": 0.62,
+        "y": 0.34,
+        "r": 0.13
+      }
+    ]
+  },
+  {
+    "id": "campo-colorido-6-seda",
+    "flor": "campo",
+    "cor": "colorido",
+    "qtd": 6,
+    "embalagem": "seda",
+    "file": "photos/campo-colorido-6-seda.webp",
+    "available": false,
+    "focal": {
+      "x": 0.5,
+      "y": 0.28
+    },
+    "hotspots": [
+      {
+        "x": 0.5,
+        "y": 0.26,
+        "r": 0.18
+      },
+      {
+        "x": 0.38,
+        "y": 0.34,
+        "r": 0.13
+      },
+      {
+        "x": 0.62,
+        "y": 0.34,
+        "r": 0.13
+      }
+    ]
+  },
+  {
+    "id": "campo-colorido-6-caixa",
+    "flor": "campo",
+    "cor": "colorido",
+    "qtd": 6,
+    "embalagem": "caixa",
+    "file": "photos/campo-colorido-6-caixa.webp",
+    "available": false,
+    "focal": {
+      "x": 0.5,
+      "y": 0.36
+    },
+    "hotspots": [
+      {
+        "x": 0.5,
+        "y": 0.34,
+        "r": 0.22
+      },
+      {
+        "x": 0.36,
+        "y": 0.42,
+        "r": 0.15
+      },
+      {
+        "x": 0.64,
+        "y": 0.42,
+        "r": 0.15
+      }
+    ]
+  },
+  {
+    "id": "campo-colorido-12-kraft",
+    "flor": "campo",
+    "cor": "colorido",
+    "qtd": 12,
+    "embalagem": "kraft",
+    "file": "photos/campo-colorido-12-kraft.webp",
+    "available": false,
+    "focal": {
+      "x": 0.5,
+      "y": 0.28
+    },
+    "hotspots": [
+      {
+        "x": 0.5,
+        "y": 0.26,
+        "r": 0.22
+      },
+      {
+        "x": 0.38,
+        "y": 0.34,
+        "r": 0.15
+      },
+      {
+        "x": 0.62,
+        "y": 0.34,
+        "r": 0.15
+      }
+    ]
+  },
+  {
+    "id": "campo-colorido-12-seda",
+    "flor": "campo",
+    "cor": "colorido",
+    "qtd": 12,
+    "embalagem": "seda",
+    "file": "photos/campo-colorido-12-seda.webp",
+    "available": false,
+    "focal": {
+      "x": 0.5,
+      "y": 0.28
+    },
+    "hotspots": [
+      {
+        "x": 0.5,
+        "y": 0.26,
+        "r": 0.22
+      },
+      {
+        "x": 0.38,
+        "y": 0.34,
+        "r": 0.15
+      },
+      {
+        "x": 0.62,
+        "y": 0.34,
+        "r": 0.15
+      }
+    ]
+  },
+  {
+    "id": "campo-colorido-12-caixa",
+    "flor": "campo",
+    "cor": "colorido",
+    "qtd": 12,
+    "embalagem": "caixa",
+    "file": "photos/campo-colorido-12-caixa.webp",
+    "available": false,
+    "focal": {
+      "x": 0.5,
+      "y": 0.36
+    },
+    "hotspots": [
+      {
+        "x": 0.5,
+        "y": 0.34,
+        "r": 0.26
+      },
+      {
+        "x": 0.36,
+        "y": 0.42,
+        "r": 0.18
+      },
+      {
+        "x": 0.64,
+        "y": 0.42,
+        "r": 0.18
+      }
+    ]
+  },
+  {
+    "id": "campo-colorido-24-kraft",
+    "flor": "campo",
+    "cor": "colorido",
+    "qtd": 24,
+    "embalagem": "kraft",
+    "file": "photos/campo-colorido-24-kraft.webp",
+    "available": false,
+    "focal": {
+      "x": 0.5,
+      "y": 0.28
+    },
+    "hotspots": [
+      {
+        "x": 0.5,
+        "y": 0.26,
+        "r": 0.26
+      },
+      {
+        "x": 0.38,
+        "y": 0.34,
+        "r": 0.18
+      },
+      {
+        "x": 0.62,
+        "y": 0.34,
+        "r": 0.18
+      }
+    ]
+  },
+  {
+    "id": "campo-colorido-24-seda",
+    "flor": "campo",
+    "cor": "colorido",
+    "qtd": 24,
+    "embalagem": "seda",
+    "file": "photos/campo-colorido-24-seda.webp",
+    "available": false,
+    "focal": {
+      "x": 0.5,
+      "y": 0.28
+    },
+    "hotspots": [
+      {
+        "x": 0.5,
+        "y": 0.26,
+        "r": 0.26
+      },
+      {
+        "x": 0.38,
+        "y": 0.34,
+        "r": 0.18
+      },
+      {
+        "x": 0.62,
+        "y": 0.34,
+        "r": 0.18
+      }
+    ]
+  },
+  {
+    "id": "campo-colorido-24-caixa",
+    "flor": "campo",
+    "cor": "colorido",
+    "qtd": 24,
+    "embalagem": "caixa",
+    "file": "photos/campo-colorido-24-caixa.webp",
+    "available": false,
+    "focal": {
+      "x": 0.5,
+      "y": 0.36
+    },
+    "hotspots": [
+      {
+        "x": 0.5,
+        "y": 0.34,
+        "r": 0.3
+      },
+      {
+        "x": 0.36,
+        "y": 0.42,
+        "r": 0.21
+      },
+      {
+        "x": 0.64,
+        "y": 0.42,
+        "r": 0.21
+      }
+    ]
+  },
+  {
+    "id": "campo-branco-6-kraft",
+    "flor": "campo",
+    "cor": "branco",
+    "qtd": 6,
+    "embalagem": "kraft",
+    "file": "photos/campo-branco-6-kraft.webp",
+    "available": false,
+    "focal": {
+      "x": 0.5,
+      "y": 0.28
+    },
+    "hotspots": [
+      {
+        "x": 0.5,
+        "y": 0.26,
+        "r": 0.18
+      },
+      {
+        "x": 0.38,
+        "y": 0.34,
+        "r": 0.13
+      },
+      {
+        "x": 0.62,
+        "y": 0.34,
+        "r": 0.13
+      }
+    ]
+  },
+  {
+    "id": "campo-branco-6-seda",
+    "flor": "campo",
+    "cor": "branco",
+    "qtd": 6,
+    "embalagem": "seda",
+    "file": "photos/campo-branco-6-seda.webp",
+    "available": false,
+    "focal": {
+      "x": 0.5,
+      "y": 0.28
+    },
+    "hotspots": [
+      {
+        "x": 0.5,
+        "y": 0.26,
+        "r": 0.18
+      },
+      {
+        "x": 0.38,
+        "y": 0.34,
+        "r": 0.13
+      },
+      {
+        "x": 0.62,
+        "y": 0.34,
+        "r": 0.13
+      }
+    ]
+  },
+  {
+    "id": "campo-branco-6-caixa",
+    "flor": "campo",
+    "cor": "branco",
+    "qtd": 6,
+    "embalagem": "caixa",
+    "file": "photos/campo-branco-6-caixa.webp",
+    "available": false,
+    "focal": {
+      "x": 0.5,
+      "y": 0.36
+    },
+    "hotspots": [
+      {
+        "x": 0.5,
+        "y": 0.34,
+        "r": 0.22
+      },
+      {
+        "x": 0.36,
+        "y": 0.42,
+        "r": 0.15
+      },
+      {
+        "x": 0.64,
+        "y": 0.42,
+        "r": 0.15
+      }
+    ]
+  },
+  {
+    "id": "campo-branco-12-kraft",
+    "flor": "campo",
+    "cor": "branco",
+    "qtd": 12,
+    "embalagem": "kraft",
+    "file": "photos/campo-branco-12-kraft.webp",
+    "available": false,
+    "focal": {
+      "x": 0.5,
+      "y": 0.28
+    },
+    "hotspots": [
+      {
+        "x": 0.5,
+        "y": 0.26,
+        "r": 0.22
+      },
+      {
+        "x": 0.38,
+        "y": 0.34,
+        "r": 0.15
+      },
+      {
+        "x": 0.62,
+        "y": 0.34,
+        "r": 0.15
+      }
+    ]
+  },
+  {
+    "id": "campo-branco-12-seda",
+    "flor": "campo",
+    "cor": "branco",
+    "qtd": 12,
+    "embalagem": "seda",
+    "file": "photos/campo-branco-12-seda.webp",
+    "available": false,
+    "focal": {
+      "x": 0.5,
+      "y": 0.28
+    },
+    "hotspots": [
+      {
+        "x": 0.5,
+        "y": 0.26,
+        "r": 0.22
+      },
+      {
+        "x": 0.38,
+        "y": 0.34,
+        "r": 0.15
+      },
+      {
+        "x": 0.62,
+        "y": 0.34,
+        "r": 0.15
+      }
+    ]
+  },
+  {
+    "id": "campo-branco-12-caixa",
+    "flor": "campo",
+    "cor": "branco",
+    "qtd": 12,
+    "embalagem": "caixa",
+    "file": "photos/campo-branco-12-caixa.webp",
+    "available": false,
+    "focal": {
+      "x": 0.5,
+      "y": 0.36
+    },
+    "hotspots": [
+      {
+        "x": 0.5,
+        "y": 0.34,
+        "r": 0.26
+      },
+      {
+        "x": 0.36,
+        "y": 0.42,
+        "r": 0.18
+      },
+      {
+        "x": 0.64,
+        "y": 0.42,
+        "r": 0.18
+      }
+    ]
+  },
+  {
+    "id": "campo-branco-24-kraft",
+    "flor": "campo",
+    "cor": "branco",
+    "qtd": 24,
+    "embalagem": "kraft",
+    "file": "photos/campo-branco-24-kraft.webp",
+    "available": false,
+    "focal": {
+      "x": 0.5,
+      "y": 0.28
+    },
+    "hotspots": [
+      {
+        "x": 0.5,
+        "y": 0.26,
+        "r": 0.26
+      },
+      {
+        "x": 0.38,
+        "y": 0.34,
+        "r": 0.18
+      },
+      {
+        "x": 0.62,
+        "y": 0.34,
+        "r": 0.18
+      }
+    ]
+  },
+  {
+    "id": "campo-branco-24-seda",
+    "flor": "campo",
+    "cor": "branco",
+    "qtd": 24,
+    "embalagem": "seda",
+    "file": "photos/campo-branco-24-seda.webp",
+    "available": false,
+    "focal": {
+      "x": 0.5,
+      "y": 0.28
+    },
+    "hotspots": [
+      {
+        "x": 0.5,
+        "y": 0.26,
+        "r": 0.26
+      },
+      {
+        "x": 0.38,
+        "y": 0.34,
+        "r": 0.18
+      },
+      {
+        "x": 0.62,
+        "y": 0.34,
+        "r": 0.18
+      }
+    ]
+  },
+  {
+    "id": "campo-branco-24-caixa",
+    "flor": "campo",
+    "cor": "branco",
+    "qtd": 24,
+    "embalagem": "caixa",
+    "file": "photos/campo-branco-24-caixa.webp",
+    "available": false,
+    "focal": {
+      "x": 0.5,
+      "y": 0.36
+    },
+    "hotspots": [
+      {
+        "x": 0.5,
+        "y": 0.34,
+        "r": 0.3
+      },
+      {
+        "x": 0.36,
+        "y": 0.42,
+        "r": 0.21
+      },
+      {
+        "x": 0.64,
+        "y": 0.42,
+        "r": 0.21
+      }
+    ]
+  }
+]
