@@ -288,6 +288,7 @@ window.MODELOS = [
   {
     pasta: "folha-clube",
     titulo: "Folha Clube — Assinatura de Plantas",
+    revisado: true,
     segmento: "Floricultura",
     descricao: "Assinatura de plantas onde o cursor vira o sol sobre fotos reais, a selva cresce mês a mês na rolagem, quiz com fotos e planos em vidro fosco.",
     tags: ["Luz real", "Rolagem", "Quiz"],
