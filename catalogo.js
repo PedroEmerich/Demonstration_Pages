@@ -281,8 +281,8 @@ window.MODELOS = [
     pasta: "brilho-detail",
     titulo: "Brilho Detail — Estética Automotiva",
     segmento: "Automotivo",
-    descricao: "Estética automotiva com luz de inspeção no cursor, antes e depois do polimento na rolagem, gotas de água que escorrem na vitrificação e montador de pacote.",
-    tags: ["Luz de inspeção", "Antes e depois", "Monte seu pacote"],
+    descricao: "Estética automotiva com uma jornada imersiva na rolagem: as luzes do estúdio acendem, a espuma cobre a tela, a água enxágua, o polimento gira e a câmera entra numa gota até a entrega.",
+    tags: ["Jornada imersiva", "Rolagem", "Monte seu pacote"],
     cor: "#3ad1ff",
   },
   {
