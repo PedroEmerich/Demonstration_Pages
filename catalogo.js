@@ -346,6 +346,7 @@ window.MODELOS = [
   {
     pasta: "underground-barbershop",
     titulo: "Underground Barbershop — Agendamento",
+    revisado: true,
     segmento: "Barbearia",
     descricao: "Barbearia com agendamento online em menos de um minuto: serviços, equipe, planos de assinatura, próximo horário livre, área do cliente e painel do barbeiro.",
     tags: ["SaaS", "Agendamento", "Cliente real"],
