@@ -1,0 +1,1046 @@
+{
+ "versao": 1,
+ "observacao": "Todas as imagens do buquê são lidas daqui. Para trocar uma foto, substitua o arquivo (mesmo nome) ou edite o caminho. Cores e embalagens com lista vazia aparecem como 'em breve'.",
+ "palco": {
+  "largura": 600,
+  "altura": 700,
+  "sombra": {
+   "x": 300,
+   "y": 668,
+   "largura": 300
+  }
+ },
+ "flores": {
+  "rosas": {
+   "nome": "Rosas",
+   "preco": 14,
+   "largura": 1.0,
+   "vista": "topo",
+   "cores": {
+    "vermelho": {
+     "nome": "Vermelho",
+     "amostra": "#a3162c",
+     "fotos": [
+      {
+       "src": "flowers/rosas/vermelho/01.webp",
+       "w": 772,
+       "h": 777,
+       "ancora": [
+        0.5,
+        0.5
+       ]
+      },
+      {
+       "src": "flowers/rosas/vermelho/02.webp",
+       "w": 693,
+       "h": 611,
+       "ancora": [
+        0.5,
+        0.5
+       ]
+      },
+      {
+       "src": "flowers/rosas/vermelho/03.webp",
+       "w": 800,
+       "h": 784,
+       "ancora": [
+        0.5,
+        0.5
+       ]
+      },
+      {
+       "src": "flowers/rosas/vermelho/04.webp",
+       "w": 713,
+       "h": 579,
+       "ancora": [
+        0.5,
+        0.5
+       ]
+      },
+      {
+       "src": "flowers/rosas/vermelho/05.webp",
+       "w": 685,
+       "h": 533,
+       "ancora": [
+        0.5,
+        0.5
+       ]
+      },
+      {
+       "src": "flowers/rosas/vermelho/06.webp",
+       "w": 565,
+       "h": 474,
+       "ancora": [
+        0.5,
+        0.5
+       ]
+      },
+      {
+       "src": "flowers/rosas/vermelho/07.webp",
+       "w": 705,
+       "h": 612,
+       "ancora": [
+        0.5,
+        0.5
+       ]
+      },
+      {
+       "src": "flowers/rosas/vermelho/08.webp",
+       "w": 501,
+       "h": 462,
+       "ancora": [
+        0.5,
+        0.5
+       ]
+      }
+     ]
+    },
+    "rosa": {
+     "nome": "Rosa",
+     "amostra": "#e9a3ad",
+     "fotos": [
+      {
+       "src": "flowers/rosas/rosa/01.webp",
+       "w": 800,
+       "h": 768,
+       "ancora": [
+        0.5,
+        0.5
+       ]
+      },
+      {
+       "src": "flowers/rosas/rosa/02.webp",
+       "w": 800,
+       "h": 734,
+       "ancora": [
+        0.5,
+        0.5
+       ]
+      },
+      {
+       "src": "flowers/rosas/rosa/03.webp",
+       "w": 800,
+       "h": 711,
+       "ancora": [
+        0.5,
+        0.5
+       ]
+      },
+      {
+       "src": "flowers/rosas/rosa/04.webp",
+       "w": 800,
+       "h": 789,
+       "ancora": [
+        0.5,
+        0.5
+       ]
+      },
+      {
+       "src": "flowers/rosas/rosa/05.webp",
+       "w": 800,
+       "h": 681,
+       "ancora": [
+        0.5,
+        0.5
+       ]
+      },
+      {
+       "src": "flowers/rosas/rosa/06.webp",
+       "w": 800,
+       "h": 728,
+       "ancora": [
+        0.5,
+        0.5
+       ]
+      }
+     ]
+    },
+    "creme": {
+     "nome": "Creme",
+     "amostra": "#f3e3c8",
+     "fotos": []
+    },
+    "amarelo": {
+     "nome": "Amarelo",
+     "amostra": "#f2c230",
+     "fotos": []
+    }
+   }
+  },
+  "girassois": {
+   "nome": "Girassóis",
+   "preco": 12,
+   "largura": 1.12,
+   "vista": "topo",
+   "cores": {
+    "amarelo": {
+     "nome": "Amarelo",
+     "amostra": "#f2a516",
+     "fotos": [
+      {
+       "src": "flowers/girassois/amarelo/01.webp",
+       "w": 800,
+       "h": 709,
+       "ancora": [
+        0.5,
+        0.5
+       ]
+      },
+      {
+       "src": "flowers/girassois/amarelo/02.webp",
+       "w": 800,
+       "h": 783,
+       "ancora": [
+        0.5,
+        0.5
+       ]
+      },
+      {
+       "src": "flowers/girassois/amarelo/03.webp",
+       "w": 800,
+       "h": 717,
+       "ancora": [
+        0.5,
+        0.5
+       ]
+      },
+      {
+       "src": "flowers/girassois/amarelo/04.webp",
+       "w": 800,
+       "h": 755,
+       "ancora": [
+        0.5,
+        0.5
+       ]
+      }
+     ]
+    }
+   }
+  },
+  "tulipas": {
+   "nome": "Tulipas",
+   "preco": 18,
+   "largura": 0.92,
+   "vista": "lado",
+   "haste": true,
+   "elevar": 70,
+   "cores": {
+    "rosa": {
+     "nome": "Pink",
+     "amostra": "#e5245e",
+     "fotos": [
+      {
+       "src": "flowers/tulipas/rosa/01.webp",
+       "w": 348,
+       "h": 511,
+       "ancora": [
+        0.5,
+        0.62
+       ]
+      },
+      {
+       "src": "flowers/tulipas/rosa/02.webp",
+       "w": 542,
+       "h": 691,
+       "ancora": [
+        0.5,
+        0.62
+       ]
+      }
+     ]
+    },
+    "coral": {
+     "nome": "Coral",
+     "amostra": "#f26a1f",
+     "fotos": [
+      {
+       "src": "flowers/tulipas/coral/01.webp",
+       "w": 582,
+       "h": 591,
+       "ancora": [
+        0.5,
+        0.62
+       ]
+      },
+      {
+       "src": "flowers/tulipas/coral/02.webp",
+       "w": 407,
+       "h": 506,
+       "ancora": [
+        0.5,
+        0.62
+       ]
+      }
+     ]
+    },
+    "amarelo": {
+     "nome": "Amarelo",
+     "amostra": "#f6d21c",
+     "fotos": [
+      {
+       "src": "flowers/tulipas/amarelo/01.webp",
+       "w": 800,
+       "h": 574,
+       "ancora": [
+        0.5,
+        0.62
+       ]
+      },
+      {
+       "src": "flowers/tulipas/amarelo/02.webp",
+       "w": 469,
+       "h": 619,
+       "ancora": [
+        0.5,
+        0.62
+       ]
+      }
+     ]
+    },
+    "lilas": {
+     "nome": "Lilás",
+     "amostra": "#a9659f",
+     "fotos": []
+    },
+    "branco": {
+     "nome": "Branco",
+     "amostra": "#f7f3ec",
+     "fotos": []
+    }
+   }
+  },
+  "campo": {
+   "nome": "Margaridas",
+   "preco": 10,
+   "largura": 0.9,
+   "vista": "topo",
+   "cores": {
+    "branco": {
+     "nome": "Branco",
+     "amostra": "#f7f3ec",
+     "fotos": [
+      {
+       "src": "flowers/campo/branco/01.webp",
+       "w": 764,
+       "h": 800,
+       "ancora": [
+        0.5,
+        0.5
+       ]
+      },
+      {
+       "src": "flowers/campo/branco/02.webp",
+       "w": 800,
+       "h": 747,
+       "ancora": [
+        0.5,
+        0.5
+       ]
+      }
+     ]
+    }
+   }
+  }
+ },
+ "embalagens": {
+  "kraft": {
+   "nome": "Papel kraft",
+   "preco": 0,
+   "camadas": {
+    "wrap-back": {
+     "src": "wrap/kraft/back.webp",
+     "w": 1170,
+     "h": 635,
+     "x": 300,
+     "y": 405,
+     "largura": 480,
+     "ancora": [
+      0.5,
+      1
+     ]
+    },
+    "wrap-front": {
+     "src": "wrap/kraft/front.webp",
+     "w": 900,
+     "h": 471,
+     "x": 300,
+     "y": 512,
+     "largura": 440,
+     "ancora": [
+      0.5,
+      1
+     ]
+    },
+    "ribbon": {
+     "src": "ribbon/barbante.webp",
+     "w": 396,
+     "h": 331,
+     "x": 300,
+     "y": 500,
+     "largura": 215,
+     "ancora": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  "seda": {
+   "nome": "Papel de seda",
+   "preco": 10,
+   "camadas": null
+  },
+  "caixa": {
+   "nome": "Caixa luxo",
+   "preco": 35,
+   "camadas": null
+  }
+ },
+ "filler": {
+  "back": [
+   {
+    "src": "filler/folha-01.webp",
+    "w": 550,
+    "h": 800,
+    "ancora": [
+     0.5,
+     1
+    ]
+   },
+   {
+    "src": "filler/folha-02.webp",
+    "w": 569,
+    "h": 800,
+    "ancora": [
+     0.5,
+     1
+    ]
+   }
+  ],
+  "front": []
+ },
+ "hastes": [
+  {
+   "src": "stems/haste-01.webp",
+   "w": 172,
+   "h": 304,
+   "ancora": [
+    0.5,
+    0
+   ]
+  }
+ ],
+ "slots": {
+  "6": [
+   {
+    "x": 330.8,
+    "y": 228.6,
+    "escala": 1.397,
+    "rot": -3.8,
+    "z": 82,
+    "foto": 0
+   },
+   {
+    "x": 241.0,
+    "y": 231.1,
+    "escala": 1.338,
+    "rot": -2.0,
+    "z": 70,
+    "foto": 1
+   },
+   {
+    "x": 343.5,
+    "y": 189.1,
+    "escala": 1.297,
+    "rot": 1.1,
+    "z": 55,
+    "foto": 2
+   },
+   {
+    "x": 314.2,
+    "y": 279.1,
+    "escala": 1.265,
+    "rot": -1.2,
+    "z": 61,
+    "foto": 3
+   },
+   {
+    "x": 217.9,
+    "y": 192.8,
+    "escala": 1.236,
+    "rot": -9.4,
+    "z": 42,
+    "foto": 4
+   },
+   {
+    "x": 416.0,
+    "y": 226.9,
+    "escala": 1.211,
+    "rot": 4.4,
+    "z": 42,
+    "foto": 5
+   }
+  ],
+  "12": [
+   {
+    "x": 328.3,
+    "y": 226.3,
+    "escala": 1.309,
+    "rot": -9.2,
+    "z": 87,
+    "foto": 0
+   },
+   {
+    "x": 245.7,
+    "y": 227.9,
+    "escala": 1.27,
+    "rot": 11.5,
+    "z": 78,
+    "foto": 1
+   },
+   {
+    "x": 340.0,
+    "y": 188.6,
+    "escala": 1.244,
+    "rot": 5.9,
+    "z": 66,
+    "foto": 2
+   },
+   {
+    "x": 313.1,
+    "y": 271.0,
+    "escala": 1.223,
+    "rot": -6.2,
+    "z": 73,
+    "foto": 3
+   },
+   {
+    "x": 224.4,
+    "y": 191.1,
+    "escala": 1.204,
+    "rot": 0.7,
+    "z": 57,
+    "foto": 4
+   },
+   {
+    "x": 406.9,
+    "y": 222.2,
+    "escala": 1.187,
+    "rot": 5.1,
+    "z": 58,
+    "foto": 5
+   },
+   {
+    "x": 219.5,
+    "y": 274.4,
+    "escala": 1.172,
+    "rot": -0.9,
+    "z": 62,
+    "foto": 6
+   },
+   {
+    "x": 302.6,
+    "y": 158.2,
+    "escala": 1.158,
+    "rot": 2.3,
+    "z": 41,
+    "foto": 7
+   },
+   {
+    "x": 387.9,
+    "y": 285.2,
+    "escala": 1.145,
+    "rot": 5.9,
+    "z": 57,
+    "foto": 8
+   },
+   {
+    "x": 160.0,
+    "y": 221.5,
+    "escala": 1.133,
+    "rot": -1.6,
+    "z": 45,
+    "foto": 9
+   },
+   {
+    "x": 419.3,
+    "y": 181.8,
+    "escala": 1.121,
+    "rot": 10.6,
+    "z": 36,
+    "foto": 10
+   },
+   {
+    "x": 269.8,
+    "y": 316.7,
+    "escala": 1.11,
+    "rot": -4.8,
+    "z": 54,
+    "foto": 11
+   }
+  ],
+  "24": [
+   {
+    "x": 324.7,
+    "y": 224.2,
+    "escala": 1.154,
+    "rot": -4.6,
+    "z": 90,
+    "foto": 0
+   },
+   {
+    "x": 252.7,
+    "y": 225.0,
+    "escala": 1.13,
+    "rot": 0.9,
+    "z": 84,
+    "foto": 1
+   },
+   {
+    "x": 334.9,
+    "y": 190.5,
+    "escala": 1.114,
+    "rot": -3.9,
+    "z": 74,
+    "foto": 2
+   },
+   {
+    "x": 311.4,
+    "y": 262.1,
+    "escala": 1.101,
+    "rot": -9.6,
+    "z": 82,
+    "foto": 3
+   },
+   {
+    "x": 234.1,
+    "y": 192.2,
+    "escala": 1.089,
+    "rot": -11.9,
+    "z": 68,
+    "foto": 4
+   },
+   {
+    "x": 393.2,
+    "y": 219.1,
+    "escala": 1.079,
+    "rot": -4.4,
+    "z": 69,
+    "foto": 5
+   },
+   {
+    "x": 229.9,
+    "y": 264.5,
+    "escala": 1.07,
+    "rot": -5.7,
+    "z": 74,
+    "foto": 6
+   },
+   {
+    "x": 302.3,
+    "y": 163.0,
+    "escala": 1.061,
+    "rot": -8.2,
+    "z": 56,
+    "foto": 7
+   },
+   {
+    "x": 376.6,
+    "y": 273.6,
+    "escala": 1.053,
+    "rot": -5.4,
+    "z": 71,
+    "foto": 8
+   },
+   {
+    "x": 178.0,
+    "y": 217.9,
+    "escala": 1.046,
+    "rot": -8.8,
+    "z": 60,
+    "foto": 9
+   },
+   {
+    "x": 404.0,
+    "y": 183.2,
+    "escala": 1.038,
+    "rot": -4.3,
+    "z": 53,
+    "foto": 10
+   },
+   {
+    "x": 273.7,
+    "y": 300.6,
+    "escala": 1.031,
+    "rot": 1.3,
+    "z": 69,
+    "foto": 11
+   },
+   {
+    "x": 227.0,
+    "y": 159.6,
+    "escala": 1.025,
+    "rot": 10.0,
+    "z": 46,
+    "foto": 12
+   },
+   {
+    "x": 440.4,
+    "y": 250.4,
+    "escala": 1.019,
+    "rot": 3.9,
+    "z": 58,
+    "foto": 13
+   },
+   {
+    "x": 164.0,
+    "y": 265.5,
+    "escala": 1.012,
+    "rot": -1.1,
+    "z": 58,
+    "foto": 14
+   },
+   {
+    "x": 356.8,
+    "y": 146.7,
+    "escala": 1.007,
+    "rot": 0.1,
+    "z": 39,
+    "foto": 15
+   },
+   {
+    "x": 358.6,
+    "y": 313.3,
+    "escala": 1.001,
+    "rot": -3.4,
+    "z": 62,
+    "foto": 16
+   },
+   {
+    "x": 150.7,
+    "y": 188.1,
+    "escala": 0.995,
+    "rot": -7.3,
+    "z": 42,
+    "foto": 17
+   },
+   {
+    "x": 464.4,
+    "y": 203.0,
+    "escala": 0.99,
+    "rot": -1.3,
+    "z": 43,
+    "foto": 18
+   },
+   {
+    "x": 208.7,
+    "y": 314.4,
+    "escala": 0.985,
+    "rot": -7.9,
+    "z": 58,
+    "foto": 19
+   },
+   {
+    "x": 265.0,
+    "y": 131.6,
+    "escala": 0.98,
+    "rot": -9.3,
+    "z": 29,
+    "foto": 20
+   },
+   {
+    "x": 448.8,
+    "y": 292.2,
+    "escala": 0.975,
+    "rot": 10.1,
+    "z": 52,
+    "foto": 21
+   },
+   {
+    "x": 112.3,
+    "y": 242.8,
+    "escala": 0.97,
+    "rot": 8.9,
+    "z": 44,
+    "foto": 22
+   },
+   {
+    "x": 427.4,
+    "y": 150.6,
+    "escala": 0.965,
+    "rot": -11.0,
+    "z": 28,
+    "foto": 23
+   }
+  ]
+ },
+ "slots_filler": {
+  "6": [
+   {
+    "x": 209.9,
+    "y": 283.8,
+    "rot": 291.8,
+    "escala": 0.171,
+    "foto": 0
+   },
+   {
+    "x": 233.8,
+    "y": 268.8,
+    "rot": 318.4,
+    "escala": 0.178,
+    "foto": 1
+   },
+   {
+    "x": 275.7,
+    "y": 260.1,
+    "rot": 352.6,
+    "escala": 0.171,
+    "foto": 0
+   },
+   {
+    "x": 324.3,
+    "y": 260.1,
+    "rot": 381.2,
+    "escala": 0.204,
+    "foto": 1
+   },
+   {
+    "x": 366.2,
+    "y": 268.8,
+    "rot": 411.1,
+    "escala": 0.22,
+    "foto": 0
+   },
+   {
+    "x": 390.1,
+    "y": 283.8,
+    "rot": 431.5,
+    "escala": 0.187,
+    "foto": 1
+   }
+  ],
+  "12": [
+   {
+    "x": 185.9,
+    "y": 281.7,
+    "rot": 279.0,
+    "escala": 0.204,
+    "foto": 0
+   },
+   {
+    "x": 204.6,
+    "y": 267.5,
+    "rot": 308.1,
+    "escala": 0.194,
+    "foto": 1
+   },
+   {
+    "x": 236.8,
+    "y": 256.7,
+    "rot": 323.0,
+    "escala": 0.21,
+    "foto": 0
+   },
+   {
+    "x": 277.9,
+    "y": 250.9,
+    "rot": 354.1,
+    "escala": 0.196,
+    "foto": 1
+   },
+   {
+    "x": 322.1,
+    "y": 250.9,
+    "rot": 370.9,
+    "escala": 0.182,
+    "foto": 0
+   },
+   {
+    "x": 363.2,
+    "y": 256.7,
+    "rot": 384.5,
+    "escala": 0.189,
+    "foto": 1
+   },
+   {
+    "x": 395.4,
+    "y": 267.5,
+    "rot": 415.4,
+    "escala": 0.173,
+    "foto": 0
+   },
+   {
+    "x": 414.1,
+    "y": 281.7,
+    "rot": 440.4,
+    "escala": 0.182,
+    "foto": 1
+   }
+  ],
+  "24": [
+   {
+    "x": 160.6,
+    "y": 279.4,
+    "rot": 285.4,
+    "escala": 0.202,
+    "foto": 0
+   },
+   {
+    "x": 174.8,
+    "y": 266.9,
+    "rot": 304.5,
+    "escala": 0.184,
+    "foto": 1
+   },
+   {
+    "x": 197.6,
+    "y": 256.2,
+    "rot": 317.0,
+    "escala": 0.215,
+    "foto": 0
+   },
+   {
+    "x": 227.5,
+    "y": 247.9,
+    "rot": 336.3,
+    "escala": 0.179,
+    "foto": 1
+   },
+   {
+    "x": 262.4,
+    "y": 242.7,
+    "rot": 347.3,
+    "escala": 0.201,
+    "foto": 0
+   },
+   {
+    "x": 300.0,
+    "y": 241.0,
+    "rot": 360.1,
+    "escala": 0.218,
+    "foto": 1
+   },
+   {
+    "x": 337.6,
+    "y": 242.7,
+    "rot": 375.6,
+    "escala": 0.192,
+    "foto": 0
+   },
+   {
+    "x": 372.5,
+    "y": 247.9,
+    "rot": 397.4,
+    "escala": 0.202,
+    "foto": 1
+   },
+   {
+    "x": 402.4,
+    "y": 256.2,
+    "rot": 402.2,
+    "escala": 0.185,
+    "foto": 0
+   },
+   {
+    "x": 425.2,
+    "y": 266.9,
+    "rot": 420.5,
+    "escala": 0.173,
+    "foto": 1
+   },
+   {
+    "x": 439.4,
+    "y": 279.4,
+    "rot": 437.4,
+    "escala": 0.207,
+    "foto": 0
+   }
+  ]
+ },
+ "slots_hastes": [
+  {
+   "x": 261.8,
+   "y": 548,
+   "rot": -9.0,
+   "largura": 17.9,
+   "altura": 115.2
+  },
+  {
+   "x": 269.8,
+   "y": 548,
+   "rot": -6.2,
+   "largura": 18.3,
+   "altura": 114.0
+  },
+  {
+   "x": 275.6,
+   "y": 548,
+   "rot": -6.1,
+   "largura": 16.2,
+   "altura": 133.8
+  },
+  {
+   "x": 284.5,
+   "y": 548,
+   "rot": -5.4,
+   "largura": 19.3,
+   "altura": 125.1
+  },
+  {
+   "x": 289.0,
+   "y": 548,
+   "rot": -3.0,
+   "largura": 18.4,
+   "altura": 121.4
+  },
+  {
+   "x": 297.2,
+   "y": 548,
+   "rot": -0.3,
+   "largura": 15.7,
+   "altura": 129.2
+  },
+  {
+   "x": 305.4,
+   "y": 548,
+   "rot": 2.2,
+   "largura": 18.1,
+   "altura": 111.1
+  },
+  {
+   "x": 308.5,
+   "y": 548,
+   "rot": 1.3,
+   "largura": 19.7,
+   "altura": 117.6
+  },
+  {
+   "x": 317.0,
+   "y": 548,
+   "rot": 5.2,
+   "largura": 16.6,
+   "altura": 123.7
+  },
+  {
+   "x": 324.2,
+   "y": 548,
+   "rot": 4.3,
+   "largura": 17.9,
+   "altura": 131.1
+  },
+  {
+   "x": 330.1,
+   "y": 548,
+   "rot": 6.4,
+   "largura": 17.1,
+   "altura": 110.9
+  },
+  {
+   "x": 338.5,
+   "y": 548,
+   "rot": 9.8,
+   "largura": 18.3,
+   "altura": 123.3
+  }
+ ]
+}
