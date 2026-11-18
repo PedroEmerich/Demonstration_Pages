@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Calibrador & Guia de Enquadramento - Buquê (1600x1600)</title>
+<style>
+  body { font-family: system-ui, sans-serif; background: #18181b; color: #f4f4f5; display: flex; gap: 24px; padding: 24px; margin: 0; }
+  .controls { width: 340px; display: flex; flex-direction: column; gap: 14px; background: #27272a; padding: 20px; border-radius: 12px; }
+  .canvas-wrap { position: relative; width: 640px; height: 640px; background: #ffffff; border: 2px solid #52525b; overflow: hidden; cursor: crosshair; }
+  img#preview { width: 100%; height: 100%; object-fit: contain; mix-blend-mode: multiply; }
+  .guide-line { position: absolute; left: 0; right: 0; border-top: 1px dashed; pointer-events: none; font-size: 11px; padding-left: 6px; font-weight: 600; }
+  .center-v { position: absolute; top: 0; bottom: 0; left: 50%; border-left: 1px dashed rgba(59,130,246,0.7); pointer-events: none; }
+  .marker { position: absolute; transform: translate(-50%, -50%); border-radius: 50%; pointer-events: none; }
+  .focal { width: 12px; height: 12px; background: #ef4444; border: 2px solid #fff; box-shadow: 0 0 0 1px #000; }
+  .hotspot { border: 2px solid rgba(234, 179, 8, 0.9); background: rgba(234, 179, 8, 0.18); }
+  textarea { width: 100%; height: 180px; background: #18181b; color: #a3e635; border: 1px solid #3f3f46; border-radius: 8px; padding: 10px; font-family: monospace; font-size: 12px; }
+  label { font-size: 13px; display: flex; flex-direction: column; gap: 4px; }
+  input[type="file"], select, input[type="range"] { width: 100%; }
+  button { background: #10b981; color: #052e16; font-weight: 700; border: none; padding: 10px; border-radius: 8px; cursor: pointer; }
+  button:hover { background: #34d399; }
+</style>
+</head>
+<body>
+  <div class="controls">
+    <h2 style="margin:0;font-size:18px;">Calibrador de Foto & JSON</h2>
+    <label>Carregar foto do buquê:
+      <input type="file" id="fileInput" accept="image/*">
+    </label>
+    <label>Modo de clique no quadro:
+      <select id="mode">
+        <option value="focal">Definir Focal (ponto vermelho)</option>
+        <option value="h1">Mover Hotspot 1 (principal)</option>
+        <option value="h2">Mover Hotspot 2</option>
+        <option value="h3">Mover Hotspot 3</option>
+      </select>
+    </label>
+    <label>Raio do Hotspot ativo: <span id="rVal">0.22</span>
+      <input type="range" id="radiusRange" min="0.08" max="0.45" step="0.01" value="0.22">
+    </label>
+    <div style="font-size:12px;color:#a1a1aa;">
+      • Topo das flores: linha verde (5%)<br>
+      • Laço: linha azul (62%)<br>
+      • Ponta das hastes: linha vermelha (97%)<br>
+      • Fundo cinza aparecerá como mancha (simula <code>mix-blend-mode: multiply</code>).
+    </div>
+    <textarea id="jsonOut" readonly></textarea>
+    <button onclick="navigator.clipboard.writeText(document.getElementById('jsonOut').value)">Copiar trecho JSON</button>
+  </div>
+
+  <div class="canvas-wrap" id="stage">
+    <img id="preview" alt="">
+    <div class="center-v"></div>
+    <div class="guide-line" style="top:5%; border-color:#16a34a; color:#16a34a;">5% — Topo das flores</div>
+    <div class="guide-line" style="top:62%; border-color:#2563eb; color:#2563eb;">62% — Altura do laço</div>
+    <div class="guide-line" style="top:97%; border-color:#dc2626; color:#dc2626;">97% — Ponta das hastes</div>
+    <div class="marker focal" id="mFocal"></div>
+    <div class="marker hotspot" id="mH1"></div>
+    <div class="marker hotspot" id="mH2"></div>
+    <div class="marker hotspot" id="mH3"></div>
+  </div>
+
+<script>
+  const state = {
+    available: true,
+    focal: { x: 0.50, y: 0.28 },
+    hotspots: [
+      { x: 0.50, y: 0.26, r: 0.22 },
+      { x: 0.38, y: 0.34, r: 0.15 },
+      { x: 0.62, y: 0.34, r: 0.15 }
+    ]
+  };
+
+  const stage = document.getElementById('stage');
+  const modeSel = document.getElementById('mode');
+  const radiusRange = document.getElementById('radiusRange');
+  const rVal = document.getElementById('rVal');
+  const jsonOut = document.getElementById('jsonOut');
+
+  function render() {
+    const f = document.getElementById('mFocal');
+    f.style.left = (state.focal.x * 100) + '%';
+    f.style.top = (state.focal.y * 100) + '%';
+
+    state.hotspots.forEach((h, i) => {
+      const el = document.getElementById('mH' + (i + 1));
+      el.style.left = (h.x * 100) + '%';
+      el.style.top = (h.y * 100) + '%';
+      const d = (h.r * 2 * 100) + '%';
+      el.style.width = d;
+      el.style.height = d;
+    });
+
+    jsonOut.value = JSON.stringify(state, null, 2);
+  }
+
+  stage.addEventListener('click', (e) => {
+    const rect = stage.getBoundingClientRect();
+    const x = Math.round(((e.clientX - rect.left) / rect.width) * 100) / 100;
+    const y = Math.round(((e.clientY - rect.top) / rect.height) * 100) / 100;
+    const m = modeSel.value;
+    if (m === 'focal') state.focal = { x, y };
+    else if (m === 'h1') { state.hotspots[0].x = x; state.hotspots[0].y = y; }
+    else if (m === 'h2') { state.hotspots[1].x = x; state.hotspots[1].y = y; }
+    else if (m === 'h3') { state.hotspots[2].x = x; state.hotspots[2].y = y; }
+    render();
+  });
+
+  modeSel.addEventListener('change', () => {
+    const m = modeSel.value;
+    if (m.startsWith('h')) {
+      const idx = parseInt(m[1]) - 1;
+      radiusRange.value = state.hotspots[idx].r;
+      rVal.textContent = state.hotspots[idx].r;
+    }
+  });
+
+  radiusRange.addEventListener('input', () => {
+    const m = modeSel.value;
+    const val = parseFloat(radiusRange.value);
+    rVal.textContent = val.toFixed(2);
+    if (m.startsWith('h')) {
+      const idx = parseInt(m[1]) - 1;
+      state.hotspots[idx].r = val;
+      render();
+    }
+  });
+
+  document.getElementById('fileInput').addEventListener('change', (e) => {
+    const file = e.target.files[0];
+    if (file) document.getElementById('preview').src = URL.createObjectURL(file);
+  });
+
+  render();
+</script>
+</body>
+</html>
