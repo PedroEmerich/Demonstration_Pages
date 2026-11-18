@@ -8,273 +8,389 @@
 <meta name="theme-color" content="#f6f2ea" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=Figtree:wght@400;500;600&family=Caveat:wght@500&display=swap" rel="stylesheet" />
+<link rel="preconnect" href="https://images.unsplash.com" />
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=Figtree:wght@400;500;600;700&family=Caveat:wght@500&display=swap" rel="stylesheet" />
 <style>
   :root {
-    --bg: #f6f2ea; --white: #fffdf9; --green: #1f3a2c; --green2: #2f5a43; --sage: #a9b99a; --sage2: #e3e9db; --orchid: #8e4b8f; --blush: #f2d6d3; --ink: #1f2a24; --muted: #6c746d; --line: #e2dccf;
+    --bg: #f6f2ea; --white: #fffdf9; --green: #1f3a2c; --green2: #2f5a43; --sage: #a9b99a; --sage2: #e3e9db; --orchid: #8e4b8f; --orchid2: #b77bb5; --blush: #f2d6d3; --ink: #1f2a24; --muted: #6c746d; --line: #e2dccf;
     --serif: "Playfair Display", Georgia, serif; --sans: "Figtree", system-ui, sans-serif; --hand: "Caveat", cursive;
     --ease: cubic-bezier(.2,.8,.2,1); --spring: cubic-bezier(.34,1.56,.64,1);
+    --glass: rgba(255,253,249,.58); --glass-b: rgba(255,255,255,.7);
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  html { overflow-x: clip; scroll-behavior: smooth; scroll-padding-top: 90px; }
+  html { overflow-x: clip; scroll-padding-top: 100px; }
   body { background: var(--bg); color: var(--ink); font-family: var(--sans); line-height: 1.65; -webkit-font-smoothing: antialiased; overflow-x: clip; }
   img { display: block; max-width: 100%; }
   a { color: inherit; text-decoration: none; }
   button, input, textarea { font: inherit; color: inherit; }
   button { background: none; border: 0; cursor: pointer; }
   .wrap { width: min(1240px, 100% - 40px); margin-inline: auto; }
-  h1, h2, h3 { font-family: var(--serif); font-weight: 400; line-height: 1.05; letter-spacing: -.01em; }
+  h1, h2, h3 { font-family: var(--serif); font-weight: 400; line-height: 1.04; letter-spacing: -.015em; }
   h1 em, h2 em { color: var(--orchid); }
-  .h2 { font-size: clamp(40px, 5.2vw, 76px); }
-  .eyebrow { display: inline-flex; align-items: center; gap: 10px; font-size: 13px; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; color: var(--green2); }
+  .h2 { font-size: clamp(40px, 5.4vw, 80px); }
+  .eyebrow { display: inline-flex; align-items: center; gap: 10px; font-size: 12.5px; font-weight: 700; letter-spacing: .22em; text-transform: uppercase; color: var(--green2); }
   .eyebrow svg { width: 18px; color: var(--orchid); }
-  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 16px 30px; border-radius: 999px; font-weight: 600; font-size: 15px; transition: all .35s var(--ease); }
+  .vidro { background: var(--glass); backdrop-filter: blur(18px) saturate(1.5); -webkit-backdrop-filter: blur(18px) saturate(1.5); box-shadow: inset 0 0 0 1px var(--glass-b), 0 20px 50px -24px rgba(31,58,44,.35); }
+  .btn { position: relative; display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 17px 30px; border-radius: 999px; font-weight: 600; font-size: 15px; transition: background .35s, color .35s, box-shadow .35s; will-change: transform; overflow: hidden; isolation: isolate; }
+  .btn::before { content: ""; position: absolute; inset: 0; z-index: -1; background: radial-gradient(120px circle at var(--mx, 50%) var(--my, 50%), rgba(255,255,255,.28), transparent 60%); opacity: 0; transition: opacity .3s; }
+  .btn:hover::before { opacity: 1; }
   .btn--g { background: var(--green); color: var(--bg); }
-  .btn--g:hover { background: var(--orchid); transform: translateY(-2px); }
+  .btn--g:hover { background: var(--orchid); box-shadow: 0 16px 34px -14px var(--orchid); }
   .btn--l { box-shadow: inset 0 0 0 1px var(--green); color: var(--green); }
   .btn--l:hover { background: var(--green); color: var(--bg); }
-  [data-r] { opacity: 0; transform: translateY(34px); transition: opacity 1s var(--ease), transform 1s var(--ease); transition-delay: var(--d, 0s); }
-  [data-r].in { opacity: 1; transform: none; }
+  [data-r] { opacity: 0; transform: translateY(34px); filter: blur(6px); transition: opacity 1s var(--ease), transform 1s var(--ease), filter 1s var(--ease); transition-delay: var(--d, 0s); }
+  [data-r].in { opacity: 1; transform: none; filter: none; }
+
+  /* CURSOR */
+  .cur { position: fixed; left: 0; top: 0; z-index: 300; pointer-events: none; width: 38px; height: 38px; margin: -19px 0 0 -19px; border-radius: 50%; border: 1.5px solid var(--orchid); display: grid; place-items: center; opacity: 0; transition: width .4s var(--spring), height .4s var(--spring), margin .4s var(--spring), background .3s, border-color .3s, opacity .3s; }
+  .cur.on { opacity: 1; }
+  .cur i { width: 6px; height: 6px; border-radius: 50%; background: var(--orchid); transition: opacity .2s; }
+  .cur span { position: absolute; font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: #fff; opacity: 0; transition: opacity .2s; }
+  .cur.lbl { width: 84px; height: 84px; margin: -42px 0 0 -42px; background: rgba(142,75,143,.86); border-color: transparent; backdrop-filter: blur(4px); }
+  .cur.lbl i { opacity: 0; } .cur.lbl span { opacity: 1; }
+  .cur.link { width: 58px; height: 58px; margin: -29px 0 0 -29px; background: rgba(142,75,143,.12); }
+  @media (hover: none), (pointer: coarse) { .cur { display: none; } }
 
   /* NAV */
-  .nav { position: fixed; inset: 0 0 auto; z-index: 50; transition: background .4s, box-shadow .4s; }
-  .nav.solid { background: rgba(246,242,234,.92); backdrop-filter: blur(12px); box-shadow: 0 1px 0 var(--line); }
-  .nav__in { height: 84px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
-  .logo { display: flex; align-items: center; gap: 10px; font-family: var(--serif); font-size: 28px; font-style: italic; color: var(--green); }
-  .logo svg { width: 34px; color: var(--orchid); transition: transform .8s var(--spring); }
-  .logo:hover svg { transform: rotate(72deg); }
-  .nav__links { display: flex; gap: 30px; font-weight: 500; font-size: 15px; }
-  .nav__links a:hover { color: var(--orchid); }
-  .bagb { display: inline-flex; align-items: center; gap: 8px; padding: 10px 16px; border-radius: 999px; background: var(--white); box-shadow: 0 1px 0 var(--line); font-weight: 600; font-size: 14px; }
-  .bagb b { min-width: 22px; height: 22px; border-radius: 11px; background: var(--orchid); color: #fff; display: grid; place-items: center; font-size: 12px; padding: 0 6px; transition: transform .4s var(--spring); }
-  .bagb.bump b { transform: scale(1.4); }
+  .nav { position: fixed; top: 14px; left: 0; right: 0; z-index: 60; transition: transform .5s var(--ease); }
+  .nav.esc { transform: translateY(-130%); }
+  .nav__in { height: 66px; display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 0 10px 0 22px; border-radius: 999px; transition: background .4s, box-shadow .4s, backdrop-filter .4s; }
+  .nav.solid .nav__in { background: var(--glass); backdrop-filter: blur(18px) saturate(1.5); -webkit-backdrop-filter: blur(18px) saturate(1.5); box-shadow: inset 0 0 0 1px var(--glass-b), 0 14px 40px -22px rgba(31,58,44,.4); }
+  .logo { display: flex; align-items: center; gap: 10px; font-family: var(--serif); font-size: 27px; font-style: italic; color: var(--green); }
+  .logo svg { width: 32px; color: var(--orchid); transition: transform .9s var(--spring); }
+  .logo:hover svg { transform: rotate(144deg); }
+  .nav__links { display: flex; gap: 6px; font-weight: 500; font-size: 15px; position: relative; }
+  .nav__links a { position: relative; z-index: 1; padding: 9px 15px; border-radius: 999px; transition: color .3s; }
+  .nav__pill { position: absolute; z-index: 0; top: 0; height: 100%; border-radius: 999px; background: rgba(142,75,143,.12); opacity: 0; transition: left .45s var(--ease), width .45s var(--ease), opacity .3s; }
+  .nav__links:hover .nav__pill { opacity: 1; }
+  .bagb { display: inline-flex; align-items: center; gap: 8px; padding: 11px 16px; border-radius: 999px; background: var(--green); color: var(--bg); font-weight: 600; font-size: 14px; }
+  .bagb b { min-width: 22px; height: 22px; border-radius: 11px; background: var(--blush); color: var(--green); display: grid; place-items: center; font-size: 12px; padding: 0 6px; transition: transform .4s var(--spring); }
+  .bagb.bump b { transform: scale(1.45); }
   .burger { display: none; width: 46px; height: 46px; border-radius: 50%; background: var(--green); place-items: center; }
   .burger span { width: 18px; height: 1.5px; background: var(--bg); box-shadow: 0 6px 0 var(--bg), 0 -6px 0 var(--bg); }
 
   /* HERO */
-  .hero { position: relative; min-height: 100svh; padding: 130px 0 70px; display: flex; align-items: center; overflow: hidden; }
-  #petals { position: absolute; inset: 0; z-index: 1; pointer-events: none; }
+  .hero { position: relative; min-height: 100vh; min-height: 100svh; padding: 140px 0 80px; display: flex; align-items: center; overflow: hidden; }
+  .hero__luz { position: absolute; z-index: 0; width: 720px; height: 720px; left: 0; top: 0; margin: -360px 0 0 -360px; border-radius: 50%; background: radial-gradient(circle, rgba(201,139,196,.32), rgba(242,214,211,.18) 40%, transparent 70%); pointer-events: none; will-change: transform; }
+  #petals { position: absolute; inset: 0; z-index: 3; pointer-events: none; width: 100%; height: 100%; }
   .hero__grid { position: relative; z-index: 2; display: grid; grid-template-columns: 1.05fr .95fr; gap: 60px; align-items: center; }
-  .hero h1 { font-size: clamp(52px, 7vw, 110px); margin: 22px 0 26px; }
-  .hero h1 .w { display: inline-block; opacity: 0; transform: translateY(30px); filter: blur(8px); animation: bloom 1.3s var(--ease) forwards; }
+  .hero h1 { font-size: clamp(54px, 7.2vw, 116px); margin: 22px 0 26px; }
+  .hero h1 .w { display: inline-block; opacity: 0; transform: translateY(40px) rotate(4deg); filter: blur(10px); animation: bloom 1.4s var(--ease) forwards; }
   @keyframes bloom { to { opacity: 1; transform: none; filter: none; } }
-  .hero p { color: var(--muted); font-size: 18px; max-width: 460px; }
+  .hero p.lead { font-size: 19px; color: var(--muted); max-width: 470px; }
   .hero__ctas { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 34px; }
-  .cut { display: inline-flex; align-items: center; gap: 14px; margin-top: 38px; padding: 12px 18px 12px 12px; border-radius: 999px; background: var(--white); box-shadow: 0 10px 30px -18px rgba(31,58,44,.4); }
-  .cut i { width: 42px; height: 42px; border-radius: 50%; background: var(--sage2); display: grid; place-items: center; font-style: normal; font-size: 20px; }
-  .cut small { display: block; color: var(--muted); font-size: 13px; }
-  .cut b { font-weight: 600; }
-  .art { position: relative; height: min(70vh, 640px); }
-  .arch { position: absolute; right: 0; top: 0; width: 76%; height: 100%; border-radius: 400px 400px 30px 30px; overflow: hidden; }
-  .arch img { width: 100%; height: 112%; object-fit: cover; transform: scale(1.1); animation: settle 2.4s var(--ease) forwards; will-change: transform; }
-  @keyframes settle { to { transform: scale(1); } }
-  .bubble { position: absolute; left: 0; bottom: 8%; width: 38%; aspect-ratio: 1; border-radius: 50%; overflow: hidden; border: 8px solid var(--bg); box-shadow: 0 30px 50px -30px rgba(31,58,44,.6); animation: float 7s ease-in-out infinite; }
+  .cut { display: inline-flex; align-items: center; gap: 14px; margin-top: 40px; padding: 12px 22px 12px 12px; border-radius: 999px; }
+  .cut i { width: 44px; height: 44px; border-radius: 50%; background: var(--sage2); display: grid; place-items: center; font-style: normal; color: var(--green); }
+  .cut i svg { width: 22px; }
+  .cut small { display: block; font-size: 13px; color: var(--muted); }
+  .cut b { font-size: 16px; font-weight: 600; font-variant-numeric: tabular-nums; }
+  .art { position: relative; height: min(76vh, 680px); perspective: 1200px; }
+  .arch { position: absolute; right: 0; top: 0; width: 82%; height: 100%; border-radius: 999px 999px 32px 32px; overflow: hidden; box-shadow: 0 50px 90px -40px rgba(31,58,44,.55); transform-style: preserve-3d; will-change: transform; }
+  .arch img { width: 100%; height: 118%; object-fit: cover; will-change: transform; }
+  .arch::after { content: ""; position: absolute; inset: 0; background: radial-gradient(400px circle at var(--gx, 50%) var(--gy, 30%), rgba(255,255,255,.28), transparent 55%); mix-blend-mode: soft-light; }
+  .bubble { position: absolute; left: 0; bottom: 9%; width: 36%; aspect-ratio: 1; border-radius: 50%; overflow: hidden; border: 7px solid var(--white); box-shadow: 0 30px 60px -24px rgba(31,58,44,.5); will-change: transform; }
   .bubble img { width: 100%; height: 100%; object-fit: cover; }
-  @keyframes float { 50% { transform: translateY(-16px) rotate(-3deg); } }
-  .note { position: absolute; left: 10%; top: 10%; font-family: var(--hand); font-size: 30px; color: var(--orchid); transform: rotate(-8deg); line-height: 1; }
-  .note svg { display: block; width: 70px; margin: 4px 0 0 60px; color: var(--orchid); }
+  .note { position: absolute; left: 4%; top: 9%; font-family: var(--hand); font-size: 34px; line-height: 1.05; color: var(--orchid); transform: rotate(-8deg); }
+  .note svg { width: 80px; margin: 4px 0 0 60px; }
+  .selo { position: absolute; right: -14px; bottom: 16%; width: 128px; height: 128px; border-radius: 50%; display: grid; place-items: center; z-index: 2; }
+  .selo svg { position: absolute; inset: 0; animation: gira 22s linear infinite; }
+  .selo b { font-family: var(--serif); font-style: italic; font-size: 30px; color: var(--orchid); font-weight: 400; }
+  @keyframes gira { to { transform: rotate(360deg); } }
 
-  /* FAIXA */
-  .ribbon { background: var(--green); color: var(--bg); padding: 22px 0; overflow: hidden; }
-  .ribbon__track { display: flex; gap: 46px; width: max-content; animation: run 40s linear infinite; }
-  .ribbon span { font-family: var(--serif); font-style: italic; font-size: 30px; white-space: nowrap; display: flex; align-items: center; gap: 46px; }
-  .ribbon span::after { content: "❀"; color: var(--blush); font-style: normal; font-size: .8em; }
-  @keyframes run { to { transform: translateX(-50%); } }
+  .ribbon { background: var(--green); color: var(--bg); padding: 20px 0; overflow: hidden; }
+  .ribbon__track { display: flex; width: max-content; will-change: transform; }
+  .ribbon span { display: flex; align-items: center; gap: 40px; padding-right: 40px; font-family: var(--serif); font-style: italic; font-size: clamp(26px, 3vw, 40px); white-space: nowrap; }
+  .ribbon span::after { content: "✿"; font-style: normal; color: var(--blush); font-size: .6em; }
+
+  /* MANIFESTO */
+  .mani { position: relative; height: 260vh; }
+  .mani__stick { position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden; display: grid; place-items: center; }
+  .mani__img { position: absolute; inset: 0; clip-path: circle(var(--c, 10%) at 50% var(--cy, 82%)); will-change: clip-path; }
+  .mani__img img { width: 100%; height: 100%; object-fit: cover; transform: scale(var(--z, 1.3)); }
+  .mani__img::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(20,38,28,.15), rgba(20,38,28,.55)); opacity: var(--o, 0); }
+  .mani__t { position: relative; z-index: 2; text-align: center; pointer-events: none; }
+  .mani__t h2 { font-size: clamp(46px, 7.6vw, 128px); text-shadow: 0 2px 30px rgba(246,242,234,.4); color: var(--green); transition: color .3s; }
+  .mani__t h2 span { display: block; will-change: transform; }
+  .mani__t h2 em { color: var(--orchid); }
+  .mani.claro .mani__t h2, .mani.claro .mani__t h2 em { color: var(--white); text-shadow: 0 4px 40px rgba(10,25,15,.45); }
+  .mani__sub { margin-top: 26px; font-size: 18px; color: var(--muted); opacity: var(--so, 1); }
+  .mani.claro .mani__sub { color: rgba(255,255,255,.88); }
+  .mani__cards { position: absolute; inset: 0; z-index: 3; pointer-events: none; }
+  .mc { position: absolute; padding: 18px 22px; border-radius: 22px; max-width: 250px; opacity: 0; transform: translateY(40px); transition: opacity .8s var(--ease), transform .8s var(--ease); }
+  .mc.on { opacity: 1; transform: none; }
+  .mc b { display: block; font-family: var(--serif); font-size: 30px; font-weight: 400; color: var(--green); }
+  .mc span { font-size: 14px; color: var(--muted); }
+  .mc1 { left: 6%; top: 12%; } .mc2 { right: 8%; top: 30%; } .mc3 { left: 14%; bottom: 14%; }
 
   /* LOJA */
-  .shop { padding: 130px 0; }
+  .shop { padding: 140px 0 120px; }
   .head { display: flex; justify-content: space-between; align-items: end; gap: 30px; flex-wrap: wrap; margin-bottom: 40px; }
-  .head p { color: var(--muted); max-width: 400px; }
-  .cats { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 30px; }
-  .cat { padding: 10px 20px; border-radius: 999px; background: var(--white); font-weight: 500; font-size: 15px; box-shadow: 0 1px 0 var(--line); transition: all .3s var(--ease); }
-  .cat.on { background: var(--green); color: var(--bg); }
+  .head p { max-width: 400px; color: var(--muted); }
+  .cats { position: relative; display: inline-flex; gap: 4px; padding: 5px; border-radius: 999px; margin-bottom: 34px; flex-wrap: wrap; }
+  .cat { position: relative; z-index: 1; padding: 10px 18px; border-radius: 999px; font-weight: 600; font-size: 14px; color: var(--muted); transition: color .3s; }
+  .cat.on { color: var(--bg); }
+  .cats__pill { position: absolute; z-index: 0; border-radius: 999px; background: var(--green); transition: all .5s var(--spring); }
   .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; }
-  .prod { animation: up .7s var(--ease) both; }
-  @keyframes up { from { opacity: 0; transform: translateY(24px); } }
-  .prod__img { position: relative; aspect-ratio: 4/5; border-radius: 200px 200px 18px 18px; overflow: hidden; background: var(--sage2); }
-  .prod__img img { width: 100%; height: 100%; object-fit: cover; transition: transform 1.4s var(--ease); }
-  .prod:hover .prod__img img { transform: scale(1.07); }
-  .prod__add { position: absolute; right: 12px; bottom: 12px; width: 48px; height: 48px; border-radius: 50%; background: var(--white); color: var(--green); font-size: 24px; display: grid; place-items: center; box-shadow: 0 10px 20px -10px rgba(0,0,0,.4); transition: all .4s var(--spring); }
-  .prod__add:hover { background: var(--orchid); color: #fff; transform: rotate(90deg) scale(1.1); }
-  .prod__add.ok { background: var(--green); color: #fff; }
+  .prod { position: relative; animation: cai .7s var(--ease) both; }
+  @keyframes cai { from { opacity: 0; transform: translateY(30px) scale(.96); } }
+  .prod__img { position: relative; aspect-ratio: 4 / 5; border-radius: 26px; overflow: hidden; background: var(--sage2); transform-style: preserve-3d; transition: transform .5s var(--ease), box-shadow .5s; will-change: transform; }
+  .prod__img img { width: 100%; height: 100%; object-fit: cover; transition: transform 1.1s var(--ease); }
+  .prod:hover .prod__img { box-shadow: 0 30px 50px -26px rgba(31,58,44,.55); }
+  .prod:hover .prod__img img { transform: scale(1.08); }
+  .prod__img::after { content: ""; position: absolute; inset: 0; background: radial-gradient(260px circle at var(--gx, 50%) var(--gy, 50%), rgba(255,255,255,.35), transparent 60%); opacity: 0; transition: opacity .4s; mix-blend-mode: soft-light; }
+  .prod:hover .prod__img::after { opacity: 1; }
+  .prod__tag { position: absolute; left: 12px; top: 12px; padding: 6px 12px; border-radius: 999px; font-size: 12px; font-weight: 700; color: var(--green); }
+  .prod__add { position: absolute; left: 12px; right: 12px; bottom: 12px; height: 50px; border-radius: 999px; font-weight: 600; font-size: 14px; color: var(--green); display: flex; align-items: center; justify-content: center; gap: 8px; transform: translateY(70px); transition: transform .5s var(--spring), background .3s, color .3s; }
+  .prod:hover .prod__add, .prod__add:focus-visible, .prod__add.ok { transform: none; }
+  .prod__add:hover { background: var(--green); color: var(--bg); }
+  .prod__add.ok { background: var(--orchid); color: #fff; }
   .prod h3 { font-size: 21px; margin-top: 16px; }
-  .prod p { display: flex; justify-content: space-between; color: var(--muted); font-size: 14px; }
-  .prod p b { color: var(--ink); font-weight: 600; font-size: 16px; }
+  .prod p { display: flex; justify-content: space-between; color: var(--muted); font-size: 14.5px; margin-top: 4px; }
+  .prod p b { color: var(--ink); font-weight: 600; }
+  @media (hover: none) { .prod__add { transform: none; } }
 
-  /* MONTE SEU BUQUÊ */
-  .build { padding: 120px 0; background: var(--white); border-radius: 50px; margin: 0 14px; }
-  .build__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start; }
-  .preview { position: sticky; top: 110px; background: var(--bg); border-radius: 36px; padding: 30px; text-align: center; }
-  .preview svg { width: 100%; max-width: 420px; height: auto; }
-  .flower { transform-box: fill-box; transform-origin: center; animation: pop .6s var(--spring) both; }
-  @keyframes pop { from { transform: scale(0); } }
-  .card { margin: -30px auto 0; max-width: 330px; background: #fff; padding: 18px 22px; box-shadow: 0 16px 30px -18px rgba(31,58,44,.5); transform: rotate(-3deg); position: relative; min-height: 90px; }
-  .card p { font-family: var(--hand); font-size: 26px; line-height: 1.15; color: var(--green); word-break: break-word; }
-  .card small { display: block; font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
-  .price { display: flex; justify-content: space-between; align-items: baseline; margin-top: 26px; padding-top: 18px; border-top: 1px solid var(--line); }
-  .price b { font-family: var(--serif); font-size: 44px; font-weight: 400; color: var(--green); }
-  .opt-step { margin-bottom: 32px; }
-  .opt-step h4 { font-family: var(--serif); font-weight: 400; font-size: 24px; margin-bottom: 14px; }
-  .opt-step h4 span { font-family: var(--hand); color: var(--orchid); font-size: 28px; margin-right: 8px; }
-  .choices { display: flex; gap: 10px; flex-wrap: wrap; }
-  .ch { padding: 12px 18px; border-radius: 16px; border: 1.5px solid var(--line); background: var(--bg); font-weight: 500; transition: all .3s var(--spring); text-align: left; }
-  .ch small { display: block; color: var(--muted); font-size: 12px; }
-  .ch:hover { transform: translateY(-2px); }
-  .ch.on { border-color: var(--green); background: var(--sage2); }
-  .sw { width: 44px; height: 44px; border-radius: 50%; border: 3px solid var(--white); box-shadow: 0 0 0 1.5px var(--line); transition: all .3s var(--spring); }
-  .sw.on { box-shadow: 0 0 0 2.5px var(--green); transform: scale(1.12); }
-  textarea { width: 100%; border: 1.5px solid var(--line); background: var(--bg); border-radius: 16px; padding: 14px 16px; outline: none; resize: none; transition: border-color .3s; }
-  textarea:focus { border-color: var(--orchid); }
-  .count { font-size: 12px; color: var(--muted); text-align: right; }
+  /* BUQUÊ */
+  .build { position: relative; padding: 130px 0 140px; background: radial-gradient(90% 60% at 80% 10%, rgba(242,214,211,.7), transparent 60%), radial-gradient(70% 60% at 0% 100%, rgba(169,185,154,.45), transparent 60%), #efe8dc; border-radius: 48px; margin: 0 14px; }
+  .build__grid { display: grid; grid-template-columns: .9fr 1.1fr; gap: 50px; align-items: start; }
+  .passos { display: grid; gap: 16px; }
+  .passo { padding: 22px; border-radius: 26px; }
+  .passo h4 { display: flex; align-items: baseline; gap: 10px; font-family: var(--serif); font-weight: 400; font-size: 23px; margin-bottom: 14px; }
+  .passo h4 span { font-family: var(--sans); font-size: 12px; font-weight: 700; letter-spacing: .14em; color: var(--orchid); }
+  .choices { display: flex; flex-wrap: wrap; gap: 8px; }
+  .ch { position: relative; display: flex; align-items: center; gap: 10px; padding: 8px 16px 8px 8px; border-radius: 18px; background: rgba(255,255,255,.55); box-shadow: inset 0 0 0 1px rgba(31,58,44,.1); text-align: left; transition: all .35s var(--ease); }
+  .ch:hover { box-shadow: inset 0 0 0 1px var(--orchid); transform: translateY(-2px); }
+  .ch.on { background: var(--green); color: var(--bg); box-shadow: 0 12px 26px -14px var(--green); }
+  .ch img { width: 44px; height: 44px; border-radius: 12px; background: rgba(255,255,255,.7); object-fit: contain; }
+  .ch.on img { background: rgba(255,255,255,.14); }
+  .ch b { display: block; font-weight: 600; font-size: 14.5px; line-height: 1.2; }
+  .ch small { display: block; font-size: 12px; opacity: .7; }
+  .ch.sem-img { padding: 12px 18px; }
+  .sw { width: 42px; height: 42px; border-radius: 50%; box-shadow: inset 0 0 0 1px rgba(0,0,0,.1); transition: transform .35s var(--spring), box-shadow .3s; }
+  .sw:hover { transform: scale(1.12); }
+  .sw.on { box-shadow: 0 0 0 3px var(--bg), 0 0 0 5px var(--green); }
+  .passo textarea { width: 100%; resize: none; border: 0; border-radius: 16px; padding: 14px 16px; background: rgba(255,255,255,.7); font-family: var(--hand); font-size: 24px; line-height: 1.2; outline: none; box-shadow: inset 0 0 0 1px rgba(31,58,44,.1); }
+  .passo textarea:focus { box-shadow: inset 0 0 0 1.5px var(--orchid); }
+  .count { text-align: right; font-size: 12px; color: var(--muted); margin-top: 6px; }
+  .palco { position: sticky; top: 96px; }
+  .stage { position: relative; height: min(640px, calc(100vh - 230px)); min-height: 470px; border-radius: 34px; overflow: hidden; background: radial-gradient(70% 60% at 50% 40%, rgba(255,255,255,.75), rgba(255,255,255,.25)); box-shadow: inset 0 0 0 1px rgba(255,255,255,.8), 0 40px 80px -40px rgba(31,58,44,.4); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
+  .stage::before { content: ""; position: absolute; left: 50%; bottom: 7%; width: 60%; height: 24px; margin-left: -30%; border-radius: 50%; background: radial-gradient(closest-side, rgba(31,58,44,.22), transparent); }
+  .stage__info { position: absolute; left: 18px; top: 16px; font-size: 12.5px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--green2); display: flex; align-items: center; gap: 8px; }
+  .stage__info i { width: 8px; height: 8px; border-radius: 50%; background: var(--orchid); animation: pisca 1.6s infinite; }
+  @keyframes pisca { 50% { opacity: .25; } }
+  .stage__dica { position: absolute; right: 18px; top: 14px; font-family: var(--hand); font-size: 22px; color: var(--orchid); }
+  .cartao { position: absolute; right: 16px; bottom: 16px; z-index: 2; width: 190px; padding: 14px 16px; border-radius: 4px 18px 18px 18px; background: rgba(255,253,249,.82); backdrop-filter: blur(8px); box-shadow: 0 14px 30px -16px rgba(31,58,44,.5); transform: rotate(3deg); transition: transform .5s var(--spring); }
+  .cartao:hover { transform: rotate(0) scale(1.04); }
+  .cartao small { font-size: 10.5px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--orchid); }
+  .cartao p { font-family: var(--hand); font-size: 22px; line-height: 1.1; color: var(--ink); margin-top: 4px; word-break: break-word; }
+  .resumo { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin-top: 16px; padding: 16px 16px 16px 22px; border-radius: 26px; }
+  .resumo span { color: var(--muted); font-size: 14px; line-height: 1.4; }
+  .resumo b { display: block; font-family: var(--serif); font-size: 34px; font-weight: 400; line-height: 1; color: var(--green); }
+  #bqc { position: fixed; inset: 0; z-index: 45; pointer-events: none; width: 100vw; height: 100vh; }
 
   /* CUIDADOS */
-  .care { padding: 130px 0; }
-  .care__grid { display: grid; grid-template-columns: .9fr 1.1fr; gap: 60px; align-items: center; }
-  .care__img { position: relative; aspect-ratio: 1; border-radius: 50%; overflow: hidden; }
-  .care__img img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: opacity .7s, transform 1.2s var(--ease); }
-  .care__img img.out { opacity: 0; transform: scale(1.06); }
-  .species { display: flex; gap: 8px; flex-wrap: wrap; margin: 26px 0 30px; }
-  .meters { display: grid; gap: 18px; }
-  .meter { display: grid; grid-template-columns: 140px 1fr; gap: 16px; align-items: center; }
-  .meter span { font-weight: 600; }
+  .care { padding: 140px 0; }
+  .care__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 70px; align-items: center; }
+  .care__img { position: relative; aspect-ratio: 4 / 5; border-radius: 300px 300px 30px 30px; overflow: hidden; }
+  .care__img img { width: 100%; height: 100%; object-fit: cover; transition: opacity .5s, transform 1.2s var(--ease), filter .5s; }
+  .care__img img.out { opacity: 0; transform: scale(1.08); filter: blur(10px); }
+  .care__badge { position: absolute; left: 18px; bottom: 18px; right: 18px; padding: 16px 20px; border-radius: 22px; display: flex; justify-content: space-between; align-items: center; }
+  .care__badge b { font-family: var(--serif); font-weight: 400; font-size: 24px; }
+  .care__badge span { font-size: 13px; color: var(--muted); }
+  .species { display: flex; flex-wrap: wrap; gap: 8px; margin: 30px 0 26px; }
+  .species .ch { padding: 11px 18px; }
+  .meters { display: grid; gap: 14px; }
+  .meter { display: grid; grid-template-columns: 110px 1fr; align-items: center; gap: 16px; font-weight: 600; font-size: 15px; }
   .meter i { display: flex; gap: 6px; }
-  .meter i b { flex: 1; height: 10px; border-radius: 5px; background: var(--line); transition: background .5s var(--ease); transition-delay: var(--d); }
-  .meter i b.f { background: var(--green2); }
-  .tip { margin-top: 26px; padding: 20px 24px; border-radius: 20px; background: var(--blush); color: #6b2f4a; animation: up .6s var(--ease); }
-  .tip b { font-family: var(--serif); font-style: italic; font-weight: 400; font-size: 20px; display: block; margin-bottom: 4px; }
+  .meter i b { flex: 1; height: 10px; border-radius: 6px; background: var(--line); position: relative; overflow: hidden; }
+  .meter i b::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, var(--green2), var(--orchid)); transform: scaleX(0); transform-origin: left; transition: transform .6s var(--ease); transition-delay: var(--d); }
+  .meter i b.f::after { transform: none; }
+  .tip { margin-top: 26px; padding: 22px 24px; border-radius: 24px; color: var(--ink); }
+  .tip b { display: block; font-size: 12px; letter-spacing: .16em; text-transform: uppercase; color: var(--orchid); margin-bottom: 6px; }
 
   /* VIVEIRO */
-  .nursery { position: relative; min-height: 90vh; display: flex; align-items: flex-end; color: var(--bg); overflow: hidden; border-radius: 50px; margin: 0 14px; }
-  .nursery__bg { position: absolute; inset: -12% 0; background: url("https://images.unsplash.com/photo-1772907952251-09e722aafa6a?w=2200&q=75&auto=format&fit=crop") center / cover; will-change: transform; }
-  .nursery::after { content: ""; position: absolute; inset: 0; background: linear-gradient(0deg, rgba(20,38,28,.88), rgba(20,38,28,.1) 60%); }
-  .nursery__in { position: relative; z-index: 1; padding-bottom: 70px; display: grid; grid-template-columns: 1.2fr 1fr; gap: 40px; align-items: end; }
-  .nursery .eyebrow { color: var(--blush); }
-  .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
-  .stats div { background: rgba(246,242,234,.12); backdrop-filter: blur(10px); border: 1px solid rgba(246,242,234,.2); border-radius: 20px; padding: 18px; }
-  .stats b { display: block; font-family: var(--serif); font-size: 36px; font-weight: 400; line-height: 1; }
-  .stats span { font-size: 13px; opacity: .8; }
+  .nursery { position: relative; margin: 0 14px; border-radius: 48px; padding: 170px 0; overflow: hidden; color: var(--white); }
+  .nursery__bg { position: absolute; inset: -18% 0; background: url("https://images.unsplash.com/photo-1772907952251-09e722aafa6a?w=2000&q=75&auto=format&fit=crop") center / cover; will-change: transform; }
+  .nursery__bg::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(20,38,28,.85), rgba(20,38,28,.25)); }
+  .nursery__in { position: relative; display: grid; grid-template-columns: 1.1fr .9fr; gap: 50px; align-items: end; }
+  .nursery h2 em { color: var(--blush); }
+  .stats { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+  .stats div { padding: 22px 18px; border-radius: 24px; background: rgba(255,255,255,.12); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); box-shadow: inset 0 0 0 1px rgba(255,255,255,.25); }
+  .stats b { display: block; font-family: var(--serif); font-size: 36px; font-weight: 400; line-height: 1.1; }
+  .stats span { font-size: 13.5px; opacity: .85; }
 
-  /* EVENTOS + DEPOIMENTOS */
-  .events { padding: 130px 0; }
-  .events__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
-  .events__img { aspect-ratio: 4/5; border-radius: 30px; overflow: hidden; }
-  .events__img img { width: 100%; height: 100%; object-fit: cover; }
-  .events ul { list-style: none; display: grid; gap: 12px; margin: 26px 0 34px; }
-  .events li { display: flex; gap: 12px; }
-  .events li::before { content: "❀"; color: var(--orchid); }
-  .quotes { padding: 0 0 130px; }
-  .q__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
-  .q { background: var(--white); border-radius: 28px; padding: 32px; }
-  .q p { font-family: var(--serif); font-style: italic; font-size: 21px; line-height: 1.4; margin: 12px 0 18px; }
-  .q small { color: var(--muted); }
-  .stars { color: var(--orchid); letter-spacing: 3px; }
+  /* EVENTOS */
+  .events { padding: 140px 0 80px; }
+  .events__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 70px; align-items: center; }
+  .events__img { position: relative; border-radius: 30px; overflow: hidden; aspect-ratio: 5 / 6; }
+  .events__img img { width: 100%; height: 120%; object-fit: cover; will-change: transform; }
+  .events ul { list-style: none; margin: 26px 0 32px; display: grid; gap: 4px; }
+  .events li { display: flex; align-items: center; gap: 14px; padding: 14px 0; border-bottom: 1px solid var(--line); font-size: 17px; transition: padding .4s var(--ease), color .3s; }
+  .events li:hover { padding-left: 12px; color: var(--orchid); }
+  .events li::before { content: "✿"; color: var(--orchid); }
 
-  footer { background: var(--green); color: #c9d4c4; padding: 60px 0 40px; border-radius: 50px 50px 0 0; }
-  .foot { display: grid; grid-template-columns: 1.3fr 1fr 1fr; gap: 40px; font-size: 15px; }
+  .quotes { padding: 60px 0 130px; overflow: hidden; }
+  .q__track { display: flex; gap: 20px; width: max-content; will-change: transform; }
+  .q { width: 380px; padding: 30px; border-radius: 28px; flex: none; }
+  .q .stars { color: #d9a441; letter-spacing: 3px; }
+  .q p { font-family: var(--serif); font-size: 21px; line-height: 1.35; margin: 12px 0 16px; }
+  .q small { color: var(--muted); font-weight: 600; }
+
+  footer { background: var(--green); color: rgba(246,242,234,.82); padding: 90px 0 30px; border-radius: 48px 48px 0 0; overflow: hidden; }
+  .foot { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 40px; }
   footer .logo { color: var(--bg); }
-  footer h5 { font-family: var(--serif); font-style: italic; font-weight: 400; font-size: 22px; color: var(--blush); margin-bottom: 10px; }
-  .foot__bot { margin-top: 40px; padding-top: 24px; border-top: 1px solid rgba(255,255,255,.12); font-size: 13px; }
-  .toast { position: fixed; left: 50%; bottom: 26px; z-index: 80; transform: translate(-50%, 120px); background: var(--green); color: var(--bg); padding: 14px 22px; border-radius: 999px; font-weight: 600; box-shadow: 0 20px 40px -20px rgba(0,0,0,.5); transition: transform .5s var(--spring); }
-  .toast.on { transform: translate(-50%, 0); }
-  .wa { position: fixed; right: 22px; bottom: 22px; z-index: 60; width: 58px; height: 58px; border-radius: 50%; background: #25d366; color: #fff; display: grid; place-items: center; box-shadow: 0 12px 30px -8px rgba(37,211,102,.6); transition: transform .3s var(--ease); }
-  .wa:hover { transform: scale(1.08); }
+  footer h5 { font-size: 12px; letter-spacing: .18em; text-transform: uppercase; color: var(--blush); margin-bottom: 12px; }
+  .marca { font-family: var(--serif); font-style: italic; font-size: clamp(80px, 17vw, 270px); line-height: .9; margin-top: 60px; white-space: nowrap; color: transparent; -webkit-text-stroke: 1px rgba(242,214,211,.35); background: linear-gradient(90deg, var(--blush), var(--orchid2)) no-repeat; background-size: var(--fill, 0%) 100%; -webkit-background-clip: text; background-clip: text; text-align: center; }
+  .foot__bot { margin-top: 30px; padding-top: 22px; border-top: 1px solid rgba(255,255,255,.12); font-size: 13.5px; }
 
-  @media (max-width: 1040px) {
+  .toast { position: fixed; left: 50%; bottom: 28px; z-index: 90; transform: translate(-50%, 140%); padding: 14px 22px; border-radius: 999px; background: rgba(31,58,44,.88); color: var(--bg); backdrop-filter: blur(10px); font-weight: 600; transition: transform .5s var(--spring); }
+  .toast.on { transform: translate(-50%, 0); }
+  .wa { position: fixed; right: 22px; bottom: 22px; z-index: 70; width: 60px; height: 60px; border-radius: 50%; background: #25d366; color: #fff; display: grid; place-items: center; box-shadow: 0 14px 30px -10px rgba(37,211,102,.6); transition: transform .4s var(--spring); }
+  .wa.some { transform: scale(0); pointer-events: none; }
+  .wa:hover { transform: scale(1.1) rotate(-8deg); }
+
+  @media (max-width: 1000px) {
     .nav__links { display: none; }
     .burger { display: grid; }
-    .nav.open { background: var(--bg); }
-    .nav.open .nav__links { display: flex; flex-direction: column; position: absolute; top: 100%; left: 0; right: 0; background: var(--bg); padding: 24px 20px; gap: 18px; box-shadow: 0 1px 0 var(--line); }
-    .hero__grid, .build__grid, .care__grid, .events__grid, .nursery__in { grid-template-columns: 1fr; }
-    .art { height: 520px; }
-    .grid { grid-template-columns: 1fr 1fr; }
-    .preview { position: static; }
-    .care__img { max-width: 420px; margin: 0 auto; width: 100%; }
-    .q__grid { grid-template-columns: 1fr; }
-    .foot { grid-template-columns: 1fr; }
+    .nav.open .nav__links { display: flex; flex-direction: column; position: absolute; top: 76px; left: 0; right: 0; padding: 16px; border-radius: 26px; background: rgba(255,253,249,.94); backdrop-filter: blur(18px); box-shadow: 0 20px 40px -20px rgba(31,58,44,.4); }
+    .nav.open .nav__pill { display: none; }
+    .grid { grid-template-columns: repeat(2, 1fr); }
   }
-  @media (max-width: 600px) {
-    .art { height: 440px; }
-    .arch { width: 84%; }
-    .bubble { width: 44%; }
-    .grid { gap: 14px; }
-    .prod h3 { font-size: 18px; }
-    .build, .nursery { margin: 0 8px; border-radius: 34px; }
-    .meter { grid-template-columns: 100px 1fr; }
-    .stats { grid-template-columns: 1fr; }
+  @media (max-width: 900px) {
+    .wrap { width: calc(100% - 32px); }
+    .nav { top: 10px; } .nav .wrap { width: calc(100% - 20px); }
+    .nav__in { height: 60px; padding: 0 7px 0 16px; }
+    .logo { font-size: 23px; } .logo svg { width: 28px; }
     .bagb span { display: none; }
+    .hero { padding: 110px 0 60px; min-height: 0; }
+    .hero__grid { grid-template-columns: 1fr; gap: 40px; }
+    .hero h1 { font-size: clamp(46px, 13vw, 70px); margin: 16px 0 18px; }
+    .hero p.lead { font-size: 17px; }
+    .art { height: 440px; }
+    .note { font-size: 26px; } .note svg { width: 56px; margin-left: 30px; }
+    .selo { width: 100px; height: 100px; right: -6px; } .selo b { font-size: 24px; }
+    .mani { height: 220vh; }
+    .mani__t h2 { font-size: clamp(36px, 10.5vw, 60px); }
+    .mc { max-width: 190px; padding: 14px 16px; } .mc b { font-size: 24px; }
+    .mc1 { left: 4%; top: 14%; } .mc2 { right: 4%; top: auto; bottom: 24%; } .mc3 { left: 4%; bottom: 8%; }
+    .shop { padding: 100px 0 90px; }
+    .grid { gap: 14px; }
+    .prod h3 { font-size: 17px; }
+    .prod__add { height: 42px; font-size: 13px; left: 8px; right: 8px; bottom: 8px; }
+    .build { margin: 0 8px; border-radius: 34px; padding: 90px 0 90px; }
+    .build__grid { grid-template-columns: 1fr; gap: 18px; }
+    .palco { order: -1; top: 76px; z-index: 5; }
+    .stage { height: 46vh; height: 46svh; min-height: 330px; border-radius: 28px; }
+    .stage__dica { display: none; }
+    .cartao { display: none; }
+    .resumo { display: none; }
+    .passo { padding: 18px; }
+    .resumo--m { display: flex !important; position: sticky; bottom: 12px; z-index: 6; margin-top: 4px; }
+    .care { padding: 100px 0; }
+    .care__grid, .events__grid, .nursery__in { grid-template-columns: 1fr; gap: 40px; }
+    .nursery { margin: 0 8px; border-radius: 34px; padding: 110px 0; }
+    .stats { grid-template-columns: 1fr 1fr 1fr; } .stats b { font-size: 21px; } .stats div { padding: 16px 12px; }
+    .meter { grid-template-columns: 90px 1fr; }
+    .events { padding: 100px 0 60px; }
+    .q { width: 300px; padding: 24px; } .q p { font-size: 18px; }
+    .foot { grid-template-columns: 1fr; gap: 26px; }
+    footer { border-radius: 34px 34px 0 0; }
   }
-  @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; animation-delay: 0s !important; transition-duration: .01ms !important; } [data-r] { opacity: 1; transform: none; } #petals { display: none; } }
+  .resumo--m { display: none; }
+  @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; animation-delay: 0s !important; transition-duration: .01ms !important; } [data-r] { opacity: 1; transform: none; filter: none; } .hero h1 .w { opacity: 1; transform: none; filter: none; } }
 </style>
 </head>
 <body>
 
+<div class="cur" aria-hidden="true"><i></i><span></span></div>
+
 <header class="nav" id="nav">
   <div class="wrap nav__in">
-    <a href="#" class="logo"><svg viewBox="0 0 32 32" fill="currentColor"><g opacity=".9"><ellipse cx="16" cy="8" rx="4.5" ry="7"/><ellipse cx="16" cy="8" rx="4.5" ry="7" transform="rotate(72 16 16)"/><ellipse cx="16" cy="8" rx="4.5" ry="7" transform="rotate(144 16 16)"/><ellipse cx="16" cy="8" rx="4.5" ry="7" transform="rotate(216 16 16)"/><ellipse cx="16" cy="8" rx="4.5" ry="7" transform="rotate(288 16 16)"/></g><circle cx="16" cy="16" r="3.4" fill="#f2d6d3"/></svg>Flora Viva</a>
-    <nav class="nav__links"><a href="#loja">Loja</a><a href="#buque">Monte seu buquê</a><a href="#cuidados">Cuidados</a><a href="#viveiro">Viveiro</a><a href="#eventos">Eventos</a></nav>
-    <a href="#loja" class="bagb" id="bagb"><span>Sacola</span><b id="bagN">0</b></a>
-    <button class="burger" aria-label="Menu"><span></span></button>
+    <a href="#topo" class="logo"><svg viewBox="0 0 32 32" fill="currentColor"><g opacity=".9"><ellipse cx="16" cy="8" rx="4.5" ry="7"/><ellipse cx="16" cy="8" rx="4.5" ry="7" transform="rotate(72 16 16)"/><ellipse cx="16" cy="8" rx="4.5" ry="7" transform="rotate(144 16 16)"/><ellipse cx="16" cy="8" rx="4.5" ry="7" transform="rotate(216 16 16)"/><ellipse cx="16" cy="8" rx="4.5" ry="7" transform="rotate(288 16 16)"/></g><circle cx="16" cy="16" r="3.4" fill="#f2d6d3"/></svg>Flora Viva</a>
+    <nav class="nav__links" id="links"><i class="nav__pill" id="pill"></i><a href="#loja">Loja</a><a href="#buque">Monte seu buquê</a><a href="#cuidados">Cuidados</a><a href="#viveiro">Viveiro</a><a href="#eventos">Eventos</a></nav>
+    <div style="display:flex;gap:8px;align-items:center"><a href="#loja" class="bagb" id="bagb"><span>Sacola</span><b id="bagN">0</b></a><button class="burger" aria-label="Menu" aria-expanded="false"><span></span></button></div>
   </div>
 </header>
 
-<section class="hero">
-  <canvas id="petals"></canvas>
+<main>
+<section class="hero" id="topo">
+  <div class="hero__luz" id="luz" aria-hidden="true"></div>
+  <canvas id="petals" aria-hidden="true"></canvas>
   <div class="wrap hero__grid">
     <div>
       <span class="eyebrow"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2c2 3 2 6 0 9-2-3-2-6 0-9Zm0 20c-2-3-2-6 0-9 2 3 2 6 0 9ZM2 12c3-2 6-2 9 0-3 2-6 2-9 0Zm20 0c-3 2-6 2-9 0 3-2 6-2 9 0Z"/></svg>Orquidário · Floricultura · Viveiro</span>
-      <h1><span class="w">Flores</span> <span class="w" style="animation-delay:.1s">que</span> <span class="w" style="animation-delay:.2s">dizem</span> <span class="w" style="animation-delay:.3s">o</span> <span class="w" style="animation-delay:.4s">que</span> <span class="w" style="animation-delay:.5s">você</span> <span class="w" style="animation-delay:.6s"><em>sente.</em></span></h1>
-      <p>Orquídeas cultivadas no nosso próprio viveiro, buquês montados à mão e plantas que transformam qualquer canto em jardim.</p>
-      <div class="hero__ctas"><a href="#buque" class="btn btn--g">Montar meu buquê</a><a href="#loja" class="btn btn--l">Ver orquídeas</a></div>
-      <div class="cut"><i>🚚</i><div><small id="cutLbl">Peça nas próximas</small><b id="cutTime">--</b></div></div>
+      <h1><span class="w">Flores</span> <span class="w" style="animation-delay:.08s">que</span> <span class="w" style="animation-delay:.16s">dizem</span> <span class="w" style="animation-delay:.24s">o</span> <span class="w" style="animation-delay:.32s">que</span> <span class="w" style="animation-delay:.4s">você</span> <span class="w" style="animation-delay:.48s"><em>sente.</em></span></h1>
+      <p class="lead">Orquídeas cultivadas no nosso próprio viveiro, buquês montados à mão e plantas que transformam qualquer canto em jardim.</p>
+      <div class="hero__ctas"><a href="#buque" class="btn btn--g mag">Montar meu buquê</a><a href="#loja" class="btn btn--l mag">Ver orquídeas</a></div>
+      <div class="cut vidro"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h11v9H3zM14 10h4l3 3v3h-7z"/><circle cx="7" cy="17.5" r="1.8"/><circle cx="17" cy="17.5" r="1.8"/></svg></i><div><small id="cutLbl">Peça nas próximas</small><b id="cutTime">--</b></div></div>
     </div>
-    <div class="art">
-      <div class="arch"><img id="heroImg" src="https://images.unsplash.com/photo-1605996370592-b6f7a81e382e?w=1100&q=80&auto=format&fit=crop" alt="Orquídeas roxas" /></div>
-      <div class="bubble"><img src="https://images.unsplash.com/photo-1565695951564-007d8f297e48?w=600&q=78&auto=format&fit=crop" alt="Buquês coloridos" /></div>
+    <div class="art" id="art">
+      <div class="arch" id="arch"><img id="heroImg" src="https://images.unsplash.com/photo-1605996370592-b6f7a81e382e?w=1100&q=80&auto=format&fit=crop" alt="Orquídeas roxas" /></div>
+      <div class="bubble" id="bubble"><img src="https://images.unsplash.com/photo-1565695951564-007d8f297e48?w=600&q=78&auto=format&fit=crop" alt="Buquês coloridos" /></div>
       <div class="note">cultivadas<br />com carinho<svg viewBox="0 0 70 40" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6c20 4 40 14 56 28M50 34l10 0 0-10"/></svg></div>
+      <div class="selo vidro" aria-hidden="true"><svg viewBox="0 0 120 120"><defs><path id="circ" d="M60 60m-46 0a46 46 0 1 1 92 0a46 46 0 1 1-92 0"/></defs><text font-size="11" font-weight="700" letter-spacing="3.2" fill="#2f5a43"><textPath href="#circ">DESDE 1994 · DIRETO DA ESTUFA · </textPath></text></svg><b>FV</b></div>
     </div>
   </div>
 </section>
 
 <div class="ribbon" aria-hidden="true"><div class="ribbon__track" id="ribbon"></div></div>
 
+<section class="mani" id="mani">
+  <div class="mani__stick">
+    <div class="mani__img"><img src="https://images.unsplash.com/photo-1772907952251-09e722aafa6a?w=2000&q=75&auto=format&fit=crop" alt="Estufa do viveiro Flora Viva" /></div>
+    <div class="mani__t">
+      <h2><span id="m1">Do nosso viveiro</span><span id="m2"><em>para as suas mãos.</em></span></h2>
+      <p class="mani__sub">Colhidas pela manhã, entregues no mesmo dia.</p>
+    </div>
+    <div class="mani__cards">
+      <div class="mc mc1 vidro" data-at=".42"><b>05h30</b><span>a colheita começa, ainda com orvalho</span></div>
+      <div class="mc mc2 vidro" data-at=".58"><b>+180</b><span>espécies de orquídeas na estufa</span></div>
+      <div class="mc mc3 vidro" data-at=".74"><b>Mesmo dia</b><span>pedidos até 14h chegam hoje</span></div>
+    </div>
+  </div>
+</section>
+
 <section class="shop" id="loja">
   <div class="wrap">
     <div class="head"><div data-r><span class="eyebrow">Nossa loja</span><h2 class="h2" style="margin-top:14px">Escolhidas <em>uma a uma</em></h2></div><p data-r style="--d:.1s">Cada planta sai do viveiro com cartão de cuidados e garantia de 7 dias. Embalagem para presente inclusa.</p></div>
-    <div class="cats" id="cats" data-r></div>
+    <div class="cats vidro" id="cats" data-r><i class="cats__pill" id="catPill"></i></div>
     <div class="grid" id="grid"></div>
   </div>
 </section>
 
 <section class="build" id="buque">
   <div class="wrap">
-    <div class="head"><div data-r><span class="eyebrow">Monte seu buquê</span><h2 class="h2" style="margin-top:14px">Feito por você,<br /><em>montado por nós</em></h2></div><p data-r style="--d:.1s">Escolha as flores, a cor, o tamanho e escreva o cartão. Você vê o buquê tomando forma na hora.</p></div>
+    <div class="head"><div data-r><span class="eyebrow">Monte seu buquê</span><h2 class="h2" style="margin-top:14px">Feito por você,<br /><em>montado por nós</em></h2></div><p data-r style="--d:.1s">Escolha a flor, a cor, quantas hastes e a embalagem. O buquê se monta na sua frente, haste por haste.</p></div>
     <div class="build__grid">
-      <div data-r>
-        <div class="opt-step"><h4><span>1.</span>Flor principal</h4><div class="choices" id="cFlor"></div></div>
-        <div class="opt-step"><h4><span>2.</span>Cor</h4><div class="choices" id="cCor"></div></div>
-        <div class="opt-step"><h4><span>3.</span>Tamanho</h4><div class="choices" id="cTam"></div></div>
-        <div class="opt-step"><h4><span>4.</span>Embalagem</h4><div class="choices" id="cEmb"></div></div>
-        <div class="opt-step"><h4><span>5.</span>Mensagem do cartão</h4><textarea id="msg" rows="3" maxlength="120" placeholder="Escreva algo especial…"></textarea><p class="count"><span id="msgN">0</span>/120</p></div>
+      <div class="passos">
+        <div class="passo vidro" data-r><h4><span>01</span>Flor principal</h4><div class="choices" id="cFlor"></div></div>
+        <div class="passo vidro" data-r><h4><span>02</span>Cor</h4><div class="choices" id="cCor"></div></div>
+        <div class="passo vidro" data-r><h4><span>03</span>Quantidade</h4><div class="choices" id="cTam"></div></div>
+        <div class="passo vidro" data-r><h4><span>04</span>Embalagem</h4><div class="choices" id="cEmb"></div></div>
+        <div class="passo vidro" data-r><h4><span>05</span>Mensagem do cartão</h4><textarea id="msg" rows="2" maxlength="120" placeholder="Escreva algo especial…"></textarea><p class="count"><span id="msgN">0</span>/120</p></div>
+        <div class="resumo resumo--m vidro"><span class="bqSum"></span><div style="display:flex;align-items:center;gap:12px"><b class="bqPrice">R$ 0</b><button class="btn btn--g bqAdd" style="padding:13px 18px">Pedir</button></div></div>
       </div>
-      <div class="preview" data-r style="--d:.1s">
-        <svg viewBox="0 0 400 420" id="bq" aria-label="Prévia do buquê"></svg>
-        <div class="card"><small>Cartão</small><p id="cardTxt">Escreva sua mensagem ✿</p></div>
-        <div class="price"><span id="bqSum" style="color:var(--muted);font-size:14px;text-align:left"></span><b id="bqPrice">R$ 0</b></div>
-        <button class="btn btn--g" id="bqAdd" style="width:100%;margin-top:16px">Encomendar pelo WhatsApp</button>
+      <div class="palco" data-r style="--d:.1s">
+        <div class="stage" id="stage" data-cur="mexa">
+          <span class="stage__info"><i></i>Montando ao vivo</span>
+          <span class="stage__dica">passe o mouse nas flores</span>
+          <div class="cartao"><small>Cartão</small><p id="cardTxt">Escreva sua mensagem ✿</p></div>
+        </div>
+        <div class="resumo vidro"><span class="bqSum"></span><div style="display:flex;align-items:center;gap:16px"><b class="bqPrice">R$ 0</b><button class="btn btn--g bqAdd mag">Encomendar pelo WhatsApp</button></div></div>
       </div>
     </div>
   </div>
 </section>
+<canvas id="bqc" aria-hidden="true"></canvas>
 
 <section class="care" id="cuidados">
   <div class="wrap care__grid">
-    <div class="care__img" data-r><img id="careImg" src="https://images.unsplash.com/photo-1583846712268-a77d97b7fd68?w=900&q=78&auto=format&fit=crop" alt="Orquídea" /></div>
+    <div class="care__img" data-r><img id="careImg" src="https://images.unsplash.com/photo-1583846712268-a77d97b7fd68?w=900&q=78&auto=format&fit=crop" alt="Orquídea" /><div class="care__badge vidro"><div><b id="spNome">Phalaenopsis</b><br /><span>ficha de cuidados</span></div><span id="spFlor"></span></div></div>
     <div data-r style="--d:.1s">
       <span class="eyebrow">Guia de cuidados</span>
       <h2 class="h2" style="margin-top:14px">Sua orquídea <em>florindo</em> de novo</h2>
       <div class="species" id="species"></div>
       <div class="meters" id="meters"></div>
-      <div class="tip" id="tip"></div>
+      <div class="tip vidro" id="tip"></div>
     </div>
   </div>
 </section>
@@ -282,87 +398,115 @@
 <section class="nursery" id="viveiro">
   <div class="nursery__bg" id="nBg"></div>
   <div class="wrap nursery__in">
-    <div data-r><span class="eyebrow">Visite o viveiro</span><h2 class="h2" style="margin-top:14px">Um passeio entre <em style="color:var(--blush)">milhares</em> de flores.</h2><p style="opacity:.85;margin-top:16px;max-width:460px">Aberto à visitação todos os dias. Traga a família, tome um café e escolha sua orquídea direto da estufa.</p></div>
-    <div class="stats" data-r style="--d:.1s"><div><b>2.000 m²</b><span>de estufas</span></div><div><b>+180</b><span>espécies de orquídeas</span></div><div><b>1994</b><span>cultivando desde</span></div></div>
+    <div data-r><span class="eyebrow" style="color:var(--blush)">Visite o viveiro</span><h2 class="h2" style="margin-top:14px">Um passeio entre <em>milhares</em> de flores.</h2><p style="opacity:.88;margin-top:16px;max-width:460px">Aberto à visitação todos os dias. Traga a família, tome um café e escolha sua orquídea direto da estufa.</p></div>
+    <div class="stats" data-r style="--d:.1s"><div><b data-n="2000" data-f="{n} m²">0 m²</b><span>de estufas</span></div><div><b data-n="180" data-f="+{n}">+0</b><span>espécies de orquídeas</span></div><div><b data-n="1994" data-f="{n}" data-sem>0</b><span>cultivando desde</span></div></div>
   </div>
 </section>
 
 <section class="events" id="eventos">
   <div class="wrap events__grid">
-    <div class="events__img" data-r><img src="https://images.unsplash.com/photo-1487070183336-b863922373d4?w=1000&q=78&auto=format&fit=crop" alt="Arranjos para eventos" loading="lazy" /></div>
+    <div class="events__img" data-r><img id="evImg" src="https://images.unsplash.com/photo-1487070183336-b863922373d4?w=1000&q=78&auto=format&fit=crop" alt="Arranjos para eventos" loading="lazy" /></div>
     <div data-r style="--d:.1s">
       <span class="eyebrow">Eventos e casamentos</span>
       <h2 class="h2" style="margin-top:14px">Decoração floral para <em>momentos únicos</em></h2>
       <ul><li>Buquê da noiva e lapelas</li><li>Arranjos de mesa e centros</li><li>Decoração de cerimônias e igrejas</li><li>Eventos corporativos e assinaturas mensais</li></ul>
-      <a class="btn btn--g" target="_blank" rel="noopener" href="https://wa.me/5511999990000?text=Ol%C3%A1!%20Quero%20um%20or%C3%A7amento%20de%20decora%C3%A7%C3%A3o%20floral%20para%20um%20evento.">Pedir orçamento</a>
+      <a class="btn btn--g mag" target="_blank" rel="noopener" href="https://wa.me/5511999990000?text=Ol%C3%A1!%20Quero%20um%20or%C3%A7amento%20de%20decora%C3%A7%C3%A3o%20floral%20para%20um%20evento.">Pedir orçamento</a>
     </div>
   </div>
 </section>
 
-<section class="quotes">
-  <div class="wrap q__grid">
-    <div class="q" data-r><span class="stars">★★★★★</span><p>“Minha orquídea voltou a florir seguindo o guia deles. Atendimento apaixonado!”</p><small>Helena C.</small></div>
-    <div class="q" data-r style="--d:.1s"><span class="stars">★★★★★</span><p>“Pedi às 13h e o buquê chegou no escritório antes das 17h, lindo e perfumado.”</p><small>Rafael P.</small></div>
-    <div class="q" data-r style="--d:.2s"><span class="stars">★★★★★</span><p>“A decoração do nosso casamento ficou um sonho. Cuidaram de cada detalhe.”</p><small>Júlia &amp; Bruno</small></div>
-  </div>
+<section class="quotes" aria-label="Depoimentos">
+  <div class="q__track" id="qTrack"></div>
 </section>
+</main>
 
 <footer>
   <div class="wrap">
     <div class="foot">
-      <div><a href="#" class="logo"><svg viewBox="0 0 32 32" fill="currentColor" style="color:var(--blush)"><ellipse cx="16" cy="8" rx="4.5" ry="7"/><ellipse cx="16" cy="8" rx="4.5" ry="7" transform="rotate(72 16 16)"/><ellipse cx="16" cy="8" rx="4.5" ry="7" transform="rotate(144 16 16)"/><ellipse cx="16" cy="8" rx="4.5" ry="7" transform="rotate(216 16 16)"/><ellipse cx="16" cy="8" rx="4.5" ry="7" transform="rotate(288 16 16)"/></svg>Flora Viva</a><p style="margin-top:14px;max-width:340px">Orquidário, floricultura e viveiro. Flores frescas todos os dias, direto da nossa estufa.</p></div>
+      <div><a href="#topo" class="logo"><svg viewBox="0 0 32 32" fill="currentColor" style="color:var(--blush)"><ellipse cx="16" cy="8" rx="4.5" ry="7"/><ellipse cx="16" cy="8" rx="4.5" ry="7" transform="rotate(72 16 16)"/><ellipse cx="16" cy="8" rx="4.5" ry="7" transform="rotate(144 16 16)"/><ellipse cx="16" cy="8" rx="4.5" ry="7" transform="rotate(216 16 16)"/><ellipse cx="16" cy="8" rx="4.5" ry="7" transform="rotate(288 16 16)"/></svg>Flora Viva</a><p style="margin-top:14px;max-width:340px">Orquidário, floricultura e viveiro. Flores frescas todos os dias, direto da nossa estufa.</p></div>
       <div><h5>Loja e viveiro</h5><p>Estrada das Flores, 1500<br />Cotia — SP · (11) 99999-0000</p></div>
       <div><h5>Horários</h5><p>Todos os dias, 8h às 18h<br />Entregas: seg a sáb</p></div>
     </div>
+    <div class="marca" id="marca" aria-hidden="true">Flora Viva</div>
     <div class="foot__bot">© 2026 Flora Viva Orquidário e Floricultura</div>
   </div>
 </footer>
 
-<div class="toast" id="toast"></div>
+<div class="toast" id="toast" role="status"></div>
 <a class="wa" href="https://wa.me/5511999990000" target="_blank" rel="noopener" aria-label="WhatsApp"><svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21c5.46 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2Zm5.8 14.03c-.24.68-1.42 1.3-1.95 1.35-.5.05-.97.23-3.27-.68-2.77-1.09-4.52-3.92-4.66-4.1-.13-.18-1.1-1.47-1.1-2.8 0-1.34.7-2 .95-2.27.25-.27.54-.34.72-.34h.52c.17 0 .4-.06.62.47.24.56.8 1.94.87 2.08.07.14.12.3.02.48-.1.19-.14.3-.28.47-.14.16-.3.36-.42.49-.14.14-.29.29-.12.57.17.28.74 1.22 1.59 1.98 1.09.97 2.01 1.27 2.29 1.41.28.14.45.12.62-.07.17-.19.71-.83.9-1.11.19-.28.38-.24.64-.14.26.09 1.65.78 1.93.92.28.14.47.21.54.33.07.11.07.66-.17 1.34Z"/></svg></a>
 
 <script>
 (() => {
   const reduz = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const fino = matchMedia("(hover: hover) and (pointer: fine)").matches;
   const $ = (s, el = document) => el.querySelector(s);
   const $$ = (s, el = document) => [...el.querySelectorAll(s)];
   const u = (id, w) => `https://images.unsplash.com/photo-${id}?w=${w}&q=78&auto=format&fit=crop`;
   const brl = (n) => n.toLocaleString("pt-BR", { style: "currency", currency: "BRL", maximumFractionDigits: 0 });
+  const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
+  const lerp = (a, b, t) => a + (b - a) * t;
+  const ease = (t) => (t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
   const WA = "5511999990000";
+  let VW = innerWidth, VH = innerHeight;
+  const mouse = { x: VW / 2, y: VH / 2, ativo: false };
 
-  const nav = $("#nav");
-  addEventListener("scroll", () => nav.classList.toggle("solid", scrollY > 30), { passive: true });
-  $(".burger").onclick = () => nav.classList.toggle("open");
-  $$(".nav__links a").forEach((a) => a.onclick = () => nav.classList.remove("open"));
+  /* Básico */
+  const nav = $("#nav"), burger = $(".burger");
+  burger.onclick = () => { const a = nav.classList.toggle("open"); burger.setAttribute("aria-expanded", a); };
+  $$(".nav__links a").forEach((a) => a.addEventListener("click", () => nav.classList.remove("open")));
+  const pill = $("#pill");
+  $$(".nav__links a").forEach((a) => a.addEventListener("mouseenter", () => { pill.style.left = a.offsetLeft + "px"; pill.style.width = a.offsetWidth + "px"; }));
   const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }), { threshold: .12 });
   $$("[data-r]").forEach((el) => io.observe(el));
-  const toast = (t) => { const el = $("#toast"); el.textContent = t; el.classList.add("on"); clearTimeout(el._t); el._t = setTimeout(() => el.classList.remove("on"), 2200); };
+  const toast = (t) => { const el = $("#toast"); el.textContent = t; el.classList.add("on"); clearTimeout(el._t); el._t = setTimeout(() => el.classList.remove("on"), 2400); };
 
-  /* Pétalas caindo (reagem ao mouse como vento) */
-  const cv = $("#petals"), ctx = cv.getContext("2d");
-  let W, H, vento = 0;
-  const CORES = ["#c98bc4", "#e7b7c9", "#f2d6d3", "#a9659f", "#fff"];
-  const resize = () => { W = cv.width = cv.offsetWidth * devicePixelRatio; H = cv.height = cv.offsetHeight * devicePixelRatio; };
-  resize(); addEventListener("resize", resize);
-  const nova = (topo) => ({ x: Math.random() * W, y: topo ? -20 : Math.random() * H, s: (Math.random() * 7 + 5) * devicePixelRatio, vy: (Math.random() * .7 + .4) * devicePixelRatio, r: Math.random() * 6.28, vr: (Math.random() - .5) * .04, f: Math.random() * 6.28, c: CORES[Math.random() * CORES.length | 0] });
-  const pts = [...Array(34)].map(() => nova(false));
-  addEventListener("mousemove", (e) => vento = (e.clientX / innerWidth - .5) * 2.2);
-  (function loop() {
-    if (!reduz && scrollY < innerHeight * 1.1) {
-      ctx.clearRect(0, 0, W, H);
-      pts.forEach((p, i) => {
-        p.f += .02; p.y += p.vy; p.x += Math.sin(p.f) * .8 + vento; p.r += p.vr;
-        if (p.y > H + 20 || p.x < -40 || p.x > W + 40) pts[i] = nova(true);
-        ctx.save(); ctx.translate(p.x, p.y); ctx.rotate(p.r); ctx.scale(1, .55 + Math.sin(p.f * 2) * .3);
-        ctx.fillStyle = p.c; ctx.globalAlpha = .75;
-        ctx.beginPath(); ctx.moveTo(0, -p.s); ctx.bezierCurveTo(p.s, -p.s * .4, p.s * .6, p.s, 0, p.s); ctx.bezierCurveTo(-p.s * .6, p.s, -p.s, -p.s * .4, 0, -p.s); ctx.fill();
-        ctx.restore();
-      });
+  /* Cursor e botões magnéticos */
+  const cur = $(".cur"), curT = $(".cur span");
+  let cx = mouse.x, cy = mouse.y;
+  addEventListener("pointermove", (e) => { mouse.x = e.clientX; mouse.y = e.clientY; mouse.ativo = true; if (e.pointerType === "mouse") cur.classList.add("on"); }, { passive: true });
+  document.addEventListener("mouseleave", () => { cur.classList.remove("on"); mouse.ativo = false; });
+  if (fino) {
+    document.addEventListener("pointerover", (e) => {
+      const l = e.target.closest("[data-cur]"), h = e.target.closest("a, button, textarea");
+      cur.classList.toggle("lbl", !!l && !h); cur.classList.toggle("link", !!h);
+      if (l && !h) curT.textContent = l.dataset.cur;
+    });
+    $$(".mag").forEach((b) => {
+      b.addEventListener("pointermove", (e) => { const r = b.getBoundingClientRect(), x = e.clientX - r.left, y = e.clientY - r.top; b.style.transform = `translate(${(x - r.width / 2) * .22}px, ${(y - r.height / 2) * .3}px)`; b.style.setProperty("--mx", x + "px"); b.style.setProperty("--my", y + "px"); });
+      b.addEventListener("pointerleave", () => { b.style.transform = ""; });
+    });
+  }
+
+  /* Pétalas: vento do mouse e rastro ao passar */
+  const pcv = $("#petals"), pctx = pcv.getContext("2d"), hero = $("#topo");
+  let PW, PH, vento = 0, pdpr = Math.min(2, devicePixelRatio || 1);
+  const pres = () => { PW = pcv.width = pcv.offsetWidth * pdpr; PH = pcv.height = pcv.offsetHeight * pdpr; };
+  pres();
+  const PC = ["#c98bc4", "#e7b7c9", "#f2d6d3", "#a9659f", "#fff7f3", "#d9a5c9"];
+  const nova = (topo, x, y) => ({ x: x ?? Math.random() * PW, y: y ?? (topo ? -20 : Math.random() * PH), s: (Math.random() * 7 + 5) * pdpr, vy: (Math.random() * .7 + .4) * pdpr, vx: 0, r: Math.random() * 6.28, vr: (Math.random() - .5) * .05, f: Math.random() * 6.28, c: PC[Math.random() * PC.length | 0], vida: x != null ? 1 : 0 });
+  const pts = [...Array(VW < 700 ? 18 : 30)].map(() => nova(false));
+  let ultP = 0;
+  hero.addEventListener("pointermove", (e) => {
+    vento = (e.clientX / VW - .5) * 2;
+    const t = performance.now(); if (reduz || t - ultP < 70 || pts.length > 60) return; ultP = t;
+    const r = pcv.getBoundingClientRect(); const p = nova(false, (e.clientX - r.left) * pdpr, (e.clientY - r.top) * pdpr); p.vx = (Math.random() - .5) * 3; p.vy = -.5 * pdpr; pts.push(p);
+  });
+  function petalas() {
+    if (reduz || hero.getBoundingClientRect().bottom < 0) return;
+    pctx.clearRect(0, 0, PW, PH);
+    for (let i = pts.length - 1; i >= 0; i--) {
+      const p = pts[i];
+      p.f += .02; p.vy = lerp(p.vy, .9 * pdpr, .01); p.y += p.vy; p.vx = lerp(p.vx, 0, .03); p.x += Math.sin(p.f) * .8 + vento + p.vx; p.r += p.vr;
+      if (p.y > PH + 20 || p.x < -40 || p.x > PW + 40) { if (p.vida) { pts.splice(i, 1); continue; } pts[i] = nova(true); continue; }
+      pctx.save(); pctx.translate(p.x, p.y); pctx.rotate(p.r); pctx.scale(1, .55 + Math.sin(p.f * 2) * .3);
+      const g = pctx.createLinearGradient(0, -p.s, 0, p.s); g.addColorStop(0, p.c); g.addColorStop(1, "rgba(255,255,255,.6)");
+      pctx.fillStyle = g; pctx.globalAlpha = .82;
+      pctx.beginPath(); pctx.moveTo(0, -p.s); pctx.bezierCurveTo(p.s, -p.s * .4, p.s * .6, p.s, 0, p.s); pctx.bezierCurveTo(-p.s * .6, p.s, -p.s, -p.s * .4, 0, -p.s); pctx.fill();
+      pctx.restore();
     }
-    requestAnimationFrame(loop);
-  })();
+  }
 
-  /* Prazo para entrega no mesmo dia */
+  /* Entrega no mesmo dia */
   const corte = () => {
     const n = new Date(), lim = new Date(); lim.setHours(14, 0, 0, 0);
     const dom = n.getDay() === 0;
@@ -371,109 +515,550 @@
   };
   corte(); setInterval(corte, 1000);
 
-  const R = ["Orquídeas", "Buquês", "Arranjos", "Suculentas", "Plantas", "Casamentos"];
-  $("#ribbon").innerHTML = [...R, ...R, ...R].map((r) => `<span>${r}</span>`).join("");
+  const RB = ["Orquídeas", "Buquês", "Arranjos", "Suculentas", "Plantas", "Casamentos"];
+  const ribbon = $("#ribbon");
+  ribbon.innerHTML = [...RB, ...RB, ...RB, ...RB].map((r) => `<span>${r}</span>`).join("");
 
   /* Loja */
   const P = [
-    ["Orquídeas", "Phalaenopsis Branca", 129, "1583846712268-a77d97b7fd68"], ["Orquídeas", "Phalaenopsis Roxa", 139, "1610397648930-477b8c7f0943"], ["Orquídeas", "Sapatinho-de-Vênus", 189, "1777644439670-9699a9a429a2"], ["Arranjos", "Arranjo de Orquídeas", 249, "1618080578815-335456280012"],
-    ["Buquês", "Buquê do Campo", 159, "1565695951564-007d8f297e48"], ["Buquês", "Cesto Primavera", 179, "1600104197373-c07cc35e4f61"], ["Suculentas", "Trio de Suculentas", 59, "1520157646479-22f25713523d"], ["Plantas", "Planta de Interior", 89, "1592150621744-aca64f48394a"],
+    ["Orquídeas", "Phalaenopsis Branca", 129, "1583846712268-a77d97b7fd68", "Mais vendida"], ["Orquídeas", "Phalaenopsis Roxa", 139, "1610397648930-477b8c7f0943"], ["Orquídeas", "Sapatinho-de-Vênus", 189, "1777644439670-9699a9a429a2", "Rara"], ["Arranjos", "Arranjo de Orquídeas", 249, "1618080578815-335456280012"],
+    ["Buquês", "Buquê do Campo", 159, "1565695951564-007d8f297e48"], ["Buquês", "Cesto Primavera", 179, "1600104197373-c07cc35e4f61", "Novo"], ["Suculentas", "Trio de Suculentas", 59, "1520157646479-22f25713523d"], ["Plantas", "Planta de Interior", 89, "1592150621744-aca64f48394a"],
   ];
   const cats = ["Todas", ...new Set(P.map((p) => p[0]))];
   let cat = "Todas", sacola = 0;
+  $("#cats").insertAdjacentHTML("beforeend", cats.map((c) => `<button class="cat ${c === cat ? "on" : ""}">${c}</button>`).join(""));
+  const movePill = () => { const b = $(".cat.on"), p = $("#catPill"); p.style.left = b.offsetLeft + "px"; p.style.top = b.offsetTop + "px"; p.style.width = b.offsetWidth + "px"; p.style.height = b.offsetHeight + "px"; };
   const renderShop = () => {
-    $("#cats").innerHTML = cats.map((c) => `<button class="cat ${c === cat ? "on" : ""}">${c}</button>`).join("");
-    $("#grid").innerHTML = P.filter((p) => cat === "Todas" || p[0] === cat).map(([c, n, pr, img], i) => `<article class="prod" style="animation-delay:${i * 70}ms"><div class="prod__img"><img src="${u(img, 600)}" alt="${n}" loading="lazy" /><button class="prod__add" data-n="${n}" aria-label="Adicionar ${n}">+</button></div><h3>${n}</h3><p><span>${c}</span><b>${brl(pr)}</b></p></article>`).join("");
+    $("#grid").innerHTML = P.filter((p) => cat === "Todas" || p[0] === cat).map(([c, n, pr, img, tag], i) => `<article class="prod" style="animation-delay:${i * 70}ms"><div class="prod__img" data-cur="ver"><img src="${u(img, 600)}" alt="${n}" loading="lazy" />${tag ? `<span class="prod__tag vidro">${tag}</span>` : ""}<button class="prod__add vidro" data-n="${n}" aria-label="Adicionar ${n} à sacola">Adicionar à sacola</button></div><h3>${n}</h3><p><span>${c}</span><b>${brl(pr)}</b></p></article>`).join("");
+    movePill();
   };
-  $("#cats").onclick = (e) => { const b = e.target.closest(".cat"); if (b) { cat = b.textContent; renderShop(); } };
+  $("#cats").onclick = (e) => { const b = e.target.closest(".cat"); if (!b) return; cat = b.textContent; $$(".cat").forEach((x) => x.classList.toggle("on", x === b)); renderShop(); };
   $("#grid").onclick = (e) => {
     const b = e.target.closest(".prod__add"); if (!b) return;
-    sacola++; $("#bagN").textContent = sacola; b.classList.add("ok"); b.textContent = "✓";
-    const bb = $("#bagb"); bb.classList.add("bump"); setTimeout(() => bb.classList.remove("bump"), 300);
+    sacola++; $("#bagN").textContent = sacola; b.classList.add("ok"); b.textContent = "✓ Na sacola";
+    const bb = $("#bagb"); bb.classList.add("bump"); setTimeout(() => bb.classList.remove("bump"), 350);
     toast(`${b.dataset.n} foi para a sacola ❀`);
   };
-  renderShop();
-
-  /* Monte seu buquê */
-  const FLOR = [["rosa", "Rosas", 14], ["girassol", "Girassóis", 12], ["tulipa", "Tulipas", 18], ["campo", "Flores do campo", 10]];
-  const COR = { rosa: [["#c8243c", "Vermelho"], ["#f2a7b8", "Rosa"], ["#fff6ee", "Branco"], ["#f4c542", "Amarelo"]], girassol: [["#f4c542", "Amarelo"]], tulipa: [["#e8573f", "Coral"], ["#a9659f", "Lilás"], ["#fff6ee", "Branco"], ["#f4c542", "Amarelo"]], campo: [["mix", "Colorido"], ["#c98bc4", "Tons de lilás"], ["#fff6ee", "Branco"]] };
-  const TAM = [["P", "Pequeno", 6, 7], ["M", "Médio", 12, 11], ["G", "Grande", 24, 15]];
-  const EMB = [["kraft", "Papel kraft", 0, "#c9a57a"], ["seda", "Papel de seda", 10, "#f2d6d3"], ["caixa", "Caixa luxo", 35, "#1f3a2c"]];
-  const b = { flor: "rosa", cor: "#c8243c", tam: "M", emb: "kraft" };
-  const mixCores = ["#e8573f", "#f4c542", "#c98bc4", "#fff6ee", "#f2a7b8", "#7aa6d6"];
-  const flor = (x, y, s, tipo, cor, i) => {
-    const c = cor === "mix" ? mixCores[i % mixCores.length] : cor, st = c === "#fff6ee" ? ' stroke="#e2dccf" stroke-width="1"' : "";
-    if (tipo === "girassol") return `<g class="flower" style="animation-delay:${i * 40}ms">${[...Array(12)].map((_, k) => `<ellipse cx="${x}" cy="${y - s * .75}" rx="${s * .22}" ry="${s * .45}" fill="${c}" transform="rotate(${k * 30} ${x} ${y})"/>`).join("")}<circle cx="${x}" cy="${y}" r="${s * .42}" fill="#5b3a1e"/></g>`;
-    if (tipo === "tulipa") return `<g class="flower" style="animation-delay:${i * 40}ms"><path d="M${x - s * .6} ${y - s * .2}c0 ${s * .9} ${s * 1.2} ${s * .9} ${s * 1.2} 0l-${s * .3} -${s * .7}-${s * .3} ${s * .4}-${s * .3}-${s * .4}Z" fill="${c}"${st}/></g>`;
-    if (tipo === "campo") return `<g class="flower" style="animation-delay:${i * 40}ms">${[...Array(5)].map((_, k) => `<circle cx="${x}" cy="${y - s * .45}" r="${s * .32}" fill="${c}"${st} transform="rotate(${k * 72} ${x} ${y})"/>`).join("")}<circle cx="${x}" cy="${y}" r="${s * .2}" fill="#f4c542"/></g>`;
-    return `<g class="flower" style="animation-delay:${i * 40}ms"><circle cx="${x}" cy="${y}" r="${s * .62}" fill="${c}"${st}/><path d="M${x - s * .35} ${y}a${s * .35} ${s * .35} 0 1 1 ${s * .7} 0M${x - s * .18} ${y + s * .1}a${s * .2} ${s * .2} 0 1 1 ${s * .36} -.1" fill="none" stroke="rgba(0,0,0,.18)" stroke-width="2"/></g>`;
-  };
-  function renderBq() {
-    const cores = COR[b.flor];
-    if (!cores.some(([c]) => c === b.cor)) b.cor = cores[0][0];
-    $("#cFlor").innerHTML = FLOR.map(([k, n, p]) => `<button class="ch ${b.flor === k ? "on" : ""}" data-k="${k}">${n}<small>${brl(p)} a haste</small></button>`).join("");
-    $("#cCor").innerHTML = cores.map(([c, n]) => `<button class="sw ${b.cor === c ? "on" : ""}" data-c="${c}" title="${n}" aria-label="${n}" style="background:${c === "mix" ? "conic-gradient(#e8573f,#f4c542,#c98bc4,#7aa6d6,#e8573f)" : c}"></button>`).join("");
-    $("#cTam").innerHTML = TAM.map(([k, n, h]) => `<button class="ch ${b.tam === k ? "on" : ""}" data-k="${k}">${n}<small>${h} hastes</small></button>`).join("");
-    $("#cEmb").innerHTML = EMB.map(([k, n, p]) => `<button class="ch ${b.emb === k ? "on" : ""}" data-k="${k}">${n}<small>${p ? "+" + brl(p) : "incluso"}</small></button>`).join("");
-    const t = TAM.find((x) => x[0] === b.tam), e = EMB.find((x) => x[0] === b.emb), f = FLOR.find((x) => x[0] === b.flor);
-    const n = t[3], cx = 200;
-    // posições em leque
-    const pos = [];
-    const linhas = n <= 7 ? [3, 4] : n <= 11 ? [3, 4, 4] : [4, 5, 6];
-    let k = 0;
-    linhas.forEach((qtd, li) => { const y = 120 + li * 46 - (linhas.length - 2) * 10, larg = 70 + qtd * 30; for (let j = 0; j < qtd && k < n; j++, k++) pos.push([cx - larg / 2 + (larg / (qtd - 1 || 1)) * j + (li % 2 ? 8 : -8), y + Math.abs(j - (qtd - 1) / 2) * 8]); });
-    const s = b.tam === "G" ? 30 : b.tam === "M" ? 34 : 38;
-    const caule = pos.map(([x, y]) => `<path d="M${x} ${y} Q${(x + cx) / 2} ${(y + 300) / 2} ${cx + (x - cx) * .12} 330" stroke="#4f7a4a" stroke-width="3" fill="none"/>`).join("");
-    const folhas = `<path d="M${cx - 10} 250c-50-10-80 10-96 40 40 6 70-6 96-40Z" fill="#6f9a5d"/><path d="M${cx + 10} 250c50-10 80 10 96 40-40 6-70-6-96-40Z" fill="#5d8a50"/>`;
-    const emb = e[0] === "caixa"
-      ? `<rect x="${cx - 120}" y="270" width="240" height="120" rx="14" fill="${e[3]}"/><rect x="${cx - 120}" y="270" width="240" height="22" fill="rgba(255,255,255,.12)"/><text x="${cx}" y="350" fill="#f2d6d3" font-family="Playfair Display" font-style="italic" font-size="22" text-anchor="middle">Flora Viva</text>`
-      : `<path d="M${cx - 130} 230 L${cx} 400 L${cx + 130} 230 L${cx + 70} 250 L${cx} 220 L${cx - 70} 250 Z" fill="${e[3]}"/><path d="M${cx - 60} 330 q60 -24 120 0" stroke="#8e4b8f" stroke-width="7" fill="none" stroke-linecap="round"/><circle cx="${cx}" cy="322" r="9" fill="#8e4b8f"/>`;
-    $("#bq").innerHTML = caule + folhas + pos.map(([x, y], i) => flor(x, y, s, b.flor, b.cor, i)).join("") + emb;
-    const preco = f[2] * t[2] + e[2];
-    $("#bqPrice").textContent = brl(preco);
-    const corNome = cores.find(([c]) => c === b.cor)[1];
-    $("#bqSum").innerHTML = `${f[1]} · ${corNome.toLowerCase()}<br />${t[2]} hastes · ${e[1].toLowerCase()}`;
+  if (fino) {
+    $("#grid").addEventListener("pointermove", (e) => { const c = e.target.closest(".prod__img"); if (!c) return; const r = c.getBoundingClientRect(), x = (e.clientX - r.left) / r.width, y = (e.clientY - r.top) / r.height; c.style.transform = `perspective(800px) rotateY(${(x - .5) * 10}deg) rotateX(${(.5 - y) * 10}deg)`; c.style.setProperty("--gx", x * 100 + "%"); c.style.setProperty("--gy", y * 100 + "%"); });
+    $("#grid").addEventListener("pointerout", (e) => { const c = e.target.closest(".prod__img"); if (c && !c.contains(e.relatedTarget)) c.style.transform = ""; });
   }
-  $("#cFlor").onclick = (e) => { const x = e.target.closest(".ch"); if (x) { b.flor = x.dataset.k; renderBq(); } };
-  $("#cCor").onclick = (e) => { const x = e.target.closest(".sw"); if (x) { b.cor = x.dataset.c; renderBq(); } };
-  $("#cTam").onclick = (e) => { const x = e.target.closest(".ch"); if (x) { b.tam = x.dataset.k; renderBq(); } };
-  $("#cEmb").onclick = (e) => { const x = e.target.closest(".ch"); if (x) { b.emb = x.dataset.k; renderBq(); } };
+  renderShop();
+  addEventListener("load", movePill);
+
+  /* =====================================================================
+     MONTE SEU BUQUÊ — motor de desenho em canvas
+     ===================================================================== */
+  const FLOR = [["rosa", "Rosas", 14], ["girassol", "Girassóis", 12], ["tulipa", "Tulipas", 18], ["campo", "Flores do campo", 10]];
+  const COR = { rosa: [["#c8243c", "Vermelho"], ["#f29bb0", "Rosa"], ["#fbf3ea", "Branco"], ["#f4c542", "Amarelo"]], girassol: [["#f6b81c", "Amarelo"]], tulipa: [["#e8573f", "Coral"], ["#a9659f", "Lilás"], ["#fbf3ea", "Branco"], ["#f4c542", "Amarelo"]], campo: [["mix", "Colorido"], ["#c98bc4", "Tons de lilás"], ["#fbf3ea", "Branco"]] };
+  const TAM = [["6", "6 hastes", 6], ["12", "12 hastes", 12], ["24", "24 hastes", 24]];
+  const EMB = [["kraft", "Papel kraft", 0], ["seda", "Papel de seda", 10], ["caixa", "Caixa luxo", 35]];
+  const cfg = { flor: "rosa", cor: "#c8243c", tam: "12", emb: "kraft" };
+
+  // cores
+  const hex = (h) => { h = h.replace("#", ""); return [parseInt(h.slice(0, 2), 16), parseInt(h.slice(2, 4), 16), parseInt(h.slice(4, 6), 16)]; };
+  const tom = (h, f) => { const c = hex(h); return `rgb(${c.map((v) => Math.round(f < 0 ? v * (1 + f) : v + (255 - v) * f)).join(",")})`; };
+  const varia = (h, k) => { const c = hex(h), d = (k - 1) * 14; return "#" + c.map((v) => clamp(v + d, 0, 255).toString(16).padStart(2, "0")).join(""); };
+  const rnd = (s) => () => (s = (s * 16807) % 2147483647) / 2147483647;
+
+  // sprites das flores (desenhadas uma vez e reaproveitadas)
+  const SPR = new Map(), TAMS = 300;
+  function sprite(tipo, cor, v) {
+    const key = tipo + cor + v; if (SPR.has(key)) return SPR.get(key);
+    const c = document.createElement("canvas"); c.width = c.height = TAMS;
+    const g = c.getContext("2d"); g.translate(TAMS / 2, TAMS / 2);
+    g.shadowColor = "rgba(30,40,25,.32)"; g.shadowBlur = 16; g.shadowOffsetY = 8;
+    const r = rnd(v * 977 + tipo.length * 131 + cor.length);
+    ({ rosa: rosa, girassol: girassol, tulipa: tulipa, campo: campo })[tipo](g, cor, r, v);
+    SPR.set(key, c); return c;
+  }
+  function petala(g, w, len, base = 0) { g.beginPath(); g.moveTo(-w * .2, base); g.bezierCurveTo(-w * 1.05, base - len * .25, -w * .95, -len, 0, -len * 1.02); g.bezierCurveTo(w * .95, -len, w * 1.05, base - len * .25, w * .2, base); g.closePath(); }
+  function rosa(g, cor, r) {
+    const branca = cor === "#fbf3ea";
+    const camadas = [[6, 112, 62, 0], [6, 94, 52, 30], [5, 74, 42, 12], [5, 56, 32, 48], [4, 40, 24, 20]];
+    camadas.forEach(([n, len, w, off], ci) => {
+      for (let i = 0; i < n; i++) {
+        g.save(); g.rotate((i / n) * Math.PI * 2 + off * Math.PI / 180 + (r() - .5) * .25);
+        const L = len * (.92 + r() * .14);
+        petala(g, w * (.9 + r() * .2), L);
+        const gr = g.createLinearGradient(0, 0, 0, -L);
+        gr.addColorStop(0, tom(cor, branca ? -.3 : -.55)); gr.addColorStop(.55, tom(cor, branca ? -.05 : -.12)); gr.addColorStop(.92, tom(cor, branca ? .1 : .08)); gr.addColorStop(1, tom(cor, branca ? -.12 : -.25));
+        g.fillStyle = gr; g.fill();
+        g.shadowColor = "transparent";
+        g.lineWidth = 2.2; g.strokeStyle = tom(cor, branca ? .4 : .28); g.globalAlpha = .55;
+        g.beginPath(); g.moveTo(-w * .8, -L * .78); g.quadraticCurveTo(0, -L * 1.06, w * .8, -L * .78); g.stroke(); g.globalAlpha = 1;
+        g.shadowColor = "rgba(40,10,15,.35)"; g.shadowBlur = 10 - ci; g.shadowOffsetY = 3;
+        g.restore();
+      }
+    });
+    // miolo em espiral
+    g.shadowColor = "rgba(40,10,15,.4)"; g.shadowBlur = 6; g.shadowOffsetY = 2;
+    for (let i = 0; i < 7; i++) {
+      const rr = 30 - i * 3.8, a0 = i * 1.9;
+      g.beginPath(); g.arc(Math.cos(a0) * i * .9, Math.sin(a0) * i * .9, rr, a0, a0 + Math.PI * 1.25);
+      g.lineWidth = 7 - i * .55; g.strokeStyle = tom(cor, branca ? -.15 - i * .03 : -.18 - i * .06); g.stroke();
+    }
+    const cg = g.createRadialGradient(0, 0, 0, 0, 0, 14); cg.addColorStop(0, tom(cor, branca ? -.4 : -.7)); cg.addColorStop(1, tom(cor, -.3));
+    g.fillStyle = cg; g.beginPath(); g.arc(0, 0, 8, 0, 7); g.fill();
+  }
+  function girassol(g, cor, r) {
+    for (let camada = 0; camada < 2; camada++) {
+      const n = 22;
+      for (let i = 0; i < n; i++) {
+        g.save(); g.rotate((i + camada * .5) / n * Math.PI * 2 + (r() - .5) * .08);
+        const L = (camada ? 112 : 124) * (.9 + r() * .14), w = 15 + r() * 5;
+        g.beginPath(); g.moveTo(-w * .5, -30); g.bezierCurveTo(-w * 1.1, -L * .5, -w * .5, -L * .92, 0, -L); g.bezierCurveTo(w * .5, -L * .92, w * 1.1, -L * .5, w * .5, -30); g.closePath();
+        const gr = g.createLinearGradient(0, -30, 0, -L);
+        gr.addColorStop(0, camada ? "#c9760e" : "#b8650a"); gr.addColorStop(.35, cor); gr.addColorStop(1, camada ? "#ffd863" : "#f9c640");
+        g.fillStyle = gr; g.fill();
+        g.shadowColor = "transparent"; g.strokeStyle = "rgba(150,80,0,.35)"; g.lineWidth = 1; g.beginPath(); g.moveTo(0, -36); g.lineTo(0, -L * .9); g.stroke();
+        g.shadowColor = "rgba(60,30,0,.3)"; g.restore();
+      }
+    }
+    g.shadowColor = "rgba(30,15,0,.5)"; g.shadowBlur = 10;
+    const dg = g.createRadialGradient(-6, -6, 4, 0, 0, 48); dg.addColorStop(0, "#5a3a14"); dg.addColorStop(.55, "#3d250c"); dg.addColorStop(.9, "#2a1806"); dg.addColorStop(1, "#6a4a12");
+    g.fillStyle = dg; g.beginPath(); g.arc(0, 0, 48, 0, 7); g.fill();
+    g.shadowColor = "transparent";
+    for (let i = 0; i < 360; i++) { const a = i * 2.39996, d = Math.sqrt(i) * 2.45; if (d > 46) break; g.fillStyle = i % 3 ? "#1f1205" : "#7a5418"; g.beginPath(); g.arc(Math.cos(a) * d, Math.sin(a) * d, 1.4 + d / 46, 0, 7); g.fill(); }
+    g.strokeStyle = "rgba(210,170,60,.55)"; g.lineWidth = 3; g.beginPath(); g.arc(0, 0, 47, 0, 7); g.stroke();
+  }
+  function tulipa(g, cor, r) {
+    const branca = cor === "#fbf3ea";
+    const L = 128, W = 58;
+    const pet = (dx, w, h, f, tilt) => {
+      g.save(); g.translate(dx, 40); g.rotate(tilt);
+      g.beginPath(); g.moveTo(-w, 0); g.bezierCurveTo(-w * 1.15, -h * .55, -w * .7, -h * .95, 0, -h); g.bezierCurveTo(w * .7, -h * .95, w * 1.15, -h * .55, w, 0); g.bezierCurveTo(w * .6, h * .32, -w * .6, h * .32, -w, 0); g.closePath();
+      const gr = g.createLinearGradient(-w, 0, w, 0);
+      gr.addColorStop(0, tom(cor, branca ? -.2 : -.35 + f)); gr.addColorStop(.45, tom(cor, branca ? .05 : f)); gr.addColorStop(.6, tom(cor, branca ? .15 : .12 + f)); gr.addColorStop(1, tom(cor, branca ? -.25 : -.4 + f));
+      g.fillStyle = gr; g.fill();
+      const vg = g.createLinearGradient(0, 0, 0, -h); vg.addColorStop(0, "rgba(80,120,40,.35)"); vg.addColorStop(.35, "rgba(80,120,40,0)");
+      g.shadowColor = "transparent"; g.fillStyle = vg; g.fill();
+      g.strokeStyle = "rgba(255,255,255,.28)"; g.lineWidth = 3; g.beginPath(); g.moveTo(-w * .15, -h * .15); g.quadraticCurveTo(-w * .05, -h * .6, w * .05, -h * .9); g.stroke();
+      g.restore();
+    };
+    g.shadowColor = "rgba(40,20,10,.3)"; g.shadowBlur = 10;
+    pet(-22, W * .62, L * .92, -.18, -.18); pet(22, W * .62, L * .92, -.18, .18);
+    g.shadowColor = "rgba(40,20,10,.35)";
+    pet(0, W * .78, L, 0, (r() - .5) * .06);
+  }
+  const MIX = ["#e8573f", "#f4c542", "#c98bc4", "#fbf3ea", "#f29bb0", "#7aa6d6", "#ff9a5c"];
+  function campo(g, cor, r, v) {
+    const tipo = v % 3, c = cor === "mix" ? MIX[v % MIX.length] : varia(cor, v % 3);
+    if (tipo === 0) { // margarida / cosmos
+      const n = 14;
+      for (let i = 0; i < n; i++) { g.save(); g.rotate(i / n * Math.PI * 2 + r() * .1); const L = 92 + r() * 14; g.beginPath(); g.moveTo(-6, -14); g.bezierCurveTo(-16, -L * .5, -12, -L, 0, -L); g.bezierCurveTo(12, -L, 16, -L * .5, 6, -14); g.closePath(); const gr = g.createLinearGradient(0, 0, 0, -L); gr.addColorStop(0, tom(c, -.25)); gr.addColorStop(.4, c); gr.addColorStop(1, tom(c, .2)); g.fillStyle = gr; g.fill(); g.restore(); }
+      g.shadowColor = "rgba(80,50,0,.4)"; const cg = g.createRadialGradient(-4, -4, 2, 0, 0, 26); cg.addColorStop(0, "#ffd55a"); cg.addColorStop(1, "#c98a12"); g.fillStyle = cg; g.beginPath(); g.arc(0, 0, 24, 0, 7); g.fill();
+      g.shadowColor = "transparent"; for (let i = 0; i < 70; i++) { const a = i * 2.4, d = Math.sqrt(i) * 2.6; g.fillStyle = "rgba(140,80,0,.5)"; g.fillRect(Math.cos(a) * d, Math.sin(a) * d, 2, 2); }
+    } else if (tipo === 1) { // cosmos de pétalas largas
+      const n = 8;
+      for (let i = 0; i < n; i++) { g.save(); g.rotate(i / n * Math.PI * 2 + r() * .15); const L = 100 + r() * 12, w = 32; g.beginPath(); g.moveTo(-8, -10); g.bezierCurveTo(-w, -L * .4, -w, -L * .9, -w * .4, -L); g.lineTo(-w * .15, -L * .93); g.lineTo(0, -L * 1.01); g.lineTo(w * .15, -L * .93); g.lineTo(w * .4, -L); g.bezierCurveTo(w, -L * .9, w, -L * .4, 8, -10); g.closePath(); const gr = g.createLinearGradient(0, 0, 0, -L); gr.addColorStop(0, tom(c, -.45)); gr.addColorStop(.3, tom(c, -.1)); gr.addColorStop(1, tom(c, .15)); g.fillStyle = gr; g.fill(); g.shadowColor = "transparent"; g.strokeStyle = tom(c, -.25); g.globalAlpha = .4; g.lineWidth = 1; for (let k = -2; k <= 2; k++) { g.beginPath(); g.moveTo(k * 2, -14); g.lineTo(k * 8, -L * .85); g.stroke(); } g.globalAlpha = 1; g.shadowColor = "rgba(30,40,25,.3)"; g.restore(); }
+      g.fillStyle = "#e0a516"; g.beginPath(); g.arc(0, 0, 16, 0, 7); g.fill(); for (let i = 0; i < 24; i++) { const a = i * .26; g.fillStyle = "#7a4a08"; g.beginPath(); g.arc(Math.cos(a) * 11, Math.sin(a) * 11, 2, 0, 7); g.fill(); }
+    } else { // cravo / ranúnculo em camadas
+      for (let k = 0; k < 4; k++) { const n = 9 - k, rad = 100 - k * 22; for (let i = 0; i < n; i++) { g.save(); g.rotate(i / n * Math.PI * 2 + k * .5 + r() * .2); g.beginPath(); g.moveTo(-10, 0); g.bezierCurveTo(-rad * .5, -rad * .4, -rad * .45, -rad, 0, -rad); g.bezierCurveTo(rad * .45, -rad, rad * .5, -rad * .4, 10, 0); g.closePath(); const gr = g.createLinearGradient(0, 0, 0, -rad); gr.addColorStop(0, tom(c, -.5)); gr.addColorStop(.7, tom(c, -.05 + k * .03)); gr.addColorStop(1, tom(c, .2)); g.fillStyle = gr; g.fill(); g.restore(); } }
+      g.fillStyle = tom(c, -.55); g.beginPath(); g.arc(0, 0, 9, 0, 7); g.fill();
+    }
+  }
+  const icone = (tipo, cor) => sprite(tipo, cor === "mix" ? "mix" : cor, 1).toDataURL();
+
+  // estado da cena
+  const stage = $("#stage"), bc = $("#bqc"), bx = bc.getContext("2d");
+  let bdpr = Math.min(2, devicePixelRatio || 1);
+  const bres = () => { bc.width = VW * bdpr; bc.height = VH * bdpr; };
+  bres();
+  const flores = [];      // {tipo, cor, v, x,y,vx,vy, tx,ty, rot,vrot,trot, s,ts, a, sai, pulso, troca}
+  let verdes = [];        // folhagem
+  const cena = { R: 140, tR: 140, abre: 0, tAbre: 0, esp: 0, tEsp: 0, sway: 0, swayV: 0, centroY: -230, tCentroY: -230 };
+  let embAtual = { tipo: cfg.emb, a: 1, y: 0 }, embVelha = null;
+  const larguraR = (n) => 62 + 31 * Math.sqrt(n);
+  const tamFlor = { rosa: 96, girassol: 108, tulipa: 88, campo: 78 };
+
+  function layout(n, R) {
+    const pos = [];
+    for (let i = 0; i < n; i++) {
+      const t = (i + .5) / n, rr = Math.sqrt(t) * R * .9, a = i * 2.39996 + .6;
+      pos.push([Math.cos(a) * rr, Math.sin(a) * rr * .6]);
+    }
+    return pos.sort((p, q) => p[1] - q[1]);
+  }
+  function fora(lado) {
+    // ponto fora da tela, em coordenadas locais do buquê
+    const A = ancora(), k = A.k;
+    const m = 140, sx = [-m, VW + m][lado % 2], sy = Math.random() * VH;
+    const pts = [[sx, sy], [Math.random() * VW, -m], [Math.random() * VW, VH + m * .5]];
+    const [X, Y] = pts[lado % 3 === 2 ? 2 : lado % 3 === 1 && Math.random() < .4 ? 1 : 0];
+    return [(X - A.x) / k, (Y - A.y) / k];
+  }
+  function alvo(f, i, pos) {
+    const [px, py] = pos[i];
+    f.tx = px * (1 + cena.tEsp * .55); f.ty = cena.tCentroY + py * (1 + cena.tEsp * .4) - cena.tEsp * 40;
+    const prof = (py / (cena.tR * .55) + 1) / 2; // 0 fundo, 1 frente
+    f.ts = (.82 + prof * .22) * (cfg.flor === "campo" ? .9 + (f.v % 3) * .08 : 1);
+    f.trot = f.tipo === "tulipa" ? px / cena.tR * .45 : f.rot0;
+    f.prof = prof;
+  }
+  function criaFlor(tipo, cor, v, de) {
+    const [x, y] = de;
+    return { tipo, cor, v, x, y, vx: 0, vy: 0, tx: x, ty: y, rot: (Math.random() - .5) * 4, vrot: 0, rot0: Math.random() * 6.28, trot: 0, s: .55, ts: 1, a: 1, sai: false, pulso: 0, troca: null, fase: Math.random() * 6.28 };
+  }
+  function geraVerdes(n) {
+    const R = larguraR(n), q = Math.round(6 + n * .3), lista = [];
+    for (let i = 0; i < q; i++) {
+      const a = Math.PI + .2 + (i / (q - 1)) * (Math.PI - .4) + (Math.random() - .5) * .2;
+      lista.push({ a, d: R * (.92 + Math.random() * .3), tipo: i % 3 === 1 ? "euc" : i % 3 === 2 ? "gip" : "folha", len: 70 + Math.random() * 60, s: 0, ts: 1, fase: Math.random() * 6 });
+    }
+    return lista;
+  }
+  function reposiciona() {
+    const vivas = flores.filter((f) => !f.sai), pos = layout(vivas.length, cena.tR);
+    // mantém cada flor perto de onde está: ordena por posição atual
+    vivas.sort((p, q) => p.ty - q.ty).forEach((f, i) => alvo(f, i, pos));
+  }
+  const n = () => +cfg.tam;
+  const corDe = (i) => cfg.flor === "campo" && cfg.cor === "mix" ? "mix" : cfg.cor;
+
+  function monta(primeira) {
+    const N = n();
+    cena.tR = larguraR(N); cena.tCentroY = cfg.emb === "caixa" ? -150 : -230;
+    for (let i = 0; i < N; i++) {
+      const lado = i;
+      const f = criaFlor(cfg.flor, corDe(i), i % 6, primeira && reduz ? [0, cena.tCentroY] : fora(lado));
+      f.atraso = performance.now() + (primeira ? 300 : 0) + i * (N > 12 ? 45 : 80);
+      flores.push(f);
+    }
+    reposiciona();
+  }
+
+  // transições
+  let ocupado = false, fila = null;
+  function aplica(antes) {
+    if (ocupado) { fila = antes; return; }
+    const agora = performance.now();
+    if (antes.flor !== cfg.flor) return remonta();
+    if (antes.tam !== cfg.tam) {
+      const N = n(), vivas = flores.filter((f) => !f.sai), dif = N - vivas.length;
+      cena.tR = larguraR(N);
+      if (dif > 0) {
+        for (let i = 0; i < dif; i++) { const f = criaFlor(cfg.flor, corDe(vivas.length + i), (vivas.length + i) % 6, fora(i)); f.atraso = agora + i * (dif > 8 ? 55 : 90); flores.push(f); }
+        verdes.push(...geraVerdes(N).slice(verdes.length));
+      } else if (dif < 0) {
+        // sai quem está na borda
+        vivas.sort((p, q) => Math.hypot(q.tx, (q.ty - cena.tCentroY) * 1.8) - Math.hypot(p.tx, (p.ty - cena.tCentroY) * 1.8)).slice(0, -dif)
+          .forEach((f, i) => { f.sai = true; const [x, y] = fora(f.tx < 0 ? 0 : 1); f.tx = x; f.ty = y; f.atraso = agora + i * 60; f.trot = f.rot + (Math.random() - .5) * 6; });
+        verdes.slice(geraVerdes(N).length).forEach((v) => { v.ts = 0; });
+      }
+      reposiciona();
+    }
+    if (antes.cor !== cfg.cor) {
+      flores.filter((f) => !f.sai).forEach((f) => { const d = Math.hypot(f.tx, (f.ty - cena.tCentroY) * 1.6); f.troca = { em: agora + d * 3.2, cor: corDe(0) }; });
+    }
+    if (antes.emb !== cfg.emb) {
+      embVelha = embAtual; embAtual = { tipo: cfg.emb, a: 0, y: 1 };
+      cena.tCentroY = cfg.emb === "caixa" ? -150 : -230;
+      reposiciona();
+    }
+  }
+  function remonta() {
+    ocupado = true;
+    const agora = performance.now();
+    cena.tAbre = 1; cena.tEsp = 1; reposiciona();
+    setTimeout(() => {
+      flores.filter((f) => !f.sai).forEach((f, i) => { f.sai = true; const [x, y] = fora(i); f.tx = x; f.ty = y; f.atraso = performance.now() + i * 35; f.trot = f.rot + (Math.random() - .5) * 8; });
+    }, 520);
+    setTimeout(() => {
+      const N = n();
+      for (let i = 0; i < N; i++) { const f = criaFlor(cfg.flor, corDe(i), i % 6, fora(i + 1)); f.atraso = performance.now() + i * (N > 12 ? 40 : 75); flores.push(f); }
+      verdes.forEach((v) => { v.ts = 0; }); setTimeout(() => { verdes = geraVerdes(N); }, 300);
+      reposiciona();
+    }, 950);
+    setTimeout(() => { cena.tAbre = 0; cena.tEsp = 0; reposiciona(); }, 950 + 600 + n() * 45);
+    setTimeout(() => { ocupado = false; if (fila) { const a = fila; fila = null; aplica(a); } }, 1900 + n() * 45);
+  }
+
+  // desenho
+  function ancora() {
+    const r = stage.getBoundingClientRect();
+    const k = Math.min(r.width / 520, r.height / 610) * (VW < 900 ? 1.05 : 1) * Math.min(1, Math.sqrt(175 / cena.R));
+    return { x: r.left + r.width / 2, y: r.top + r.height * .74, k, r };
+  }
+  const PAPEL = {};
+  function textura(cor, fibra) {
+    if (PAPEL[cor]) return PAPEL[cor];
+    const c = document.createElement("canvas"); c.width = c.height = 160; const g = c.getContext("2d");
+    g.fillStyle = cor; g.fillRect(0, 0, 160, 160);
+    const rr = rnd(7);
+    for (let i = 0; i < 900; i++) { g.fillStyle = rr() < .5 ? `rgba(0,0,0,${rr() * .06})` : `rgba(255,255,255,${rr() * .08})`; if (fibra) g.fillRect(rr() * 160, rr() * 160, 1 + rr() * 8, 1); else g.fillRect(rr() * 160, rr() * 160, 2, 2); }
+    return (PAPEL[cor] = bx.createPattern(c, "repeat"));
+  }
+  function papel(g, tipo, R, abre, frente) {
+    const kraft = tipo === "kraft";
+    const base = kraft ? "#b88d5e" : "#f3d5d8";
+    const topoY = cena.centroY;
+    if (!frente) {
+      // folha de trás (aparece acima e nas laterais)
+      g.save(); g.globalAlpha *= kraft ? 1 : .92;
+      g.translate(0, abre * 30);
+      g.beginPath(); g.moveTo(-34, 0);
+      g.lineTo(-R - 70, topoY - R * .25);
+      if (kraft) { g.lineTo(-R * .5, topoY - R * .75); g.lineTo(-R * .1, topoY - R * .55); g.lineTo(R * .35, topoY - R * .8); g.lineTo(R + 70, topoY - R * .28); }
+      else { for (let i = 0; i <= 12; i++) { const x = -R - 70 + (2 * R + 140) * i / 12; g.quadraticCurveTo(x - (R + 70) / 12, topoY - R * .7 - Math.sin(i * 1.3) * 18 - 20, x, topoY - R * .55 - Math.cos(i * 1.1) * 14); } g.lineTo(R + 70, topoY - R * .25); }
+      g.lineTo(34, 0); g.closePath();
+      g.fillStyle = textura(tom(base, kraft ? -.18 : -.08), kraft); g.fill();
+      const sg = g.createLinearGradient(0, topoY - R, 0, 0); sg.addColorStop(0, "rgba(0,0,0,0)"); sg.addColorStop(1, "rgba(40,20,0,.28)"); g.fillStyle = sg; g.fill();
+      g.restore();
+      return;
+    }
+    // duas folhas da frente, cruzadas, que giram para abrir
+    const folha = (lado) => {
+      g.save(); g.rotate(lado * abre * .95); g.translate(lado * abre * 40, abre * 26); g.globalAlpha *= 1 - abre * .55;
+      g.beginPath(); g.moveTo(lado * 44, 6);
+      g.shadowColor = "rgba(50,30,10,.35)"; g.shadowBlur = 22; g.shadowOffsetY = -8;
+      g.lineTo(-lado * (R + 64), topoY + R * .58);
+      if (kraft) g.lineTo(-lado * R * .1, topoY + R * .86); else { for (let i = 1; i <= 6; i++) { const t = i / 6; g.quadraticCurveTo(lerp(-lado * (R + 64), lado * R * .2, t - .08), topoY + R * .58 + t * R * .3 - 14, lerp(-lado * (R + 64), lado * R * .2, t), topoY + R * .58 + t * R * .3); } }
+      g.lineTo(lado * R * .25, topoY + R * .95);
+      g.lineTo(lado * 20, 150); g.lineTo(-lado * 8, 150); g.closePath();
+      g.fillStyle = textura(tom(base, lado > 0 ? 0 : -.08), kraft); g.fill(); g.shadowColor = "transparent";
+      const gr = g.createLinearGradient(-lado * (R + 60), 0, lado * 40, 0);
+      gr.addColorStop(0, kraft ? "rgba(255,255,255,.18)" : "rgba(255,255,255,.35)"); gr.addColorStop(.6, "rgba(0,0,0,0)"); gr.addColorStop(1, "rgba(60,30,0,.22)");
+      g.fillStyle = gr; g.fill();
+      if (!kraft) { g.globalAlpha *= .45; g.fillStyle = "#fff"; g.fill(); }
+      // vinco
+      g.strokeStyle = kraft ? "rgba(90,55,20,.35)" : "rgba(160,90,100,.3)"; g.lineWidth = 1.5;
+      g.beginPath(); g.moveTo(lado * 30, 20); g.lineTo(-lado * R * .45, topoY + R * .7); g.stroke();
+      g.restore();
+    };
+    folha(-1); folha(1);
+    // laço de cetim
+    g.save(); g.globalAlpha *= 1 - abre;
+    const lc = "#8e4b8f", lg = (x0, y0, x1, y1) => { const q = g.createLinearGradient(x0, y0, x1, y1); q.addColorStop(0, tom(lc, -.3)); q.addColorStop(.5, tom(lc, .35)); q.addColorStop(1, tom(lc, -.2)); return q; };
+    g.fillStyle = lg(-60, 0, 60, 0); g.fillRect(-36, 36, 72, 18);
+    [[-1], [1]].forEach(([s]) => {
+      g.beginPath(); g.moveTo(0, 45); g.bezierCurveTo(s * 40, 0, s * 78, 20, s * 64, 50); g.bezierCurveTo(s * 54, 70, s * 22, 56, 0, 45); g.fillStyle = lg(0, 20, s * 70, 60); g.fill();
+      g.beginPath(); g.moveTo(0, 48); g.bezierCurveTo(s * 20, 90, s * 26, 120, s * 40, 150); g.lineTo(s * 26, 146); g.lineTo(s * 22, 158); g.bezierCurveTo(s * 10, 120, s * 4, 90, 0, 50); g.fillStyle = lg(0, 50, s * 40, 150); g.fill();
+    });
+    g.fillStyle = tom(lc, -.15); g.beginPath(); g.ellipse(0, 46, 11, 13, 0, 0, 7); g.fill();
+    g.restore();
+  }
+  function caixa(g, R, frente) {
+    const w = R * .95 + 10, topo = -95, alt = 145;
+    if (!frente) {
+      g.fillStyle = "#14281e"; g.beginPath(); g.ellipse(0, topo, w, w * .22, 0, Math.PI, 0); g.fill();
+      g.fillStyle = "#0e1f17"; g.beginPath(); g.ellipse(0, topo, w * .96, w * .2, 0, 0, 7); g.fill();
+      return;
+    }
+    const gr = g.createLinearGradient(-w, 0, w, 0); gr.addColorStop(0, "#10241a"); gr.addColorStop(.3, "#2b5340"); gr.addColorStop(.55, "#1f3a2c"); gr.addColorStop(1, "#0b1a12");
+    g.fillStyle = gr; g.beginPath(); g.moveTo(-w, topo); g.ellipse(0, topo, w, w * .22, 0, Math.PI, 0, true); g.lineTo(w, topo + alt); g.ellipse(0, topo + alt, w, w * .22, 0, 0, Math.PI); g.closePath(); g.fill();
+    g.strokeStyle = "#c9a45c"; g.lineWidth = 3; g.beginPath(); g.ellipse(0, topo, w, w * .22, 0, 0, Math.PI); g.stroke();
+    g.lineWidth = 9; g.strokeStyle = "rgba(201,164,92,.85)"; g.beginPath(); g.ellipse(0, topo + 46, w, w * .22, 0, .05, Math.PI - .05); g.stroke();
+    g.fillStyle = "#e6c98a"; g.font = `italic ${Math.round(w * .2)}px "Playfair Display", serif`; g.textAlign = "center"; g.fillText("Flora Viva", 0, topo + alt * .68);
+    const br = g.createLinearGradient(0, topo, 0, topo + alt); br.addColorStop(0, "rgba(255,255,255,.08)"); br.addColorStop(1, "rgba(0,0,0,.25)"); g.fillStyle = br; g.fill();
+  }
+  function folhagem(g, v, t) {
+    if (v.s < .02) return;
+    const sway = Math.sin(t * .0012 + v.fase) * .04 + cena.sway * .5;
+    const bx0 = Math.cos(v.a) * v.d * .4, by0 = cena.centroY + 40;
+    const ex = Math.cos(v.a + sway) * v.d * (1 + cena.esp * .4), ey = cena.centroY + Math.sin(v.a + sway) * v.d * .78 - 10;
+    g.save(); g.globalAlpha *= v.s;
+    if (v.tipo === "gip") {
+      g.strokeStyle = "#7d9a6a"; g.lineWidth = 1.2;
+      for (let i = 0; i < 9; i++) { const a = v.a + (i - 4) * .1, l = v.len * (.7 + (i % 3) * .15); const x = ex + Math.cos(a) * l * .4, y = ey + Math.sin(a) * l * .4; g.beginPath(); g.moveTo(bx0, by0); g.quadraticCurveTo((bx0 + x) / 2, (by0 + y) / 2 - 10, x, y); g.stroke(); for (let k = 0; k < 6; k++) { g.fillStyle = k % 2 ? "#ffffff" : "#f3eee6"; g.beginPath(); g.arc(x + Math.cos(k * 1.1) * 7, y + Math.sin(k * 1.7) * 6, 3.2, 0, 7); g.fill(); } }
+    } else if (v.tipo === "euc") {
+      g.strokeStyle = "#6f8a77"; g.lineWidth = 2.5; g.beginPath(); g.moveTo(bx0, by0); g.quadraticCurveTo((bx0 + ex) / 2, (by0 + ey) / 2, ex, ey); g.stroke();
+      for (let i = 1; i <= 6; i++) { const t2 = i / 6.5, x = lerp(bx0, ex, t2), y = lerp(by0, ey, t2) - Math.sin(t2 * Math.PI) * 10; const s = 6 + i * 1.1; [-1, 1].forEach((l) => { g.save(); g.translate(x + l * 8, y); g.rotate(v.a + l * .6); const gr = g.createRadialGradient(-3, -3, 1, 0, 0, s); gr.addColorStop(0, "#b8c9bb"); gr.addColorStop(1, "#7f9a86"); g.fillStyle = gr; g.beginPath(); g.ellipse(0, 0, s, s * .78, 0, 0, 7); g.fill(); g.restore(); }); }
+    } else {
+      const ang = Math.atan2(ey - by0, ex - bx0), L = Math.hypot(ex - bx0, ey - by0) + 30;
+      g.translate(bx0, by0); g.rotate(ang);
+      g.beginPath(); g.moveTo(0, 0); g.bezierCurveTo(L * .3, -26, L * .8, -20, L, 0); g.bezierCurveTo(L * .8, 20, L * .3, 26, 0, 0);
+      const gr = g.createLinearGradient(0, -20, 0, 20); gr.addColorStop(0, "#5d8a4e"); gr.addColorStop(.5, "#3f6b3a"); gr.addColorStop(1, "#2e5230"); g.fillStyle = gr; g.fill();
+      g.strokeStyle = "rgba(200,230,170,.45)"; g.lineWidth = 1.4; g.beginPath(); g.moveTo(4, 0); g.quadraticCurveTo(L * .5, -3, L * .96, 0); g.stroke();
+    }
+    g.restore();
+  }
+  let ultT = performance.now(), bqVisivel = false, mouseLocal = null;
+  function quadroBq(t) {
+    const dt = Math.min(2.5, (t - ultT) / 16.67); ultT = t;
+    bx.setTransform(1, 0, 0, 1, 0, 0); bx.clearRect(0, 0, bc.width, bc.height);
+    if (!bqVisivel) return;
+    const A = ancora(), k = A.k;
+    // física da cena
+    const sp = (o, key, tk, kk = .08) => { o[key] = lerp(o[key], o[tk], 1 - Math.pow(1 - kk, dt)); };
+    sp(cena, "R", "tR", .06); sp(cena, "abre", "tAbre", .07); sp(cena, "esp", "tEsp", .06); sp(cena, "centroY", "tCentroY", .07);
+    let alvoSway = 0;
+    if (mouse.ativo && fino) { const dxm = (mouse.x - A.x) / (A.r.width / 2), dym = (mouse.y - A.y) / A.r.height; if (Math.abs(dxm) < 1.6 && dym > -1.2 && dym < .5) alvoSway = clamp(dxm, -1, 1) * .09; mouseLocal = [(mouse.x - A.x) / k, (mouse.y - A.y) / k]; } else mouseLocal = null;
+    cena.swayV += (alvoSway - cena.sway) * .03 * dt; cena.swayV *= Math.pow(.86, dt); cena.sway += cena.swayV * dt;
+    const swayIdle = reduz ? 0 : Math.sin(t * .0009) * .015;
+
+    bx.setTransform(bdpr, 0, 0, bdpr, 0, 0);
+    // recorta no palco
+    bx.save();
+    const sec = $("#buque").getBoundingClientRect();
+    bx.beginPath(); bx.rect(sec.left, sec.top, sec.width, sec.height); bx.clip();
+    bx.translate(A.x, A.y); bx.scale(k, k); bx.rotate(cena.sway + swayIdle);
+
+    // atualiza flores
+    for (let i = flores.length - 1; i >= 0; i--) {
+      const f = flores[i];
+      if (f.atraso && t < f.atraso) continue;
+      const kk = f.sai ? .028 : .05, am = f.sai ? .9 : .8;
+      let tx = f.tx, ty = f.ty;
+      if (mouseLocal && !f.sai) { const dx = f.x - mouseLocal[0], dy = f.y - mouseLocal[1], d = Math.hypot(dx, dy); if (d < 90) { tx += dx / (d || 1) * (90 - d) * .35; ty += dy / (d || 1) * (90 - d) * .35; } }
+      f.vx = (f.vx + (tx - f.x) * kk * dt) * Math.pow(am, dt); f.vy = (f.vy + (ty - f.y) * kk * dt) * Math.pow(am, dt);
+      f.x += f.vx * dt; f.y += f.vy * dt;
+      f.vrot = (f.vrot + (f.trot - f.rot) * .04 * dt) * Math.pow(.85, dt); f.rot += f.vrot * dt;
+      f.s = lerp(f.s, f.ts * (f.sai ? .7 : 1), 1 - Math.pow(.9, dt));
+      if (f.troca && t >= f.troca.em) { f.pulso = 1; f.trocaPend = f.troca.cor; f.troca = null; }
+      if (f.pulso > 0) { f.pulso = Math.max(0, f.pulso - .045 * dt); if (f.trocaPend && f.pulso < .5) { f.cor = f.trocaPend; f.trocaPend = null; } }
+      if (f.sai) { const X = A.x + f.x * k, Y = A.y + f.y * k; if (X < -260 || X > VW + 260 || Y < -260 || Y > VH + 260 || Math.hypot(f.x - f.tx, f.y - f.ty) < 30) flores.splice(i, 1); }
+    }
+    verdes.forEach((v) => { v.s = lerp(v.s, v.ts, 1 - Math.pow(.93, dt)); });
+    verdes = verdes.filter((v) => v.ts > 0 || v.s > .02);
+
+    const ativas = flores.filter((f) => !f.atraso || t >= f.atraso);
+    const presas = ativas.filter((f) => !f.sai && Math.hypot(f.x - f.tx, f.y - f.ty) < 220);
+    const caixaA = embAtual.tipo === "caixa" ? embAtual.a : 0, caixaV = embVelha && embVelha.tipo === "caixa" ? embVelha.a : 0;
+    const papelVis = 1 - Math.max(caixaA, caixaV);
+
+    // transição de embalagem
+    sp(embAtual, "a", "_1", .07); embAtual._1 = 1; sp(embAtual, "y", "_0", .07); embAtual._0 = 0;
+    if (embVelha) { embVelha.a = lerp(embVelha.a, 0, 1 - Math.pow(.9, dt)); embVelha.y = lerp(embVelha.y, 1, 1 - Math.pow(.9, dt)); if (embVelha.a < .02) embVelha = null; }
+    const camadasEmb = [embVelha, embAtual].filter(Boolean);
+
+    // 2) fundo da embalagem
+    camadasEmb.forEach((e) => { bx.save(); bx.globalAlpha = e.a; bx.translate(0, e.y * 120); e.tipo === "caixa" ? caixa(bx, cena.R, false) : papel(bx, e.tipo, cena.R, cena.abre, false); bx.restore(); });
+    // 1) hastes
+    if (papelVis > .02) {
+      bx.save(); bx.globalAlpha = papelVis;
+      presas.forEach((f) => { const g = bx.createLinearGradient(f.x, f.y, 0, 150); g.addColorStop(0, "#4f7a3f"); g.addColorStop(1, "#6e9a52"); bx.strokeStyle = g; bx.lineWidth = 4.5; bx.beginPath(); bx.moveTo(f.x, f.y + 10); bx.quadraticCurveTo(f.x * .3, (f.y + 30) / 2, f.x * .06, 30); bx.lineTo(f.x * .1 + (f.v - 3) * 3, 150 + (f.v % 3) * 5); bx.stroke(); });
+      bx.restore();
+    }
+    // 3) folhagem
+    verdes.forEach((v) => folhagem(bx, v, t));
+    // 4) flores, do fundo para a frente
+    const ordem = ativas.slice().sort((p, q) => (p.sai - q.sai) || (p.y - q.y));
+    ordem.forEach((f) => {
+      const tam = tamFlor[f.tipo] * f.s * (1 - Math.sin(f.pulso * Math.PI) * .32);
+      const spr = sprite(f.tipo, f.cor, f.v), lado = tam * (TAMS / 260);
+      const bob = reduz ? 0 : Math.sin(t * .0016 + f.fase) * 1.6;
+      bx.save(); bx.translate(f.x, f.y + bob);
+      bx.rotate(f.tipo === "tulipa" ? f.rot : f.rot + Math.sin(f.pulso * Math.PI) * 1.4);
+      if (f.tipo !== "tulipa") bx.scale(1, .8 + (f.prof ?? .5) * .12);
+      bx.drawImage(spr, -lado / 2, -lado / 2, lado, lado);
+      bx.restore();
+    });
+    // 5) frente da embalagem
+    camadasEmb.forEach((e) => { bx.save(); bx.globalAlpha = e.a; bx.translate(0, e.y * 120); e.tipo === "caixa" ? caixa(bx, cena.R, true) : papel(bx, e.tipo, cena.R, cena.abre, true); bx.restore(); });
+    bx.restore();
+  }
+  new IntersectionObserver(([e]) => { bqVisivel = e.isIntersecting; $(".wa").classList.toggle("some", e.isIntersecting && VW < 900); }, { rootMargin: "100px" }).observe($("#buque"));
+
+  // interface de escolha
+  function renderOpcoes() {
+    const cores = COR[cfg.flor];
+    if (!cores.some(([c]) => c === cfg.cor)) cfg.cor = cores[0][0];
+    $("#cFlor").innerHTML = FLOR.map(([k, nm, p]) => `<button class="ch ${cfg.flor === k ? "on" : ""}" data-k="${k}"><img src="${icone(k, COR[k][0][0])}" alt="" /><span><b>${nm}</b><small>${brl(p)} a haste</small></span></button>`).join("");
+    $("#cCor").innerHTML = cores.map(([c, nm]) => `<button class="sw ${cfg.cor === c ? "on" : ""}" data-c="${c}" title="${nm}" aria-label="${nm}" style="background:${c === "mix" ? "conic-gradient(#e8573f,#f4c542,#c98bc4,#7aa6d6,#e8573f)" : c}"></button>`).join("");
+    $("#cTam").innerHTML = TAM.map(([k, nm]) => `<button class="ch sem-img ${cfg.tam === k ? "on" : ""}" data-k="${k}"><span><b>${nm}</b><small>${k === "6" ? "delicado" : k === "12" ? "clássico" : "exuberante"}</small></span></button>`).join("");
+    $("#cEmb").innerHTML = EMB.map(([k, nm, p]) => `<button class="ch sem-img ${cfg.emb === k ? "on" : ""}" data-k="${k}"><span><b>${nm}</b><small>${p ? "+" + brl(p) : "incluso"}</small></span></button>`).join("");
+    const f = FLOR.find((x) => x[0] === cfg.flor), e = EMB.find((x) => x[0] === cfg.emb);
+    const preco = f[2] * n() + e[2], corNome = cores.find(([c]) => c === cfg.cor)[1];
+    $$(".bqPrice").forEach((el) => el.textContent = brl(preco));
+    $$(".bqSum").forEach((el) => el.innerHTML = `${f[1]} · ${corNome.toLowerCase()}<br />${n()} hastes · ${e[1].toLowerCase()}`);
+  }
+  const escolhe = (campo, valor) => { if (cfg[campo] === valor) return; const antes = { ...cfg }; cfg[campo] = valor; renderOpcoes(); aplica(antes); };
+  $("#cFlor").onclick = (e) => { const x = e.target.closest(".ch"); if (x) escolhe("flor", x.dataset.k); };
+  $("#cCor").onclick = (e) => { const x = e.target.closest(".sw"); if (x) escolhe("cor", x.dataset.c); };
+  $("#cTam").onclick = (e) => { const x = e.target.closest(".ch"); if (x) escolhe("tam", x.dataset.k); };
+  $("#cEmb").onclick = (e) => { const x = e.target.closest(".ch"); if (x) escolhe("emb", x.dataset.k); };
   $("#msg").addEventListener("input", (e) => { $("#cardTxt").textContent = e.target.value || "Escreva sua mensagem ✿"; $("#msgN").textContent = e.target.value.length; });
-  $("#bqAdd").onclick = () => {
-    const resumo = $("#bqSum").innerText.replace(/\n/g, ", ");
-    const msg = `Olá, Flora Viva! Quero encomendar um buquê:\n${resumo}\nValor: ${$("#bqPrice").textContent}\nCartão: "${$("#msg").value || "sem mensagem"}"`;
-    window.open(`https://wa.me/${WA}?text=${encodeURIComponent(msg)}`, "_blank");
-  };
-  renderBq();
+  $$(".bqAdd").forEach((b) => b.onclick = () => {
+    const resumo = $(".bqSum").innerText.replace(/\n/g, ", ");
+    const msg = `Olá, Flora Viva! Quero encomendar um buquê:\n${resumo}\nValor: ${$(".bqPrice").textContent}\nCartão: "${$("#msg").value || "sem mensagem"}"`;
+    window.open(`https://wa.me/${WA}?text=${encodeURIComponent(msg)}`, "_blank", "noopener");
+  });
+  renderOpcoes();
+  verdes = geraVerdes(n());
+  let montado = false;
+  new IntersectionObserver(([e]) => { if (e.isIntersecting && !montado) { montado = true; monta(true); } }, { threshold: .25 }).observe(stage);
 
   /* Guia de cuidados */
   const SP = {
-    "Phalaenopsis": ["1583846712268-a77d97b7fd68", [2, 3, 4, 2], "Regue quando o substrato estiver quase seco — em geral uma vez por semana. Nunca deixe água acumulada no pratinho."],
-    "Dendrobium": ["1599463740831-a5015ef7b65a", [3, 4, 3, 3], "Gosta de bastante luz e ar circulando. No inverno, reduza a rega para estimular a floração."],
-    "Cattleya": ["1534885320675-b08aa131cc5e", [2, 5, 3, 3], "A rainha das orquídeas pede sol da manhã. Folhas verde-claro indicam luz ideal; verde-escuro, falta de luz."],
-    "Oncidium": ["1542407242725-7d7f3d865665", [4, 4, 4, 2], "Conhecida como chuva-de-ouro, prefere substrato úmido e regas mais frequentes no verão."],
+    "Phalaenopsis": ["1583846712268-a77d97b7fd68", [2, 3, 4, 2], "Regue quando o substrato estiver quase seco, em geral uma vez por semana. Nunca deixe água acumulada no pratinho.", "floresce 2× ao ano"],
+    "Dendrobium": ["1599463740831-a5015ef7b65a", [3, 4, 3, 3], "Gosta de bastante luz e ar circulando. No inverno, reduza a rega para estimular a floração.", "floresce na primavera"],
+    "Cattleya": ["1534885320675-b08aa131cc5e", [2, 5, 3, 3], "A rainha das orquídeas pede sol da manhã. Folhas verde-claro indicam luz ideal; verde-escuro, falta de luz.", "flores perfumadas"],
+    "Oncidium": ["1542407242725-7d7f3d865665", [4, 4, 4, 2], "Conhecida como chuva-de-ouro, prefere substrato úmido e regas mais frequentes no verão.", "cachos de flores"],
   };
   const MET = ["Rega", "Luz", "Umidade", "Adubação"];
   let esp = "Phalaenopsis";
+  $("#species").innerHTML = Object.keys(SP).map((k) => `<button class="ch sem-img ${k === esp ? "on" : ""}">${k}</button>`).join("");
   function renderCare() {
-    $("#species").innerHTML = Object.keys(SP).map((k) => `<button class="ch ${k === esp ? "on" : ""}">${k}</button>`).join("");
-    const [img, lv, dica] = SP[esp];
-    $("#meters").innerHTML = MET.map((m, i) => `<div class="meter"><span>${m}</span><i>${[1, 2, 3, 4, 5].map((n) => `<b class="${n <= lv[i] ? "f" : ""}" style="--d:${n * 50}ms"></b>`).join("")}</i></div>`).join("");
+    $$("#species .ch").forEach((b) => b.classList.toggle("on", b.textContent === esp));
+    const [img, lv, dica, flor] = SP[esp];
+    $("#meters").innerHTML = MET.map((m, i) => `<div class="meter"><span>${m}</span><i>${[1, 2, 3, 4, 5].map((k) => `<b style="--d:${k * 60}ms"></b>`).join("")}</i></div>`).join("");
+    requestAnimationFrame(() => requestAnimationFrame(() => $$(".meter").forEach((m, i) => $$("b", m).forEach((b, k) => b.classList.toggle("f", k < lv[i])))));
     $("#tip").innerHTML = `<b>Dica da estufa</b>${dica}`;
+    $("#spNome").textContent = esp; $("#spFlor").textContent = flor;
     const im = $("#careImg");
-    if (!im.src.includes(img)) { im.classList.add("out"); setTimeout(() => { im.src = u(img, 900); im.onload = () => im.classList.remove("out"); }, 350); }
+    if (!im.src.includes(img)) { im.classList.add("out"); setTimeout(() => { im.onload = () => im.classList.remove("out"); im.src = u(img, 900); }, 380); }
   }
   $("#species").onclick = (e) => { const x = e.target.closest(".ch"); if (x) { esp = x.textContent; renderCare(); } };
   renderCare();
 
-  /* Parallax */
-  const nb = $("#nBg"), hi = $("#heroImg");
-  addEventListener("scroll", () => {
-    if (reduz) return;
-    const r = nb.parentElement.getBoundingClientRect();
-    nb.style.transform = `translateY(${(r.top + r.height / 2 - innerHeight / 2) * -.12}px)`;
-    hi.style.translate = `0 ${scrollY * -.06}px`;
-  }, { passive: true });
+  /* Contadores do viveiro */
+  new IntersectionObserver(([e], o) => {
+    if (!e.isIntersecting) return; o.disconnect();
+    $$("[data-n]").forEach((b) => { const alvo = +b.dataset.n, ini = b.hasAttribute("data-sem") ? 1900 : 0, t0 = performance.now(); const passo = (t) => { const p = ease(clamp((t - t0) / 1800)); const v = Math.round(lerp(ini, alvo, p)); b.textContent = b.dataset.f.replace("{n}", b.hasAttribute("data-sem") ? v : v.toLocaleString("pt-BR")); if (p < 1) requestAnimationFrame(passo); }; requestAnimationFrame(passo); });
+  }, { threshold: .4 }).observe($(".stats"));
+
+  /* Depoimentos */
+  const Q = [["Minha orquídea voltou a florir seguindo o guia deles. Atendimento apaixonado!", "Helena C."], ["Pedi às 13h e o buquê chegou no escritório antes das 17h, lindo e perfumado.", "Rafael P."], ["A decoração do nosso casamento ficou um sonho. Cuidaram de cada detalhe.", "Júlia & Bruno"], ["Montei o buquê pelo site e chegou exatamente como eu vi na tela.", "Marina S."], ["O passeio pelo viveiro é um programa de domingo para a família toda.", "Carlos A."]];
+  const qt = $("#qTrack");
+  qt.innerHTML = [...Q, ...Q].map(([p, a]) => `<div class="q vidro"><span class="stars">★★★★★</span><p>“${p}”</p><small>${a}</small></div>`).join("");
+
+  /* Loop de rolagem e mouse */
+  const art = $("#art"), arch = $("#arch"), hi = $("#heroImg"), bub = $("#bubble"), luz = $("#luz");
+  const mani = $("#mani"), mImg = $(".mani__img"), m1 = $("#m1"), m2 = $("#m2"), mcs = $$(".mc");
+  const nb = $("#nBg"), ev = $("#evImg"), marca = $("#marca");
+  let rbX = 0, yAnt = scrollY, vel = 0, qX = 0, navY = scrollY;
+  function quadro(t) {
+    const y = scrollY, dy = y - yAnt; yAnt = y;
+    vel = lerp(vel, Math.abs(dy), .1);
+    nav.classList.toggle("solid", y > 30);
+    if (Math.abs(y - navY) > 8) { nav.classList.toggle("esc", y > navY && y > 700 && !nav.classList.contains("open")); navY = y; }
+    if (fino) { cx = lerp(cx, mouse.x, .2); cy = lerp(cy, mouse.y, .2); cur.style.transform = `translate(${cx}px, ${cy}px)`; }
+    if (!reduz) {
+      petalas();
+      const hr = hero.getBoundingClientRect();
+      if (hr.bottom > 0) {
+        luz.style.transform = `translate(${mouse.x}px, ${mouse.y - hr.top}px)`;
+        const mx = mouse.x / VW - .5, my = mouse.y / VH - .5;
+        if (fino) { arch.style.transform = `rotateY(${mx * 8}deg) rotateX(${-my * 6}deg)`; arch.style.setProperty("--gx", (mx + .5) * 100 + "%"); arch.style.setProperty("--gy", (my + .5) * 100 + "%"); bub.style.transform = `translate(${-mx * 26}px, ${-my * 20 - y * .12}px)`; }
+        hi.style.transform = `translateY(${y * -.08}px) scale(${1 + y * .0002})`;
+      }
+      rbX -= (1 + vel * .35); const meio = ribbon.scrollWidth / 2; if (-rbX > meio) rbX += meio;
+      ribbon.style.transform = `translateX(${rbX}px)`;
+      // manifesto
+      const mr = mani.getBoundingClientRect();
+      if (mr.top < VH && mr.bottom > 0) {
+        const p = clamp(-mr.top / (mr.height - VH));
+        const c = lerp(9, 110, ease(clamp(p / .7)));
+        mImg.style.setProperty("--cy", lerp(82, 50, ease(clamp(p / .45))) + "%");
+        mImg.style.setProperty("--c", c + "%"); mImg.style.setProperty("--z", lerp(1.35, 1, ease(clamp(p / .8)))); mImg.style.setProperty("--o", clamp((p - .25) / .3));
+        mani.classList.toggle("claro", p > .32);
+        const dx = VW < 900 ? 4 : 9; m1.style.transform = `translateX(${-p * dx}vw)`; m2.style.transform = `translateX(${p * dx * .8}vw)`;
+        mcs.forEach((m) => m.classList.toggle("on", p > +m.dataset.at));
+      }
+      const nr = nb.parentElement.getBoundingClientRect();
+      if (nr.top < VH && nr.bottom > 0) nb.style.transform = `translateY(${(nr.top + nr.height / 2 - VH / 2) * -.14}px)`;
+      const er = ev.parentElement.getBoundingClientRect();
+      if (er.top < VH && er.bottom > 0) ev.style.transform = `translateY(${(er.top + er.height / 2 - VH / 2) * -.1 - 30}px)`;
+      qX -= .5 + vel * .2; const qm = qt.scrollWidth / 2; if (-qX > qm) qX += qm; qt.style.transform = `translateX(${qX}px)`;
+    }
+    const fr = marca.getBoundingClientRect();
+    if (fr.top < VH) { const ini = y + fr.top - VH, fim = document.documentElement.scrollHeight - VH; marca.style.setProperty("--fill", clamp((y - ini) / Math.max(1, fim - ini)) * 100 + "%"); }
+    quadroBq(t);
+    requestAnimationFrame(quadro);
+  }
+  addEventListener("resize", () => { VW = innerWidth; VH = innerHeight; pres(); bres(); movePill(); });
+  requestAnimationFrame(quadro);
 })();
 </script>
 </body>
