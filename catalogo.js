@@ -273,8 +273,8 @@ window.MODELOS = [
     pasta: "fade-club",
     titulo: "Fade Club — Barbearia",
     segmento: "Barbearia",
-    descricao: "Barbearia urbana com fila ao vivo, consultoria de corte por formato de rosto, agenda por barbeiro e clube de assinatura.",
-    tags: ["Fila ao vivo", "Formato do rosto", "Assinatura"],
+    descricao: "Barbearia dark com fila ao vivo num painel de letras giratórias (como em estação de trem), passo a passo do degradê guiado pela rolagem com régua de pentes e lâmina que revela cada foto, consultoria por formato de rosto em vidro, cardápio com prévia da foto no cursor, agenda com barbeiros em 3D e clube de assinatura.",
+    tags: ["Painel split-flap", "Régua de pentes", "Prévia no cursor"],
     cor: "#e6ff3d",
   },
   {
