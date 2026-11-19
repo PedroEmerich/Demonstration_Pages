@@ -3,132 +3,196 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Torque Auto Center — Mecânica e revisão</title>
-<meta name="description" content="Torque Auto Center: revisão, freios, suspensão, injeção eletrônica, ar-condicionado e pneus. Diagnóstico preciso, preço justo e garantia de 6 meses." />
-<meta name="theme-color" content="#0e1116" />
+<title>Torque — Auto Center</title>
+<meta name="description" content="Torque Auto Center: revisão, freios, suspensão, injeção e ar-condicionado com diagnóstico por scanner, orçamento aprovado pelo celular e leva e traz grátis." />
+<meta name="theme-color" content="#07090c" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="preconnect" href="https://images.unsplash.com" />
 <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
 <style>
   :root {
-    --bg: #0e1116; --panel: #151a21; --panel2: #1b222b; --line: #27303b; --text: #e8edf2; --muted: #8b96a3;
+    --bg: #07090c; --panel: #11161c; --panel2: #171e26; --line: rgba(255,255,255,.1); --text: #e8edf2; --muted: #8b96a3;
     --cyan: #00c2ff; --cyan2: #5fd8ff; --amber: #ffb020; --red: #ff4d4d; --green: #2ecc71;
     --display: "Chakra Petch", system-ui, sans-serif; --sans: "Inter", system-ui, sans-serif;
-    --ease: cubic-bezier(.2,.8,.2,1);
+    --ease: cubic-bezier(.2,.8,.2,1); --spring: cubic-bezier(.34,1.56,.64,1);
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  html { overflow-x: clip; scroll-behavior: smooth; scroll-padding-top: 86px; }
+  html { overflow-x: clip; scroll-padding-top: 90px; }
   body { background: var(--bg); color: var(--text); font-family: var(--sans); line-height: 1.6; -webkit-font-smoothing: antialiased; overflow-x: clip; }
   img { display: block; max-width: 100%; }
-  [class*="__grid"] > *, [class*="__box"] > * { min-width: 0; }
   a { color: inherit; text-decoration: none; }
   button, input, select { font: inherit; color: inherit; }
   button { background: none; border: 0; cursor: pointer; }
   .wrap { width: min(1260px, 100% - 40px); margin-inline: auto; }
-  h1, h2, h3 { font-family: var(--display); font-weight: 700; line-height: 1; letter-spacing: -.01em; text-transform: uppercase; }
-  .h2 { font-size: clamp(38px, 5vw, 72px); }
+  [class*="__grid"] > * { min-width: 0; }
+  .h2 { font-family: var(--display); font-weight: 700; font-size: clamp(38px, 5vw, 72px); line-height: .98; text-transform: uppercase; letter-spacing: -.01em; }
   .c { color: var(--cyan); }
   .tag { font-family: var(--display); font-weight: 600; font-size: 13px; letter-spacing: .2em; text-transform: uppercase; color: var(--cyan); display: inline-flex; align-items: center; gap: 10px; }
   .tag::before { content: ""; width: 8px; height: 8px; background: var(--cyan); box-shadow: 0 0 10px var(--cyan); }
-  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 16px 26px; font-family: var(--display); font-weight: 700; font-size: 16px; letter-spacing: .08em; text-transform: uppercase; clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px); transition: background .25s, color .25s, transform .25s var(--ease); }
+  .vidro { background: rgba(14,19,26,.55); backdrop-filter: blur(18px) saturate(1.5); -webkit-backdrop-filter: blur(18px) saturate(1.5); box-shadow: inset 0 0 0 1px rgba(255,255,255,.1), inset 0 1px 0 rgba(255,255,255,.1), 0 24px 50px -24px rgba(0,0,0,.8); }
+  .btn { position: relative; display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 16px 26px; font-family: var(--display); font-weight: 700; font-size: 16px; letter-spacing: .08em; text-transform: uppercase; clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px); transition: background .25s, color .25s; will-change: transform; overflow: hidden; }
   .btn--c { background: var(--cyan); color: var(--bg); }
-  .btn--c:hover { background: var(--text); transform: translateY(-2px); }
-  .btn--g { background: var(--panel2); box-shadow: inset 0 0 0 1px var(--line); }
-  .btn--g:hover { background: var(--line); }
-  [data-r] { opacity: 0; transform: translateY(36px); transition: opacity .8s var(--ease), transform .8s var(--ease); transition-delay: var(--d, 0s); }
-  [data-r].in { opacity: 1; transform: none; }
-  .grid-bg { position: absolute; inset: 0; background-image: linear-gradient(rgba(0,194,255,.05) 1px, transparent 1px), linear-gradient(90deg, rgba(0,194,255,.05) 1px, transparent 1px); background-size: 48px 48px; mask-image: radial-gradient(ellipse at 70% 40%, #000 20%, transparent 70%); pointer-events: none; }
+  .btn--c::after { content: ""; position: absolute; inset: 0; background: linear-gradient(110deg, transparent 30%, rgba(255,255,255,.6) 50%, transparent 70%); transform: translateX(-120%); transition: transform .7s var(--ease); }
+  .btn--c:hover::after { transform: translateX(120%); }
+  .btn--g { background: rgba(255,255,255,.06); box-shadow: inset 0 0 0 1px var(--line); backdrop-filter: blur(10px); }
+  .btn--g:hover { background: rgba(255,255,255,.12); }
+  [data-r] { opacity: 0; transform: translateY(32px); filter: blur(6px); transition: opacity 1s var(--ease), transform 1s var(--ease), filter 1s var(--ease); transition-delay: var(--d, 0s); }
+  [data-r].in { opacity: 1; transform: none; filter: none; }
+  .grao { position: fixed; inset: -50%; z-index: 300; pointer-events: none; opacity: .05; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+
+  /* CURSOR */
+  .cur { position: fixed; left: 0; top: 0; z-index: 400; pointer-events: none; width: 34px; height: 34px; margin: -17px 0 0 -17px; border: 1.5px solid var(--cyan); display: grid; place-items: center; opacity: 0; transform-origin: center; transition: width .35s var(--spring), height .35s var(--spring), margin .35s var(--spring), background .3s, opacity .3s; clip-path: polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px); }
+  .cur.on { opacity: 1; }
+  .cur i { width: 4px; height: 4px; background: var(--cyan); }
+  .cur span { position: absolute; font-family: var(--display); font-weight: 700; font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--bg); opacity: 0; }
+  .cur.lbl { width: 86px; height: 86px; margin: -43px 0 0 -43px; background: var(--cyan); border-color: transparent; }
+  .cur.lbl i { opacity: 0; } .cur.lbl span { opacity: 1; }
+  .cur.link { width: 52px; height: 52px; margin: -26px 0 0 -26px; background: rgba(0,194,255,.12); }
+  @media (hover: none), (pointer: coarse) { .cur { display: none; } }
 
   /* NAV */
-  .nav { position: fixed; inset: 0 0 auto; z-index: 50; transition: background .3s, border-color .3s; border-bottom: 1px solid transparent; }
-  .nav.solid { background: rgba(14,17,22,.92); backdrop-filter: blur(10px); border-color: var(--line); }
-  .nav__in { height: 78px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+  .nav { position: fixed; top: 14px; left: 0; right: 0; z-index: 80; transition: transform .5s var(--ease); }
+  .nav.esc { transform: translateY(-130%); }
+  .nav__in { height: 66px; display: flex; align-items: center; justify-content: space-between; gap: 18px; padding: 0 10px 0 18px; transition: background .4s, box-shadow .4s; clip-path: polygon(14px 0, 100% 0, 100% calc(100% - 14px), calc(100% - 14px) 100%, 0 100%, 0 14px); }
+  .nav.solid .nav__in { background: rgba(10,14,19,.6); backdrop-filter: blur(18px) saturate(1.5); -webkit-backdrop-filter: blur(18px) saturate(1.5); box-shadow: inset 0 0 0 1px var(--line); }
   .logo { display: flex; align-items: center; gap: 10px; }
-  .logo svg { width: 36px; color: var(--cyan); animation: gear 8s linear infinite; }
+  .logo svg { width: 34px; color: var(--cyan); animation: gear 8s linear infinite; }
   @keyframes gear { to { transform: rotate(360deg); } }
-  .logo b { font-family: var(--display); font-weight: 700; font-size: 26px; letter-spacing: .06em; display: block; line-height: 1; }
+  .logo b { font-family: var(--display); font-weight: 700; font-size: 24px; letter-spacing: .06em; display: block; line-height: 1; }
   .logo small { font-size: 10px; letter-spacing: .3em; text-transform: uppercase; color: var(--muted); }
-  .nav__links { display: flex; gap: 30px; font-family: var(--display); font-weight: 600; font-size: 15px; letter-spacing: .06em; text-transform: uppercase; }
-  .nav__links a { color: var(--muted); transition: color .2s; } .nav__links a:hover { color: var(--cyan); }
-  .burger { display: none; width: 46px; height: 46px; background: var(--panel2); place-items: center; }
-  .burger span { width: 18px; height: 2px; background: var(--text); box-shadow: 0 6px 0 var(--text), 0 -6px 0 var(--text); }
+  .nav__links { display: flex; gap: 4px; font-family: var(--display); font-weight: 600; font-size: 14px; letter-spacing: .06em; text-transform: uppercase; position: relative; }
+  .nav__links a { position: relative; z-index: 1; padding: 9px 14px; color: #b9c4cf; transition: color .3s; }
+  .nav__links a:hover { color: #fff; }
+  .nav__pill { position: absolute; z-index: 0; bottom: 2px; height: 2px; background: var(--cyan); box-shadow: 0 0 10px var(--cyan); opacity: 0; transition: left .45s var(--ease), width .45s var(--ease), opacity .3s; }
+  .nav__links:hover .nav__pill { opacity: 1; }
+  .burger { display: none; width: 46px; height: 46px; place-items: center; background: rgba(255,255,255,.06); }
+  .burger span { width: 18px; height: 2px; background: #fff; box-shadow: 0 6px 0 #fff, 0 -6px 0 #fff; }
 
-  /* HERO */
-  .hero { position: relative; min-height: 100svh; display: flex; align-items: center; padding: 120px 0 70px; overflow: hidden; }
-  .hero__photo { position: absolute; inset: 0; background: url("https://images.unsplash.com/photo-1615906655593-ad0386982a0f?w=2200&q=75&auto=format&fit=crop") center / cover; opacity: .28; filter: grayscale(.4); }
-  .hero__photo::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, var(--bg) 25%, rgba(14,17,22,.4)), linear-gradient(0deg, var(--bg), transparent 40%); }
-  .hero__grid { position: relative; display: grid; grid-template-columns: 1.1fr .9fr; gap: 40px; align-items: center; }
-  .hero h1 { font-size: clamp(54px, 7.4vw, 118px); margin: 20px 0 24px; }
-  .hero h1 .ln { display: block; overflow: hidden; }
-  .hero h1 .ln > span { display: inline-block; transform: translateY(105%); animation: up .9s var(--ease) forwards; }
-  .hero h1 .ln:nth-child(2) > span { animation-delay: .12s; }
-  @keyframes up { to { transform: none; } }
-  .hero p { color: var(--muted); font-size: 18px; max-width: 480px; }
-  .hero__ctas { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 32px; }
-  .trust { display: flex; gap: 26px; flex-wrap: wrap; margin-top: 40px; }
-  .trust div { display: flex; align-items: center; gap: 10px; font-size: 14px; font-weight: 500; }
-  .trust i { width: 34px; height: 34px; display: grid; place-items: center; background: rgba(0,194,255,.12); color: var(--cyan); font-style: normal; clip-path: polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px); }
-  .gauge { position: relative; width: 100%; max-width: 500px; justify-self: center; }
-  .gauge svg { width: 100%; overflow: visible; }
-  .gauge .tick { stroke: var(--muted); stroke-width: 2; }
-  .gauge .tick.big { stroke: var(--text); stroke-width: 3; }
-  .gauge .num { fill: var(--text); font-family: var(--display); font-weight: 600; font-size: 22px; text-anchor: middle; }
-  .gauge .needle { transform-origin: 250px 250px; filter: drop-shadow(0 0 8px var(--red)); }
-  .gauge__read { position: absolute; left: 50%; top: 70%; transform: translateX(-50%); text-align: center; }
-  .gauge__read b { display: block; font-family: var(--display); font-weight: 700; font-size: clamp(28px, 3vw, 40px); line-height: 1; font-variant-numeric: tabular-nums; }
-  .gauge__read small { font-family: var(--display); font-size: 12px; letter-spacing: .24em; color: var(--muted); }
-  .odo { margin-top: 8px; display: inline-flex; gap: 2px; }
-  .odo span { background: #05070a; border: 1px solid var(--line); padding: 0 4px; font-family: var(--display); font-size: 13px; color: var(--cyan); }
+  /* HERO: garagem + painel */
+  .hero { position: relative; min-height: 100vh; min-height: 100svh; display: flex; align-items: center; padding: 120px 0 60px; overflow: hidden; isolation: isolate; user-select: none; -webkit-user-select: none; }
+  .hero__foto { position: absolute; inset: 0; z-index: -3; }
+  .hero__foto img { width: 100%; height: 100%; object-fit: cover; object-position: 60% 60%; filter: brightness(calc(.62 + var(--acel, 0) * .35)) saturate(1.1); will-change: transform, filter; transform: scale(1.06); }
+  .farois { position: absolute; inset: 0; z-index: -2; pointer-events: none; background: radial-gradient(18% 14% at 58% 66%, rgba(200,230,255,calc(var(--acel, 0) * .8)), transparent 70%), radial-gradient(12% 9% at 74% 64%, rgba(200,230,255,calc(var(--acel, 0) * .7)), transparent 70%), radial-gradient(60% 40% at 65% 75%, rgba(120,200,255,calc(var(--acel, 0) * .22)), transparent 70%); mix-blend-mode: screen; }
+  .hero__sombra { position: absolute; inset: 0; z-index: -1; background: linear-gradient(90deg, rgba(7,9,12,.92) 0%, rgba(7,9,12,.5) 40%, rgba(7,9,12,0) 70%), linear-gradient(0deg, var(--bg) 0%, transparent 30%); }
+  .hero__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center; }
+  .hero h1 { font-family: var(--display); font-weight: 700; font-size: clamp(50px, 6vw, 96px); line-height: .9; text-transform: uppercase; margin: 22px 0 22px; letter-spacing: -.01em; }
+  .hero h1 .l { display: block; overflow: hidden; }
+  .hero h1 .l > span { display: inline-block; transform: translateY(105%); animation: sobe 1s var(--ease) forwards; animation-delay: var(--d); }
+  @keyframes sobe { to { transform: none; } }
+  .hero p.lead { font-size: 18px; color: #b9c4cf; max-width: 470px; }
+  .hero__ctas { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 30px; }
+  .trust { display: flex; gap: 22px; flex-wrap: wrap; margin-top: 34px; font-size: 14px; color: #b9c4cf; }
+  .trust i { display: inline-grid; place-items: center; width: 26px; height: 26px; margin-right: 8px; font-style: normal; font-size: 12px; font-weight: 700; color: var(--cyan); box-shadow: inset 0 0 0 1px rgba(0,194,255,.4); }
+  .painel { position: relative; justify-self: end; width: min(520px, 100%); padding: 22px; border-radius: 34px; }
+  .painel::before { content: ""; position: absolute; inset: 0; border-radius: inherit; padding: 2px; background: linear-gradient(140deg, rgba(255,255,255,.35), rgba(255,255,255,.04) 40%, rgba(0,194,255,.35)); -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude; pointer-events: none; }
+  .gauge { position: relative; }
+  .gauge svg { width: 100%; display: block; filter: drop-shadow(0 0 18px rgba(0,194,255,calc(.15 + var(--acel, 0) * .35))); }
+  .gauge .tick { stroke: #4a5866; stroke-width: 2; } .gauge .tick.big { stroke: #e8edf2; stroke-width: 3; }
+  .gauge .num { fill: #e8edf2; font-family: var(--display); font-size: 22px; font-weight: 600; text-anchor: middle; }
+  .gauge .num.red { fill: var(--red); }
+  .needle { transform-origin: 250px 250px; }
+  .gauge__read { position: absolute; left: 0; right: 0; top: 54%; text-align: center; }
+  .gauge__read b { display: block; font-family: var(--display); font-weight: 700; font-size: 44px; line-height: 1; font-variant-numeric: tabular-nums; color: #fff; text-shadow: 0 0 20px rgba(0,194,255,.5); }
+  .gauge__read small { font-family: var(--display); font-size: 12px; letter-spacing: .3em; color: var(--muted); }
+  .odo { display: inline-flex; gap: 2px; margin-top: 10px; }
+  .odo span { width: 18px; height: 26px; display: grid; place-items: center; background: #050608; font-family: var(--display); font-weight: 600; font-size: 16px; box-shadow: inset 0 0 0 1px #20262e, inset 0 6px 6px rgba(0,0,0,.6); }
+  .odo span:last-child { color: var(--red); }
+  .painel__acel { margin-top: 14px; display: flex; align-items: center; gap: 14px; }
+  .pedal { flex: none; width: 96px; height: 96px; border-radius: 24px; display: grid; place-items: center; text-align: center; font-family: var(--display); font-weight: 700; font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--bg); background: linear-gradient(160deg, #6ee1ff, #00a3d6); box-shadow: 0 8px 0 #006f93, 0 18px 30px -10px rgba(0,194,255,.7); transition: transform .1s, box-shadow .1s; touch-action: none; }
+  .pedal.on { transform: translateY(6px); box-shadow: 0 2px 0 #006f93, 0 10px 20px -10px rgba(0,194,255,.7); }
+  .painel__acel p { font-size: 14px; color: #b9c4cf; }
+  .painel__acel b { color: #fff; }
+  .alerta { position: absolute; top: 18px; right: 18px; padding: 6px 10px; font-family: var(--display); font-size: 11px; font-weight: 700; letter-spacing: .14em; color: var(--red); box-shadow: inset 0 0 0 1px rgba(255,77,77,.5); opacity: 0; transition: opacity .2s; }
+  .alerta.on { opacity: 1; animation: pisca .25s steps(2) infinite; }
+  @keyframes pisca { 50% { opacity: .2; } }
+  .hero.treme .painel { animation: treme .08s linear infinite; }
+  @keyframes treme { 25% { transform: translate(1px, -1px); } 75% { transform: translate(-1px, 1px); } }
 
   /* SERVIÇOS */
   .svcs { padding: 120px 0; }
-  .head { display: flex; justify-content: space-between; align-items: end; gap: 30px; flex-wrap: wrap; margin-bottom: 50px; }
-  .head p { color: var(--muted); max-width: 400px; }
-  .sgrid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; background: var(--line); border: 1px solid var(--line); }
-  .sv { position: relative; background: var(--panel); padding: 30px 26px; overflow: hidden; transition: background .3s; }
-  .sv::before { content: ""; position: absolute; left: 0; top: 0; height: 2px; width: 0; background: var(--cyan); box-shadow: 0 0 12px var(--cyan); transition: width .5s var(--ease); }
-  .sv:hover { background: var(--panel2); }
-  .sv:hover::before { width: 100%; }
-  .sv svg { width: 40px; height: 40px; stroke: var(--cyan); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; margin-bottom: 24px; transition: transform .5s var(--ease); }
-  .sv:hover svg { transform: rotate(-8deg) scale(1.1); }
-  .sv h3 { font-size: 22px; margin-bottom: 8px; }
-  .sv p { color: var(--muted); font-size: 14px; }
-  .sv b { display: block; margin-top: 18px; font-family: var(--display); font-size: 15px; color: var(--cyan2); }
+  .head { display: flex; justify-content: space-between; align-items: end; gap: 30px; flex-wrap: wrap; margin-bottom: 44px; }
+  .head p { max-width: 420px; color: var(--muted); }
+  .sgrid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+  .sv { position: relative; padding: 26px 22px; background: var(--panel); box-shadow: inset 0 0 0 1px var(--line); clip-path: polygon(14px 0, 100% 0, 100% calc(100% - 14px), calc(100% - 14px) 100%, 0 100%, 0 14px); overflow: hidden; transition: transform .5s var(--ease), background .4s; will-change: transform; }
+  .sv::after { content: ""; position: absolute; inset: 0; background: radial-gradient(240px circle at var(--gx, 50%) var(--gy, 0%), rgba(0,194,255,.16), transparent 60%); opacity: 0; transition: opacity .4s; pointer-events: none; }
+  .sv:hover { background: var(--panel2); } .sv:hover::after { opacity: 1; }
+  .sv svg { width: 34px; height: 34px; fill: none; stroke: var(--cyan); stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; margin-bottom: 18px; transition: transform .6s var(--spring); }
+  .sv:hover svg { transform: rotate(-12deg) scale(1.15); }
+  .sv h3 { font-family: var(--display); font-weight: 700; font-size: 19px; text-transform: uppercase; }
+  .sv p { color: var(--muted); font-size: 14.5px; margin: 6px 0 14px; }
+  .sv b { font-family: var(--display); font-size: 14px; color: var(--cyan2); letter-spacing: .04em; }
+
+  /* DIAGNÓSTICO (sticky scan) */
+  .diag { position: relative; height: 420vh; }
+  .diag__st { position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden; }
+  .diag__foto { position: absolute; inset: 0; }
+  .diag__foto img { width: 100%; height: 100%; object-fit: cover; filter: brightness(.55) saturate(.9); transform: scale(var(--dz, 1.15)); transition: transform .3s; }
+  .diag__foto::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(7,9,12,.9) 0%, rgba(7,9,12,.35) 45%, rgba(7,9,12,.2) 100%), repeating-linear-gradient(0deg, rgba(0,194,255,.05) 0 1px, transparent 1px 4px); }
+  .scan { position: absolute; left: 0; right: 0; top: var(--sy, 0%); height: 140px; margin-top: -140px; background: linear-gradient(180deg, transparent, rgba(0,194,255,.18) 85%, rgba(150,230,255,.9) 99%, transparent); pointer-events: none; mix-blend-mode: screen; }
+  .scan::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 2px; background: #9ee8ff; box-shadow: 0 0 18px 4px rgba(0,194,255,.8); }
+  .ponto { position: absolute; z-index: 2; transform: translate(-50%, -50%); opacity: 0; transition: opacity .4s; }
+  .ponto.on { opacity: 1; }
+  .ponto i { display: block; width: 18px; height: 18px; border-radius: 50%; background: var(--st, var(--green)); box-shadow: 0 0 0 6px color-mix(in srgb, var(--st, var(--green)) 25%, transparent), 0 0 18px var(--st, var(--green)); }
+  .ponto.on i { animation: pulso 1.6s infinite; }
+  @keyframes pulso { 50% { box-shadow: 0 0 0 12px transparent, 0 0 18px var(--st, var(--green)); } }
+  .ponto span { position: absolute; left: 26px; top: 50%; transform: translateY(-50%) translateX(-6px); white-space: nowrap; padding: 8px 12px; font-family: var(--display); font-size: 13px; font-weight: 600; letter-spacing: .04em; opacity: 0; transition: all .4s var(--ease); }
+  .ponto.on span { opacity: 1; transform: translateY(-50%); }
+  .ponto span small { display: block; font-family: var(--sans); font-size: 11.5px; color: var(--muted); letter-spacing: 0; }
+  .diag__txt { position: absolute; z-index: 3; left: 0; right: 0; top: 50%; transform: translateY(-50%); pointer-events: none; }
+  .diag__card { width: min(430px, 100%); padding: 28px; pointer-events: auto; }
+  .diag__cont { font-family: var(--display); font-weight: 700; font-size: clamp(64px, 8vw, 120px); line-height: .9; color: var(--cyan); font-variant-numeric: tabular-nums; text-shadow: 0 0 30px rgba(0,194,255,.4); }
+  .diag__cont small { font-size: .3em; color: var(--muted); letter-spacing: .1em; }
+  .diag__bar { height: 4px; background: rgba(255,255,255,.08); margin: 16px 0; }
+  .diag__bar i { display: block; height: 100%; width: var(--p, 0%); background: var(--cyan); box-shadow: 0 0 12px var(--cyan); }
+  .diag__res { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; font-family: var(--display); text-align: center; }
+  .diag__res div { padding: 10px 6px; background: rgba(255,255,255,.04); }
+  .diag__res b { display: block; font-size: 26px; line-height: 1; }
+  .diag__res small { font-size: 10.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
 
   /* REVISÃO POR KM */
-  .rev { padding: 120px 0; background: var(--panel); border-block: 1px solid var(--line); position: relative; overflow: hidden; }
-  .rev__grid { display: grid; grid-template-columns: .9fr 1.1fr; gap: 50px; align-items: start; position: relative; }
-  .kmbox { background: var(--bg); border: 1px solid var(--line); padding: 34px; position: sticky; top: 100px; }
-  .kmread { font-family: var(--display); font-weight: 700; font-size: clamp(56px, 6vw, 84px); line-height: 1; font-variant-numeric: tabular-nums; }
-  .kmread small { font-size: 20px; color: var(--muted); }
-  input[type=range] { width: 100%; -webkit-appearance: none; appearance: none; height: 6px; margin: 26px 0 10px; background: linear-gradient(90deg, var(--cyan) var(--p, 30%), var(--line) var(--p, 30%)); outline: none; }
-  input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 26px; height: 26px; background: var(--bg); border: 3px solid var(--cyan); box-shadow: 0 0 14px var(--cyan); cursor: grab; transform: rotate(45deg); }
-  input[type=range]::-moz-range-thumb { width: 20px; height: 20px; background: var(--bg); border: 3px solid var(--cyan); cursor: grab; border-radius: 0; }
+  .rev { position: relative; padding: 130px 0; }
+  .rev__grid { display: grid; grid-template-columns: .9fr 1.1fr; gap: 26px; align-items: start; }
+  .kmbox { position: sticky; top: 100px; padding: 30px; }
+  .tambor { display: flex; gap: 4px; padding: 10px; background: #030405; box-shadow: inset 0 0 0 1px #20262e, inset 0 10px 18px rgba(0,0,0,.8); width: fit-content; }
+  .tambor .d { position: relative; width: clamp(38px, 4vw, 54px); height: clamp(56px, 6vw, 78px); overflow: hidden; background: linear-gradient(180deg, #0c0f13, #1b2129 45%, #1b2129 55%, #0c0f13); box-shadow: inset 0 0 0 1px #2a323c; }
+  .tambor .d::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,.75), transparent 30%, transparent 70%, rgba(0,0,0,.75)); pointer-events: none; }
+  .tambor .fita { position: absolute; left: 0; right: 0; top: 0; transition: transform .6s var(--ease); }
+  .tambor .fita span { display: grid; place-items: center; height: clamp(56px, 6vw, 78px); font-family: var(--display); font-weight: 700; font-size: clamp(34px, 3.6vw, 50px); color: #f2f5f8; }
+  .tambor .km { align-self: center; font-family: var(--display); font-size: 16px; color: var(--muted); padding: 0 8px; }
+  #km { -webkit-appearance: none; appearance: none; width: 100%; height: 6px; margin: 26px 0 10px; background: linear-gradient(90deg, var(--cyan) var(--p, 30%), #232b35 var(--p, 30%)); outline: none; }
+  #km::-webkit-slider-thumb { -webkit-appearance: none; width: 26px; height: 26px; background: #fff; border: 4px solid var(--cyan); box-shadow: 0 0 16px var(--cyan); cursor: grab; }
+  #km::-moz-range-thumb { width: 20px; height: 20px; background: #fff; border: 4px solid var(--cyan); }
   .scale { display: flex; justify-content: space-between; font-size: 12px; color: var(--muted); font-family: var(--display); }
-  .kmsum { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; margin: 26px 0; background: var(--line); }
-  .kmsum div { background: var(--panel); padding: 14px; text-align: center; }
+  .kmsum { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; margin: 24px 0; }
+  .kmsum div { background: rgba(255,255,255,.04); padding: 14px; text-align: center; }
   .kmsum b { display: block; font-family: var(--display); font-size: 32px; line-height: 1; }
   .kmsum small { font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
-  .items { display: grid; gap: 2px; }
-  .item { display: grid; grid-template-columns: auto 1fr auto; gap: 16px; align-items: center; background: var(--bg); border: 1px solid var(--line); padding: 16px 18px; transition: border-color .3s; }
+  .items { display: grid; gap: 6px; }
+  .item { display: grid; grid-template-columns: auto 1fr auto; gap: 16px; align-items: center; padding: 16px 18px; background: var(--panel); box-shadow: inset 0 0 0 1px var(--line); transition: box-shadow .3s, transform .4s var(--ease); animation: entra .4s var(--ease) both; }
+  @keyframes entra { from { opacity: 0; transform: translateX(14px); } }
   .item i { width: 12px; height: 12px; border-radius: 50%; }
   .item h4 { font-weight: 600; font-size: 15px; }
   .item small { color: var(--muted); font-size: 13px; }
-  .item span { font-family: var(--display); font-weight: 700; font-size: 13px; letter-spacing: .08em; text-transform: uppercase; padding: 5px 10px; white-space: nowrap; }
-  .item.now { border-color: rgba(255,77,77,.5); } .item.now i { background: var(--red); box-shadow: 0 0 10px var(--red); } .item.now span { background: rgba(255,77,77,.15); color: var(--red); }
+  .item span { font-family: var(--display); font-weight: 700; font-size: 12.5px; letter-spacing: .08em; text-transform: uppercase; padding: 5px 10px; white-space: nowrap; }
+  .item.now { box-shadow: inset 0 0 0 1px rgba(255,77,77,.5); } .item.now i { background: var(--red); box-shadow: 0 0 10px var(--red); } .item.now span { background: rgba(255,77,77,.15); color: var(--red); }
   .item.soon i { background: var(--amber); } .item.soon span { background: rgba(255,176,32,.12); color: var(--amber); }
   .item.ok i { background: var(--green); } .item.ok span { background: rgba(46,204,113,.1); color: var(--green); }
 
   /* ACOMPANHE */
-  .track { padding: 120px 0; }
-  .track__box { display: grid; grid-template-columns: .8fr 1.2fr; gap: 40px; align-items: start; }
-  .plate { display: flex; border: 2px solid var(--text); background: #fff; color: #111; margin: 26px 0 14px; max-width: 420px; position: relative; }
-  .plate::before { content: "BRASIL"; position: absolute; left: 0; right: 0; top: 0; height: 18px; background: #1d4ed8; color: #fff; font-family: var(--display); font-size: 11px; letter-spacing: .3em; text-align: center; line-height: 18px; }
-  .plate input { flex: 1; width: 100%; min-width: 0; border: 0; outline: none; padding: 30px 16px 12px; font-family: var(--display); font-weight: 700; font-size: 34px; letter-spacing: .14em; text-transform: uppercase; text-align: center; background: transparent; color: #111; }
-  .plate button { background: var(--cyan); color: var(--bg); padding: 0 20px; font-family: var(--display); font-weight: 700; text-transform: uppercase; }
+  .track { padding: 0 0 130px; }
+  .track__box { display: grid; grid-template-columns: .9fr 1.1fr; gap: 40px; align-items: start; }
+  .placa { position: relative; display: flex; align-items: stretch; margin: 26px 0 14px; max-width: 440px; border-radius: 10px; overflow: hidden; background: linear-gradient(180deg, #fff, #e8ebee); box-shadow: 0 0 0 3px #1b1f24, 0 0 0 5px #a9b0b6, 0 24px 40px -20px rgba(0,0,0,.8); }
+  .placa__in { flex: 1; position: relative; }
+  .placa__band { height: 24px; background: linear-gradient(180deg, #1f4fd1, #1638a8); color: #fff; display: flex; align-items: center; justify-content: center; gap: 10px; font-family: var(--display); font-weight: 700; font-size: 12px; letter-spacing: .34em; }
+  .placa__band i { width: 18px; height: 12px; background: linear-gradient(180deg, #2ea44f 0 100%); position: relative; }
+  .placa__band i::after { content: ""; position: absolute; inset: 2px 4px; background: #ffd400; clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%); }
+  .placa input { width: 100%; border: 0; outline: none; padding: 8px 14px 10px; font-family: var(--display); font-weight: 700; font-size: 40px; letter-spacing: .14em; text-transform: uppercase; text-align: center; background: transparent; color: #121417; }
+  .placa input::placeholder { color: #b9bfc6; }
+  .placa button { background: var(--cyan); color: var(--bg); padding: 0 22px; font-family: var(--display); font-weight: 700; text-transform: uppercase; letter-spacing: .08em; }
   .hint { font-size: 13px; color: var(--muted); }
-  .status { background: var(--panel); border: 1px solid var(--line); padding: 34px; min-height: 360px; }
-  .status__empty { color: var(--muted); height: 100%; display: grid; place-items: center; text-align: center; min-height: 290px; }
+  .status { padding: 30px; min-height: 360px; clip-path: polygon(16px 0, 100% 0, 100% calc(100% - 16px), calc(100% - 16px) 100%, 0 100%, 0 16px); }
+  .status__empty { color: var(--muted); display: grid; place-items: center; text-align: center; min-height: 290px; }
   .car { display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; align-items: baseline; margin-bottom: 26px; }
   .car b { font-family: var(--display); font-size: 26px; text-transform: uppercase; }
   .car small { color: var(--muted); }
@@ -136,125 +200,165 @@
   .steps::before { content: ""; position: absolute; left: 10%; right: 10%; top: 15px; height: 2px; background: var(--line); }
   .steps .fill { position: absolute; left: 10%; top: 15px; height: 2px; background: var(--cyan); box-shadow: 0 0 10px var(--cyan); width: 0; transition: width 1.2s var(--ease); }
   .st { position: relative; text-align: center; font-size: 12px; color: var(--muted); }
-  .st i { display: grid; place-items: center; width: 32px; height: 32px; margin: 0 auto 8px; border-radius: 50%; background: var(--bg); border: 2px solid var(--line); font-style: normal; font-weight: 700; font-size: 13px; transition: all .4s var(--ease); transition-delay: var(--d); }
+  .st i { display: grid; place-items: center; width: 32px; height: 32px; margin: 0 auto 8px; border-radius: 50%; background: var(--bg); border: 2px solid #2a323c; font-style: normal; font-weight: 700; font-size: 13px; transition: all .4s var(--ease); transition-delay: var(--d); }
   .st.done i { background: var(--cyan); border-color: var(--cyan); color: var(--bg); }
-  .st.cur i { border-color: var(--cyan); color: var(--cyan); box-shadow: 0 0 0 6px rgba(0,194,255,.15); animation: ring 1.6s infinite; }
+  .st.cur i { border-color: var(--cyan); color: var(--cyan); box-shadow: 0 0 0 6px rgba(0,194,255,.15); }
   .st.cur, .st.done { color: var(--text); }
-  @keyframes ring { 50% { box-shadow: 0 0 0 10px rgba(0,194,255,0); } }
-  .log { display: grid; gap: 10px; }
-  .log div { display: grid; grid-template-columns: 70px 1fr; gap: 14px; font-size: 14px; padding: 12px 14px; background: var(--bg); border-left: 2px solid var(--cyan); animation: fadeIn .5s var(--ease) both; }
+  .log { display: grid; gap: 8px; }
+  .log div { display: grid; grid-template-columns: 70px 1fr; gap: 14px; font-size: 14px; padding: 12px 14px; background: rgba(255,255,255,.03); border-left: 2px solid var(--cyan); animation: entra .5s var(--ease) both; }
   .log time { font-family: var(--display); color: var(--cyan2); }
-  @keyframes fadeIn { from { opacity: 0; transform: translateX(-10px); } }
-  .approve { margin-top: 20px; display: flex; gap: 14px; align-items: center; flex-wrap: wrap; padding: 18px; border: 1px solid rgba(255,176,32,.4); background: rgba(255,176,32,.07); }
-  .approve b { font-family: var(--display); font-size: 26px; }
+  .approve { margin-top: 20px; display: flex; gap: 14px; align-items: center; flex-wrap: wrap; justify-content: space-between; padding: 18px; box-shadow: inset 0 0 0 1px rgba(255,176,32,.4); background: rgba(255,176,32,.07); }
 
-  /* NÚMEROS */
-  .why { position: relative; padding: 120px 0; overflow: hidden; }
-  .why__bg { position: absolute; inset: -12% 0; background: url("https://images.unsplash.com/photo-1767681092416-bccf9410bda4?w=2000&q=70&auto=format&fit=crop") center / cover; opacity: .22; will-change: transform; }
-  .why__bg::after { content: ""; position: absolute; inset: 0; background: linear-gradient(var(--bg), transparent 30%, transparent 70%, var(--bg)); }
-  .nums { position: relative; display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; background: var(--line); border: 1px solid var(--line); margin-top: 50px; }
-  .nums div { background: rgba(21,26,33,.92); padding: 34px 26px; }
-  .nums b { display: block; font-family: var(--display); font-weight: 700; font-size: clamp(44px, 5vw, 70px); line-height: 1; color: var(--cyan); }
-  .nums span { color: var(--muted); font-size: 14px; }
-  .reviews { position: relative; display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 40px; }
-  .rv { background: var(--panel); border: 1px solid var(--line); padding: 26px; }
-  .rv .stars { color: var(--amber); letter-spacing: 2px; }
-  .rv p { margin: 12px 0 16px; }
-  .rv small { color: var(--muted); }
+  /* POR QUE */
+  .why { position: relative; padding: 130px 0; overflow: hidden; }
+  .why__bg { position: absolute; inset: -12% 0; background: url("https://images.unsplash.com/photo-1767681092416-bccf9410bda4?w=2000&q=70&auto=format&fit=crop") center / cover; filter: brightness(.3) saturate(.9); will-change: transform; }
+  .why .wrap { position: relative; }
+  .nums { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; margin-bottom: 30px; }
+  .nums div { padding: 26px 22px; }
+  .nums b { display: block; font-family: var(--display); font-weight: 700; font-size: clamp(36px, 4vw, 56px); line-height: 1; color: #fff; }
+  .nums span { font-size: 14px; color: var(--muted); }
+  .reviews { overflow: hidden; }
+  .rv__track { display: flex; gap: 14px; width: max-content; will-change: transform; }
+  .rv { width: 380px; flex: none; padding: 26px; }
+  .stars { color: var(--amber); letter-spacing: 3px; }
+  .rv p { font-size: 16.5px; margin: 10px 0 12px; }
+  .rv small { color: var(--muted); font-family: var(--display); letter-spacing: .04em; }
 
   /* AGENDAR */
-  .book { padding: 120px 0; }
-  .book__box { display: grid; grid-template-columns: .9fr 1.1fr; gap: 0; border: 1px solid var(--line); }
-  .book__img { position: relative; min-height: 460px; overflow: hidden; }
-  .book__img img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: grayscale(.3); }
-  .form { background: var(--panel); padding: 44px; display: grid; gap: 16px; }
-  .two { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-  .form label { display: grid; gap: 8px; font-size: 13px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
-  .form input, .form select { background: var(--bg); border: 1px solid var(--line); padding: 14px 16px; outline: none; color: var(--text); text-transform: none; letter-spacing: 0; font-size: 16px; color-scheme: dark; transition: border-color .2s; }
-  .form input:focus, .form select:focus { border-color: var(--cyan); }
-  .check { display: flex !important; grid-template-columns: none; align-items: center; gap: 12px !important; text-transform: none !important; letter-spacing: 0 !important; font-size: 15px !important; color: var(--text) !important; cursor: pointer; }
-  .check input { width: 20px; height: 20px; accent-color: var(--cyan); }
+  .book { padding: 130px 0; }
+  .book__box { display: grid; grid-template-columns: 1fr 1fr; background: var(--panel); box-shadow: inset 0 0 0 1px var(--line); clip-path: polygon(20px 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%, 0 20px); }
+  .book__img { position: relative; min-height: 520px; overflow: hidden; }
+  .book__img img { position: absolute; inset: 0; width: 100%; height: 115%; object-fit: cover; filter: brightness(.75); will-change: transform; }
+  .book__img::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, transparent 50%, var(--panel)); }
+  .form { display: grid; gap: 14px; padding: 40px; align-content: center; }
+  .form h2 { font-family: var(--display); font-weight: 700; text-transform: uppercase; }
+  .form label { display: grid; gap: 6px; font-size: 13px; font-weight: 600; color: var(--muted); }
+  .form input:not([type=checkbox]), .form select { width: 100%; padding: 14px 16px; border: 0; background: rgba(255,255,255,.05); box-shadow: inset 0 0 0 1px var(--line); outline: none; color-scheme: dark; transition: box-shadow .3s; }
+  .form input:focus, .form select:focus { box-shadow: inset 0 0 0 1.5px var(--cyan); }
+  .form select option { background: var(--panel); }
+  .two { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .check { display: flex !important; align-items: center; gap: 10px; color: var(--text) !important; font-size: 14px !important; }
+  .check input { width: 18px; height: 18px; accent-color: var(--cyan); }
 
-  footer { border-top: 1px solid var(--line); padding: 34px 0; color: var(--muted); font-size: 13px; }
-  .foot { display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; align-items: center; }
-  .wa { position: fixed; right: 22px; bottom: 22px; z-index: 60; width: 58px; height: 58px; border-radius: 50%; background: #25d366; color: #fff; display: grid; place-items: center; box-shadow: 0 12px 30px -8px rgba(37,211,102,.6); transition: transform .3s var(--ease); }
-  .wa:hover { transform: scale(1.08); }
+  footer { padding: 60px 0 30px; border-top: 1px solid var(--line); overflow: hidden; }
+  .foot { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; font-size: 14px; color: var(--muted); }
+  .marca { font-family: var(--display); font-weight: 700; font-size: clamp(70px, 18vw, 300px); line-height: .82; text-align: center; letter-spacing: .02em; margin-top: 40px; color: transparent; -webkit-text-stroke: 1px rgba(0,194,255,.25); background: linear-gradient(90deg, var(--cyan), #6ee1ff) no-repeat; background-size: var(--fill, 0%) 100%; -webkit-background-clip: text; background-clip: text; }
+  .wa { position: fixed; right: 22px; bottom: 22px; z-index: 70; width: 60px; height: 60px; border-radius: 50%; background: #25d366; color: #fff; display: grid; place-items: center; box-shadow: 0 14px 30px -10px rgba(37,211,102,.6); transition: transform .4s var(--spring); }
+  .wa:hover { transform: scale(1.1) rotate(-8deg); }
 
-  @media (max-width: 1040px) {
-    .nav__links, .nav__cta { display: none; }
-    .burger { display: grid; }
-    .nav.open { background: var(--bg); }
-    .nav.open .nav__links { display: flex; flex-direction: column; position: absolute; top: 100%; left: 0; right: 0; background: var(--bg); padding: 24px 20px; gap: 18px; border-bottom: 1px solid var(--line); }
-    .hero__grid, .rev__grid, .track__box, .book__box { grid-template-columns: 1fr; }
-    .gauge { max-width: 380px; }
-    .sgrid { grid-template-columns: 1fr 1fr; }
-    .kmbox { position: static; }
+  @media (max-width: 1050px) {
+    .nav__links, .nav .btn { display: none; } .burger { display: grid; }
+    .nav.open .nav__links { display: flex; flex-direction: column; position: absolute; top: 76px; left: 12px; right: 12px; padding: 14px; background: rgba(10,14,19,.95); backdrop-filter: blur(16px); box-shadow: inset 0 0 0 1px var(--line); }
+    .nav.open .nav__pill { display: none; }
+    .sgrid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 900px) {
+    .wrap { width: calc(100% - 32px); }
+    .nav { top: 10px; } .nav .wrap { width: calc(100% - 20px); } .nav__in { height: 60px; }
+    .hero { padding: 100px 0 40px; }
+    .hero__sombra { background: linear-gradient(0deg, var(--bg) 5%, rgba(7,9,12,.6) 50%, rgba(7,9,12,.4)); }
+    .hero__grid { grid-template-columns: 1fr; gap: 26px; }
+    .hero h1 { font-size: clamp(48px, 14vw, 70px); }
+    .hero p.lead { font-size: 16px; }
+    .trust { gap: 12px; font-size: 13px; }
+    .painel { justify-self: stretch; padding: 14px; border-radius: 26px; }
+    .gauge__read b { font-size: 32px; }
+    .pedal { width: 80px; height: 80px; }
+    .svcs, .rev, .why, .book { padding: 90px 0; }
+    .sgrid { gap: 8px; } .sv { padding: 18px 16px; } .sv h3 { font-size: 15px; } .sv p { font-size: 13px; }
+    .diag { height: 360vh; }
+    .diag__txt { top: auto; bottom: 16px; transform: none; }
+    .diag__card { padding: 18px; }
+    .diag__cont { font-size: 58px; }
+    .ponto span { font-size: 11px; padding: 6px 9px; }
+    .rev__grid, .track__box { grid-template-columns: 1fr; }
+    .kmbox { position: relative; top: 0; padding: 20px; }
+    .tambor { gap: 3px; padding: 7px; }
+    .item { grid-template-columns: auto 1fr; } .item span { grid-column: 2; justify-self: start; }
+    .placa input { font-size: 30px; }
+    .status { padding: 20px; }
+    .steps .st { font-size: 10px; }
     .nums { grid-template-columns: 1fr 1fr; }
-    .reviews { grid-template-columns: 1fr; }
-    .book__img { min-height: 260px; }
+    .rv { width: 300px; }
+    .book__box { grid-template-columns: 1fr; } .book__img { min-height: 220px; } .book__img::after { background: linear-gradient(0deg, var(--panel), transparent 50%); }
+    .form { padding: 24px 20px; } .two { grid-template-columns: 1fr; }
   }
-  @media (max-width: 600px) {
-    .sgrid { grid-template-columns: 1fr; }
-    .steps { grid-template-columns: repeat(5, 1fr); font-size: 10px; }
-    .st { font-size: 10px; }
-    .two { grid-template-columns: 1fr; }
-    .form, .status, .kmbox { padding: 26px 20px; }
-    .item { grid-template-columns: auto 1fr; }
-    .item span { grid-column: 2; justify-self: start; }
-    .plate input { font-size: 26px; }
-  }
-  @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; animation-delay: 0s !important; transition-duration: .01ms !important; } [data-r] { opacity: 1; transform: none; } }
+  @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; animation-delay: 0s !important; transition-duration: .01ms !important; } [data-r] { opacity: 1; transform: none; filter: none; } .hero h1 .l > span { transform: none; } }
 </style>
 </head>
 <body>
+<div class="grao" aria-hidden="true"></div>
+<div class="cur" aria-hidden="true"><i></i><span></span></div>
 
 <header class="nav" id="nav">
   <div class="wrap nav__in">
-    <a href="#" class="logo"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="20" cy="20" r="6"/><path d="M20 3v5M20 32v5M3 20h5M32 20h5M8 8l3.5 3.5M28.5 28.5 32 32M8 32l3.5-3.5M28.5 11.5 32 8"/><circle cx="20" cy="20" r="12"/></svg><span><b>TORQUE</b><small>Auto Center</small></span></a>
-    <nav class="nav__links"><a href="#servicos">Serviços</a><a href="#revisao">Revisão por km</a><a href="#acompanhe">Acompanhe seu carro</a><a href="#agendar">Agendar</a></nav>
-    <a href="#agendar" class="btn btn--c nav__cta" style="padding:12px 20px;font-size:14px">Agendar revisão</a>
-    <button class="burger" aria-label="Menu"><span></span></button>
+    <a href="#topo" class="logo"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="20" cy="20" r="6"/><path d="M20 3v5M20 32v5M3 20h5M32 20h5M8 8l3.5 3.5M28.5 28.5 32 32M8 32l3.5-3.5M28.5 11.5 32 8"/><circle cx="20" cy="20" r="12"/></svg><span><b>TORQUE</b><small>Auto Center</small></span></a>
+    <nav class="nav__links" id="links"><i class="nav__pill" id="pill"></i><a href="#servicos">Serviços</a><a href="#diagnostico">Diagnóstico</a><a href="#revisao">Revisão por km</a><a href="#acompanhe">Acompanhe</a><a href="#agendar">Agendar</a></nav>
+    <a href="#agendar" class="btn btn--c mag" style="padding:12px 20px;font-size:14px">Agendar revisão</a>
+    <button class="burger" aria-label="Abrir menu" aria-expanded="false"><span></span></button>
   </div>
 </header>
 
-<section class="hero">
-  <div class="hero__photo"></div>
-  <div class="grid-bg"></div>
+<main>
+<section class="hero" id="topo">
+  <div class="hero__foto"><img id="hImg" src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=2200&q=82&auto=format&fit=crop" alt="Carro esportivo na garagem escura" /></div>
+  <div class="farois" aria-hidden="true"></div>
+  <div class="hero__sombra" aria-hidden="true"></div>
   <div class="wrap hero__grid">
     <div>
-      <span class="tag">Oficina mecânica · Mooca, SP</span>
-      <h1><span class="ln"><span>Seu carro em</span></span><span class="ln"><span class="c">boas mãos.</span></span></h1>
-      <p>Diagnóstico com scanner de concessionária, peças originais e mecânicos certificados. Você aprova o orçamento antes de qualquer serviço.</p>
-      <div class="hero__ctas"><a href="#agendar" class="btn btn--c">Agendar revisão</a><a href="#revisao" class="btn btn--g">O que meu carro precisa?</a></div>
-      <div class="trust"><div><i>✓</i>Garantia de 6 meses</div><div><i>⇄</i>Leva e traz grátis</div><div><i>R$</i>Orçamento sem compromisso</div></div>
+      <span class="tag" data-r>Oficina mecânica · Mooca, SP</span>
+      <h1 aria-label="Seu carro em boas mãos."><span class="l"><span style="--d:.05s">Seu carro em</span></span><span class="l"><span style="--d:.15s" class="c">boas mãos.</span></span></h1>
+      <p class="lead" data-r style="--d:.3s">Diagnóstico com scanner de concessionária, peças originais e mecânicos certificados. Você aprova o orçamento antes de qualquer serviço.</p>
+      <div class="hero__ctas" data-r style="--d:.4s"><a href="#agendar" class="btn btn--c mag">Agendar revisão</a><a href="#revisao" class="btn btn--g mag">O que meu carro precisa?</a></div>
+      <div class="trust" data-r style="--d:.5s"><div><i>✓</i>Garantia de 6 meses</div><div><i>⇄</i>Leva e traz grátis</div><div><i>R$</i>Orçamento sem compromisso</div></div>
     </div>
-    <div class="gauge" aria-hidden="true">
-      <svg viewBox="0 0 500 420" id="gaugeSvg">
-        <defs><linearGradient id="arc" x1="0" x2="1"><stop offset="0" stop-color="#00c2ff"/><stop offset=".75" stop-color="#00c2ff"/><stop offset=".78" stop-color="#ff4d4d"/><stop offset="1" stop-color="#ff4d4d"/></linearGradient></defs>
-        <circle cx="250" cy="250" r="210" fill="#0b0e12" stroke="#27303b" stroke-width="2"/>
-        <path id="arcPath" fill="none" stroke="url(#arc)" stroke-width="8" stroke-linecap="round"/>
-        <g id="ticks"></g>
-        <g class="needle" id="needle"><path d="M250 250 246 70h8z" fill="#ff4d4d"/><circle cx="250" cy="250" r="18" fill="#e8edf2"/><circle cx="250" cy="250" r="7" fill="#0b0e12"/></g>
-      </svg>
-      <div class="gauge__read"><b id="rpm">0</b><small>RPM</small><br /><div class="odo" id="odo"></div></div>
+    <div class="painel vidro" data-r style="--d:.3s">
+      <span class="alerta" id="alerta">Corte de giro</span>
+      <div class="gauge" aria-hidden="true">
+        <svg viewBox="0 0 500 420">
+          <defs><linearGradient id="arc" x1="0" x2="1"><stop offset="0" stop-color="#00c2ff"/><stop offset=".75" stop-color="#00c2ff"/><stop offset=".78" stop-color="#ff4d4d"/><stop offset="1" stop-color="#ff4d4d"/></linearGradient><radialGradient id="mostr" cx=".5" cy=".55" r=".55"><stop offset="0" stop-color="#121820"/><stop offset="1" stop-color="#05070a"/></radialGradient></defs>
+          <circle cx="250" cy="250" r="214" fill="url(#mostr)" stroke="#2a323c" stroke-width="3"/>
+          <circle cx="250" cy="250" r="222" fill="none" stroke="rgba(255,255,255,.12)" stroke-width="6"/>
+          <path id="arcPath" fill="none" stroke="url(#arc)" stroke-width="8" stroke-linecap="round"/>
+          <path id="arcFill" fill="none" stroke="#00c2ff" stroke-width="18" stroke-linecap="butt" opacity=".22"/>
+          <g id="ticks"></g>
+          <g class="needle" id="needle"><path d="M250 250 246 70h8z" fill="#ff4d4d"/><circle cx="250" cy="250" r="20" fill="#e8edf2"/><circle cx="250" cy="250" r="8" fill="#0b0e12"/></g>
+        </svg>
+        <div class="gauge__read"><b id="rpm">0</b><small>RPM</small><br /><div class="odo" id="odo"></div></div>
+      </div>
+      <div class="painel__acel"><button class="pedal" id="pedal" type="button">Segure para acelerar</button><p><b>Pise fundo.</b> Segure o botão (ou clique e segure na foto) e ouça o motor de cabeça: cada carro sai daqui com 60 itens conferidos.</p></div>
     </div>
   </div>
 </section>
 
 <section class="svcs" id="servicos">
   <div class="wrap">
-    <div class="head"><div data-r><span class="tag">Serviços</span><h2 class="h2" style="margin-top:16px">Tudo que seu carro <span class="c">precisa</span></h2></div><p data-r style="--d:.1s">Atendemos nacionais e importados. Valores de referência para carros de passeio — o orçamento final é feito após o diagnóstico.</p></div>
+    <div class="head"><div data-r><span class="tag">Serviços</span><h2 class="h2" style="margin-top:16px">Tudo que seu carro <span class="c">precisa</span></h2></div><p data-r style="--d:.1s">Atendemos nacionais e importados. Valores de referência para carros de passeio; o orçamento final é feito após o diagnóstico.</p></div>
     <div class="sgrid" id="sgrid"></div>
   </div>
 </section>
 
+<section class="diag" id="diagnostico">
+  <div class="diag__st" id="diagSt">
+    <div class="diag__foto"><img src="https://images.unsplash.com/photo-1625047509248-ec889cbff17f?w=2200&q=80&auto=format&fit=crop" alt="Mecânico inspecionando o motor" /></div>
+    <div class="scan" id="scan"></div>
+    <div id="pontos"></div>
+    <div class="diag__txt"><div class="wrap"><div class="diag__card vidro">
+      <span class="tag">Diagnóstico por scanner</span>
+      <div class="diag__cont" id="dCont">00<small>/60 ITENS</small></div>
+      <div class="diag__bar" id="dBar"><i></i></div>
+      <div class="diag__res"><div><b id="dOk" style="color:var(--green)">0</b><small>ok</small></div><div><b id="dAt" style="color:var(--amber)">0</b><small>atenção</small></div><div><b id="dTr" style="color:var(--red)">0</b><small>trocar</small></div></div>
+      <p style="color:var(--muted);font-size:14px;margin-top:14px">Role para ver o scanner percorrer o carro. Você recebe tudo isso em fotos, antes de aprovar qualquer serviço.</p>
+    </div></div></div>
+  </div>
+</section>
+
 <section class="rev" id="revisao">
-  <div class="grid-bg"></div>
   <div class="wrap">
     <div class="head"><div data-r><span class="tag">Revisão por quilometragem</span><h2 class="h2" style="margin-top:16px">O que está <span class="c">na hora</span> de trocar?</h2></div><p data-r style="--d:.1s">Arraste até a quilometragem do seu carro e veja o que vence agora, o que vem em seguida e o que ainda está em dia.</p></div>
     <div class="rev__grid">
-      <div class="kmbox" data-r>
-        <div class="kmread" id="kmRead">45.000 <small>km</small></div>
+      <div class="kmbox vidro" data-r>
+        <div class="tambor" id="tambor" aria-live="polite"></div>
         <input type="range" id="km" min="0" max="150000" step="1000" value="45000" aria-label="Quilometragem" />
         <div class="scale"><span>0</span><span>50 mil</span><span>100 mil</span><span>150 mil</span></div>
         <div class="kmsum"><div><b id="nNow" style="color:var(--red)">0</b><small>fazer agora</small></div><div><b id="nSoon" style="color:var(--amber)">0</b><small>em breve</small></div><div><b id="nOk" style="color:var(--green)">0</b><small>em dia</small></div></div>
@@ -272,65 +376,68 @@
       <span class="tag">Acompanhe seu carro</span>
       <h2 class="h2" style="margin-top:16px">Saiba tudo,<br /><span class="c">em tempo real</span></h2>
       <p style="color:var(--muted);margin-top:16px;max-width:420px">Digite a placa do carro que está na oficina e veja cada etapa do serviço, com fotos e aprovação do orçamento pelo celular.</p>
-      <form class="plate" id="plateForm"><input id="plate" maxlength="7" placeholder="ABC1D23" aria-label="Placa" autocomplete="off" /><button>Ver</button></form>
+      <form class="placa" id="plateForm"><div class="placa__in"><div class="placa__band"><i></i>BRASIL</div><input id="plate" maxlength="7" placeholder="ABC1D23" aria-label="Placa" autocomplete="off" /></div><button>Ver</button></form>
       <p class="hint">Demonstração: digite qualquer placa no formato Mercosul.</p>
     </div>
-    <div class="status" id="status" data-r style="--d:.1s"><div class="status__empty">🔍<br />Digite uma placa para ver o andamento do serviço.</div></div>
+    <div class="status vidro" id="status" data-r style="--d:.1s"><div class="status__empty">🔍<br />Digite uma placa para ver o andamento do serviço.</div></div>
   </div>
 </section>
 
 <section class="why">
   <div class="why__bg" id="whyBg"></div>
   <div class="wrap">
-    <div class="head" style="position:relative"><div data-r><span class="tag">Por que a Torque</span><h2 class="h2" style="margin-top:16px">Confiança se mede<br />em <span class="c">quilômetros</span></h2></div></div>
+    <div class="head"><div data-r><span class="tag">Por que a Torque</span><h2 class="h2" style="margin-top:16px">Confiança se mede<br />em <span class="c">quilômetros</span></h2></div></div>
     <div class="nums" data-r>
-      <div><b data-count="12">0</b><span>anos de oficina</span></div>
-      <div><b data-count="18" data-suf=" mil">0</b><span>carros atendidos</span></div>
-      <div><b>4,9★</b><span>avaliação no Google</span></div>
-      <div><b data-count="6" data-suf=" meses">0</b><span>de garantia nos serviços</span></div>
-    </div>
-    <div class="reviews">
-      <div class="rv" data-r><span class="stars">★★★★★</span><p>“Me mandaram fotos das peças trocadas e explicaram tudo. Primeira oficina em que confio de verdade.”</p><small>Ricardo M. · Corolla 2019</small></div>
-      <div class="rv" data-r style="--d:.1s"><span class="stars">★★★★★</span><p>“Buscaram o carro em casa, fizeram a revisão e devolveram lavado no mesmo dia.”</p><small>Patrícia L. · HB20 2021</small></div>
-      <div class="rv" data-r style="--d:.2s"><span class="stars">★★★★★</span><p>“O diagnóstico do barulho na suspensão saiu em 20 minutos. Preço justo e serviço impecável.”</p><small>André S. · Compass 2020</small></div>
+      <div class="vidro"><b data-count="12">0</b><span>anos de oficina</span></div>
+      <div class="vidro"><b data-count="18" data-suf=" mil">0</b><span>carros atendidos</span></div>
+      <div class="vidro"><b>4,9★</b><span>avaliação no Google</span></div>
+      <div class="vidro"><b data-count="6" data-suf=" meses">0</b><span>de garantia nos serviços</span></div>
     </div>
   </div>
+  <div class="reviews"><div class="rv__track" id="rvs"></div></div>
 </section>
 
 <section class="book" id="agendar">
   <div class="wrap">
     <div class="book__box" data-r>
-      <div class="book__img"><img src="https://images.unsplash.com/photo-1625047509248-ec889cbff17f?w=1100&q=75&auto=format&fit=crop" alt="Mecânico inspecionando motor" loading="lazy" /></div>
+      <div class="book__img"><img id="bkImg" src="https://images.unsplash.com/photo-1615906655593-ad0386982a0f?w=1100&q=75&auto=format&fit=crop" alt="Mecânico trabalhando no motor" loading="lazy" /></div>
       <form class="form" id="form">
         <span class="tag">Agendamento</span>
         <h2 style="font-size:clamp(32px,3.6vw,48px);margin-bottom:6px">Reserve seu horário</h2>
-        <div class="two"><label>Nome<input id="fN" required /></label><label>WhatsApp<input id="fW" inputmode="tel" required /></label></div>
+        <div class="two"><label>Nome<input id="fN" required autocomplete="name" /></label><label>WhatsApp<input id="fW" inputmode="tel" required autocomplete="tel" /></label></div>
         <div class="two"><label>Carro (modelo e ano)<input id="fC" placeholder="Ex.: Onix 2020" required /></label><label>Placa<input id="fP" maxlength="7" placeholder="ABC1D23" style="text-transform:uppercase" /></label></div>
         <div class="two"><label>Serviço<select id="fS"></select></label><label>Data<input id="fD" type="date" required /></label></div>
         <label class="check"><input type="checkbox" id="fL" checked />Quero o leva e traz grátis (até 8 km)</label>
-        <button class="btn btn--c" type="submit">Confirmar pelo WhatsApp</button>
+        <button class="btn btn--c mag" type="submit">Confirmar pelo WhatsApp</button>
       </form>
     </div>
   </div>
 </section>
+</main>
 
-<footer><div class="wrap foot"><span>© 2026 Torque Auto Center · Rua da Mooca, 2450 — São Paulo</span><span>Seg a sex 8h–18h · Sáb 8h–13h · (11) 99999-0000</span></div></footer>
+<footer><div class="wrap"><div class="foot"><span>© 2026 Torque Auto Center · Rua da Mooca, 2450 · São Paulo</span><span>Seg a sex 8h–18h · Sáb 8h–13h · (11) 99999-0000</span></div><div class="marca" id="marca" aria-hidden="true">TORQUE</div></div></footer>
 
 <a class="wa" href="https://wa.me/5511999990000" target="_blank" rel="noopener" aria-label="WhatsApp"><svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21c5.46 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2Zm5.8 14.03c-.24.68-1.42 1.3-1.95 1.35-.5.05-.97.23-3.27-.68-2.77-1.09-4.52-3.92-4.66-4.1-.13-.18-1.1-1.47-1.1-2.8 0-1.34.7-2 .95-2.27.25-.27.54-.34.72-.34h.52c.17 0 .4-.06.62.47.24.56.8 1.94.87 2.08.07.14.12.3.02.48-.1.19-.14.3-.28.47-.14.16-.3.36-.42.49-.14.14-.29.29-.12.57.17.28.74 1.22 1.59 1.98 1.09.97 2.01 1.27 2.29 1.41.28.14.45.12.62-.07.17-.19.71-.83.9-1.11.19-.28.38-.24.64-.14.26.09 1.65.78 1.93.92.28.14.47.21.54.33.07.11.07.66-.17 1.34Z"/></svg></a>
 
 <script>
 (() => {
   const reduz = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const fino = matchMedia("(hover: hover) and (pointer: fine)").matches;
   const $ = (s, el = document) => el.querySelector(s);
   const $$ = (s, el = document) => [...el.querySelectorAll(s)];
   const brl = (n) => n.toLocaleString("pt-BR", { style: "currency", currency: "BRL", maximumFractionDigits: 0 });
   const km = (n) => n.toLocaleString("pt-BR");
+  const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
+  const lerp = (a, b, t) => a + (b - a) * t;
   const WA = "5511999990000";
+  let VW = innerWidth, VH = innerHeight;
+  const mouse = { x: VW / 2, y: VH / 2 };
 
-  const nav = $("#nav");
-  addEventListener("scroll", () => nav.classList.toggle("solid", scrollY > 30), { passive: true });
-  $(".burger").onclick = () => nav.classList.toggle("open");
-  $$(".nav__links a").forEach((a) => a.onclick = () => nav.classList.remove("open"));
+  const nav = $("#nav"), burger = $(".burger");
+  burger.onclick = () => { const a = nav.classList.toggle("open"); burger.setAttribute("aria-expanded", a); };
+  $$(".nav__links a").forEach((a) => a.addEventListener("click", () => nav.classList.remove("open")));
+  const pill = $("#pill");
+  $$("#links a").forEach((a) => a.addEventListener("mouseenter", () => { pill.style.left = a.offsetLeft + "px"; pill.style.width = a.offsetWidth + "px"; }));
   const io = new IntersectionObserver((es) => es.forEach((e) => {
     if (!e.isIntersecting) return;
     e.target.classList.add("in");
@@ -339,35 +446,66 @@
   }), { threshold: .15 });
   $$("[data-r]").forEach((el) => io.observe(el));
 
-  /* Conta-giros */
-  const CX = 250, CY = 250, R = 190, A0 = -225, A1 = 45; // 0 a 8 mil rpm
+  /* cursor e botões */
+  const cur = $(".cur"), curT = $(".cur span");
+  let cx = mouse.x, cy = mouse.y;
+  addEventListener("pointermove", (e) => { mouse.x = e.clientX; mouse.y = e.clientY; if (e.pointerType === "mouse") cur.classList.add("on"); }, { passive: true });
+  document.addEventListener("mouseleave", () => cur.classList.remove("on"));
+  if (fino) {
+    document.addEventListener("pointerover", (e) => {
+      const l = e.target.closest("[data-cur]"), h = e.target.closest("a, button, input, select, label");
+      cur.classList.toggle("lbl", !!l && !h); cur.classList.toggle("link", !!h);
+      if (l && !h) curT.textContent = l.dataset.cur;
+    });
+    $$(".mag").forEach((b) => {
+      b.addEventListener("pointermove", (e) => { const r = b.getBoundingClientRect(); b.style.transform = `translate(${(e.clientX - r.left - r.width / 2) * .2}px, ${(e.clientY - r.top - r.height / 2) * .3}px)`; });
+      b.addEventListener("pointerleave", () => { b.style.transform = ""; });
+    });
+  }
+
+  /* HERO: conta-giros com acelerador */
+  const hero = $("#topo"), CX = 250, CY = 250, R = 190, A0 = -225, A1 = 45;
   const pt = (a, r) => [CX + r * Math.cos(a * Math.PI / 180), CY + r * Math.sin(a * Math.PI / 180)];
-  const [sx, sy] = pt(A0, R), [ex, ey] = pt(A1, R);
-  $("#arcPath").setAttribute("d", `M${sx} ${sy} A${R} ${R} 0 1 1 ${ex} ${ey}`);
+  const arco = (r, de, ate) => { const [sx, sy] = pt(de, r), [ex, ey] = pt(ate, r); return `M${sx} ${sy} A${r} ${r} 0 ${ate - de > 180 ? 1 : 0} 1 ${ex} ${ey}`; };
+  $("#arcPath").setAttribute("d", arco(R, A0, A1));
   let ticks = "";
   for (let i = 0; i <= 40; i++) {
     const a = A0 + (A1 - A0) * i / 40, big = i % 5 === 0;
     const [x1, y1] = pt(a, R - 14), [x2, y2] = pt(a, R - (big ? 34 : 24));
     ticks += `<line class="tick ${big ? "big" : ""}" x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}"/>`;
-    if (big) { const [tx, ty] = pt(a, R - 56); ticks += `<text class="num" x="${tx}" y="${ty + 8}">${i / 5}</text>`; }
+    if (big) { const [tx, ty] = pt(a, R - 56); ticks += `<text class="num ${i >= 30 ? "red" : ""}" x="${tx}" y="${ty + 8}">${i / 5}</text>`; }
   }
   $("#ticks").innerHTML = ticks;
-  const needle = $("#needle"), rpmEl = $("#rpm");
-  const setRpm = (r) => { const a = A0 + (A1 - A0) * (r / 8000) + 90; needle.style.transform = `rotate(${a}deg)`; rpmEl.textContent = Math.round(r / 10) * 10; };
-  // sequência de "acelerada": 0 → 7200 → 900 (marcha lenta)
-  const seq = [[0, 0], [700, 7200], [1500, 5200], [2100, 6400], [3200, 900]];
-  const t0 = performance.now();
-  (function rev(t) {
-    const e = reduz ? 3200 : t - t0;
-    let r = 900;
-    for (let i = 1; i < seq.length; i++) if (e <= seq[i][0]) { const [ta, ra] = seq[i - 1], [tb, rb] = seq[i]; const k = (e - ta) / (tb - ta), s = k * k * (3 - 2 * k); r = ra + (rb - ra) * s; break; }
-    if (e > 3200) r = 900 + Math.sin(e / 140) * 25; // marcha lenta tremendo
-    setRpm(r);
-    requestAnimationFrame(rev);
-  })(t0);
-  /* odômetro */
-  const odo = $("#odo");
-  let kmOdo = 184320;
+  const needle = $("#needle"), rpmEl = $("#rpm"), arcFill = $("#arcFill");
+  let rpm = 0, vRpm = 0, acelerando = false, partida = performance.now();
+  const pedal = $("#pedal");
+  const liga = (e) => { if (e && e.target.closest && e.target.closest("a, .btn:not(.pedal), input")) return; acelerando = true; pedal.classList.add("on"); };
+  const desliga = () => { acelerando = false; pedal.classList.remove("on"); };
+  pedal.addEventListener("pointerdown", (e) => { e.preventDefault(); liga(); });
+  $("#hImg").parentElement.parentElement.addEventListener("pointerdown", (e) => { if (!e.target.closest(".painel, .hero__grid > div:first-child")) liga(e); });
+  addEventListener("pointerup", desliga); addEventListener("pointercancel", desliga);
+  addEventListener("keydown", (e) => { if (e.code === "Space" && document.activeElement === pedal) { e.preventDefault(); liga(); } });
+  addEventListener("keyup", (e) => { if (e.code === "Space") desliga(); });
+  function heroFrame(t) {
+    const e = t - partida;
+    let alvo;
+    if (e < 3200 && !acelerando) { const seq = [[0, 0], [700, 7200], [1500, 5200], [2100, 6400], [3200, 900]]; alvo = 900; for (let i = 1; i < seq.length; i++) if (e <= seq[i][0]) { const [ta, ra] = seq[i - 1], [tb, rb] = seq[i]; const k = (e - ta) / (tb - ta); alvo = ra + (rb - ra) * k * k * (3 - 2 * k); break; } rpm = alvo; }
+    else {
+      alvo = acelerando ? 7600 : 900;
+      vRpm += ((alvo - rpm) * (acelerando ? .0026 : .004)); vRpm *= .9; rpm += vRpm * 16;
+      if (rpm > 7350 && acelerando) rpm = 7100 + Math.random() * 280; // corte de giro
+      if (!acelerando) rpm += Math.sin(t / 140) * 6;
+    }
+    rpm = clamp(rpm, 0, 8000);
+    needle.style.transform = `rotate(${A0 + (A1 - A0) * (rpm / 8000) + 90}deg)`;
+    rpmEl.textContent = Math.round(rpm / 10) * 10;
+    arcFill.setAttribute("d", arco(R - 20, A0, A0 + (A1 - A0) * Math.max(.001, rpm / 8000)));
+    const acel = clamp((rpm - 900) / 6500);
+    hero.style.setProperty("--acel", acel.toFixed(3));
+    const corte = rpm > 7000; $("#alerta").classList.toggle("on", corte); hero.classList.toggle("treme", corte && !reduz);
+    if (!reduz) { const mx = mouse.x / VW - .5, my = mouse.y / VH - .5; $("#hImg").style.transform = `scale(${1.06 + acel * .03}) translate(${mx * -12 + (corte ? (Math.random() - .5) * 3 : 0)}px, ${my * -8 + scrollY * .08}px)`; }
+  }
+  const odo = $("#odo"); let kmOdo = 184320;
   const renderOdo = () => odo.innerHTML = String(kmOdo).padStart(7, "0").split("").map((d) => `<span>${d}</span>`).join("");
   renderOdo(); setInterval(() => { kmOdo++; renderOdo(); }, 1800);
 
@@ -383,17 +521,46 @@
     pneu: '<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/><path d="M12 3v5M12 16v5M3 12h5M16 12h5"/>',
   };
   const SV = [["rev", "Revisão completa", "Check-up de 60 itens com relatório e fotos.", 290], ["freio", "Freios", "Pastilhas, discos, fluido e sangria.", 180], ["susp", "Suspensão", "Amortecedores, buchas, pivôs e terminais.", 220], ["alin", "Alinhamento e balanceamento", "Equipamento 3D de alta precisão.", 120], ["inj", "Injeção eletrônica", "Scanner, limpeza de bicos e diagnóstico.", 250], ["ar", "Ar-condicionado", "Higienização, carga de gás e reparos.", 160], ["oleo", "Troca de óleo", "Óleo sintético e filtro em 30 minutos.", 189], ["pneu", "Pneus", "Venda, montagem e rodízio.", 0]];
-  $("#sgrid").innerHTML = SV.map(([ic, n, d, p], i) => `<div class="sv" data-r style="--d:${(i % 4) * .06}s"><svg viewBox="0 0 24 24">${IC[ic]}</svg><h3>${n}</h3><p>${d}</p><b>${p ? "a partir de " + brl(p) : "consulte"}</b></div>`).join("");
+  const sgrid = $("#sgrid");
+  sgrid.innerHTML = SV.map(([ic, n, d, p], i) => `<div class="sv" data-r style="--d:${(i % 4) * .06}s"><svg viewBox="0 0 24 24">${IC[ic]}</svg><h3>${n}</h3><p>${d}</p><b>${p ? "a partir de " + brl(p) : "consulte"}</b></div>`).join("");
   $$(".sv").forEach((s) => io.observe(s));
+  if (fino) {
+    sgrid.addEventListener("pointermove", (e) => { const c = e.target.closest(".sv"); if (!c) return; const r = c.getBoundingClientRect(), x = (e.clientX - r.left) / r.width, y = (e.clientY - r.top) / r.height; c.style.transform = `perspective(700px) rotateY(${(x - .5) * 8}deg) rotateX(${(.5 - y) * 8}deg)`; c.style.setProperty("--gx", x * 100 + "%"); c.style.setProperty("--gy", y * 100 + "%"); });
+    sgrid.addEventListener("pointerout", (e) => { const c = e.target.closest(".sv"); if (c && !c.contains(e.relatedTarget)) c.style.transform = ""; });
+  }
   $("#fS").innerHTML = SV.map((s) => `<option>${s[1]}</option>`).join("") + "<option>Outro / diagnóstico</option>";
 
-  /* Revisão por km */
+  /* DIAGNÓSTICO: scanner percorre a foto */
+  const PT = [[.62, .2, "Bateria", "12,6 V · ok", "ok"], [.48, .3, "Correia do alternador", "sem trincas", "ok"], [.72, .36, "Filtro de ar", "70% saturado", "at"], [.55, .48, "Óleo do motor", "vencido há 1.200 km", "tr"], [.8, .52, "Arrefecimento", "nível ok", "ok"], [.42, .62, "Velas e bobinas", "desgaste normal", "ok"], [.66, .72, "Pastilhas de freio", "3 mm · trocar", "tr"], [.86, .8, "Suspensão dianteira", "bucha com folga", "at"]];
+  const COR = { ok: "var(--green)", at: "var(--amber)", tr: "var(--red)" };
+  const pontos = $("#pontos");
+  pontos.innerHTML = PT.map(([x, y, n, d, s]) => `<div class="ponto" style="left:${x * 100}%;top:${y * 100}%;--st:${COR[s]}"><i></i><span class="vidro">${n}<small>${d}</small></span></div>`).join("");
+  const pEls = $$(".ponto", pontos), diag = $("#diagnostico"), diagSt = $("#diagSt");
+  let PDg = 0;
+  function diagFrame() {
+    const r = diag.getBoundingClientRect(); if (r.top > VH || r.bottom < 0) return;
+    const alvo = clamp(-r.top / (r.height - VH)); PDg = reduz ? alvo : lerp(PDg, alvo, .12);
+    const sy = clamp(PDg / .85) * 100;
+    diagSt.style.setProperty("--sy", sy + "%"); diagSt.style.setProperty("--dz", 1.15 - PDg * .12);
+    let ok = 0, at = 0, tr = 0;
+    pEls.forEach((p, i) => { const on = PT[i][1] * 100 < sy; p.classList.toggle("on", on); if (on) { if (PT[i][4] === "ok") ok++; else if (PT[i][4] === "at") at++; else tr++; } });
+    const itens = Math.round(clamp(PDg / .85) * 60);
+    $("#dCont").innerHTML = `${String(itens).padStart(2, "0")}<small>/60 ITENS</small>`;
+    $("#dBar").style.setProperty("--p", clamp(PDg / .85) * 100 + "%");
+    $("#dOk").textContent = Math.max(0, itens - at - tr); $("#dAt").textContent = at; $("#dTr").textContent = tr;
+  }
+
+  /* Revisão por km: odômetro de tambores */
   const ITENS = [["Troca de óleo e filtro", 10000, 189], ["Alinhamento e balanceamento", 10000, 120], ["Filtro de ar do motor", 20000, 70], ["Filtro de cabine (ar-condicionado)", 15000, 80], ["Pastilhas de freio (verificar)", 20000, 180], ["Filtro de combustível", 30000, 90], ["Velas de ignição", 40000, 220], ["Fluido de freio", 40000, 140], ["Líquido de arrefecimento", 50000, 160], ["Correia dentada e tensor", 60000, 680]];
+  const tambor = $("#tambor");
+  tambor.innerHTML = [...Array(6)].map(() => `<div class="d"><div class="fita">${[...Array(10)].map((_, n) => `<span>${n}</span>`).join("")}</div></div>`).join("") + '<span class="km">km</span>';
+  const fitas = $$(".fita", tambor);
   const range = $("#km");
   function rev() {
     const v = +range.value;
     range.style.setProperty("--p", `${v / 1500}%`);
-    $("#kmRead").innerHTML = `${km(v)} <small>km</small>`;
+    String(v).padStart(6, "0").split("").forEach((d, i) => { fitas[i].style.transform = `translateY(${-d * 10}%)`; });
+    tambor.setAttribute("aria-label", `${km(v)} km`);
     const lst = ITENS.map(([n, int, p]) => {
       const prox = v === 0 ? int : Math.ceil(v / int) * int, falta = prox - v;
       const atras = v > 0 && v % int === 0;
@@ -401,13 +568,13 @@
       return { n, int, p, s, falta: atras ? 0 : falta, prox };
     }).sort((a, b) => ["now", "soon", "ok"].indexOf(a.s) - ["now", "soon", "ok"].indexOf(b.s) || a.falta - b.falta);
     const label = { now: "Fazer agora", soon: "Em breve", ok: "Em dia" };
-    $("#items").innerHTML = lst.map((x) => `<div class="item ${x.s}"><i></i><div><h4>${x.n}</h4><small>a cada ${km(x.int)} km · ${x.falta ? `próxima aos ${km(x.prox)} km (faltam ${km(x.falta)})` : "vence agora"}</small></div><span>${label[x.s]}</span></div>`).join("");
+    $("#items").innerHTML = lst.map((x, i) => `<div class="item ${x.s}" style="animation-delay:${i * 30}ms"><i></i><div><h4>${x.n}</h4><small>a cada ${km(x.int)} km · ${x.falta ? `próxima aos ${km(x.prox)} km (faltam ${km(x.falta)})` : "vence agora"}</small></div><span>${label[x.s]}</span></div>`).join("");
     const now = lst.filter((x) => x.s === "now");
     $("#nNow").textContent = now.length; $("#nSoon").textContent = lst.filter((x) => x.s === "soon").length; $("#nOk").textContent = lst.filter((x) => x.s === "ok").length;
     $("#estim").textContent = brl(now.reduce((s, x) => s + x.p, 0));
     $("#revBtn").dataset.itens = now.map((x) => x.n).join(", ");
   }
-  range.addEventListener("input", rev); rev();
+  let revT; range.addEventListener("input", () => { clearTimeout(revT); revT = setTimeout(rev, 60); }); rev();
   $("#revBtn").onclick = () => { $("#fS").value = "Revisão completa"; };
 
   /* Acompanhe pela placa */
@@ -416,8 +583,7 @@
   $("#plate").addEventListener("input", (e) => e.target.value = e.target.value.toUpperCase().replace(/[^A-Z0-9]/g, ""));
   $("#plateForm").onsubmit = (e) => {
     e.preventDefault();
-    const p = $("#plate").value;
-    const box = $("#status");
+    const p = $("#plate").value, box = $("#status");
     if (!/^[A-Z]{3}[0-9][A-Z0-9][0-9]{2}$/.test(p)) { box.innerHTML = `<div class="status__empty">⚠️<br />Placa inválida. Use o formato ABC1D23.</div>`; return; }
     let h = 0; for (const c of p) h = (h * 31 + c.charCodeAt(0)) % 9973;
     const etapa = h % 5, carro = CARROS[h % CARROS.length];
@@ -429,9 +595,10 @@
     requestAnimationFrame(() => requestAnimationFrame(() => $("#fill").style.width = `${(etapa / 4) * 80}%`));
   };
 
-  /* Parallax */
-  const wb = $("#whyBg");
-  addEventListener("scroll", () => { if (reduz) return; const r = wb.parentElement.getBoundingClientRect(); wb.style.transform = `translateY(${(r.top + r.height / 2 - innerHeight / 2) * -.12}px)`; }, { passive: true });
+  /* depoimentos */
+  const RV = [["Me mandaram fotos das peças trocadas e explicaram tudo. Primeira oficina em que confio de verdade.", "Ricardo M. · Corolla 2019"], ["Buscaram o carro em casa, fizeram a revisão e devolveram lavado no mesmo dia.", "Patrícia L. · HB20 2021"], ["O diagnóstico do barulho na suspensão saiu em 20 minutos. Preço justo e serviço impecável.", "André S. · Compass 2020"], ["Aprovei o orçamento pelo celular no trabalho e busquei o carro pronto às 17h.", "Luana T. · Kicks 2022"]];
+  const rvs = $("#rvs");
+  rvs.innerHTML = [...RV, ...RV].map(([p, a]) => `<div class="rv vidro"><span class="stars">★★★★★</span><p>“${p}”</p><small>${a}</small></div>`).join("");
 
   /* Agendamento */
   const hoje = new Date(); hoje.setMinutes(hoje.getMinutes() - hoje.getTimezoneOffset());
@@ -441,8 +608,30 @@
     const d = $("#fD").value.split("-").reverse().join("/");
     const extra = $("#revBtn").dataset.itens && $("#fS").value === "Revisão completa" ? `\nItens que vencem agora: ${$("#revBtn").dataset.itens}` : "";
     const msg = `Olá, Torque! Quero agendar:\nNome: ${$("#fN").value}\nCarro: ${$("#fC").value}${$("#fP").value ? ` (placa ${$("#fP").value.toUpperCase()})` : ""}\nServiço: ${$("#fS").value}\nData: ${d}\nLeva e traz: ${$("#fL").checked ? "sim" : "não"}${extra}`;
-    window.open(`https://wa.me/${WA}?text=${encodeURIComponent(msg)}`, "_blank");
+    window.open(`https://wa.me/${WA}?text=${encodeURIComponent(msg)}`, "_blank", "noopener");
   };
+
+  /* laço */
+  const wb = $("#whyBg"), bk = $("#bkImg"), marca = $("#marca");
+  let rx = 0, yAnt = scrollY, vel = 0, navY = scrollY;
+  function quadro(t) {
+    const y = scrollY, dy = y - yAnt; yAnt = y; vel = lerp(vel, Math.abs(dy), .1);
+    nav.classList.toggle("solid", y > 30);
+    if (Math.abs(y - navY) > 8) { nav.classList.toggle("esc", y > navY && y > 700 && !nav.classList.contains("open")); navY = y; }
+    if (fino) { cx = lerp(cx, mouse.x, .25); cy = lerp(cy, mouse.y, .25); cur.style.transform = `translate(${cx}px, ${cy}px) rotate(45deg)`; }
+    if (y < VH * 1.2) heroFrame(t);
+    diagFrame();
+    if (!reduz) {
+      rx -= .45 + vel * .2; const m = rvs.scrollWidth / 2; if (-rx > m) rx += m; rvs.style.transform = `translateX(${rx}px)`;
+      const wr = wb.parentElement.getBoundingClientRect(); if (wr.top < VH && wr.bottom > 0) wb.style.transform = `translateY(${(wr.top + wr.height / 2 - VH / 2) * -.12}px)`;
+      const br = bk.parentElement.getBoundingClientRect(); if (br.top < VH && br.bottom > 0) bk.style.transform = `translateY(${(br.top + br.height / 2 - VH / 2) * -.08 - 30}px)`;
+    }
+    const fr = marca.getBoundingClientRect();
+    if (fr.top < VH) { const ini = y + fr.top - VH, fim = document.documentElement.scrollHeight - VH; marca.style.setProperty("--fill", clamp((y - ini) / Math.max(1, fim - ini)) * 100 + "%"); }
+    requestAnimationFrame(quadro);
+  }
+  addEventListener("resize", () => { VW = innerWidth; VH = innerHeight; });
+  requestAnimationFrame(quadro);
 })();
 </script>
 </body>
