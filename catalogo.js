@@ -121,8 +121,8 @@ window.MODELOS = [
     pasta: "patavet-veterinaria",
     titulo: "Patavet — Clínica Veterinária",
     segmento: "Veterinária",
-    descricao: "Clínica veterinária acolhedora com plantão 24h, calculadora de idade do pet, calendário de vacinas e planos.",
-    tags: ["24 horas", "Calculadora", "Planos pet"],
+    descricao: "Clínica veterinária 24h com estetoscópio no cursor e monitor cardíaco ao vivo, um dia inteiro de plantão guiado pela rolagem, calculadora de idade e planos em vidro.",
+    tags: ["Estetoscópio", "24 horas", "Calculadora"],
     cor: "#14837a",
   },
   {
