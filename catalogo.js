@@ -147,8 +147,8 @@ window.MODELOS = [
     pasta: "quintal-da-vo",
     titulo: "Quintal da Vó — Comida Caseira",
     segmento: "Gastronomia",
-    descricao: "Restaurante independente com prato do dia automático, montador de marmita com bandeja ilustrada, delivery e status de aberto/fechado.",
-    tags: ["Delivery", "Marmita", "Prato do dia"],
+    descricao: "Comida caseira com vapor de verdade saindo do prato que o cursor sopra, a história da família em polaroides caindo na toalha xadrez e marmita com tampa de alumínio que fecha no pedido.",
+    tags: ["Vapor", "Polaroides", "Monte sua marmita"],
     cor: "#d9452b",
   },
   {
