@@ -240,8 +240,8 @@ window.MODELOS = [
     pasta: "studio-mecha",
     titulo: "Studio Mecha — Salão de Cabelo",
     segmento: "Estética",
-    descricao: "Salão especializado em cor com simulador de mechas, balayage e ombré, tabela por comprimento, equipe e agendamento.",
-    tags: ["Simulador de cor", "Agendamento", "Equipe"],
+    descricao: "Salão de beleza com simulador de cor numa foto real: o cabelo é recolorido fio a fio preservando brilho e sombras, com técnicas global, mechas, balayage e ombré, linha de corte por comprimento e comparação antes/depois arrastável; hero em que o cursor vira pincel de tintura, tabela de preços por comprimento e agenda em vidro.",
+    tags: ["Cor em foto real", "Pincel no cursor", "Antes e depois"],
     cor: "#ff2e88",
   },
   {
