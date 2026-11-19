@@ -265,8 +265,8 @@ window.MODELOS = [
     pasta: "maison-odete",
     titulo: "Maison Odete — Moda Feminina",
     segmento: "Moda",
-    descricao: "Boutique editorial com coleção filtrável e favoritos, monte seu look com desconto no conjunto e agendamento com personal stylist.",
-    tags: ["Monte seu look", "Coleção", "Stylist"],
+    descricao: "Moda feminina autoral em clima de revista: provador na capa em que o cursor revela outro look, coleção pendurada num varal com prendedores de madeira e etiquetas que balançam com a rolagem, monte seu look em vidro, stylist com parallax e lookbook editorial em que cada foto se abre da moldura até a tela cheia.",
+    tags: ["Provador no cursor", "Varal da coleção", "Lookbook editorial"],
     cor: "#7a2e2e",
   },
   {
