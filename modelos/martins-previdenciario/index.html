@@ -4,380 +4,754 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Martins Advocacia Previdenciária — Aposentadoria e INSS</title>
-<meta name="description" content="Martins Advocacia Previdenciária: aposentadorias, BPC/LOAS, auxílio por incapacidade, pensão e revisão de benefícios. Simule sua aposentadoria grátis." />
+<meta name="description" content="Advocacia previdenciária desde 2008: aposentadorias, BPC/LOAS, auxílio por incapacidade, pensão e revisão. Simule sua aposentadoria e fale com uma advogada." />
 <meta name="theme-color" content="#f6efe4" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,600;7..72,700&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,600;0,7..72,700;1,7..72,400&family=Source+Sans+3:wght@400;500;600;700&family=Special+Elite&family=Caveat:wght@500;700&display=swap" rel="stylesheet" />
 <style>
   :root {
     --bg: #f6efe4; --paper: #fbf7f0; --white: #fff; --ink: #1d2a30; --muted: #61707a; --line: #e5dccd;
     --teal: #12465a; --teal2: #1d6a85; --amber: #e0a43a; --green: #2e8b57; --red: #c4553b;
-    --serif: "Literata", Georgia, serif; --sans: "Source Sans 3", system-ui, sans-serif;
-    --ease: cubic-bezier(.2,.8,.2,1);
+    --serif: "Literata", Georgia, serif; --sans: "Source Sans 3", system-ui, sans-serif; --type: "Special Elite", "Courier New", monospace; --hand: "Caveat", cursive;
+    --ease: cubic-bezier(.2,.8,.2,1); --spring: cubic-bezier(.34,1.56,.64,1);
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  html { overflow-x: clip; scroll-behavior: smooth; scroll-padding-top: 90px; }
-  body { background: var(--bg); color: var(--ink); font-family: var(--sans); font-size: 17px; line-height: 1.65; -webkit-font-smoothing: antialiased; overflow-x: clip; }
+  html { overflow-x: clip; scroll-padding-top: 100px; }
+  body { background: var(--bg); color: var(--ink); font-family: var(--sans); font-size: 18px; line-height: 1.6; -webkit-font-smoothing: antialiased; overflow-x: clip; }
   img { display: block; max-width: 100%; }
   a { color: inherit; text-decoration: none; }
-  button, input, select { font: inherit; color: inherit; }
+  button, input, select, textarea { font: inherit; color: inherit; }
   button { background: none; border: 0; cursor: pointer; }
-  .wrap { width: min(1200px, 100% - 40px); margin-inline: auto; }
-  [class*="__grid"] > * { min-width: 0; }
-  h1, h2, h3 { font-family: var(--serif); font-weight: 700; letter-spacing: -.015em; line-height: 1.12; }
-  .h2 { font-size: clamp(32px, 4vw, 52px); }
+  .wrap { width: min(1220px, 100% - 40px); margin-inline: auto; }
+  h1, h2, h3, h4 { font-family: var(--serif); font-weight: 600; letter-spacing: -.02em; line-height: 1.1; }
+  .h2 { font-size: clamp(34px, 4.4vw, 58px); }
   .h2 em, h1 em { font-style: italic; font-weight: 400; color: var(--teal2); }
-  .kick { font-weight: 700; font-size: 14px; letter-spacing: .12em; text-transform: uppercase; color: var(--amber); }
-  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 16px 28px; border-radius: 10px; font-weight: 700; font-size: 17px; transition: background .25s, transform .25s var(--ease); }
-  .btn--t { background: var(--teal); color: #fff; }
-  .btn--t:hover { background: var(--teal2); transform: translateY(-2px); }
-  .btn--a { background: var(--amber); color: var(--ink); }
-  .btn--a:hover { background: #ecb552; transform: translateY(-2px); }
+  .kick { display: inline-flex; align-items: center; gap: 10px; font-weight: 700; font-size: 14px; letter-spacing: .14em; text-transform: uppercase; color: #b77d12; }
+  .kick::before { content: ""; width: 26px; height: 2px; background: currentColor; }
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 17px 28px; border-radius: 999px; font-weight: 700; font-size: 17px; transition: transform .35s var(--ease), background .3s, box-shadow .3s, color .3s; white-space: nowrap; }
+  .btn--t { background: var(--teal); color: #fff; box-shadow: 0 14px 30px -14px rgba(18,70,90,.8), inset 0 1px 0 rgba(255,255,255,.18); }
+  .btn--t:hover { background: var(--teal2); }
+  .btn--a { background: var(--amber); color: var(--ink); box-shadow: 0 14px 30px -14px rgba(224,164,58,.9); }
+  .btn--a:hover { background: #ecb552; }
   .btn--l { box-shadow: inset 0 0 0 2px var(--teal); color: var(--teal); }
   .btn--l:hover { background: var(--teal); color: #fff; }
-  [data-r] { opacity: 0; transform: translateY(30px); transition: opacity .8s var(--ease), transform .8s var(--ease); transition-delay: var(--d, 0s); }
-  [data-r].in { opacity: 1; transform: none; }
+  .vidro { background: rgba(251,247,240,.62); backdrop-filter: blur(18px) saturate(1.5); -webkit-backdrop-filter: blur(18px) saturate(1.5); box-shadow: inset 0 0 0 1px rgba(255,255,255,.75), inset 0 1px 0 #fff, 0 30px 60px -30px rgba(29,42,48,.45); }
+  .vidro-esc { background: rgba(14,52,67,.5); backdrop-filter: blur(18px) saturate(1.5); -webkit-backdrop-filter: blur(18px) saturate(1.5); box-shadow: inset 0 0 0 1px rgba(255,255,255,.14), inset 0 1px 0 rgba(255,255,255,.18), 0 30px 60px -30px rgba(0,0,0,.6); color: #fff; }
+  [data-r] { opacity: 0; transform: translateY(30px); filter: blur(6px); transition: opacity .9s var(--ease), transform .9s var(--ease), filter .9s var(--ease); transition-delay: var(--d, 0s); }
+  [data-r].in { opacity: 1; transform: none; filter: none; }
+  .grao { position: fixed; inset: -50%; z-index: 300; pointer-events: none; opacity: .06; mix-blend-mode: multiply; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
 
-  .top { background: var(--teal); color: #d6e6ec; font-size: 15px; }
-  .top__in { display: flex; justify-content: space-between; gap: 20px; padding: 9px 0; flex-wrap: wrap; }
-  .top b { color: #fff; }
-  .nav { position: sticky; top: 0; z-index: 50; background: rgba(246,239,228,.94); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
-  .nav__in { height: 80px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
-  .logo { display: flex; align-items: center; gap: 12px; }
-  .logo i { width: 46px; height: 46px; border-radius: 50%; background: var(--teal); color: var(--amber); display: grid; place-items: center; font-family: var(--serif); font-style: normal; font-size: 22px; font-weight: 700; }
-  .logo b { font-family: var(--serif); font-size: 20px; display: block; line-height: 1.1; }
-  .logo small { font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
-  .nav__links { display: flex; gap: 28px; font-weight: 600; }
-  .nav__links a:hover { color: var(--teal2); }
-  .burger { display: none; width: 48px; height: 48px; border-radius: 10px; background: var(--teal); place-items: center; }
-  .burger span { width: 20px; height: 2px; background: #fff; box-shadow: 0 6px 0 #fff, 0 -6px 0 #fff; }
+  /* CURSOR */
+  .cur { position: fixed; left: 0; top: 0; z-index: 500; pointer-events: none; width: 32px; height: 32px; margin: -16px 0 0 -16px; border-radius: 50%; border: 1.5px solid var(--teal); display: grid; place-items: center; opacity: 0; transition: width .4s var(--spring), height .4s var(--spring), margin .4s var(--spring), background .3s, opacity .3s, border-color .3s; }
+  .cur.on { opacity: 1; }
+  .cur i { width: 5px; height: 5px; border-radius: 50%; background: var(--teal); }
+  .cur span { position: absolute; font-weight: 700; font-size: 13px; color: #fff; opacity: 0; white-space: nowrap; }
+  .cur.lbl { width: 96px; height: 96px; margin: -48px 0 0 -48px; background: var(--teal); border-color: transparent; }
+  .cur.lbl i { opacity: 0; } .cur.lbl span { opacity: 1; }
+  .cur.link { width: 56px; height: 56px; margin: -28px 0 0 -28px; background: rgba(29,106,133,.12); }
+  .cur.some { opacity: 0 !important; }
+  @media (hover: none), (pointer: coarse) { .cur { display: none; } }
+
+  /* NAV */
+  .nav { position: fixed; top: 14px; left: 50%; z-index: 200; transform: translateX(-50%); width: min(1180px, 100% - 28px); border-radius: 22px; transition: transform .5s var(--ease); }
+  .nav.esc { transform: translate(-50%, -140%); }
+  .nav__in { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 10px 10px 10px 14px; }
+  .logo { display: flex; align-items: center; gap: 11px; }
+  .logo i { width: 42px; height: 42px; border-radius: 12px; background: var(--teal); color: #fff; display: grid; place-items: center; font-family: var(--serif); font-style: italic; font-size: 22px; font-weight: 600; }
+  .logo b { display: block; font-family: var(--serif); font-size: 18px; line-height: 1.1; }
+  .logo small { display: block; font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
+  .nav__links { position: relative; display: flex; gap: 2px; }
+  .nav__links a { position: relative; z-index: 1; padding: 9px 14px; border-radius: 999px; font-size: 16px; font-weight: 600; color: var(--muted); transition: color .25s; }
+  .nav__links a:hover { color: var(--ink); }
+  .nav__pill { position: absolute; z-index: 0; top: 0; height: 100%; border-radius: 999px; background: rgba(18,70,90,.08); opacity: 0; transition: left .45s var(--ease), width .45s var(--ease), opacity .3s; }
+  .nav__links:hover .nav__pill { opacity: 1; }
+  .nav__cta { padding: 12px 20px; font-size: 15px; }
+  .burger { display: none; width: 46px; height: 46px; border-radius: 14px; background: rgba(18,70,90,.08); }
+  .burger span, .burger span::before { display: block; width: 20px; height: 2px; background: var(--ink); margin: auto; position: relative; transition: transform .3s; }
+  .burger span::before { content: ""; position: absolute; top: 7px; }
+  .burger span { transform: translateY(-3px); }
+  .nav.open .burger span { transform: rotate(45deg); } .nav.open .burger span::before { transform: translate(0, -7px) rotate(-90deg); }
 
   /* HERO */
-  .hero { padding: 70px 0 90px; }
-  .hero__grid { display: grid; grid-template-columns: 1.05fr .95fr; gap: 56px; align-items: center; }
-  .hero h1 { font-size: clamp(40px, 5.2vw, 70px); margin: 16px 0 22px; }
-  .hero h1 .w { display: inline-block; opacity: 0; transform: translateY(20px); animation: up .9s var(--ease) forwards; }
-  @keyframes up { to { opacity: 1; transform: none; } }
-  .hero p { font-size: 20px; color: var(--muted); max-width: 520px; }
-  .hero__ctas { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 32px; }
-  .checks { list-style: none; display: grid; gap: 10px; margin-top: 32px; }
-  .checks li { display: flex; gap: 12px; font-weight: 600; }
-  .checks li::before { content: "✓"; width: 26px; height: 26px; border-radius: 50%; background: #d8ecdf; color: var(--green); display: grid; place-items: center; font-size: 14px; font-weight: 800; flex: none; }
-  .photo { position: relative; }
-  .photo__img { aspect-ratio: 4/4.4; border-radius: 26px; overflow: hidden; }
-  .photo__img img { width: 100%; height: 100%; object-fit: cover; animation: zoom 1.6s var(--ease) both; }
-  @keyframes zoom { from { opacity: 0; transform: scale(1.08); } }
-  .badge { position: absolute; left: -36px; bottom: 34px; background: var(--white); border-radius: 20px; padding: 18px 22px; box-shadow: 0 24px 50px -26px rgba(29,42,48,.5); display: flex; gap: 14px; align-items: center; animation: float 6s ease-in-out infinite; }
-  .badge b { font-family: var(--serif); font-size: 30px; color: var(--teal); line-height: 1; }
-  .badge small { color: var(--muted); font-size: 14px; line-height: 1.3; display: block; }
-  @keyframes float { 50% { transform: translateY(-10px); } }
+  .hero { position: relative; padding: 150px 0 90px; overflow: hidden; }
+  .hero::before { content: ""; position: absolute; width: 900px; height: 900px; right: -260px; top: -300px; border-radius: 50%; background: radial-gradient(circle, rgba(224,164,58,.22), transparent 65%); }
+  .hero__grid { position: relative; display: grid; grid-template-columns: 1.05fr .95fr; gap: 60px; align-items: center; }
+  .hero h1 { font-size: clamp(44px, 5.8vw, 84px); margin: 22px 0 22px; letter-spacing: -.035em; }
+  .l { display: inline-block; overflow: hidden; vertical-align: top; padding-bottom: .08em; }
+  .l > span { display: inline-block; transform: translateY(110%); animation: sobe 1.1s var(--ease) forwards; animation-delay: var(--d, 0s); }
+  @keyframes sobe { to { transform: none; } }
+  .hero p.lead { font-size: 21px; color: var(--muted); max-width: 540px; }
+  .ctas { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 32px; }
+  .checks { list-style: none; display: flex; flex-wrap: wrap; gap: 10px 22px; margin-top: 30px; font-weight: 600; font-size: 16px; }
+  .checks li { display: flex; align-items: center; gap: 8px; }
+  .checks li::before { content: "✓"; width: 22px; height: 22px; border-radius: 50%; background: #dcefe4; color: var(--green); display: grid; place-items: center; font-size: 13px; font-weight: 700; }
+  .foto { position: relative; height: min(76vh, 680px); }
+  .foto__img { position: absolute; inset: 0; border-radius: 320px 320px 34px 34px; overflow: hidden; box-shadow: 0 60px 90px -50px rgba(18,70,90,.6); }
+  .foto__img img { width: 112%; height: 112%; max-width: none; margin: -6% 0 0 -6%; object-fit: cover; will-change: transform; }
+  .foto__img::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to top, rgba(18,70,90,.35), transparent 40%); }
+  .flut { position: absolute; border-radius: 22px; padding: 18px 20px; will-change: transform; }
+  .conc { left: -60px; bottom: 70px; width: 290px; }
+  .conc small { display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--green); }
+  .conc small::before { content: "✓"; width: 22px; height: 22px; border-radius: 50%; background: var(--green); color: #fff; display: grid; place-items: center; font-size: 12px; letter-spacing: 0; }
+  .conc b { display: block; font-family: var(--serif); font-size: 32px; margin: 6px 0 2px; font-variant-numeric: tabular-nums; }
+  .conc span { font-size: 15px; color: var(--muted); }
+  .aval { right: -24px; top: 90px; display: flex; gap: 12px; align-items: center; }
+  .aval b { font-family: var(--serif); font-size: 30px; color: var(--teal); }
+  .aval small { font-size: 14px; line-height: 1.3; color: var(--muted); }
+  .aval .st { color: var(--amber); letter-spacing: 2px; font-size: 14px; }
 
-  /* NÚMEROS */
-  .nums { background: var(--teal); color: #fff; }
-  .nums__grid { display: grid; grid-template-columns: repeat(4, 1fr); }
-  .n { padding: 40px 24px; border-left: 1px solid rgba(255,255,255,.12); }
-  .n:first-child { border-left: 0; }
-  .n b { display: block; font-family: var(--serif); font-size: clamp(34px, 3.6vw, 48px); color: var(--amber); line-height: 1.05; }
-  .n span { color: #c8dbe2; font-size: 15px; }
+  .nums { padding: 10px 0 40px; }
+  .nums__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+  .n { border-radius: 24px; padding: 26px; }
+  .n b { display: block; font-family: var(--serif); font-size: clamp(32px, 3.4vw, 46px); color: var(--teal); line-height: 1; font-variant-numeric: tabular-nums; }
+  .n span { color: var(--muted); font-weight: 600; font-size: 16px; }
+
+  /* CARTEIRA (sticky) */
+  .cart { position: relative; height: 640vh; background: linear-gradient(var(--bg), #ece2d0 20%, #ece2d0 80%, var(--bg)); }
+  .cst { position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden; display: grid; grid-template-columns: .8fr 1.2fr; gap: 40px; align-items: center; width: min(1220px, 100% - 40px); margin: 0 auto; padding-top: 60px; }
+  .cinfo .h2 { font-size: clamp(32px, 3.6vw, 50px); margin: 14px 0 16px; }
+  .cinfo > p { color: var(--muted); }
+  .conta { margin-top: 26px; border-radius: 24px; padding: 22px 24px; }
+  .conta small { font-weight: 700; font-size: 13px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+  .conta b { display: block; font-family: var(--serif); font-size: clamp(34px, 3.4vw, 48px); color: var(--teal); line-height: 1.1; margin: 4px 0 10px; font-variant-numeric: tabular-nums; }
+  .trilho { position: relative; height: 10px; border-radius: 10px; background: rgba(18,70,90,.1); overflow: hidden; }
+  .trilho i { position: absolute; inset: 0 auto 0 0; width: 0; background: var(--teal2); border-radius: 10px; }
+  .trilho em { position: absolute; inset: 0 auto 0 0; width: 0; background: repeating-linear-gradient(45deg, var(--amber) 0 6px, #f0c46f 6px 12px); }
+  .trilho s { position: absolute; top: -4px; bottom: -4px; width: 2px; background: var(--red); left: 87.5%; }
+  .leg { display: flex; justify-content: space-between; gap: 10px; margin-top: 10px; font-size: 14px; color: var(--muted); }
+  .leg span:last-child { color: var(--red); font-weight: 700; }
+  .nota { margin-top: 16px; padding: 14px 16px; border-radius: 16px; background: #fff7e6; box-shadow: inset 0 0 0 1px #f1d9a6; font-size: 16px; display: flex; gap: 12px; align-items: flex-start; opacity: 0; transform: translateY(10px); transition: opacity .5s, transform .5s var(--ease); }
+  .nota.on { opacity: 1; transform: none; }
+  .nota i { font-style: normal; font-size: 20px; }
+  .palco { position: relative; display: grid; place-items: center; height: 100%; perspective: 2200px; }
+  .mesa { position: absolute; inset: 8% -10% 6% 0; background: url("https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=1400&q=70&auto=format&fit=crop") center/cover; border-radius: 40px; opacity: .18; filter: blur(2px) saturate(.6); -webkit-mask: radial-gradient(closest-side, #000 50%, transparent); mask: radial-gradient(closest-side, #000 50%, transparent); }
+  .livro { --pw: clamp(300px, 26vw, 370px); --ph: calc(var(--pw) * 1.39); position: relative; width: calc(var(--pw) * 2); height: var(--ph); transform: rotateX(14deg) rotateZ(-2deg); transform-style: preserve-3d; filter: drop-shadow(0 40px 40px rgba(29,42,48,.35)); }
+  .capa-esq { position: absolute; left: 0; top: 0; width: var(--pw); height: var(--ph); border-radius: 10px 4px 4px 10px; background: #1f3561; box-shadow: inset 0 0 0 6px #1a2d54; transform: translateZ(-2px); }
+  .pg { position: absolute; top: 4px; left: var(--pw); width: calc(var(--pw) - 8px); height: calc(var(--ph) - 8px); transform-origin: 0 50%; transform-style: preserve-3d; }
+  .pg.base { left: 6px; transform: none; }
+  .face { position: absolute; inset: 0; backface-visibility: hidden; -webkit-backface-visibility: hidden; border-radius: 3px 8px 8px 3px; padding: 24px 24px 20px 28px; overflow: hidden; background: #f7f1e3; background-image: linear-gradient(90deg, rgba(0,0,0,.08), transparent 8%), repeating-linear-gradient(transparent 0 27px, rgba(29,106,133,.13) 27px 28px), radial-gradient(120% 80% at 80% 10%, #fbf7ec, #efe6d0); font-family: var(--type); font-size: 13px; color: #2b2d3a; }
+  .face.bk { transform: rotateY(180deg); border-radius: 8px 3px 3px 8px; background-image: linear-gradient(270deg, rgba(0,0,0,.08), transparent 8%), repeating-linear-gradient(transparent 0 27px, rgba(29,106,133,.13) 27px 28px), radial-gradient(120% 80% at 20% 10%, #fbf7ec, #efe6d0); }
+  .face h5 { font-family: var(--sans); font-size: 11px; font-weight: 700; letter-spacing: .14em; color: #6c6a5d; text-align: center; margin-bottom: 14px; }
+  .face .cmp { display: grid; grid-template-columns: 84px 1fr; gap: 0 6px; line-height: 28px; }
+  .face .cmp span { font-family: var(--sans); font-size: 10px; text-transform: uppercase; letter-spacing: .08em; color: #8a8676; }
+  .face .cmp b { font-weight: 400; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+  .face .ass { position: absolute; left: 28px; right: 24px; bottom: 26px; display: flex; justify-content: space-between; align-items: flex-end; }
+  .face .ass div { font-family: var(--hand); font-size: 26px; color: #1d3a7a; line-height: 1; border-bottom: 1px solid #8a8676; padding: 0 6px 2px; transform: rotate(-3deg); }
+  .face .ass small { font-family: var(--sans); font-size: 9px; color: #8a8676; display: block; transform: rotate(3deg); }
+  .face .num { position: absolute; bottom: 8px; right: 14px; font-family: var(--sans); font-size: 10px; color: #8a8676; }
+  .face.bk .num { right: auto; left: 14px; }
+  .selo { position: absolute; right: 18px; top: 64px; width: 96px; height: 96px; border-radius: 50%; border: 3px double rgba(92,53,140,.75); color: rgba(92,53,140,.8); display: grid; place-content: center; text-align: center; font-family: var(--sans); font-size: 9px; font-weight: 700; letter-spacing: .06em; transform: rotate(-14deg); mix-blend-mode: multiply; opacity: .85; }
+  .selo b { font-size: 12px; }
+  .marca-txt { position: relative; }
+  .marca-txt::before { content: ""; position: absolute; left: -4px; right: -4px; top: 5px; bottom: 5px; background: rgba(255,214,0,.55); transform-origin: left; transform: scaleX(var(--mk, 0)); z-index: -1; border-radius: 2px; }
+  .post { position: absolute; right: -36px; top: 150px; width: 140px; padding: 14px 12px 18px; background: linear-gradient(#fff38a, #ffe55c); font-family: var(--hand); font-size: 21px; line-height: 1.05; color: #23408e; transform: rotate(6deg) translateZ(4px); box-shadow: 0 14px 18px -10px rgba(0,0,0,.4); opacity: 0; transition: opacity .4s, transform .6s var(--spring); }
+  .post.on { opacity: 1; transform: rotate(6deg) translateZ(4px) scale(1); }
+  .carimbo { position: absolute; left: 50%; top: 52%; width: 240px; margin-left: -120px; padding: 12px; text-align: center; border: 4px solid rgba(46,139,87,.85); color: rgba(46,139,87,.9); font-family: var(--sans); font-weight: 800; letter-spacing: .08em; border-radius: 10px; transform: rotate(-12deg) scale(2.4); opacity: 0; mix-blend-mode: multiply; transition: transform .45s cubic-bezier(.5,0,.4,1.4), opacity .2s; }
+  .carimbo b { display: block; font-size: 22px; line-height: 1.1; }
+  .carimbo small { font-size: 11px; }
+  .carimbo.on { opacity: 1; transform: rotate(-12deg) scale(1); }
+  .passos { position: absolute; left: 50%; bottom: 22px; transform: translateX(-50%); display: flex; gap: 8px; }
+  .passos i { width: 30px; height: 4px; border-radius: 4px; background: rgba(18,70,90,.15); overflow: hidden; position: relative; }
+  .passos i b { position: absolute; inset: 0; background: var(--teal2); transform-origin: left; transform: scaleX(0); }
 
   /* SIMULADOR */
-  .sim { padding: 110px 0; }
-  .sim__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; align-items: start; }
-  .card { background: var(--white); border-radius: 24px; padding: 36px; box-shadow: 0 1px 0 var(--line); }
+  .sim { padding: 130px 0; position: relative; }
+  .head { display: flex; justify-content: space-between; align-items: flex-end; gap: 40px; margin-bottom: 50px; }
+  .head p { color: var(--muted); max-width: 440px; }
+  .sim__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 26px; align-items: start; }
+  .card { border-radius: 30px; padding: 34px; }
   .field { margin-bottom: 26px; }
-  .field > label { display: flex; justify-content: space-between; font-weight: 700; margin-bottom: 10px; }
-  .field output { font-family: var(--serif); font-size: 22px; color: var(--teal); }
-  .seg { display: flex; gap: 8px; }
-  .seg button { flex: 1; padding: 14px; border-radius: 12px; border: 2px solid var(--line); font-weight: 700; transition: all .2s; }
-  .seg button.on { border-color: var(--teal); background: #e3eff3; color: var(--teal); }
-  input[type=range] { width: 100%; -webkit-appearance: none; appearance: none; height: 8px; border-radius: 8px; background: linear-gradient(90deg, var(--teal2) var(--p, 40%), var(--line) var(--p, 40%)); outline: none; }
-  input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 28px; height: 28px; border-radius: 50%; background: var(--white); border: 4px solid var(--teal); cursor: grab; box-shadow: 0 3px 10px rgba(0,0,0,.15); }
-  input[type=range]::-moz-range-thumb { width: 20px; height: 20px; border-radius: 50%; background: var(--white); border: 4px solid var(--teal); cursor: grab; }
-  .money { display: flex; align-items: center; border: 2px solid var(--line); border-radius: 12px; overflow: hidden; }
+  .field > label { display: flex; justify-content: space-between; font-weight: 700; margin-bottom: 12px; }
+  .field output { font-family: var(--serif); font-size: 24px; color: var(--teal); font-variant-numeric: tabular-nums; }
+  .seg { position: relative; display: flex; padding: 5px; border-radius: 16px; background: rgba(18,70,90,.07); }
+  .seg button { position: relative; z-index: 1; flex: 1; padding: 13px; border-radius: 12px; font-weight: 700; transition: color .3s; color: var(--muted); }
+  .seg button.on { color: var(--teal); }
+  .seg .sp { position: absolute; top: 5px; bottom: 5px; width: calc(50% - 5px); left: 5px; border-radius: 12px; background: #fff; box-shadow: 0 6px 14px -6px rgba(18,70,90,.4); transition: transform .5s var(--spring); }
+  .seg.m .sp { transform: translateX(100%); }
+  input[type=range] { width: 100%; -webkit-appearance: none; appearance: none; height: 10px; border-radius: 10px; background: linear-gradient(90deg, var(--teal2) var(--p, 40%), rgba(18,70,90,.12) var(--p, 40%)); outline: none; cursor: pointer; }
+  input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 30px; height: 30px; border-radius: 50%; background: var(--white); border: 5px solid var(--teal); box-shadow: 0 4px 12px rgba(0,0,0,.2); transition: transform .25s var(--spring); }
+  input[type=range]:active::-webkit-slider-thumb { transform: scale(1.15); }
+  input[type=range]::-moz-range-thumb { width: 22px; height: 22px; border-radius: 50%; background: var(--white); border: 5px solid var(--teal); }
+  .money { display: flex; align-items: center; border-radius: 14px; background: #fff; box-shadow: inset 0 0 0 2px var(--line); overflow: hidden; transition: box-shadow .3s; }
+  .money:focus-within { box-shadow: inset 0 0 0 2px var(--teal2); }
   .money span { padding: 0 14px; font-weight: 700; color: var(--muted); }
-  .money input { flex: 1; min-width: 0; border: 0; outline: none; padding: 14px 14px 14px 0; font-weight: 700; font-size: 18px; }
+  .money input { flex: 1; min-width: 0; border: 0; outline: none; padding: 15px 14px 15px 0; font-weight: 700; font-size: 19px; background: transparent; }
   .rules { display: grid; gap: 12px; }
-  .rule { border-radius: 18px; padding: 20px 22px; border: 2px solid var(--line); transition: border-color .3s, background .3s; }
-  .rule.ok { border-color: var(--green); background: #f0f8f3; }
-  .rule h4 { font-family: var(--serif); font-size: 19px; display: flex; justify-content: space-between; gap: 10px; align-items: baseline; }
-  .rule h4 span { font-family: var(--sans); font-size: 13px; font-weight: 700; padding: 4px 10px; border-radius: 999px; white-space: nowrap; }
+  .rule { border-radius: 22px; padding: 20px 22px; transition: box-shadow .4s, background .4s; }
+  .rule.ok { background: rgba(232,246,237,.8); box-shadow: inset 0 0 0 2px var(--green); }
+  .rule h4 { font-size: 20px; display: flex; justify-content: space-between; gap: 10px; align-items: baseline; }
+  .rule h4 span { font-family: var(--sans); font-size: 13px; font-weight: 700; padding: 4px 11px; border-radius: 999px; white-space: nowrap; }
   .rule.ok h4 span { background: var(--green); color: #fff; }
   .rule:not(.ok) h4 span { background: #fbeee3; color: var(--red); }
   .rule p { font-size: 15px; color: var(--muted); margin-top: 4px; }
-  .prog { height: 8px; border-radius: 8px; background: var(--bg); margin-top: 12px; overflow: hidden; }
-  .prog i { display: block; height: 100%; border-radius: 8px; background: var(--amber); transition: width .6s var(--ease); }
+  .prog { height: 8px; border-radius: 8px; background: rgba(18,70,90,.08); margin-top: 12px; overflow: hidden; }
+  .prog i { display: block; height: 100%; border-radius: 8px; background: var(--amber); transition: width .7s var(--ease); }
   .rule.ok .prog i { background: var(--green); }
-  .value { margin-top: 22px; padding: 24px; border-radius: 18px; background: var(--teal); color: #fff; }
-  .value small { color: #c8dbe2; }
-  .value b { display: block; font-family: var(--serif); font-size: 42px; line-height: 1.1; margin: 4px 0; }
-  .disc { font-size: 13px; color: var(--muted); margin-top: 14px; }
+  .value { margin-top: 14px; padding: 26px; border-radius: 26px; background: linear-gradient(150deg, var(--teal2), var(--teal) 60%); color: #fff; position: relative; overflow: hidden; }
+  .value::after { content: ""; position: absolute; right: -60px; top: -60px; width: 220px; height: 220px; border-radius: 50%; background: radial-gradient(circle, rgba(224,164,58,.45), transparent 70%); }
+  .value small { color: #c8dbe2; font-size: 15px; }
+  .value b { display: block; font-family: var(--serif); font-size: 46px; line-height: 1.1; margin: 4px 0; font-variant-numeric: tabular-nums; }
+  .ano { display: flex; align-items: center; gap: 12px; margin-top: 16px; padding-top: 16px; border-top: 1px solid rgba(255,255,255,.15); position: relative; z-index: 1; }
+  .ano .cal { width: 58px; flex: none; border-radius: 10px; overflow: hidden; background: #fff; color: var(--ink); text-align: center; box-shadow: 0 8px 16px -8px rgba(0,0,0,.5); }
+  .ano .cal small { display: block; background: var(--red); color: #fff; font-size: 10px; font-weight: 700; letter-spacing: .1em; padding: 2px 0; }
+  .ano .cal b { font-size: 19px; margin: 3px 0; }
+  .disc { font-size: 14px; color: var(--muted); margin-top: 14px; }
 
-  /* SERVIÇOS */
-  .svc { padding: 0 0 110px; }
-  .head { display: flex; justify-content: space-between; align-items: end; gap: 30px; flex-wrap: wrap; margin-bottom: 44px; }
-  .head p { max-width: 420px; color: var(--muted); }
+  /* CNIS com lupa */
+  .cnis { padding: 130px 0; background: var(--teal); color: #fff; position: relative; overflow: hidden; border-radius: 50px 50px 0 0; }
+  .cnis::before { content: ""; position: absolute; width: 900px; height: 900px; left: -300px; bottom: -400px; border-radius: 50%; background: radial-gradient(circle, rgba(224,164,58,.25), transparent 65%); }
+  .cnis .kick { color: var(--amber); }
+  .cnis .h2 em { color: #f3c776; }
+  .cnis__grid { position: relative; display: grid; grid-template-columns: .75fr 1.25fr; gap: 60px; align-items: center; }
+  .cnis p { color: #c8dbe2; }
+  .achados { display: grid; gap: 10px; margin-top: 28px; }
+  .ach { display: flex; gap: 12px; align-items: center; padding: 14px 16px; border-radius: 16px; font-size: 16px; transition: background .4s, opacity .4s; opacity: .55; }
+  .ach i { width: 30px; height: 30px; flex: none; border-radius: 50%; display: grid; place-items: center; font-style: normal; font-weight: 700; background: rgba(255,255,255,.1); transition: background .4s, transform .5s var(--spring); }
+  .ach.on { opacity: 1; background: rgba(255,255,255,.1); }
+  .ach.on i { background: var(--amber); color: var(--ink); transform: rotate(360deg); }
+  .placar { margin-top: 18px; font-weight: 700; color: #f3c776; }
+  .doc { position: relative; border-radius: 6px; background: #fdfcf8; color: #222; padding: 26px 26px 30px; font-size: 12.5px; box-shadow: 0 50px 80px -40px rgba(0,0,0,.7), 0 2px 0 #e9e3d2, 0 4px 0 #f6f2e8; transform: rotate(1.2deg); cursor: none; user-select: none; touch-action: manipulation; }
+  .doc .dh { display: flex; justify-content: space-between; gap: 16px; border-bottom: 2px solid #333; padding-bottom: 10px; margin-bottom: 12px; }
+  .doc .dh b { font-size: 15px; letter-spacing: .02em; } .doc .dh small { color: #666; display: block; }
+  .doc table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+  .doc th { text-align: left; font-size: 10.5px; text-transform: uppercase; letter-spacing: .06em; color: #666; padding: 6px 6px; border-bottom: 1px solid #ccc; }
+  .doc td { padding: 9px 6px; border-bottom: 1px solid #eee; vertical-align: top; }
+  .doc tr { position: relative; }
+  .doc .ind { font-family: ui-monospace, monospace; font-size: 11px; color: #555; }
+  .doc .pend { color: #b3261e; font-weight: 700; font-family: var(--hand); font-size: 20px; line-height: 1; display: block; margin-top: 2px; opacity: 0; transition: opacity .4s; }
+  .doc tr.achou td { background: rgba(255,214,0,.25); }
+  .doc tr.achou .pend { opacity: 1; }
+  .lente .pend { opacity: 1; }
+  .lente tr[data-i] td { background: rgba(255,214,0,.2); }
+  .doc .rod { margin-top: 14px; font-size: 11px; color: #777; display: flex; justify-content: space-between; }
+  .lente { position: absolute; z-index: 5; width: 210px; height: 210px; margin: -105px 0 0 -105px; border-radius: 50%; overflow: hidden; pointer-events: none; opacity: 0; transform: scale(.6); transition: opacity .25s, transform .35s var(--spring); box-shadow: 0 0 0 8px #2b2f36, 0 0 0 10px #555b66, 0 30px 40px -10px rgba(0,0,0,.6), inset 0 0 30px rgba(0,0,0,.25); background: #fdfcf8; }
+  .lente.on { opacity: 1; transform: scale(1); }
+  .lente::after { content: ""; position: absolute; inset: 0; border-radius: 50%; background: radial-gradient(circle at 30% 25%, rgba(255,255,255,.55), transparent 35%); pointer-events: none; }
+  .lente .doc { position: absolute; left: 0; top: 0; margin: 0; transform-origin: 0 0; box-shadow: none; }
+  .dica { margin-top: 18px; font-size: 15px; color: #c8dbe2; display: flex; gap: 10px; align-items: center; }
+  .dica b { color: #fff; }
+
+  /* BENEFÍCIOS */
+  .svc { padding: 130px 0; }
   .sgrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
-  .s { background: var(--white); border-radius: 22px; padding: 30px; box-shadow: 0 1px 0 var(--line); transition: transform .35s var(--ease), box-shadow .35s; }
-  .s:hover { transform: translateY(-5px); box-shadow: 0 24px 40px -28px rgba(29,42,48,.45); }
-  .s i { width: 54px; height: 54px; border-radius: 16px; background: #e3eff3; color: var(--teal); display: grid; place-items: center; font-style: normal; margin-bottom: 18px; }
-  .s i svg { width: 28px; height: 28px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
-  .s h3 { font-size: 21px; }
-  .s p { color: var(--muted); font-size: 16px; margin: 8px 0 14px; }
-  .s details summary { cursor: pointer; font-weight: 700; color: var(--teal2); font-size: 15px; list-style: none; }
-  .s details summary::-webkit-details-marker { display: none; }
-  .s details summary::after { content: " +"; }
-  .s details[open] summary::after { content: " −"; }
-  .s details ul { margin: 10px 0 0 18px; font-size: 15px; color: var(--muted); display: grid; gap: 4px; }
+  .s { position: relative; border-radius: 28px; padding: 30px; overflow: hidden; transition: transform .5s var(--ease); }
+  .s::before { content: ""; position: absolute; inset: 0; background: radial-gradient(240px circle at var(--mx, 50%) var(--my, 0%), rgba(224,164,58,.22), transparent 70%); opacity: 0; transition: opacity .4s; pointer-events: none; }
+  .s:hover::before { opacity: 1; }
+  .s > i { width: 54px; height: 54px; border-radius: 16px; background: var(--teal); display: grid; place-items: center; margin-bottom: 20px; transition: transform .5s var(--spring); }
+  .s:hover > i { transform: rotate(-8deg) scale(1.08); }
+  .s svg { width: 26px; height: 26px; fill: none; stroke: #fff; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+  .s h3 { font-size: 24px; }
+  .s p { color: var(--muted); margin-top: 8px; font-size: 17px; }
+  .s details { margin-top: 16px; border-top: 1px solid rgba(29,42,48,.1); padding-top: 12px; }
+  .s summary { cursor: pointer; font-weight: 700; color: var(--teal2); list-style: none; display: flex; justify-content: space-between; }
+  .s summary::-webkit-details-marker { display: none; }
+  .s summary::after { content: "+"; font-size: 22px; line-height: 1; transition: transform .3s; }
+  .s details[open] summary::after { transform: rotate(45deg); }
+  .s ul { list-style: none; margin-top: 10px; display: grid; gap: 6px; font-size: 16px; }
+  .s li::before { content: "📄 "; }
 
-  /* PASSOS + EQUIPE */
-  .how { padding: 100px 0; background: var(--paper); border-block: 1px solid var(--line); }
-  .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; counter-reset: s; }
-  .step { counter-increment: s; position: relative; padding-top: 70px; }
-  .step::before { content: counter(s); position: absolute; top: 0; left: 0; width: 52px; height: 52px; border-radius: 50%; background: var(--amber); color: var(--ink); font-family: var(--serif); font-weight: 700; font-size: 22px; display: grid; place-items: center; }
-  .step::after { content: ""; position: absolute; top: 26px; left: 64px; right: -12px; height: 2px; background: repeating-linear-gradient(90deg, var(--line) 0 8px, transparent 8px 14px); }
-  .step:last-child::after { display: none; }
-  .step h3 { font-size: 20px; margin-bottom: 6px; }
-  .step p { color: var(--muted); font-size: 16px; }
-  .team { padding: 110px 0; }
-  .team__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center; }
-  .lawyers { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
-  .lw { background: var(--white); border-radius: 22px; overflow: hidden; }
-  .lw img { width: 100%; aspect-ratio: 1; object-fit: cover; object-position: top; }
-  .lw div { padding: 16px 18px; }
-  .lw b { font-family: var(--serif); font-size: 18px; display: block; }
-  .lw small { color: var(--muted); }
-  .quote { font-family: var(--serif); font-style: italic; font-size: clamp(22px, 2.4vw, 30px); line-height: 1.35; margin: 18px 0; }
+  /* COMO FUNCIONA */
+  .how { padding: 40px 0 130px; }
+  .steps { position: relative; display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; padding-top: 50px; }
+  .steps .linha { position: absolute; top: 21px; left: 22px; right: 22px; height: 3px; background: rgba(18,70,90,.12); border-radius: 3px; }
+  .steps .linha i { position: absolute; inset: 0; background: linear-gradient(90deg, var(--teal2), var(--amber)); border-radius: 3px; transform-origin: left; transform: scaleX(var(--k, 0)); }
+  .step { position: relative; }
+  .step b { position: absolute; top: -50px; left: 0; width: 46px; height: 46px; border-radius: 50%; background: var(--paper); box-shadow: inset 0 0 0 3px rgba(18,70,90,.15); display: grid; place-items: center; font-family: var(--serif); font-size: 19px; color: var(--muted); transition: background .4s, color .4s, box-shadow .4s, transform .5s var(--spring); }
+  .step.on b { background: var(--teal); color: #fff; box-shadow: 0 0 0 6px rgba(29,106,133,.15); transform: scale(1.08); }
+  .step > div { margin-top: 16px; border-radius: 22px; padding: 22px; }
+  .step h3 { font-size: 22px; }
+  .step p { color: var(--muted); margin-top: 6px; font-size: 17px; }
 
-  /* DEPOIMENTOS + FAQ */
-  .tst { padding: 0 0 110px; }
-  .tgrid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
-  .t { display: grid; grid-template-columns: 150px 1fr; gap: 0; background: var(--white); border-radius: 22px; overflow: hidden; }
-  .t img { width: 100%; height: 100%; object-fit: cover; }
-  .t div { padding: 24px; }
-  .t p { font-family: var(--serif); font-size: 18px; line-height: 1.45; }
-  .t small { display: block; color: var(--muted); margin-top: 12px; }
-  .stars { color: var(--amber); }
-  .faq { padding: 0 0 110px; }
-  .faq__grid { display: grid; grid-template-columns: .8fr 1.2fr; gap: 50px; }
-  .faq details { background: var(--white); border-radius: 16px; padding: 4px 22px; margin-bottom: 10px; }
-  .faq summary { cursor: pointer; list-style: none; padding: 16px 0; font-weight: 700; display: flex; justify-content: space-between; gap: 16px; }
+  /* EQUIPE */
+  .team { padding: 0 0 130px; }
+  .team__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 70px; align-items: center; }
+  .quote { font-family: var(--serif); font-style: italic; font-size: clamp(22px, 2.2vw, 28px); line-height: 1.4; margin: 26px 0 16px; padding-left: 22px; border-left: 3px solid var(--amber); }
+  .lawyers { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; perspective: 1200px; }
+  .lw { position: relative; border-radius: 28px; overflow: hidden; aspect-ratio: 3/4; transition: transform .6s var(--ease); }
+  .lw img { width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s var(--ease); }
+  .lw:hover img { transform: scale(1.06); }
+  .lw > div { position: absolute; left: 12px; right: 12px; bottom: 12px; border-radius: 18px; padding: 14px 16px; }
+  .lw b { display: block; font-family: var(--serif); font-size: 18px; }
+  .lw small { color: #d8e6eb; font-size: 14px; }
+
+  /* DEPOIMENTOS */
+  .tst { padding: 0 0 130px; }
+  .tgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+  .t { position: relative; border-radius: 32px; overflow: hidden; min-height: 460px; display: flex; align-items: flex-end; padding: 18px; isolation: isolate; }
+  .t > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: -1; transition: transform 1.2s var(--ease); }
+  .t:hover > img { transform: scale(1.05); }
+  .t > div { border-radius: 24px; padding: 24px; }
+  .t .stars { color: var(--amber); letter-spacing: 3px; }
+  .t p { font-family: var(--serif); font-size: 21px; line-height: 1.4; margin: 8px 0 10px; }
+  .t small { color: #d8e6eb; font-size: 15px; font-weight: 600; }
+
+  /* FAQ */
+  .faq { padding: 0 0 130px; }
+  .faq__grid { display: grid; grid-template-columns: .8fr 1.2fr; gap: 60px; align-items: start; }
+  .faq__grid > div:first-child { position: sticky; top: 120px; }
+  .faq details { border-radius: 22px; margin-bottom: 10px; transition: box-shadow .3s; }
+  .faq details[open] { box-shadow: inset 0 0 0 2px var(--teal2), 0 24px 40px -30px rgba(18,70,90,.6); }
+  .faq summary { list-style: none; cursor: pointer; padding: 22px 24px; font-family: var(--serif); font-weight: 600; font-size: 20px; display: flex; justify-content: space-between; gap: 16px; align-items: center; }
   .faq summary::-webkit-details-marker { display: none; }
-  .faq summary::after { content: "+"; color: var(--teal2); font-size: 22px; line-height: 1; transition: transform .3s; }
-  .faq details[open] summary::after { transform: rotate(45deg); }
-  .faq details p { padding-bottom: 18px; color: var(--muted); }
+  .faq summary::after { content: "+"; flex: none; width: 34px; height: 34px; border-radius: 50%; background: rgba(18,70,90,.08); color: var(--teal); display: grid; place-items: center; font-family: var(--sans); font-size: 22px; transition: transform .4s var(--spring), background .3s, color .3s; }
+  .faq details[open] summary::after { transform: rotate(45deg); background: var(--teal); color: #fff; }
+  .faq details p { padding: 0 24px 22px; color: var(--muted); }
 
-  /* CONTATO */
-  .contact { background: var(--teal); color: #fff; padding: 90px 0; }
-  .contact__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center; }
+  /* CONTATO + RODAPÉ */
+  .contact { position: relative; padding: 130px 0 40px; color: #fff; overflow: hidden; border-radius: 50px 50px 0 0; isolation: isolate; }
+  .contact > img { position: absolute; left: 0; top: -10%; width: 100%; height: 120%; object-fit: cover; z-index: -2; }
+  .contact::after { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(110deg, rgba(10,44,57,.94) 30%, rgba(18,70,90,.7)); }
+  .contact__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+  .contact .kick { color: var(--amber); }
   .contact p { color: #c8dbe2; margin-top: 14px; }
-  .cform { background: var(--white); color: var(--ink); border-radius: 24px; padding: 32px; display: grid; gap: 14px; }
-  .cform input, .cform select, .cform textarea { width: 100%; padding: 14px 16px; border-radius: 12px; border: 2px solid var(--line); outline: none; background: var(--paper); resize: none; }
-  .cform input:focus, .cform select:focus, .cform textarea:focus { border-color: var(--teal2); }
-  .two { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-  footer { background: #0c3341; color: #9fbcc7; padding: 30px 0; font-size: 15px; }
-  .foot { display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
-  .wa { position: fixed; right: 22px; bottom: 22px; z-index: 60; width: 60px; height: 60px; border-radius: 50%; background: #25d366; color: #fff; display: grid; place-items: center; box-shadow: 0 12px 30px -8px rgba(37,211,102,.6); transition: transform .3s var(--ease); }
+  .cform { border-radius: 30px; padding: 30px; display: grid; gap: 12px; }
+  .cform input, .cform select, .cform textarea { width: 100%; padding: 16px 18px; border-radius: 14px; border: 0; background: rgba(255,255,255,.9); color: var(--ink); outline: none; box-shadow: inset 0 0 0 2px transparent; transition: box-shadow .3s; }
+  .cform input:focus, .cform select:focus, .cform textarea:focus { box-shadow: inset 0 0 0 2px var(--amber); }
+  .two { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .foot { display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; margin-top: 100px; padding-top: 24px; border-top: 1px solid rgba(255,255,255,.15); color: #a9c3cc; font-size: 15px; }
+  .marca { font-family: var(--serif); font-style: italic; font-weight: 600; font-size: clamp(76px, 19vw, 300px); line-height: .85; letter-spacing: -.04em; text-align: center; margin-top: 30px; color: transparent; -webkit-text-stroke: 1px rgba(243,199,118,.35); background: linear-gradient(90deg, #f3c776, var(--amber)) no-repeat; background-size: var(--fill, 0%) 100%; -webkit-background-clip: text; background-clip: text; user-select: none; }
+
+  .wa { position: fixed; right: 20px; bottom: 20px; z-index: 150; width: 60px; height: 60px; border-radius: 50%; background: #25d366; color: #fff; display: grid; place-items: center; box-shadow: 0 12px 30px -8px rgba(37,211,102,.7); transition: transform .3s var(--spring); }
   .wa:hover { transform: scale(1.08); }
 
   @media (max-width: 1000px) {
-    .nav__links, .nav__cta { display: none; }
-    .burger { display: grid; }
-    .nav.open .nav__links { display: flex; flex-direction: column; position: absolute; top: 80px; left: 0; right: 0; background: var(--bg); padding: 24px 20px; gap: 18px; border-bottom: 1px solid var(--line); }
-    .hero__grid, .sim__grid, .team__grid, .faq__grid, .contact__grid { grid-template-columns: 1fr; }
-    .photo { max-width: 480px; margin: 0 auto; width: 100%; }
-    .badge { left: -10px; }
-    .nums__grid { grid-template-columns: 1fr 1fr; }
-    .n:nth-child(3) { border-left: 0; }
+    .hero__grid, .sim__grid, .cnis__grid, .team__grid, .tgrid, .faq__grid, .contact__grid { grid-template-columns: 1fr; }
     .sgrid { grid-template-columns: 1fr 1fr; }
-    .steps { grid-template-columns: 1fr 1fr; }
-    .step::after { display: none; }
-    .tgrid { grid-template-columns: 1fr; }
+    .faq__grid > div:first-child { position: static; }
+    .head { flex-direction: column; align-items: flex-start; gap: 14px; }
+    .foto { height: 520px; }
   }
-  @media (max-width: 600px) {
-    .top__in span:last-child { display: none; }
-    .logo small { display: none; }
-    .sgrid, .steps, .two { grid-template-columns: 1fr; }
-    .card, .cform { padding: 24px 20px; }
-    .t { grid-template-columns: 1fr; }
-    .t img { height: 200px; }
+  @media (max-width: 900px) {
+    .nav__links { display: none; }
+    .nav.open .nav__links { display: grid; position: absolute; top: calc(100% + 8px); left: 0; right: 0; padding: 10px; border-radius: 20px; background: rgba(251,247,240,.96); box-shadow: 0 30px 50px -30px rgba(0,0,0,.4); }
+    .nav.open .nav__pill { display: none; }
+    .nav__cta { display: none; }
+    .burger { display: grid; place-items: center; }
+    .logo b { font-size: 16px; }
+    .hero { padding: 120px 0 60px; }
+    .hero h1 { font-size: clamp(38px, 10.5vw, 56px); }
+    .hero p.lead { font-size: 19px; }
+    .ctas .btn { width: 100%; }
+    .foto { height: 470px; }
+    .conc { left: 10px; bottom: 16px; width: 250px; padding: 14px 16px; } .conc b { font-size: 26px; }
+    .aval { right: 10px; top: 120px; padding: 12px 14px; }
+    .nums__grid { grid-template-columns: 1fr 1fr; gap: 10px; } .n { padding: 18px; }
+    .cart { height: 560vh; }
+    .cst { grid-template-columns: 1fr; grid-template-rows: auto 1fr; gap: 0; padding-top: 84px; align-content: start; }
+    .cinfo .h2, .cinfo > p, .cinfo .kick { display: none; }
+    .conta { margin-top: 0; padding: 14px 16px; } .conta b { font-size: 28px; margin-bottom: 8px; }
+    .nota { position: absolute; left: 0; right: 0; bottom: 18px; z-index: 5; font-size: 15px; margin-right: 66px; }
+    .leg { font-size: 12px; }
+    .palco { display: block; }
+    .livro { --pw: min(290px, 76vw); --ph: calc(var(--pw) * 1.39); position: absolute; left: 50%; top: 5%; margin-left: calc(var(--pw) * -1.5); transform: rotateX(8deg); }
+    .capa-esq, .pg.base { opacity: 0; }
+    .post { right: -6px; top: auto; bottom: -30px; width: 120px; font-size: 18px; }
+    .face { font-size: 11.5px; padding: 18px 16px 16px 20px; } .face .cmp { grid-template-columns: 70px 1fr; }
+    .selo { width: 78px; height: 78px; top: 54px; right: 10px; }
+    .passos { display: none; }
+    .card { padding: 24px; } .value b { font-size: 38px; }
+    .cnis { border-radius: 34px 34px 0 0; padding: 100px 0; }
+    .doc { padding: 18px 14px 20px; font-size: 11px; transform: none; cursor: pointer; }
+    .doc th:nth-child(1), .doc td:nth-child(1) { display: none; }
+    .sgrid { grid-template-columns: 1fr; }
+    .steps { grid-template-columns: 1fr; padding: 0 0 0 64px; gap: 14px; }
+    .steps .linha { left: 21px; right: auto; top: 0; bottom: 0; width: 3px; height: auto; }
+    .steps .linha i { transform-origin: top; transform: scaleY(var(--k, 0)); }
+    .step b { left: -64px; top: 16px; }
+    .step > div { margin-top: 0; }
+    .t { min-height: 420px; }
+    .contact { border-radius: 34px 34px 0 0; padding-top: 100px; }
+    .two { grid-template-columns: 1fr; }
+    .foot { flex-direction: column; }
   }
-  @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; animation-delay: 0s !important; transition-duration: .01ms !important; } [data-r] { opacity: 1; transform: none; } }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+    [data-r] { opacity: 1; transform: none; filter: none; }
+  }
 </style>
 </head>
 <body>
+<div class="grao" aria-hidden="true"></div>
+<div class="cur" aria-hidden="true"><i></i><span></span></div>
 
-<div class="top"><div class="wrap top__in"><span>📞 Plantão de dúvidas: <b>(31) 3000-0000</b></span><span>Atendimento online para todo o Brasil</span></div></div>
-<header class="nav" id="nav">
-  <div class="wrap nav__in">
+<header class="nav vidro" id="nav">
+  <div class="nav__in">
     <a href="#" class="logo"><i>M</i><span><b>Martins Advocacia</b><small>Previdenciária</small></span></a>
-    <nav class="nav__links"><a href="#simulador">Simulador</a><a href="#servicos">Benefícios</a><a href="#como">Como funciona</a><a href="#duvidas">Dúvidas</a><a href="#contato">Contato</a></nav>
-    <a href="#simulador" class="btn btn--t nav__cta" style="padding:12px 20px;font-size:15px">Simular aposentadoria</a>
-    <button class="burger" aria-label="Menu"><span></span></button>
+    <nav class="nav__links" id="links"><span class="nav__pill" id="pill"></span><a href="#historia">Sua história</a><a href="#simulador">Simulador</a><a href="#cnis">CNIS</a><a href="#servicos">Benefícios</a><a href="#duvidas">Dúvidas</a><a href="#contato">Contato</a></nav>
+    <a href="#simulador" class="btn btn--t nav__cta mag">Simular aposentadoria</a>
+    <button class="burger" aria-label="Menu" aria-expanded="false"><span></span></button>
   </div>
 </header>
 
-<section class="hero">
+<section class="hero" id="topo">
   <div class="wrap hero__grid">
     <div>
       <span class="kick">Direito previdenciário · desde 2008</span>
-      <h1><span class="w">Seu</span> <span class="w" style="animation-delay:.06s">direito</span> <span class="w" style="animation-delay:.12s">à</span> <span class="w" style="animation-delay:.18s">aposentadoria,</span> <span class="w" style="animation-delay:.24s"><em>sem</em></span> <span class="w" style="animation-delay:.3s"><em>complicação.</em></span></h1>
-      <p>Cuidamos de tudo junto ao INSS: do planejamento à concessão do benefício. Você só paga se ganhar.</p>
-      <div class="hero__ctas"><a href="#simulador" class="btn btn--t">Simular minha aposentadoria</a><a href="#contato" class="btn btn--l">Falar com advogada</a></div>
+      <h1><span class="l"><span style="--d:.05s">Seu direito à</span></span> <span class="l"><span style="--d:.15s">aposentadoria,</span></span> <span class="l"><span style="--d:.25s"><em>sem complicação.</em></span></span></h1>
+      <p class="lead">Cuidamos de tudo junto ao INSS: do planejamento à concessão do benefício. Você só paga se ganhar.</p>
+      <div class="ctas"><a href="#simulador" class="btn btn--t mag">Simular minha aposentadoria</a><a href="#contato" class="btn btn--l mag">Falar com advogada</a></div>
       <ul class="checks"><li>Primeira análise do seu caso gratuita</li><li>Honorários só no êxito</li><li>Atendimento por WhatsApp e vídeo</li></ul>
     </div>
-    <div class="photo">
-      <div class="photo__img"><img src="https://images.unsplash.com/photo-1758691031787-90867cb6fb2c?w=1100&q=80&auto=format&fit=crop" alt="Casal de idosos sorrindo no sofá" /></div>
-      <div class="badge"><b>4,9 ★</b><small>mais de 600<br />avaliações no Google</small></div>
+    <div class="foto" id="foto">
+      <div class="foto__img"><img id="fotoImg" src="https://images.unsplash.com/photo-1758691031787-90867cb6fb2c?w=1200&q=80&auto=format&fit=crop" alt="Casal de idosos sorrindo no sofá" /></div>
+      <div class="flut conc vidro" data-z="1.4"><small>Benefício concedido</small><b id="concV">R$ 0</b><span>por mês + 3 anos de atrasados · Seu Antônio, 62</span></div>
+      <div class="flut aval vidro" data-z="-1"><b>4,9</b><div><span class="st">★★★★★</span><small>mais de 600<br />avaliações no Google</small></div></div>
     </div>
   </div>
 </section>
 
 <section class="nums">
   <div class="wrap nums__grid">
-    <div class="n" data-r><b>+2.300</b><span>benefícios concedidos</span></div>
-    <div class="n" data-r style="--d:.08s"><b>R$ 48 mi</b><span>em atrasados recuperados</span></div>
-    <div class="n" data-r style="--d:.16s"><b>17 anos</b><span>só em direito previdenciário</span></div>
-    <div class="n" data-r style="--d:.24s"><b>27 estados</b><span>com clientes atendidos</span></div>
+    <div class="n vidro" data-r><b data-count="2300" data-pre="+">0</b><span>benefícios concedidos</span></div>
+    <div class="n vidro" data-r style="--d:.08s"><b data-count="48" data-pre="R$ " data-suf=" mi">0</b><span>em atrasados recuperados</span></div>
+    <div class="n vidro" data-r style="--d:.16s"><b data-count="17" data-suf=" anos">0</b><span>só em direito previdenciário</span></div>
+    <div class="n vidro" data-r style="--d:.24s"><b data-count="27" data-suf=" estados">0</b><span>com clientes atendidos</span></div>
+  </div>
+</section>
+
+<section class="cart" id="historia">
+  <div class="cst">
+    <div class="cinfo">
+      <span class="kick">Uma história real de trabalho</span>
+      <h2 class="h2">Cada página da carteira é <em>tempo seu</em>.</h2>
+      <p>Role e folheie a carteira do Seu Antônio. O INSS contava 30 anos. Nós encontramos o que faltava.</p>
+      <div class="conta vidro"><small>Tempo de contribuição reconhecido</small><b id="tempoC">0 anos</b>
+        <div class="trilho"><i id="trI"></i><em id="trE"></em><s title="Mínimo para a regra de pontos"></s></div>
+        <div class="leg"><span id="legA">Folheando…</span><span>35 anos: aposentadoria</span></div>
+      </div>
+      <div class="nota" id="nota"><i>🔍</i><div><b>Período rural não computado.</b> Com declaração do sindicato e testemunhas, comprovamos 4 anos e 8 meses que o INSS havia ignorado.</div></div>
+    </div>
+    <div class="palco">
+      <div class="mesa"></div>
+      <div class="livro" id="livro">
+        <div class="capa-esq"></div>
+        <div class="pg base"><div class="face"><h5>QUALIFICAÇÃO CIVIL</h5><div class="cmp"><span>Nome</span><b>Antônio Pereira da Silva</b><span>Nascimento</span><b>12/03/1964</b><span>Natural de</span><b>Itaobim / MG</b><span>Filiação</span><b>José e Maria da Silva</b><span>Estado civil</span><b>Casado</b><span>PIS/NIT</span><b>120.48xxx.xx-7</b></div><div class="ass"><div>Antônio P. Silva</div><small>assinatura do portador</small></div></div></div>
+        <div id="pags"></div>
+      </div>
+      <div class="passos" id="passos"></div>
+    </div>
   </div>
 </section>
 
 <section class="sim" id="simulador">
   <div class="wrap">
-    <div class="head"><div data-r><span class="kick">Simulador gratuito</span><h2 class="h2" style="margin-top:12px">Quando você pode <em>se aposentar?</em></h2></div><p data-r style="--d:.1s">Uma estimativa com as regras da Reforma da Previdência. Para um cálculo exato, analisamos seu CNIS sem custo.</p></div>
+    <div class="head"><div data-r><span class="kick">Simulador gratuito</span><h2 class="h2" style="margin-top:14px">Quando você pode <em>se aposentar?</em></h2></div><p data-r style="--d:.1s">Uma estimativa com as regras da Reforma da Previdência. Para um cálculo exato, analisamos seu CNIS sem custo.</p></div>
     <div class="sim__grid">
-      <div class="card" data-r>
-        <div class="field"><label>Sexo</label><div class="seg" id="sexo"><button class="on" data-v="f">Mulher</button><button data-v="m">Homem</button></div></div>
-        <div class="field"><label>Idade <output id="oI">58 anos</output></label><input type="range" id="idade" min="40" max="75" value="58" /></div>
-        <div class="field"><label>Tempo de contribuição <output id="oC">28 anos</output></label><input type="range" id="contrib" min="5" max="45" value="28" /></div>
-        <div class="field"><label for="sal">Média dos seus salários de contribuição</label><div class="money"><span>R$</span><input id="sal" inputmode="numeric" value="3.800" /></div></div>
+      <div class="card vidro" data-r>
+        <div class="field"><label>Sexo</label><div class="seg" id="sexo"><span class="sp"></span><button class="on" data-v="f">Mulher</button><button data-v="m">Homem</button></div></div>
+        <div class="field"><label for="idade">Idade <output id="oI">58 anos</output></label><input type="range" id="idade" min="40" max="75" value="58" /></div>
+        <div class="field"><label for="contrib">Tempo de contribuição <output id="oC">28 anos</output></label><input type="range" id="contrib" min="5" max="45" value="28" /></div>
+        <div class="field" style="margin-bottom:0"><label for="sal">Média dos seus salários de contribuição</label><div class="money"><span>R$</span><input id="sal" inputmode="numeric" value="3.800" /></div></div>
       </div>
       <div data-r style="--d:.1s">
         <div class="rules" id="rules"></div>
-        <div class="value"><small>Valor estimado do benefício</small><b id="valor">R$ 0</b><small id="valorTxt"></small></div>
+        <div class="value"><small>Valor estimado do benefício</small><b id="valor">R$ 0</b><small id="valorTxt"></small>
+          <div class="ano"><div class="cal"><small>ANO</small><b id="anoV">2026</b></div><span id="anoTxt">Previsão de entrada no pedido</span></div>
+        </div>
         <p class="disc">Simulação simplificada para fins informativos (regras gerais do RGPS em 2026, piso de R$ 1.630). Não considera períodos especiais, rurais ou regras de professor. <a href="#contato" style="color:var(--teal2);font-weight:700">Peça a análise completa →</a></p>
       </div>
     </div>
   </div>
 </section>
 
+<section class="cnis" id="cnis">
+  <div class="wrap cnis__grid">
+    <div data-r>
+      <span class="kick">Análise do CNIS</span>
+      <h2 class="h2" style="margin-top:14px">O que o INSS <em>deixa passar</em>, a gente encontra.</h2>
+      <p style="margin-top:16px">O CNIS é o extrato da sua vida de trabalho. Passe a lupa sobre ele — e veja o tipo de erro que corrigimos todos os dias.</p>
+      <div class="achados" id="achados"></div>
+      <p class="placar" id="placar">0 de 4 problemas encontrados</p>
+    </div>
+    <div data-r style="--d:.1s">
+      <div class="doc" id="doc">
+        <div class="dh"><div><b>CNIS — Extrato Previdenciário</b><small>Cadastro Nacional de Informações Sociais</small></div><div style="text-align:right"><small>Emitido em 14/10/2026</small><small>NIT 120.48xxx.xx-7</small></div></div>
+        <table>
+          <thead><tr><th>Seq.</th><th>Origem do vínculo</th><th>Início</th><th>Fim</th><th>Indicadores</th></tr></thead>
+          <tbody id="cnisT"></tbody>
+        </table>
+        <div class="rod"><span>Tempo apurado pelo INSS: <b>30a 5m</b></span><span>Página 1/1</span></div>
+      </div>
+      <p class="dica" id="dica">🔍 <span><b>Passe o mouse</b> sobre o extrato para usar a lupa.</span></p>
+    </div>
+  </div>
+</section>
+
 <section class="svc" id="servicos">
   <div class="wrap">
-    <div class="head"><div data-r><span class="kick">Benefícios</span><h2 class="h2" style="margin-top:12px">Como podemos <em>ajudar</em></h2></div><p data-r style="--d:.1s">Atuamos em todas as fases: pedido administrativo, recurso e ação judicial.</p></div>
+    <div class="head"><div data-r><span class="kick">Benefícios</span><h2 class="h2" style="margin-top:14px">Como podemos <em>ajudar</em></h2></div><p data-r style="--d:.1s">Atuamos em todas as fases: pedido administrativo, recurso e ação judicial.</p></div>
     <div class="sgrid" id="sgrid"></div>
   </div>
 </section>
 
 <section class="how" id="como">
   <div class="wrap">
-    <div class="head"><div data-r><span class="kick">Como funciona</span><h2 class="h2" style="margin-top:12px">Simples, do começo ao fim</h2></div></div>
-    <div class="steps">
-      <div class="step" data-r><h3>Conversa inicial</h3><p>Por WhatsApp ou vídeo, você conta sua história. Sem custo.</p></div>
-      <div class="step" data-r style="--d:.08s"><h3>Análise do CNIS</h3><p>Conferimos cada vínculo e encontramos tempo esquecido.</p></div>
-      <div class="step" data-r style="--d:.16s"><h3>Melhor benefício</h3><p>Comparamos todas as regras e escolhemos a mais vantajosa.</p></div>
-      <div class="step" data-r style="--d:.24s"><h3>Pedido e acompanhamento</h3><p>Damos entrada no INSS e informamos cada movimentação.</p></div>
+    <div class="head"><div data-r><span class="kick">Como funciona</span><h2 class="h2" style="margin-top:14px">Simples, do começo <em>ao fim</em></h2></div></div>
+    <div class="steps" id="steps">
+      <span class="linha"><i></i></span>
+      <div class="step"><b>1</b><div class="vidro"><h3>Conversa inicial</h3><p>Por WhatsApp ou vídeo, você conta sua história. Sem custo.</p></div></div>
+      <div class="step"><b>2</b><div class="vidro"><h3>Análise do CNIS</h3><p>Conferimos cada vínculo e encontramos tempo esquecido.</p></div></div>
+      <div class="step"><b>3</b><div class="vidro"><h3>Melhor benefício</h3><p>Comparamos todas as regras e escolhemos a mais vantajosa.</p></div></div>
+      <div class="step"><b>4</b><div class="vidro"><h3>Pedido e acompanhamento</h3><p>Damos entrada no INSS e informamos cada movimentação.</p></div></div>
     </div>
   </div>
 </section>
 
 <section class="team">
   <div class="wrap team__grid">
-    <div data-r><span class="kick">Quem cuida de você</span><h2 class="h2" style="margin-top:12px">Advocacia com <em>paciência</em> e clareza</h2><p class="quote">“Muita gente desiste do benefício por não entender o INSS. Nosso trabalho é traduzir tudo e lutar pelo que é seu.”</p><p style="color:var(--muted)">Dra. Juliana Martins · OAB/MG 98.412</p></div>
+    <div data-r><span class="kick">Quem cuida de você</span><h2 class="h2" style="margin-top:14px">Advocacia com <em>paciência</em> e clareza</h2><p class="quote">“Muita gente desiste do benefício por não entender o INSS. Nosso trabalho é traduzir tudo e lutar pelo que é seu.”</p><p style="color:var(--muted)">Dra. Juliana Martins · OAB/MG 98.412</p></div>
     <div class="lawyers" data-r style="--d:.1s">
-      <div class="lw"><img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=600&q=78&auto=format&fit=crop" alt="Dra. Juliana Martins" loading="lazy" /><div><b>Dra. Juliana Martins</b><small>Sócia fundadora</small></div></div>
-      <div class="lw" style="margin-top:40px"><img src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?w=600&q=78&auto=format&fit=crop" alt="Dr. Tiago Andrade" loading="lazy" /><div><b>Dr. Tiago Andrade</b><small>Benefícios por incapacidade</small></div></div>
+      <div class="lw" data-cur="Olá!"><img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=700&q=78&auto=format&fit=crop" alt="Dra. Juliana Martins" loading="lazy" /><div class="vidro-esc"><b>Dra. Juliana Martins</b><small>Sócia fundadora</small></div></div>
+      <div class="lw" data-cur="Olá!" style="margin-top:50px"><img src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?w=700&q=78&auto=format&fit=crop" alt="Dr. Tiago Andrade" loading="lazy" /><div class="vidro-esc"><b>Dr. Tiago Andrade</b><small>Benefícios por incapacidade</small></div></div>
     </div>
   </div>
 </section>
 
 <section class="tst">
   <div class="wrap">
-    <div class="head"><div data-r><span class="kick">Depoimentos</span><h2 class="h2" style="margin-top:12px">Histórias com <em>final feliz</em></h2></div></div>
+    <div class="head"><div data-r><span class="kick">Depoimentos</span><h2 class="h2" style="margin-top:14px">Histórias com <em>final feliz</em></h2></div></div>
     <div class="tgrid">
-      <div class="t" data-r><img src="https://images.unsplash.com/photo-1761839257647-df30867afd54?w=500&q=75&auto=format&fit=crop" alt="Casal de clientes" loading="lazy" /><div><span class="stars">★★★★★</span><p>“O INSS negou duas vezes. Com a Dra. Juliana, a aposentadoria saiu com 3 anos de atrasados.”</p><small>Seu Antônio e Dona Lúcia · Belo Horizonte</small></div></div>
-      <div class="t" data-r style="--d:.1s"><img src="https://images.unsplash.com/photo-1758691031410-13bd745df928?w=500&q=75&auto=format&fit=crop" alt="Clientes" loading="lazy" /><div><span class="stars">★★★★★</span><p>“Descobriram 4 anos de contribuição que eu nem lembrava. Me aposentei antes do que imaginava.”</p><small>Marta F. · Contagem</small></div></div>
+      <div class="t" data-r><img src="https://images.unsplash.com/photo-1761839257647-df30867afd54?w=900&q=78&auto=format&fit=crop" alt="Casal de clientes" loading="lazy" /><div class="vidro-esc"><span class="stars">★★★★★</span><p>“O INSS negou duas vezes. Com a Dra. Juliana, a aposentadoria saiu com 3 anos de atrasados.”</p><small>Seu Antônio e Dona Lúcia · Belo Horizonte</small></div></div>
+      <div class="t" data-r style="--d:.1s"><img src="https://images.unsplash.com/photo-1758691031410-13bd745df928?w=900&q=78&auto=format&fit=crop" alt="Clientes" loading="lazy" /><div class="vidro-esc"><span class="stars">★★★★★</span><p>“Descobriram 4 anos de contribuição que eu nem lembrava. Me aposentei antes do que imaginava.”</p><small>Marta F. · Contagem</small></div></div>
     </div>
   </div>
 </section>
 
 <section class="faq" id="duvidas">
   <div class="wrap faq__grid">
-    <div data-r><span class="kick">Dúvidas</span><h2 class="h2" style="margin-top:12px">Perguntas que <em>sempre</em> ouvimos</h2></div>
+    <div data-r><span class="kick">Dúvidas</span><h2 class="h2" style="margin-top:14px">Perguntas que <em>sempre</em> ouvimos</h2></div>
     <div data-r style="--d:.1s">
-      <details open><summary>Quanto custa contratar?</summary><p>A análise inicial é gratuita. Os honorários são combinados em contrato e, na maioria dos casos, cobrados apenas se o benefício for concedido.</p></details>
-      <details><summary>Preciso ir até o escritório?</summary><p>Não. Atendemos todo o Brasil por WhatsApp e videochamada, com assinatura digital dos documentos.</p></details>
-      <details><summary>O INSS negou meu pedido. Ainda dá?</summary><p>Sim. É possível recorrer administrativamente ou entrar com ação judicial — e muitas negativas são revertidas.</p></details>
-      <details><summary>Posso revisar minha aposentadoria?</summary><p>Se o benefício foi concedido há menos de 10 anos, pode haver valores a revisar. Analisamos gratuitamente.</p></details>
+      <details class="vidro" open><summary>Quanto custa contratar?</summary><p>A análise inicial é gratuita. Os honorários são combinados em contrato e, na maioria dos casos, cobrados apenas se o benefício for concedido.</p></details>
+      <details class="vidro"><summary>Preciso ir até o escritório?</summary><p>Não. Atendemos todo o Brasil por WhatsApp e videochamada, com assinatura digital dos documentos.</p></details>
+      <details class="vidro"><summary>O INSS negou meu pedido. Ainda dá?</summary><p>Sim. É possível recorrer administrativamente ou entrar com ação judicial — e muitas negativas são revertidas.</p></details>
+      <details class="vidro"><summary>Posso revisar minha aposentadoria?</summary><p>Se o benefício foi concedido há menos de 10 anos, pode haver valores a revisar. Analisamos gratuitamente.</p></details>
     </div>
   </div>
 </section>
 
-<section class="contact" id="contato">
-  <div class="wrap contact__grid">
-    <div data-r><span class="kick">Fale conosco</span><h2 class="h2" style="margin-top:12px;color:#fff">Vamos analisar o seu caso</h2><p>Respondemos em até 2 horas em dias úteis. Seus dados são tratados com sigilo absoluto, conforme a LGPD.</p><p style="margin-top:24px">📍 Av. Afonso Pena, 1500 — sala 1204 · Centro, Belo Horizonte</p></div>
-    <form class="cform" id="cform" data-r style="--d:.1s">
-      <input id="cN" placeholder="Nome completo" required />
-      <div class="two"><input id="cT" placeholder="WhatsApp" inputmode="tel" required /><input id="cC" placeholder="Cidade/UF" /></div>
-      <select id="cA"><option>Aposentadoria</option><option>BPC / LOAS</option><option>Auxílio por incapacidade</option><option>Pensão por morte</option><option>Revisão de benefício</option><option>Benefício negado</option></select>
-      <textarea id="cM" rows="3" placeholder="Conte brevemente sua situação"></textarea>
-      <button class="btn btn--a">Enviar pelo WhatsApp</button>
-    </form>
+<footer class="contact" id="contato">
+  <img id="ctImg" src="https://images.unsplash.com/photo-1758691031787-90867cb6fb2c?w=1600&q=70&auto=format&fit=crop" alt="" loading="lazy" />
+  <div class="wrap">
+    <div class="contact__grid">
+      <div data-r><span class="kick">Fale conosco</span><h2 class="h2" style="margin-top:14px">Vamos analisar o <em style="color:#f3c776">seu caso</em></h2><p>Respondemos em até 2 horas em dias úteis. Seus dados são tratados com sigilo absoluto, conforme a LGPD.</p><p style="margin-top:24px">📍 Av. Afonso Pena, 1500 — sala 1204 · Centro, Belo Horizonte<br />📞 Plantão de dúvidas: <b style="color:#fff">(31) 3000-0000</b> · atendimento online para todo o Brasil</p></div>
+      <form class="cform vidro-esc" id="cform" data-r style="--d:.1s">
+        <input id="cN" placeholder="Nome completo" required aria-label="Nome completo" />
+        <div class="two"><input id="cT" placeholder="WhatsApp" inputmode="tel" required aria-label="WhatsApp" /><input id="cC" placeholder="Cidade/UF" aria-label="Cidade" /></div>
+        <select id="cA" aria-label="Assunto"><option>Aposentadoria</option><option>BPC / LOAS</option><option>Auxílio por incapacidade</option><option>Pensão por morte</option><option>Revisão de benefício</option><option>Benefício negado</option></select>
+        <textarea id="cM" rows="3" placeholder="Conte brevemente sua situação" aria-label="Sua situação"></textarea>
+        <button class="btn btn--a mag">Enviar pelo WhatsApp</button>
+      </form>
+    </div>
+    <div class="foot"><span>© 2026 Martins Advocacia Previdenciária · OAB/MG 9.871</span><span>Este site não pertence ao INSS nem a órgão público.</span></div>
+    <div class="marca" id="marca" aria-hidden="true">Martins</div>
   </div>
-</section>
-
-<footer><div class="wrap foot"><span>© 2026 Martins Advocacia Previdenciária · OAB/MG 9.871</span><span>Este site não pertence ao INSS nem a órgão público.</span></div></footer>
+</footer>
 
 <a class="wa" href="https://wa.me/5531999990000" target="_blank" rel="noopener" aria-label="WhatsApp"><svg width="30" height="30" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21c5.46 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2Zm5.8 14.03c-.24.68-1.42 1.3-1.95 1.35-.5.05-.97.23-3.27-.68-2.77-1.09-4.52-3.92-4.66-4.1-.13-.18-1.1-1.47-1.1-2.8 0-1.34.7-2 .95-2.27.25-.27.54-.34.72-.34h.52c.17 0 .4-.06.62.47.24.56.8 1.94.87 2.08.07.14.12.3.02.48-.1.19-.14.3-.28.47-.14.16-.3.36-.42.49-.14.14-.29.29-.12.57.17.28.74 1.22 1.59 1.98 1.09.97 2.01 1.27 2.29 1.41.28.14.45.12.62-.07.17-.19.71-.83.9-1.11.19-.28.38-.24.64-.14.26.09 1.65.78 1.93.92.28.14.47.21.54.33.07.11.07.66-.17 1.34Z"/></svg></a>
 
 <script>
 (() => {
+  const reduz = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const fino = matchMedia("(hover: hover) and (pointer: fine)").matches;
   const $ = (s, el = document) => el.querySelector(s);
   const $$ = (s, el = document) => [...el.querySelectorAll(s)];
   const brl = (n) => n.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
+  const brl0 = (n) => n.toLocaleString("pt-BR", { style: "currency", currency: "BRL", maximumFractionDigits: 0 });
+  const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
+  const lerp = (a, b, t) => a + (b - a) * t;
+  const eio = (t) => t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
   const WA = "5531999990000", PISO = 1630, TETO = 8475;
+  let VW = innerWidth, VH = innerHeight, mob = VW <= 900;
+  addEventListener("resize", () => { VW = innerWidth; VH = innerHeight; mob = VW <= 900; });
+  const mouse = { x: VW / 2, y: VH / 2 };
 
-  const nav = $("#nav");
-  $(".burger").onclick = () => nav.classList.toggle("open");
-  $$(".nav__links a").forEach((a) => a.onclick = () => nav.classList.remove("open"));
-  const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }), { threshold: .12 });
+  /* nav */
+  const nav = $("#nav"), burger = $(".burger");
+  burger.onclick = () => { const a = nav.classList.toggle("open"); burger.setAttribute("aria-expanded", a); };
+  $$(".nav__links a").forEach((a) => a.addEventListener("click", () => nav.classList.remove("open")));
+  const pill = $("#pill");
+  $$("#links a").forEach((a) => a.addEventListener("mouseenter", () => { pill.style.left = a.offsetLeft + "px"; pill.style.width = a.offsetWidth + "px"; }));
+  let ultY = scrollY;
+
+  /* reveal + contadores */
+  const io = new IntersectionObserver((es) => es.forEach((e) => {
+    if (!e.isIntersecting) return;
+    e.target.classList.add("in");
+    $$("[data-count]", e.target).forEach((c) => {
+      const fim = +c.dataset.count, pre = c.dataset.pre || "", suf = c.dataset.suf || "", t0 = performance.now();
+      const p = (t) => { const k = Math.min(1, (t - t0) / 1700); c.textContent = pre + Math.round(fim * (1 - Math.pow(1 - k, 3))).toLocaleString("pt-BR") + suf; if (k < 1) requestAnimationFrame(p); };
+      requestAnimationFrame(p);
+    });
+    io.unobserve(e.target);
+  }), { threshold: .15 });
   $$("[data-r]").forEach((el) => io.observe(el));
 
-  /* Simulador (regras gerais simplificadas, ano de referência 2026) */
+  /* cursor */
+  const cur = $(".cur"), curT = $(".cur span");
+  let cx = mouse.x, cy = mouse.y;
+  addEventListener("pointermove", (e) => { mouse.x = e.clientX; mouse.y = e.clientY; if (e.pointerType === "mouse") cur.classList.add("on"); }, { passive: true });
+  document.addEventListener("mouseleave", () => cur.classList.remove("on"));
+  if (fino) {
+    document.addEventListener("pointerover", (e) => {
+      const l = e.target.closest("[data-cur]"), h = e.target.closest("a, button, input, select, textarea, summary, label");
+      cur.classList.toggle("lbl", !!l && !h); cur.classList.toggle("link", !!h);
+      if (l && !h) curT.textContent = l.dataset.cur;
+    });
+    $$(".mag").forEach((b) => {
+      b.addEventListener("pointermove", (e) => { const r = b.getBoundingClientRect(); b.style.transform = `translate(${(e.clientX - r.left - r.width / 2) * .2}px, ${(e.clientY - r.top - r.height / 2) * .3}px)`; });
+      b.addEventListener("pointerleave", () => { b.style.transform = ""; });
+    });
+  }
+
+  /* hero: valor concedido */
+  const concV = $("#concV"), t0c = performance.now() + 700;
+  const conta = (t) => { const k = clamp((t - t0c) / 1800); concV.textContent = brl(3412.6 * (1 - Math.pow(1 - k, 3))); if (k < 1) requestAnimationFrame(conta); };
+  requestAnimationFrame(conta);
+  const foto = $("#foto"), fotoImg = $("#fotoImg"), fluts = $$(".flut", foto);
+
+  /* ===== CARTEIRA DE TRABALHO ===== */
+  const V = [
+    ["Tecelagem Santa Rita S.A.", "Contagem / MG", "Auxiliar de produção", "02/05/1984", "30/11/1988", 55, "Tecelagem\nSanta Rita"],
+    ["Panificadora Pão Nosso Ltda.", "Belo Horizonte / MG", "Padeiro", "10/01/1989", "15/03/1991", 26, "Pão Nosso\nLtda."],
+    ["Trabalho rural — economia familiar", "Sítio Boa Vista · Itaobim / MG", "Lavrador", "04/1991", "12/1995", 56, null],
+    ["Metalúrgica Horizonte Ltda.", "Betim / MG", "Torneiro mecânico", "01/02/1996", "28/02/2004", 97, "Metalúrgica\nHorizonte"],
+    ["Comercial Afonso Pena Ltda.", "Belo Horizonte / MG", "Vendedor", "05/04/2004", "20/12/2011", 92, "Comercial\nA. Pena"],
+    ["Contribuinte individual", "Carnê GPS · código 1007", "Eletricista autônomo", "01/2012", "11/2019", 95, null],
+  ];
+  const N = V.length;
+  $("#pags").innerHTML = V.map(([emp, end, cargo, ini, fim, m, selo], i) => {
+    const rural = i === 2;
+    return `<div class="pg" style="z-index:${N - i}"><div class="face fr"><h5>${rural ? "ANOTAÇÕES GERAIS" : "CONTRATO DE TRABALHO"}</h5>
+      <div class="cmp"><span>Empregador</span><b>${rural ? `<span class="marca-txt" id="mk">${emp}</span>` : emp}</b><span>Endereço</span><b>${end}</b><span>Cargo</span><b>${cargo}</b><span>Admissão</span><b>${ini}</b><span>Saída</span><b>${fim}</b><span>Remuneração</span><b>${["Cr$ 166.560", "NCz$ 1.120", "—", "R$ 410,00", "R$ 980,00", "Sobre 1 sal. mín."][i]}</b></div>
+      ${selo ? `<div class="selo"><div>${selo.replace("\n", "<br />")}<br /><b>✦ RH ✦</b></div></div>` : ""}
+      ${rural ? `<div class="post" id="post">não estava no CNIS! sindicato + 2 testemunhas ✓</div>` : ""}
+      ${i === N - 1 ? `<div class="carimbo" id="carimbo"><b>APOSENTADORIA<br />CONCEDIDA</b><small>INSS · 14/10/2026</small></div>` : ""}
+      <div class="ass"><div>${rural ? "J. Pereira" : ["M. Rocha", "Adelino", "", "C. Duarte", "Rita F.", "A. P. Silva"][i]}</div><small>${rural ? "Sind. Trab. Rurais" : "assinatura do empregador"}</small></div><span class="num">${12 + i * 2}</span></div>
+      <div class="face bk"><h5>ANOTAÇÕES</h5><span class="num">${13 + i * 2}</span></div></div>`;
+  }).join("");
+  const pgs = $$("#pags .pg"), carimbo = $("#carimbo"), post = $("#post"), mk = $("#mk"), nota = $("#nota");
+  $("#passos").innerHTML = V.map(() => "<i><b></b></i>").join("");
+  const passos = $$("#passos b");
+  const MESES = V.map((v) => v[5]), ACUM = MESES.map((_, i) => MESES.slice(0, i).reduce((a, b) => a + b, 0));
+  const cart = $("#historia"), tempoC = $("#tempoC"), trI = $("#trI"), trE = $("#trE"), legA = $("#legA");
+  let PC = 0;
+  const anosMeses = (m) => { m = Math.round(m); const a = Math.floor(m / 12), r = m % 12; return `${a} ${a === 1 ? "ano" : "anos"}${r ? ` e ${r} ${r === 1 ? "mês" : "meses"}` : ""}`; };
+  function carteira() {
+    const r = cart.getBoundingClientRect();
+    if (r.bottom < 0 || r.top > VH) return;
+    const alvo = clamp(-r.top / (r.height - VH));
+    PC = reduz ? alvo : lerp(PC, alvo, .1);
+    const s = PC * (N + .4);
+    pgs.forEach((p, i) => {
+      if (i === N - 1) return;
+      const f = eio(clamp((s - i - .62) / .38));
+      p.style.transform = `rotateY(${-178 * f}deg) translateZ(${Math.sin(f * Math.PI) * 30}px)`;
+      p.style.zIndex = f > .5 ? 10 + i : N - i;
+    });
+    let meses = 0, semRural = 0;
+    V.forEach((v, i) => {
+      const k = clamp((s - i) / .55);
+      meses += v[5] * k; if (i !== 2) semRural += v[5] * k;
+      passos[i].style.transform = `scaleX(${clamp(s - i)})`;
+    });
+    tempoC.textContent = anosMeses(meses);
+    const totF = ACUM[N - 1] + MESES[N - 1];
+    trI.style.width = semRural / 480 * 100 + "%";
+    trE.style.left = semRural / 480 * 100 + "%"; trE.style.width = (meses - semRural) / 480 * 100 + "%";
+    const kR = clamp((s - 2) / .5);
+    mk.style.setProperty("--mk", kR);
+    post.classList.toggle("on", s > 2.45);
+    nota.classList.toggle("on", s > 2.35 && (!mob || s < 3.3));
+    carimbo.classList.toggle("on", s > N - .25);
+    legA.textContent = s > N - .25 ? "✓ Concedida em 2026" : s > 2.2 ? `+ ${anosMeses(MESES[2] * kR)} encontrados` : `INSS: ${anosMeses(semRural)}`;
+    legA.style.color = s > N - .25 ? "var(--green)" : s > 2.2 ? "#b77d12" : "";
+    legA.style.fontWeight = s > 2.2 ? 700 : "";
+  }
+
+  /* ===== SIMULADOR (regras gerais simplificadas, 2026) ===== */
   let sexo = "f";
   const sal = $("#sal");
   sal.addEventListener("input", () => { const d = sal.value.replace(/\D/g, ""); sal.value = d ? (+d).toLocaleString("pt-BR") : ""; sim(); });
   const anos = (n) => `${n} ${n === 1 ? "ano" : "anos"}`;
+  let valAtual = 0, valAlvo = 0;
   function sim() {
     const I = +$("#idade").value, C = +$("#contrib").value, S = Math.min(TETO, +sal.value.replace(/\D/g, "") || 0);
     ["idade", "contrib"].forEach((k) => { const el = $("#" + k); el.style.setProperty("--p", `${((el.value - el.min) / (el.max - el.min)) * 100}%`); });
     $("#oI").textContent = anos(I); $("#oC").textContent = anos(C);
     const f = sexo === "f";
-    // 1) Aposentadoria por idade (regra permanente)
     const idMin = f ? 62 : 65, ctMin = f ? 15 : 20;
-    const faltaI = Math.max(0, idMin - I), faltaC1 = Math.max(0, ctMin - C);
-    const r1 = Math.max(faltaI, faltaC1);
-    // 2) Transição por pontos (2026: 93 mulheres / 103 homens; mín. 30/35 de contribuição)
+    const r1 = Math.max(Math.max(0, idMin - I), Math.max(0, ctMin - C));
     const ptsMin = f ? 93 : 103, ctPts = f ? 30 : 35, pts = I + C;
-    // a cada ano trabalhado: +2 pontos (idade + contribuição)
-    const faltaPts = Math.max(0, Math.ceil((ptsMin - pts) / 2)), faltaC2 = Math.max(0, ctPts - C);
-    const r2 = Math.max(faltaPts, faltaC2);
+    const r2 = Math.max(Math.max(0, Math.ceil((ptsMin - pts) / 2)), Math.max(0, ctPts - C));
     const regras = [
       ["Por idade", `${idMin} anos de idade + ${ctMin} de contribuição`, r1, Math.min(1, (I / idMin + C / ctMin) / 2)],
       ["Transição por pontos", `${ptsMin} pontos (você tem ${pts}) + ${ctPts} de contribuição`, r2, Math.min(1, pts / ptsMin)],
     ];
-    $("#rules").innerHTML = regras.map(([n, d, falta, p]) => `<div class="rule ${falta === 0 ? "ok" : ""}"><h4>${n}<span>${falta === 0 ? "✓ Já pode pedir" : `faltam ~${anos(falta)}`}</span></h4><p>${d}</p><div class="prog"><i style="width:${(falta === 0 ? 1 : p) * 100}%"></i></div></div>`).join("");
-    // Valor: 60% da média + 2% por ano acima de 15 (mulher) / 20 (homem), no momento da aposentadoria
+    $("#rules").innerHTML = regras.map(([n, d, falta, p]) => `<div class="rule vidro ${falta === 0 ? "ok" : ""}"><h4>${n}<span>${falta === 0 ? "✓ Já pode pedir" : `faltam ~${anos(falta)}`}</span></h4><p>${d}</p><div class="prog"><i style="width:${(falta === 0 ? 1 : p) * 100}%"></i></div></div>`).join("");
     const melhor = Math.min(r1, r2), ctFinal = C + melhor;
     const pct = Math.min(1, .6 + .02 * Math.max(0, ctFinal - (f ? 15 : 20)));
-    const val = Math.max(PISO, S * pct);
-    $("#valor").textContent = brl(val);
+    valAlvo = Math.max(PISO, S * pct);
     $("#valorTxt").textContent = melhor === 0 ? `${Math.round(pct * 100)}% da sua média — você já pode dar entrada!` : `${Math.round(pct * 100)}% da média, se continuar contribuindo por mais ${anos(melhor)}.`;
+    $("#anoV").textContent = 2026 + melhor;
+    $("#anoTxt").textContent = melhor === 0 ? "Você já pode dar entrada no pedido este ano." : `Previsão para dar entrada no pedido, aos ${I + melhor} anos.`;
   }
   ["idade", "contrib"].forEach((k) => $("#" + k).addEventListener("input", sim));
-  $("#sexo").onclick = (e) => { const b = e.target.closest("button"); if (!b) return; sexo = b.dataset.v; $$("#sexo button").forEach((x) => x.classList.toggle("on", x === b)); sim(); };
+  $("#sexo").onclick = (e) => { const b = e.target.closest("button"); if (!b) return; sexo = b.dataset.v; $$("#sexo button").forEach((x) => x.classList.toggle("on", x === b)); $("#sexo").classList.toggle("m", sexo === "m"); sim(); };
   sim();
+  const valorEl = $("#valor");
 
-  /* Benefícios */
+  /* ===== CNIS COM LUPA ===== */
+  const CN = [
+    ["1", "Tecelagem Santa Rita S.A.", "02/05/1984", "30/11/1988", "", null],
+    ["2", "Panificadora Pão Nosso Ltda.", "10/01/1989", "—", "PEXT", "Vínculo sem data de saída: 2a 2m não contados", "Data de saída ausente (2a 2m fora da conta)"],
+    ["3", "Metalúrgica Horizonte Ltda.", "01/02/1996", "28/02/2004", "IEAN", "Atividade especial (ruído 92 dB) não reconhecida", "Atividade especial não reconhecida (ruído)"],
+    ["4", "Comercial Afonso Pena Ltda.", "05/04/2004", "20/12/2011", "", null],
+    ["5", "Contribuinte individual · 1007", "01/2012", "11/2019", "PREC-MENOR-MIN", "14 contribuições abaixo do mínimo: dá para complementar", "Recolhimentos abaixo do mínimo"],
+    ["—", "<i style='color:#999'>(nenhum registro)</i> 1991–1995", "", "", "", "Período rural de 4a 8m simplesmente não consta", "Período rural fora do extrato"],
+  ];
+  const cnisT = $("#cnisT");
+  cnisT.innerHTML = CN.map(([sq, o, a, b, ind, pend], i) => `<tr ${pend ? `data-i="${i}"` : ""}><td>${sq}</td><td>${o}${pend ? `<span class="pend">${pend}</span>` : ""}</td><td>${a}</td><td>${b}</td><td class="ind">${ind}</td></tr>`).join("");
+  const ACH = CN.map((c, i) => [i, c[6]]).filter((x) => x[1]);
+  $("#achados").innerHTML = ACH.map(([i, t], k) => `<div class="ach" data-a="${i}"><i>${k + 1}</i>${t}</div>`).join("");
+  const achados = new Set(), placar = $("#placar");
+  const achar = (i) => {
+    if (achados.has(i)) return;
+    achados.add(i);
+    $(`#cnisT tr[data-i="${i}"]`).classList.add("achou");
+    $(`.ach[data-a="${i}"]`).classList.add("on");
+    placar.textContent = achados.size === ACH.length ? "✓ 4 de 4 — é isso que fazemos pelo seu caso." : `${achados.size} de ${ACH.length} problemas encontrados`;
+  };
+  const doc = $("#doc");
+  if (fino) {
+    const lente = document.createElement("div"); lente.className = "lente";
+    const clone = doc.cloneNode(true); clone.removeAttribute("id"); $$("[id]", clone).forEach((e) => e.removeAttribute("id"));
+    lente.appendChild(clone); doc.appendChild(lente);
+    const Z = 1.8;
+    doc.addEventListener("pointerenter", () => { lente.classList.add("on"); cur.classList.add("some"); });
+    doc.addEventListener("pointerleave", () => { lente.classList.remove("on"); cur.classList.remove("some"); });
+    doc.addEventListener("pointermove", (e) => {
+      const x = e.offsetX + (e.target === doc ? 0 : 0);
+      const r = doc.getBoundingClientRect(), ang = 1.2 * Math.PI / 180;
+      /* coordenadas locais (desfaz a leve rotação do papel) */
+      const dx = e.clientX - (r.left + r.width / 2), dy = e.clientY - (r.top + r.height / 2);
+      const lx = dx * Math.cos(-ang) - dy * Math.sin(-ang) + doc.offsetWidth / 2, ly = dx * Math.sin(-ang) + dy * Math.cos(-ang) + doc.offsetHeight / 2;
+      lente.style.left = lx + "px"; lente.style.top = ly + "px";
+      clone.style.width = doc.offsetWidth + "px";
+      clone.style.transform = `translate(${105 - lx * Z}px, ${105 - ly * Z}px) scale(${Z})`;
+      lente.style.display = "none";
+      const el = document.elementFromPoint(e.clientX, e.clientY);
+      lente.style.display = "";
+      const tr = el && el.closest("tr[data-i]");
+      if (tr && doc.contains(tr)) { clearTimeout(tr._t); tr._t = setTimeout(() => achar(+tr.dataset.i), 380); }
+    });
+  } else {
+    $("#dica").innerHTML = "👆 <span><b>Toque nas linhas</b> do extrato para examinar.</span>";
+    cnisT.addEventListener("click", (e) => { const tr = e.target.closest("tr[data-i]"); if (tr) achar(+tr.dataset.i); });
+  }
+  $$(".ach").forEach((a) => a.addEventListener("click", () => achar(+a.dataset.a)));
+
+  /* ===== BENEFÍCIOS ===== */
   const S = [
     ["Aposentadorias", "Por idade, tempo de contribuição, especial e da pessoa com deficiência.", ["RG e CPF", "Carteiras de trabalho", "Extrato do CNIS", "Carnês de contribuição"], '<path d="M12 3v3M5 9l2 2M19 9l-2 2"/><circle cx="12" cy="14" r="6"/><path d="M12 11v3l2 2"/>'],
     ["BPC / LOAS", "Benefício de um salário mínimo para idosos e pessoas com deficiência de baixa renda.", ["CadÚnico atualizado", "Comprovante de renda familiar", "Laudos médicos (se PcD)"], '<path d="M4 12h16M12 4v16"/><circle cx="12" cy="12" r="9"/>'],
@@ -386,14 +760,54 @@
     ["Revisão de benefício", "Corrigimos cálculos errados e buscamos valores pagos a menos.", ["Carta de concessão", "Histórico de créditos", "CNIS"], '<path d="M4 4v6h6M20 20v-6h-6"/><path d="M20 9a8 8 0 0 0-14-3L4 10M4 15a8 8 0 0 0 14 3l2-4"/>'],
     ["Planejamento previdenciário", "Descubra a melhor data e regra para se aposentar com o maior valor.", ["CNIS", "Holerites recentes", "Carteiras de trabalho"], '<path d="M3 3v18h18"/><path d="M7 15l4-4 3 3 5-6"/>'],
   ];
-  $("#sgrid").innerHTML = S.map(([t, d, docs, ic], i) => `<div class="s" data-r style="--d:${(i % 3) * .08}s"><i><svg viewBox="0 0 24 24">${ic}</svg></i><h3>${t}</h3><p>${d}</p><details><summary>Documentos necessários</summary><ul>${docs.map((x) => `<li>${x}</li>`).join("")}</ul></details></div>`).join("");
-  $$(".s").forEach((s) => io.observe(s));
+  $("#sgrid").innerHTML = S.map(([t, d, docs, ic], i) => `<div class="s vidro" data-r style="--d:${(i % 3) * .08}s"><i><svg viewBox="0 0 24 24">${ic}</svg></i><h3>${t}</h3><p>${d}</p><details><summary>Documentos necessários</summary><ul>${docs.map((x) => `<li>${x}</li>`).join("")}</ul></details></div>`).join("");
+  $$(".s").forEach((s) => {
+    io.observe(s);
+    if (fino) s.addEventListener("pointermove", (e) => { const r = s.getBoundingClientRect(); s.style.setProperty("--mx", e.clientX - r.left + "px"); s.style.setProperty("--my", e.clientY - r.top + "px"); });
+  });
+
+  /* equipe: leve inclinação */
+  if (fino) $$(".lw").forEach((c) => {
+    c.addEventListener("pointermove", (e) => { const r = c.getBoundingClientRect(); c.style.transform = `rotateY(${((e.clientX - r.left) / r.width - .5) * 8}deg) rotateX(${(.5 - (e.clientY - r.top) / r.height) * 8}deg)`; });
+    c.addEventListener("pointerleave", () => { c.style.transform = ""; });
+  });
 
   $("#cform").onsubmit = (e) => {
     e.preventDefault();
-    const msg = `Olá, Martins Advocacia! Gostaria de uma análise.\nNome: ${$("#cN").value}\nCidade: ${$("#cC").value || "—"}\nAssunto: ${$("#cA").value}\n${$("#cM").value}`;
+    const msg = `Olá, Martins Advocacia! Gostaria de uma análise.\nNome: ${$("#cN").value}\nWhatsApp: ${$("#cT").value}\nCidade: ${$("#cC").value || "—"}\nAssunto: ${$("#cA").value}\n${$("#cM").value}`;
     window.open(`https://wa.me/${WA}?text=${encodeURIComponent(msg)}`, "_blank");
   };
+
+  /* loop */
+  const steps = $("#steps"), stepEls = $$(".step", steps), marca = $("#marca"), ctImg = $("#ctImg"), contato = $("#contato");
+  function frame() {
+    cx = lerp(cx, mouse.x, .2); cy = lerp(cy, mouse.y, .2);
+    cur.style.transform = `translate(${cx}px, ${cy}px)`;
+    const y = scrollY, dy = y - ultY;
+    if (dy > 2 && y > 300 && !nav.classList.contains("open")) nav.classList.add("esc");
+    if (dy < -2) nav.classList.remove("esc");
+    ultY = y;
+    /* hero com profundidade */
+    const fr = foto.getBoundingClientRect();
+    if (fr.bottom > 0) {
+      const mx = fino ? mouse.x / VW - .5 : 0, my = fino ? mouse.y / VH - .5 : 0;
+      fotoImg.style.transform = `translate(${mx * -16}px, ${my * -12 + y * .08}px)`;
+      fluts.forEach((f) => { const z = +f.dataset.z; f.style.transform = `translate(${mx * 18 * z}px, ${my * 14 * z - y * .05 * z}px)`; });
+    }
+    carteira();
+    valAtual = lerp(valAtual, valAlvo, .15); valorEl.textContent = brl(Math.abs(valAtual - valAlvo) < .5 ? valAlvo : valAtual);
+    const sr = steps.getBoundingClientRect();
+    if (sr.top < VH && sr.bottom > 0) {
+      const k = mob ? clamp((VH * .7 - sr.top) / sr.height) : clamp((VH * .85 - sr.top) / (VH * .5));
+      steps.style.setProperty("--k", k);
+      stepEls.forEach((s, i) => s.classList.toggle("on", k >= (mob ? (i + .3) / 4 : i / 3.3)));
+    }
+    const cr = contato.getBoundingClientRect(); if (cr.top < VH) ctImg.style.transform = `translateY(${cr.top * -.12}px)`;
+    const mr = marca.getBoundingClientRect();
+    if (mr.top < VH) { const ini = y + mr.top - VH, fim = document.documentElement.scrollHeight - VH; marca.style.setProperty("--fill", clamp((y - ini) / Math.max(1, fim - ini)) * 100 + "%"); }
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
 })();
 </script>
 </body>
