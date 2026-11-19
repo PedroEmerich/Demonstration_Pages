@@ -223,8 +223,8 @@ window.MODELOS = [
     pasta: "respira-pilates",
     titulo: "Respira — Studio de Pilates",
     segmento: "Fitness",
-    descricao: "Studio de pilates com respiração guiada 4-7-8 animada, grade semanal filtrável, reserva de aula e planos.",
-    tags: ["Respiração guiada", "Grade de aulas", "Planos"],
+    descricao: "Studio de pilates e yoga em que a página respira: luz de janela que acompanha o cursor, orbe com lente de vidro e respiração guiada 4-7-8, modalidades que se abrem em círculo a cada inspiração com a rolagem, grade semanal em vidro com reserva pelo WhatsApp e galeria horizontal do estúdio.",
+    tags: ["Respiração guiada", "Modalidades no scroll", "Galeria horizontal"],
     cor: "#7f9c86",
   },
   {
