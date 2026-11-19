@@ -164,8 +164,8 @@ window.MODELOS = [
     pasta: "torque-autocenter",
     titulo: "Torque — Auto Center",
     segmento: "Automotivo",
-    descricao: "Oficina mecânica com conta-giros animado, revisão por quilometragem, acompanhamento do carro pela placa e agendamento com leva e traz.",
-    tags: ["Revisão por km", "Rastreio", "Agendamento"],
+    descricao: "Auto center com garagem escura e painel em vidro: segure o acelerador e o conta-giros sobe e os faróis acendem. Scanner de diagnóstico na rolagem, odômetro de tambores e placa Mercosul.",
+    tags: ["Acelerador", "Scanner", "Revisão por km"],
     cor: "#00c2ff",
   },
   {
