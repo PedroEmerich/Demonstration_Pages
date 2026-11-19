@@ -3,214 +3,386 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Prumo Reformas — Reforma com prazo e preço em contrato</title>
-<meta name="description" content="Prumo Reformas & Construções: reformas residenciais com engenheiro responsável, prazo e preço fechados em contrato. Estime o valor da sua reforma online." />
+<title>Prumo — Reformas residenciais em Curitiba</title>
+<meta name="description" content="Prumo Reformas: projeto, materiais e mão de obra com um único responsável. Prazo e preço fechados em contrato, 5 anos de garantia. Estime sua reforma online." />
 <meta name="theme-color" content="#f4f4f2" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@500;700;800;900&family=Red+Hat+Text:wght@400;500;600&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@500;700;800;900&family=Red+Hat+Text:wght@400;500;600&family=Red+Hat+Mono:wght@400;500&family=Homemade+Apple&display=swap" rel="stylesheet" />
 <style>
   :root {
     --bg: #f4f4f2; --white: #fff; --ink: #1c1d1f; --muted: #6b6e73; --line: #e2e2de; --concrete: #d9d8d3;
-    --orange: #ff5a1f; --orange2: #ff8a5c; --green: #1fa463;
-    --display: "Red Hat Display", system-ui, sans-serif; --sans: "Red Hat Text", system-ui, sans-serif;
-    --ease: cubic-bezier(.2,.8,.2,1);
+    --orange: #ff5a1f; --orange2: #ff8a5c; --green: #1fa463; --blue: #16426e;
+    --display: "Red Hat Display", system-ui, sans-serif; --sans: "Red Hat Text", system-ui, sans-serif; --mono: "Red Hat Mono", ui-monospace, monospace;
+    --ease: cubic-bezier(.2,.8,.2,1); --spring: cubic-bezier(.34,1.56,.64,1);
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  html { overflow-x: clip; scroll-behavior: smooth; scroll-padding-top: 86px; }
-  body { background: var(--bg); color: var(--ink); font-family: var(--sans); line-height: 1.6; -webkit-font-smoothing: antialiased; overflow-x: clip; }
+  html { overflow-x: clip; scroll-padding-top: 90px; }
+  body { background: var(--bg); color: var(--ink); font-family: var(--sans); font-size: 17px; line-height: 1.6; -webkit-font-smoothing: antialiased; overflow-x: clip; }
   img { display: block; max-width: 100%; }
   a { color: inherit; text-decoration: none; }
-  button, input, select { font: inherit; color: inherit; }
+  button, input, select, textarea { font: inherit; color: inherit; }
   button { background: none; border: 0; cursor: pointer; }
-  .wrap { width: min(1260px, 100% - 40px); margin-inline: auto; }
+  .wrap { width: min(1240px, 100% - 40px); margin-inline: auto; }
   [class*="__grid"] > * { min-width: 0; }
-  h1, h2, h3 { font-family: var(--display); font-weight: 900; letter-spacing: -.035em; line-height: 1; }
-  .h2 { font-size: clamp(36px, 4.8vw, 66px); }
+  h1, h2, h3, h4 { font-family: var(--display); font-weight: 800; letter-spacing: -.035em; line-height: 1.02; }
+  .h2 { font-size: clamp(36px, 5vw, 70px); }
   .o { color: var(--orange); }
-  .lbl { display: inline-flex; gap: 10px; align-items: center; font-family: var(--display); font-weight: 700; font-size: 14px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
-  .lbl::before { content: ""; width: 22px; height: 3px; background: var(--orange); }
-  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 17px 28px; border-radius: 8px; font-family: var(--display); font-weight: 800; font-size: 16px; transition: all .3s var(--ease); }
-  .btn--o { background: var(--orange); color: #fff; }
-  .btn--o:hover { background: var(--ink); transform: translateY(-2px); }
-  .btn--k { background: var(--ink); color: #fff; }
-  .btn--k:hover { background: var(--orange); }
+  .lbl { display: inline-flex; align-items: center; gap: 10px; font-family: var(--mono); font-size: 13px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+  .lbl::before { content: ""; width: 10px; height: 10px; background: var(--orange); clip-path: polygon(0 0, 100% 0, 50% 100%); }
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 16px 26px; border-radius: 14px; font-family: var(--display); font-weight: 800; font-size: 16px; transition: transform .4s var(--ease), background .3s, color .3s, box-shadow .3s; white-space: nowrap; }
+  .btn--o { background: var(--orange); color: #fff; box-shadow: 0 14px 30px -14px rgba(255,90,31,.9), inset 0 1px 0 rgba(255,255,255,.3); }
+  .btn--o:hover { background: #ff6e3a; }
   .btn--l { box-shadow: inset 0 0 0 2px var(--ink); }
   .btn--l:hover { background: var(--ink); color: #fff; }
-  [data-r] { opacity: 0; transform: translateY(34px); transition: opacity .8s var(--ease), transform .8s var(--ease); transition-delay: var(--d, 0s); }
-  [data-r].in { opacity: 1; transform: none; }
+  .btn--w { background: rgba(255,255,255,.14); color: #fff; box-shadow: inset 0 0 0 1px rgba(255,255,255,.3); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+  .vidro { background: rgba(255,255,255,.55); backdrop-filter: blur(18px) saturate(1.5); -webkit-backdrop-filter: blur(18px) saturate(1.5); box-shadow: inset 0 0 0 1px rgba(255,255,255,.75), inset 0 1px 0 #fff, 0 30px 60px -34px rgba(28,29,31,.45); }
+  .vidro-esc { background: rgba(28,29,31,.45); backdrop-filter: blur(18px) saturate(1.5); -webkit-backdrop-filter: blur(18px) saturate(1.5); box-shadow: inset 0 0 0 1px rgba(255,255,255,.12), inset 0 1px 0 rgba(255,255,255,.16), 0 30px 60px -30px rgba(0,0,0,.6); color: #fff; }
+  [data-r] { opacity: 0; transform: translateY(34px); filter: blur(6px); transition: opacity .9s var(--ease), transform .9s var(--ease), filter .9s var(--ease); transition-delay: var(--d, 0s); }
+  [data-r].in { opacity: 1; transform: none; filter: none; }
+  .grao { position: fixed; inset: -50%; z-index: 300; pointer-events: none; opacity: .06; mix-blend-mode: multiply; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+
+  /* CURSOR: mira de nível */
+  .cur { position: fixed; left: 0; top: 0; z-index: 500; pointer-events: none; width: 36px; height: 36px; margin: -18px 0 0 -18px; display: grid; place-items: center; opacity: 0; transition: width .4s var(--spring), height .4s var(--spring), margin .4s var(--spring), opacity .3s; }
+  .cur.on { opacity: 1; }
+  .cur::before, .cur::after { content: ""; position: absolute; background: var(--orange); transition: opacity .3s; }
+  .cur::before { width: 100%; height: 1.5px; } .cur::after { width: 1.5px; height: 100%; }
+  .cur i { width: 10px; height: 10px; border-radius: 50%; box-shadow: 0 0 0 1.5px var(--orange); transition: all .4s var(--spring); }
+  .cur span { position: absolute; font-family: var(--display); font-weight: 800; font-size: 13px; color: #fff; opacity: 0; white-space: nowrap; }
+  .cur.lbl { width: 96px; height: 96px; margin: -48px 0 0 -48px; }
+  .cur.lbl::before, .cur.lbl::after { opacity: 0; }
+  .cur.lbl i { width: 96px; height: 96px; background: var(--orange); box-shadow: none; }
+  .cur.lbl span { opacity: 1; }
+  .cur.link i { width: 44px; height: 44px; background: rgba(255,90,31,.12); }
+  .cur.link::before, .cur.link::after { opacity: .3; }
+  @media (hover: none), (pointer: coarse) { .cur { display: none; } }
 
   /* NAV */
-  .nav { position: sticky; top: 0; z-index: 50; background: rgba(244,244,242,.94); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
-  .nav__in { height: 76px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
-  .logo { display: flex; align-items: center; gap: 10px; font-family: var(--display); font-weight: 900; font-size: 26px; letter-spacing: -.04em; }
-  .logo svg { width: 30px; color: var(--orange); }
-  .nav__links { display: flex; gap: 28px; font-weight: 600; font-size: 15px; }
-  .nav__links a:hover { color: var(--orange); }
-  .burger { display: none; width: 46px; height: 46px; border-radius: 8px; background: var(--ink); place-items: center; }
-  .burger span { width: 18px; height: 2px; background: #fff; box-shadow: 0 6px 0 #fff, 0 -6px 0 #fff; }
+  .nav { position: fixed; top: 14px; left: 50%; z-index: 200; transform: translateX(-50%); width: min(1180px, 100% - 28px); border-radius: 18px; transition: transform .5s var(--ease); }
+  .nav.esc { transform: translate(-50%, -140%); }
+  .nav__in { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 9px 9px 9px 18px; }
+  .logo { display: flex; align-items: center; gap: 8px; font-family: var(--display); font-weight: 900; font-size: 24px; letter-spacing: -.05em; }
+  .logo svg { width: 24px; height: 24px; color: var(--orange); }
+  .nav__links { position: relative; display: flex; gap: 2px; }
+  .nav__links a { position: relative; z-index: 1; padding: 9px 14px; border-radius: 10px; font-size: 15px; font-weight: 600; color: var(--muted); transition: color .3s; }
+  .nav__links a:hover { color: var(--ink); }
+  .nav__pill { position: absolute; z-index: 0; top: 0; height: 100%; border-radius: 10px; background: rgba(28,29,31,.07); opacity: 0; transition: left .45s var(--ease), width .45s var(--ease), opacity .3s; }
+  .nav__links:hover .nav__pill { opacity: 1; }
+  .nav__cta { padding: 12px 18px; font-size: 15px; border-radius: 11px; }
+  .burger { display: none; width: 44px; height: 44px; border-radius: 11px; background: var(--ink); }
+  .burger span, .burger span::before { display: block; width: 18px; height: 2px; background: #fff; margin: auto; position: relative; transition: transform .3s; }
+  .burger span::before { content: ""; position: absolute; top: 6px; }
+  .burger span { transform: translateY(-3px); }
+  .nav.open .burger span { transform: rotate(45deg); } .nav.open .burger span::before { transform: translate(0, -6px) rotate(-90deg); }
 
   /* HERO */
-  .hero { padding: 60px 0 90px; }
-  .hero__grid { display: grid; grid-template-columns: .9fr 1.1fr; gap: 50px; align-items: center; }
-  .hero h1 { font-size: clamp(46px, 6vw, 92px); margin: 20px 0 22px; }
-  .hero h1 .u { background: linear-gradient(var(--orange), var(--orange)) 0 86% / 0% .16em no-repeat; box-decoration-break: clone; -webkit-box-decoration-break: clone; animation: grow .9s .6s var(--ease) forwards; }
-  @keyframes grow { to { background-size: 100% .16em; } }
-  .hero p { font-size: 19px; color: var(--muted); max-width: 470px; }
-  .hero__ctas { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 30px; }
-  .facts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; margin-top: 40px; border-top: 2px solid var(--ink); }
-  .facts div { padding: 16px 14px 0 0; }
-  .facts b { display: block; font-family: var(--display); font-weight: 900; font-size: 34px; letter-spacing: -.03em; }
-  .facts span { font-size: 14px; color: var(--muted); }
-
-  /* ANTES / DEPOIS */
-  .ba { position: relative; aspect-ratio: 4/3.2; border-radius: 18px; overflow: hidden; user-select: none; touch-action: pan-y; cursor: ew-resize; box-shadow: 0 40px 70px -40px rgba(28,29,31,.55); }
+  .hero { position: relative; padding: 110px 14px 14px; }
+  .ba { position: relative; overflow: hidden; user-select: none; touch-action: pan-y; --x: 50%; }
   .ba img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; pointer-events: none; }
-  .ba__before { clip-path: inset(0 calc(100% - var(--x, 50%)) 0 0); filter: saturate(.75); }
-  .ba__handle { position: absolute; top: 0; bottom: 0; left: var(--x, 50%); width: 3px; background: #fff; transform: translateX(-50%); }
-  .ba__handle::after { content: "⟷"; position: absolute; top: 50%; left: 50%; width: 56px; height: 56px; margin: -28px 0 0 -28px; border-radius: 50%; background: var(--orange); color: #fff; display: grid; place-items: center; font-size: 22px; font-weight: 700; box-shadow: 0 10px 20px -6px rgba(0,0,0,.4); }
-  .ba__tag { position: absolute; top: 16px; padding: 6px 12px; border-radius: 6px; font-family: var(--display); font-weight: 800; font-size: 13px; text-transform: uppercase; letter-spacing: .06em; }
-  .ba__tag--a { left: 16px; background: var(--ink); color: #fff; }
-  .ba__tag--d { right: 16px; background: var(--orange); color: #fff; }
-  .hint { position: absolute; bottom: 16px; left: 50%; transform: translateX(-50%); background: rgba(28,29,31,.75); color: #fff; padding: 6px 14px; border-radius: 999px; font-size: 13px; font-weight: 600; transition: opacity .4s; }
+  .ba .ba__before { clip-path: inset(0 calc(100% - var(--x)) 0 0); filter: saturate(.85) contrast(1.02); }
+  .ba__handle { position: absolute; top: 0; bottom: 0; left: var(--x); width: 2px; margin-left: -1px; background: #fff; box-shadow: 0 0 18px rgba(0,0,0,.35); z-index: 3; }
+  .ba__handle::after { content: "⇆"; position: absolute; top: 50%; left: 50%; width: 54px; height: 54px; margin: -27px 0 0 -27px; border-radius: 50%; display: grid; place-items: center; font-size: 20px; color: var(--ink); background: rgba(255,255,255,.7); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); box-shadow: inset 0 0 0 1px #fff, 0 10px 20px -8px rgba(0,0,0,.4); }
+  .ba__tag { position: absolute; z-index: 3; top: 18px; padding: 7px 13px; border-radius: 10px; font-family: var(--mono); font-size: 12px; letter-spacing: .06em; text-transform: uppercase; }
+  .ba__tag--a { left: 18px; } .ba__tag--d { right: 18px; }
+  .hero .ba { height: calc(100vh - 124px); height: calc(100svh - 124px); min-height: 560px; border-radius: 34px; }
+  .hero .ba::after { content: ""; position: absolute; inset: 0; z-index: 2; pointer-events: none; background: linear-gradient(90deg, rgba(20,20,22,.55), transparent 55%), linear-gradient(to top, rgba(20,20,22,.4), transparent 40%); }
+  .hcard { position: absolute; z-index: 4; left: 40px; bottom: 40px; width: min(600px, calc(100% - 80px)); border-radius: 30px; padding: 34px; }
+  .hcard .lbl { color: rgba(255,255,255,.75); }
+  .hcard h1 { font-size: clamp(42px, 5.6vw, 84px); margin: 14px 0 14px; }
+  .hcard h1 .u { position: relative; color: var(--orange2); white-space: nowrap; }
+  .hcard h1 .u svg { position: absolute; left: 0; bottom: -10px; width: 100%; height: 14px; }
+  .hcard h1 .u path { fill: none; stroke: var(--orange); stroke-width: 4; stroke-linecap: round; stroke-dasharray: 400; stroke-dashoffset: 400; animation: risca 1.2s 1s var(--ease) forwards; }
+  @keyframes risca { to { stroke-dashoffset: 0; } }
+  .hcard p { color: rgba(255,255,255,.82); font-size: 18px; }
+  .ctas { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 26px; }
+  .facts { position: absolute; z-index: 4; right: 40px; bottom: 40px; display: grid; gap: 8px; }
+  .facts div { border-radius: 18px; padding: 14px 18px; min-width: 190px; }
+  .facts b { display: block; font-family: var(--display); font-weight: 900; font-size: 30px; letter-spacing: -.04em; line-height: 1; font-variant-numeric: tabular-nums; }
+  .facts span { font-size: 14px; opacity: .8; }
+  /* o prumo de verdade */
+  .pendulo { position: absolute; z-index: 5; top: 0; right: 22%; width: 2px; height: 0; pointer-events: none; }
+  .pendulo .fio { position: absolute; left: 0; top: 0; width: 1.5px; background: linear-gradient(#ddd, #aaa); transform-origin: top center; }
+  .pendulo .peso { position: absolute; left: -17px; width: 36px; height: 54px; }
+  .pendulo .peso svg { width: 100%; height: 100%; filter: drop-shadow(0 12px 10px rgba(0,0,0,.4)); }
+  .pendulo .ancora { position: absolute; left: -9px; top: -4px; width: 20px; height: 10px; border-radius: 3px; background: linear-gradient(#999, #555); }
+  .sombra-p { display: none; position: absolute; z-index: 3; width: 60px; height: 14px; border-radius: 50%; background: radial-gradient(rgba(0,0,0,.35), transparent 70%); pointer-events: none; filter: blur(3px); }
 
-  /* ORÇAMENTO */
-  .est { padding: 110px 0; background: var(--ink); color: #fff; }
+  /* DA PLANTA À CHAVE (sticky) */
+  .obra { position: relative; height: 520vh; }
+  .ost { position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden; display: grid; grid-template-columns: 1.35fr .65fr; gap: 24px; padding: 96px max(20px, calc((100vw - 1240px) / 2)) 24px; align-items: stretch; }
+  .tela { position: relative; border-radius: 32px; overflow: hidden; background: var(--blue); box-shadow: 0 50px 90px -50px rgba(28,29,31,.6); }
+  .tela > .planta, .tela > .fase-img { position: absolute; inset: 0; }
+  .planta { background-color: #16426e; background-image: linear-gradient(rgba(255,255,255,.07) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.07) 1px, transparent 1px), linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px); background-size: 100px 100px, 100px 100px, 20px 20px, 20px 20px; }
+  .planta svg { width: 100%; height: 100%; }
+  .planta .tr { fill: none; stroke: #e8f1ff; stroke-width: 2.4; stroke-linecap: square; }
+  .planta .fn { fill: none; stroke: rgba(232,241,255,.6); stroke-width: 1.2; }
+  .planta .cota { fill: none; stroke: rgba(232,241,255,.5); stroke-width: 1; }
+  .planta text { fill: #e8f1ff; font-family: var(--mono); font-size: 13px; letter-spacing: .04em; }
+  .planta text.t2 { font-size: 10px; fill: rgba(232,241,255,.7); }
+  .carimbo-p { position: absolute; inset: auto 24px 24px auto; border: 1.5px solid rgba(232,241,255,.7); color: #e8f1ff; font-family: var(--mono); font-size: 11px; padding: 10px 14px; display: grid; gap: 2px; min-width: 220px; }
+  .carimbo-p b { font-size: 13px; }
+  .fase-img { clip-path: inset(0 calc(100% - var(--w, 0%)) 0 0); }
+  .fase-img img { width: 100%; height: 100%; object-fit: cover; transform: scale(1.06); }
+  .laser { position: absolute; z-index: 5; top: 0; bottom: 0; left: var(--lx, -10%); width: 2px; background: #ff2a12; box-shadow: 0 0 8px 2px rgba(255,42,18,.8), 0 0 40px 8px rgba(255,42,18,.35); opacity: var(--lo, 0); }
+  .laser::after { content: ""; position: absolute; top: 0; bottom: 0; left: -120px; width: 120px; background: linear-gradient(90deg, transparent, rgba(255,60,30,.12)); }
+  .nivel { position: absolute; z-index: 6; left: 0; right: 0; top: var(--ly, 60%); height: 1.5px; background: rgba(255,42,18,.85); box-shadow: 0 0 6px 1px rgba(255,42,18,.6); opacity: var(--lo, 0); }
+  .etq { position: absolute; z-index: 7; left: 20px; top: 20px; padding: 8px 14px; border-radius: 12px; font-family: var(--mono); font-size: 13px; letter-spacing: .04em; }
+  .ttl { position: absolute; z-index: 7; left: 24px; bottom: 24px; right: 24px; color: #fff; }
+  .ttl h2 { font-size: clamp(30px, 3.6vw, 52px); text-shadow: 0 4px 30px rgba(0,0,0,.4); }
+  .lado { display: flex; flex-direction: column; gap: 14px; min-height: 0; }
+  .phone { flex: 1; min-height: 0; border-radius: 36px; padding: 10px; background: linear-gradient(145deg, #2b2c30, #0f1012); box-shadow: 0 40px 60px -30px rgba(0,0,0,.6), inset 0 0 0 1.5px #3b3d42; display: flex; }
+  .screen { flex: 1; border-radius: 28px; background: var(--white); padding: 26px 18px 16px; overflow: hidden; display: flex; flex-direction: column; position: relative; }
+  .screen::before { content: ""; position: absolute; top: 8px; left: 50%; width: 70px; height: 18px; border-radius: 10px; background: #0f1012; transform: translateX(-50%); }
+  .screen small { color: var(--muted); font-size: 12px; font-family: var(--mono); }
+  .screen h4 { font-size: 22px; margin: 2px 0 10px; font-variant-numeric: tabular-nums; }
+  .bar { height: 8px; border-radius: 6px; background: var(--line); overflow: hidden; margin-bottom: 12px; }
+  .bar i { display: block; height: 100%; width: 0; background: linear-gradient(90deg, var(--orange), var(--orange2)); border-radius: 6px; }
+  .tasks { display: grid; gap: 4px; }
+  .task { display: flex; align-items: center; gap: 10px; padding: 8px 6px; font-size: 14px; border-radius: 10px; color: var(--muted); transition: background .4s, color .4s; }
+  .task i { width: 22px; height: 22px; flex: none; border-radius: 50%; display: grid; place-items: center; font-style: normal; font-size: 11px; font-weight: 700; background: var(--bg); transition: background .4s, color .4s, transform .5s var(--spring); }
+  .task.ok { color: var(--ink); } .task.ok i { background: var(--green); color: #fff; }
+  .task.now { background: #fff3ee; color: var(--ink); font-weight: 600; } .task.now i { background: var(--orange); color: #fff; transform: scale(1.1); }
+  .foto-up { margin-top: auto; position: relative; border-radius: 14px; overflow: hidden; height: 120px; flex: none; }
+  .foto-up img { width: 100%; height: 100%; object-fit: cover; }
+  .foto-up span { position: absolute; left: 8px; bottom: 8px; padding: 4px 9px; border-radius: 8px; font-size: 11px; font-weight: 600; }
+  .feats { display: grid; gap: 8px; }
+  .feats div { border-radius: 18px; padding: 12px 16px; font-size: 14px; }
+  .feats b { font-family: var(--display); font-size: 16px; display: block; }
+  .feats span { color: var(--muted); }
+
+  /* ESTIMATIVA */
+  .est { padding: 130px 0; background: var(--ink); color: #fff; border-radius: 50px; margin: 0 12px; position: relative; overflow: hidden; }
+  .est::before { content: ""; position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px); background-size: 40px 40px; -webkit-mask: radial-gradient(70% 60% at 30% 30%, #000, transparent); mask: radial-gradient(70% 60% at 30% 30%, #000, transparent); }
+  .est .wrap { position: relative; }
   .est .lbl { color: #a3a6ab; }
-  .head { display: flex; justify-content: space-between; align-items: end; gap: 30px; flex-wrap: wrap; margin-bottom: 44px; }
-  .head p { color: var(--muted); max-width: 420px; }
+  .head { display: flex; justify-content: space-between; align-items: flex-end; gap: 40px; margin-bottom: 50px; }
+  .head p { color: var(--muted); max-width: 440px; }
   .est .head p { color: #a3a6ab; }
-  .est__grid { display: grid; grid-template-columns: 1.1fr .9fr; gap: 24px; align-items: start; }
-  .box { background: #26282b; border-radius: 18px; padding: 30px; }
-  .box h4 { font-family: var(--display); font-weight: 800; font-size: 15px; letter-spacing: .06em; text-transform: uppercase; color: #a3a6ab; margin-bottom: 14px; }
-  .box > div + div { margin-top: 28px; }
+  .est__grid { display: grid; grid-template-columns: 1.3fr .7fr; gap: 22px; align-items: start; }
+  .box { border-radius: 30px; padding: 30px; display: grid; gap: 28px; background: rgba(255,255,255,.04); box-shadow: inset 0 0 0 1px rgba(255,255,255,.08); }
+  .box h4 { font-family: var(--mono); font-weight: 500; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: #a3a6ab; margin-bottom: 12px; }
   .rooms { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
-  .rm { padding: 16px 12px; border-radius: 12px; background: #1c1d1f; border: 2px solid #33363a; text-align: left; transition: all .25s; }
+  .rm, .pd { position: relative; padding: 16px 14px; border-radius: 16px; background: rgba(255,255,255,.04); box-shadow: inset 0 0 0 1.5px rgba(255,255,255,.1); text-align: left; transition: all .35s var(--spring); }
   .rm b { display: block; font-family: var(--display); font-size: 17px; }
-  .rm small { color: #a3a6ab; }
-  .rm.on { border-color: var(--orange); background: rgba(255,90,31,.08); }
-  .m2 { display: flex; justify-content: space-between; font-weight: 600; margin-bottom: 12px; }
-  .m2 output { font-family: var(--display); font-weight: 900; font-size: 26px; color: var(--orange); }
-  input[type=range] { width: 100%; -webkit-appearance: none; appearance: none; height: 6px; border-radius: 6px; background: linear-gradient(90deg, var(--orange) var(--p, 30%), #3a3d42 var(--p, 30%)); outline: none; }
-  input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 26px; height: 26px; border-radius: 6px; background: #fff; border: 4px solid var(--orange); cursor: grab; }
-  input[type=range]::-moz-range-thumb { width: 18px; height: 18px; border-radius: 4px; background: #fff; border: 4px solid var(--orange); cursor: grab; }
+  .rm small, .pd small { color: #a3a6ab; display: block; font-size: 12px; }
+  .pd { font-family: var(--display); font-weight: 800; }
+  .rm:hover, .pd:hover { transform: translateY(-2px); }
+  .rm.on, .pd.on { box-shadow: inset 0 0 0 2px var(--orange); background: rgba(255,90,31,.1); }
   .pad { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
-  .pd { padding: 14px; border-radius: 12px; background: #1c1d1f; border: 2px solid #33363a; font-family: var(--display); font-weight: 800; transition: all .25s; }
-  .pd small { display: block; font-family: var(--sans); font-weight: 500; color: #a3a6ab; font-size: 12px; }
-  .pd.on { border-color: var(--orange); background: rgba(255,90,31,.08); }
+  .m2 { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 12px; font-weight: 600; }
+  .m2 output { font-family: var(--display); font-weight: 900; font-size: 28px; color: var(--orange2); font-variant-numeric: tabular-nums; }
+  input[type=range] { width: 100%; -webkit-appearance: none; appearance: none; height: 10px; border-radius: 10px; background: linear-gradient(90deg, var(--orange) var(--p, 10%), rgba(255,255,255,.12) var(--p, 10%)); outline: none; cursor: pointer; }
+  input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 30px; height: 30px; border-radius: 8px; background: #fff; box-shadow: 0 0 0 5px rgba(255,90,31,.3), 0 4px 10px rgba(0,0,0,.4); }
+  input[type=range]::-moz-range-thumb { width: 26px; height: 26px; border: 0; border-radius: 8px; background: #fff; }
+  .pisos { margin-top: 14px; display: flex; align-items: center; gap: 14px; font-size: 14px; color: #a3a6ab; }
+  .pisos .gr { width: 120px; height: 70px; flex: none; border-radius: 6px; background: #d6d3cd; background-image: linear-gradient(rgba(0,0,0,.18) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,.18) 1px, transparent 1px), linear-gradient(130deg, rgba(255,255,255,.4), transparent 50%, rgba(0,0,0,.08)); background-size: var(--t, 12px) var(--t, 12px), var(--t, 12px) var(--t, 12px), 100% 100%; box-shadow: inset 0 0 0 1px rgba(255,255,255,.2); transition: background-size .5s var(--ease); }
+  .pisos b { color: #fff; }
   .svcs { display: flex; flex-wrap: wrap; gap: 8px; }
-  .sv { padding: 10px 14px; border-radius: 999px; border: 2px solid #33363a; font-weight: 600; font-size: 14px; transition: all .25s; }
-  .sv.on { background: #fff; color: var(--ink); border-color: #fff; }
-  .res { background: var(--orange); color: #fff; border-radius: 18px; padding: 30px; position: sticky; top: 100px; }
-  .res small { opacity: .85; }
-  .res .big { font-family: var(--display); font-weight: 900; font-size: clamp(34px, 3.6vw, 50px); letter-spacing: -.04em; line-height: 1.05; margin: 6px 0 4px; }
-  .bk { margin: 22px 0; display: grid; gap: 10px; }
-  .bk div { display: grid; grid-template-columns: 110px 1fr 70px; gap: 10px; align-items: center; font-size: 14px; }
+  .sv { padding: 10px 16px; border-radius: 999px; box-shadow: inset 0 0 0 1.5px rgba(255,255,255,.15); font-weight: 600; font-size: 14px; transition: all .3s var(--spring); }
+  .sv.on { background: #fff; color: var(--ink); box-shadow: none; }
+  .sv:not(.on) { text-decoration: line-through; color: #8a8d92; }
+  .res { position: sticky; top: 100px; border-radius: 30px; padding: 30px; background: linear-gradient(160deg, var(--orange), #e9430b); color: #fff; overflow: hidden; box-shadow: 0 40px 70px -30px rgba(255,90,31,.6); }
+  .res::after { content: ""; position: absolute; right: -60px; top: -60px; width: 200px; height: 200px; border-radius: 50%; background: radial-gradient(circle, rgba(255,255,255,.3), transparent 70%); }
+  .res small { opacity: .88; }
+  .res .big { font-family: var(--display); font-weight: 900; font-size: clamp(30px, 3vw, 44px); letter-spacing: -.04em; line-height: 1.05; margin: 6px 0 4px; font-variant-numeric: tabular-nums; }
+  .bk { margin: 22px 0; display: grid; gap: 10px; position: relative; z-index: 1; }
+  .bk div { display: grid; grid-template-columns: 104px 1fr 76px; gap: 10px; align-items: center; font-size: 13.5px; }
   .bk i { height: 8px; border-radius: 6px; background: rgba(255,255,255,.25); overflow: hidden; }
   .bk i b { display: block; height: 100%; background: #fff; border-radius: 6px; transition: width .6s var(--ease); }
-  .bk span:last-child { text-align: right; font-weight: 600; }
-  .res .btn { width: 100%; background: var(--ink); }
+  .bk span:last-child { text-align: right; font-weight: 600; font-variant-numeric: tabular-nums; }
+  .res .btn { width: 100%; background: var(--ink); color: #fff; position: relative; z-index: 1; }
   .res .btn:hover { background: #fff; color: var(--ink); }
 
-  /* GARANTIAS */
-  .why { padding: 110px 0; }
-  .wgrid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
-  .w { background: var(--white); border-radius: 18px; padding: 28px; border-top: 4px solid var(--orange); transition: transform .35s var(--ease); }
-  .w:hover { transform: translateY(-6px); }
-  .w b { display: block; font-family: var(--display); font-weight: 900; font-size: 42px; letter-spacing: -.04em; color: var(--orange); line-height: 1; margin-bottom: 14px; }
-  .w h3 { font-size: 20px; letter-spacing: -.02em; margin-bottom: 6px; }
-  .w p { color: var(--muted); font-size: 15px; }
+  /* CONTRATO */
+  .garantia { padding: 130px 0; }
+  .g__grid { display: grid; grid-template-columns: .8fr 1.2fr; gap: 60px; align-items: center; }
+  .g__grid > * { min-width: 0; }
+  .g__grid p.sub { color: var(--muted); margin-top: 16px; max-width: 420px; }
+  .mesa { position: relative; perspective: 1600px; padding: 20px 0; }
+  .contrato { position: relative; background: #fffdf8; border-radius: 4px; padding: 44px 46px 40px; box-shadow: 0 1px 0 #ece8dd, 0 3px 0 #f6f3ea, 0 5px 0 #ebe7dc, 0 50px 80px -40px rgba(28,29,31,.5); transform: rotate(-1.5deg) rotateX(8deg); transition: transform .8s var(--ease); font-size: 15px; background-image: linear-gradient(90deg, transparent 38px, rgba(255,90,31,.25) 38px 39px, transparent 39px); }
+  .contrato:hover { transform: rotate(-.5deg) rotateX(2deg); }
+  .contrato .ch { display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 2px solid var(--ink); padding-bottom: 14px; margin-bottom: 18px; }
+  .contrato .ch b { font-family: var(--display); font-weight: 900; font-size: 18px; letter-spacing: -.02em; }
+  .contrato .ch small { font-family: var(--mono); font-size: 11px; color: var(--muted); display: block; }
+  .cl { display: grid; grid-template-columns: 54px 1fr; gap: 14px; padding: 14px 0; border-bottom: 1px dashed #d8d4c8; }
+  .cl:last-of-type { border-bottom: 0; }
+  .cl > b { font-family: var(--display); font-weight: 900; font-size: 20px; color: var(--orange); }
+  .cl h3 { font-size: 19px; letter-spacing: -.02em; }
+  .cl p { color: var(--muted); font-size: 14.5px; }
+  .cl .clip { font-family: var(--mono); font-size: 11px; color: var(--muted); }
+  .assin { display: flex; justify-content: space-between; gap: 30px; margin-top: 26px; }
+  .assin div { flex: 1; border-top: 1px solid var(--ink); padding-top: 6px; font-size: 11px; font-family: var(--mono); color: var(--muted); position: relative; }
+  .assin svg { position: absolute; left: 0; bottom: 22px; width: 160px; height: 56px; }
+  .assin path { fill: none; stroke: #1b3a8a; stroke-width: 2; stroke-linecap: round; stroke-dasharray: 600; stroke-dashoffset: 600; transition: stroke-dashoffset 2.2s var(--ease); }
+  .contrato.in .assin path { stroke-dashoffset: 0; }
+  .contrato.in .assin div:last-child path { transition-delay: 1.2s; }
+  .selo { position: absolute; right: 40px; top: 120px; width: 110px; height: 110px; border-radius: 50%; border: 3px double rgba(255,90,31,.8); color: rgba(255,90,31,.85); display: grid; place-content: center; text-align: center; font-family: var(--display); font-weight: 900; font-size: 11px; line-height: 1.15; transform: rotate(14deg) scale(1.8); opacity: 0; transition: transform .5s cubic-bezier(.5,0,.4,1.4) 2.6s, opacity .2s 2.6s; mix-blend-mode: multiply; }
+  .selo b { font-size: 22px; }
+  .contrato.in .selo { transform: rotate(14deg) scale(1); opacity: 1; }
+  .caneta { position: absolute; right: -10px; bottom: -6px; width: 220px; transform: rotate(-28deg); filter: drop-shadow(0 14px 12px rgba(0,0,0,.3)); }
 
-  /* PORTFÓLIO */
-  .port { padding: 0 0 110px; }
-  .port__grid { display: grid; grid-template-columns: 1.3fr .7fr; gap: 30px; align-items: center; }
-  .plist { display: grid; gap: 10px; }
-  .pi { text-align: left; padding: 20px 22px; border-radius: 14px; background: var(--white); border: 2px solid transparent; transition: all .25s; }
-  .pi b { display: block; font-family: var(--display); font-size: 20px; letter-spacing: -.02em; }
-  .pi small { color: var(--muted); }
-  .pi.on { border-color: var(--orange); }
-
-  /* ACOMPANHAMENTO */
-  .app { padding: 100px 0; background: var(--concrete); }
-  .app__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center; }
-  .phone { width: 300px; margin: 0 auto; background: var(--ink); border-radius: 44px; padding: 14px; box-shadow: 0 40px 70px -40px rgba(0,0,0,.6); }
-  .screen { background: var(--white); border-radius: 32px; padding: 26px 18px; min-height: 560px; }
-  .screen h4 { font-family: var(--display); font-size: 20px; }
-  .screen small { color: var(--muted); }
-  .bar { height: 10px; border-radius: 10px; background: var(--bg); margin: 14px 0 20px; overflow: hidden; }
-  .bar i { display: block; height: 100%; width: 0; background: var(--orange); border-radius: 10px; transition: width 1.6s var(--ease); }
-  .task { display: flex; gap: 12px; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--line); font-size: 14px; }
-  .task i { width: 24px; height: 24px; border-radius: 50%; display: grid; place-items: center; font-style: normal; font-size: 12px; font-weight: 800; flex: none; }
-  .task.ok i { background: var(--green); color: #fff; }
-  .task.now i { background: var(--orange); color: #fff; animation: pulse 1.4s infinite; }
-  .task.todo i { background: var(--bg); color: var(--muted); }
-  @keyframes pulse { 50% { box-shadow: 0 0 0 6px rgba(255,90,31,.2); } }
-  .photo-up { margin-top: 14px; border-radius: 14px; overflow: hidden; position: relative; }
-  .photo-up img { width: 100%; height: 130px; object-fit: cover; }
-  .photo-up span { position: absolute; left: 8px; bottom: 8px; background: #fff; border-radius: 6px; padding: 3px 8px; font-size: 11px; font-weight: 700; }
-  .feat { list-style: none; display: grid; gap: 14px; margin-top: 26px; }
-  .feat li { display: flex; gap: 14px; }
-  .feat li b { display: block; font-family: var(--display); }
-  .feat li span { color: var(--muted); font-size: 15px; }
-  .feat li::before { content: "✓"; width: 30px; height: 30px; border-radius: 8px; background: var(--ink); color: #fff; display: grid; place-items: center; font-weight: 800; flex: none; }
+  /* OBRAS */
+  .port { padding: 0 0 130px; }
+  .port__grid { display: grid; grid-template-columns: 1.5fr .5fr; gap: 18px; align-items: stretch; }
+  .port .ba { border-radius: 30px; min-height: 560px; box-shadow: 0 50px 90px -50px rgba(28,29,31,.6); }
+  .plist { display: grid; gap: 10px; align-content: start; }
+  .pi { position: relative; text-align: left; padding: 22px; border-radius: 22px; overflow: hidden; transition: all .4s var(--spring); }
+  .pi b { display: block; font-family: var(--display); font-size: 21px; letter-spacing: -.02em; }
+  .pi small { color: var(--muted); font-family: var(--mono); font-size: 12px; }
+  .pi::after { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: var(--orange); transform: scaleY(0); transition: transform .5s var(--spring); }
+  .pi.on { background: var(--white); } .pi.on::after { transform: scaleY(1); }
+  .pi:hover { transform: translateX(4px); }
+  .pi .mini { display: block; height: 90px; border-radius: 14px; margin-top: 12px; background-size: cover; background-position: center; }
 
   /* CONTATO */
-  .contact { padding: 110px 0; }
-  .c__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center; }
-  .q { font-family: var(--display); font-weight: 700; font-size: clamp(22px, 2.4vw, 32px); letter-spacing: -.02em; line-height: 1.3; }
-  .cform { background: var(--white); border-radius: 18px; padding: 32px; display: grid; gap: 12px; }
-  .cform input, .cform select, .cform textarea { width: 100%; padding: 15px 16px; border-radius: 10px; border: 2px solid var(--line); background: var(--bg); outline: none; resize: none; }
-  .cform input:focus, .cform select:focus, .cform textarea:focus { border-color: var(--orange); }
-  .two { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-  footer { background: var(--ink); color: #a3a6ab; padding: 34px 0; font-size: 14px; }
-  .foot { display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; align-items: center; }
-  footer .logo { color: #fff; }
-  .wa { position: fixed; right: 22px; bottom: 22px; z-index: 60; width: 58px; height: 58px; border-radius: 50%; background: #25d366; color: #fff; display: grid; place-items: center; box-shadow: 0 12px 30px -8px rgba(37,211,102,.6); transition: transform .3s var(--ease); }
+  .contact { position: relative; padding: 140px 0 40px; overflow: hidden; isolation: isolate; border-radius: 50px 50px 0 0; color: #fff; }
+  .contact > img { position: absolute; left: 0; top: -10%; width: 100%; height: 120%; object-fit: cover; z-index: -2; will-change: transform; }
+  .contact::after { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(100deg, rgba(20,20,22,.88) 35%, rgba(20,20,22,.45)); }
+  .contact .lbl { color: rgba(255,255,255,.7); }
+  .c__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+  .q { font-family: var(--display); font-weight: 700; font-size: clamp(24px, 2.5vw, 34px); line-height: 1.25; letter-spacing: -.02em; }
+  .cform { border-radius: 30px; padding: 30px; display: grid; gap: 12px; }
+  .two { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; } .two > * { min-width: 0; }
+  .cform input, .cform select, .cform textarea { width: 100%; padding: 15px 18px; border-radius: 14px; border: 0; background: rgba(255,255,255,.92); color: var(--ink); outline: none; box-shadow: inset 0 0 0 2px transparent; transition: box-shadow .3s; }
+  .cform input:focus, .cform select:focus, .cform textarea:focus { box-shadow: inset 0 0 0 2px var(--orange); }
+  .foot { display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; margin-top: 100px; padding-top: 24px; border-top: 1px solid rgba(255,255,255,.15); color: #b9bbbf; font-size: 14px; align-items: center; }
+  .marca { font-family: var(--display); font-weight: 900; font-size: clamp(90px, 27vw, 420px); line-height: .8; letter-spacing: -.07em; text-align: center; margin-top: 30px; color: transparent; -webkit-text-stroke: 1px rgba(255,138,92,.35); background: linear-gradient(90deg, var(--orange), var(--orange2)) no-repeat; background-size: var(--fill, 0%) 100%; -webkit-background-clip: text; background-clip: text; user-select: none; }
+
+  .wa { position: fixed; right: 20px; bottom: 20px; z-index: 150; width: 58px; height: 58px; border-radius: 50%; background: #25d366; color: #fff; display: grid; place-items: center; box-shadow: 0 12px 30px -8px rgba(37,211,102,.7); transition: transform .3s var(--spring); }
   .wa:hover { transform: scale(1.08); }
 
-  @media (max-width: 1040px) {
-    .nav__links, .nav__cta { display: none; }
-    .burger { display: grid; }
-    .nav.open .nav__links { display: flex; flex-direction: column; position: absolute; top: 76px; left: 0; right: 0; background: var(--bg); padding: 24px 20px; gap: 18px; border-bottom: 1px solid var(--line); }
-    .hero__grid, .est__grid, .port__grid, .app__grid, .c__grid { grid-template-columns: 1fr; }
+  @media (max-width: 1000px) {
+    .est__grid, .g__grid, .port__grid, .c__grid { grid-template-columns: 1fr; }
     .res { position: static; }
-    .wgrid { grid-template-columns: 1fr 1fr; }
+    .head { flex-direction: column; align-items: flex-start; gap: 14px; }
+    .plist { grid-template-columns: repeat(3, 1fr); }
+    .pi .mini { display: none; }
   }
-  @media (max-width: 600px) {
+  @media (max-width: 900px) {
+    .nav__links { display: none; }
+    .nav.open .nav__links { display: grid; position: absolute; top: calc(100% + 8px); left: 0; right: 0; padding: 10px; border-radius: 18px; background: rgba(255,255,255,.96); box-shadow: 0 30px 50px -30px rgba(0,0,0,.4); }
+    .nav.open .nav__pill { display: none; }
+    .nav__cta { display: none; }
+    .burger { display: grid; place-items: center; }
+    .hero { padding: 86px 8px 8px; }
+    .hero .ba { height: auto; min-height: 0; aspect-ratio: auto; border-radius: 26px; padding-top: 300px; }
+    .hero .ba::after { background: linear-gradient(to top, rgba(20,20,22,.85) 55%, transparent 80%); }
+    .hcard { position: relative; left: auto; bottom: auto; width: auto; margin: 0 10px 10px; padding: 22px; z-index: 4; }
+    .hcard h1 { font-size: clamp(36px, 10.5vw, 52px); }
+    .hcard p { font-size: 16px; }
+    .ctas .btn { flex: 1; }
+    .facts { position: relative; right: auto; bottom: auto; grid-template-columns: repeat(3, 1fr); margin: 0 10px 10px; gap: 6px; }
+    .facts div { min-width: 0; padding: 12px; } .facts b { font-size: 22px; } .facts span { font-size: 11.5px; display: block; line-height: 1.3; }
+    .ba__tag { top: 14px; }
+    .pendulo { right: 16%; }
+    .obra { height: 460vh; }
+    .ost { grid-template-columns: 1fr; grid-template-rows: 1fr auto; padding: 80px 10px 10px; gap: 10px; }
+    .tela { border-radius: 24px; }
+    .carimbo-p { min-width: 0; right: 12px; bottom: auto; top: 60px; font-size: 9px; padding: 6px 8px; }
+    .ttl { left: 16px; right: 16px; bottom: 16px; }
+    .phone { display: none; }
+    .feats { display: none; }
+    .lado { order: 2; }
+    .mobtask { display: flex !important; margin-right: 68px; }
+    .est { margin: 0 6px; border-radius: 32px; padding: 100px 0; }
+    .box { padding: 20px; }
     .rooms, .pad { grid-template-columns: 1fr 1fr; }
-    .wgrid, .two { grid-template-columns: 1fr; }
-    .box, .res, .cform { padding: 22px 18px; }
-    .bk div { grid-template-columns: 90px 1fr 60px; }
-    .phone { width: 270px; }
+    .bk div { grid-template-columns: 90px 1fr 70px; }
+    .garantia { padding: 100px 0; }
+    .contrato { padding: 28px 22px 26px 30px; transform: none; background-image: linear-gradient(90deg, transparent 20px, rgba(255,90,31,.25) 20px 21px, transparent 21px); }
+    .cl { grid-template-columns: 40px 1fr; } .selo { right: 14px; top: 70px; width: 84px; height: 84px; } .selo b { font-size: 17px; }
+    .caneta { width: 150px; right: -20px; bottom: -30px; }
+    .port .ba { min-height: 420px; border-radius: 24px; }
+    .plist { grid-template-columns: 1fr; }
+    .contact { border-radius: 32px 32px 0 0; padding-top: 100px; }
+    .two { grid-template-columns: 1fr; }
+    .foot { flex-direction: column; align-items: flex-start; }
   }
-  @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; animation-delay: 0s !important; transition-duration: .01ms !important; } [data-r] { opacity: 1; transform: none; } }
+  .mobtask { display: none; align-items: center; gap: 12px; border-radius: 20px; padding: 12px 14px; }
+  .mobtask b { font-family: var(--display); font-size: 17px; display: block; line-height: 1.2; }
+  .mobtask small { color: var(--muted); font-size: 13px; }
+  .mobtask .rg { width: 46px; height: 46px; flex: none; transform: rotate(-90deg); }
+  .mobtask circle { fill: none; stroke-width: 5; } .mobtask .bgc { stroke: var(--line); } .mobtask .fgc { stroke: var(--orange); stroke-dasharray: 126; stroke-linecap: round; }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+    [data-r] { opacity: 1; transform: none; filter: none; }
+  }
 </style>
 </head>
 <body>
+<div class="grao" aria-hidden="true"></div>
+<div class="cur" aria-hidden="true"><i></i><span></span></div>
 
-<header class="nav" id="nav">
-  <div class="wrap nav__in">
+<header class="nav vidro" id="nav">
+  <div class="nav__in">
     <a href="#" class="logo"><svg viewBox="0 0 30 30" fill="currentColor"><path d="M15 2v6" stroke="currentColor" stroke-width="2.5"/><path d="M8 10h14l-7 18z"/></svg>prumo</a>
-    <nav class="nav__links"><a href="#orcamento">Orçamento</a><a href="#garantias">Garantias</a><a href="#obras">Obras</a><a href="#app">Acompanhamento</a><a href="#contato">Contato</a></nav>
-    <a href="#orcamento" class="btn btn--o nav__cta" style="padding:12px 20px;font-size:15px">Orçar minha reforma</a>
-    <button class="burger" aria-label="Menu"><span></span></button>
+    <nav class="nav__links" id="links"><span class="nav__pill" id="pill"></span><a href="#app">Da planta à chave</a><a href="#orcamento">Orçamento</a><a href="#garantias">Garantias</a><a href="#obras">Obras</a><a href="#contato">Contato</a></nav>
+    <a href="#orcamento" class="btn btn--o nav__cta mag">Orçar minha reforma</a>
+    <button class="burger" aria-label="Menu" aria-expanded="false"><span></span></button>
   </div>
 </header>
 
-<section class="hero">
-  <div class="wrap hero__grid">
-    <div>
+<section class="hero" id="topo">
+  <div class="ba" id="ba1" data-cur="Arraste">
+    <img src="https://images.unsplash.com/photo-1785535573585-8f962fa3cda5?w=2000&q=80&auto=format&fit=crop" alt="Cozinha reformada" />
+    <img class="ba__before" src="https://images.unsplash.com/photo-1618832515490-e181c4794a45?w=2000&q=80&auto=format&fit=crop" alt="Cozinha em obra" />
+    <span class="ba__tag ba__tag--a vidro">Antes</span><span class="ba__tag ba__tag--d vidro">Depois</span>
+    <div class="ba__handle"></div>
+    <div class="hcard vidro-esc">
       <span class="lbl">Reformas residenciais · Curitiba</span>
-      <h1>Reforma sem <span class="u">dor de cabeça.</span></h1>
+      <h1>Reforma sem <span class="u">dor de cabeça.<svg viewBox="0 0 300 14" preserveAspectRatio="none"><path d="M3 9c60-6 140-8 294-3"/></svg></span></h1>
       <p>Projeto, materiais e mão de obra com um único responsável. Prazo e preço fechados em contrato — se atrasar, a multa é nossa.</p>
-      <div class="hero__ctas"><a href="#orcamento" class="btn btn--o">Estimar minha reforma</a><a href="#obras" class="btn btn--l">Ver antes e depois</a></div>
-      <div class="facts"><div><b>480+</b><span>reformas entregues</span></div><div><b>97%</b><span>no prazo combinado</span></div><div><b>5 anos</b><span>de garantia</span></div></div>
+      <div class="ctas"><a href="#orcamento" class="btn btn--o mag">Estimar minha reforma</a><a href="#obras" class="btn btn--w mag">Ver antes e depois</a></div>
     </div>
-    <div class="ba" id="ba1" data-r style="--d:.2s">
-      <img src="https://images.unsplash.com/photo-1785535573585-8f962fa3cda5?w=1400&q=80&auto=format&fit=crop" alt="Cozinha reformada" />
-      <img class="ba__before" src="https://images.unsplash.com/photo-1618832515490-e181c4794a45?w=1400&q=80&auto=format&fit=crop" alt="Cozinha em obra" />
-      <span class="ba__tag ba__tag--a">Antes</span><span class="ba__tag ba__tag--d">Depois</span>
-      <div class="ba__handle"></div><span class="hint">Arraste para comparar</span>
+    <div class="facts"><div class="vidro-esc"><b data-count="480" data-suf="+">0</b><span>reformas entregues</span></div><div class="vidro-esc"><b data-count="97" data-suf="%">0</b><span>no prazo combinado</span></div><div class="vidro-esc"><b data-count="5" data-suf=" anos">0</b><span>de garantia</span></div></div>
+  </div>
+  <div class="pendulo" id="pendulo" aria-hidden="true"><span class="ancora"></span><span class="fio" id="fio"></span><span class="peso" id="peso"><svg viewBox="0 0 36 54"><defs><linearGradient id="lat" x1="0" x2="1"><stop offset="0" stop-color="#b8370c"/><stop offset=".35" stop-color="#ff7a45"/><stop offset=".55" stop-color="#ffb08a"/><stop offset=".8" stop-color="#e2470f"/><stop offset="1" stop-color="#9e2f09"/></linearGradient><linearGradient id="tp" x1="0" x2="1"><stop offset="0" stop-color="#777"/><stop offset=".5" stop-color="#eee"/><stop offset="1" stop-color="#666"/></linearGradient></defs><rect x="14" y="0" width="8" height="7" rx="2" fill="url(#tp)"/><path d="M4 8h28l-14 44z" fill="url(#lat)"/><ellipse cx="18" cy="8" rx="14" ry="3" fill="#ff9a6e"/></svg></span></div>
+  <span class="sombra-p" id="sombraP"></span>
+</section>
+
+<section class="obra" id="app">
+  <div class="ost">
+    <div class="tela" id="tela">
+      <div class="planta">
+        <svg viewBox="0 0 900 600" preserveAspectRatio="xMidYMid slice" id="plantaSvg">
+          <g id="tracos">
+            <path class="tr" d="M120 90H780V510H120Z"/>
+            <path class="tr" d="M120 300H330M420 300H520"/>
+            <path class="tr" d="M520 90V230M520 330V510"/>
+            <path class="fn" d="M330 300a90 90 0 0 1 90 -90"/>
+            <path class="fn" d="M520 230a100 100 0 0 1 100 100"/>
+            <path class="fn" d="M600 510h120M600 500h120"/>
+            <path class="fn" d="M150 120h150v60h-150z"/>
+            <path class="fn" d="M150 120v60M180 120v60M210 120v60M240 120v60M270 120v60"/>
+            <path class="fn" d="M560 130h180v90h-180z M590 150h120v50h-120z"/>
+            <path class="fn" d="M600 380h140v90h-140z"/>
+            <path class="fn" d="M170 360h120v100h-120z M190 380a20 20 0 1 0 0.1 0"/>
+            <path class="fn" d="M360 380h120v40h-120z"/>
+            <path class="cota" d="M120 60H780M120 52v16M780 52v16M810 90V510M802 90h16M802 510h16"/>
+          </g>
+          <text x="420" y="50">8,20 m</text><text x="822" y="305" transform="rotate(90 822 305)">5,40 m</text>
+          <text x="190" y="250">COZINHA</text><text class="t2" x="190" y="268">12,4 m² · porcelanato 60×60</text>
+          <text x="600" y="300">LIVING</text><text class="t2" x="600" y="318">28,6 m² · piso vinílico</text>
+          <text x="330" y="470">BANHO</text><text class="t2" x="330" y="488">4,8 m²</text>
+        </svg>
+        <div class="carimbo-p"><b>PRUMO · PROJETO EXECUTIVO</b><span>Ap. 1204 · Batel · Curitiba</span><span>Resp. téc.: Eng. R. Kowalski · ART 2026/0412</span><span>Folha 02/09 · Esc. 1:50</span></div>
+      </div>
+      <div class="fase-img" id="faseObra"><img src="https://images.unsplash.com/photo-1634586648651-f1fb9ec10d90?w=1800&q=78&auto=format&fit=crop" alt="Ambiente em obra" loading="lazy" /></div>
+      <div class="fase-img" id="faseFim"><img src="https://images.unsplash.com/photo-1554995207-c18c203602cb?w=1800&q=78&auto=format&fit=crop" alt="Ambiente reformado" loading="lazy" /></div>
+      <span class="laser" id="laser"></span><span class="nivel" id="nivel"></span>
+      <span class="etq vidro" id="etq">Semana 0 · Projeto</span>
+      <div class="ttl"><span class="lbl" style="color:rgba(255,255,255,.75)">Da planta à chave</span><h2 id="ttlH">Tudo começa no papel.</h2></div>
+    </div>
+    <div class="lado">
+      <div class="mobtask vidro"><svg class="rg" viewBox="0 0 46 46"><circle class="bgc" cx="23" cy="23" r="20"/><circle class="fgc" id="mobRg" cx="23" cy="23" r="20" style="stroke-dashoffset:126"/></svg><div><b id="mobT">Projeto executivo</b><small id="mobS">Semana 0 de 9</small></div></div>
+      <div class="phone"><div class="screen">
+        <small>Obra · Ap. 1204 Batel</small>
+        <h4 id="semana">Semana 0 de 9</h4>
+        <div class="bar"><i id="bar"></i></div>
+        <div class="tasks" id="tasks"></div>
+        <div class="foto-up"><img src="https://images.unsplash.com/photo-1731168273756-e02cae42265b?w=600&q=70&auto=format&fit=crop" alt="Foto da obra enviada pelo mestre de obras" loading="lazy" /><span class="vidro">📷 hoje, 14:32</span></div>
+      </div></div>
+      <div class="feats"><div class="vidro"><b>Fotos diárias</b><span>O mestre de obras envia fotos e vídeos todos os dias.</span></div><div class="vidro"><b>Compras aprovadas por você</b><span>Revestimentos e metais escolhidos direto pelo app.</span></div></div>
     </div>
   </div>
 </section>
@@ -221,7 +393,7 @@
     <div class="est__grid">
       <div class="box" data-r>
         <div><h4>O que vamos reformar?</h4><div class="rooms" id="rooms"></div></div>
-        <div><div class="m2"><span>Área aproximada</span><output id="oM">12 m²</output></div><input type="range" id="m2" min="3" max="200" value="12" /></div>
+        <div><div class="m2"><span>Área aproximada</span><output id="oM">12 m²</output></div><input type="range" id="m2" min="3" max="200" value="12" aria-label="Área em metros quadrados" /><div class="pisos"><span class="gr" id="gr"></span><span id="pisosT"></span></div></div>
         <div><h4>Padrão de acabamento</h4><div class="pad" id="pad"></div></div>
         <div><h4>Serviços incluídos</h4><div class="svcs" id="svcs"></div></div>
       </div>
@@ -230,32 +402,41 @@
         <div class="big" id="big">R$ 0</div>
         <small id="prazo"></small>
         <div class="bk" id="bk"></div>
-        <a class="btn" id="estBtn" target="_blank" rel="noopener" href="#">Agendar visita técnica grátis</a>
+        <a class="btn mag" id="estBtn" target="_blank" rel="noopener" href="#">Agendar visita técnica grátis</a>
       </aside>
     </div>
   </div>
 </section>
 
-<section class="why" id="garantias">
-  <div class="wrap">
-    <div class="head"><div data-r><span class="lbl">Garantias</span><h2 class="h2" style="margin-top:14px">O que está<br /><span class="o">no contrato</span></h2></div><p data-r style="--d:.1s">Transparência do primeiro dia à entrega das chaves.</p></div>
-    <div class="wgrid">
-      <div class="w" data-r><b>R$</b><h3>Preço fechado</h3><p>Sem aditivos surpresa. Mudanças só com sua aprovação por escrito.</p></div>
-      <div class="w" data-r style="--d:.08s"><b>⏱</b><h3>Prazo com multa</h3><p>Atrasou por nossa causa? Pagamos 0,5% do contrato por dia.</p></div>
-      <div class="w" data-r style="--d:.16s"><b>ART</b><h3>Engenheiro responsável</h3><p>Projeto e execução com responsabilidade técnica registrada.</p></div>
-      <div class="w" data-r style="--d:.24s"><b>5a</b><h3>Garantia estendida</h3><p>Cinco anos de garantia em instalações e acabamentos.</p></div>
+<section class="garantia" id="garantias">
+  <div class="wrap g__grid">
+    <div data-r><span class="lbl">Garantias</span><h2 class="h2" style="margin-top:14px">O que está<br /><span class="o">no contrato</span></h2><p class="sub">Transparência do primeiro dia à entrega das chaves. Cada promessa abaixo está escrita, assinada e registrada.</p></div>
+    <div class="mesa">
+      <div class="contrato" id="contrato">
+        <div class="ch"><div><b>Contrato de empreitada global</b><small>Nº 2026/0412 · Prumo Reformas & Construções Ltda.</small></div><small>Curitiba, PR</small></div>
+        <div class="cl"><b>R$</b><div><span class="clip">Cláusula 3ª</span><h3>Preço fechado</h3><p>Sem aditivos surpresa. Mudanças só com sua aprovação por escrito.</p></div></div>
+        <div class="cl"><b>⏱</b><div><span class="clip">Cláusula 5ª</span><h3>Prazo com multa</h3><p>Atrasou por nossa causa? Pagamos 0,5% do contrato por dia.</p></div></div>
+        <div class="cl"><b>ART</b><div><span class="clip">Cláusula 7ª</span><h3>Engenheiro responsável</h3><p>Projeto e execução com responsabilidade técnica registrada.</p></div></div>
+        <div class="cl"><b>5a</b><div><span class="clip">Cláusula 9ª</span><h3>Garantia estendida</h3><p>Cinco anos de garantia em instalações e acabamentos.</p></div></div>
+        <div class="assin">
+          <div><svg viewBox="0 0 160 56"><path d="M6 40c10-24 18-30 22-20s-6 22 2 18 14-28 22-24-2 20 6 18 10-14 18-12 4 10 12 6 20-10 30-6"/></svg>Contratante</div>
+          <div><svg viewBox="0 0 160 56"><path d="M8 36c14-4 20-26 28-24s-12 30-4 28 12-18 20-16 0 12 10 10 16-22 24-18-8 16 2 14 24-8 36-4"/></svg>Prumo · Eng. responsável</div>
+        </div>
+        <div class="selo"><div>PRAZO E PREÇO<br /><b>FECHADOS</b><br />PRUMO</div></div>
+      </div>
+      <svg class="caneta" viewBox="0 0 220 24" aria-hidden="true"><defs><linearGradient id="cn" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3a3c42"/><stop offset=".45" stop-color="#8b8e96"/><stop offset="1" stop-color="#16171a"/></linearGradient></defs><rect x="20" y="4" width="180" height="16" rx="8" fill="url(#cn)"/><path d="M20 4L2 12l18 8z" fill="#c9cbd1"/><path d="M2 12l6-3v6z" fill="#222"/><rect x="150" y="1" width="50" height="5" rx="2" fill="#ff5a1f"/></svg>
     </div>
   </div>
 </section>
 
 <section class="port" id="obras">
   <div class="wrap">
-    <div class="head"><div data-r><span class="lbl">Antes e depois</span><h2 class="h2" style="margin-top:14px">Obras <span class="o">entregues</span></h2></div></div>
+    <div class="head"><div data-r><span class="lbl">Antes e depois</span><h2 class="h2" style="margin-top:14px">Obras <span class="o">entregues</span></h2></div><p data-r style="--d:.1s">Arraste para comparar. Escolha uma obra ao lado.</p></div>
     <div class="port__grid">
-      <div class="ba" id="ba2" data-r>
-        <img id="pA" src="https://images.unsplash.com/photo-1554995207-c18c203602cb?w=1400&q=80&auto=format&fit=crop" alt="Depois" />
-        <img id="pB" class="ba__before" src="https://images.unsplash.com/photo-1634586648651-f1fb9ec10d90?w=1400&q=80&auto=format&fit=crop" alt="Antes" />
-        <span class="ba__tag ba__tag--a">Antes</span><span class="ba__tag ba__tag--d">Depois</span>
+      <div class="ba" id="ba2" data-r data-cur="Arraste">
+        <img id="pA" src="https://images.unsplash.com/photo-1554995207-c18c203602cb?w=1600&q=80&auto=format&fit=crop" alt="Depois" />
+        <img id="pB" class="ba__before" src="https://images.unsplash.com/photo-1634586648651-f1fb9ec10d90?w=1600&q=80&auto=format&fit=crop" alt="Antes" />
+        <span class="ba__tag ba__tag--a vidro">Antes</span><span class="ba__tag ba__tag--d vidro">Depois</span>
         <div class="ba__handle"></div>
       </div>
       <div class="plist" id="plist" data-r style="--d:.1s"></div>
@@ -263,74 +444,146 @@
   </div>
 </section>
 
-<section class="app" id="app">
-  <div class="wrap app__grid">
-    <div class="phone" data-r>
-      <div class="screen">
-        <small>Obra · Ap. 1204 Batel</small>
-        <h4>Semana 6 de 9</h4>
-        <div class="bar"><i id="bar"></i></div>
-        <div class="task ok"><i>✓</i>Demolição e retirada de entulho</div>
-        <div class="task ok"><i>✓</i>Elétrica e hidráulica</div>
-        <div class="task ok"><i>✓</i>Contrapiso e impermeabilização</div>
-        <div class="task now"><i>●</i>Assentamento de porcelanato</div>
-        <div class="task todo"><i>5</i>Marcenaria e bancadas</div>
-        <div class="task todo"><i>6</i>Pintura e limpeza final</div>
-        <div class="photo-up"><img src="https://images.unsplash.com/photo-1731168273756-e02cae42265b?w=600&q=70&auto=format&fit=crop" alt="Foto da obra" loading="lazy" /><span>📷 hoje, 14:32</span></div>
-      </div>
+<footer class="contact" id="contato">
+  <img id="ctImg" src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=1800&q=72&auto=format&fit=crop" alt="" loading="lazy" />
+  <div class="wrap">
+    <div class="c__grid">
+      <div data-r><span class="lbl">Fale com a Prumo</span><p class="q" style="margin-top:20px">“Reformamos o apartamento inteiro em 9 semanas, exatamente como estava no contrato. Nunca imaginei que reforma podia ser assim.”</p><p style="color:#c7c9cd;margin-top:14px">— Fernanda e Lucas, Ap. Batel</p><p style="margin-top:30px;font-weight:600">📍 Rua Mateus Leme, 1200 — Curitiba · CREA-PR 00000</p></div>
+      <form class="cform vidro-esc" id="cform" data-r style="--d:.1s">
+        <div class="two"><input id="cN" placeholder="Nome" required aria-label="Nome" /><input id="cT" placeholder="WhatsApp" inputmode="tel" required aria-label="WhatsApp" /></div>
+        <div class="two"><input id="cB" placeholder="Bairro" aria-label="Bairro" /><select id="cQ" aria-label="Quando quer começar"><option>Quero começar em até 1 mês</option><option>Em 1 a 3 meses</option><option>Ainda estou planejando</option></select></div>
+        <textarea id="cM" rows="4" placeholder="O que você quer reformar?" aria-label="O que você quer reformar"></textarea>
+        <button class="btn btn--o mag">Pedir visita técnica grátis</button>
+      </form>
     </div>
-    <div data-r style="--d:.1s">
-      <span class="lbl">Acompanhamento</span>
-      <h2 class="h2" style="margin-top:14px">Sua obra no <span class="o">seu celular</span></h2>
-      <ul class="feat"><li><div><b>Fotos diárias</b><span>O mestre de obras envia fotos e vídeos todos os dias.</span></div></li><li><div><b>Cronograma ao vivo</b><span>Você vê cada etapa concluída e o que vem em seguida.</span></div></li><li><div><b>Compras aprovadas por você</b><span>Escolha de revestimentos e metais direto pelo app.</span></div></li></ul>
-    </div>
+    <div class="foot"><a href="#" class="logo"><svg viewBox="0 0 30 30" fill="currentColor"><path d="M15 2v6" stroke="currentColor" stroke-width="2.5"/><path d="M8 10h14l-7 18z"/></svg>prumo</a><span>© 2026 Prumo Reformas & Construções Ltda.</span></div>
+    <div class="marca" id="marca" aria-hidden="true">prumo</div>
   </div>
-</section>
-
-<section class="contact" id="contato">
-  <div class="wrap c__grid">
-    <div data-r><span class="lbl">Fale com a Prumo</span><p class="q" style="margin-top:20px">“Reformamos o apartamento inteiro em 9 semanas, exatamente como estava no contrato. Nunca imaginei que reforma podia ser assim.”</p><p style="color:var(--muted);margin-top:14px">— Fernanda e Lucas, Ap. Batel</p><p style="margin-top:30px;font-weight:600">📍 Rua Mateus Leme, 1200 — Curitiba · CREA-PR 00000</p></div>
-    <form class="cform" id="cform" data-r style="--d:.1s">
-      <div class="two"><input id="cN" placeholder="Nome" required /><input id="cT" placeholder="WhatsApp" inputmode="tel" required /></div>
-      <div class="two"><input id="cB" placeholder="Bairro" /><select id="cQ"><option>Quero começar em até 1 mês</option><option>Em 1 a 3 meses</option><option>Ainda estou planejando</option></select></div>
-      <textarea id="cM" rows="4" placeholder="O que você quer reformar?"></textarea>
-      <button class="btn btn--o">Pedir visita técnica grátis</button>
-    </form>
-  </div>
-</section>
-
-<footer><div class="wrap foot"><a href="#" class="logo"><svg viewBox="0 0 30 30" fill="currentColor" style="color:var(--orange)"><path d="M15 2v6" stroke="currentColor" stroke-width="2.5"/><path d="M8 10h14l-7 18z"/></svg>prumo</a><span>© 2026 Prumo Reformas & Construções Ltda.</span></div></footer>
+</footer>
 
 <a class="wa" href="https://wa.me/5541999990000" target="_blank" rel="noopener" aria-label="WhatsApp"><svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21c5.46 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2Zm5.8 14.03c-.24.68-1.42 1.3-1.95 1.35-.5.05-.97.23-3.27-.68-2.77-1.09-4.52-3.92-4.66-4.1-.13-.18-1.1-1.47-1.1-2.8 0-1.34.7-2 .95-2.27.25-.27.54-.34.72-.34h.52c.17 0 .4-.06.62.47.24.56.8 1.94.87 2.08.07.14.12.3.02.48-.1.19-.14.3-.28.47-.14.16-.3.36-.42.49-.14.14-.29.29-.12.57.17.28.74 1.22 1.59 1.98 1.09.97 2.01 1.27 2.29 1.41.28.14.45.12.62-.07.17-.19.71-.83.9-1.11.19-.28.38-.24.64-.14.26.09 1.65.78 1.93.92.28.14.47.21.54.33.07.11.07.66-.17 1.34Z"/></svg></a>
 
 <script>
 (() => {
+  const reduz = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const fino = matchMedia("(hover: hover) and (pointer: fine)").matches;
   const $ = (s, el = document) => el.querySelector(s);
   const $$ = (s, el = document) => [...el.querySelectorAll(s)];
   const u = (id, w) => `https://images.unsplash.com/photo-${id}?w=${w}&q=80&auto=format&fit=crop`;
   const brl = (n) => n.toLocaleString("pt-BR", { style: "currency", currency: "BRL", maximumFractionDigits: 0 });
+  const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
+  const lerp = (a, b, t) => a + (b - a) * t;
+  const eio = (t) => t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
   const WA = "5541999990000";
+  let VW = innerWidth, VH = innerHeight, mob = VW <= 900;
+  addEventListener("resize", () => { VW = innerWidth; VH = innerHeight; mob = VW <= 900; });
+  const mouse = { x: VW / 2, y: VH / 2, vx: 0 };
 
-  const nav = $("#nav");
-  $(".burger").onclick = () => nav.classList.toggle("open");
-  $$(".nav__links a").forEach((a) => a.onclick = () => nav.classList.remove("open"));
+  /* nav */
+  const nav = $("#nav"), burger = $(".burger");
+  burger.onclick = () => { const a = nav.classList.toggle("open"); burger.setAttribute("aria-expanded", a); };
+  $$(".nav__links a").forEach((a) => a.addEventListener("click", () => nav.classList.remove("open")));
+  const pill = $("#pill");
+  $$("#links a").forEach((a) => a.addEventListener("mouseenter", () => { pill.style.left = a.offsetLeft + "px"; pill.style.width = a.offsetWidth + "px"; }));
+  let ultY = scrollY;
+  const contar = (root) => $$("[data-count]", root).forEach((c) => { const fim = +c.dataset.count, suf = c.dataset.suf || "", t0 = performance.now(); const p = (t) => { const k = Math.min(1, (t - t0) / 1600); c.textContent = Math.round(fim * (1 - Math.pow(1 - k, 3))) + suf; if (k < 1) requestAnimationFrame(p); }; requestAnimationFrame(p); });
   const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("in"); e.target.dispatchEvent(new Event("visto")); io.unobserve(e.target); } }), { threshold: .15 });
-  $$("[data-r]").forEach((el) => io.observe(el));
+  $$("[data-r], #contrato").forEach((el) => io.observe(el));
+  setTimeout(() => contar($(".facts")), 600);
 
-  /* Comparador antes/depois (arrastar) */
-  function compara(el) {
+  /* cursor */
+  const cur = $(".cur"), curT = $(".cur span");
+  let cx = mouse.x, cy = mouse.y;
+  addEventListener("pointermove", (e) => { mouse.vx = e.clientX - mouse.x; mouse.x = e.clientX; mouse.y = e.clientY; if (e.pointerType === "mouse") cur.classList.add("on"); }, { passive: true });
+  document.addEventListener("mouseleave", () => cur.classList.remove("on"));
+  if (fino) {
+    document.addEventListener("pointerover", (e) => {
+      const l = e.target.closest("[data-cur]"), h = e.target.closest("a, button, input, select, textarea, label, .hcard, .facts");
+      cur.classList.toggle("lbl", !!l && !h); cur.classList.toggle("link", !!h && !e.target.closest(".hcard, .facts") || !!e.target.closest("a, button"));
+      if (l && !h) curT.textContent = l.dataset.cur;
+    });
+    $$(".mag").forEach((b) => {
+      b.addEventListener("pointermove", (e) => { const r = b.getBoundingClientRect(); b.style.transform = `translate(${(e.clientX - r.left - r.width / 2) * .2}px, ${(e.clientY - r.top - r.height / 2) * .3}px)`; });
+      b.addEventListener("pointerleave", () => { b.style.transform = ""; });
+    });
+  }
+
+  /* comparador antes/depois */
+  function compara(el, auto) {
     let ativo = false;
-    const set = (x) => { const r = el.getBoundingClientRect(); const p = Math.min(97, Math.max(3, ((x - r.left) / r.width) * 100)); el.style.setProperty("--x", p + "%"); const h = $(".hint", el); if (h) h.style.opacity = 0; };
-    el.addEventListener("pointerdown", (e) => { ativo = true; el.setPointerCapture(e.pointerId); set(e.clientX); });
-    el.addEventListener("pointermove", (e) => { if (ativo || e.pointerType === "mouse" && e.buttons) set(e.clientX); });
+    const set = (x) => { const r = el.getBoundingClientRect(); el.style.setProperty("--x", clamp((x - r.left) / r.width, .03, .97) * 100 + "%"); };
+    el.addEventListener("pointerdown", (e) => { if (e.target.closest(".hcard, .facts")) return; ativo = true; el.setPointerCapture(e.pointerId); set(e.clientX); });
+    el.addEventListener("pointermove", (e) => { if (ativo) set(e.clientX); });
     el.addEventListener("pointerup", () => ativo = false);
     el.addEventListener("pointercancel", () => ativo = false);
-    // pequena demonstração automática
-    el.addEventListener("visto", () => { let t = 0; const anim = () => { t += .02; el.style.setProperty("--x", `${50 + Math.sin(t * 3) * 22 * Math.max(0, 1 - t / 2)}%`); if (t < 2) requestAnimationFrame(anim); }; requestAnimationFrame(anim); }, { once: true });
+    const demo = () => { let t = 0; const anim = () => { t += .016; el.style.setProperty("--x", `${(auto || 50) + Math.sin(t * 3) * 20 * Math.max(0, 1 - t / 2)}%`); if (t < 2 && !ativo) requestAnimationFrame(anim); }; requestAnimationFrame(anim); };
+    if (auto) setTimeout(demo, 900); else el.addEventListener("visto", demo, { once: true });
   }
-  compara($("#ba1")); compara($("#ba2"));
+  compara($("#ba1"), mob ? 50 : 62); compara($("#ba2"));
+  if (mob) $("#ba1").style.setProperty("--x", "50%"); else $("#ba1").style.setProperty("--x", "62%");
 
-  /* Estimativa */
+  /* ===== O PRUMO: pêndulo com física ===== */
+  const pend = $("#pendulo"), fio = $("#fio"), peso = $("#peso"), sombraP = $("#sombraP"), heroEl = $("#topo");
+  let th = .5, om = 0, Lp = 260;
+  function pendulo(dt) {
+    Lp = Math.min(mob ? 200 : 300, heroEl.offsetHeight * .38);
+    const g = 9.8 * 160 / Lp;
+    om += (-g * Math.sin(th) - om * .35) * dt;
+    /* empurrão do cursor ao passar perto do peso */
+    const pr = peso.getBoundingClientRect(), px = pr.left + pr.width / 2, py = pr.top + pr.height / 2;
+    const d = Math.hypot(mouse.x - px, mouse.y - py);
+    if (d < 90 && Math.abs(mouse.vx) > 1) { om += mouse.vx * .012 * (1 - d / 90); }
+    mouse.vx *= .85;
+    th += om * dt; th = clamp(th, -1.2, 1.2);
+    fio.style.height = Lp + "px"; fio.style.transform = `rotate(${-th}rad)`;
+    const bx = Math.sin(th) * Lp, by = Math.cos(th) * Lp;
+    peso.style.transform = `translate(${bx}px, ${by - 2}px) rotate(${-th}rad)`;
+    const hr = heroEl.getBoundingClientRect(), pr2 = pend.getBoundingClientRect();
+    sombraP.style.left = pr2.left - hr.left + bx * 1.3 - 30 + "px"; sombraP.style.top = Lp + 120 + "px"; sombraP.style.opacity = .5 - Math.abs(th) * .2;
+  }
+
+  /* ===== DA PLANTA À CHAVE ===== */
+  const ETAPAS = [["Projeto executivo", "Semana 0"], ["Demolição e retirada de entulho", "Semana 1"], ["Elétrica e hidráulica", "Semana 2–3"], ["Contrapiso e impermeabilização", "Semana 4"], ["Assentamento de porcelanato", "Semana 5–6"], ["Marcenaria e bancadas", "Semana 7–8"], ["Pintura e limpeza final", "Semana 9"]];
+  $("#tasks").innerHTML = ETAPAS.slice(1).map(([n], i) => `<div class="task"><i>${i + 1}</i>${n}</div>`).join("");
+  const tasks = $$("#tasks .task"), obra = $("#app"), tracos = $$("#tracos path"), faseObra = $("#faseObra"), faseFim = $("#faseFim"), laser = $("#laser"), nivel = $("#nivel"), etq = $("#etq"), ttlH = $("#ttlH"), semana = $("#semana"), bar = $("#bar");
+  tracos.forEach((p) => { const l = p.getTotalLength ? p.getTotalLength() : 1000; p.style.strokeDasharray = l; p.style.strokeDashoffset = l; p.dataset.l = l; });
+  let PO = 0, ultEt = -1;
+  const TITULOS = ["Tudo começa no papel.", "Depois, a obra de verdade.", "Prumo, nível e esquadro.", "E a chave na sua mão."];
+  function obraFrame() {
+    const r = obra.getBoundingClientRect();
+    if (r.bottom < 0 || r.top > VH) return;
+    PO = reduz ? clamp(-r.top / (r.height - VH)) : lerp(PO, clamp(-r.top / (r.height - VH)), .1);
+    /* 0–.22: planta se desenha */
+    const kD = clamp(PO / .22);
+    tracos.forEach((p, i) => { const k = clamp(kD * 1.6 - i * .05); p.style.strokeDashoffset = p.dataset.l * (1 - k); });
+    /* .25–.5: laser varre e revela a obra; .62–.9: laser revela o acabado */
+    const kO = eio(clamp((PO - .25) / .25)), kF = eio(clamp((PO - .62) / .28));
+    faseObra.style.setProperty("--w", kO * 100 + "%");
+    faseFim.style.setProperty("--w", kF * 100 + "%");
+    const ativo = kO > 0 && kO < 1 ? kO : kF > 0 && kF < 1 ? kF : -1;
+    laser.style.setProperty("--lx", ativo >= 0 ? ativo * 100 + "%" : "-10%");
+    const lo = ativo >= 0 ? 1 : 0;
+    laser.style.setProperty("--lo", lo);
+    nivel.style.setProperty("--lo", PO > .5 && PO < .62 ? 1 : lo * .7);
+    nivel.style.setProperty("--ly", 58 + Math.sin(PO * 30) * .5 + "%");
+    /* cronograma */
+    const et = Math.min(ETAPAS.length - 1, Math.floor(clamp((PO - .18) / .74) * ETAPAS.length));
+    if (et !== ultEt) {
+      ultEt = et;
+      tasks.forEach((t, i) => { t.classList.toggle("ok", i < et - 1 || (et === ETAPAS.length - 1 && PO > .95)); t.classList.toggle("now", i === et - 1 && !(et === ETAPAS.length - 1 && PO > .95)); });
+      const nSem = [0, 1, 3, 4, 6, 8, 9][et];
+      semana.textContent = `Semana ${nSem} de 9`;
+      etq.textContent = `${ETAPAS[et][1]} · ${ETAPAS[et][0]}`;
+      $("#mobT").textContent = ETAPAS[et][0]; $("#mobS").textContent = `Semana ${nSem} de 9`;
+    }
+    const kSem = clamp((PO - .18) / .76);
+    bar.style.width = kSem * 100 + "%";
+    $("#mobRg").style.strokeDashoffset = 126 * (1 - kSem);
+    const ti = PO < .25 ? 0 : PO < .5 ? 1 : PO < .66 ? 2 : 3;
+    if (ttlH.dataset.i !== String(ti)) { ttlH.dataset.i = ti; ttlH.animate([{ opacity: 0, transform: "translateY(14px)", filter: "blur(6px)" }, { opacity: 1, transform: "none", filter: "none" }], { duration: 600, easing: "cubic-bezier(.2,.8,.2,1)" }); ttlH.textContent = TITULOS[ti]; }
+  }
+
+  /* ===== ESTIMATIVA ===== */
   const ROOMS = [["cozinha", "Cozinha", 12, 1.15], ["banheiro", "Banheiro", 5, 1.35], ["sala", "Sala", 22, .85], ["quarto", "Quarto", 12, .8], ["externa", "Área externa", 20, .75], ["ap", "Apartamento inteiro", 70, 1]];
   const PAD = [["basico", "Básico", 1600, "R$ 1,6 mil/m²"], ["medio", "Intermediário", 2600, "R$ 2,6 mil/m²"], ["alto", "Alto padrão", 4100, "R$ 4,1 mil/m²"]];
   const SV = [["demol", "Demolição", .08], ["elet", "Elétrica", .14], ["hidr", "Hidráulica", .13], ["piso", "Pisos e revest.", .24], ["gesso", "Gesso e forro", .09], ["pint", "Pintura", .1], ["marc", "Marcenaria", .22]];
@@ -338,6 +591,7 @@
   $("#rooms").innerHTML = ROOMS.map(([k, n, m]) => `<button class="rm" data-k="${k}"><b>${n}</b><small>~${m} m²</small></button>`).join("");
   $("#pad").innerHTML = PAD.map(([k, n, , d]) => `<button class="pd" data-k="${k}">${n}<small>${d}</small></button>`).join("");
   $("#svcs").innerHTML = SV.map(([k, n]) => `<button class="sv" data-k="${k}">${n}</button>`).join("");
+  let totAtual = 0, totAlvo = 0, faixaTxt = "";
   function est() {
     $$("#rooms .rm").forEach((b) => b.classList.toggle("on", b.dataset.k === st.room));
     $$("#pad .pd").forEach((b) => b.classList.toggle("on", b.dataset.k === st.pad));
@@ -345,37 +599,62 @@
     const m = +$("#m2").value, r = ROOMS.find((x) => x[0] === st.room), p = PAD.find((x) => x[0] === st.pad);
     const el = $("#m2"); el.style.setProperty("--p", `${((m - el.min) / (el.max - el.min)) * 100}%`);
     $("#oM").textContent = `${m} m²`;
+    /* peças de porcelanato 60×60 (+10% de quebra) e a grade fica mais miúda quanto maior a área */
+    const pecas = Math.ceil(m / .36 * 1.1);
+    $("#pisosT").innerHTML = `≈ <b>${pecas} peças</b> de porcelanato 60×60<br />já com 10% de margem de corte`;
+    $("#gr").style.setProperty("--t", clamp(60 / Math.sqrt(m), 4, 30) + "px");
     const pesoTot = SV.reduce((s, x) => s + x[2], 0), sel = SV.filter((x) => st.sv.has(x[0]));
     const frac = sel.reduce((s, x) => s + x[2], 0) / pesoTot;
     const total = m * p[2] * r[3] * Math.max(.15, frac);
-    $("#big").textContent = sel.length ? `${brl(total * .88)} – ${brl(total * 1.12)}` : "Escolha os serviços";
+    totAlvo = sel.length ? total : 0;
+    faixaTxt = sel.length ? `${brl(total * .88)} – ${brl(total * 1.12)}` : "Escolha os serviços";
     const sem = Math.max(1, Math.round(2 + m / 6 * (r[0] === "banheiro" ? 1.8 : 1) * (.4 + frac * .6) + (st.pad === "alto" ? 2 : 0)));
     $("#prazo").textContent = sel.length ? `Prazo estimado: ${sem} ${sem === 1 ? "semana" : "semanas"} de obra · ${brl(total / m)}/m²` : "";
     const somaSel = sel.reduce((s, x) => s + x[2], 0);
     $("#bk").innerHTML = sel.map(([, n, w]) => `<div><span>${n}</span><i><b style="width:${(w / .24) * 100}%"></b></i><span>${brl(total * w / somaSel)}</span></div>`).join("");
-    $("#estBtn").href = `https://wa.me/${WA}?text=${encodeURIComponent(`Olá, Prumo! Fiz a estimativa no site:\n${r[1]}, ${m} m², padrão ${p[1].toLowerCase()}\nServiços: ${sel.map((x) => x[1]).join(", ")}\nFaixa: ${$("#big").textContent}\nQuero agendar a visita técnica.`)}`;
+    $("#estBtn").href = `https://wa.me/${WA}?text=${encodeURIComponent(`Olá, Prumo! Fiz a estimativa no site:\n${r[1]}, ${m} m², padrão ${p[1].toLowerCase()}\nServiços: ${sel.map((x) => x[1]).join(", ")}\nFaixa: ${faixaTxt}\nQuero agendar a visita técnica.`)}`;
   }
   $("#rooms").onclick = (e) => { const b = e.target.closest(".rm"); if (!b) return; st.room = b.dataset.k; $("#m2").value = ROOMS.find((x) => x[0] === st.room)[2]; est(); };
   $("#pad").onclick = (e) => { const b = e.target.closest(".pd"); if (b) { st.pad = b.dataset.k; est(); } };
   $("#svcs").onclick = (e) => { const b = e.target.closest(".sv"); if (!b) return; const k = b.dataset.k; st.sv.has(k) ? st.sv.delete(k) : st.sv.add(k); est(); };
   $("#m2").addEventListener("input", est);
   est();
+  const bigEl = $("#big");
 
-  /* Portfólio */
+  /* ===== PORTFÓLIO ===== */
   const P = [["Living integrado", "Água Verde · 68 m² · 7 semanas", "1554995207-c18c203602cb", "1634586648651-f1fb9ec10d90"], ["Cozinha com ilha", "Batel · 18 m² · 5 semanas", "1785535573585-8f962fa3cda5", "1618832515490-e181c4794a45"], ["Casa térrea completa", "Santa Felicidade · 140 m² · 14 semanas", "1786053538161-501fbdd89629", "1444419988131-046ed4e5ffd6"]];
-  $("#plist").innerHTML = P.map(([n, d], i) => `<button class="pi ${i ? "" : "on"}" data-i="${i}"><b>${n}</b><small>${d}</small></button>`).join("");
+  $("#plist").innerHTML = P.map(([n, d, dep], i) => `<button class="pi ${i ? "vidro" : "on"}" data-i="${i}"><b>${n}</b><small>${d}</small><span class="mini" style="background-image:url(${u(dep, 500)})"></span></button>`).join("");
   $("#plist").onclick = (e) => {
     const b = e.target.closest(".pi"); if (!b) return;
     const [, , dep, ant] = P[+b.dataset.i];
-    $$(".pi").forEach((x) => x.classList.toggle("on", x === b));
-    $("#pA").src = u(dep, 1400); $("#pB").src = u(ant, 1400);
-    $("#ba2").style.setProperty("--x", "50%");
+    $$(".pi").forEach((x) => { x.classList.toggle("on", x === b); x.classList.toggle("vidro", x !== b); });
+    const ba = $("#ba2"); ba.animate([{ opacity: 1 }, { opacity: .3 }, { opacity: 1 }], { duration: 700 });
+    setTimeout(() => { $("#pA").src = u(dep, 1600); $("#pB").src = u(ant, 1600); ba.style.setProperty("--x", "50%"); }, 250);
   };
 
-  /* Barra do app */
-  $(".phone").addEventListener("visto", () => setTimeout(() => $("#bar").style.width = "64%", 300));
+  $("#cform").onsubmit = (e) => { e.preventDefault(); const msg = `Olá, Prumo! Quero uma visita técnica.\nNome: ${$("#cN").value}\nWhatsApp: ${$("#cT").value}\nBairro: ${$("#cB").value || "—"}\nPrazo: ${$("#cQ").value}\n${$("#cM").value}`; window.open(`https://wa.me/${WA}?text=${encodeURIComponent(msg)}`, "_blank"); };
 
-  $("#cform").onsubmit = (e) => { e.preventDefault(); const msg = `Olá, Prumo! Quero uma visita técnica.\nNome: ${$("#cN").value}\nBairro: ${$("#cB").value || "—"}\nPrazo: ${$("#cQ").value}\n${$("#cM").value}`; window.open(`https://wa.me/${WA}?text=${encodeURIComponent(msg)}`, "_blank"); };
+  /* loop */
+  const ctImg = $("#ctImg"), contato = $("#contato"), marca = $("#marca");
+  let tPrev = performance.now();
+  function frame(t) {
+    const dt = Math.min(.04, (t - tPrev) / 1000); tPrev = t;
+    cx = lerp(cx, mouse.x, .25); cy = lerp(cy, mouse.y, .25);
+    cur.style.transform = `translate(${cx}px, ${cy}px)`;
+    const y = scrollY, dy = y - ultY;
+    if (dy > 2 && y > 300 && !nav.classList.contains("open")) nav.classList.add("esc");
+    if (dy < -2) nav.classList.remove("esc");
+    if (y < VH * 1.2) { om += dy * .0025; pendulo(dt); }
+    ultY = y;
+    obraFrame();
+    totAtual = lerp(totAtual, totAlvo, .15);
+    bigEl.textContent = totAlvo ? `${brl(totAtual * .88)} – ${brl(totAtual * 1.12)}` : faixaTxt;
+    const cr = contato.getBoundingClientRect(); if (cr.top < VH) ctImg.style.transform = `translateY(${cr.top * -.1}px)`;
+    const mr = marca.getBoundingClientRect();
+    if (mr.top < VH) { const ini = y + mr.top - VH, fim = document.documentElement.scrollHeight - VH; marca.style.setProperty("--fill", clamp((y - ini) / Math.max(1, fim - ini)) * 100 + "%"); }
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
 })();
 </script>
 </body>
