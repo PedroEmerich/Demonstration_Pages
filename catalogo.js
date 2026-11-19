@@ -215,8 +215,8 @@ window.MODELOS = [
     pasta: "martins-previdenciario",
     titulo: "Martins — Direito Previdenciário",
     segmento: "Advocacia",
-    descricao: "Advocacia previdenciária com simulador de aposentadoria pelas regras de idade e pontos, valor estimado do benefício e áreas de atuação.",
-    tags: ["Simulador", "INSS", "Consulta"],
+    descricao: "Advocacia previdenciária com carteira de trabalho realista que folheia com a rolagem e soma o tempo de contribuição até o carimbo de concedida; extrato do CNIS examinado com lupa no cursor revelando erros do INSS, simulador de aposentadoria em vidro com ano previsto e benefícios com spotlight.",
+    tags: ["Carteira de trabalho", "Lupa no CNIS", "Simulador"],
     cor: "#1f4e79",
   },
   {
