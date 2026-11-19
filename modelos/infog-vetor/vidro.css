@@ -1,0 +1,25 @@
+/* Camada de vidro: translucidez e luz amarela sobre o layout suíço original */
+.site-header { background: rgba(255, 255, 255, 0.66); -webkit-backdrop-filter: blur(18px) saturate(1.6); backdrop-filter: blur(18px) saturate(1.6); }
+.section, .hero, .site-footer, .final-cta { position: relative; isolation: isolate; }
+.section::before, .hero::after {
+  content: ""; position: absolute; z-index: -1; inset: 0; pointer-events: none;
+  background:
+    radial-gradient(26% 36% at var(--lx, 18%) var(--ly, 30%), rgba(242, 193, 78, 0.22), transparent 70%),
+    radial-gradient(22% 30% at 88% 80%, rgba(242, 193, 78, 0.12), transparent 70%);
+}
+.section--dark::before { background: radial-gradient(28% 40% at var(--lx, 20%) var(--ly, 30%), rgba(242, 193, 78, 0.16), transparent 70%); }
+.quote-card, .case, .voice {
+  background: rgba(255, 255, 255, 0.55);
+  -webkit-backdrop-filter: blur(16px) saturate(1.5);
+  backdrop-filter: blur(16px) saturate(1.5);
+}
+.section--dark :is(.case, .model, .voice) { background: rgba(255, 255, 255, 0.06); }
+.quote-card, .case, .model { position: relative; }
+.vidro-brilho { position: absolute; inset: 0; border-radius: inherit; pointer-events: none; opacity: 0; transition: opacity 0.4s; background: radial-gradient(280px circle at var(--mx, 50%) var(--my, 0%), rgba(242, 193, 78, 0.22), transparent 65%); }
+:is(.quote-card, .case, .model):hover > .vidro-brilho { opacity: 1; }
+.vidro-marca {
+  font-family: 'Archivo', system-ui, sans-serif; font-weight: 800; font-size: clamp(80px, 22vw, 320px); line-height: 0.8;
+  letter-spacing: -0.06em; text-align: center; margin-top: 2rem; color: transparent; -webkit-text-stroke: 1px rgba(242, 193, 78, 0.35);
+  background: linear-gradient(90deg, #f2c14e, #ffe08a, #f2c14e) no-repeat; background-size: var(--fill, 0%) 100%;
+  -webkit-background-clip: text; background-clip: text; user-select: none; white-space: nowrap;
+}
