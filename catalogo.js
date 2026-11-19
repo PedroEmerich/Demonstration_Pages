@@ -257,8 +257,8 @@ window.MODELOS = [
     pasta: "prumo-reformas",
     titulo: "Prumo — Reformas",
     segmento: "Construção",
-    descricao: "Empresa de reformas com antes e depois arrastável, orçamento por cômodo com prazo estimado, portfólio e acompanhamento da obra.",
-    tags: ["Antes e depois", "Orçamento", "Obra"],
+    descricao: "Reformas residenciais com antes/depois em tela cheia e um prumo de verdade que balança com o cursor e a rolagem; seção fixa da planta à chave em que a planta se desenha e um nível laser revela a obra e o acabamento enquanto o cronograma avança, estimativa de custo com peças de porcelanato e contrato em papel assinado na hora.",
+    tags: ["Prumo com física", "Da planta à chave", "Contrato assinado"],
     cor: "#ff5a1f",
   },
   {
