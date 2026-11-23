@@ -201,6 +201,7 @@ window.MODELOS = [
     descricao: "SaaS financeiro imersivo: papéis soltos (Pix, DANFE, boleto, conta de luz) que fogem do cursor e, com a rolagem, voam para dentro do painel e viram lançamentos conciliados; recursos em vidro com simulação de Pix, comparador antes/depois arrastável, calculadora de economia com horas devolvidas e preços com efeito 3D.",
     tags: ["Conciliação no scroll", "Antes e depois", "Calculadora ROI"],
     cor: "#6b4dff",
+    revisado: true,
   },
   {
     pasta: "lingo-idiomas",
