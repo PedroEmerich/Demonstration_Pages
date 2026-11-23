@@ -345,7 +345,21 @@
     .head { margin-bottom: 26px; gap: 10px; }
     .head p { font-size: 15px; }
     .h2 { font-size: clamp(30px, 8.6vw, 40px); }
-    .services, .team, .plans, .love, .book { padding-top: 76px; padding-bottom: 76px; }
+    .services, .plans { padding-top: 76px; padding-bottom: 76px; }
+    /* espaçamento uniforme entre os blocos no celular */
+    .sosband { padding: 44px 0 56px; }
+    .age { padding-bottom: 56px; }
+    .vac { padding-bottom: 48px; }
+    .vac__grid { gap: 0; }
+    .team { padding: 8px 0 64px; }
+    .love { padding: 64px 0 40px; }
+    .book { padding-top: 8px; padding-bottom: 64px; }
+    /* monitor do hero mais compacto */
+    .monitor { left: 10px; right: auto; bottom: 10px; width: 64%; padding: 10px 12px; border-radius: 18px; }
+    .monitor__top { font-size: 10px; }
+    .monitor__bpm { font-size: 26px; margin: 2px 0; }
+    .monitor canvas { height: 30px; }
+    #mTxt { display: none; }
 
     /* carrosséis horizontais com encaixe */
     .rolo { display: flex !important; gap: 12px; overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x mandatory; scroll-padding-left: 16px; margin: 0 -16px; padding: 6px 16px 10px; scrollbar-width: none; }
