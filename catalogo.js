@@ -314,11 +314,12 @@ window.MODELOS = [
   },
   {
     pasta: "infog-bastiao",
-    titulo: "InfoG Bastião — Software House e Segurança",
+    titulo: "Bastião — Software House e Segurança",
     segmento: "Tecnologia",
     descricao: "Software house com DNA de segurança: sistemas e aplicativos, manutenção com SLA, servidores e firewall com monitoramento 24/7.",
     tags: ["Segurança", "Infraestrutura", "Dark mode"],
     cor: "#3b82f6",
+    revisado: true,
   },
   {
     pasta: "infog-vetor",
