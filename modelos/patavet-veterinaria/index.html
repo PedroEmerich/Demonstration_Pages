@@ -320,6 +320,61 @@
     .form { padding: 20px; }
     footer { border-radius: 30px 30px 0 0; }
   }
+
+  /* ===== Celular: hierarquia, respiro e carrosséis ===== */
+  @media (max-width: 900px) {
+    /* hero: título, foto, texto, ações e números em faixa */
+    .hero { padding: 92px 0 40px; }
+    .hero__grid { gap: 0; }
+    .hero__grid > div:first-child { display: contents; }
+    .hero .status { order: 1; justify-self: start; }
+    .hero h1 { order: 2; font-size: clamp(38px, 11vw, 54px); margin: 14px 0 18px; }
+    .exame { order: 3; height: 360px; margin: 6px 0 22px; }
+    .hero__lead { order: 4; font-size: 16px; }
+    .hero__ctas { order: 5; display: grid; grid-template-columns: 1.2fr 1fr; gap: 8px; margin-top: 20px; }
+    .hero__ctas .btn { justify-content: center; padding: 15px 10px; font-size: 14.5px; white-space: nowrap; }
+    .mini { order: 6; display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; margin-top: 18px; padding: 14px 6px; border-radius: 22px; background: rgba(255,255,255,.6); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); box-shadow: inset 0 0 0 1px rgba(255,255,255,.8), 0 16px 30px -22px rgba(16,61,56,.4); }
+    .mini > div { text-align: center; padding: 0 4px; }
+    .mini > div + div { border-left: 1px solid rgba(16,61,56,.12); }
+    .mini b { font-size: 22px; } .mini span { font-size: 12px; line-height: 1.25; display: block; }
+    .gato { width: 78px; left: -4px; top: -16px; }
+    .tv1 { top: 10px; right: 10px; transform: scale(.88); transform-origin: top right; }
+    .dica-ex { display: none; }
+
+    /* cabeçalhos de seção mais compactos e com respiro */
+    .head { margin-bottom: 26px; gap: 10px; }
+    .head p { font-size: 15px; }
+    .h2 { font-size: clamp(30px, 8.6vw, 40px); }
+    .services, .team, .plans, .love, .book { padding-top: 76px; padding-bottom: 76px; }
+
+    /* carrosséis horizontais com encaixe */
+    .rolo { display: flex !important; gap: 12px; overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x mandatory; scroll-padding-left: 16px; margin: 0 -16px; padding: 6px 16px 10px; scrollbar-width: none; }
+    .rolo::-webkit-scrollbar { display: none; }
+    .rolo > * { scroll-snap-align: start; flex: 0 0 76%; }
+    .rolo [data-r], .rolo[data-r] { opacity: 1 !important; transform: none; filter: none; }
+    .pontos-m { display: flex; justify-content: center; gap: 6px; margin-top: 12px; }
+    .pontos-m i { width: 7px; height: 7px; border-radius: 99px; background: rgba(16,61,56,.18); transition: width .35s var(--ease), background .35s; }
+    .pontos-m i.on { width: 22px; background: var(--teal); }
+    .plans .pontos-m i { background: rgba(255,255,255,.3); } .plans .pontos-m i.on { background: var(--sun); }
+    .svc > .card { flex-basis: 64%; min-height: 210px; }
+    .card p { font-size: 14px; }
+    .vets > .vet { flex-basis: 74%; }
+    .plans__grid > .plan { flex-basis: 84%; }
+    .plans__grid { padding-top: 22px; }
+
+    /* vacinas: linha do tempo vira trilho horizontal */
+    .timeline { padding-left: 16px; }
+    .timeline::before, .timeline::after, .tl::before { display: none; }
+    .timeline > .tl { flex-basis: 70%; margin: 0; padding: 18px; display: flex; flex-direction: column; gap: 6px; }
+    .tl b { font-size: 22px; }
+    .vac__grid > div:first-child { margin-bottom: 18px; }
+
+    /* 24 horas: relógio menor, sem brigar com o título */
+    .dia__esq .h2 { font-size: 30px; }
+    .relogio { width: 104px; height: 104px; margin: 4px 0 8px 10px; }
+    .relogio .ponteiro { height: 38px; margin-top: -38px; } .relogio .min { height: 44px; margin-top: -44px; }
+    .relogio b { font-size: 15px; bottom: 18px; }
+  }
   @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; animation-delay: 0s !important; transition-duration: .01ms !important; } [data-r] { opacity: 1; transform: none; filter: none; } .hero h1 .l > span { transform: none; } .hero h1 em path { stroke-dashoffset: 0; } }
 </style>
 </head>
@@ -719,6 +774,23 @@
   addEventListener("resize", () => { VW = innerWidth; VH = innerHeight; eres(); });
   requestAnimationFrame(quadro);
 })();
+
+  /* celular: carrosséis com pontos */
+  (() => {
+    const lista = [document.getElementById("svc"), document.getElementById("tl"), document.getElementById("vets"), document.querySelector(".plans__grid")].filter(Boolean);
+    const mq = matchMedia("(max-width: 900px)");
+    lista.forEach((el) => {
+      el.classList.add("rolo");
+      const p = document.createElement("div"); p.className = "pontos-m"; p.setAttribute("aria-hidden", "true"); el.after(p);
+      const desenha = () => { const n = el.children.length; if (p.children.length !== n) p.innerHTML = "<i></i>".repeat(n); const w = el.firstElementChild ? el.firstElementChild.offsetWidth + 12 : 1; const k = Math.round(el.scrollLeft / w); [...p.children].forEach((d, i) => d.classList.toggle("on", i === Math.min(n - 1, k))); };
+      el.addEventListener("scroll", desenha, { passive: true });
+      new MutationObserver(() => { el.scrollLeft = 0; desenha(); }).observe(el, { childList: true });
+      addEventListener("resize", desenha); desenha();
+    });
+    /* nos planos, começa no favorito */
+    const pg = document.querySelector(".plans__grid"), best = pg && pg.querySelector(".best");
+    if (mq.matches && best) addEventListener("load", () => { pg.scrollLeft = best.offsetLeft - 16; });
+  })();
 </script>
 </body>
 </html>
