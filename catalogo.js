@@ -148,8 +148,8 @@ window.MODELOS = [
     pasta: "quintal-da-vo",
     titulo: "Quintal da Vó — Comida Caseira",
     segmento: "Gastronomia",
-    descricao: "Comida caseira com vapor de verdade saindo do prato que o cursor sopra, a história da família em polaroides caindo na toalha xadrez e marmita com tampa de alumínio que fecha no pedido.",
-    tags: ["Vapor", "Polaroides", "Monte sua marmita"],
+    descricao: "Comida caseira com vapor que reage ao cursor, prato do dia por semana, monte sua marmita com comida realista caindo pedaço por pedaço na bandeja de alumínio (arroz, feijão, filés grelhados, farofa, fritas, purê e mais), história em polaroides e mapa híbrido de satélite com rota no Google Maps, Waze e Apple Maps.",
+    tags: ["Marmita realista", "Mapa híbrido", "Polaroides"],
     cor: "#d9452b",
   },
   {
