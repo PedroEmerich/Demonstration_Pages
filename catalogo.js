@@ -124,6 +124,7 @@ window.MODELOS = [
     descricao: "Clínica veterinária 24h com estetoscópio no cursor e monitor cardíaco ao vivo, um dia inteiro de plantão guiado pela rolagem, calculadora de idade e planos em vidro.",
     tags: ["Estetoscópio", "24 horas", "Calculadora"],
     cor: "#14837a",
+    revisado: true,
   },
   {
     pasta: "forte-materiais",
