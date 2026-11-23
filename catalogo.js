@@ -151,6 +151,7 @@ window.MODELOS = [
     descricao: "Comida caseira com vapor que reage ao cursor, prato do dia por semana, monte sua marmita com comida realista caindo pedaço por pedaço na bandeja de alumínio (arroz, feijão, filés grelhados, farofa, fritas, purê e mais), história em polaroides e mapa híbrido de satélite com rota no Google Maps, Waze e Apple Maps.",
     tags: ["Marmita realista", "Mapa híbrido", "Polaroides"],
     cor: "#d9452b",
+    revisado: true,
   },
   {
     pasta: "navalha-barbearia",
